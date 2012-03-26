@@ -33,3 +33,9 @@ Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)                                 
 http://creativecommons.org/licenses/by-sa/3.0/
 
+Authors of media files
+-----------------------
+Everything not mentioned in here - Perttu Ahola <celeron55@gmail.com>
+default_grass_footstep.{1,2,3}.ogg - Modified versions of sounds by kddekadenz/Dogers
+default_dig_crumbly.{1,2}.ogg - Modified versions of sounds by kddekadenz/Dogers
+
