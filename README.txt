@@ -8,6 +8,8 @@ in the Minetest Engine.
 The Minetest Engine can be found in:
   https://github.com/celeron55/minetest/
 
+This has been tested to work with the version tagged 0.4.dev-20120326.
+
 License of source code
 ----------------------
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
