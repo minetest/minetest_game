@@ -40,7 +40,37 @@ end
 minetest.register_on_generated(function(minp, maxp, seed)
 	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed,   1/8/8/8, 5, -64, 64)
 	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/16/16/16, 5, 3, 7)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/12/12/12, 5, -16, 2)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/9/9/9, 5, -64, -17)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+2, 1/12/12/12, 5, -16, 2)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+3, 1/9/9/9, 5, -64, -17)
+	-- Generate clay
+	if maxp.y >= 2 and minp.y <= 0 then
+		-- Assume X and Z lengths are equal
+		local divlen = 4
+		local divs = (maxp.x-minp.x)/divlen+1;
+		for divx=1,divs do
+		for divz=1,divs do
+			local cx = minp.x + math.floor((divx+0.5)*divlen)
+			local cz = minp.z + math.floor((divz+0.5)*divlen)
+			local is_shallow = true
+			if minetest.env:get_node({x=cx-divlen*2,y=1,z=cz+0}).name == "default:water_source" or
+					minetest.env:get_node({x=cx+divlen*2,y=1,z=cz+0}).name == "default:water_source" or
+					minetest.env:get_node({x=cx,y=1,z=cz-divlen*2}).name == "default:water_source" or
+					minetest.env:get_node({x=cx,y=1,z=cz+divlen*2}).name == "default:water_source" then
+				is_shallow = false
+			end	
+			if is_shallow and
+					minetest.env:get_node({x=cx,y=1,z=cz}).name == "default:water_source" and
+					minetest.env:get_node({x=cx,y=0,z=cz}).name == "default:sand" then
+				for x1=-divlen,divlen do
+				for z1=-divlen,divlen do
+					if minetest.env:get_node({x=cx+x1,y=0,z=cz+z1}).name == "default:sand" then
+						minetest.env:set_node({x=cx+x1,y=0,z=cz+z1}, {name="default:clay"})
+					end
+				end
+				end
+			end
+		end
+		end
+	end
 end)
 
