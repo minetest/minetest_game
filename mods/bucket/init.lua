@@ -1,5 +1,5 @@
--- bucket (Minetest 0.4 mod)
--- A bucket, which can pick up water and lava
+-- Minetest 0.4 mod: bucket
+-- See README.txt for licensing and other information.
 
 minetest.register_alias("bucket", "bucket:bucket_empty")
 minetest.register_alias("bucket_water", "bucket:bucket_water")

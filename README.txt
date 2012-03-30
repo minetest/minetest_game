@@ -24,6 +24,7 @@ this is not a "real" git repository. (Package maintainers please note!)
 License of source code
 ----------------------
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+See README.txt in each mod directory for information about other authors.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,13 +43,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 License of media (textures and sounds)
 --------------------------------------
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+See README.txt in each mod directory for information about other authors.
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)                                 
 http://creativecommons.org/licenses/by-sa/3.0/
-
-Authors of media files
------------------------
-Everything not mentioned in here - Perttu Ahola <celeron55@gmail.com>
-default_grass_footstep.{1,2,3}.ogg - Modified versions of sounds by kddekadenz/Dogers
-default_dig_crumbly.{1,2}.ogg - Modified versions of sounds by kddekadenz/Dogers
-
+  
