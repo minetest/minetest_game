@@ -115,13 +115,13 @@ local on_door_placed = function( pos, node, placer )
 	dir = placer:get_look_dir()
 
 	if     round( dir.x ) == 1  then
-		newparam = WALLPX
-	elseif round( dir.x ) == -1 then
 		newparam = WALLMX
+	elseif round( dir.x ) == -1 then
+		newparam = WALLPX
 	elseif round( dir.z ) == 1  then
-		newparam = WALLPZ
-	elseif round( dir.z ) == -1 then
 		newparam = WALLMZ
+	elseif round( dir.z ) == -1 then
+		newparam = WALLPZ
 	end
 
 	if und.name == 'air' then
