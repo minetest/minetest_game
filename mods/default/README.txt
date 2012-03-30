@@ -52,11 +52,13 @@ Cisoun's WTFPL texture pack:
   default_tool_stoneshovel.png
   default_tool_woodpick.png
   default_tool_woodshovel.png
-  default_torch.png
-  default_torch_on_ceiling.png
-  default_torch_on_floor.png
   default_tree.png
   default_tree_top.png
   default_water.png
+
+Originating from G4JC's Almost MC Texture Pack:
   default_wood.png
+  default_torch.png
+  default_torch_on_ceiling.png
+  default_torch_on_floor.png
   
