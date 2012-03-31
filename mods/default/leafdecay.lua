@@ -69,6 +69,19 @@ minetest.register_abm({
 		end
 		end
 		if not do_preserve then
+			-- Drop stuff other than the node itself
+			itemstacks = minetest.get_node_drops(n0.name)
+			for _, itemname in ipairs(itemstacks) do
+				if itemname ~= n0.name then
+					local p_drop = {
+						x = p0.x - 0.5 + math.random(),
+						y = p0.y - 0.5 + math.random(),
+						z = p0.z - 0.5 + math.random(),
+					}
+					minetest.env:add_item(p_drop, itemname)
+				end
+			end
+			-- Remove node
 			minetest.env:remove_node(p0)
 		end
 	end
