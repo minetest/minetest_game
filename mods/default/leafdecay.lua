@@ -10,6 +10,14 @@
 
 default.leafdecay_trunk_cache = {}
 default.leafdecay_enable_cache = true
+-- Spread the load of finding trunks
+default.leafdecay_trunk_find_allow_accumulator = 0
+
+minetest.register_globalstep(function(dtime)
+	local finds_per_second = 5000
+	default.leafdecay_trunk_find_allow_accumulator =
+			math.floor(dtime * finds_per_second)
+end)
 
 minetest.register_abm({
 	nodenames = {"group:leafdecay"},
@@ -48,6 +56,11 @@ minetest.register_abm({
 				table.remove(default.leafdecay_trunk_cache, p0_hash)
 			end
 		end
+		if default.leafdecay_trunk_find_allow_accumulator <= 0 then
+			return
+		end
+		default.leafdecay_trunk_find_allow_accumulator =
+				default.leafdecay_trunk_find_allow_accumulator - 1
 		for dx = -d, d do if do_preserve then break end
 		for dy = -d, d do if do_preserve then break end
 		for dz = -d, d do if do_preserve then break end
