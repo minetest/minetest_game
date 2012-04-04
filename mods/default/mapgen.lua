@@ -1,5 +1,32 @@
 -- minetest/default/mapgen.lua
 
+--
+-- Aliases for map generator outputs
+--
+
+minetest.register_alias("mapgen_air", "air")
+minetest.register_alias("mapgen_stone", "default:stone")
+minetest.register_alias("mapgen_tree", "default:tree")
+minetest.register_alias("mapgen_leaves", "default:leaves")
+minetest.register_alias("mapgen_apple", "default:apple")
+minetest.register_alias("mapgen_water_source", "default:water_source")
+minetest.register_alias("mapgen_dirt", "default:dirt")
+minetest.register_alias("mapgen_sand", "default:sand")
+minetest.register_alias("mapgen_gravel", "default:gravel")
+minetest.register_alias("mapgen_clay", "default:clay")
+minetest.register_alias("mapgen_lava_source", "default:lava_source")
+minetest.register_alias("mapgen_cobble", "default:cobble")
+minetest.register_alias("mapgen_mossycobble", "default:mossycobble")
+minetest.register_alias("mapgen_dirt_with_grass", "default:dirt_with_grass")
+minetest.register_alias("mapgen_junglegrass", "default:junglegrass")
+minetest.register_alias("mapgen_stone_with_coal", "default:stone_with_coal")
+minetest.register_alias("mapgen_stone_with_iron", "default:stone_with_iron")
+minetest.register_alias("mapgen_mese", "default:mese")
+
+--
+-- Ore generation
+--
+
 local function generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, ore_per_chunk, height_min, height_max)
 	if maxp.y < height_min or minp.y > height_max then
 		return
@@ -42,10 +69,10 @@ local function generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, 
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)
-	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed,   1/8/8/8,    5, -64,  64)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/16/16/16, 5,   3,   7)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+2, 1/12/12/12, 5, -16,   2)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+3, 1/9/9/9,    5, -64, -17)
+	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed,   1/8/8/8,    5, -31000,  64)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/16/16/16, 5,   -5,   7)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+2, 1/12/12/12, 5, -16,   -5)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+3, 1/9/9/9,    5, -31000, -17)
 	-- Generate clay
 	if maxp.y >= 2 and minp.y <= 0 then
 		-- Assume X and Z lengths are equal
