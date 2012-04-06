@@ -61,27 +61,15 @@ minetest.register_abm({
 		end
 		default.leafdecay_trunk_find_allow_accumulator =
 				default.leafdecay_trunk_find_allow_accumulator - 1
-		for dx = -d, d do if do_preserve then break end
-		for dy = -d, d do if do_preserve then break end
-		for dz = -d, d do if do_preserve then break end
-			local p = {
-				x = p0.x + dx,
-				y = p0.y + dy,
-				z = p0.z + dz,
-			}
-			local n = minetest.env:get_node(p)
-			local reg = minetest.registered_nodes[n.name]
-			-- Assume ignore is a trunk, to make the thing work at the border of the active area
-			if n.name == "ignore" or (reg.groups.tree and reg.groups.tree ~= 0) then
-				do_preserve = true
-				if default.leafdecay_enable_cache then
-					--print("caching trunk")
-					-- Cache the trunk
-					default.leafdecay_trunk_cache[p0_hash] = p
-				end
+		-- Assume ignore is a trunk, to make the thing work at the border of the active area
+		local p1 = minetest.env:find_node_near(p0, d, {"ignore", "group:tree"})
+		if p1 then
+			do_preserve = true
+			if default.leafdecay_enable_cache then
+				--print("caching trunk")
+				-- Cache the trunk
+				default.leafdecay_trunk_cache[p0_hash] = p1
 			end
-		end
-		end
 		end
 		if not do_preserve then
 			-- Drop stuff other than the node itself
