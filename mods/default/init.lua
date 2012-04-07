@@ -698,6 +698,16 @@ minetest.register_node("default:stone", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:desert_stone", {
+	description = "Desert stone",
+	tile_images = {"default_desert_stone.png"},
+	is_ground_content = true,
+	groups = {cracky=3},
+	drop = 'default:cobble',
+	legacy_mineral = true,
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("default:stone_with_coal", {
 	description = "Stone with coal",
 	tile_images = {"default_stone.png^default_mineral_coal.png"},
@@ -751,6 +761,14 @@ minetest.register_node("default:sand", {
 	tile_images = {"default_sand.png"},
 	is_ground_content = true,
 	groups = {crumbly=3},
+	sounds = default.node_sound_sand_defaults(),
+})
+
+minetest.register_node("default:desert_sand", {
+	description = "Desert sand",
+	tile_images = {"default_desert_sand.png"},
+	is_ground_content = true,
+	groups = {sand=1, crumbly=3},
 	sounds = default.node_sound_sand_defaults(),
 })
 
@@ -1356,6 +1374,7 @@ end
 
 default.register_falling_node("default:sand", "default_sand.png")
 default.register_falling_node("default:gravel", "default_gravel.png")
+default.register_falling_node("default:desert_sand", "default_desert_sand.png")
 
 --
 -- Global callbacks
