@@ -703,7 +703,7 @@ minetest.register_node("default:desert_stone", {
 	tile_images = {"default_desert_stone.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
-	drop = 'default:cobble',
+	drop = 'default:desert_stone',
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
 })
