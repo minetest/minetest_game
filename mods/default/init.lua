@@ -465,6 +465,12 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
+	output = "default:glass",
+	recipe = "default:desert_sand",
+})
+
+minetest.register_craft({
+	type = "cooking",
 	output = "default:stone",
 	recipe = "default:cobble",
 })
@@ -815,7 +821,7 @@ minetest.register_node("default:tree", {
 	description = "Tree",
 	tile_images = {"default_tree_top.png", "default_tree_top.png", "default_tree.png"},
 	is_ground_content = true,
-	groups = {tree=1,snappy=2,choppy=2,oddly_breakable_by_hand=1},
+	groups = {tree=1,snappy=2,choppy=2,oddly_breakable_by_hand=1,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -823,7 +829,7 @@ minetest.register_node("default:jungletree", {
 	description = "Jungle Tree",
 	tile_images = {"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
 	is_ground_content = true,
-	groups = {tree=1,snappy=2,choppy=2,oddly_breakable_by_hand=1},
+	groups = {tree=1,snappy=2,choppy=2,oddly_breakable_by_hand=1,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -836,7 +842,7 @@ minetest.register_node("default:junglegrass", {
 	wield_image = "default_junglegrass.png",
 	paramtype = "light",
 	walkable = false,
-	groups = {snappy=3},
+	groups = {snappy=3,flammable=2},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -846,7 +852,7 @@ minetest.register_node("default:leaves", {
 	visual_scale = 1.3,
 	tile_images = {"default_leaves.png"},
 	paramtype = "light",
-	groups = {snappy=3, leafdecay=3},
+	groups = {snappy=3, leafdecay=3, flammable=2},
 	drop = {
 		max_items = 1,
 		items = {
@@ -869,7 +875,7 @@ minetest.register_node("default:cactus", {
 	description = "Cactus",
 	tile_images = {"default_cactus_top.png", "default_cactus_top.png", "default_cactus_side.png"},
 	is_ground_content = true,
-	groups = {snappy=2,choppy=3},
+	groups = {snappy=2,choppy=3,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -882,7 +888,7 @@ minetest.register_node("default:papyrus", {
 	paramtype = "light",
 	is_ground_content = true,
 	walkable = false,
-	groups = {snappy=3},
+	groups = {snappy=3,flammable=2},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -890,7 +896,7 @@ minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
 	tile_images = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},
 	is_ground_content = true,
-	groups = {snappy=2,choppy=3,oddly_breakable_by_hand=2},
+	groups = {snappy=2,choppy=3,oddly_breakable_by_hand=2,flammable=3},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -918,7 +924,7 @@ minetest.register_node("default:fence_wood", {
 		type = "fixed",
 		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
 	},
-	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -955,7 +961,7 @@ minetest.register_node("default:ladder", {
 		--wall_bottom = = <default>
 		--wall_side = = <default>
 	},
-	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=3},
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=3,flammable=2},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -964,7 +970,7 @@ minetest.register_node("default:wood", {
 	description = "Wood",
 	tile_images = {"default_wood.png"},
 	is_ground_content = true,
-	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -1050,7 +1056,7 @@ minetest.register_node("default:lava_flowing", {
 		{image="default_lava.png", backface_culling=false},
 		{image="default_lava.png", backface_culling=true},
 	},
-	groups = {lava=3, liquid=2, hot=3},
+	groups = {lava=3, liquid=2, hot=3, igniter=3},
 })
 
 minetest.register_node("default:lava_source", {
@@ -1074,7 +1080,7 @@ minetest.register_node("default:lava_source", {
 		-- New-style lava source material (mostly unused)
 		{image="default_lava.png", backface_culling=false},
 	},
-	groups = {lava=3, liquid=2, hot=3},
+	groups = {lava=3, liquid=2, hot=3, igniter=3},
 })
 
 minetest.register_node("default:torch", {
@@ -1116,7 +1122,7 @@ minetest.register_node("default:sign_wall", {
 		--wall_bottom = <default>
 		--wall_side = <default>
 	},
-	groups = {choppy=2,dig_immediate=2},
+	groups = {choppy=2,dig_immediate=2,flammable=2},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 })
@@ -1174,7 +1180,7 @@ minetest.register_node("default:steelblock", {
 	description = "Steel Block",
 	tile_images = {"default_steel_block.png"},
 	is_ground_content = true,
-	groups = {snappy=1,bendy=2},
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1206,7 +1212,7 @@ minetest.register_node("default:sapling", {
 	wield_image = "default_sapling.png",
 	paramtype = "light",
 	walkable = false,
-	groups = {snappy=2,dig_immediate=3},
+	groups = {snappy=2,dig_immediate=3,flammable=2},
 	sounds = default.node_sound_defaults(),
 })
 
@@ -1219,7 +1225,7 @@ minetest.register_node("default:apple", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	groups = {fleshy=3,dig_immediate=3},
+	groups = {fleshy=3,dig_immediate=3,flammable=2},
 	on_use = minetest.item_eat(4),
 	sounds = default.node_sound_defaults(),
 })
@@ -1233,7 +1239,7 @@ minetest.register_node("default:dry_shrub", {
 	wield_image = "default_dry_shrub.png",
 	paramtype = "light",
 	walkable = false,
-	groups = {snappy=3},
+	groups = {snappy=3,flammable=3},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
