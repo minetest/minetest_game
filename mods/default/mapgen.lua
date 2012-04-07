@@ -151,9 +151,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		end
 		end
 		-- Generate cactuses
-		local perlin1 = minetest.env:get_perlin(230, 3, 0.7, 100)
+		local perlin1 = minetest.env:get_perlin(230, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
-		local divlen = 8
+		local divlen = 16
 		local divs = (maxp.x-minp.x)/divlen+1;
 		for divx=0,divs-1 do
 		for divz=0,divs-1 do
@@ -162,7 +162,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			local x1 = minp.x + math.floor((divx+1)*divlen)
 			local z1 = minp.z + math.floor((divz+1)*divlen)
 			-- Determine cactus amount from perlin noise
-			local cactus_amount = math.floor(perlin1:get2d({x=x0, y=z0}) * 6 - 5)
+			local cactus_amount = math.floor(perlin1:get2d({x=x0, y=z0}) * 6 - 3)
 			-- Find random positions for cactus based on this random
 			local pr = PseudoRandom(seed+1)
 			for i=0,cactus_amount do
