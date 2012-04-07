@@ -1224,6 +1224,23 @@ minetest.register_node("default:apple", {
 	sounds = default.node_sound_defaults(),
 })
 
+minetest.register_node("default:dry_shrub", {
+	description = "Dry Shrub",
+	drawtype = "plantlike",
+	visual_scale = 1.0,
+	tile_images = {"default_dry_shrub.png"},
+	inventory_image = "default_dry_shrub.png",
+	wield_image = "default_dry_shrub.png",
+	paramtype = "light",
+	walkable = false,
+	groups = {snappy=3},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-1/3, -1/2, -1/3, 1/3, 1/6, 1/3},
+	},
+})
+
 --
 -- Crafting items
 --
