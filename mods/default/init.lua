@@ -1385,9 +1385,30 @@ minetest.register_entity("default:falling_node", {
 		local pos = self.object:getpos()
 		local bcp = {x=pos.x, y=pos.y-0.7, z=pos.z} -- Position of bottom center point
 		local bcn = minetest.env:get_node(bcp)
-		if bcn.name ~= "air" then
-			-- Turn to a sand node
+		-- Note: walkable is in the node definition, not in item groups
+		if minetest.registered_nodes[bcn.name] and
+				minetest.registered_nodes[bcn.name].walkable then
 			local np = {x=bcp.x, y=bcp.y+1, z=bcp.z}
+			-- Check what's here
+			local n2 = minetest.env:get_node(np)
+			-- If it's not air or liquid, remove node and replace it with
+			-- it's drops
+			if n2.name ~= "air" and (not minetest.registered_nodes[n2.name] or
+					minetest.registered_nodes[n2.name].liquidtype == "none") then
+				local drops = minetest.get_node_drops(n2.name, "")
+				minetest.env:remove_node(np)
+				-- Add dropped items
+				local _, dropped_item
+				for _, dropped_item in ipairs(drops) do
+					minetest.env:add_item(np, dropped_item)
+				end
+				-- Run script hook
+				local _, callback
+				for _, callback in ipairs(minetest.registered_on_dignodes) do
+					callback(np, n2, nil)
+				end
+			end
+			-- Create node and remove entity
 			minetest.env:add_node(np, {name=self.nodename})
 			self.object:remove()
 		else
@@ -1418,10 +1439,12 @@ end
 
 function nodeupdate_single(p)
 	n = minetest.env:get_node(p)
-	if minetest.registered_nodes[n.name] and minetest.registered_nodes[n.name].groups.falling_node and minetest.registered_nodes[n.name].groups.falling_node ~= 0 then
+	if minetest.get_node_group(n.name, "falling_node") ~= 0 then
 		p_bottom = {x=p.x, y=p.y-1, z=p.z}
 		n_bottom = minetest.env:get_node(p_bottom)
-		if n_bottom.name == "air" then
+		-- Note: walkable is in the node definition, not in item groups
+		if minetest.registered_nodes[n_bottom.name] and
+				not minetest.registered_nodes[n_bottom.name].walkable then
 			minetest.env:remove_node(p)
 			default.spawn_falling_node(p, n.name)
 			nodeupdate(p)
