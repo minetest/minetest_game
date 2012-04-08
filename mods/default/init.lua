@@ -766,7 +766,7 @@ minetest.register_node("default:sand", {
 	description = "Sand",
 	tile_images = {"default_sand.png"},
 	is_ground_content = true,
-	groups = {crumbly=3},
+	groups = {crumbly=3, falling_node=1},
 	sounds = default.node_sound_sand_defaults(),
 })
 
@@ -774,7 +774,7 @@ minetest.register_node("default:desert_sand", {
 	description = "Desert sand",
 	tile_images = {"default_desert_sand.png"},
 	is_ground_content = true,
-	groups = {sand=1, crumbly=3},
+	groups = {sand=1, crumbly=3, falling_node=1},
 	sounds = default.node_sound_sand_defaults(),
 })
 
@@ -782,7 +782,7 @@ minetest.register_node("default:gravel", {
 	description = "Gravel",
 	tile_images = {"default_gravel.png"},
 	is_ground_content = true,
-	groups = {crumbly=2},
+	groups = {crumbly=2, falling_node=1},
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_gravel_footstep", gain=0.45},
 	}),
@@ -1332,19 +1332,98 @@ minetest.add_to_creative_inventory('default:lava_source')
 minetest.add_to_creative_inventory('default:ladder')
 
 --
+-- Falling stuff
+--
+
+minetest.register_entity("default:falling_node", {
+	initial_properties = {
+		physical = true,
+		collisionbox = {-0.5,-0.5,-0.5, 0.5,0.5,0.5},
+		visual = "wielditem",
+		textures = {},
+		visual_size = {x=0.667, y=0.667},
+	},
+
+	nodename = "",
+
+	set_node = function(self, nodename)
+		self.nodename = nodename
+		local stack = ItemStack(nodename)
+		local itemtable = stack:to_table()
+		local itemname = nil
+		if itemtable then
+			itemname = stack:to_table().name
+		end
+		local item_texture = nil
+		local item_type = ""
+		if minetest.registered_items[itemname] then
+			item_texture = minetest.registered_items[itemname].inventory_image
+			item_type = minetest.registered_items[itemname].type
+		end
+		prop = {
+			is_visible = true,
+			textures = {nodename},
+		}
+		self.object:set_properties(prop)
+	end,
+
+	get_staticdata = function(self)
+		return self.nodename
+	end,
+
+	on_activate = function(self, staticdata)
+		self.nodename = staticdata
+		self.object:set_armor_groups({immortal=1})
+		--self.object:setacceleration({x=0, y=-10, z=0})
+		self:set_node(self.nodename)
+	end,
+
+	on_step = function(self, dtime)
+		-- Set gravity
+		self.object:setacceleration({x=0, y=-10, z=0})
+		-- Turn to actual sand when collides to ground or just move
+		local pos = self.object:getpos()
+		local bcp = {x=pos.x, y=pos.y-0.7, z=pos.z} -- Position of bottom center point
+		local bcn = minetest.env:get_node(bcp)
+		if bcn.name ~= "air" then
+			-- Turn to a sand node
+			local np = {x=bcp.x, y=bcp.y+1, z=bcp.z}
+			minetest.env:add_node(np, {name=self.nodename})
+			self.object:remove()
+		else
+			-- Do nothing
+		end
+	end
+})
+
+function default.spawn_falling_node(p, nodename)
+	obj = minetest.env:add_entity(p, "default:falling_node")
+	obj:get_luaentity():set_node(nodename)
+end
+
+-- Horrible crap to support old code
+-- Don't use this and never do what this does, it's completely wrong!
+-- (More specifically, the client and the C++ code doesn't get the group)
+function default.register_falling_node(nodename, texture)
+	minetest.log("error", debug.traceback())
+	minetest.log('error', "WARNING: default.register_falling_node is deprecated")
+	if minetest.registered_nodes[nodename] then
+		minetest.registered_nodes[nodename].groups.falling_node = 1
+	end
+end
+
+--
 -- Some common functions
 --
 
-default.falling_node_names = {}
-
 function nodeupdate_single(p)
 	n = minetest.env:get_node(p)
-	if default.falling_node_names[n.name] ~= nil then
+	if minetest.registered_nodes[n.name] and minetest.registered_nodes[n.name].groups.falling_node and minetest.registered_nodes[n.name].groups.falling_node ~= 0 then
 		p_bottom = {x=p.x, y=p.y-1, z=p.z}
 		n_bottom = minetest.env:get_node(p_bottom)
 		if n_bottom.name == "air" then
 			minetest.env:remove_node(p)
-			minetest.env:add_entity(p, "default:falling_"..n.name)
+			default.spawn_falling_node(p, n.name)
 			nodeupdate(p)
 		end
 	end
@@ -1360,44 +1439,6 @@ function nodeupdate(p)
 	end
 	end
 end
-
---
--- Falling stuff
---
-
-function default.register_falling_node(nodename, texture)
-	default.falling_node_names[nodename] = true
-	-- Override naming conventions for stuff like :default:falling_default:sand
-	minetest.register_entity(":default:falling_"..nodename, {
-		-- Static definition
-		physical = true,
-		collisionbox = {-0.5,-0.5,-0.5, 0.5,0.5,0.5},
-		visual = "cube",
-		textures = {texture,texture,texture,texture,texture,texture},
-		-- State
-		-- Methods
-		on_step = function(self, dtime)
-			-- Set gravity
-			self.object:setacceleration({x=0, y=-10, z=0})
-			-- Turn to actual sand when collides to ground or just move
-			local pos = self.object:getpos()
-			local bcp = {x=pos.x, y=pos.y-0.7, z=pos.z} -- Position of bottom center point
-			local bcn = minetest.env:get_node(bcp)
-			if bcn.name ~= "air" then
-				-- Turn to a sand node
-				local np = {x=bcp.x, y=bcp.y+1, z=bcp.z}
-				minetest.env:add_node(np, {name=nodename})
-				self.object:remove()
-			else
-				-- Do nothing
-			end
-		end
-	})
-end
-
-default.register_falling_node("default:sand", "default_sand.png")
-default.register_falling_node("default:gravel", "default_gravel.png")
-default.register_falling_node("default:desert_sand", "default_desert_sand.png")
 
 --
 -- Global callbacks
