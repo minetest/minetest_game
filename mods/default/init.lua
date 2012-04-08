@@ -1009,7 +1009,7 @@ minetest.register_node("default:water_flowing", {
 		{image="default_water.png", backface_culling=false},
 		{image="default_water.png", backface_culling=true},
 	},
-	groups = {water=3, liquid=3},
+	groups = {water=3, liquid=3, puts_out_fire=1},
 })
 
 minetest.register_node("default:water_source", {
@@ -1032,7 +1032,7 @@ minetest.register_node("default:water_source", {
 		-- New-style water source material (mostly unused)
 		{image="default_water.png", backface_culling=false},
 	},
-	groups = {water=3, liquid=3},
+	groups = {water=3, liquid=3, puts_out_fire=1},
 })
 
 minetest.register_node("default:lava_flowing", {
@@ -1056,7 +1056,7 @@ minetest.register_node("default:lava_flowing", {
 		{image="default_lava.png", backface_culling=false},
 		{image="default_lava.png", backface_culling=true},
 	},
-	groups = {lava=3, liquid=2, hot=3, igniter=3},
+	groups = {lava=3, liquid=2, hot=3, igniter=2},
 })
 
 minetest.register_node("default:lava_source", {
@@ -1080,7 +1080,7 @@ minetest.register_node("default:lava_source", {
 		-- New-style lava source material (mostly unused)
 		{image="default_lava.png", backface_culling=false},
 	},
-	groups = {lava=3, liquid=2, hot=3, igniter=3},
+	groups = {lava=3, liquid=2, hot=3, igniter=2},
 })
 
 minetest.register_node("default:torch", {
@@ -1100,7 +1100,7 @@ minetest.register_node("default:torch", {
 		wall_bottom = {-0.1, -0.5, -0.1, 0.1, -0.5+0.6, 0.1},
 		wall_side = {-0.5, -0.3, -0.1, -0.5+0.3, 0.3, 0.1},
 	},
-	groups = {choppy=2,dig_immediate=3},
+	groups = {choppy=2,dig_immediate=3,flammable=1},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 })
