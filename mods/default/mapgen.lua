@@ -80,6 +80,54 @@ function default.make_cactus(pos, size)
 	end
 end
 
+-- facedir: 0/1/2/3 (head node facedir value)
+-- length: length of rainbow tail
+function default.make_nyancat(pos, facedir, length)
+	local tailvec = {x=0, y=0, z=0}
+	if facedir == 0 then
+		tailvec.z = 1
+	elseif facedir == 1 then
+		tailvec.x = 1
+	elseif facedir == 2 then
+		tailvec.z = -1
+	elseif facedir == 3 then
+		tailvec.x = -1
+	else
+		print("default.make_nyancat(): Invalid facedir: "+dump(facedir))
+		facedir = 0
+		tailvec.z = 1
+	end
+	local p = {x=pos.x, y=pos.y, z=pos.z}
+	minetest.env:set_node(p, {name="default:nyancat", param2=facedir})
+	for i=1,length do
+		p.x = p.x + tailvec.x
+		p.z = p.z + tailvec.z
+		minetest.env:set_node(p, {name="default:nyancat_rainbow"})
+	end
+end
+
+function generate_nyancats(seed, minp, maxp)
+	local height_min = -31000
+	local height_max = -32
+	if maxp.y < height_min or minp.y > height_max then
+		return
+	end
+	local y_min = math.max(minp.y, height_min)
+	local y_max = math.min(maxp.y, height_max)
+	local volume = (maxp.x-minp.x+1)*(y_max-y_min+1)*(maxp.z-minp.z+1)
+	local pr = PseudoRandom(seed + 9324342)
+	local max_num_nyancats = math.floor(volume / (16*16*16))
+	for i=1,max_num_nyancats do
+		if pr.next(0, 1000) == 0 then
+			local x0 = pr:next(minp.x, maxp.x)
+			local y0 = pr:next(minp.y, maxp.y)
+			local z0 = pr:next(minp.z, maxp.z)
+			local p0 = {x=x0, y=y0, z=z0}
+			default.make_nyancat(p0, pr:next(0,3), pr:next(3,15))
+		end
+	end
+end
+
 minetest.register_on_generated(function(minp, maxp, seed)
 	-- Generate regular ores
 	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed+0, 1/8/8/8,    3, 8, -31000,  64)
@@ -220,5 +268,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		end
 		end
 	end
+
+	-- Generate nyan cats
+	generate_nyancats(seed, minp, maxp)
 end)
 
