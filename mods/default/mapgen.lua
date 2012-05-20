@@ -29,7 +29,7 @@ minetest.register_alias("mapgen_desert_stone", "default:desert_stone")
 -- Ore generation
 --
 
-local function generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, ore_per_chunk, height_min, height_max)
+local function generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, chunk_size, ore_per_chunk, height_min, height_max)
 	if maxp.y < height_min or minp.y > height_max then
 		return
 	end
@@ -38,10 +38,6 @@ local function generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, 
 	local volume = (maxp.x-minp.x+1)*(y_max-y_min+1)*(maxp.z-minp.z+1)
 	local pr = PseudoRandom(seed)
 	local num_chunks = math.floor(chunks_per_volume * volume)
-	local chunk_size = 3
-	if ore_per_chunk <= 4 then
-		chunk_size = 2
-	end
 	local inverse_chance = math.floor(chunk_size*chunk_size*chunk_size / ore_per_chunk)
 	--print("generate_ore num_chunks: "..dump(num_chunks))
 	for i=1,num_chunks do
@@ -85,10 +81,17 @@ function default.make_cactus(pos, size)
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)
-	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed,   1/8/8/8,    5, -31000,  64)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/16/16/16, 5,   -5,   7)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+2, 1/12/12/12, 5, -16,   -5)
-	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+3, 1/9/9/9,    5, -31000, -17)
+	-- Generate regular ores
+	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed+0, 1/8/8/8,    3, 8, -31000,  64)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/12/12/12, 2, 3,    -15,   2)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+2, 1/9/9/9,    3, 5,    -63, -16)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+3, 1/7/7/7,    3, 5, -31000, -64)
+	generate_ore("default:mese",            "default:stone", minp, maxp, seed+4, 1/16/16/16, 2, 3,   -127, -64)
+	generate_ore("default:mese",            "default:stone", minp, maxp, seed+5, 1/9/9/9,    3, 5, -31000,-128)
+	
+	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed+7, 1/24/24/24, 6,27, -31000,  0)
+	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+6, 1/24/24/24, 6,27, -31000, -64)
+
 	if maxp.y >= 2 and minp.y <= 0 then
 		-- Generate clay
 		-- Assume X and Z lengths are equal
