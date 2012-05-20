@@ -705,7 +705,7 @@ minetest.register_node("default:stone", {
 })
 
 minetest.register_node("default:desert_stone", {
-	description = "Desert stone",
+	description = "Desert Stone",
 	tile_images = {"default_desert_stone.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -715,7 +715,7 @@ minetest.register_node("default:desert_stone", {
 })
 
 minetest.register_node("default:stone_with_coal", {
-	description = "Stone with coal",
+	description = "Coal Ore",
 	tile_images = {"default_stone.png^default_mineral_coal.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -724,7 +724,7 @@ minetest.register_node("default:stone_with_coal", {
 })
 
 minetest.register_node("default:stone_with_iron", {
-	description = "Stone with iron",
+	description = "Iron Ore",
 	tile_images = {"default_stone.png^default_mineral_iron.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -733,7 +733,7 @@ minetest.register_node("default:stone_with_iron", {
 })
 
 minetest.register_node("default:dirt_with_grass", {
-	description = "Dirt with grass",
+	description = "Dirt with Grass",
 	tile_images = {"default_grass.png", "default_dirt.png", "default_dirt.png^default_grass_side.png"},
 	is_ground_content = true,
 	groups = {crumbly=3},
@@ -744,7 +744,7 @@ minetest.register_node("default:dirt_with_grass", {
 })
 
 minetest.register_node("default:dirt_with_grass_footsteps", {
-	description = "Dirt with grass and footsteps",
+	description = "Dirt with Grass and Footsteps",
 	tile_images = {"default_grass_footsteps.png", "default_dirt.png", "default_dirt.png^default_grass_side.png"},
 	is_ground_content = true,
 	groups = {crumbly=3},
@@ -771,7 +771,7 @@ minetest.register_node("default:sand", {
 })
 
 minetest.register_node("default:desert_sand", {
-	description = "Desert sand",
+	description = "Desert Sand",
 	tile_images = {"default_desert_sand.png"},
 	is_ground_content = true,
 	groups = {sand=1, crumbly=3, falling_node=1},
@@ -809,7 +809,7 @@ minetest.register_node("default:clay", {
 })
 
 minetest.register_node("default:brick", {
-	description = "Brick",
+	description = "Brick Block",
 	tile_images = {"default_brick.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -967,7 +967,7 @@ minetest.register_node("default:ladder", {
 })
 
 minetest.register_node("default:wood", {
-	description = "Wood",
+	description = "Wooden Planks",
 	tile_images = {"default_wood.png"},
 	is_ground_content = true,
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
@@ -990,7 +990,7 @@ minetest.register_node("default:cloud", {
 })
 
 minetest.register_node("default:water_flowing", {
-	description = "Water (flowing)",
+	description = "Flowing Water",
 	inventory_image = minetest.inventorycube("default_water.png"),
 	drawtype = "flowingliquid",
 	tile_images = {"default_water.png"},
@@ -1013,7 +1013,7 @@ minetest.register_node("default:water_flowing", {
 })
 
 minetest.register_node("default:water_source", {
-	description = "Water",
+	description = "Water Source",
 	inventory_image = minetest.inventorycube("default_water.png"),
 	drawtype = "liquid",
 	tile_images = {"default_water.png"},
@@ -1036,7 +1036,7 @@ minetest.register_node("default:water_source", {
 })
 
 minetest.register_node("default:lava_flowing", {
-	description = "Lava (flowing)",
+	description = "Flowing Lava",
 	inventory_image = minetest.inventorycube("default_lava.png"),
 	drawtype = "flowingliquid",
 	tile_images = {"default_lava.png"},
@@ -1060,7 +1060,7 @@ minetest.register_node("default:lava_flowing", {
 })
 
 minetest.register_node("default:lava_source", {
-	description = "Lava",
+	description = "Lava Source",
 	inventory_image = minetest.inventorycube("default_lava.png"),
 	drawtype = "liquid",
 	tile_images = {"default_lava.png"},
@@ -1161,7 +1161,7 @@ minetest.register_node("default:furnace", {
 })
 
 minetest.register_node("default:cobble", {
-	description = "Cobble",
+	description = "Cobblestone",
 	tile_images = {"default_cobble.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -1169,7 +1169,7 @@ minetest.register_node("default:cobble", {
 })
 
 minetest.register_node("default:mossycobble", {
-	description = "Mossy Cobble",
+	description = "Mossy Cobblestone",
 	tile_images = {"default_mossycobble.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -1185,7 +1185,7 @@ minetest.register_node("default:steelblock", {
 })
 
 minetest.register_node("default:nyancat", {
-	description = "Nyancat",
+	description = "Nyan Cat",
 	tile_images = {"default_nc_side.png", "default_nc_side.png", "default_nc_side.png",
 		"default_nc_side.png", "default_nc_back.png", "default_nc_front.png"},
 	inventory_image = "default_nc_front.png",
@@ -1196,7 +1196,7 @@ minetest.register_node("default:nyancat", {
 })
 
 minetest.register_node("default:nyancat_rainbow", {
-	description = "Nyancat Rainbow",
+	description = "Nyan Cat Rainbow",
 	tile_images = {"default_nc_rb.png"},
 	inventory_image = "default_nc_rb.png",
 	groups = {cracky=2},
@@ -1267,33 +1267,33 @@ minetest.register_craftitem("default:book", {
 })
 
 minetest.register_craftitem("default:coal_lump", {
-	description = "Lump of coal",
+	description = "Coal Lump",
 	inventory_image = "default_coal_lump.png",
 })
 
 minetest.register_craftitem("default:iron_lump", {
-	description = "Lump of iron",
+	description = "Iron Lump",
 	inventory_image = "default_iron_lump.png",
 })
 
 minetest.register_craftitem("default:clay_lump", {
-	description = "Lump of clay",
+	description = "Clay Lump",
 	inventory_image = "default_clay_lump.png",
 })
 
 minetest.register_craftitem("default:steel_ingot", {
-	description = "Steel ingot",
+	description = "Steel Ingot",
 	inventory_image = "default_steel_ingot.png",
 })
 
 minetest.register_craftitem("default:clay_brick", {
-	description = "Clay brick",
+	description = "Clay Brick",
 	inventory_image = "default_steel_ingot.png",
 	inventory_image = "default_clay_brick.png",
 })
 
 minetest.register_craftitem("default:scorched_stuff", {
-	description = "Scorched stuff",
+	description = "Scorched Stuff",
 	inventory_image = "default_scorched_stuff.png",
 })
 
