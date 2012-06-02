@@ -1122,9 +1122,24 @@ minetest.register_node("default:sign_wall", {
 		--wall_bottom = <default>
 		--wall_side = <default>
 	},
-	groups = {choppy=2,dig_immediate=2,flammable=2},
+	groups = {choppy=2,dig_immediate=2},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
+	on_construct = function(pos)
+		--local n = minetest.env:get_node(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec", "hack:sign_text_input")
+		meta:set_string("infotext", "\"\"")
+	end,
+	on_receive_fields = function(pos, formname, fields, sender)
+		--print("Sign at "..minetest.pos_to_string(pos).." got "..dump(fields))
+		local meta = minetest.env:get_meta(pos)
+		fields.text = fields.text or ""
+		print((sender:get_player_name() or "").." wrote \""..fields.text..
+				"\" to sign at "..minetest.pos_to_string(pos))
+		meta:set_string("text", fields.text)
+		meta:set_string("infotext", '"'..fields.text..'"')
+	end,
 })
 
 minetest.register_node("default:chest", {
@@ -1132,32 +1147,302 @@ minetest.register_node("default:chest", {
 	tile_images = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
 		"default_chest_side.png", "default_chest_side.png", "default_chest_front.png"},
 	paramtype2 = "facedir",
-	metadata_name = "chest",
-	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2},
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_wood_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec",
+				"invsize[8,9;]"..
+				"list[current_name;main;0,0;8,4;]"..
+				"list[current_player;main;0,5;8,4;]")
+		meta:set_string("infotext", "Chest")
+		local inv = meta:get_inventory()
+		inv:set_size("main", 8*4)
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.env:get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty("main")
+	end,
+    on_metadata_inventory_move = function(pos, from_list, from_index,
+			to_list, to_index, count, player)
+		minetest.log("action", player:get_player_name()..
+				" moves stuff in chest at "..minetest.pos_to_string(pos))
+		return minetest.node_metadata_inventory_move_allow_all(
+				pos, from_list, from_index, to_list, to_index, count, player)
+	end,
+    on_metadata_inventory_offer = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name()..
+				" moves stuff to chest at "..minetest.pos_to_string(pos))
+		return minetest.node_metadata_inventory_offer_allow_all(
+				pos, listname, index, stack, player)
+	end,
+    on_metadata_inventory_take = function(pos, listname, index, count, player)
+		minetest.log("action", player:get_player_name()..
+				" takes stuff from chest at "..minetest.pos_to_string(pos))
+		return minetest.node_metadata_inventory_take_allow_all(
+				pos, listname, index, count, player)
+	end,
 })
+
+local function has_locked_chest_privilege(meta, player)
+	if player:get_player_name() ~= meta:get_string("owner") then
+		return false
+	end
+	return true
+end
 
 minetest.register_node("default:chest_locked", {
 	description = "Locked Chest",
 	tile_images = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
 		"default_chest_side.png", "default_chest_side.png", "default_chest_lock.png"},
 	paramtype2 = "facedir",
-	metadata_name = "locked_chest",
-	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2},
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_wood_defaults(),
+	after_place_node = function(pos, placer)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("owner", placer:get_player_name() or "")
+		meta:set_string("infotext", "Locked Chest (owned by "..
+				meta:get_string("owner")..")")
+	end,
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec",
+				"invsize[8,9;]"..
+				"list[current_name;main;0,0;8,4;]"..
+				"list[current_player;main;0,5;8,4;]")
+		meta:set_string("infotext", "Locked Chest")
+		meta:set_string("owner", "")
+		local inv = meta:get_inventory()
+		inv:set_size("main", 8*4)
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.env:get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty("main")
+	end,
+    on_metadata_inventory_move = function(pos, from_list, from_index,
+			to_list, to_index, count, player)
+		local meta = minetest.env:get_meta(pos)
+		if not has_locked_chest_privilege(meta, player) then
+			minetest.log("action", player:get_player_name()..
+					" tried to access a locked chest belonging to "..
+					meta:get_string("owner").." at "..
+					minetest.pos_to_string(pos))
+			return
+		end
+		minetest.log("action", player:get_player_name()..
+				" moves stuff in locked chest at "..minetest.pos_to_string(pos))
+		return minetest.node_metadata_inventory_move_allow_all(
+				pos, from_list, from_index, to_list, to_index, count, player)
+	end,
+    on_metadata_inventory_offer = function(pos, listname, index, stack, player)
+		local meta = minetest.env:get_meta(pos)
+		if not has_locked_chest_privilege(meta, player) then
+			minetest.log("action", player:get_player_name()..
+					" tried to access a locked chest belonging to "..
+					meta:get_string("owner").." at "..
+					minetest.pos_to_string(pos))
+			return stack
+		end
+		minetest.log("action", player:get_player_name()..
+				" moves stuff to locked chest at "..minetest.pos_to_string(pos))
+		return minetest.node_metadata_inventory_offer_allow_all(
+				pos, listname, index, stack, player)
+	end,
+    on_metadata_inventory_take = function(pos, listname, index, count, player)
+		local meta = minetest.env:get_meta(pos)
+		if not has_locked_chest_privilege(meta, player) then
+			minetest.log("action", player:get_player_name()..
+					" tried to access a locked chest belonging to "..
+					meta:get_string("owner").." at "..
+					minetest.pos_to_string(pos))
+			return
+		end
+		minetest.log("action", player:get_player_name()..
+				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
+		return minetest.node_metadata_inventory_take_allow_all(
+				pos, listname, index, count, player)
+	end,
 })
 
 minetest.register_node("default:furnace", {
 	description = "Furnace",
-	tile_images = {"default_furnace_side.png", "default_furnace_side.png", "default_furnace_side.png",
+	tile_images = {"default_furnace_top.png", "default_furnace_bottom.png", "default_furnace_side.png",
 		"default_furnace_side.png", "default_furnace_side.png", "default_furnace_front.png"},
 	paramtype2 = "facedir",
-	metadata_name = "furnace",
 	groups = {cracky=2},
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_stone_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec",
+			"invsize[8,9;]"..
+			"list[current_name;fuel;2,3;1,1;]"..
+			"list[current_name;src;2,1;1,1;]"..
+			"list[current_name;dst;5,1;2,2;]"..
+			"list[current_player;main;0,5;8,4;]")
+		meta:set_string("infotext", "Furnace")
+		local inv = meta:get_inventory()
+		inv:set_size("fuel", 1)
+		inv:set_size("src", 1)
+		inv:set_size("dst", 4)
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.env:get_meta(pos);
+		local inv = meta:get_inventory()
+		if not inv:is_empty("fuel") then
+			return false
+		elseif not inv:is_empty("dst") then
+			return false
+		elseif not inv:is_empty("src") then
+			return false
+		end
+		return true
+	end,
+})
+
+minetest.register_node("default:furnace_active", {
+	description = "Furnace",
+	tile_images = {"default_furnace_top.png", "default_furnace_bottom.png", "default_furnace_side.png",
+		"default_furnace_side.png", "default_furnace_side.png", "default_furnace_front_active.png"},
+	paramtype2 = "facedir",
+	light_source = 8,
+	drop = "default:furnace",
+	groups = {cracky=2},
+	legacy_facedir_simple = true,
+	sounds = default.node_sound_stone_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec",
+			"invsize[8,9;]"..
+			"list[current_name;fuel;2,3;1,1;]"..
+			"list[current_name;src;2,1;1,1;]"..
+			"list[current_name;dst;5,1;2,2;]"..
+			"list[current_player;main;0,5;8,4;]")
+		meta:set_string("infotext", "Furnace");
+		local inv = meta:get_inventory()
+		inv:set_size("fuel", 1)
+		inv:set_size("src", 1)
+		inv:set_size("dst", 4)
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.env:get_meta(pos);
+		local inv = meta:get_inventory()
+		if not inv:is_empty("fuel") then
+			return false
+		elseif not inv:is_empty("dst") then
+			return false
+		elseif not inv:is_empty("src") then
+			return false
+		end
+		return true
+	end,
+})
+
+function hacky_swap_node(pos,name)
+	local node = minetest.env:get_node(pos)
+	local meta = minetest.env:get_meta(pos)
+	local meta0 = meta:to_table()
+	if node.name == name then
+		return
+	end
+	node.name = name
+	local meta0 = meta:to_table()
+	minetest.env:set_node(pos,node)
+	meta = minetest.env:get_meta(pos)
+	meta:from_table(meta0)
+end
+
+minetest.register_abm({
+	nodenames = {"default:furnace","default:furnace_active"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local meta = minetest.env:get_meta(pos)
+		for i, name in ipairs({
+				"fuel_totaltime",
+				"fuel_time",
+				"src_totaltime",
+				"src_time"
+		}) do
+			if meta:get_string(name) == "" then
+				meta:set_float(name, 0.0)
+			end
+		end
+
+		local inv = meta:get_inventory()
+
+		local srclist = inv:get_list("src")
+		local cooked = nil
+		
+		if srclist then
+			cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+		end
+		
+		local was_active = false
+		
+		if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
+			was_active = true
+			meta:set_float("fuel_time", meta:get_float("fuel_time") + 1)
+			meta:set_float("src_time", meta:get_float("src_time") + 1)
+			if cooked and cooked.item and meta:get_float("src_time") >= cooked.time then
+				-- check if there's room for output in "dst" list
+				if inv:room_for_item("dst",cooked.item) then
+					-- Put result in "dst" list
+					inv:add_item("dst", cooked.item)
+					-- take stuff from "src" list
+					srcstack = inv:get_stack("src", 1)
+					srcstack:take_item()
+					inv:set_stack("src", 1, srcstack)
+				else
+					print("Could not insert '"..cooked.item.."'")
+				end
+				meta:set_string("src_time", 0)
+			end
+		end
+		
+		if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
+			meta:set_string("infotext","Furnace active: "..(meta:get_float("fuel_time")/meta:get_float("fuel_totaltime")*100).."%")
+			hacky_swap_node(pos,"default:furnace_active")
+			return
+		end
+
+		local fuel = nil
+		local cooked = nil
+		local fuellist = inv:get_list("fuel")
+		local srclist = inv:get_list("src")
+		
+		if srclist then
+			cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+		end
+		if fuellist then
+			fuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+		end
+
+		if fuel.time <= 0 then
+			meta:set_string("infotext","Furnace out of fuel")
+			hacky_swap_node(pos,"default:furnace")
+			return
+		end
+
+		if cooked.item:is_empty() then
+			if was_active then
+				meta:set_string("infotext","Furnace is empty")
+				hacky_swap_node(pos,"default:furnace")
+			end
+			return
+		end
+
+		meta:set_string("fuel_totaltime", fuel.time)
+		meta:set_string("fuel_time", 0)
+		
+		local stack = inv:get_stack("fuel", 1)
+		stack:take_item()
+		inv:set_stack("fuel", 1, stack)
+	end,
 })
 
 minetest.register_node("default:cobble", {
