@@ -1309,7 +1309,7 @@ minetest.register_node("default:furnace", {
 
 minetest.register_node("default:furnace_active", {
 	description = "Furnace",
-	tile_images = {"default_furnace_side.png", "default_furnace_side.png", "default_furnace_side.png",
+	tile_images = {"default_furnace_top.png", "default_furnace_bottom.png", "default_furnace_side.png",
 		"default_furnace_side.png", "default_furnace_side.png", "default_furnace_front_active.png"},
 	paramtype2 = "facedir",
 	light_source = 8,
