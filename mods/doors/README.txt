@@ -11,7 +11,7 @@ Original license text:
 
 There has been unsuccesful attempts to contact the original author. Thus,
 based on the intentions of the author, it is assumed that this code is
-distributable and modifiable under GPLv2+later, under which Minetest is
+distributable and modifiable under LGPLv2+later, under which Minetest is
 distributed.
 
 Modifications:
