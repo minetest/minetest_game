@@ -5,7 +5,7 @@ minetest.register_node("fire:basic_flame", {
 	drawtype = "glasslike",
 	tile_images = {"fire_basic_flame.png"},
 	light_source = 14,
-	groups = {igniter=3,dig_immediate=3},
+	groups = {igniter=2,dig_immediate=3},
 	drop = '',
 	walkable = false,
 })

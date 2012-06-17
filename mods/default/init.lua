@@ -1065,7 +1065,7 @@ minetest.register_node("default:lava_flowing", {
 	liquid_viscosity = LAVA_VISC,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=3, igniter=2},
+	groups = {lava=3, liquid=2, hot=3, igniter=1},
 })
 
 minetest.register_node("default:lava_source", {
@@ -1091,7 +1091,7 @@ minetest.register_node("default:lava_source", {
 	liquid_viscosity = LAVA_VISC,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=3, igniter=2},
+	groups = {lava=3, liquid=2, hot=3, igniter=1},
 })
 
 minetest.register_node("default:torch", {
