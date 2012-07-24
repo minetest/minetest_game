@@ -1176,24 +1176,17 @@ minetest.register_node("default:chest", {
 		local inv = meta:get_inventory()
 		return inv:is_empty("main")
 	end,
-    on_metadata_inventory_move = function(pos, from_list, from_index,
-			to_list, to_index, count, player)
+	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name()..
 				" moves stuff in chest at "..minetest.pos_to_string(pos))
-		return minetest.node_metadata_inventory_move_allow_all(
-				pos, from_list, from_index, to_list, to_index, count, player)
 	end,
-    on_metadata_inventory_offer = function(pos, listname, index, stack, player)
+    on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
 				" moves stuff to chest at "..minetest.pos_to_string(pos))
-		return minetest.node_metadata_inventory_offer_allow_all(
-				pos, listname, index, stack, player)
 	end,
     on_metadata_inventory_take = function(pos, listname, index, count, player)
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from chest at "..minetest.pos_to_string(pos))
-		return minetest.node_metadata_inventory_take_allow_all(
-				pos, listname, index, count, player)
 	end,
 })
 
@@ -1234,48 +1227,50 @@ minetest.register_node("default:chest_locked", {
 		local inv = meta:get_inventory()
 		return inv:is_empty("main")
 	end,
-    on_metadata_inventory_move = function(pos, from_list, from_index,
-			to_list, to_index, count, player)
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.env:get_meta(pos)
 		if not has_locked_chest_privilege(meta, player) then
 			minetest.log("action", player:get_player_name()..
 					" tried to access a locked chest belonging to "..
 					meta:get_string("owner").." at "..
 					minetest.pos_to_string(pos))
-			return
+			return 0
 		end
+		return count
+	end,
+    allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		local meta = minetest.env:get_meta(pos)
+		if not has_locked_chest_privilege(meta, player) then
+			minetest.log("action", player:get_player_name()..
+					" tried to access a locked chest belonging to "..
+					meta:get_string("owner").." at "..
+					minetest.pos_to_string(pos))
+			return 0
+		end
+		return stack:get_count()
+	end,
+    allow_metadata_inventory_take = function(pos, listname, index, count, player)
+		local meta = minetest.env:get_meta(pos)
+		if not has_locked_chest_privilege(meta, player) then
+			minetest.log("action", player:get_player_name()..
+					" tried to access a locked chest belonging to "..
+					meta:get_string("owner").." at "..
+					minetest.pos_to_string(pos))
+			return 0
+		end
+		return count
+	end,
+	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name()..
 				" moves stuff in locked chest at "..minetest.pos_to_string(pos))
-		return minetest.node_metadata_inventory_move_allow_all(
-				pos, from_list, from_index, to_list, to_index, count, player)
 	end,
-    on_metadata_inventory_offer = function(pos, listname, index, stack, player)
-		local meta = minetest.env:get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a locked chest belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
-			return stack
-		end
+    on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
 				" moves stuff to locked chest at "..minetest.pos_to_string(pos))
-		return minetest.node_metadata_inventory_offer_allow_all(
-				pos, listname, index, stack, player)
 	end,
     on_metadata_inventory_take = function(pos, listname, index, count, player)
-		local meta = minetest.env:get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a locked chest belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
-			return
-		end
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
-		return minetest.node_metadata_inventory_take_allow_all(
-				pos, listname, index, count, player)
 	end,
 })
 
