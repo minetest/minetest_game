@@ -107,12 +107,12 @@ end
 local on_door_placed = function( pos, node, placer )
 	if node.name ~= 'doors:door_wood' then return end
 
-	upos = { x = pos.x, y = pos.y - 1, z = pos.z }
-	apos = { x = pos.x, y = pos.y + 1, z = pos.z }
-	und = minetest.env:get_node( upos )
-	abv = minetest.env:get_node( apos )
+	local upos = { x = pos.x, y = pos.y - 1, z = pos.z }
+	local apos = { x = pos.x, y = pos.y + 1, z = pos.z }
+	local und = minetest.env:get_node( upos )
+	local abv = minetest.env:get_node( apos )
 
-	dir = placer:get_look_dir()
+	local dir = placer:get_look_dir()
 
 	if     round( dir.x ) == 1  then
 		newparam = WALLMX
@@ -140,8 +140,8 @@ end
 local on_door_punched = function( pos, node, puncher )
 	if string.find( node.name, 'doors:door_wood' ) == nil then return end
 
-	upos = { x = pos.x, y = pos.y - 1, z = pos.z }
-	apos = { x = pos.x, y = pos.y + 1, z = pos.z }
+	local upos = { x = pos.x, y = pos.y - 1, z = pos.z }
+	local apos = { x = pos.x, y = pos.y + 1, z = pos.z }
 
 	if string.find( node.name, '_c', -2 ) ~= nil then
 		if     node.param2 == WALLPX then
@@ -185,8 +185,8 @@ local on_door_punched = function( pos, node, puncher )
 end
 
 local on_door_digged = function( pos, node, digger )
-	upos = { x = pos.x, y = pos.y - 1, z = pos.z }
-	apos = { x = pos.x, y = pos.y + 1, z = pos.z }
+	local upos = { x = pos.x, y = pos.y - 1, z = pos.z }
+	local apos = { x = pos.x, y = pos.y + 1, z = pos.z }
 
 	if ( node.name == 'doors:door_wood_a_c' ) or ( node.name == 'doors:door_wood_a_o' ) then
 		minetest.env:remove_node( upos )
