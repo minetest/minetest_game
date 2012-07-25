@@ -102,6 +102,7 @@ minetest.register_craftitem(":cooked_rat", {
 minetest.register_craftitem(":firefly", {
 	description = "Firefly",
 	inventory_image = "firefly.png",
+	groups = {not_in_creative_inventory=1},
 	on_drop = function(item, dropper, pos)
 		minetest.env:add_firefly(pos)
 		item:take_item()
