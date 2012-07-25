@@ -988,6 +988,7 @@ minetest.register_node("default:cloud", {
 	tiles = {"default_cloud.png"},
 	is_ground_content = true,
 	sounds = default.node_sound_defaults(),
+	groups = {not_in_creative_inventory=1},
 })
 
 minetest.register_node("default:water_flowing", {
@@ -1010,7 +1011,7 @@ minetest.register_node("default:water_flowing", {
 	liquid_alternative_source = "default:water_source",
 	liquid_viscosity = WATER_VISC,
 	post_effect_color = {a=64, r=100, g=100, b=200},
-	groups = {water=3, liquid=3, puts_out_fire=1},
+	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("default:water_source", {
@@ -1065,7 +1066,7 @@ minetest.register_node("default:lava_flowing", {
 	liquid_viscosity = LAVA_VISC,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=3, igniter=1},
+	groups = {lava=3, liquid=2, hot=3, igniter=1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("default:lava_source", {
@@ -1597,40 +1598,6 @@ minetest.register_craftitem("default:scorched_stuff", {
 	description = "Scorched Stuff",
 	inventory_image = "default_scorched_stuff.png",
 })
-
---
--- Creative inventory
---
-
-minetest.add_to_creative_inventory('default:pick_mese')
-minetest.add_to_creative_inventory('default:pick_steel')
-minetest.add_to_creative_inventory('default:axe_steel')
-minetest.add_to_creative_inventory('default:shovel_steel')
-
-minetest.add_to_creative_inventory('default:torch')
-minetest.add_to_creative_inventory('default:cobble')
-minetest.add_to_creative_inventory('default:dirt')
-minetest.add_to_creative_inventory('default:stone')
-minetest.add_to_creative_inventory('default:sand')
-minetest.add_to_creative_inventory('default:sandstone')
-minetest.add_to_creative_inventory('default:clay')
-minetest.add_to_creative_inventory('default:brick')
-minetest.add_to_creative_inventory('default:tree')
-minetest.add_to_creative_inventory('default:wood')
-minetest.add_to_creative_inventory('default:leaves')
-minetest.add_to_creative_inventory('default:cactus')
-minetest.add_to_creative_inventory('default:papyrus')
-minetest.add_to_creative_inventory('default:bookshelf')
-minetest.add_to_creative_inventory('default:glass')
-minetest.add_to_creative_inventory('default:fence_wood')
-minetest.add_to_creative_inventory('default:rail')
-minetest.add_to_creative_inventory('default:mese')
-minetest.add_to_creative_inventory('default:chest')
-minetest.add_to_creative_inventory('default:furnace')
-minetest.add_to_creative_inventory('default:sign_wall')
-minetest.add_to_creative_inventory('default:water_source')
-minetest.add_to_creative_inventory('default:lava_source')
-minetest.add_to_creative_inventory('default:ladder')
 
 --
 -- Falling stuff
