@@ -62,22 +62,25 @@ minetest.after(0, function()
 	print("creative inventory size: "..dump(creative_inventory.creative_inventory_size))
 end)
 
-creative_inventory.set_creative_formspec = function(player, start_i)
+creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
+	pagenum = math.floor(pagenum)
+	local pagemax = math.floor((creative_inventory.creative_inventory_size-1) / (6*4) + 1)
 	player:set_inventory_formspec("size[13,7.5]"..
 			--"image[6,0.6;1,2;player.png]"..
 			"list[current_player;main;5,3.5;8,4;]"..
 			"list[current_player;craft;8,0;3,3;]"..
 			"list[current_player;craftpreview;12,1;1,1;]"..
 			"list[detached:creative;main;0.3,0.5;4,6;"..tostring(start_i).."]"..
-			"button[0.3,6.5;1.9,1;creative_prev;<<]"..
-			"button[2.4,6.5;1.9,1;creative_next;>>]")
+			"label[2.0,6.55;"..tostring(pagenum).."/"..tostring(pagemax).."]"..
+			"button[0.3,6.5;1.6,1;creative_prev;<<]"..
+			"button[2.7,6.5;1.6,1;creative_next;>>]")
 end
 minetest.register_on_joinplayer(function(player)
 	-- If in creative mode, modify player's inventory forms
 	if not minetest.setting_getbool("creative_mode") then
 		return
 	end
-	creative_inventory.set_creative_formspec(player, 0)
+	creative_inventory.set_creative_formspec(player, 0, 1)
 end)
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if not minetest.setting_getbool("creative_mode") then
@@ -107,6 +110,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		start_i = 0
 	end
 
-	creative_inventory.set_creative_formspec(player, start_i)
+	creative_inventory.set_creative_formspec(player, start_i, start_i / (6*4) + 1)
 end)
 
