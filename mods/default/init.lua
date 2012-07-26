@@ -1165,7 +1165,7 @@ minetest.register_node("default:chest", {
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		meta:set_string("formspec",
-				"invsize[8,9;]"..
+				"size[8,9;]"..
 				"list[current_name;main;0,0;8,4;]"..
 				"list[current_player;main;0,5;8,4;]")
 		meta:set_string("infotext", "Chest")
@@ -1215,7 +1215,7 @@ minetest.register_node("default:chest_locked", {
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		meta:set_string("formspec",
-				"invsize[8,9;]"..
+				"size[8,9;]"..
 				"list[current_name;main;0,0;8,4;]"..
 				"list[current_player;main;0,5;8,4;]")
 		meta:set_string("infotext", "Locked Chest")
@@ -1276,7 +1276,7 @@ minetest.register_node("default:chest_locked", {
 })
 
 default.furnace_inactive_formspec =
-	"invsize[8,9;]"..
+	"size[8,9;]"..
 	"image[2,2;1,1;default_furnace_fire_bg.png]"..
 	"list[current_name;fuel;2,3;1,1;]"..
 	"list[current_name;src;2,1;1,1;]"..
@@ -1415,7 +1415,7 @@ minetest.register_abm({
 			meta:set_string("infotext","Furnace active: "..percent.."%")
 			hacky_swap_node(pos,"default:furnace_active")
 			meta:set_string("formspec",
-				"invsize[8,9;]"..
+				"size[8,9;]"..
 				"image[2,2;1,1;default_furnace_fire_bg.png^[lowpart:"..
 						(100-percent)..":default_furnace_fire_fg.png]"..
 				"list[current_name;fuel;2,3;1,1;]"..
