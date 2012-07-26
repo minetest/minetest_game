@@ -39,18 +39,10 @@ for _, row in ipairs(wool.dyes) do
 	if craft_color_group then
 		-- Crafting from dye and white wool
 		minetest.register_craft({
-			output = 'wool:'..name..' 16',
-			recipe = {
-				{'group:'..craft_color_group},
-				{'wool:white'},
-			}
-		})
-		-- Shapeless group recipes don't currently work
-		--[[minetest.register_craft({
 			type = "shapeless",
 			output = 'wool:'..name..' 16',
-			recipe = {'group:'..craft_color_group, 'wool:white'},
-		})--]]
+			recipe = {'group:dye,'..craft_color_group, 'wool:white'},
+		})
 	end
 end
 
