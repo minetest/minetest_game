@@ -42,6 +42,7 @@ for _, row in ipairs(wool.dyes) do
 			type = "shapeless",
 			output = 'wool:'..name..' 16',
 			recipe = {'group:dye,'..craft_color_group, 'wool:white'},
+			replacements = { { "wool:white", "unifieddyes:empty_bottle"} }
 		})
 	end
 end
