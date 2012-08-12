@@ -1,6 +1,7 @@
 -- minetest/creative/init.lua
 
 local creative_inventory = {}
+creative_inventory.creative_inventory_size = 0
 
 -- Create detached creative inventory after loading all mods
 minetest.after(0, function()
