@@ -33,7 +33,7 @@ for _, row in ipairs(wool.dyes) do
 	-- Node Definition
 	minetest.register_node("wool:"..name, {
 		description = desc.." Wool",
-		tile_images = {"wool_"..name..".png"},
+		tiles = {"wool_"..name..".png"},
 		groups = {snappy=2,choppy=2,oddly_breakable_by_hand=3,flammable=3},
 	})
 	if craft_color_group then
