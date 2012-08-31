@@ -15,7 +15,7 @@ minetest.register_alias('door_wood', 'doors:door_wood')
 minetest.register_node( 'doors:door_wood', {
 	description         = 'Wooden Door',
 	drawtype            = 'signlike',
-	tile_images         = { 'door_wood.png' },
+	tiles         		= { 'door_wood.png' },
 	inventory_image     = 'door_wood.png',
 	wield_image         = 'door_wood.png',
 	paramtype2          = 'wallmounted',
@@ -41,7 +41,7 @@ minetest.register_craft({
 minetest.register_node( 'doors:door_wood_a_c', {
 	Description         = 'Top Closed Door',
 	drawtype            = 'signlike',
-	tile_images         = { 'door_wood_a.png' },
+	tiles         		= { 'door_wood_a.png' },
 	inventory_image     = 'door_wood_a.png',
 	paramtype           = 'light',
 	paramtype2          = 'wallmounted',
@@ -55,7 +55,7 @@ minetest.register_node( 'doors:door_wood_a_c', {
 minetest.register_node( 'doors:door_wood_b_c', {
 	Description         = 'Bottom Closed Door',
 	drawtype            = 'signlike',
-	tile_images         = { 'door_wood_b.png' },
+	tiles         		= { 'door_wood_b.png' },
 	inventory_image     = 'door_wood_b.png',
 	paramtype           = 'light',
 	paramtype2          = 'wallmounted',
@@ -69,7 +69,7 @@ minetest.register_node( 'doors:door_wood_b_c', {
 minetest.register_node( 'doors:door_wood_a_o', {
 	Description         = 'Top Open Door',
 	drawtype            = 'signlike',
-	tile_images         = { 'door_wood_a_r.png' },
+	tiles         		= { 'door_wood_a_r.png' },
 	inventory_image     = 'door_wood_a_r.png',
 	paramtype           = 'light',
 	paramtype2          = 'wallmounted',
@@ -83,7 +83,7 @@ minetest.register_node( 'doors:door_wood_a_o', {
 minetest.register_node( 'doors:door_wood_b_o', {
 	Description         = 'Bottom Open Door',
 	drawtype            = 'signlike',
-	tile_images         = { 'door_wood_b_r.png' },
+	tiles         		= { 'door_wood_b_r.png' },
 	inventory_image     = 'door_wood_b_r.png',
 	paramtype           = 'light',
 	paramtype2          = 'wallmounted',
