@@ -1098,7 +1098,12 @@ minetest.register_node("default:lava_source", {
 minetest.register_node("default:torch", {
 	description = "Torch",
 	drawtype = "torchlike",
-	tiles = {"default_torch_on_floor.png", "default_torch_on_ceiling.png", "default_torch.png"},
+	--tiles = {"default_torch_on_floor.png", "default_torch_on_ceiling.png", "default_torch.png"},
+	tiles = {
+		{name="default_torch_on_floor_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}},
+		{name="default_torch_on_ceiling_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}},
+		{name="default_torch_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}}
+	},
 	inventory_image = "default_torch_on_floor.png",
 	wield_image = "default_torch_on_floor.png",
 	paramtype = "light",
