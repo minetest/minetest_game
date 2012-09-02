@@ -1,0 +1,4 @@
+Code copied from minetest's stock code by celeron55 et.al, modifications 
+and all textures by Vanessa Ezekowitz.
+
+Licenses:  For the lua code, GPL.  For all images and everything else, WTFPL.

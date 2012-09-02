@@ -1,0 +1,10 @@
+Changelog
+---------
+
+2012-07-26: Added a smelting step for recycling crafted items back into raw 
+materials. 2 Glass bottles/cups -> 1 "glass fragments" -> smelt into normal 
+glass block.  1 Steel bottle -> smelt to 1 steel ingot.
+
+2012-07-26: Better bottle texture.  Note that it is blended against the 50% 
+grey fields in the inventory display, so it will show artifacts if you try to 
+wield it.  Don't do that. :-)
