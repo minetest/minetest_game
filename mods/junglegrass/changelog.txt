@@ -1,0 +1,24 @@
+Changelog
+---------
+
+2012-08-03: Mild rewrite to adapt the mod to use perlin noise while spawning. 
+Also got rid of the random-numbers-inside-abm stuff, now using the abm's own 
+'chance' parameter instead.  Tuned various settings to try to retain the same 
+overall density and growth rates as in the previous version.  Moved this 
+changelog into a separate file.
+
+2012-07-12: moved project to github.
+
+2012-07-09 (a bit later): tuned the spawn/grow rates a bit more, made the 
+numbers more sane.  Added a radius check to limit the density of the spawned 
+grasses (they won't grow near each other or near dry shrubs or cactus, though 
+they still grow on the top of said cacti).
+
+2012-07-09: Added cactus, sand, and desert sand as spawning surfaces.  Reduced 
+and tuned the spawn rates a bit to try to balance things out.  Made that which 
+spawns on grass, dirt, or sand start out at any size, grow over time, and 
+eventually die off.  Limited desert sand to only the first two sizes (the 
+smallest size will grow one step, eventually), which will eventually die and 
+turn into dry shrubs.  Only the two smallest sizes can spawn on cactus or 
+papyrus (and they don't grow or die).  Fixed slightly off-center smallest size.  
+Fixed selection boxes.
