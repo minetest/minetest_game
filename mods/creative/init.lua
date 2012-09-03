@@ -7,18 +7,10 @@ creative_inventory.creative_inventory_size = 0
 minetest.after(0, function()
 	local inv = minetest.create_detached_inventory("creative", {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			if minetest.setting_getbool("creative_mode") then
-				return count
-			else
-				return 0
-			end
+			return 0
 		end,
 		allow_put = function(inv, listname, index, stack, player)
-			if minetest.setting_getbool("creative_mode") then
-				return -1
-			else
-				return 0
-			end
+			return 0
 		end,
 		allow_take = function(inv, listname, index, stack, player)
 			if minetest.setting_getbool("creative_mode") then
@@ -55,13 +47,24 @@ minetest.after(0, function()
 			stack2 = ItemStack(stack:get_name())
 		else
 			-- Insert half full so that a taken stack can be put back
-			stack2 = ItemStack(stack:get_name().." "..(stack:get_stack_max()/2))
+			stack2 = ItemStack(stack:get_name().." "..(stack:get_stack_max()))
 		end
 		inv:add_item("main", stack2)
 	end
 	creative_inventory.creative_inventory_size = #creative_list
 	print("creative inventory size: "..dump(creative_inventory.creative_inventory_size))
 end)
+
+local trash = minetest.create_detached_inventory("trash", {
+	allow_put = function(inv, listname, index, stack, player)
+		if minetest.setting_getbool("creative_mode") then -- TODO check wether inv is creative
+			return -1
+		else
+			return 0
+		end
+	end
+})
+trash:set_size("main", 1)
 
 creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 	pagenum = math.floor(pagenum)
@@ -74,7 +77,9 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 			"list[detached:creative;main;0.3,0.5;4,6;"..tostring(start_i).."]"..
 			"label[2.0,6.55;"..tostring(pagenum).."/"..tostring(pagemax).."]"..
 			"button[0.3,6.5;1.6,1;creative_prev;<<]"..
-			"button[2.7,6.5;1.6,1;creative_next;>>]")
+			"button[2.7,6.5;1.6,1;creative_next;>>]"..
+			"label[6,1.5;Trash:]"..
+			"list[detached:trash;main;6,2;1,1;]")
 end
 minetest.register_on_joinplayer(function(player)
 	-- If in creative mode, modify player's inventory forms

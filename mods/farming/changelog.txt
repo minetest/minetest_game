@@ -1,0 +1,17 @@
+Version 3:
+- make pumpkins with face not craftable but created by punching with a sword
+- change groups of pumpkins to more wood like
+- add big pumpkin
+- add scarecrow
+- make bread non stackable
+- make saplings plantable everywhere (they still grow only with light and wet soil)
+- add weed
+- add fuel attributes to nearly everything
+- add pumpkin bread
+Version 2:
+- soil dont turn to dirt when walking over it
+- fix hoe bug
+- rename corn to wheat
+- new textures for harvested wheat
+- make cotton drop strings when harvested
+- add rubber
