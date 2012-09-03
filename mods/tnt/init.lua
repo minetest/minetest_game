@@ -9,12 +9,7 @@ local destroy = function(pos)
 			minetest.env:set_node(pos, {name="fire:basic_flame"})
 			return
 		end
-		local drop
-		if not minetest.get_modpath("item_drop") then
-			drop = minetest.get_node_drops(nodename, "")
-		else
-			drop = minetest.get_drops(nodename, "")
-		end
+		local drop = minetest.get_node_drops(nodename, "")
 		for _,item in ipairs(drop) do
 			if type(item) == "string" then
 				local obj = minetest.env:add_item(pos, item)
