@@ -1690,6 +1690,9 @@ minetest.register_entity("default:falling_node", {
 })
 
 function default.spawn_falling_node(p, nodename)
+	p.x=math.floor(p.x)
+        p.y=math.floor(p.y)
+        p.z=math.floor(p.z)
 	obj = minetest.env:add_entity(p, "default:falling_node")
 	obj:get_luaentity():set_node(nodename)
 end
