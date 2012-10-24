@@ -12,6 +12,7 @@ LIGHT_MAX = 14
 default = {}
 
 -- Load other files
+dofile(minetest.get_modpath("default").."/player.lua")
 dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/leafdecay.lua")
 
