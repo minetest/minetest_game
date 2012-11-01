@@ -68,14 +68,10 @@ function stairs.register_slab(subname, recipeitem, groups, images, description)
 			-- a full block
 			local slabpos = nil
 			local slabnode = nil
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
-			local n0 = minetest.env:get_node(p0)
+			p1 = {x = p1.x, y = p1.y - 1, z = p1.z}
 			local n1 = minetest.env:get_node(p1)
-			if n0.name == "stairs:slab_" .. subname then
-				slabpos = p0
-				slabnode = n0
-			elseif n1.name == "stairs:slab_" .. subname then
+			if n1.name == "stairs:slab_" .. subname then
 				slabpos = p1
 				slabnode = n1
 			end
@@ -95,7 +91,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description)
 				end
 				return itemstack
 			end
-			
+
 			-- Otherwise place regularly
 			return minetest.item_place(itemstack, placer, pointed_thing)
 		end,
