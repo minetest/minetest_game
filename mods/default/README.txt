@@ -68,3 +68,6 @@ VanessaE's animated torches (WTFPL):
   default_torch_on_floor_animated.png
   default_torch_on_floor.png
 
+RealBadAngel's animated water (WTFPL):
+  default_water_source_animated.png
+  default_water_flowing_animated.png
