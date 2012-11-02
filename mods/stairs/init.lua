@@ -71,13 +71,10 @@ function stairs.register_slab(subname, recipeitem, groups, images, description)
 			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local n0 = minetest.env:get_node(p0)
-			local n1 = minetest.env:get_node(p1)
-			if n0.name == "stairs:slab_" .. subname then
+			if n0.name == "stairs:slab_" .. subname and
+					p0.y+1 == p1.y then
 				slabpos = p0
 				slabnode = n0
-			elseif n1.name == "stairs:slab_" .. subname then
-				slabpos = p1
-				slabnode = n1
 			end
 			if slabpos then
 				-- Remove the slab at slabpos
