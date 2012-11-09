@@ -47,7 +47,6 @@ Cisoun's WTFPL texture pack:
   default_tool_mesepick.png
   default_tool_steelpick.png
   default_tool_steelshovel.png
-  default_tool_steelsword.png
   default_tool_stonepick.png
   default_tool_stoneshovel.png
   default_tool_woodpick.png
@@ -78,3 +77,8 @@ VanessaE:
   default_nc_rb.png
   default_nc_side.png
 
+Calinou's improved default textures (CC BY-SA):
+  default_brick.png
+  default_clay_brick.png
+  default_papyrus.png
+  default_tool_steelsword.png
