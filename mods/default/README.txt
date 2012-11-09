@@ -47,7 +47,6 @@ Cisoun's WTFPL texture pack:
   default_tool_mesepick.png
   default_tool_steelpick.png
   default_tool_steelshovel.png
-  default_tool_steelsword.png
   default_tool_stonepick.png
   default_tool_stoneshovel.png
   default_tool_woodpick.png
@@ -71,3 +70,12 @@ VanessaE's animated torches (WTFPL):
 RealBadAngel's animated water (WTFPL):
   default_water_source_animated.png
   default_water_flowing_animated.png
+
+Calinou's improved default textures (CC BY-SA):
+  default_book.png
+  default_brick.png
+  default_clay_brick.png
+  default_paper.png
+  default_papyrus.png
+  default_tool_steelsword.png
+  treeprop.png
