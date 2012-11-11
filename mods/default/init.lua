@@ -889,6 +889,10 @@ minetest.register_node("default:papyrus", {
 	paramtype = "light",
 	is_ground_content = true,
 	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.5, 0.3}
+	},
 	groups = {snappy=3,flammable=2},
 	sounds = default.node_sound_leaves_defaults(),
 })
@@ -1529,6 +1533,10 @@ minetest.register_node("default:sapling", {
 	wield_image = "default_sapling.png",
 	paramtype = "light",
 	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
+	},
 	groups = {snappy=2,dig_immediate=3,flammable=2},
 	sounds = default.node_sound_defaults(),
 })
@@ -1542,6 +1550,10 @@ minetest.register_node("default:apple", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
+	},
 	groups = {fleshy=3,dig_immediate=3,flammable=2},
 	on_use = minetest.item_eat(4),
 	sounds = default.node_sound_defaults(),
