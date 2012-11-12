@@ -1501,6 +1501,7 @@ minetest.register_node("default:steelblock", {
 	tiles = {"default_steel_block.png"},
 	is_ground_content = true,
 	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2},
+	drop = "default:steel_ingot 9",
 	sounds = default.node_sound_stone_defaults(),
 })
 
