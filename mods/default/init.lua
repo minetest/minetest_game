@@ -388,6 +388,13 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:steel_ingot 9',
+	recipe = {
+		{'default:steelblock'},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:sandstone',
 	recipe = {
 		{'default:sand', 'default:sand'},
@@ -408,6 +415,13 @@ minetest.register_craft({
 	recipe = {
 		{'default:clay_brick', 'default:clay_brick'},
 		{'default:clay_brick', 'default:clay_brick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:clay_brick 4',
+	recipe = {
+		{'default:brick'},
 	}
 })
 
@@ -813,7 +827,6 @@ minetest.register_node("default:brick", {
 	tiles = {"default_brick.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
-	drop = 'default:clay_brick 4',
 	sounds = default.node_sound_stone_defaults(),
 })
 
