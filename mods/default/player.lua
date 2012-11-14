@@ -3,6 +3,26 @@
 
 -- The API documentation in here was moved into doc/lua_api.txt
 
+-- Default animation speed. Special animations (such as the walk animation) should be offset from this factor
+animation_speed = 30
+
+-- Animation blending / transitioning amount
+animation_blend = 0
+
+-- Animations frame ranges:
+animation_stand_START = 0
+animation_stand_END = 79
+animation_walk_forward_START = 81
+animation_walk_forward_END = 100
+animation_walk_backward_START = 102
+animation_walk_backward_END = 121
+animation_walk_right_START = 123
+animation_walk_right_END = 142
+animation_walk_left_START = 144
+animation_walk_left_END = 163
+animation_mine_START = 165
+animation_mine_END = 179
+
 -- Set mesh for all players
 function switch_player_visual()
 	prop = {
@@ -15,48 +35,12 @@ function switch_player_visual()
 	
 	for _, obj in pairs(minetest.get_connected_players()) do
 		obj:set_properties(prop)
-		obj:set_animation({x=1, y=50}, 35, 0)
-		--obj:set_bone_position("", {x=0,y=0,z=0}, {x=0,y=0,z=0})
+		obj:set_animation({x=animation_stand_START, y=animation_walk_forward_END}, animation_speed, animation_blend)
 	end
 
-	minetest.after(1.0, switch_player_visual)
+	minetest.after(10.0, switch_player_visual)
 end
-minetest.after(1.0, switch_player_visual)
-
--- Test case for attachments: An object is spawned and attached to the player with the specified name (use your own playername there) 10 seconds after the server starts
-test2 = {
-  collisionbox = { 0, 0, 0, 0, 0, 0 },
-  visual = "cube"
-}
-
-minetest.register_entity("default:test2", test2)
-
-function attachments()
-	prop = {
-		mesh = "player.x",
-		textures = {"player.png", },
-		colors = {{255, 255, 255, 255}, },
-		visual = "mesh",
-		visual_size = {x=1, y=1},
-	}
-
-	local pos={x=0,y=0,z=0}
-	local newobject=minetest.env:add_entity(pos, "default:test2")
-	newobject:set_properties(prop)
-	newobject:set_animation({x=1, y=50}, 35, 0)
-	print ("Spawned test object")
-
-	for _, obj in pairs(minetest.get_connected_players()) do
-		if(obj:get_player_name() == "some_nick") then
-			newobject:set_attach(obj, "Bone.001", {x=0,y=3,z=0}, {x=0,y=45,z=0})
-			print ("Attached test object to "..obj:get_player_name())
-		end
-	end
-
-	minetest.after(5.0, function() detachments(newobject) end)
-end
-
-minetest.after(10.0, attachments)
+minetest.after(10.0, switch_player_visual)
 
 -- Definitions made by this mod that other mods can use too
 default = {}
