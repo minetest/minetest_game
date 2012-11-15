@@ -26,16 +26,15 @@ animation_mine_END = 179
 -- Set mesh for all players
 function switch_player_visual()
 	prop = {
-		mesh = "player.x",
-		textures = {"player.png", },
-		colors = {{255, 255, 255, 255}, },
+		mesh = "character.x",
+		textures = {"character.png", },
 		visual = "mesh",
 		visual_size = {x=1, y=1},
 	}
-	
+
 	for _, obj in pairs(minetest.get_connected_players()) do
 		obj:set_properties(prop)
-		obj:set_animation({x=animation_stand_START, y=animation_walk_forward_END}, animation_speed, animation_blend)
+		obj:set_animation({x=animation_stand_START, y=animation_stand_END}, animation_speed, animation_blend)
 	end
 
 	minetest.after(10.0, switch_player_visual)
