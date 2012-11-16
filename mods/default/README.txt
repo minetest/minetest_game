@@ -86,5 +86,5 @@ Calinou's improved default textures (CC BY-SA):
 MirceaKitsune (WTFPL):
   character.x
 
-Jordach (CC BY-SA 3.0 given specific permission):
+Jordach (CC BY-SA 3.0):
   character.png

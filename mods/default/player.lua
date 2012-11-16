@@ -10,18 +10,21 @@ animation_speed = 30
 animation_blend = 0
 
 -- Animations frame ranges:
-animation_stand_START = 0
-animation_stand_END = 79
-animation_walk_forward_START = 81
-animation_walk_forward_END = 100
-animation_walk_backward_START = 102
-animation_walk_backward_END = 121
-animation_walk_right_START = 123
-animation_walk_right_END = 142
-animation_walk_left_START = 144
-animation_walk_left_END = 163
-animation_mine_START = 165
-animation_mine_END = 179
+-- For player.x:
+animation_player_stand_START = 0
+animation_player_stand_END = 79
+animation_player_walk_forward_START = 81
+animation_player_walk_forward_END = 100
+animation_player_walk_backward_START = 102
+animation_player_walk_backward_END = 121
+animation_player_walk_right_START = 123
+animation_player_walk_right_END = 142
+animation_player_walk_left_START = 144
+animation_player_walk_left_END = 163
+animation_player_mine_START = 165
+animation_player_mine_END = 179
+animation_player_death_START = 181
+animation_player_death_END = 200
 
 -- Set mesh for all players
 function switch_player_visual()
@@ -34,7 +37,7 @@ function switch_player_visual()
 
 	for _, obj in pairs(minetest.get_connected_players()) do
 		obj:set_properties(prop)
-		obj:set_animation({x=animation_stand_START, y=animation_stand_END}, animation_speed, animation_blend)
+		obj:set_animation({x=animation_player_death_START, y=animation_player_death_END}, animation_speed, animation_blend)
 	end
 
 	minetest.after(10.0, switch_player_visual)
