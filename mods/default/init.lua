@@ -196,7 +196,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:stick 4',
 	recipe = {
-		{'default:wood'},
+		{'group:wood'},
 	}
 })
 
@@ -211,8 +211,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:sign_wall',
 	recipe = {
-		{'default:wood', 'default:wood', 'default:wood'},
-		{'default:wood', 'default:wood', 'default:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
 		{'', 'default:stick', ''},
 	}
 })
@@ -228,7 +228,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:pick_wood',
 	recipe = {
-		{'default:wood', 'default:wood', 'default:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
 		{'', 'default:stick', ''},
 		{'', 'default:stick', ''},
 	}
@@ -237,7 +237,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:pick_stone',
 	recipe = {
-		{'default:cobble', 'default:cobble', 'default:cobble'},
+		{'group:stone', 'group:stone', 'group:stone'},
 		{'', 'default:stick', ''},
 		{'', 'default:stick', ''},
 	}
@@ -264,7 +264,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:shovel_wood',
 	recipe = {
-		{'default:wood'},
+		{'group:wood'},
 		{'default:stick'},
 		{'default:stick'},
 	}
@@ -273,7 +273,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:shovel_stone',
 	recipe = {
-		{'default:cobble'},
+		{'group:stone'},
 		{'default:stick'},
 		{'default:stick'},
 	}
@@ -291,8 +291,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:axe_wood',
 	recipe = {
-		{'default:wood', 'default:wood'},
-		{'default:wood', 'default:stick'},
+		{'group:wood', 'group:wood'},
+		{'group:wood', 'default:stick'},
 		{'', 'default:stick'},
 	}
 })
@@ -300,8 +300,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:axe_stone',
 	recipe = {
-		{'default:cobble', 'default:cobble'},
-		{'default:cobble', 'default:stick'},
+		{'group:stone', 'group:stone'},
+		{'group:stone', 'default:stick'},
 		{'', 'default:stick'},
 	}
 })
@@ -318,8 +318,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:sword_wood',
 	recipe = {
-		{'default:wood'},
-		{'default:wood'},
+		{'group:wood'},
+		{'group:wood'},
 		{'default:stick'},
 	}
 })
@@ -327,8 +327,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:sword_stone',
 	recipe = {
-		{'default:cobble'},
-		{'default:cobble'},
+		{'group:stone'},
+		{'group:stone'},
 		{'default:stick'},
 	}
 })
@@ -354,27 +354,27 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:chest',
 	recipe = {
-		{'default:wood', 'default:wood', 'default:wood'},
-		{'default:wood', '', 'default:wood'},
-		{'default:wood', 'default:wood', 'default:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wood', '', 'group:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
 	}
 })
 
 minetest.register_craft({
 	output = 'default:chest_locked',
 	recipe = {
-		{'default:wood', 'default:wood', 'default:wood'},
-		{'default:wood', 'default:steel_ingot', 'default:wood'},
-		{'default:wood', 'default:wood', 'default:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wood', 'default:steel_ingot', 'group:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
 	}
 })
 
 minetest.register_craft({
 	output = 'default:furnace',
 	recipe = {
-		{'default:cobble', 'default:cobble', 'default:cobble'},
-		{'default:cobble', '', 'default:cobble'},
-		{'default:cobble', 'default:cobble', 'default:cobble'},
+		{'group:stone', 'group:stone', 'group:stone'},
+		{'group:stone', '', 'group:stone'},
+		{'group:stone', 'group:stone', 'group:stone'},
 	}
 })
 
@@ -397,8 +397,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:sandstone',
 	recipe = {
-		{'default:sand', 'default:sand'},
-		{'default:sand', 'default:sand'},
+		{'group:sand', 'group:sand'},
+		{'group:sand', 'group:sand'},
 	}
 })
 
@@ -444,9 +444,9 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:bookshelf',
 	recipe = {
-		{'default:wood', 'default:wood', 'default:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
 		{'default:book', 'default:book', 'default:book'},
-		{'default:wood', 'default:wood', 'default:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
 	}
 })
 
@@ -474,13 +474,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "cooking",
 	output = "default:glass",
-	recipe = "default:sand",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:glass",
-	recipe = "default:desert_sand",
+	recipe = "group:sand",
 })
 
 minetest.register_craft({
@@ -507,13 +501,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:tree",
-	burntime = 30,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:jungletree",
+	recipe = "group:tree",
 	burntime = 30,
 })
 
@@ -561,7 +549,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:wood",
+	recipe = "group:wood",
 	burntime = 7,
 })
 
@@ -712,7 +700,7 @@ minetest.register_node("default:stone", {
 	description = "Stone",
 	tiles = {"default_stone.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, stone=1},
 	drop = 'default:cobble',
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
@@ -722,7 +710,7 @@ minetest.register_node("default:desert_stone", {
 	description = "Desert Stone",
 	tiles = {"default_desert_stone.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, stone=1},
 	drop = 'default:desert_stone',
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
@@ -780,7 +768,7 @@ minetest.register_node("default:sand", {
 	description = "Sand",
 	tiles = {"default_sand.png"},
 	is_ground_content = true,
-	groups = {crumbly=3, falling_node=1},
+	groups = {crumbly=3, falling_node=1, sand=1},
 	sounds = default.node_sound_sand_defaults(),
 })
 
@@ -788,7 +776,7 @@ minetest.register_node("default:desert_sand", {
 	description = "Desert Sand",
 	tiles = {"default_desert_sand.png"},
 	is_ground_content = true,
-	groups = {sand=1, crumbly=3, falling_node=1},
+	groups = {sand=1, crumbly=3, falling_node=1, sand=1},
 	sounds = default.node_sound_sand_defaults(),
 })
 
@@ -988,7 +976,7 @@ minetest.register_node("default:wood", {
 	description = "Wooden Planks",
 	tiles = {"default_wood.png"},
 	is_ground_content = true,
-	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -1497,7 +1485,7 @@ minetest.register_node("default:cobble", {
 	description = "Cobblestone",
 	tiles = {"default_cobble.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, stone=2},
 	sounds = default.node_sound_stone_defaults(),
 })
 
