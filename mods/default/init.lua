@@ -82,6 +82,7 @@ minetest.register_tool("default:pick_mese", {
 minetest.register_tool("default:shovel_wood", {
 	description = "Wooden Shovel",
 	inventory_image = "default_tool_woodshovel.png",
+	wield_image = "default_tool_woodshovel.png^[transformR90",
 	tool_capabilities = {
 		max_drop_level=0,
 		groupcaps={
@@ -92,6 +93,7 @@ minetest.register_tool("default:shovel_wood", {
 minetest.register_tool("default:shovel_stone", {
 	description = "Stone Shovel",
 	inventory_image = "default_tool_stoneshovel.png",
+	wield_image = "default_tool_stoneshovel.png^[transformR90",
 	tool_capabilities = {
 		max_drop_level=0,
 		groupcaps={
@@ -102,6 +104,7 @@ minetest.register_tool("default:shovel_stone", {
 minetest.register_tool("default:shovel_steel", {
 	description = "Steel Shovel",
 	inventory_image = "default_tool_steelshovel.png",
+	wield_image = "default_tool_steelshovel.png^[transformR90",
 	tool_capabilities = {
 		max_drop_level=1,
 		groupcaps={
