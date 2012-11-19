@@ -1,205 +1,286 @@
--- Minetest 0.4 mod: doors
--- See README.txt for licensing and other information.
---------------------------------------------------------------------------------
+doors = {}
 
-local WALLMX = 3
-local WALLMZ = 5
-local WALLPX = 2
-local WALLPZ = 4
+-- Registers a door
+--  name: The name of the door
+--  def: a table with the folowing fields:
+--    description
+--    inventory_image
+--    groups
+--    tiles_bottom: the tiles of the bottom part of the door {front, side}
+--    tiles_top: the tiles of the bottom part of the door {front, side}
+--    If the following fields are not defined the default values are used
+--    node_box_bottom
+--    node_box_top
+--    selection_box_bottom
+--    selection_box_top
+--    only_placer_can_open: if true only the player who placed the door can
+--                          open it
+function doors:register_door(name, def)
+	def.groups.not_in_creative_inventory = 1
+	
+	local box = {{-0.5, -0.5, -0.5,   0.5, 0.5, -0.5+1.5/16}}
+	
+	if not def.node_box_bottom then
+		def.node_box_bottom = box
+	end
+	if not def.node_box_top then
+		def.node_box_top = box
+	end
+	if not def.selection_box_bottom then
+		def.selection_box_bottom= box
+	end
+	if not def.selection_box_top then
+		def.selection_box_top = box
+	end
+	
+	minetest.register_craftitem(name, {
+		description = def.description,
+		inventory_image = def.inventory_image,
+		
+		on_place = function(itemstack, placer, pointed_thing)
+			if not pointed_thing.type == "node" then
+				return itemstack
+			end
+			local pt = pointed_thing.above
+			local pt2 = {x=pt.x, y=pt.y, z=pt.z}
+			pt2.y = pt2.y+1
+			if
+				not minetest.registered_nodes[minetest.env:get_node(pt).name].buildable_to or
+				not minetest.registered_nodes[minetest.env:get_node(pt2).name].buildable_to or
+				not placer or
+				not placer:is_player()
+			then
+				return itemstack
+			end
+			
+			local p2 = minetest.dir_to_facedir(placer:get_look_dir())
+			local pt3 = {x=pt.x, y=pt.y, z=pt.z}
+			if p2 == 0 then
+				pt3.x = pt3.x-1
+			elseif p2 == 1 then
+				pt3.z = pt3.z+1
+			elseif p2 == 2 then
+				pt3.x = pt3.x+1
+			elseif p2 == 3 then
+				pt3.z = pt3.z-1
+			end
+			if not string.find(minetest.env:get_node(pt3).name, name.."_b_") then
+				minetest.env:set_node(pt, {name=name.."_b_1", param2=p2})
+				minetest.env:set_node(pt2, {name=name.."_t_1", param2=p2})
+			else
+				minetest.env:set_node(pt, {name=name.."_b_2", param2=p2})
+				minetest.env:set_node(pt2, {name=name.."_t_2", param2=p2})
+			end
+			
+			if def.only_placer_can_open then
+				local pn = placer:get_player_name()
+				local meta = minetest.env:get_meta(pt)
+				meta:set_string("doors_owner", pn)
+				meta:set_string("infotext", "Owned by "..pn)
+				meta = minetest.env:get_meta(pt2)
+				meta:set_string("doors_owner", pn)
+				meta:set_string("infotext", "Owned by "..pn)
+			end
+			
+			itemstack:take_item()
+			return itemstack
+		end,
+	})
+	
+	local tt = def.tiles_top
+	local tb = def.tiles_bottom
+	
+	local function after_dig_node(pos, name)
+		if minetest.env:get_node(pos).name == name then
+			minetest.env:remove_node(pos)
+		end
+	end
+	
+	local function on_punch(pos, dir, check_name, replace, replace_dir, params)
+		pos.y = pos.y+dir
+		if not minetest.env:get_node(pos).name == check_name then
+			return
+		end
+		local p2 = minetest.env:get_node(pos).param2
+		p2 = params[p2+1]
+		
+		local meta = minetest.env:get_meta(pos):to_table()
+		minetest.env:set_node(pos, {name=replace_dir, param2=p2})
+		minetest.env:get_meta(pos):from_table(meta)
+		
+		pos.y = pos.y-dir
+		meta = minetest.env:get_meta(pos):to_table()
+		minetest.env:set_node(pos, {name=replace, param2=p2})
+		minetest.env:get_meta(pos):from_table(meta)
+	end
+	
+	local function check_player_priv(pos, player)
+		if not def.only_placer_can_open then
+			return true
+		end
+		local meta = minetest.env:get_meta(pos)
+		local pn = player:get_player_name()
+		return meta:get_string("doors_owner") == pn
+	end
+	
+	minetest.register_node(name.."_b_1", {
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drop = name,
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_bottom
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_bottom
+		},
+		groups = def.groups,
+		
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			pos.y = pos.y+1
+			after_dig_node(pos, name.."_t_1")
+		end,
+		
+		on_punch = function(pos, node, puncher)
+			if check_player_priv(pos, puncher) then
+				on_punch(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
+			end
+		end,
+		
+		can_dig = check_player_priv,
+	})
+	
+	minetest.register_node(name.."_t_1", {
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drop = name,
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_top
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_top
+		},
+		groups = def.groups,
+		
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			pos.y = pos.y-1
+			after_dig_node(pos, name.."_b_1")
+		end,
+		
+		on_punch = function(pos, node, puncher)
+			if check_player_priv(pos, puncher) then
+				on_punch(pos, -1, name.."_b_1", name.."_t_2", name.."_b_2", {1,2,3,0})
+			end
+		end,
+		
+		can_dig = check_player_priv,
+	})
+	
+	minetest.register_node(name.."_b_2", {
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1].."^[transformfx", tb[1]},
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drop = name,
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_bottom
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_bottom
+		},
+		groups = def.groups,
+		
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			pos.y = pos.y+1
+			after_dig_node(pos, name.."_t_2")
+		end,
+		
+		on_punch = function(pos, node, puncher)
+			if check_player_priv(pos, puncher) then
+				on_punch(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
+			end
+		end,
+		
+		can_dig = check_player_priv,
+	})
+	
+	minetest.register_node(name.."_t_2", {
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drop = name,
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_top
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_top
+		},
+		groups = def.groups,
+		
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			pos.y = pos.y-1
+			after_dig_node(pos, name.."_b_2")
+		end,
+		
+		on_punch = function(pos, node, puncher)
+			if check_player_priv(pos, puncher) then
+				on_punch(pos, -1, name.."_b_2", name.."_t_1", name.."_b_1", {3,0,1,2})
+			end
+		end,
+		
+		can_dig = check_player_priv,
+	})
+	
+end
 
---------------------------------------------------------------------------------
-
-minetest.register_alias('door', 'doors:door_wood')
-minetest.register_alias('door_wood', 'doors:door_wood')
-
-minetest.register_node( 'doors:door_wood', {
-	description         = 'Wooden Door',
-	drawtype            = 'signlike',
-	tiles         		= { 'door_wood.png' },
-	inventory_image     = 'door_wood.png',
-	wield_image         = 'door_wood.png',
-	paramtype2          = 'wallmounted',
-	selection_box       = { type = 'wallmounted' },
-	groups              = { choppy=2, dig_immediate=2 },
-})
-
-minetest.register_craft( {
-	output              = 'doors:door_wood',
-	recipe = {
-		{ 'default:wood', 'default:wood' },
-		{ 'default:wood', 'default:wood' },
-		{ 'default:wood', 'default:wood' },
-	},
+doors:register_door("doors:door_wood", {
+	description = "Wooden Door",
+	inventory_image = "door_wood.png",
+	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
+	tiles_bottom = {"door_wood_b.png", "door_brown.png"},
+	tiles_top = {"door_wood_a.png", "door_brown.png"},
 })
 
 minetest.register_craft({
-	type = 'fuel',
-	recipe = 'doors:door_wood',
-	burntime = 30,
+	output = "doors:door_wood",
+	recipe = {
+		{"default:wood", "default:wood"},
+		{"default:wood", "default:wood"},
+		{"default:wood", "default:wood"}
+	}
 })
 
-minetest.register_node( 'doors:door_wood_a_c', {
-	Description         = 'Top Closed Door',
-	drawtype            = 'signlike',
-	tiles         		= { 'door_wood_a.png' },
-	inventory_image     = 'door_wood_a.png',
-	paramtype           = 'light',
-	paramtype2          = 'wallmounted',
-	walkable            = true,
-	selection_box       = { type = "wallmounted", },
-	groups              = { choppy=2, dig_immediate=2 },
-	legacy_wallmounted  = true,
-	drop                = 'doors:door_wood',
+doors:register_door("doors:door_steel", {
+	description = "Steel Door",
+	inventory_image = "door_steel.png",
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	tiles_bottom = {"door_steel_b.png", "door_grey.png"},
+	tiles_top = {"door_steel_a.png", "door_grey.png"},
+	only_placer_can_open = true,
 })
 
-minetest.register_node( 'doors:door_wood_b_c', {
-	Description         = 'Bottom Closed Door',
-	drawtype            = 'signlike',
-	tiles         		= { 'door_wood_b.png' },
-	inventory_image     = 'door_wood_b.png',
-	paramtype           = 'light',
-	paramtype2          = 'wallmounted',
-	walkable            = true,
-	selection_box       = { type = "wallmounted", },
-	groups              = { choppy=2, dig_immediate=2 },
-	legacy_wallmounted  = true,
-	drop                = 'doors:door_wood',
+minetest.register_craft({
+	output = "doors:door_steel",
+	recipe = {
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"}
+	}
 })
 
-minetest.register_node( 'doors:door_wood_a_o', {
-	Description         = 'Top Open Door',
-	drawtype            = 'signlike',
-	tiles         		= { 'door_wood_a_r.png' },
-	inventory_image     = 'door_wood_a_r.png',
-	paramtype           = 'light',
-	paramtype2          = 'wallmounted',
-	walkable            = false,
-	selection_box       = { type = "wallmounted", },
-	groups              = { choppy=2, dig_immediate=2 },
-	legacy_wallmounted  = true,
-	drop                = 'doors:door_wood',
-})
-
-minetest.register_node( 'doors:door_wood_b_o', {
-	Description         = 'Bottom Open Door',
-	drawtype            = 'signlike',
-	tiles         		= { 'door_wood_b_r.png' },
-	inventory_image     = 'door_wood_b_r.png',
-	paramtype           = 'light',
-	paramtype2          = 'wallmounted',
-	walkable            = false,
-	selection_box       = { type = "wallmounted", },
-	groups              = { choppy=2, dig_immediate=2 },
-	legacy_wallmounted  = true,
-	drop                = 'doors:door_wood',
-})
-
---------------------------------------------------------------------------------
-
-local round = function( n )
-	if n >= 0 then
-		return math.floor( n + 0.5 )
-	else
-		return math.ceil( n - 0.5 )
-	end
-end
-
-local on_door_placed = function( pos, node, placer )
-	if node.name ~= 'doors:door_wood' then return end
-
-	local upos = { x = pos.x, y = pos.y - 1, z = pos.z }
-	local apos = { x = pos.x, y = pos.y + 1, z = pos.z }
-	local und = minetest.env:get_node( upos )
-	local abv = minetest.env:get_node( apos )
-
-	local dir = placer:get_look_dir()
-
-	if     round( dir.x ) == 1  then
-		newparam = WALLMX
-	elseif round( dir.x ) == -1 then
-		newparam = WALLPX
-	elseif round( dir.z ) == 1  then
-		newparam = WALLMZ
-	elseif round( dir.z ) == -1 then
-		newparam = WALLPZ
-	end
-
-	if und.name == 'air' then
-		minetest.env:add_node( pos,  { name = 'doors:door_wood_a_c', param2 = newparam } )
-		minetest.env:add_node( upos, { name = 'doors:door_wood_b_c', param2 = newparam } )
-	elseif abv.name == 'air' then
-		minetest.env:add_node( pos,  { name = 'doors:door_wood_b_c', param2 = newparam } )
-		minetest.env:add_node( apos, { name = 'doors:door_wood_a_c', param2 = newparam } )
-	else
-		minetest.env:remove_node( pos )
-		placer:get_inventory():add_item( "main", 'doors:door_wood' )
-		minetest.chat_send_player( placer:get_player_name(), 'not enough space' )
-	end
-end
-
-local on_door_punched = function( pos, node, puncher )
-	if string.find( node.name, 'doors:door_wood' ) == nil then return end
-
-	local upos = { x = pos.x, y = pos.y - 1, z = pos.z }
-	local apos = { x = pos.x, y = pos.y + 1, z = pos.z }
-
-	if string.find( node.name, '_c', -2 ) ~= nil then
-		if     node.param2 == WALLPX then
-			newparam = WALLMZ
-		elseif node.param2 == WALLMZ then
-			newparam = WALLMX
-		elseif node.param2 == WALLMX then
-			newparam = WALLPZ
-		elseif node.param2 == WALLPZ then
-			newparam = WALLPX
-		end
-	elseif string.find( node.name, '_o', -2 ) ~= nil then
-		if     node.param2 == WALLMZ then
-			newparam = WALLPX
-		elseif node.param2 == WALLMX then
-			newparam = WALLMZ
-		elseif node.param2 == WALLPZ then
-			newparam = WALLMX
-		elseif node.param2 == WALLPX then
-			newparam = WALLPZ
-		end
-	end
-
-	if ( node.name == 'doors:door_wood_a_c' ) then
-		minetest.env:add_node( pos,  { name = 'doors:door_wood_a_o', param2 = newparam } )
-		minetest.env:add_node( upos, { name = 'doors:door_wood_b_o', param2 = newparam } )
-
-	elseif ( node.name == 'doors:door_wood_b_c' ) then
-		minetest.env:add_node( pos,  { name = 'doors:door_wood_b_o', param2 = newparam } )
-		minetest.env:add_node( apos, { name = 'doors:door_wood_a_o', param2 = newparam } )
-
-	elseif ( node.name == 'doors:door_wood_a_o' ) then
-		minetest.env:add_node( pos,  { name = 'doors:door_wood_a_c', param2 = newparam } )
-		minetest.env:add_node( upos, { name = 'doors:door_wood_b_c', param2 = newparam } )
-
-	elseif ( node.name == 'doors:door_wood_b_o' ) then
-		minetest.env:add_node( pos,  { name = 'doors:door_wood_b_c', param2 = newparam } )
-		minetest.env:add_node( apos, { name = 'doors:door_wood_a_c', param2 = newparam } )
-
-	end
-end
-
-local on_door_digged = function( pos, node, digger )
-	local upos = { x = pos.x, y = pos.y - 1, z = pos.z }
-	local apos = { x = pos.x, y = pos.y + 1, z = pos.z }
-
-	if ( node.name == 'doors:door_wood_a_c' ) or ( node.name == 'doors:door_wood_a_o' ) then
-		minetest.env:remove_node( upos )
-	elseif ( node.name == 'doors:door_wood_b_c' ) or ( node.name == 'doors:door_wood_b_o' ) then
-		minetest.env:remove_node( apos )
-	end
-end
-
---------------------------------------------------------------------------------
-
-minetest.register_on_placenode( on_door_placed )
-minetest.register_on_punchnode( on_door_punched )
-minetest.register_on_dignode( on_door_digged )
-
---------------------------------------------------------------------------------
-
+minetest.register_alias("doors:door_wood_a_c", "doors:door_wood_t_1")
+minetest.register_alias("doors:door_wood_a_o", "doors:door_wood_t_1")
+minetest.register_alias("doors:door_wood_b_c", "doors:door_wood_b_1")
+minetest.register_alias("doors:door_wood_b_o", "doors:door_wood_b_1")

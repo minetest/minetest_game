@@ -1,43 +1,23 @@
 Minetest 0.4 mod: doors
-========================
+=======================
 
 License of source code:
 -----------------------
-Original license text:
---    (c) 2011 Fernando Zapata
---    Code licensed under GNU GPLv3
---    Content licensed under CC BY-SA 3.0
---    2012-01-08    11:03:57
+Copyright (C) 2012 PilzAdam
 
-There has been unsuccesful attempts to contact the original author. Thus,
-based on the intentions of the author, it is assumed that this code is
-distributable and modifiable under LGPLv2+later, under which Minetest is
-distributed.
-
-Modifications:
-  Copyright (C) 2012 celeron55, Perttu Ahola <celeron55@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-http://www.gnu.org/licenses/lgpl-2.1.html
+This program is free software. It comes without any warranty, to
+the extent permitted by applicable law. You can redistribute it
+and/or modify it under the terms of the Do What The Fuck You Want
+To Public License, Version 2, as published by Sam Hocevar. See
+http://sam.zoy.org/wtfpl/COPYING for more details.
 
 License of media (textures and sounds)
 --------------------------------------
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)                                 
-http://creativecommons.org/licenses/by-sa/3.0/
-
-Authors of media files
------------------------
-Everything not listed in here:
-Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
-
-From the original zlpdoors mod by Fernando Zapata:
+Textures created by Fernando Zapata (CC BY-SA 3.0):
+  door_wood.png
   door_wood_a.png
   door_wood_a_r.png
   door_wood_b.png
   door_wood_b_r.png
-  door_wood.png
-  
+
+All other textures (created by PilzAdam): WTFPL
