@@ -47,7 +47,7 @@ minetest.register_abm({
 				local n = minetest.env:get_node(trunkp)
 				local reg = minetest.registered_nodes[n.name]
 				-- Assume ignore is a trunk, to make the thing work at the border of the active area
-				if n.name == "ignore" or (reg.groups.tree and reg.groups.tree ~= 0) then
+				if n.name == "ignore" or (reg and reg.groups.tree and reg.groups.tree ~= 0) then
 					--print("cached trunk still exists")
 					return
 				end
