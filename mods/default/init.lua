@@ -403,6 +403,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = 'default:sand 4',
 	recipe = {
 		'default:sandstone',
