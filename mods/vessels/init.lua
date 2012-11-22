@@ -3,7 +3,8 @@
 
 minetest.register_craftitem("vessels:glass_bottle", {
 	description = "Glass Bottle (empty)",
-	inventory_image = "vessels_glass_bottle.png",
+	inventory_image = "vessels_glass_bottle_inv.png",
+	wield_image = "vessels_glass_bottle.png"
 	groups = {vessel=1},
 })
 
@@ -18,7 +19,8 @@ minetest.register_craft( {
 
 minetest.register_craftitem("vessels:drinking_glass", {
 	description = "Drinking Glass (empty)",
-	inventory_image = "vessels_drinking_glass.png",
+	inventory_image = "vessels_drinking_glass_inv.png",
+	wield_image = "vessels_drinking_glass.png"
 	groups = {vessel=1},
 })
 
@@ -33,7 +35,8 @@ minetest.register_craft( {
 
 minetest.register_craftitem("vessels:steel_bottle", {
 	description = "Heavy Steel Bottle (empty)",
-	inventory_image = "vessels_steel_bottle.png",
+	inventory_image = "vessels_steel_bottle_inv.png",
+	wield_image = "vessels_steel_bottle.png"
 	groups = {vessel=1},
 })
 
