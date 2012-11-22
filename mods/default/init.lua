@@ -795,7 +795,6 @@ minetest.register_node("default:sandstone", {
 	tiles = {"default_sandstone.png"},
 	is_ground_content = true,
 	groups = {crumbly=2,cracky=2},
-	drop = 'default:sand',
 	sounds = default.node_sound_stone_defaults(),
 })
 
