@@ -1,10 +1,34 @@
--- Minetest 0.4 mod: vessels
--- See README.txt for licensing and other information.
+-- Vessels Mod by Vanessa Ezekowitz  ~~  2012-07-26
+--
+-- License: LGPL
+--
+
+--========================================
+-- Crafts
+--
+-- Glass bottle (yields 10)
+--
+--       G - G
+--       G - G
+--       - G -
+--
+-- Drinking Glass (yields 14)
+--
+--       G - G
+--       G - G
+--       G G G
+--
+-- Heavy Steel Bottle (yields 5)
+--
+--       S - S
+--       S - S
+--       - S -
+
 
 minetest.register_craftitem("vessels:glass_bottle", {
-	description = "Glass Bottle (empty)",
-	inventory_image = "vessels_glass_bottle.png",
-	groups = {vessel=1},
+        description = "Glass Bottle (empty)",
+        inventory_image = "vessels_glass_bottle_inv.png",
+	wield_image = "vessels_glass_bottle.png"
 })
 
 minetest.register_craft( {
@@ -17,9 +41,9 @@ minetest.register_craft( {
 })
 
 minetest.register_craftitem("vessels:drinking_glass", {
-	description = "Drinking Glass (empty)",
-	inventory_image = "vessels_drinking_glass.png",
-	groups = {vessel=1},
+        description = "Drinking Glass (empty)",
+        inventory_image = "vessels_drinking_glass_inv.png",
+	wield_image = "vessels_drinking_glass.png"
 })
 
 minetest.register_craft( {
@@ -32,9 +56,9 @@ minetest.register_craft( {
 })
 
 minetest.register_craftitem("vessels:steel_bottle", {
-	description = "Heavy Steel Bottle (empty)",
-	inventory_image = "vessels_steel_bottle.png",
-	groups = {vessel=1},
+        description = "Heavy Steel Bottle (empty)",
+        inventory_image = "vessels_steel_bottle_inv.png",
+	wield_image = "vessels_steel_bottle.png"
 })
 
 minetest.register_craft( {
@@ -50,8 +74,8 @@ minetest.register_craft( {
 -- Make sure we can recycle them
 
 minetest.register_craftitem("vessels:glass_fragments", {
-	description = "Pile of Glass Fragments",
-	inventory_image = "vessels_glass_fragments.png",
+        description = "Pile of Glass Fragments",
+        inventory_image = "vessels_glass_fragments.png",
 })
 
 minetest.register_craft( {
@@ -84,3 +108,4 @@ minetest.register_craft( {
 	recipe = "vessels:steel_bottle",
 })
 
+print("[Vessels] Loaded!")
