@@ -1,0 +1,20 @@
+Since recent versions of Minetest no longer contain jungle biomes, and 
+hence no jungle grass, I created this mod to re-add said grass back into 
+the game, with a twist: There are now four different sizes of grasses, 
+all of which yield a single junglegrass object when gathered (so all 
+four sizes may be used where jungle grass is called for).  The largest 
+size uses the game's standard jungle grass node, while the others are 
+defined by this mod.
+
+Junglegrass will spawn on dirt, grass, sand, desert sand and the tops of 
+papyrus and cactus (though rarely), and will do so anywhere in the map.  
+Grass on the ground will grow and eventually die (or turn into dry 
+shrubs, in the desert), given enough time.
+
+Adjusting the overall spawn/growth rate is easily done by tweaking the 
+MAX_RATIO variable at the top of init.lua.  A larger value results in 
+less frequent events.
+
+Dependencies: none (just the game's default stuff)
+
+License:  cc-by-sa 3.0 for the textures, WTFPL for everything else.

@@ -1,0 +1,3 @@
+Based on flowers mod by ironzorg.
+Converted to create junglegrass by Vanessa Ezekowitz
+Adapted jungle grass textures by VanessaE, based on the original one.
