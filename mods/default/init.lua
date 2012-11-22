@@ -403,6 +403,13 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:sand 4',
+	recipe = {
+		'default:sandstone',
+	}
+})
+
+minetest.register_craft({
 	output = 'default:clay',
 	recipe = {
 		{'default:clay_lump', 'default:clay_lump'},
