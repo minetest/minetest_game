@@ -803,7 +803,7 @@ minetest.register_node("default:sandstone", {
 	tiles = {"default_sandstone.png"},
 	is_ground_content = true,
 	groups = {crumbly=2,cracky=2},
-	drop = 'default:sand',
+	drop = 'default:sandstone',
 	sounds = default.node_sound_stone_defaults(),
 })
 
