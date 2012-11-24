@@ -395,10 +395,18 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:sandstone',
+	output = 'default:sandstone 4',
 	recipe = {
 		{'group:sand', 'group:sand'},
 		{'group:sand', 'group:sand'},
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'default:sand 4',
+	recipe = {
+		'default:sandstone',
 	}
 })
 
@@ -795,7 +803,7 @@ minetest.register_node("default:sandstone", {
 	tiles = {"default_sandstone.png"},
 	is_ground_content = true,
 	groups = {crumbly=2,cracky=2},
-	drop = 'default:sand',
+	drop = 'default:sandstone',
 	sounds = default.node_sound_stone_defaults(),
 })
 
