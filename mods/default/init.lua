@@ -403,6 +403,13 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:sand 4',
+	recipe = {
+		{'default:sandstone'},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:clay',
 	recipe = {
 		{'default:clay_lump', 'default:clay_lump'},
@@ -795,7 +802,6 @@ minetest.register_node("default:sandstone", {
 	tiles = {"default_sandstone.png"},
 	is_ground_content = true,
 	groups = {crumbly=2,cracky=2},
-	drop = 'default:sand',
 	sounds = default.node_sound_stone_defaults(),
 })
 
