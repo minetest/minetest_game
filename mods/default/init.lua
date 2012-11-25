@@ -12,6 +12,7 @@ LIGHT_MAX = 14
 default = {}
 
 -- Load other files
+dofile(minetest.get_modpath("default").."/player.lua")
 dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/leafdecay.lua")
 
@@ -82,6 +83,7 @@ minetest.register_tool("default:pick_mese", {
 minetest.register_tool("default:shovel_wood", {
 	description = "Wooden Shovel",
 	inventory_image = "default_tool_woodshovel.png",
+	wield_image = "default_tool_woodshovel.png^[transformR90",
 	tool_capabilities = {
 		max_drop_level=0,
 		groupcaps={
@@ -92,6 +94,7 @@ minetest.register_tool("default:shovel_wood", {
 minetest.register_tool("default:shovel_stone", {
 	description = "Stone Shovel",
 	inventory_image = "default_tool_stoneshovel.png",
+	wield_image = "default_tool_stoneshovel.png^[transformR90",
 	tool_capabilities = {
 		max_drop_level=0,
 		groupcaps={
@@ -102,6 +105,7 @@ minetest.register_tool("default:shovel_stone", {
 minetest.register_tool("default:shovel_steel", {
 	description = "Steel Shovel",
 	inventory_image = "default_tool_steelshovel.png",
+	wield_image = "default_tool_steelshovel.png^[transformR90",
 	tool_capabilities = {
 		max_drop_level=1,
 		groupcaps={
@@ -399,6 +403,13 @@ minetest.register_craft({
 	recipe = {
 		{'group:sand', 'group:sand'},
 		{'group:sand', 'group:sand'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:sand 4',
+	recipe = {
+		{'default:sandstone'},
 	}
 })
 
@@ -795,7 +806,6 @@ minetest.register_node("default:sandstone", {
 	tiles = {"default_sandstone.png"},
 	is_ground_content = true,
 	groups = {crumbly=2,cracky=2},
-	drop = 'default:sand',
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1509,7 +1519,6 @@ minetest.register_node("default:nyancat", {
 	description = "Nyan Cat",
 	tiles = {"default_nc_side.png", "default_nc_side.png", "default_nc_side.png",
 		"default_nc_side.png", "default_nc_back.png", "default_nc_front.png"},
-	inventory_image = "default_nc_front.png",
 	paramtype2 = "facedir",
 	groups = {cracky=2},
 	legacy_facedir_simple = true,
@@ -1519,7 +1528,6 @@ minetest.register_node("default:nyancat", {
 minetest.register_node("default:nyancat_rainbow", {
 	description = "Nyan Cat Rainbow",
 	tiles = {"default_nc_rb.png"},
-	inventory_image = "default_nc_rb.png",
 	groups = {cracky=2},
 	sounds = default.node_sound_defaults(),
 })

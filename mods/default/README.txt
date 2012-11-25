@@ -82,3 +82,9 @@ Calinou's improved default textures (CC BY-SA):
   default_clay_brick.png
   default_papyrus.png
   default_tool_steelsword.png
+
+MirceaKitsune (WTFPL):
+  character.x
+
+Jordach (CC BY-SA 3.0):
+  character.png
