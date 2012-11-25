@@ -12,6 +12,7 @@ minetest.register_node("fire:basic_flame", {
 	groups = {igniter=2,dig_immediate=3},
 	drop = '',
 	walkable = false,
+	damage_per_second = 4,
 })
 
 local fire = {}
