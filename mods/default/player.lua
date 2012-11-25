@@ -1,25 +1,20 @@
 -- Minetest 0.4 mod: player
 -- See README.txt for licensing and other information.
 
--- Animation speed
+--
+-- Start of configuration area:
+--
+
+-- Player animation speed
 animation_speed = 30
--- Animation blending
+
+-- Player animation blending
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 animation_blend = 0
 
 -- Default player appearance
 default_model = "character.x"
 default_texture = "character.png"
-
--- Player states
-local player_model = {}
-local player_anim = {}
-local player_sneak = {}
-local ANIM_STAND = 0
-local ANIM_WALK  = 1
-local ANIM_WALK_MINE = 2
-local ANIM_MINE = 3
-local ANIM_DEATH = 4
 
 -- Frame ranges for each player model
 function player_get_animations(model)
@@ -39,54 +34,70 @@ function player_get_animations(model)
 	end
 end
 
--- Called whenever a player's appearance needs to be updated
-function player_update_visuals(player)
-	player_model[player:get_player_name()] = default_model
-	player_anim[player:get_player_name()] = ANIM_STAND
+--
+-- End of configuration area.
+--
 
-	local name = player:get_player_name()
-	local anim = player_get_animations(player_model[name])
+-- Player stats and animations
+local player_model = {}
+local player_anim = {}
+local player_sneak = {}
+local ANIM_STAND = 1
+local ANIM_WALK  = 2
+local ANIM_WALK_MINE = 3
+local ANIM_MINE = 4
+local ANIM_DEATH = 5
+
+-- Called when a player's appearance needs to be updated
+function player_update_visuals(pl)
+	local name = pl:get_player_name()
+
+	player_model[name] = default_model
+	player_anim[name] = 0 -- Animation will be set further below immediately
+	player_sneak[name] = false
 	prop = {
 		mesh = default_model,
 		textures = {default_texture, },
 		visual = "mesh",
 		visual_size = {x=1, y=1},
 	}
-	player:set_properties(prop)
-	player:set_animation({x=anim.stand_START, y=anim.stand_END}, animation_speed, animation_blend) -- initial animation
+	pl:set_properties(prop)
 end
 
 -- Update appearance when the player joins
 minetest.register_on_joinplayer(player_update_visuals)
 
--- Global environment step function
-function on_step(dtime)
+-- Check each player and apply animations
+function player_step(dtime)
 	for _, pl in pairs(minetest.get_connected_players()) do
 		local name = pl:get_player_name()
 		local anim = player_get_animations(player_model[name])
 		local controls = pl:get_player_control()
-
 		local walking = false
+		local animation_speed_modified = animation_speed
+
+		-- Determine if the player is walking
 		if controls.up or controls.down or controls.left or controls.right then
 			walking = true
 		end
 
-		local animation_speed_modified = animation_speed
+		-- Determine if the player is sneaking, and reduce animation speed if so
 		if controls.sneak and pl:get_hp() ~= 0 and (walking or controls.LMB) then
 			animation_speed_modified = animation_speed_modified / 2
-			-- Refresh player animation below
+			-- Refresh player animation below if sneak state changed
 			if not player_sneak[name] then
-				player_anim[name] = -1
+				player_anim[name] = 0
 				player_sneak[name] = true
 			end
 		else
-			-- Refresh player animation below
+			-- Refresh player animation below if sneak state changed
 			if player_sneak[name] then
-				player_anim[name] = -1
+				player_anim[name] = 0
 				player_sneak[name] = false
 			end
 		end
 
+		-- Apply animations based on what the player is doing
 		if pl:get_hp() == 0 then
 			if player_anim[name] ~= ANIM_DEATH then
 				-- TODO: The death animation currently loops, we must make it play only once then stay at the last frame somehow
@@ -114,6 +125,6 @@ function on_step(dtime)
 		end
 	end
 end
-minetest.register_globalstep(on_step)
+minetest.register_globalstep(player_step)
 
 -- END
