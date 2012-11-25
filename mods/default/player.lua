@@ -72,7 +72,7 @@ function on_step(dtime)
 		end
 
 		local animation_speed_modified = animation_speed
-		if controls.sneak and (walking or controls.LMB) then
+		if controls.sneak and pl:get_hp() ~= 0 and (walking or controls.LMB) then
 			animation_speed_modified = animation_speed_modified / 2
 			-- Refresh player animation below
 			if not player_sneak[name] then
@@ -87,7 +87,13 @@ function on_step(dtime)
 			end
 		end
 
-		if walking and controls.LMB then
+		if pl:get_hp() == 0 then
+			if player_anim[name] ~= ANIM_DEATH then
+				-- TODO: The death animation currently loops, we must make it play only once then stay at the last frame somehow
+				pl:set_animation({x=anim.death_START, y=anim.death_END}, animation_speed_modified, animation_blend)
+				player_anim[name] = ANIM_DEATH
+			end
+		elseif walking and controls.LMB then
 			if player_anim[name] ~= ANIM_WALK_MINE then
 				pl:set_animation({x=anim.walk_mine_START, y=anim.walk_mine_END}, animation_speed_modified, animation_blend)
 				player_anim[name] = ANIM_WALK_MINE
