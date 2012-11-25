@@ -13,9 +13,17 @@ minetest.register_node("fire:basic_flame", {
 	drop = '',
 	walkable = false,
 	damage_per_second = 4,
+	
+	after_place_node = function(pos, placer)
+		fire.on_flame_add_at(pos)
+	end,
+	
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		fire.on_flame_remove_at(pos)
+	end,
 })
 
-local fire = {}
+fire = {}
 fire.D = 6
 -- key: position hash of low corner of area
 -- value: {handle=sound handle, name=sound name}
@@ -92,18 +100,6 @@ function fire.flame_should_extinguish(pos)
 	local ps = minetest.env:find_nodes_in_area(p0, p1, {"group:puts_out_fire"})
 	return (#ps ~= 0)
 end
-
-minetest.register_on_placenode(function(pos, newnode, placer)
-	if newnode.name == "fire:basic_flame" then
-		fire.on_flame_add_at(pos)
-	end
-end)
-
-minetest.register_on_dignode(function(pos, oldnode, digger)
-	if oldnode.name == "fire:basic_flame" then
-		fire.on_flame_remove_at(pos)
-	end
-end)
 
 -- Ignite neighboring nodes
 minetest.register_abm({
