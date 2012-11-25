@@ -14,7 +14,7 @@ animation_blend = 0
 
 -- Default player appearance
 default_model = "character.x"
-default_texture = "character.png"
+default_textures = {"character.png", }
 
 -- Frame ranges for each player model
 function player_get_animations(model)
@@ -57,7 +57,7 @@ function player_update_visuals(pl)
 	player_sneak[name] = false
 	prop = {
 		mesh = default_model,
-		textures = {default_texture, },
+		textures = default_textures,
 		visual = "mesh",
 		visual_size = {x=1, y=1},
 	}
@@ -74,7 +74,7 @@ function player_step(dtime)
 		local anim = player_get_animations(player_model[name])
 		local controls = pl:get_player_control()
 		local walking = false
-		local animation_speed_modified = animation_speed
+		local animation_speed_mod = animation_speed
 
 		-- Determine if the player is walking
 		if controls.up or controls.down or controls.left or controls.right then
@@ -83,7 +83,7 @@ function player_step(dtime)
 
 		-- Determine if the player is sneaking, and reduce animation speed if so
 		if controls.sneak and pl:get_hp() ~= 0 and (walking or controls.LMB) then
-			animation_speed_modified = animation_speed_modified / 2
+			animation_speed_mod = animation_speed_mod / 2
 			-- Refresh player animation below if sneak state changed
 			if not player_sneak[name] then
 				player_anim[name] = 0
@@ -101,26 +101,26 @@ function player_step(dtime)
 		if pl:get_hp() == 0 then
 			if player_anim[name] ~= ANIM_DEATH then
 				-- TODO: The death animation currently loops, we must make it play only once then stay at the last frame somehow
-				pl:set_animation({x=anim.death_START, y=anim.death_END}, animation_speed_modified, animation_blend)
+				pl:set_animation({x=anim.death_START, y=anim.death_END}, animation_speed_mod, animation_blend)
 				player_anim[name] = ANIM_DEATH
 			end
 		elseif walking and controls.LMB then
 			if player_anim[name] ~= ANIM_WALK_MINE then
-				pl:set_animation({x=anim.walk_mine_START, y=anim.walk_mine_END}, animation_speed_modified, animation_blend)
+				pl:set_animation({x=anim.walk_mine_START, y=anim.walk_mine_END}, animation_speed_mod, animation_blend)
 				player_anim[name] = ANIM_WALK_MINE
 			end
 		elseif walking then
 			if player_anim[name] ~= ANIM_WALK then
-				pl:set_animation({x=anim.walk_START, y=anim.walk_END}, animation_speed_modified, animation_blend)
+				pl:set_animation({x=anim.walk_START, y=anim.walk_END}, animation_speed_mod, animation_blend)
 				player_anim[name] = ANIM_WALK
 			end
 		elseif controls.LMB then
 			if player_anim[name] ~= ANIM_MINE then
-				pl:set_animation({x=anim.mine_START, y=anim.mine_END}, animation_speed_modified, animation_blend)
+				pl:set_animation({x=anim.mine_START, y=anim.mine_END}, animation_speed_mod, animation_blend)
 				player_anim[name] = ANIM_MINE
 			end
 		elseif player_anim[name] ~= ANIM_STAND then
-			pl:set_animation({x=anim.stand_START, y=anim.stand_END}, animation_speed_modified, animation_blend)
+			pl:set_animation({x=anim.stand_START, y=anim.stand_END}, animation_speed_mod, animation_blend)
 			player_anim[name] = ANIM_STAND
 		end
 	end
