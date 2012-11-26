@@ -248,7 +248,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			end
 		end
 		end
-		-- Generate dry shrubs
+		-- Generate grass
 		local perlin1 = minetest.env:get_perlin(329, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
 		local divlen = 16
@@ -259,11 +259,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			local z0 = minp.z + math.floor((divz+0)*divlen)
 			local x1 = minp.x + math.floor((divx+1)*divlen)
 			local z1 = minp.z + math.floor((divz+1)*divlen)
-			-- Determine dry shrubs amount from perlin noise
-			local shrub_amount = math.floor(perlin1:get2d({x=x0, y=z0}) * 5 + 0)
-			-- Find random positions for dry shrubs based on this random
+			-- Determine grass amount from perlin noise
+			local grass_amount = math.floor(perlin1:get2d({x=x0, y=z0}) * 5 + 0)
+			-- Find random positions for grass based on this random
 			local pr = PseudoRandom(seed+1)
-			for i=0,shrub_amount do
+			for i=0,grass_amount do
 				local x = pr:next(x0, x1)
 				local z = pr:next(z0, z1)
 				-- Find ground level (0...15)
@@ -274,15 +274,25 @@ minetest.register_on_generated(function(minp, maxp, seed)
 						break
 					end
 				end
-				-- If desert sand, make dry shrub
-				if ground_y and minetest.env:get_node({x=x,y=ground_y,z=z}).name == "default:desert_sand" then
+				
+				if ground_y then
 					local p = {x=x,y=ground_y+1,z=z}
 					local nn = minetest.env:get_node(p).name
+					-- Check if the node can be replaced
 					if minetest.registered_nodes[nn] and
 						minetest.registered_nodes[nn].buildable_to then
-						minetest.env:set_node(p, {name="default:dry_shrub"})
+						nn = minetest.env:get_node({x=x,y=ground_y,z=z}).name
+						-- If desert sand, make dry shrub
+						if nn == "default:desert_sand" then
+							minetest.env:set_node(p,{name="default:dry_shrub"})
+							
+						-- If grass, make junglegrass
+						elseif nn == "default:dirt_with_grass" then
+							minetest.env:set_node(p,{name="default:junglegrass"})
+						end
 					end
 				end
+				
 			end
 		end
 		end
