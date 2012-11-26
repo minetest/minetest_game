@@ -88,3 +88,8 @@ MirceaKitsune (WTFPL):
 
 Jordach (CC BY-SA 3.0):
   character.png
+
+Glass breaking sounds (CC BY 3.0):
+  1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
+  2: http://www.freesound.org/people/Tomlija/sounds/97669/
+  3: http://www.freesound.org/people/lsprice/sounds/88808/
