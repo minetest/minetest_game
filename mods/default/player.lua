@@ -22,14 +22,16 @@ function player_get_animations(model)
 		return {
 		stand_START = 0,
 		stand_END = 79,
-		walk_START = 81,
-		walk_END = 100,
-		mine_START = 102,
-		mine_END = 111,
-		walk_mine_START = 113,
-		walk_mine_END = 132,
-		death_START = 134,
-		death_END = 153
+		sit_START = 81,
+		sit_END = 160,
+		walk_START = 162,
+		walk_END = 181,
+		mine_START = 183,
+		mine_END = 192,
+		walk_mine_START = 194,
+		walk_mine_END = 213,
+		death_START = 215,
+		death_END = 234
 		}
 	end
 end
@@ -43,10 +45,11 @@ local player_model = {}
 local player_anim = {}
 local player_sneak = {}
 local ANIM_STAND = 1
-local ANIM_WALK  = 2
-local ANIM_WALK_MINE = 3
-local ANIM_MINE = 4
-local ANIM_DEATH = 5
+local ANIM_SIT = 2
+local ANIM_WALK  = 3
+local ANIM_WALK_MINE = 4
+local ANIM_MINE = 5
+local ANIM_DEATH = 6
 
 -- Called when a player's appearance needs to be updated
 function player_update_visuals(pl)
