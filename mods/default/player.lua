@@ -24,14 +24,14 @@ function player_get_animations(model)
 		stand_END = 79,
 		sit_START = 81,
 		sit_END = 160,
-		walk_START = 162,
-		walk_END = 181,
-		mine_START = 183,
-		mine_END = 192,
-		walk_mine_START = 194,
-		walk_mine_END = 213,
-		death_START = 215,
-		death_END = 234
+		lay_START = 162,
+		lay_END = 166,
+		walk_START = 168,
+		walk_END = 187,
+		mine_START = 189,
+		mine_END = 198,
+		walk_mine_START = 200,
+		walk_mine_END = 219
 		}
 	end
 end
@@ -46,10 +46,10 @@ local player_anim = {}
 local player_sneak = {}
 local ANIM_STAND = 1
 local ANIM_SIT = 2
-local ANIM_WALK  = 3
-local ANIM_WALK_MINE = 4
-local ANIM_MINE = 5
-local ANIM_DEATH = 6
+local ANIM_LAY = 3
+local ANIM_WALK  = 4
+local ANIM_WALK_MINE = 5
+local ANIM_MINE = 6
 
 -- Called when a player's appearance needs to be updated
 function player_update_visuals(pl)
@@ -102,10 +102,9 @@ function player_step(dtime)
 
 		-- Apply animations based on what the player is doing
 		if pl:get_hp() == 0 then
-			if player_anim[name] ~= ANIM_DEATH then
-				-- TODO: The death animation currently loops, we must make it play only once then stay at the last frame somehow
-				pl:set_animation({x=anim.death_START, y=anim.death_END}, animation_speed_mod, animation_blend)
-				player_anim[name] = ANIM_DEATH
+			if player_anim[name] ~= ANIM_LAY then
+				pl:set_animation({x=anim.lay_START, y=anim.lay_END}, animation_speed_mod, animation_blend)
+				player_anim[name] = ANIM_LAY
 			end
 		elseif walking and controls.LMB then
 			if player_anim[name] ~= ANIM_WALK_MINE then
