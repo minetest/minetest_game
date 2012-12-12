@@ -4,7 +4,7 @@
 stairs = {}
 
 -- Node will be called stairs:stair_<subname>
-function stairs.register_stair(subname, recipeitem, groups, images, description)
+function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
 	minetest.register_node("stairs:stair_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -13,6 +13,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description)
 		paramtype2 = "facedir",
 		is_ground_content = true,
 		groups = groups,
+		sounds = sounds,
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -43,7 +44,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description)
 end
 
 -- Node will be called stairs:slab_<subname>
-function stairs.register_slab(subname, recipeitem, groups, images, description)
+function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
 	minetest.register_node("stairs:slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -51,6 +52,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description)
 		paramtype = "light",
 		is_ground_content = true,
 		groups = groups,
+		sounds = sounds,
 		node_box = {
 			type = "fixed",
 			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
@@ -107,37 +109,42 @@ function stairs.register_slab(subname, recipeitem, groups, images, description)
 end
 
 -- Nodes will be called stairs:{stair,slab}_<subname>
-function stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab)
-	stairs.register_stair(subname, recipeitem, groups, images, desc_stair)
-	stairs.register_slab(subname, recipeitem, groups, images, desc_slab)
+function stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
+	stairs.register_stair(subname, recipeitem, groups, images, desc_stair, sounds)
+	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
 
 stairs.register_stair_and_slab("wood", "default:wood",
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2},
 		{"default_wood.png"},
 		"Wooden stair",
-		"Wooden slab")
+		"Wooden slab",
+		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("stone", "default:stone",
 		{cracky=3},
 		{"default_stone.png"},
 		"Stone stair",
-		"Stone slab")
+		"Stone slab",
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("cobble", "default:cobble",
 		{cracky=3},
 		{"default_cobble.png"},
 		"Cobble stair",
-		"Cobble slab")
+		"Cobble slab",
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("brick", "default:brick",
 		{cracky=3},
 		{"default_brick.png"},
 		"Brick stair",
-		"Brick slab")
+		"Brick slab",
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		{crumbly=2,cracky=2},
 		{"default_sandstone.png"},
 		"Sandstone stair",
-		"Sandstone slab")
+		"Sandstone slab",
+		default.node_sound_stone_defaults())
