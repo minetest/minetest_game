@@ -528,7 +528,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:mese_ingot",
+	output = "default:mese_ingot 3",
 	recipe = "default:mese_lump"
 })
 
