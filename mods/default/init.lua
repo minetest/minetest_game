@@ -259,7 +259,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:pick_mese',
 	recipe = {
-		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
+		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
 		{'', 'default:stick', ''},
 		{'', 'default:stick', ''},
 	}
@@ -473,16 +473,23 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:meseblock',
 	recipe = {
-		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
-		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
-		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
+		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
+		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
+		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
 	}
 })
 
 minetest.register_craft({
-	output = 'default:mese_ingot 9',
+	output = 'default:mese_crystal 9',
 	recipe = {
 		{'default:meseblock'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:mese_crystal_fragment 9',
+	recipe = {
+		{'default:mese_crystal'},
 	}
 })
 
@@ -524,12 +531,6 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "default:iron_lump",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:mese_ingot",
-	recipe = "default:mese_crystal"
 })
 
 minetest.register_craft({
@@ -1669,9 +1670,9 @@ minetest.register_craftitem("default:steel_ingot", {
 	inventory_image = "default_steel_ingot.png",
 })
 
-minetest.register_craftitem("default:mese_ingot", {
-	description = "Mese Ingot",
-	inventory_image = "default_mese_ingot.png",
+minetest.register_craftitem("default:mese_crystal_fragment", {
+	description = "Mese Crystal Fragment",
+	inventory_image = "default_mese_crystal_fragment.png",
 })
 
 minetest.register_craftitem("default:clay_brick", {
