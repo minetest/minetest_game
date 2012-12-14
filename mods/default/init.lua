@@ -259,7 +259,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:pick_mese',
 	recipe = {
-		{'default:mese', 'default:mese', 'default:mese'},
+		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
 		{'', 'default:stick', ''},
 		{'', 'default:stick', ''},
 	}
@@ -470,6 +470,32 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'default:meseblock',
+	recipe = {
+		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
+		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
+		{'default:mese_ingot', 'default:mese_ingot', 'default:mese_ingot'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:mese_ingot 9',
+	recipe = {
+		{'default:meseblock'},
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'default:mese',
+	recipe = {
+		'default:mese_crystal',
+		'default:stone',
+	}
+})
+
+
 --
 -- Crafting (tool repair)
 --
@@ -498,6 +524,12 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "default:iron_lump",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:mese_ingot",
+	recipe = "default:mese_crystal"
 })
 
 minetest.register_craft({
@@ -566,7 +598,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:mese",
+	recipe = "default:mese_crystal",
 	burntime = 30,
 })
 
@@ -743,6 +775,15 @@ minetest.register_node("default:stone_with_iron", {
 	groups = {cracky=3},
 	drop = 'default:iron_lump',
 	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:mese", {
+	description = "Mese Crystals in Stone",
+	tiles = {"default_stone.png^default_mese.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
+	drop = "default:mese_crystal",
+	sounds = default.node_sound_defaults(),
 })
 
 minetest.register_node("default:dirt_with_grass", {
@@ -988,14 +1029,6 @@ minetest.register_node("default:wood", {
 	is_ground_content = true,
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1},
 	sounds = default.node_sound_wood_defaults(),
-})
-
-minetest.register_node("default:mese", {
-	description = "Mese",
-	tiles = {"default_mese.png"},
-	is_ground_content = true,
-	groups = {cracky=1},
-	sounds = default.node_sound_defaults(),
 })
 
 minetest.register_node("default:cloud", {
@@ -1515,6 +1548,14 @@ minetest.register_node("default:steelblock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:meseblock", {
+	description = "Mese Block",
+	tiles = {"default_mese_block.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
+	sounds = default.node_sound_defaults(),
+})
+
 minetest.register_node("default:nyancat", {
 	description = "Nyan Cat",
 	tiles = {"default_nc_side.png", "default_nc_side.png", "default_nc_side.png",
@@ -1613,6 +1654,11 @@ minetest.register_craftitem("default:iron_lump", {
 	inventory_image = "default_iron_lump.png",
 })
 
+minetest.register_craftitem("default:mese_crystal", {
+	description = "Mese Crystal",
+	inventory_image = "default_mese_crystal.png",
+})
+
 minetest.register_craftitem("default:clay_lump", {
 	description = "Clay Lump",
 	inventory_image = "default_clay_lump.png",
@@ -1621,6 +1667,11 @@ minetest.register_craftitem("default:clay_lump", {
 minetest.register_craftitem("default:steel_ingot", {
 	description = "Steel Ingot",
 	inventory_image = "default_steel_ingot.png",
+})
+
+minetest.register_craftitem("default:mese_ingot", {
+	description = "Mese Ingot",
+	inventory_image = "default_mese_ingot.png",
 })
 
 minetest.register_craftitem("default:clay_brick", {
