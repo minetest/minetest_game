@@ -21,6 +21,43 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				{-0.5, 0, 0, 0.5, 0.5, 0.5},
 			},
 		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+			
+			local p0 = pointed_thing.under
+			local p1 = pointed_thing.above
+			if p0.y-1 == p1.y then
+				local fakestack = ItemStack("stairs:stair_" .. subname.."upside_down")
+				local ret = minetest.item_place(fakestack, placer, pointed_thing)
+				if ret:is_empty() then
+					itemstack:take_item()
+					return itemstack
+				end
+			end
+			
+			-- Otherwise place regularly
+			return minetest.item_place(itemstack, placer, pointed_thing)
+		end,
+	})
+	
+	minetest.register_node("stairs:stair_" .. subname.."upside_down", {
+		drop = "stairs:stair_" .. subname,
+		drawtype = "nodebox",
+		tiles = images,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		is_ground_content = true,
+		groups = groups,
+		sounds = sounds,
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, 0, -0.5, 0.5, 0.5, 0.5},
+				{-0.5, -0.5, 0, 0.5, 0, 0.5},
+			},
+		},
 	})
 
 	minetest.register_craft({
@@ -95,9 +132,68 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				return itemstack
 			end
 			
+			-- Upside down slabs
+			if p0.y-1 == p1.y then
+				-- Turn into full block if pointing at a existing slab
+				if n0.name == "stairs:slab_" .. subname.."upside_down" then
+					-- Remove the slab at the position of the slab
+					minetest.env:remove_node(p0)
+					-- Make a fake stack of a single item and try to place it
+					local fakestack = ItemStack(recipeitem)
+					pointed_thing.above = p0
+					fakestack = minetest.item_place(fakestack, placer, pointed_thing)
+					-- If the item was taken from the fake stack, decrement original
+					if not fakestack or fakestack:is_empty() then
+						itemstack:take_item(1)
+					-- Else put old node back
+					else
+						minetest.env:set_node(p0, n0)
+					end
+					return itemstack
+				end
+				
+				-- Place upside down slab
+				local fakestack = ItemStack("stairs:slab_" .. subname.."upside_down")
+				local ret = minetest.item_place(fakestack, placer, pointed_thing)
+				if ret:is_empty() then
+					itemstack:take_item()
+					return itemstack
+				end
+			end
+			
+			-- If pointing at the side of a upside down slab
+			if n0.name == "stairs:slab_" .. subname.."upside_down" and
+					p0.y+1 ~= p1.y then
+				-- Place upside down slab
+				local fakestack = ItemStack("stairs:slab_" .. subname.."upside_down")
+				local ret = minetest.item_place(fakestack, placer, pointed_thing)
+				if ret:is_empty() then
+					itemstack:take_item()
+					return itemstack
+				end
+			end
+			
 			-- Otherwise place regularly
 			return minetest.item_place(itemstack, placer, pointed_thing)
 		end,
+	})
+	
+	minetest.register_node("stairs:slab_" .. subname.."upside_down", {
+		drop = "stairs:slab_"..subname,
+		drawtype = "nodebox",
+		tiles = images,
+		paramtype = "light",
+		is_ground_content = true,
+		groups = groups,
+		sounds = sounds,
+		node_box = {
+			type = "fixed",
+			fixed = {-0.5, 0, -0.5, 0.5, 0.5, 0.5},
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.5, 0, -0.5, 0.5, 0.5, 0.5},
+		},
 	})
 
 	minetest.register_craft({
