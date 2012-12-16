@@ -3,9 +3,10 @@
 
 stairs = {}
 
--- Node will be called stairs:stair_<subname>
+-- Node will be called modname:stair_<subname>
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
-	minetest.register_node("stairs:stair_" .. subname, {
+	local modname = minetest.get_current_modname()
+	minetest.register_node(modname..":stair_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
 		tiles = images,
@@ -29,7 +30,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			if p0.y-1 == p1.y then
-				local fakestack = ItemStack("stairs:stair_" .. subname.."upside_down")
+				local fakestack = ItemStack(modname..":stair_" .. subname.."upside_down")
 				local ret = minetest.item_place(fakestack, placer, pointed_thing)
 				if ret:is_empty() then
 					itemstack:take_item()
@@ -42,8 +43,8 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		end,
 	})
 	
-	minetest.register_node("stairs:stair_" .. subname.."upside_down", {
-		drop = "stairs:stair_" .. subname,
+	minetest.register_node(modname..":stair_" .. subname.."upside_down", {
+		drop = modname..":stair_" .. subname,
 		drawtype = "nodebox",
 		tiles = images,
 		paramtype = "light",
@@ -61,7 +62,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	})
 
 	minetest.register_craft({
-		output = 'stairs:stair_' .. subname .. ' 4',
+		output = modname..':stair_' .. subname .. ' 4',
 		recipe = {
 			{recipeitem, "", ""},
 			{recipeitem, recipeitem, ""},
@@ -71,7 +72,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 
 	-- Flipped recipe for the silly minecrafters
 	minetest.register_craft({
-		output = 'stairs:stair_' .. subname .. ' 4',
+		output = modname..':stair_' .. subname .. ' 4',
 		recipe = {
 			{"", "", recipeitem},
 			{"", recipeitem, recipeitem},
@@ -80,9 +81,10 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	})
 end
 
--- Node will be called stairs:slab_<subname>
+-- Node will be called modname:slab_<subname>
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
-	minetest.register_node("stairs:slab_" .. subname, {
+	local modname = minetest.get_current_modname()
+	minetest.register_node(modname..":slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
 		tiles = images,
@@ -110,7 +112,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local n0 = minetest.env:get_node(p0)
-			if n0.name == "stairs:slab_" .. subname and
+			if n0.name == modname..":slab_" .. subname and
 					p0.y+1 == p1.y then
 				slabpos = p0
 				slabnode = n0
@@ -135,7 +137,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			-- Upside down slabs
 			if p0.y-1 == p1.y then
 				-- Turn into full block if pointing at a existing slab
-				if n0.name == "stairs:slab_" .. subname.."upside_down" then
+				if n0.name == modname..":slab_" .. subname.."upside_down" then
 					-- Remove the slab at the position of the slab
 					minetest.env:remove_node(p0)
 					-- Make a fake stack of a single item and try to place it
@@ -153,7 +155,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				end
 				
 				-- Place upside down slab
-				local fakestack = ItemStack("stairs:slab_" .. subname.."upside_down")
+				local fakestack = ItemStack(modname..":slab_" .. subname.."upside_down")
 				local ret = minetest.item_place(fakestack, placer, pointed_thing)
 				if ret:is_empty() then
 					itemstack:take_item()
@@ -162,10 +164,10 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			end
 			
 			-- If pointing at the side of a upside down slab
-			if n0.name == "stairs:slab_" .. subname.."upside_down" and
+			if n0.name == modname..":slab_" .. subname.."upside_down" and
 					p0.y+1 ~= p1.y then
 				-- Place upside down slab
-				local fakestack = ItemStack("stairs:slab_" .. subname.."upside_down")
+				local fakestack = ItemStack(modname..":slab_" .. subname.."upside_down")
 				local ret = minetest.item_place(fakestack, placer, pointed_thing)
 				if ret:is_empty() then
 					itemstack:take_item()
@@ -178,8 +180,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		end,
 	})
 	
-	minetest.register_node("stairs:slab_" .. subname.."upside_down", {
-		drop = "stairs:slab_"..subname,
+	minetest.register_node(modname..":slab_" .. subname.."upside_down", {
+		drop = modname..":slab_"..subname,
 		drawtype = "nodebox",
 		tiles = images,
 		paramtype = "light",
@@ -197,14 +199,14 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 	})
 
 	minetest.register_craft({
-		output = 'stairs:slab_' .. subname .. ' 3',
+		output = modname..':slab_' .. subname .. ' 3',
 		recipe = {
 			{recipeitem, recipeitem, recipeitem},
 		},
 	})
 end
 
--- Nodes will be called stairs:{stair,slab}_<subname>
+-- Nodes will be called modname:{stair,slab}_<subname>
 function stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
 	stairs.register_stair(subname, recipeitem, groups, images, desc_stair, sounds)
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
