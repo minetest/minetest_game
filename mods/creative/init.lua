@@ -1,7 +1,26 @@
 -- minetest/creative/init.lua
 
+local node_to_inv = {}
+local inventory_slotter = {}
+local creative_inventory = {}
 local creative_inventory = {}
 creative_inventory.creative_inventory_size = 0
+
+--this creates infinite items
+minetest.register_on_placenode(function(pos, newnode, placer, oldnode)
+	node_to_inv[placer:get_player_name()] = newnode.name
+	inventory_slotter[placer:get_player_name()] = placer:get_wield_index()
+end)
+minetest.register_globalstep(function(dtime)
+	for k,player in ipairs(minetest.get_connected_players()) do
+		if node_to_inv[player:get_player_name()] ~= nil then
+			local inv = player:get_inventory()
+			inv:set_stack("main", inventory_slotter[player:get_player_name()], node_to_inv[player:get_player_name()])
+			node_to_inv[player:get_player_name()] = nil
+			inventory_slotter[player:get_player_name()] = nil
+		end
+	end
+end)
 
 -- Create detached creative inventory after loading all mods
 minetest.after(0, function()
