@@ -21,6 +21,13 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				{-0.5, 0, 0, 0.5, 0.5, 0.5},
 			},
 		},
+		selection_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0.5, 0.5, 0.5},
+			},
+		},
 		on_place = function(itemstack, placer, pointed_thing)
 			if pointed_thing.type ~= "node" then
 				return itemstack
@@ -52,6 +59,13 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		groups = groups,
 		sounds = sounds,
 		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, 0, -0.5, 0.5, 0.5, 0.5},
+				{-0.5, -0.5, 0, 0.5, 0, 0.5},
+			},
+		},
+		selection_box = {
 			type = "fixed",
 			fixed = {
 				{-0.5, 0, -0.5, 0.5, 0.5, 0.5},
