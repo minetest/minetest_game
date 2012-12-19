@@ -86,6 +86,7 @@ minetest.register_abm({
 			end
 			-- Remove node
 			minetest.env:remove_node(p0)
+			nodeupdate(p0)
 		end
 	end
 })
