@@ -178,6 +178,7 @@ minetest.register_abm({
 					return
 				end
 				minetest.env:remove_node(p)
+				nodeupdate(p)
 			end
 		else
 			-- remove flame
