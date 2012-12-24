@@ -487,7 +487,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:mese_block',
+	output = 'default:mese',
 	recipe = {
 		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
 		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
@@ -498,14 +498,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:mese_crystal 9',
 	recipe = {
-		{'default:mese_block'},
-	}
-})
-
-minetest.register_craft({
-	output = 'default:mese_crystal_fragment 9',
-	recipe = {
-		{'default:mese_crystal'},
+		{'default:mese'},
 	}
 })
 
@@ -794,12 +787,20 @@ minetest.register_node("default:stone_with_iron", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:mese", {
-	description = "Mese Crystals in Stone",
+minetest.register_node("default:stone_with_mese", {
+	description = "Mese Ore",
 	tiles = {"default_stone.png^default_mineral_mese.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky = 3},
 	drop = "default:mese_crystal",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:mese", {
+	description = "Mese Block",
+	tiles = {"default_mese_block.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1565,7 +1566,7 @@ minetest.register_node("default:steelblock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:mese_block", {
+minetest.register_node("default:mese_block", { -- Here to ensure it does not go wrong, feel free to remove this at anytime.
 	description = "Mese Block",
 	tiles = {"default_mese_block.png"},
 	is_ground_content = true,
@@ -1701,6 +1702,8 @@ minetest.register_craftitem("default:scorched_stuff", {
 	description = "Scorched Stuff",
 	inventory_image = "default_scorched_stuff.png",
 })
+
+minetest.register_alias("default:mese_block", "default:mese") --Convert default:mese_blocks from the older stuff to the newer way
 
 -- Support old code
 function default.spawn_falling_node(p, nodename)
