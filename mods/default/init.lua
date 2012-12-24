@@ -509,6 +509,7 @@ minetest.register_craft({
 	}
 })
 
+--[[
 minetest.register_craft({
 	type = "shapeless",
 	output = 'default:mese',
@@ -517,7 +518,7 @@ minetest.register_craft({
 		'default:stone',
 	}
 })
-
+]]--
 
 --
 -- Crafting (tool repair)
