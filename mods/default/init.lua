@@ -1046,6 +1046,7 @@ minetest.register_node("default:wood", {
 	is_ground_content = true,
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1},
 	sounds = default.node_sound_wood_defaults(),
+	paramtype2 = "facedir",
 })
 
 minetest.register_node("default:cloud", {
