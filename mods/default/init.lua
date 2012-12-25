@@ -518,7 +518,6 @@ minetest.register_craft({
 	}
 })
 
-
 --
 -- Crafting (tool repair)
 --
@@ -795,6 +794,14 @@ minetest.register_node("default:stone_with_iron", {
 })
 
 minetest.register_node("default:mese", {
+	description = "Mese (Old)",
+	tiles = {"default_mese.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:stone_with_mese", {
 	description = "Mese Crystals in Stone",
 	tiles = {"default_stone.png^default_mineral_mese.png"},
 	is_ground_content = true,
@@ -802,6 +809,8 @@ minetest.register_node("default:mese", {
 	drop = "default:mese_crystal",
 	sounds = default.node_sound_stone_defaults(),
 })
+
+minetest.register_alias("default:mese", "default:mese_block")
 
 minetest.register_node("default:dirt_with_grass", {
 	description = "Dirt with Grass",
