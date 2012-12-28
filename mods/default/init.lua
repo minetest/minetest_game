@@ -895,6 +895,7 @@ minetest.register_node("default:junglegrass", {
 	wield_image = "default_junglegrass.png",
 	paramtype = "light",
 	walkable = false,
+	sunlight_propagates = true,
 	groups = {snappy=3,flammable=2,attached_node=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
@@ -941,6 +942,7 @@ minetest.register_node("default:papyrus", {
 	paramtype = "light",
 	is_ground_content = true,
 	walkable = false,
+	sunlight_propagates = true,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.5, 0.3}
@@ -977,6 +979,7 @@ minetest.register_node("default:fence_wood", {
 	wield_image = "default_fence.png",
 	paramtype = "light",
 	is_ground_content = true,
+	sunlight_propagates = true,
 	selection_box = {
 		type = "fixed",
 		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
@@ -994,6 +997,7 @@ minetest.register_node("default:rail", {
 	paramtype = "light",
 	is_ground_content = true,
 	walkable = false,
+	sunlight_propagates = true,
 	selection_box = {
 		type = "fixed",
                 -- but how to specify the dimensions for curved and sideways rails?
@@ -1013,6 +1017,7 @@ minetest.register_node("default:ladder", {
 	is_ground_content = true,
 	walkable = false,
 	climbable = true,
+	sunlight_propagates = true,
 	selection_box = {
 		type = "wallmounted",
 		--wall_top = = <default>
@@ -1119,6 +1124,7 @@ minetest.register_node("default:lava_flowing", {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	sunlight_propagates = true,
 	liquidtype = "flowing",
 	liquid_alternative_flowing = "default:lava_flowing",
 	liquid_alternative_source = "default:lava_source",
@@ -1145,6 +1151,7 @@ minetest.register_node("default:lava_source", {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	sunlight_propagates = true,
 	liquidtype = "source",
 	liquid_alternative_flowing = "default:lava_flowing",
 	liquid_alternative_source = "default:lava_source",
@@ -1584,6 +1591,7 @@ minetest.register_node("default:sapling", {
 	wield_image = "default_sapling.png",
 	paramtype = "light",
 	walkable = false,
+	sunlight_propagates = true,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -1619,6 +1627,7 @@ minetest.register_node("default:dry_shrub", {
 	wield_image = "default_dry_shrub.png",
 	paramtype = "light",
 	walkable = false,
+	sunlight_propagates = true,
 	groups = {snappy=3,flammable=3,attached_node=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
