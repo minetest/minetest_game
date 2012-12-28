@@ -9,6 +9,7 @@ local wool = {}
 -- colors, and then some recipes using more specific colors for a few non-base
 -- colors available. When crafting, the last recipes will be checked first.
 wool.dyes = {
+	{"plain",      "Plain",      nil},
 	{"white",      "White",      nil},
 	{"grey",       "Grey",       "basecolor_grey"},
 	{"black",      "Black",      "basecolor_black"},
@@ -46,3 +47,16 @@ for _, row in ipairs(wool.dyes) do
 	end
 end
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "wool:white",
+	recipe = {'dye:white', 'wool:plain'},
+})
+minetest.register_craft({ --Suggested by jojoa1997
+	output = 'wool:plain 16',
+	recipe = {
+		{'default:leaves', 'default:papyrus', 'default:leaves'},
+		{'default:papyrus', 'default:stick', 'default:papyrus'},
+		{'default:leaves', 'default:papyrus', 'default:leaves'},
+	}
+})
