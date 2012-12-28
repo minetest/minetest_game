@@ -146,8 +146,10 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+1, 1/12/12/12, 2, 3,    -15,   2)
 	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+2, 1/9/9/9,    3, 5,    -63, -16)
 	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+3, 1/7/7/7,    3, 5, -31000, -64)
-	generate_ore("default:mese",            "default:stone", minp, maxp, seed+4, 1/16/16/16, 2, 3,   -127, -64)
-	generate_ore("default:mese",            "default:stone", minp, maxp, seed+5, 1/9/9/9,    3, 5, -31000,-128)
+	
+	generate_ore("default:stone_with_mese", "default:stone", minp, maxp, seed+4, 1/16/16/16, 2, 3,   -127,  -64)
+	generate_ore("default:stone_with_mese", "default:stone", minp, maxp, seed+5, 1/9/9/9,    3, 5, -31000, -128)
+	generate_ore("default:mese",            "default:stone", minp, maxp, seed+8, 1/16/16/16, 2, 3, -31000,-1024)
 	
 	generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed+7, 1/24/24/24, 6,27, -31000,  0)
 	generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+6, 1/24/24/24, 6,27, -31000, -64)

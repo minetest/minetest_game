@@ -487,7 +487,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:mese_block',
+	output = 'default:mese',
 	recipe = {
 		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
 		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
@@ -498,7 +498,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:mese_crystal 9',
 	recipe = {
-		{'default:mese_block'},
+		{'default:mese'},
 	}
 })
 
@@ -508,16 +508,6 @@ minetest.register_craft({
 		{'default:mese_crystal'},
 	}
 })
-
-minetest.register_craft({
-	type = "shapeless",
-	output = 'default:mese',
-	recipe = {
-		'default:mese_crystal',
-		'default:stone',
-	}
-})
-
 
 --
 -- Crafting (tool repair)
@@ -611,12 +601,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "group:wood",
 	burntime = 7,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:mese_crystal",
-	burntime = 30,
 })
 
 minetest.register_craft({
@@ -794,7 +778,7 @@ minetest.register_node("default:stone_with_iron", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:mese", {
+minetest.register_node("default:stone_with_mese", {
 	description = "Mese Crystals in Stone",
 	tiles = {"default_stone.png^default_mineral_mese.png"},
 	is_ground_content = true,
@@ -1565,13 +1549,14 @@ minetest.register_node("default:steelblock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:mese_block", {
+minetest.register_node("default:mese", {
 	description = "Mese Block",
 	tiles = {"default_mese_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
 	sounds = default.node_sound_stone_defaults(),
 })
+minetest.register_alias("default:mese_block", "default:mese")
 
 minetest.register_node("default:nyancat", {
 	description = "Nyan Cat",
