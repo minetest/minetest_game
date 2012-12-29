@@ -60,3 +60,11 @@ minetest.register_craft({ --Suggested by jojoa1997
 		{'default:leaves', 'default:papyrus', 'default:leaves'},
 	}
 })
+minetest.register_craft({ --for the more poor minetest players
+	output = 'wool:plain 8',
+	recipe = {
+		{'default:leaves', 'default:dry_shrub', 'default:leaves'},
+		{'default:dry_shrub', 'default:stick', 'default:dry_shrub'},
+		{'default:leaves', 'default:dry_shrub', 'default:leaves'},
+	}
+})
