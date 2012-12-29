@@ -133,33 +133,34 @@ dyelocal = nil
 
 -- EOF
 
---Dye Smelting Recipes
+--Dye Base Crafting Recipes
+
 
 minetest.register_craft({
-	type = "cooking",
-	output = "dye:red 4",
-	recipe = "default:apple",
+	type = "shapeless",
+	output = "dye:black",
+	recipe = {"vessels:glass_bottle_full", "default:coal_lump"},
 })
 
 minetest.register_craft({
-	type = "cooking",
-	output = "dye:black 4",
-	recipe = "default:coal_lump",
+	type = "shapeless",
+	output = "dye:blue",
+	recipe = {"vessels:glass_bottle_full", "default:cactus"},
 })
 minetest.register_craft({
-	type = "cooking",
-	output = "dye:blue 8",
-	recipe = "default:cactus",
+	type = "shapeless",
+	output = "dye:red",
+	recipe = {"vessels:glass_bottle_full", "default:apple"},
 })
 minetest.register_craft({
-	type = "cooking",
-	output = "dye:yellow 4",
-	recipe = "default:mese_crystal",
+	type = "shapeless",
+	output = "dye:yellow",
+	recipe = {"vessels:glass_bottle_full", "default:mese_crystal_fragment"},
 })
 minetest.register_craft({
-	type = "cooking",
-	output = "dye:white 5",
-	recipe = "default:stone",
+	type = "shapeless",
+	output = "dye:white",
+	recipe = {"vessels:glass_bottle_full", "default:stone"},
 })
 --Dye Crafting Recipes
 minetest.register_craft({

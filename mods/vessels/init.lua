@@ -8,6 +8,13 @@ minetest.register_craftitem("vessels:glass_bottle", {
 	groups = {vessel=1},
 })
 
+minetest.register_craftitem("vessels:glass_bottle_full", {
+	description = "Glass Bottle Full",
+	inventory_image = "vessels_water_bottle.png",
+	wield_image = "vessels_water_bottle.png",
+	groups = {vessel=1},
+})
+
 minetest.register_craft( {
 	output = "vessels:glass_bottle 10",
 	recipe = {
@@ -48,7 +55,16 @@ minetest.register_craft( {
 		{ "", "default:steel_ingot", "" }
 	}
 })
-
+--Fill with water
+minetest.register_craft( {
+	type = "shapeless",
+	output = "vessels:glass_bottle_full",
+	recipe = {
+		"bucket:bucket_water",
+		"vessels:glass_bottle",
+	},
+	replacements = { {"bucket:bucket_water", "bucket:bucket_empty"},  },
+})
 
 -- Make sure we can recycle them
 
