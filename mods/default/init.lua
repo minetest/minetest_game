@@ -1281,10 +1281,6 @@ minetest.register_node("default:chest_locked", {
 	end,
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
-		meta:set_string("formspec",
-				"size[8,9]"..
-				"list[current_name;main;0,0;8,4;]"..
-				"list[current_player;main;0,5;8,4;]")
 		meta:set_string("infotext", "Locked Chest")
 		meta:set_string("owner", "")
 		local inv = meta:get_inventory()
@@ -1339,6 +1335,16 @@ minetest.register_node("default:chest_locked", {
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
+	end,
+	on_rightclick = function(pos, node, clicker)
+		local meta = minetest.env:get_meta(pos)
+		if has_locked_chest_privilege(meta, clicker) then
+			local pos = pos.x .. "," .. pos.y .. "," ..pos.z
+			minetest.show_formspec(clicker:get_player_name(),
+				"size[8,9]"..
+				"list[nodemeta:".. pos .. ";main;0,0;8,4;]"..
+				"list[current_player;main;0,5;8,4;]")
+		end
 	end,
 })
 
