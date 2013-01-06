@@ -1632,9 +1632,10 @@ minetest.register_abm({
 
 		local srclist = inv:get_list("src")
 		local cooked = nil
+		local aftercooked
 		
 		if srclist then
-			cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+			cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
 		end
 		
 		local was_active = false
@@ -1649,9 +1650,7 @@ minetest.register_abm({
 					-- Put result in "dst" list
 					inv:add_item("dst", cooked.item)
 					-- take stuff from "src" list
-					srcstack = inv:get_stack("src", 1)
-					srcstack:take_item()
-					inv:set_stack("src", 1, srcstack)
+					inv:set_stack("src", 1, aftercooked.items[1])
 				else
 					print("Could not insert '"..cooked.item:to_string().."'")
 				end
@@ -1676,6 +1675,7 @@ minetest.register_abm({
 		end
 
 		local fuel = nil
+		local afterfuel
 		local cooked = nil
 		local fuellist = inv:get_list("fuel")
 		local srclist = inv:get_list("src")
@@ -1684,7 +1684,7 @@ minetest.register_abm({
 			cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
 		end
 		if fuellist then
-			fuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+			fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
 		end
 
 		if fuel.time <= 0 then
@@ -1706,9 +1706,7 @@ minetest.register_abm({
 		meta:set_string("fuel_totaltime", fuel.time)
 		meta:set_string("fuel_time", 0)
 		
-		local stack = inv:get_stack("fuel", 1)
-		stack:take_item()
-		inv:set_stack("fuel", 1, stack)
+		inv:set_stack("fuel", 1, afterfuel.items[1])
 	end,
 })
 
