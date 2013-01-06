@@ -13,12 +13,12 @@ animation_speed = 30
 animation_blend = 0
 
 -- Default player appearance
-default_model = "character.x"
+default_model = "character.b3d"
 default_textures = {"character.png", }
 
 -- Frame ranges for each player model
 function player_get_animations(model)
-	if model == "character.x" then
+	if model == "character.b3d" then
 		return {
 		stand_START = 0,
 		stand_END = 79,

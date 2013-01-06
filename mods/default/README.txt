@@ -84,7 +84,7 @@ Calinou's improved default textures (CC BY-SA):
   default_tool_steelsword.png
 
 MirceaKitsune (WTFPL):
-  character.x
+  character.b3d
 
 Jordach (CC BY-SA 3.0):
   character.png
