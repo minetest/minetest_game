@@ -1340,7 +1340,7 @@ minetest.register_node("default:chest_locked", {
 		local meta = minetest.env:get_meta(pos)
 		if has_locked_chest_privilege(meta, clicker) then
 			local pos = pos.x .. "," .. pos.y .. "," ..pos.z
-			minetest.show_formspec(clicker:get_player_name(),
+			minetest.show_formspec(clicker:get_player_name(), "default:chest_locked",
 				"size[8,9]"..
 				"list[nodemeta:".. pos .. ";main;0,0;8,4;]"..
 				"list[current_player;main;0,5;8,4;]")
