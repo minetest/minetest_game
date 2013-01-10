@@ -1491,6 +1491,33 @@ minetest.register_node("default:furnace", {
 		end
 		return true
 	end,
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if listname == "fuel" then
+			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+				return stack:get_count()
+			else
+				return 0
+			end
+		elseif listname == "src" then
+			return stack:get_count()
+		elseif listname == "dst" then
+			return 0
+		end
+	end,
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local stack = ItemStack(minetest.env:get_meta(pos):get_inventory():get_stack(from_list, from_index))
+		if to_list == "fuel" then
+			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+				return count
+			else
+				return 0
+			end
+		elseif to_list == "src" then
+			return count
+		elseif to_list == "dst" then
+			return 0
+		end
+	end,
 })
 
 minetest.register_node("default:furnace_active", {
@@ -1523,6 +1550,33 @@ minetest.register_node("default:furnace_active", {
 			return false
 		end
 		return true
+	end,
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if listname == "fuel" then
+			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+				return stack:get_count()
+			else
+				return 0
+			end
+		elseif listname == "src" then
+			return stack:get_count()
+		elseif listname == "dst" then
+			return 0
+		end
+	end,
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local stack = ItemStack(minetest.env:get_meta(pos):get_inventory():get_stack(from_list, from_index))
+		if to_list == "fuel" then
+			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+				return count
+			else
+				return 0
+			end
+		elseif to_list == "src" then
+			return count
+		elseif to_list == "dst" then
+			return 0
+		end
 	end,
 })
 
