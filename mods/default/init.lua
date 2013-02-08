@@ -1688,7 +1688,6 @@ minetest.register_craftitem("default:mese_crystal_fragment", {
 
 minetest.register_craftitem("default:clay_brick", {
 	description = "Clay Brick",
-	inventory_image = "default_steel_ingot.png",
 	inventory_image = "default_clay_brick.png",
 })
 
