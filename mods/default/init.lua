@@ -1077,7 +1077,9 @@ minetest.register_node("default:water_source", {
 	inventory_image = minetest.inventorycube("default_water.png"),
 	drawtype = "liquid",
 	tiles = {
-		{name="default_water_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}
+		{name="default_water_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}},
+		{name="default_water_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}},
+		{name="default_water_flowing_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=0.8}},
 	},
 	special_tiles = {
 		-- New-style water source material (mostly unused)
@@ -1136,7 +1138,9 @@ minetest.register_node("default:lava_source", {
 	inventory_image = minetest.inventorycube("default_lava.png"),
 	drawtype = "liquid",
 	tiles = {
-		{name="default_lava_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}}
+		{name="default_lava_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}},
+		{name="default_lava_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}},
+		{name="default_lava_flowing_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.3}}
 	},
 	special_tiles = {
 		-- New-style lava source material (mostly unused)
