@@ -1146,7 +1146,11 @@ minetest.register_node("default:water_source", {
 	},
 	special_tiles = {
 		-- New-style water source material (mostly unused)
-		{name="default_water.png", backface_culling=false},
+		{
+			name="default_water_source_animated.png",
+			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0},
+			backface_culling = false,
+		}
 	},
 	alpha = WATER_ALPHA,
 	paramtype = "light",
@@ -1205,7 +1209,11 @@ minetest.register_node("default:lava_source", {
 	},
 	special_tiles = {
 		-- New-style lava source material (mostly unused)
-		{name="default_lava.png", backface_culling=false},
+		{
+			name="default_lava_source_animated.png",
+			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0},
+			backface_culling = false,
+		}
 	},
 	paramtype = "light",
 	light_source = LIGHT_MAX - 1,
