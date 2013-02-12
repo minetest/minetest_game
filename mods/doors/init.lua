@@ -258,9 +258,9 @@ doors:register_door("doors:door_wood", {
 minetest.register_craft({
 	output = "doors:door_wood",
 	recipe = {
-		{"default:wood", "default:wood"},
-		{"default:wood", "default:wood"},
-		{"default:wood", "default:wood"}
+		{"group:wood", "group:wood"},
+		{"group:wood", "group:wood"},
+		{"group:wood", "group:wood"}
 	}
 })
 
