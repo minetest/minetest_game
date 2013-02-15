@@ -1019,7 +1019,7 @@ minetest.register_node("default:ladder", {
 		--wall_bottom = = <default>
 		--wall_side = = <default>
 	},
-	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=3,flammable=2},
+	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=3,flammable=2,attached_node=1},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_wood_defaults(),
 })
