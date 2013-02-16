@@ -390,6 +390,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "shapeless",
+	output = 'default:chest_locked',
+	recipe = {
+		'default:chest',
+		'default:steel_ingot',
+	}
+})
+
+minetest.register_craft({
 	output = 'default:furnace',
 	recipe = {
 		{'group:stone', 'group:stone', 'group:stone'},
