@@ -260,7 +260,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			local x1 = minp.x + math.floor((divx+1)*divlen)
 			local z1 = minp.z + math.floor((divz+1)*divlen)
 			-- Determine grass amount from perlin noise
-			local grass_amount = math.floor(perlin1:get2d({x=x0, y=z0}) * 5 + 0)
+			local grass_amount = math.floor(perlin1:get2d({x=x0, y=z0}) ^ 3 * 9)
 			-- Find random positions for grass based on this random
 			local pr = PseudoRandom(seed+1)
 			for i=0,grass_amount do
