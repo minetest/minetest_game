@@ -945,7 +945,7 @@ minetest.register_node("default:papyrus", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.5, 0.3}
 	},
-	groups = {snappy=3,flammable=2},
+	groups = {snappy=3,flammable=2,plant_falling=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -1695,6 +1695,24 @@ minetest.register_craftitem("default:scorched_stuff", {
 	description = "Scorched Stuff",
 	inventory_image = "default_scorched_stuff.png",
 })
+
+-- Nodes in the group plant_falling drop themselves if the node below is removed
+minetest.register_on_dignode(function(pos, node)
+	local np = {x = pos.x, y = pos.y + 1, z = pos.z}
+	local nn = minetest.env:get_node(np)
+	while minetest.get_item_group(nn.name, "plant_falling") > 0 do
+		minetest.env:remove_node(np)
+		local itempos = {
+			x = np.x + math.random(60)/60-0.3,
+			y = np.y + math.random(60)/60-0.3,
+			z = np.z + math.random(60)/60-0.3
+		}
+		minetest.env:add_item(itempos, nn.name)
+		np = {x = np.x, y = np.y + 1, z = np.z}
+		nn = minetest.env:get_node(np)
+	end
+end)
+
 
 -- Support old code
 function default.spawn_falling_node(p, nodename)
