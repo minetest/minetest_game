@@ -29,7 +29,7 @@ minetest.register_alias("mapgen_desert_stone", "default:desert_stone")
 -- Ore generation
 --
 
-function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, chunk_size, ore_per_chunk, height_min, height_max)
+function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, chunk_size, ore_per_chunk, height_min, height_max, param2)
 	if maxp.y < height_min or minp.y > height_max then
 		return
 	end
@@ -55,7 +55,7 @@ function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume
 					local z2 = z0+z1
 					local p2 = {x=x2, y=y2, z=z2}
 					if minetest.env:get_node(p2).name == wherein then
-						minetest.env:set_node(p2, {name=name})
+						minetest.env:set_node(p2, {name=name, param2=param2})
 					end
 				end
 			end
@@ -153,6 +153,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	
 	default.generate_ore("default:stone_with_coal", "default:stone", minp, maxp, seed+7, 1/24/24/24, 6,27, -31000,  0)
 	default.generate_ore("default:stone_with_iron", "default:stone", minp, maxp, seed+6, 1/24/24/24, 6,27, -31000, -64)
+
+	-- Generate water and lava underground springs, param2=128 -> infinity source
+	if minetest.setting_getbool("underground_springs") then
+		default.generate_ore("default:water_source", "default:stone", minp, maxp, seed+7, 1/24/24/24,  4, 12, -100,   -11,   128)
+		default.generate_ore("default:water_source", "default:stone", minp, maxp, seed+8, 1/28/28/28,  3, 8,  -10000, -101,  128)
+		default.generate_ore("default:lava_source",  "default:stone", minp, maxp, seed+9, 1/38/38/38,  3, 6,  -500,   -101,  128)
+		default.generate_ore("default:lava_source",  "default:stone", minp, maxp, seed+10, 1/30/30/30, 4, 16, -5000,  -501,  128)
+		default.generate_ore("default:lava_source",  "default:stone", minp, maxp, seed+11, 1/24/24/24, 4, 20, -31000, -5001, 128)
+	end
 
 	if maxp.y >= 2 and minp.y <= 0 then
 		-- Generate clay
