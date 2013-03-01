@@ -41,6 +41,13 @@ function doors:register_door(name, def)
 			if not pointed_thing.type == "node" then
 				return itemstack
 			end
+			
+			local ptu = pointed_thing.under
+			local nu = minetest.env:get_node(ptu)
+			if minetest.registered_nodes[nu.name].on_rightclick then
+				return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+			end
+			
 			local pt = pointed_thing.above
 			local pt2 = {x=pt.x, y=pt.y, z=pt.z}
 			pt2.y = pt2.y+1
