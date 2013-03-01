@@ -41,6 +41,10 @@ function doors:register_door(name, def)
 			if not pointed_thing.type == "node" then
 				return itemstack
 			end
+			if minetest.registered_nodes[nn] and minetest.registered_nodes[nn].on_rightclick then
+				minetest.registered_nodes[nn].on_rightclick(pointed_thing.under, n, placer)
+				return
+			end
 			local pt = pointed_thing.above
 			local pt2 = {x=pt.x, y=pt.y, z=pt.z}
 			pt2.y = pt2.y+1
