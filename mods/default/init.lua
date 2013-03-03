@@ -133,7 +133,7 @@ minetest.register_tool("default:axe_wood", {
 		full_punch_interval = 1.0,
 		max_drop_level=0,
 		groupcaps={
-			choppy = {times={[2]=1.40, [3]=0.80}, uses=10, maxlevel=1},
+			choppy = {times={[2]=1.60, [3]=1.20}, uses=10, maxlevel=1},
 			fleshy = {times={[2]=0.70, [3]=0.50}, uses=5, maxlevel=1}
 		}
 	},
@@ -145,7 +145,7 @@ minetest.register_tool("default:axe_stone", {
 		full_punch_interval = 1.2,
 		max_drop_level=0,
 		groupcaps={
-			choppy={times={[1]=3.00, [2]=1.00, [3]=0.60}, uses=20, maxlevel=1},
+			choppy={times={[1]=3.00, [2]=1.40, [3]=1.00}, uses=20, maxlevel=1},
 			fleshy={times={[2]=0.60, [3]=0.40}, uses=15, maxlevel=1}
 		}
 	},
@@ -157,7 +157,7 @@ minetest.register_tool("default:axe_steel", {
 		full_punch_interval = 0.9,
 		max_drop_level=1,
 		groupcaps={
-			choppy={times={[1]=3.00, [2]=1.60, [3]=1.00}, uses=30, maxlevel=2},
+			choppy={times={[1]=2.60, [2]=1.00, [3]=0.60}, uses=30, maxlevel=2},
 			fleshy={times={[2]=0.40, [3]=0.25}, uses=25, maxlevel=1}
 		}
 	},
