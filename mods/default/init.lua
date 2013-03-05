@@ -1696,6 +1696,16 @@ minetest.register_craftitem("default:scorched_stuff", {
 	inventory_image = "default_scorched_stuff.png",
 })
 
+minetest.register_abm({
+	nodenames = {"default:lava_flowing"},
+	neighbors = {"default:water_source"},
+	interval = 2,
+	chance = 1,
+	action = function(pos)
+		minetest.env:add_node(pos, {name="default:stone"})
+	end,
+})
+
 -- Support old code
 function default.spawn_falling_node(p, nodename)
 	spawn_falling_node(p, nodename)
