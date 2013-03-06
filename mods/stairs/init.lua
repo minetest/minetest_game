@@ -211,7 +211,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 	})
 
 	minetest.register_craft({
-		output = 'stairs:slab_' .. subname .. ' 3',
+		output = 'stairs:slab_' .. subname .. ' 6',
 		recipe = {
 			{recipeitem, recipeitem, recipeitem},
 		},
