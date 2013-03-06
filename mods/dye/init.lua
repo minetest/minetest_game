@@ -132,3 +132,92 @@ end
 dyelocal = nil
 
 -- EOF
+
+--Dye Smelting Recipes
+
+minetest.register_craft({
+	type = "cooking",
+	output = "dye:red 4",
+	recipe = "default:apple",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "dye:black 4",
+	recipe = "default:coal_lump",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "dye:blue 8",
+	recipe = "default:cactus",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "dye:yellow 4",
+	recipe = "default:mese_crystal_fragment",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "dye:white 5",
+	recipe = "default:stone",
+})
+--Dye Crafting Recipes
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:green",
+	recipe = {'dye:blue', 'dye:yellow'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:orange 2",
+	recipe = {'dye:red', 'dye:yellow'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:pink 2",
+	recipe = {'dye:red', 'dye:white'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:cyan 2",
+	recipe = {'dye:blue', 'dye:green'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:brown 2",
+	recipe = {'dye:black', 'dye:orange'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:dark_green 2",
+	recipe = {'dye:green', 'dye:black'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:violet 2",
+	recipe = {'dye:blue', 'dye:red'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:magenta 2",
+	recipe = {'dye:red', 'dye:violet'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:dark_grey 3",
+	recipe = {'dye:black', 'dye:black', 'dye:white'},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:grey 2",
+	recipe = {'dye:black', 'dye:white'},
+})
