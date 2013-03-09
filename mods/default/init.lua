@@ -509,6 +509,30 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'default:gravel 4',
+	recipe = {
+		{'default:cobble'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:dirt 4',
+	recipe = {
+		{'default:gravel'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:sapling',
+	recipe = {
+		{'default:leaves', 'default:leaves', 'default:leaves'},
+		{'default:leaves', 'default:leaves', 'default:leaves'},
+		{'', 'default:stick', ''},
+	}
+})
+
+
 --
 -- Crafting (tool repair)
 --
