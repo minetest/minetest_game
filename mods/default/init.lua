@@ -1736,4 +1736,32 @@ function on_punchnode(p, node)
 end
 minetest.register_on_punchnode(on_punchnode)
 
+--
+-- Lavacooling
+--
+
+default.cool_lava_source = function(pos)
+	minetest.env:set_node(pos, {name="default:stone"})
+end
+
+default.cool_lava_flowing = function(pos)
+	minetest.env:set_node(pos, {name="default:cobble"})
+end
+
+minetest.register_abm({
+	nodenames = {"default:lava_flowing"},
+	neighbors = {"group:water"},
+	interval = 1,
+	chance = 1,
+	action = default.cool_lava_flowing,
+})
+
+minetest.register_abm({
+	nodenames = {"default:lava_source"},
+	neighbors = {"group:water"},
+	interval = 1,
+	chance = 1,
+	action = default.cool_lava_source,
+})
+
 -- END
