@@ -390,6 +390,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:chest_wifi',
+	recipe = {
+		{'group:wood','default:mese','group:wood'},
+		{'group:wood','default:steel_ingot','group:wood'},
+		{'group:wood','group:wood','default:wood'}
+	}
+})
+
+minetest.register_craft({
 	output = 'default:furnace',
 	recipe = {
 		{'group:stone', 'group:stone', 'group:stone'},
@@ -1348,6 +1357,38 @@ minetest.register_node("default:chest_locked", {
 	end,
 })
 
+minetest.register_node("default:chest_wifi", {
+	description = "Wifi Chest",
+	tiles = {"default_chest_wifi_top.png", "default_chest_wifi_top.png", "default_chest_wifi_side.png",
+		"default_chest_wifi_side.png", "default_chest_wifi_side.png",
+{name="default_chest_wifi_front_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}
+},
+	paramtype2 = "facedir",
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+	legacy_facedir_simple = true,
+	sounds = default.node_sound_wood_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec",
+				"size[8,9]"..
+				"list[current_player;default:chest_wifi;0,0;8,4;]"..
+				"list[current_player;main;0,5;8,4;]")
+		meta:set_string("infotext", "Wifi Chest")
+	end,
+	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		minetest.log("action", player:get_player_name()..
+				" moves stuff in wifi chest at "..minetest.pos_to_string(pos))
+	end,
+    on_metadata_inventory_put = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name()..
+				" moves stuff to wifi chest at "..minetest.pos_to_string(pos))
+	end,
+    on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name()..
+				" takes stuff from wifi chest at "..minetest.pos_to_string(pos))
+	end,
+})
+
 default.furnace_inactive_formspec =
 	"size[8,9]"..
 	"image[2,2;1,1;default_furnace_fire_bg.png]"..
@@ -1695,6 +1736,17 @@ minetest.register_craftitem("default:scorched_stuff", {
 	description = "Scorched Stuff",
 	inventory_image = "default_scorched_stuff.png",
 })
+
+minetest.register_craftitem("default:obsidian_shard", {
+	description = "Obsidian Shard",
+	inventory_image = "default_obsidian_shard.png",
+})
+
+-- Wifi stuff
+minetest.register_on_joinplayer(function(player)
+	local inv = player:get_inventory()
+	inv:set_size("default:chest_wifi", 8*4)
+end)
 
 -- Support old code
 function default.spawn_falling_node(p, nodename)
