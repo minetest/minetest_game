@@ -190,6 +190,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			end
 		end
 		end
+	
 		-- Generate papyrus
 		local perlin1 = minetest.env:get_perlin(354, 3, 0.7, 100)
 		-- Assume X and Z lengths are equal
@@ -215,6 +216,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			end
 		end
 		end
+	
 		-- Generate cactuses
 		local perlin1 = minetest.env:get_perlin(230, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
@@ -248,6 +250,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			end
 		end
 		end
+	
 		-- Generate grass
 		local perlin1 = minetest.env:get_perlin(329, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
@@ -293,6 +296,52 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					end
 				end
 				
+			end
+		end
+		end
+	
+		-- Generate apples
+		local perlin1 = minetest.env:get_perlin(115, 3, 0.6, 100)
+		-- Assume X and Z lengths are equal
+		local divlen = 16
+		local divs = (maxp.x-minp.x)/divlen+1;
+		for divx=0,divs-1 do
+		for divz=0,divs-1 do
+			local x0 = minp.x + math.floor((divx+0)*divlen)
+			local z0 = minp.z + math.floor((divz+0)*divlen)
+			local x1 = minp.x + math.floor((divx+1)*divlen)
+			local z1 = minp.z + math.floor((divz+1)*divlen)
+			-- Determine apple amount from perlin noise
+			local apple_amount = math.floor(perlin1:get2d({x=x0, y=z0})^3 * 9)
+			-- Find random positions for apples based on this random
+			local pr = PseudoRandom(seed+1)
+			for i=0,apple_amount do
+				local x = pr:next(x0, x1)
+				local z = pr:next(z0, z1)
+				-- Find ground level (0...15)
+				local ground_y = nil
+				for y=30,0,-1 do
+					if minetest.env:get_node({x=x,y=y,z=z}).name ~= "air" then
+						ground_y = y
+						break
+					end
+				end
+				if ground_y then
+					local p = {x=x,y=ground_y,z=z}
+					local nn = minetest.env:get_node(p).name
+					if nn == "default:leaves" then
+						-- Find lowest leaves
+						local leaves_y = nil
+						for y=ground_y,0,-1 do
+							if minetest.env:get_node({x=x,y=y,z=z}).name ~= "default:leaves" then
+								leaves_y = y+1
+								break
+							end
+						end
+						minetest.env:set_node({x=x,y=leaves_y,z=z},{name="default:apple"})
+					end
+				end
+
 			end
 		end
 		end
