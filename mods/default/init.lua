@@ -509,6 +509,14 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'default:obsidian_glass',
+	recipe = {
+		{'', '', ''},
+		{'default:obsidian_shard', 'default:obsidian_shard', ''},
+		{'default:obsidian_shard', 'default:obsidian_shard', ''},
+	}
+})
 --
 -- Crafting (tool repair)
 --
@@ -525,6 +533,12 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:glass",
 	recipe = "group:sand",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:obsidian_rock",
+	recipe = "default:obsidian_shard",
 })
 
 minetest.register_craft({
@@ -1038,6 +1052,26 @@ minetest.register_node("default:cloud", {
 	is_ground_content = true,
 	sounds = default.node_sound_defaults(),
 	groups = {not_in_creative_inventory=1},
+})
+
+minetest.register_node("default:obsidian_glass", {
+	description = "Obsidian Glass",
+	drawtype = "glasslike",
+	tiles = {"default_obsidian_glass.png"},
+	is_ground_content = true,
+	paramtype = "light",
+	sunlight_propagates = true,
+	sounds = default.node_sound_glass_defaults(),
+	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
+	drop = "default:obsidian_shard",
+})
+
+minetest.register_node("default:obsidian_rock", {
+	description = "Obsidian Rock",
+	tiles = {"default_obsidian_rock.png"},
+	is_ground_content = true,
+	sounds = default.node_sound_glass_defaults(),
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2},
 })
 
 minetest.register_node("default:water_flowing", {
@@ -1696,6 +1730,11 @@ minetest.register_craftitem("default:scorched_stuff", {
 	inventory_image = "default_scorched_stuff.png",
 })
 
+minetest.register_craftitem("default:obsidian_shard", {
+	description = "Obsidian Shard",
+	inventory_image = "default_obsidian_shard.png",
+})
+
 -- Support old code
 function default.spawn_falling_node(p, nodename)
 	spawn_falling_node(p, nodename)
@@ -1741,11 +1780,11 @@ minetest.register_on_punchnode(on_punchnode)
 --
 
 default.cool_lava_source = function(pos)
-	minetest.env:set_node(pos, {name="default:stone"})
+	minetest.env:set_node(pos, {name="default:obsidian_glass"})
 end
 
 default.cool_lava_flowing = function(pos)
-	minetest.env:set_node(pos, {name="default:cobble"})
+	minetest.env:set_node(pos, {name="default:stone"})
 end
 
 minetest.register_abm({
