@@ -1056,12 +1056,14 @@ minetest.register_node("default:cloud", {
 
 minetest.register_node("default:obsidian_glass", {
 	description = "Obsidian Glass",
+	drawtype = "glasslike",
 	tiles = {"default_obsidian_glass.png"},
+	is_ground_content = true,
 	paramtype = "light",
 	sunlight_propagates = true,
-	is_ground_content = true,
 	sounds = default.node_sound_glass_defaults(),
 	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
+	drop = "default:obsidian_shard",
 })
 
 minetest.register_node("default:obsidian_rock", {
