@@ -93,6 +93,11 @@ PilzAdam (WTFPL):
   default_jungleleaves.png
   default_junglesapling.png
   default_junglewood.png
+  default_obsidian_glass.png
+  default_obsidian_shard.png
+
+jojoa1997 (WTFPL):
+  default_obsidian.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
