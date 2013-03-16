@@ -89,6 +89,11 @@ MirceaKitsune (WTFPL):
 Jordach (CC BY-SA 3.0):
   character.png
 
+PilzAdam (WTFPL):
+  default_jungleleaves.png
+  default_junglesapling.png
+  default_junglewood.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
