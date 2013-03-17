@@ -289,9 +289,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							minetest.env:set_node(p,{name="default:dry_shrub"})
 							
 						-- If grass, make junglegrass
-						elseif nn == "default:dirt_with_grass" then
+						elseif nn == "default:dirt_with_grass" or nn == "default:jungletree" then
 							minetest.env:set_node(p,{name="default:junglegrass"})
-						end
 					end
 				end
 				
