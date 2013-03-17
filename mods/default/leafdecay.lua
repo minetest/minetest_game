@@ -91,3 +91,13 @@ minetest.register_abm({
 	end
 })
 
+-- Nodes in the group plant_dig go into the diggers inventory if the node below is dug
+minetest.register_on_dignode(function(pos, node, digger)
+	if minetest.get_item_group(node.name, "plant_dig") ~= 0 and digger ~= nil then
+		local np = {x = pos.x, y = pos.y + 1, z = pos.z}
+		local nn = minetest.env:get_node(np)
+		if minetest.get_item_group(nn.name, "plant_dig") ~= 0 then
+			minetest.node_dig(np, nn, digger)
+		end
+	end
+end)
