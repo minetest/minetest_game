@@ -258,3 +258,10 @@ stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		"Sandstone stair",
 		"Sandstone slab",
 		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("junglewood", "default:junglewood",
+		{snappy=2,choppy=2,oddly_breakable_by_hand=2},
+		{"default_junglewood.png"},
+		"Junglewood stair",
+		"Junglewood slab",
+		default.node_sound_wood_defaults())
