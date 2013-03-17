@@ -225,7 +225,7 @@ function stairs.register_stair_and_slab(subname, recipeitem, groups, images, des
 end
 
 stairs.register_stair_and_slab("wood", "default:wood",
-		{snappy=2,choppy=2,oddly_breakable_by_hand=2},
+		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_wood.png"},
 		"Wooden stair",
 		"Wooden slab",
@@ -260,7 +260,7 @@ stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("junglewood", "default:junglewood",
-		{snappy=2,choppy=2,oddly_breakable_by_hand=2},
+		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_junglewood.png"},
 		"Junglewood stair",
 		"Junglewood slab",
