@@ -349,17 +349,11 @@ local me
 local meta
 local state = 0
 
-local function update_door(pos, node) 
-	minetest.env:set_node(pos, node)
-end
-
 local function punch(pos)
 	meta = minetest.env:get_meta(pos)
 	state = meta:get_int("state")
 	me = minetest.env:get_node(pos)
 	local tmp_node
-	local tmp_node2
-	oben = {x=pos.x, y=pos.y+1, z=pos.z}
 		if state == 1 then
 			state = 0
 			minetest.sound_play("door_close", {to_player = puncher, gain = 0.3, max_hear_distance = 10})
@@ -369,10 +363,9 @@ local function punch(pos)
 			minetest.sound_play("door_open", {to_player = puncher, gain = 0.3, max_hear_distance = 10})
 			tmp_node = {name="doors:trapdoor_open", param1=me.param1, param2=me.param2}
 		end
-		update_door(pos, tmp_node)
+		minetest.env:set_node(pos, tmp_node)
 		meta:set_int("state", state)
 end
-
 
 minetest.register_node("doors:trapdoor", {
 	description = "Trapdoor",
@@ -400,7 +393,6 @@ minetest.register_node("doors:trapdoor", {
 	end,
 })
 
-
 minetest.register_node("doors:trapdoor_open", {
 	drawtype = "nodebox",
 	tiles = {"default_wood.png", "default_wood.png",  "default_wood.png",  "default_wood.png", "door_trapdoor.png", "door_trapdoor.png"},
@@ -423,9 +415,6 @@ minetest.register_node("doors:trapdoor_open", {
 		punch(pos)
 	end,
 })
-
-
-
 
 minetest.register_craft({
 	output = 'doors:trapdoor 2',
