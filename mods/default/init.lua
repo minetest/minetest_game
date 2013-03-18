@@ -2028,7 +2028,9 @@ minetest.register_abm({
 	neighbors = {"group:water"},
 	interval = 1,
 	chance = 1,
-	action = default.cool_lava_flowing,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		default.cool_lava_flowing(pos, node, active_object_count, active_object_count_wider)
+	end,
 })
 
 minetest.register_abm({
@@ -2036,7 +2038,9 @@ minetest.register_abm({
 	neighbors = {"group:water"},
 	interval = 1,
 	chance = 1,
-	action = default.cool_lava_source,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		default.cool_lava_source(pos, node, active_object_count, active_object_count_wider)
+	end,
 })
 
 -- END
