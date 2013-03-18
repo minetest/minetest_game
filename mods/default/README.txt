@@ -71,11 +71,12 @@ RealBadAngel's animated water (WTFPL):
   default_water_source_animated.png
   default_water_flowing_animated.png
 
-VanessaE:
+VanessaE (WTFPL):
   default_nc_back.png
   default_nc_front.png
   default_nc_rb.png
   default_nc_side.png
+  default_grass_*.png
 
 Calinou's improved default textures (CC BY-SA):
   default_brick.png

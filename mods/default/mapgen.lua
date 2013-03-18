@@ -262,7 +262,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			local x1 = minp.x + math.floor((divx+1)*divlen)
 			local z1 = minp.z + math.floor((divz+1)*divlen)
 			-- Determine grass amount from perlin noise
-			local grass_amount = math.floor(perlin1:get2d({x=x0, y=z0}) * 5 + 0)
+			local grass_amount = math.floor(perlin1:get2d({x=x0, y=z0}) ^ 3 * 9)
 			-- Find random positions for grass based on this random
 			local pr = PseudoRandom(seed+1)
 			for i=0,grass_amount do
@@ -284,13 +284,13 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					if minetest.registered_nodes[nn] and
 						minetest.registered_nodes[nn].buildable_to then
 						nn = minetest.env:get_node({x=x,y=ground_y,z=z}).name
-						-- If desert sand, make dry shrub
+						-- If desert sand, add dry shrub
 						if nn == "default:desert_sand" then
 							minetest.env:set_node(p,{name="default:dry_shrub"})
 							
-						-- If grass, make junglegrass
+						-- If dirt with grass, add grass
 						elseif nn == "default:dirt_with_grass" then
-							minetest.env:set_node(p,{name="default:junglegrass"})
+							minetest.env:set_node(p,{name="default:grass_"..pr:next(1, 5)})
 						end
 					end
 				end
