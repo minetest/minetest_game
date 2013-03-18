@@ -2043,4 +2043,59 @@ minetest.register_abm({
 	end,
 })
 
+--
+-- Papyrus and cactus growing
+--
+
+minetest.register_abm({
+	nodenames = {"default:cactus"},
+	neighbors = {"group:sand"},
+	interval = 50,
+	chance = 20,
+	action = function(pos, node)
+		pos.y = pos.y-1
+		local name = minetest.env:get_node(pos).name
+		if minetest.get_item_group(name, "sand") ~= 0 then
+			pos.y = pos.y+1
+			local height = 0
+			while minetest.env:get_node(pos).name == "default:cactus" and height < 4 do
+				height = height+1
+				pos.y = pos.y+1
+			end
+			if height < 4 then
+				if minetest.env:get_node(pos).name == "air" then
+					minetest.env:set_node(pos, {name="default:cactus"})
+				end
+			end
+		end
+	end,
+})
+
+minetest.register_abm({
+	nodenames = {"default:papyrus"},
+	neighbors = {"default:dirt", "default:dirt_with_grass"},
+	interval = 50,
+	chance = 20,
+	action = function(pos, node)
+		pos.y = pos.y-1
+		local name = minetest.env:get_node(pos).name
+		if name == "default:dirt" or name == "default:dirt_with_grass" then
+			if minetest.env:find_node_near(pos, 3, {"group:water"}) == nil then
+				return
+			end
+			pos.y = pos.y+1
+			local height = 0
+			while minetest.env:get_node(pos).name == "default:papyrus" and height < 4 do
+				height = height+1
+				pos.y = pos.y+1
+			end
+			if height < 4 then
+				if minetest.env:get_node(pos).name == "air" then
+					minetest.env:set_node(pos, {name="default:papyrus"})
+				end
+			end
+		end
+	end,
+})
+
 -- END
