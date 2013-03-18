@@ -31,7 +31,7 @@ Cisoun's WTFPL texture pack:
   default_chest_lock.png
   default_chest_side.png
   default_chest_top.png
-  default_cobble.png
+  default_stone_brick.png
   default_dirt.png
   default_grass.png
   default_grass_side.png
@@ -39,7 +39,6 @@ Cisoun's WTFPL texture pack:
   default_jungletree_top.png
   default_lava.png
   default_leaves.png
-  default_mossycobble.png
   default_sand.png
   default_sapling.png
   default_sign_wall.png
@@ -60,6 +59,8 @@ Originating from G4JC's Almost MC Texture Pack:
   default_torch.png
   default_torch_on_ceiling.png
   default_torch_on_floor.png
+  default_cobble.png
+  default_mossycobble.png
 
 VanessaE's animated torches (WTFPL):
   default_torch_animated.png

@@ -531,6 +531,15 @@ minetest.register_craft({
 		{'default:obsidian_shard', 'default:obsidian_shard', 'default:obsidian_shard'},
 	}
 })
+
+minetest.register_craft({
+	output = 'default:stonebrick',
+	recipe = {
+		{'default:stone', 'default:stone'},
+		{'default:stone', 'default:stone'},
+	}
+})
+
 --
 -- Crafting (tool repair)
 --
@@ -824,6 +833,14 @@ minetest.register_node("default:stone_with_mese", {
 	is_ground_content = true,
 	groups = {cracky=1},
 	drop = "default:mese_crystal",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:stonebrick", {
+	description = "Stone Brick",
+	tiles = {"default_stone_brick.png"},
+	is_ground_content = true,
+	groups = {cracky=3, stone=1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
