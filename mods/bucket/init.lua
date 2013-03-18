@@ -1,6 +1,8 @@
 -- Minetest 0.4 mod: bucket
 -- See README.txt for licensing and other information.
 
+local LIQUID_MAX = 8  --The number of water levels when liquid_finite is enabled
+
 minetest.register_alias("bucket", "bucket:bucket_empty")
 minetest.register_alias("bucket_water", "bucket:bucket_water")
 minetest.register_alias("bucket_lava", "bucket:bucket_lava")
@@ -40,17 +42,38 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image)
 				if pointed_thing.type ~= "node" then
 					return
 				end
+
+				local place_liquid = function(pos, node, source, flowing, fullness)
+					if math.floor(fullness/128) == 1 or (not minetest.setting_getbool("liquid_finite")) then
+						minetest.env:add_node(pos, {name=source, param2=fullness})
+						return
+					elseif node.name == flowing then
+						fullness = fullness + node.param2
+					elseif node.name == source then
+						fullness = LIQUID_MAX
+					end
+
+					if fullness >= LIQUID_MAX then
+						minetest.env:add_node(pos, {name=source, param2=LIQUID_MAX})
+					else
+						minetest.env:add_node(pos, {name=flowing, param2=fullness})
+					end
+				end
+
 				-- Check if pointing to a buildable node
-				n = minetest.env:get_node(pointed_thing.under)
-				if minetest.registered_nodes[n.name].buildable_to then
+				local node = minetest.env:get_node(pointed_thing.under)
+				local fullness = tonumber(itemstack:get_metadata())
+				if not fullness then fullness = LIQUID_MAX end
+
+				if minetest.registered_nodes[node.name].buildable_to then
 					-- buildable; replace the node
-					minetest.env:add_node(pointed_thing.under, {name=source})
+					place_liquid(pointed_thing.under, node, source, flowing, fullness)
 				else
 					-- not buildable to; place the liquid above
 					-- check if the node above can be replaced
-					n = minetest.env:get_node(pointed_thing.above)
-					if minetest.registered_nodes[n.name].buildable_to then
-						minetest.env:add_node(pointed_thing.above,{name=source})
+					local node = minetest.env:get_node(pointed_thing.above)
+					if minetest.registered_nodes[node.name].buildable_to then
+						place_liquid(pointed_thing.above, node, source, flowing, fullness)
 					else
 						-- do not remove the bucket with the liquid
 						return
@@ -73,11 +96,15 @@ minetest.register_craftitem("bucket:bucket_empty", {
 			return
 		end
 		-- Check if pointing to a liquid source
-		n = minetest.env:get_node(pointed_thing.under)
-		liquiddef = bucket.liquids[n.name]
-		if liquiddef ~= nil and liquiddef.source == n.name and liquiddef.itemname ~= nil then
+		node = minetest.env:get_node(pointed_thing.under)
+		liquiddef = bucket.liquids[node.name]
+		if liquiddef ~= nil and liquiddef.itemname ~= nil and (node.name == liquiddef.source or
+			(node.name == liquiddef.flowing and minetest.setting_getbool("liquid_finite"))) then
+
 			minetest.env:add_node(pointed_thing.under, {name="air"})
-			return {name=liquiddef.itemname}
+
+			if node.name == liquiddef.source then node.param2 = LIQUID_MAX end
+			return ItemStack({name = liquiddef.itemname, metadata = tostring(node.param2)})
 		end
 	end,
 })
