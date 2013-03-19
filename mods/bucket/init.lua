@@ -24,7 +24,7 @@ bucket.liquids = {}
 --   itemname = name of the new bucket item (or nil if liquid is not takeable)
 --   inventory_image = texture of the new bucket item (ignored if itemname == nil)
 -- This function can be called from any mod (that depends on bucket).
-function bucket.register_liquid(source, flowing, itemname, inventory_image)
+function bucket.register_liquid(source, flowing, itemname, inventory_image, name)
 	bucket.liquids[source] = {
 		source = source,
 		flowing = flowing,
@@ -34,10 +34,12 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image)
 
 	if itemname ~= nil then
 		minetest.register_craftitem(itemname, {
+			description = name,
 			inventory_image = inventory_image,
 			stack_max = 1,
 			liquids_pointable = true,
-			on_use = function(itemstack, user, pointed_thing)
+			groups = {not_in_creative_inventory=1},
+			on_place = function(itemstack, user, pointed_thing)
 				-- Must be pointing to node
 				if pointed_thing.type ~= "node" then
 					return
@@ -113,14 +115,16 @@ bucket.register_liquid(
 	"default:water_source",
 	"default:water_flowing",
 	"bucket:bucket_water",
-	"bucket_water.png"
+	"bucket_water.png",
+	"Water Bucket"
 )
 
 bucket.register_liquid(
 	"default:lava_source",
 	"default:lava_flowing",
 	"bucket:bucket_lava",
-	"bucket_lava.png"
+	"bucket_lava.png",
+	"Lava Bucket"
 )
 
 minetest.register_craft({
