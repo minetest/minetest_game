@@ -166,7 +166,7 @@ minetest.register_tool("default:sword_wood", {
 	description = "Wooden Sword",
 	inventory_image = "default_tool_woodsword.png",
 	tool_capabilities = {
-		full_punch_interval = 0.9,
+		full_punch_interval = 0.4,
 		max_drop_level=0,
 		groupcaps={
 			fleshy={times={[2]=1.10, [3]=0.60}, uses=10, maxlevel=1},
@@ -179,7 +179,7 @@ minetest.register_tool("default:sword_stone", {
 	description = "Stone Sword",
 	inventory_image = "default_tool_stonesword.png",
 	tool_capabilities = {
-		full_punch_interval = 1.1,
+		full_punch_interval = 0.4,
 		max_drop_level=0,
 		groupcaps={
 			fleshy={times={[2]=0.80, [3]=0.40}, uses=20, maxlevel=1},
@@ -192,10 +192,10 @@ minetest.register_tool("default:sword_steel", {
 	description = "Steel Sword",
 	inventory_image = "default_tool_steelsword.png",
 	tool_capabilities = {
-		full_punch_interval = 0.8,
+		full_punch_interval = 0.4,
 		max_drop_level=1,
 		groupcaps={
-			fleshy={times={[1]=2.00, [2]=0.80, [3]=0.40}, uses=10, maxlevel=2},
+			fleshy={times={[1]=1.00, [2]=0.40, [3]=0.20}, uses=40, maxlevel=2},
 			snappy={times={[2]=0.70, [3]=0.30}, uses=40, maxlevel=1},
 			choppy={times={[3]=0.65}, uses=40, maxlevel=0}
 		}
