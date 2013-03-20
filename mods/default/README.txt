@@ -60,7 +60,6 @@ Originating from G4JC's Almost MC Texture Pack:
   default_torch_on_ceiling.png
   default_torch_on_floor.png
   default_cobble.png
-  default_mossycobble.png
 
 VanessaE's animated torches (WTFPL):
   default_torch_animated.png
@@ -97,6 +96,7 @@ PilzAdam (WTFPL):
   default_junglewood.png
   default_obsidian_glass.png
   default_obsidian_shard.png
+  default_mossycobble.png
 
 jojoa1997 (WTFPL):
   default_obsidian.png
