@@ -3,7 +3,7 @@
 
 -- The API documentation in here was moved into doc/lua_api.txt
 
-WATER_ALPHA = 160
+WATER_ALPHA = 100
 WATER_VISC = 1
 LAVA_VISC = 7
 LIGHT_MAX = 14
@@ -1181,7 +1181,7 @@ minetest.register_node("default:water_flowing", {
 	liquid_alternative_flowing = "default:water_flowing",
 	liquid_alternative_source = "default:water_source",
 	liquid_viscosity = WATER_VISC,
-	post_effect_color = {a=64, r=100, g=100, b=200},
+	post_effect_color = {a=128, r=70, g=110, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
 
@@ -1211,7 +1211,7 @@ minetest.register_node("default:water_source", {
 	liquid_alternative_flowing = "default:water_flowing",
 	liquid_alternative_source = "default:water_source",
 	liquid_viscosity = WATER_VISC,
-	post_effect_color = {a=64, r=100, g=100, b=200},
+	post_effect_color = {a=128, r=70, g=110, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1},
 })
 
