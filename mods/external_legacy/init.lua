@@ -14,7 +14,7 @@ minetest.register_alias("moreores:bronze_ingot", "default:bronze_ingot")
 minetest.register_alias("moreores:bronze_block", "default:bronzeblock")
 
 -- Aliases for the diamonds mod by InfinityProject
-minetest.register_alias("diamonds:diamond_in_ground:", "default:stone_with_diamond")
+minetest.register_alias("diamonds:diamond_in_ground", "default:stone_with_diamond")
 minetest.register_alias("diamonds:block", "default:diamondblock")
 minetest.register_alias("diamonds:sword", "default:sword_diamond")
 minetest.register_alias("diamonds:pick", "default:pick_diamond")
