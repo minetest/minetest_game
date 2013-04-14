@@ -1,6 +1,9 @@
 The main game for the Minetest game engine [minetest_game]
 ==========================================================
 
+This game requires Minetest common mods:
+  https://github.com/minetest/common/
+
 To build the wholeness of the Minetest project, insert this repository as
   /games/minetest_game
 in the Minetest Engine.
