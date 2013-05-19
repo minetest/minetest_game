@@ -1,4 +1,4 @@
--- minetest/default/mapgen.lua
+-- mods/default/mapgen.lua
 
 --
 -- Aliases for map generator outputs
