@@ -48,3 +48,6 @@ See README.txt in each mod directory for information about other authors.
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 http://creativecommons.org/licenses/by-sa/3.0/
 
+License of menu/header.png
+Copyright (C) 2013 BlockMen CC BY-3.0
+
