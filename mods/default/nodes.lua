@@ -1124,7 +1124,7 @@ minetest.register_node("default:apple", {
 		type = "fixed",
 		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
 	},
-	groups = {fleshy=3,dig_immediate=3,flammable=2},
+	groups = {fleshy=3,leafdecay=3,dig_immediate=3,flammable=2},
 	on_use = minetest.item_eat(4),
 	sounds = default.node_sound_defaults(),
 })

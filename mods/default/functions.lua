@@ -284,7 +284,7 @@ minetest.register_abm({
 			-- Drop stuff other than the node itself
 			itemstacks = minetest.get_node_drops(n0.name)
 			for _, itemname in ipairs(itemstacks) do
-				if itemname ~= n0.name then
+				if itemname == "default:apple" or itemname ~= n0.name then
 					local p_drop = {
 						x = p0.x - 0.5 + math.random(),
 						y = p0.y - 0.5 + math.random(),
@@ -299,3 +299,14 @@ minetest.register_abm({
 		end
 	end
 })
+
+--leaves and apple do not decay when placed by player
+minetest.register_on_placenode(function(pos, newnode, placer, oldnode)
+	if placer:is_player() then 
+		local d = minetest.registered_nodes[newnode.name].groups.leafdecay
+		if d or not d == 0 then
+			newnode.param2 = 1
+			minetest.env:set_node(pos, newnode)	
+		end
+	end
+end)
