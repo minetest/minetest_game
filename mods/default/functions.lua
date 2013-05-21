@@ -216,6 +216,9 @@ minetest.register_abm({
 --
 -- If param2 of the node is ~= 0, the node will always be preserved. Thus, if
 -- the player places a node of that kind, you will want to set param2=1 or so.
+--
+-- If the node is in the leafdecay_drop group then the it will always be dropped
+-- as an item
 
 default.leafdecay_trunk_cache = {}
 default.leafdecay_enable_cache = true
@@ -284,7 +287,8 @@ minetest.register_abm({
 			-- Drop stuff other than the node itself
 			itemstacks = minetest.get_node_drops(n0.name)
 			for _, itemname in ipairs(itemstacks) do
-				if itemname ~= n0.name then
+				if minetest.get_item_group(n0.name, "leafdecay_drop") ~= 0 or
+						itemname ~= n0.name then
 					local p_drop = {
 						x = p0.x - 0.5 + math.random(),
 						y = p0.y - 0.5 + math.random(),
