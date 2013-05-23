@@ -189,7 +189,7 @@ minetest.register_node(":default:grass_1", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {'farming:seed'},rarity = 20},
+			{items = {'farming:seed_wheat'},rarity = 20},
 			{items = {'default:grass_1'}},
 		}
 	},
