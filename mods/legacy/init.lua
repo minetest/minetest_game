@@ -78,19 +78,6 @@ minetest.register_alias("scorched_stuff", "default:scorched_stuff")
 minetest.register_craftitem(":rat", {
 	description = "Rat",
 	inventory_image = "rat.png",
-	on_drop = function(item, dropper, pos)
-		minetest.add_rat(pos)
-		item:take_item()
-		return item
-	end,
-	on_place = function(item, dropped, pointed)
-		pos = minetest.get_pointed_thing_position(pointed, true)
-		if pos ~= nil then
-			minetest.add_rat(pos)
-			item:take_item()
-			return item
-		end
-	end
 })
 
 minetest.register_craftitem(":cooked_rat", {
@@ -103,19 +90,6 @@ minetest.register_craftitem(":firefly", {
 	description = "Firefly",
 	inventory_image = "firefly.png",
 	groups = {not_in_creative_inventory=1},
-	on_drop = function(item, dropper, pos)
-		minetest.add_firefly(pos)
-		item:take_item()
-		return item
-	end,
-	on_place = function(item, dropped, pointed)
-		pos = minetest.get_pointed_thing_position(pointed, true)
-		if pos ~= nil then
-			minetest.add_firefly(pos)
-			item:take_item()
-			return item
-		end
-	end
 })
 
 minetest.register_craft({
