@@ -87,7 +87,6 @@ Calinou (CC BY-SA):
   default_clay_brick.png
   default_papyrus.png
   default_tool_steelsword.png
-  default_bronze_block.png
   default_bronze_ingot.png
   default_copper_ingot.png
   default_copper_lump.png
@@ -106,13 +105,11 @@ PilzAdam (WTFPL):
   default_obsidian_glass.png
   default_obsidian_shard.png
   default_mossycobble.png
-  default_gold_block.png
   default_gold_ingot.png
   default_gold_lump.png
   default_mineral_gold.png
   default_diamond.png
   default_diamond_block.png
-  default_copper_block.png
   default_tool_diamondpick.png
   default_tool_diamondsword.png
   default_tool_diamondshovel.png
@@ -139,6 +136,10 @@ Splizard (CC BY-SA 3.0):
 
 Zeg9 (CC BY-SA 3.0):
   default_coal_block.png
+  default_steel_block.png
+  default_copper_block.png
+  default_bronze_block.png
+  default_gold_block.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
