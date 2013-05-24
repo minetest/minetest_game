@@ -139,6 +139,10 @@ Splizard (CC BY-SA 3.0):
 
 Zeg9 (CC BY-SA 3.0):
   default_coal_block.png
+  default_steel_block.png
+  default_copper_block.png
+  default_bronze_block.png
+  default_gold_block.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
