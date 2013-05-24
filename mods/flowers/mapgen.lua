@@ -1,7 +1,7 @@
 minetest.register_on_generated(function(minp, maxp, seed)
 	if maxp.y >= 2 and minp.y <= 0 then
 		-- Generate flowers
-		local perlin1 = minetest.env:get_perlin(436, 3, 0.6, 100)
+		local perlin1 = minetest.get_perlin(436, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
 		local divlen = 16
 		local divs = (maxp.x-minp.x)/divlen+1;
@@ -21,7 +21,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				-- Find ground level (0...15)
 				local ground_y = nil
 				for y=30,0,-1 do
-					if minetest.env:get_node({x=x,y=y,z=z}).name ~= "air" then
+					if minetest.get_node({x=x,y=y,z=z}).name ~= "air" then
 						ground_y = y
 						break
 					end
@@ -29,11 +29,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				
 				if ground_y then
 					local p = {x=x,y=ground_y+1,z=z}
-					local nn = minetest.env:get_node(p).name
+					local nn = minetest.get_node(p).name
 					-- Check if the node can be replaced
 					if minetest.registered_nodes[nn] and
 						minetest.registered_nodes[nn].buildable_to then
-						nn = minetest.env:get_node({x=x,y=ground_y,z=z}).name
+						nn = minetest.get_node({x=x,y=ground_y,z=z}).name
 						if nn == "default:dirt_with_grass" then
 							local flower_choice = pr:next(1, 6)
 							local flower
@@ -50,7 +50,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							elseif flower_choice == 6 then
 								flower = "flowers:viola"
 							end
-							minetest.env:set_node(p, {name=flower})
+							minetest.set_node(p, {name=flower})
 						end
 					end
 				end

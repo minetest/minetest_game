@@ -43,7 +43,7 @@ function doors:register_door(name, def)
 			end
 			
 			local ptu = pointed_thing.under
-			local nu = minetest.env:get_node(ptu)
+			local nu = minetest.get_node(ptu)
 			if minetest.registered_nodes[nu.name].on_rightclick then
 				return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 			end
@@ -52,8 +52,8 @@ function doors:register_door(name, def)
 			local pt2 = {x=pt.x, y=pt.y, z=pt.z}
 			pt2.y = pt2.y+1
 			if
-				not minetest.registered_nodes[minetest.env:get_node(pt).name].buildable_to or
-				not minetest.registered_nodes[minetest.env:get_node(pt2).name].buildable_to or
+				not minetest.registered_nodes[minetest.get_node(pt).name].buildable_to or
+				not minetest.registered_nodes[minetest.get_node(pt2).name].buildable_to or
 				not placer or
 				not placer:is_player()
 			then
@@ -71,20 +71,20 @@ function doors:register_door(name, def)
 			elseif p2 == 3 then
 				pt3.z = pt3.z-1
 			end
-			if not string.find(minetest.env:get_node(pt3).name, name.."_b_") then
-				minetest.env:set_node(pt, {name=name.."_b_1", param2=p2})
-				minetest.env:set_node(pt2, {name=name.."_t_1", param2=p2})
+			if not string.find(minetest.get_node(pt3).name, name.."_b_") then
+				minetest.set_node(pt, {name=name.."_b_1", param2=p2})
+				minetest.set_node(pt2, {name=name.."_t_1", param2=p2})
 			else
-				minetest.env:set_node(pt, {name=name.."_b_2", param2=p2})
-				minetest.env:set_node(pt2, {name=name.."_t_2", param2=p2})
+				minetest.set_node(pt, {name=name.."_b_2", param2=p2})
+				minetest.set_node(pt2, {name=name.."_t_2", param2=p2})
 			end
 			
 			if def.only_placer_can_open then
 				local pn = placer:get_player_name()
-				local meta = minetest.env:get_meta(pt)
+				local meta = minetest.get_meta(pt)
 				meta:set_string("doors_owner", pn)
 				meta:set_string("infotext", "Owned by "..pn)
-				meta = minetest.env:get_meta(pt2)
+				meta = minetest.get_meta(pt2)
 				meta:set_string("doors_owner", pn)
 				meta:set_string("infotext", "Owned by "..pn)
 			end
@@ -100,34 +100,34 @@ function doors:register_door(name, def)
 	local tb = def.tiles_bottom
 	
 	local function after_dig_node(pos, name)
-		if minetest.env:get_node(pos).name == name then
-			minetest.env:remove_node(pos)
+		if minetest.get_node(pos).name == name then
+			minetest.remove_node(pos)
 		end
 	end
 	
 	local function on_rightclick(pos, dir, check_name, replace, replace_dir, params)
 		pos.y = pos.y+dir
-		if not minetest.env:get_node(pos).name == check_name then
+		if not minetest.get_node(pos).name == check_name then
 			return
 		end
-		local p2 = minetest.env:get_node(pos).param2
+		local p2 = minetest.get_node(pos).param2
 		p2 = params[p2+1]
 		
-		local meta = minetest.env:get_meta(pos):to_table()
-		minetest.env:set_node(pos, {name=replace_dir, param2=p2})
-		minetest.env:get_meta(pos):from_table(meta)
+		local meta = minetest.get_meta(pos):to_table()
+		minetest.set_node(pos, {name=replace_dir, param2=p2})
+		minetest.get_meta(pos):from_table(meta)
 		
 		pos.y = pos.y-dir
-		meta = minetest.env:get_meta(pos):to_table()
-		minetest.env:set_node(pos, {name=replace, param2=p2})
-		minetest.env:get_meta(pos):from_table(meta)
+		meta = minetest.get_meta(pos):to_table()
+		minetest.set_node(pos, {name=replace, param2=p2})
+		minetest.get_meta(pos):from_table(meta)
 	end
 	
 	local function check_player_priv(pos, player)
 		if not def.only_placer_can_open then
 			return true
 		end
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local pn = player:get_player_name()
 		return meta:get_string("doors_owner") == pn
 	end

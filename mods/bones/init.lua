@@ -2,7 +2,7 @@
 -- See README.txt for licensing and other information. 
 
 local function is_owner(pos, name)
-	local owner = minetest.env:get_meta(pos):get_string("owner")
+	local owner = minetest.get_meta(pos):get_string("owner")
 	if owner == "" or owner == name then
 		return true
 	end
@@ -26,7 +26,7 @@ minetest.register_node("bones:bones", {
 	}),
 	
 	can_dig = function(pos, player)
-		local inv = minetest.env:get_meta(pos):get_inventory()
+		local inv = minetest.get_meta(pos):get_inventory()
 		return is_owner(pos, player:get_player_name()) and inv:is_empty("main")
 	end,
 	
@@ -49,7 +49,7 @@ minetest.register_node("bones:bones", {
 	end,
 	
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
 			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
 			meta:set_string("formspec", "")
@@ -58,7 +58,7 @@ minetest.register_node("bones:bones", {
 	end,
 	
 	on_timer = function(pos, elapsed)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local time = meta:get_int("time")+elapsed
 		local publish = 1200
 		if tonumber(minetest.setting_get("share_bones_time")) then
@@ -87,7 +87,7 @@ minetest.register_on_dieplayer(function(player)
 	pos.z = math.floor(pos.z+0.5)
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	
-	local nn = minetest.env:get_node(pos).name
+	local nn = minetest.get_node(pos).name
 	if minetest.registered_nodes[nn].can_dig and
 		not minetest.registered_nodes[nn].can_dig(pos, player) then
 		local player_inv = player:get_inventory()
@@ -101,10 +101,10 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 	
-	minetest.env:dig_node(pos)
-	minetest.env:add_node(pos, {name="bones:bones", param2=param2})
+	minetest.dig_node(pos)
+	minetest.add_node(pos, {name="bones:bones", param2=param2})
 	
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
 	local player_inv = player:get_inventory()
 	inv:set_size("main", 8*4)
@@ -125,6 +125,6 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_string("owner", player:get_player_name())
 	meta:set_int("time", 0)
 	
-	local timer  = minetest.env:get_node_timer(pos)
+	local timer  = minetest.get_node_timer(pos)
 	timer:start(10)
 end)

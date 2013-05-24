@@ -61,7 +61,7 @@ function screwdriver_handler (itemstack,user,pointed_thing)
 	local mode=tonumber((item["metadata"]))
 	if pointed_thing.type~="node" then return end
 	local pos=minetest.get_pointed_thing_position(pointed_thing,above)
-	local node=minetest.env:get_node(pos)
+	local node=minetest.get_node(pos)
 	local node_name=node.name
 	if minetest.registered_nodes[node_name].paramtype2 == "facedir" then
 		if minetest.registered_nodes[node_name].drawtype == "nodebox" then
@@ -113,11 +113,11 @@ function screwdriver_handler (itemstack,user,pointed_thing)
 				end
 			end
 			--print (dump(axisdir..", "..rotation))
-			local meta = minetest.env:get_meta(pos)
+			local meta = minetest.get_meta(pos)
 			local meta0 = meta:to_table()
 			node.param2 = n
-			minetest.env:set_node(pos,node)
-			meta = minetest.env:get_meta(pos)
+			minetest.set_node(pos,node)
+			meta = minetest.get_meta(pos)
 			meta:from_table(meta0)
 			local item=itemstack:to_table()
 			local item_wear=tonumber((item["wear"]))

@@ -123,11 +123,11 @@ minetest.register_on_punchnode(on_punchnode)
 --
 
 default.cool_lava_source = function(pos)
-	minetest.env:set_node(pos, {name="default:obsidian"})
+	minetest.set_node(pos, {name="default:obsidian"})
 end
 
 default.cool_lava_flowing = function(pos)
-	minetest.env:set_node(pos, {name="default:stone"})
+	minetest.set_node(pos, {name="default:stone"})
 end
 
 minetest.register_abm({
@@ -161,17 +161,17 @@ minetest.register_abm({
 	chance = 20,
 	action = function(pos, node)
 		pos.y = pos.y-1
-		local name = minetest.env:get_node(pos).name
+		local name = minetest.get_node(pos).name
 		if minetest.get_item_group(name, "sand") ~= 0 then
 			pos.y = pos.y+1
 			local height = 0
-			while minetest.env:get_node(pos).name == "default:cactus" and height < 4 do
+			while minetest.get_node(pos).name == "default:cactus" and height < 4 do
 				height = height+1
 				pos.y = pos.y+1
 			end
 			if height < 4 then
-				if minetest.env:get_node(pos).name == "air" then
-					minetest.env:set_node(pos, {name="default:cactus"})
+				if minetest.get_node(pos).name == "air" then
+					minetest.set_node(pos, {name="default:cactus"})
 				end
 			end
 		end
@@ -185,20 +185,20 @@ minetest.register_abm({
 	chance = 20,
 	action = function(pos, node)
 		pos.y = pos.y-1
-		local name = minetest.env:get_node(pos).name
+		local name = minetest.get_node(pos).name
 		if name == "default:dirt" or name == "default:dirt_with_grass" then
-			if minetest.env:find_node_near(pos, 3, {"group:water"}) == nil then
+			if minetest.find_node_near(pos, 3, {"group:water"}) == nil then
 				return
 			end
 			pos.y = pos.y+1
 			local height = 0
-			while minetest.env:get_node(pos).name == "default:papyrus" and height < 4 do
+			while minetest.get_node(pos).name == "default:papyrus" and height < 4 do
 				height = height+1
 				pos.y = pos.y+1
 			end
 			if height < 4 then
-				if minetest.env:get_node(pos).name == "air" then
-					minetest.env:set_node(pos, {name="default:papyrus"})
+				if minetest.get_node(pos).name == "air" then
+					minetest.set_node(pos, {name="default:papyrus"})
 				end
 			end
 		end
@@ -246,7 +246,7 @@ minetest.register_abm({
 			--print("not groups.leafdecay")
 			return
 		end
-		local n0 = minetest.env:get_node(p0)
+		local n0 = minetest.get_node(p0)
 		if n0.param2 ~= 0 then
 			--print("param2 ~= 0")
 			return
@@ -256,7 +256,7 @@ minetest.register_abm({
 			p0_hash = minetest.hash_node_position(p0)
 			local trunkp = default.leafdecay_trunk_cache[p0_hash]
 			if trunkp then
-				local n = minetest.env:get_node(trunkp)
+				local n = minetest.get_node(trunkp)
 				local reg = minetest.registered_nodes[n.name]
 				-- Assume ignore is a trunk, to make the thing work at the border of the active area
 				if n.name == "ignore" or (reg and reg.groups.tree and reg.groups.tree ~= 0) then
@@ -274,7 +274,7 @@ minetest.register_abm({
 		default.leafdecay_trunk_find_allow_accumulator =
 				default.leafdecay_trunk_find_allow_accumulator - 1
 		-- Assume ignore is a trunk, to make the thing work at the border of the active area
-		local p1 = minetest.env:find_node_near(p0, d, {"ignore", "group:tree"})
+		local p1 = minetest.find_node_near(p0, d, {"ignore", "group:tree"})
 		if p1 then
 			do_preserve = true
 			if default.leafdecay_enable_cache then
@@ -294,11 +294,11 @@ minetest.register_abm({
 						y = p0.y - 0.5 + math.random(),
 						z = p0.z - 0.5 + math.random(),
 					}
-					minetest.env:add_item(p_drop, itemname)
+					minetest.add_item(p_drop, itemname)
 				end
 			end
 			-- Remove node
-			minetest.env:remove_node(p0)
+			minetest.remove_node(p0)
 			nodeupdate(p0)
 		end
 	end

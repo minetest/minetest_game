@@ -28,28 +28,28 @@ minetest.register_abm({
 	chance = 4,
 	action = function(pos, node)
 		pos.y = pos.y+1
-		local nn = minetest.env:get_node(pos).name
+		local nn = minetest.get_node(pos).name
 		pos.y = pos.y-1
 		if minetest.registered_nodes[nn] and minetest.registered_nodes[nn].walkable then
-			minetest.env:set_node(pos, {name="default:dirt"})
+			minetest.set_node(pos, {name="default:dirt"})
 		end
 		-- check if there is water nearby
-		if minetest.env:find_node_near(pos, 3, {"group:water"}) then
+		if minetest.find_node_near(pos, 3, {"group:water"}) then
 			-- if it is dry soil turn it into wet soil
 			if node.name == "farming:soil" then
-				minetest.env:set_node(pos, {name="farming:soil_wet"})
+				minetest.set_node(pos, {name="farming:soil_wet"})
 			end
 		else
 			-- turn it back into dirt if it is already dry
 			if node.name == "farming:soil" then
 				-- only turn it back if there is no plant on top of it
 				if minetest.get_item_group(nn, "plant") == 0 then
-					minetest.env:set_node(pos, {name="default:dirt"})
+					minetest.set_node(pos, {name="default:dirt"})
 				end
 				
 			-- if its wet turn it back into dry soil
 			elseif node.name == "farming:soil_wet" then
-				minetest.env:set_node(pos, {name="farming:soil"})
+				minetest.set_node(pos, {name="farming:soil"})
 			end
 		end
 	end,
@@ -69,9 +69,9 @@ local function hoe_on_use(itemstack, user, pointed_thing, uses)
 		return
 	end
 	
-	local under = minetest.env:get_node(pt.under)
+	local under = minetest.get_node(pt.under)
 	local p = {x=pt.under.x, y=pt.under.y+1, z=pt.under.z}
-	local above = minetest.env:get_node(p)
+	local above = minetest.get_node(p)
 	
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
@@ -92,7 +92,7 @@ local function hoe_on_use(itemstack, user, pointed_thing, uses)
 	end
 	
 	-- turn the node into soil, wear out item and play sound
-	minetest.env:set_node(pt.under, {name="farming:soil"})
+	minetest.set_node(pt.under, {name="farming:soil"})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
 		gain = 0.5,
@@ -273,8 +273,8 @@ local function place_seed(itemstack, placer, pointed_thing, plantname)
 		return
 	end
 	
-	local under = minetest.env:get_node(pt.under)
-	local above = minetest.env:get_node(pt.above)
+	local under = minetest.get_node(pt.under)
+	local above = minetest.get_node(pt.above)
 	
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
@@ -300,7 +300,7 @@ local function place_seed(itemstack, placer, pointed_thing, plantname)
 	end
 	
 	-- add the node and remove 1 item from the itemstack
-	minetest.env:add_node(pt.above, {name=plantname})
+	minetest.add_node(pt.above, {name=plantname})
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:take_item()
 	end
@@ -386,23 +386,23 @@ minetest.register_abm({
 		
 		-- check if on wet soil
 		pos.y = pos.y-1
-		local n = minetest.env:get_node(pos)
+		local n = minetest.get_node(pos)
 		if minetest.get_item_group(n.name, "soil") < 3 then
 			return
 		end
 		pos.y = pos.y+1
 		
 		-- check light
-		if not minetest.env:get_node_light(pos) then
+		if not minetest.get_node_light(pos) then
 			return
 		end
-		if minetest.env:get_node_light(pos) < 13 then
+		if minetest.get_node_light(pos) < 13 then
 			return
 		end
 		
 		-- grow
 		local height = minetest.get_item_group(node.name, "wheat") + 1
-		minetest.env:set_node(pos, {name="farming:wheat_"..height})
+		minetest.set_node(pos, {name="farming:wheat_"..height})
 	end
 })
 
@@ -471,22 +471,22 @@ minetest.register_abm({
 		
 		-- check if on wet soil
 		pos.y = pos.y-1
-		local n = minetest.env:get_node(pos)
+		local n = minetest.get_node(pos)
 		if minetest.get_item_group(n.name, "soil") < 3 then
 			return
 		end
 		pos.y = pos.y+1
 		
 		-- check light
-		if not minetest.env:get_node_light(pos) then
+		if not minetest.get_node_light(pos) then
 			return
 		end
-		if minetest.env:get_node_light(pos) < 13 then
+		if minetest.get_node_light(pos) < 13 then
 			return
 		end
 		
 		-- grow
 		local height = minetest.get_item_group(node.name, "cotton") + 1
-		minetest.env:set_node(pos, {name="farming:cotton_"..height})
+		minetest.set_node(pos, {name="farming:cotton_"..height})
 	end
 })
