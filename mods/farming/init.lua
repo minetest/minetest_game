@@ -58,7 +58,7 @@ minetest.register_abm({
 --
 -- Hoes
 --
--- turns nodes with group soil=1 into soil; drop seeds if plowing grass
+-- turns nodes with group soil=1 into soil
 local function hoe_on_use(itemstack, user, pointed_thing, uses)
 	local pt = pointed_thing
 	-- check if pointing at a node
@@ -189,7 +189,7 @@ minetest.register_node(":default:grass_1", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {'farming:seed_wheat'},rarity = 20},
+			{items = {'farming:seed_wheat'},rarity = 5},
 			{items = {'default:grass_1'}},
 		}
 	},
@@ -221,7 +221,7 @@ for i=2,5 do
 		drop = {
 			max_items = 1,
 			items = {
-				{items = {'farming:seed_wheat'},rarity = 20},
+				{items = {'farming:seed_wheat'},rarity = 5},
 				{items = {'default:grass_1'}},
 			}
 		},
@@ -248,7 +248,7 @@ minetest.register_node(":default:junglegrass", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {'farming:seed_cotton'},rarity = 20},
+			{items = {'farming:seed_cotton'},rarity = 8},
 			{items = {'default:junglegrass'}},
 		}
 	},
