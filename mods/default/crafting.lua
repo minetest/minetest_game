@@ -305,6 +305,21 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "shapeless",
+	output = "dye:glowing_dye",
+	recipe = {"default:mese_crystal_fragment", "moonflower:moonflower_closed"},
+})
+
+minetest.register_craft({
+	output = 'default:glowing_mese',
+	recipe = {
+		{'', 'dye:glowing_dye', ''},
+		{'dye:glowing_dye', 'default:mese', 'dye:glowing_dye'},
+		{'', 'dye:glowing_dye', ''},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:coalblock',
 	recipe = {
 		{'default:coal_lump', 'default:coal_lump', 'default:coal_lump'},

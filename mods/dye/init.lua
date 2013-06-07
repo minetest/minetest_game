@@ -61,6 +61,12 @@ dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orang
 -- Local stuff
 local dyelocal = {}
 
+-- Glowing Moonflower Dye:
+minetest.register_craftitem("dye:glowing_dye", {
+	description = "Glowing Moonflower Dye",
+	inventory_image = "dye_moonflower_glow.png",
+})
+
 -- This collection of colors is partly a historic thing, partly something else.
 dyelocal.dyes = {
 	{"white",      "White dye",     {dye=1, basecolor_white=1,   excolor_white=1,     unicolor_white=1}},
