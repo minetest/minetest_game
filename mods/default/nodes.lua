@@ -64,7 +64,7 @@ minetest.register_node("default:stone_with_gold", {
 	drop = "default:gold_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
-	
+
 minetest.register_node("default:stone_with_diamond", {
 	description = "Diamond Ore",
 	tiles = {"default_stone.png^default_mineral_diamond.png"},
@@ -733,7 +733,7 @@ minetest.register_node("default:sign_wall", {
 	end,
 })
 
-default.chest_formspec = 
+default.chest_formspec =
 	"size[8,9]"..
 	default.gui_bg..
 	default.gui_bg_img..
@@ -964,6 +964,13 @@ minetest.register_node("default:obsidian", {
 	description = "Obsidian",
 	tiles = {"default_obsidian.png"},
 	is_ground_content = true,
+	sounds = default.node_sound_stone_defaults(),
+	groups = {cracky=1,level=2},
+})
+
+minetest.register_node("default:obsidianbrick", {
+	description = "Obsidian Brick",
+	tiles = {"default_obsidian_brick.png"},
 	sounds = default.node_sound_stone_defaults(),
 	groups = {cracky=1,level=2},
 })

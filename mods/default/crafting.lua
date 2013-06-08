@@ -581,6 +581,14 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:obsidianbrick',
+	recipe = {
+		{'default:obsidian', 'default:obsidian'},
+		{'default:obsidian', 'default:obsidian'}
+	}
+})
+
+minetest.register_craft({
 	output = 'default:stonebrick 4',
 	recipe = {
 		{'default:stone', 'default:stone'},
