@@ -735,7 +735,7 @@ minetest.register_node("default:chest_locked", {
 	end,
 })
 
-function default.get_furnace_active_formspec(pos,percent)
+function default.get_furnace_active_formspec(pos, percent)
 	local formspec = 
 	"size[8,9]"..
 	"image[2,2;1,1;default_furnace_fire_bg.png^[lowpart:"..
