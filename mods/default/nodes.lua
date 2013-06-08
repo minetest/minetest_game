@@ -606,9 +606,10 @@ default.chest_formspec =
 	"list[current_player;main;0,5;8,4;]"
 
 function default.get_locked_chest_formspec(pos)
+	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec = 
 		"size[8,9]"..
-		"list[nodemeta:".. pos .. ";main;0,0;8,4;]"..
+		"list[nodemeta:".. spos .. ";main;0,0;8,4;]"..
 		"list[current_player;main;0,5;8,4;]"
 	return formspec
 end
@@ -729,13 +730,12 @@ minetest.register_node("default:chest_locked", {
 	on_rightclick = function(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
 		if has_locked_chest_privilege(meta, clicker) then
-			local pos = pos.x .. "," .. pos.y .. "," ..pos.z
 			minetest.show_formspec(clicker:get_player_name(), "default:chest_locked",default.get_locked_chest_formspec(pos))
 		end
 	end,
 })
 
-function default.get_furnace_active_formspec(percent)
+function default.get_furnace_active_formspec(pos,percent)
 	local formspec = 
 	"size[8,9]"..
 	"image[2,2;1,1;default_furnace_fire_bg.png^[lowpart:"..
@@ -959,7 +959,7 @@ minetest.register_abm({
 					meta:get_float("fuel_totaltime") * 100)
 			meta:set_string("infotext","Furnace active: "..percent.."%")
 			hacky_swap_node(pos,"default:furnace_active")
-			meta:set_string("formspec",default.get_furnace_active_formspec(percent))
+			meta:set_string("formspec",default.get_furnace_active_formspec(pos, percent))
 			return
 		end
 
