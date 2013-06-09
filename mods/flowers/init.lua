@@ -3,6 +3,7 @@
 
 -- Map Generation
 dofile(minetest.get_modpath("flowers").."/mapgen.lua")
+dofile(minetest.get_modpath("flowers").."/moonflower.lua")
 
 -- Aliases for original flowers mod
 minetest.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
