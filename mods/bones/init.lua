@@ -22,7 +22,7 @@ minetest.register_node("bones:bones", {
 	paramtype2 = "facedir",
 	groups = {dig_immediate=2},
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_gravel_footstep", gain=0.45},
+		footstep = {name="default_gravel_footstep", gain=0.5},
 	}),
 	
 	can_dig = function(pos, player)

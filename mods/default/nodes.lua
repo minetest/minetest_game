@@ -95,7 +95,7 @@ minetest.register_node("default:dirt_with_grass", {
 	groups = {crumbly=3,soil=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_grass_footstep", gain=0.4},
+		footstep = {name="default_grass_footstep", gain=0.25},
 	}),
 })
 
@@ -106,7 +106,7 @@ minetest.register_node("default:dirt_with_grass_footsteps", {
 	groups = {crumbly=3,soil=1,not_in_creative_inventory=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_grass_footstep", gain=0.4},
+		footstep = {name="default_grass_footstep", gain=0.25},
 	}),
 })
 
@@ -117,7 +117,7 @@ minetest.register_node("default:dirt_with_snow", {
 	groups = {crumbly=3},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_grass_footstep", gain=0.4},
+		footstep = {name="default_snow_footstep", gain=0.25},
 	}),
 })
 minetest.register_alias("dirt_with_snow", "default:dirt_with_snow")
@@ -152,7 +152,7 @@ minetest.register_node("default:gravel", {
 	is_ground_content = true,
 	groups = {crumbly=2, falling_node=1},
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_gravel_footstep", gain=0.45},
+		footstep = {name="default_gravel_footstep", gain=0.5},
 	}),
 })
 
@@ -178,9 +178,7 @@ minetest.register_node("default:clay", {
 	is_ground_content = true,
 	groups = {crumbly=3},
 	drop = 'default:clay_lump 4',
-	sounds = default.node_sound_dirt_defaults({
-		footstep = "",
-	}),
+	sounds = default.node_sound_dirt_defaults(),
 })
 
 minetest.register_node("default:brick", {
@@ -250,7 +248,7 @@ minetest.register_node("default:junglesapling", {
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
 	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1},
-	sounds = default.node_sound_defaults(),
+	sounds = default.node_sound_leaves_defaults(),
 })
 -- aliases for tree growing abm in content_abm.cpp
 minetest.register_alias("sapling", "default:sapling")
@@ -1108,7 +1106,7 @@ minetest.register_node("default:sapling", {
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
 	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1},
-	sounds = default.node_sound_defaults(),
+	sounds = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_node("default:apple", {
@@ -1126,7 +1124,7 @@ minetest.register_node("default:apple", {
 	},
 	groups = {fleshy=3,dig_immediate=3,flammable=2,leafdecay=3,leafdecay_drop=1},
 	on_use = minetest.item_eat(1),
-	sounds = default.node_sound_defaults(),
+	sounds = default.node_sound_leaves_defaults(),
 	after_place_node = function(pos, placer, itemstack)
 		if placer:is_player() then
 			minetest.set_node(pos, {name="default:apple", param2=1})
@@ -1276,7 +1274,7 @@ minetest.register_node("default:snow", {
 	},
 	groups = {crumbly=3,falling_node=1},
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_grass_footstep", gain=0.4},
+		footstep = {name="default_snow_footstep", gain=0.25},
 	}),
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -1293,6 +1291,6 @@ minetest.register_node("default:snowblock", {
 	is_ground_content = true,
 	groups = {crumbly=3},
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_grass_footstep", gain=0.4},
+		footstep = {name="default_snow_footstep", gain=0.25},
 	}),
 })
