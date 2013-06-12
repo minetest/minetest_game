@@ -19,6 +19,8 @@ function default.node_sound_stone_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
 			{name="default_hard_footstep", gain=0.2}
+	table.place = table.place or
+			{name="default_place_node_hard", gain=1.0}
 	default.node_sound_defaults(table)
 	return table
 end
@@ -49,6 +51,8 @@ function default.node_sound_wood_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
 			{name="default_hard_footstep", gain=0.3}
+	table.place = table.place or
+			{name="default_place_node_hard", gain=1.0}
 	default.node_sound_defaults(table)
 	return table
 end
