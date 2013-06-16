@@ -270,6 +270,17 @@ if minetest.setting_get("mg_name") == "indev" then
 	})
 end
 
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "default:clay",
+	wherein        = "default:sand",
+	clust_scarcity = 15*15*15,
+	clust_num_ores = 64,
+	clust_size     = 5,
+	height_max     = 0,
+	height_min     = -10,
+})
+
 function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, chunk_size, ore_per_chunk, height_min, height_max)
 	minetest.log('action', "WARNING: default.generate_ore is deprecated")
 
@@ -388,41 +399,6 @@ end
 
 minetest.register_on_generated(function(minp, maxp, seed)
 	if maxp.y >= 2 and minp.y <= 0 then
-		-- Generate clay
-		-- Assume X and Z lengths are equal
-		local divlen = 4
-		local divs = (maxp.x-minp.x)/divlen+1;
-		for divx=0+1,divs-1-1 do
-		for divz=0+1,divs-1-1 do
-			local cx = minp.x + math.floor((divx+0.5)*divlen)
-			local cz = minp.z + math.floor((divz+0.5)*divlen)
-			if minetest.get_node({x=cx,y=1,z=cz}).name == "default:water_source" and
-					minetest.get_node({x=cx,y=0,z=cz}).name == "default:sand" then
-				local is_shallow = true
-				local num_water_around = 0
-				if minetest.get_node({x=cx-divlen*2,y=1,z=cz+0}).name == "default:water_source" then
-					num_water_around = num_water_around + 1 end
-				if minetest.get_node({x=cx+divlen*2,y=1,z=cz+0}).name == "default:water_source" then
-					num_water_around = num_water_around + 1 end
-				if minetest.get_node({x=cx+0,y=1,z=cz-divlen*2}).name == "default:water_source" then
-					num_water_around = num_water_around + 1 end
-				if minetest.get_node({x=cx+0,y=1,z=cz+divlen*2}).name == "default:water_source" then
-					num_water_around = num_water_around + 1 end
-				if num_water_around >= 2 then
-					is_shallow = false
-				end	
-				if is_shallow then
-					for x1=-divlen,divlen do
-					for z1=-divlen,divlen do
-						if minetest.get_node({x=cx+x1,y=0,z=cz+z1}).name == "default:sand" then
-							minetest.set_node({x=cx+x1,y=0,z=cz+z1}, {name="default:clay"})
-						end
-					end
-					end
-				end
-			end
-		end
-		end
 		-- Generate papyrus
 		local perlin1 = minetest.get_perlin(354, 3, 0.7, 100)
 		-- Assume X and Z lengths are equal
