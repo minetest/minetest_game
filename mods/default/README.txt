@@ -137,6 +137,9 @@ Zeg9 (CC BY-SA 3.0):
   default_gold_block.png
   default_diamond_block.png
 
+kaeza (WTFPL):
+  bubble.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
