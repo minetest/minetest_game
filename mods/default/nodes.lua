@@ -48,7 +48,7 @@ minetest.register_node("default:stone_with_copper", {
 })
 
 minetest.register_node("default:stone_with_mese", {
-	description = "Mese Crystals in Stone",
+	description = "Mese Ore",
 	tiles = {"default_stone.png^default_mineral_mese.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
@@ -66,7 +66,7 @@ minetest.register_node("default:stone_with_gold", {
 })
 	
 minetest.register_node("default:stone_with_diamond", {
-	description = "Diamonds in Stone",
+	description = "Diamond Ore",
 	tiles = {"default_stone.png^default_mineral_diamond.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
