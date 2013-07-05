@@ -1,6 +1,4 @@
 
-if minetest.setting_get("liquid_finite") then
-
 minetest.register_node("sponge:sponge", {
 	description = "Sponge",
 	drawtype = "normal",
@@ -47,6 +45,8 @@ if minetest.setting_get("liquid_finite") and minetest.setting_get("liquid_relax"
 end
 ]]
 
+if minetest.setting_get("liquid_finite") then
+
 local replacewith = "air"
 
 minetest.register_abm({
@@ -89,10 +89,7 @@ action = function(pos, node, active_object_count, active_object_count_wider)
             for k=-2,2 do
                 p = {x=pos.x+i, y=pos.y+j, z=pos.z+k}
                 n = minetest.env:get_node(p)
-                if (n.name == "default:water_flowing") 
-                or (n.name == "default:water_source") 
-                or (n.name == "default:lava_source") 
-                or (n.name == "default:lava_flowing") then
+                if minetest.registered_nodes[n.name] and minetest.registered_nodes[n.name].liquidtype ~= "none" then
                     minetest.env:add_node(p, {name=replacewith})
                 end
             end
