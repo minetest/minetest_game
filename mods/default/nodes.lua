@@ -473,6 +473,7 @@ minetest.register_node("default:water_source", {
 minetest.register_node("default:lava_flowing", {
 	description = "Flowing Lava",
 	inventory_image = minetest.inventorycube("default_lava.png"),
+	wield_light = LIGHT_MAX, -- for bucket
 	drawtype = "flowingliquid",
 	tiles = {"default_lava.png"},
 	special_tiles = {
@@ -507,6 +508,7 @@ minetest.register_node("default:lava_flowing", {
 minetest.register_node("default:lava_source", {
 	description = "Lava Source",
 	inventory_image = minetest.inventorycube("default_lava.png"),
+	wield_light = LIGHT_MAX,
 	drawtype = "liquid",
 	tiles = {
 		{name="default_lava_source_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}}
@@ -547,6 +549,7 @@ minetest.register_node("default:torch", {
 	},
 	inventory_image = "default_torch_on_floor.png",
 	wield_image = "default_torch_on_floor.png",
+	wield_light = LIGHT_MAX-1,
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,

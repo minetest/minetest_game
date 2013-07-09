@@ -33,9 +33,11 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 	bucket.liquids[flowing] = bucket.liquids[source]
 
 	if itemname ~= nil then
+		nodedef = minetest.registered_nodes[source] or {}
 		minetest.register_craftitem(itemname, {
 			description = name,
 			inventory_image = inventory_image,
+			wield_light = nodedef.wield_light,
 			stack_max = 1,
 			liquids_pointable = true,
 			groups = {not_in_creative_inventory=1},
