@@ -132,10 +132,12 @@ minetest.register_on_punchnode(on_punchnode)
 
 default.cool_lava_source = function(pos)
 	minetest.set_node(pos, {name="default:obsidian"})
+	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.1,  max_hear_distance = 5})
 end
 
 default.cool_lava_flowing = function(pos)
 	minetest.set_node(pos, {name="default:stone"})
+	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.1,  max_hear_distance = 5})
 end
 
 minetest.register_abm({
