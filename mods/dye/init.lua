@@ -99,6 +99,13 @@ for _, row in ipairs(dyelocal.dyes) do
 	})
 end
 
+-- Special case
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:black 4",
+	recipe = {"default:coal_lump"},
+})
+
 -- Mix recipes
 -- Just mix everything to everything somehow sanely
 
