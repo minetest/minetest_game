@@ -155,6 +155,8 @@ minetest.register_abm({
 	interval = 1,
 	chance = 2,
 	action = function(p0, node, _, _)
+	  --If fire is permanent then do not allow destroy
+	  if minetest.env:get_node(p0).param1 == 1 then return end
 		-- If there is water or stuff like that around flame, remove flame
 		if fire.flame_should_extinguish(p0) then
 			minetest.remove_node(p0)
