@@ -1289,7 +1289,7 @@ minetest.register_node("default:snow", {
 	is_ground_content = true,
 	paramtype = "light",
 	buildable_to = true,
-	leveled = 1,
+	leveled = 7,
 	drawtype = "nodebox",
 	freezemelt = "default:water_flowing",
 	node_box = {
