@@ -1430,7 +1430,9 @@ end
 
 minetest.register_node("default:ice", {
 	description = "Ice",
+	drawtype = "glasslike",
 	tiles = {"default_ice.png"},
+	use_texture_alpha = true,
 	is_ground_content = true,
 	paramtype = "light",
 	freezemelt = "default:water_source",
