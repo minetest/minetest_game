@@ -119,6 +119,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	creative_inventory.set_creative_formspec(player, start_i, start_i / (6*4) + 1)
+	return true
 end)
 
 if minetest.setting_getbool("creative_mode") then
