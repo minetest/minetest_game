@@ -1332,7 +1332,9 @@ minetest.register_node("default:nyancat", {
 
 minetest.register_node("default:nyancat_rainbow", {
 	description = "Nyan Cat Rainbow",
-	tiles = {"default_nc_rb.png"},
+	tiles = {"default_nc_rb.png^[transformR90", "default_nc_rb.png^[transformR90",
+		"default_nc_rb.png", "default_nc_rb.png"},
+	paramtype2 = "facedir",
 	groups = {cracky=2},
 	sounds = default.node_sound_defaults(),
 })

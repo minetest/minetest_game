@@ -371,7 +371,7 @@ function default.make_nyancat(pos, facedir, length)
 	for i=1,length do
 		p.x = p.x + tailvec.x
 		p.z = p.z + tailvec.z
-		minetest.set_node(p, {name="default:nyancat_rainbow"})
+		minetest.set_node(p, {name="default:nyancat_rainbow", param2=facedir})
 	end
 end
 
