@@ -139,6 +139,10 @@ minetest.register_abm({
 		if not light or light < 13 then
 			return
 		end
+
+		if minetest.setting_getbool("weather") and minetest.get_heat(pos) < 5 then
+			return
+		end
 		
 		local pos0 = {x=pos.x-4,y=pos.y-4,z=pos.z-4}
 		local pos1 = {x=pos.x+4,y=pos.y+4,z=pos.z+4}

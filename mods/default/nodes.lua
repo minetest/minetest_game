@@ -440,7 +440,7 @@ minetest.register_node("default:water_flowing", {
 	liquid_viscosity = WATER_VISC,
 	freezemelt = "default:snow",
 	post_effect_color = {a=64, r=100, g=100, b=200},
-	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1, freezes=1, melt_around=1},
+	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1, freeze=-5},
 })
 
 minetest.register_node("default:water_source", {
@@ -472,7 +472,7 @@ minetest.register_node("default:water_source", {
 	liquid_viscosity = WATER_VISC,
 	freezemelt = "default:ice",
 	post_effect_color = {a=64, r=100, g=100, b=200},
-	groups = {water=3, liquid=3, puts_out_fire=1, freezes=1},
+	groups = {water=3, liquid=3, puts_out_fire=1, freeze=-1},
 })
 
 minetest.register_node("default:lava_flowing", {
@@ -508,7 +508,7 @@ minetest.register_node("default:lava_flowing", {
 	liquid_renewable = false,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=3, igniter=1, not_in_creative_inventory=1},
+	groups = {lava=3, liquid=2, hot=150, igniter=1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("default:lava_source", {
@@ -541,7 +541,7 @@ minetest.register_node("default:lava_source", {
 	liquid_renewable = false,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=3, igniter=1},
+	groups = {lava=3, liquid=2, hot=200, igniter=1},
 })
 
 minetest.register_node("default:torch", {
@@ -566,7 +566,7 @@ minetest.register_node("default:torch", {
 		wall_bottom = {-0.1, -0.5, -0.1, 0.1, -0.5+0.6, 0.1},
 		wall_side = {-0.5, -0.3, -0.1, -0.5+0.3, 0.3, 0.1},
 	},
-	groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1,hot=2},
+	groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1,hot=150},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 })
@@ -841,7 +841,7 @@ minetest.register_node("default:furnace_active", {
 	paramtype2 = "facedir",
 	light_source = 8,
 	drop = "default:furnace",
-	groups = {cracky=2, not_in_creative_inventory=1,hot=1},
+	groups = {cracky=2, not_in_creative_inventory=1,hot=60},
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
@@ -1281,7 +1281,7 @@ minetest.register_node("default:ice", {
 	is_ground_content = true,
 	paramtype = "light",
 	freezemelt = "default:water_source",
-	groups = {cracky=3, melts=1},
+	groups = {cracky=3, melt=3},
 	sounds = default.node_sound_glass_defaults(),
 })
 
@@ -1302,7 +1302,7 @@ minetest.register_node("default:snow", {
 			{-0.5, -0.5, -0.5,  0.5, -0.5+2/16, 0.5},
 		},
 	},
-	groups = {crumbly=3,falling_node=1, melts=1, float=1},
+	groups = {crumbly=3,falling_node=1, melt=1, float=1},
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_snow_footstep", gain=0.25},
 		dug = {name="default_snow_footstep", gain=0.75},
@@ -1321,7 +1321,7 @@ minetest.register_node("default:snowblock", {
 	tiles = {"default_snow.png"},
 	is_ground_content = true,
 	freezemelt = "default:water_source",
-	groups = {crumbly=3, melts=1},
+	groups = {crumbly=3, melt=2},
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_snow_footstep", gain=0.25},
 		dug = {name="default_snow_footstep", gain=0.75},
