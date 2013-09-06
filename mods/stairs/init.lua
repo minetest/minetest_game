@@ -250,3 +250,5 @@ stairs.register_stair_and_slab("stonebrick", "default:stonebrick",
 		"Stone Brick Stair",
 		"Stone Brick Slab",
 		default.node_sound_stone_defaults())
+
+minetest.register_alias("mapgen_stair_cobble", "stairs:stair_cobble")
