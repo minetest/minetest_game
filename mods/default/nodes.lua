@@ -29,6 +29,14 @@ minetest.register_node("default:stone_with_coal", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:glowing_mese", {
+	description = "Glowing Mese",
+	tiles = {"default_glowing_mese.png"},
+	groups = {cracky=1,level=2},
+	light_source = 14,
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("default:stone_with_iron", {
 	description = "Iron Ore",
 	tiles = {"default_stone.png^default_mineral_iron.png"},
