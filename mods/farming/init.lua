@@ -144,8 +144,8 @@ minetest.register_craft({
 	output = "farming:hoe_wood",
 	recipe = {
 		{"group:wood", "group:wood"},
-		{"", "default:stick"},
-		{"", "default:stick"},
+		{"", "group:stick"},
+		{"", "group:stick"},
 	}
 })
 
@@ -153,8 +153,8 @@ minetest.register_craft({
 	output = "farming:hoe_stone",
 	recipe = {
 		{"group:stone", "group:stone"},
-		{"", "default:stick"},
-		{"", "default:stick"},
+		{"", "group:stick"},
+		{"", "group:stick"},
 	}
 })
 
@@ -162,8 +162,8 @@ minetest.register_craft({
 	output = "farming:hoe_steel",
 	recipe = {
 		{"default:steel_ingot", "default:steel_ingot"},
-		{"", "default:stick"},
-		{"", "default:stick"},
+		{"", "group:stick"},
+		{"", "group:stick"},
 	}
 })
 
@@ -171,8 +171,8 @@ minetest.register_craft({
 	output = "farming:hoe_bronze",
 	recipe = {
 		{"default:bronze_ingot", "default:bronze_ingot"},
-		{"", "default:stick"},
-		{"", "default:stick"},
+		{"", "group:stick"},
+		{"", "group:stick"},
 	}
 })
 

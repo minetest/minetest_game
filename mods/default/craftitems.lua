@@ -3,6 +3,7 @@
 minetest.register_craftitem("default:stick", {
 	description = "Stick",
 	inventory_image = "default_stick.png",
+	groups = {stick=1},
 })
 
 minetest.register_craftitem("default:paper", {
