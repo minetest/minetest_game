@@ -918,6 +918,76 @@ function hacky_swap_node(pos,name)
 	meta:from_table(meta0)
 end
 
+function default.furnace_step(pos, node, meta)
+	local inv = meta:get_inventory()
+	local srclist = inv:get_list("src")
+	local cooked = nil
+	local aftercooked
+	
+	if srclist then
+		cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+	end
+	
+	local was_active = false
+	
+	if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
+		was_active = true
+		meta:set_float("fuel_time", meta:get_float("fuel_time") + 1)
+		meta:set_float("src_time", meta:get_float("src_time") + 1)
+		if cooked and cooked.item and meta:get_float("src_time") >= cooked.time then
+			-- check if there's room for output in "dst" list
+			if inv:room_for_item("dst",cooked.item) then
+				-- Put result in "dst" list
+				inv:add_item("dst", cooked.item)
+				-- take stuff from "src" list
+				inv:set_stack("src", 1, aftercooked.items[1])
+			else
+				print("Could not insert '"..cooked.item:to_string().."'")
+			end
+			meta:set_string("src_time", 0)
+		end
+	end
+	
+	if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
+		local percent = math.floor(meta:get_float("fuel_time") /
+				meta:get_float("fuel_totaltime") * 100)
+		meta:set_string("infotext","Furnace active: "..percent.."%")
+		node.name = "default:furnace_active"
+		meta:set_string("formspec",default.get_furnace_active_formspec(pos, percent))
+		return
+	end
+	local fuel = nil
+	local afterfuel
+	local cooked = nil
+	local fuellist = inv:get_list("fuel")
+	local srclist = inv:get_list("src")
+	
+	if srclist then
+		cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+	end
+	if fuellist then
+		fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+	end
+	if fuel.time <= 0 then
+		meta:set_string("infotext","Furnace out of fuel")
+		node.name = "default:furnace"
+		meta:set_string("formspec", default.furnace_inactive_formspec)
+		return
+	end
+	if cooked.item:is_empty() then
+		if was_active then
+			meta:set_string("infotext","Furnace is empty")
+			node.name = "default:furnace"
+			meta:set_string("formspec", default.furnace_inactive_formspec)
+		end
+		return
+	end
+	meta:set_string("fuel_totaltime", fuel.time)
+	meta:set_string("fuel_time", 0)
+	
+	inv:set_stack("fuel", 1, afterfuel.items[1])
+end
+
 minetest.register_abm({
 	nodenames = {"default:furnace","default:furnace_active"},
 	interval = 1.0,
@@ -934,79 +1004,15 @@ minetest.register_abm({
 				meta:set_float(name, 0.0)
 			end
 		end
-
-		local inv = meta:get_inventory()
-
-		local srclist = inv:get_list("src")
-		local cooked = nil
-		local aftercooked
-		
-		if srclist then
-			cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+		local gt = minetest.get_gametime()
+		if meta:get_string("game_time") == "" then
+			meta:set_int("game_time", gt-1)
 		end
-		
-		local was_active = false
-		
-		if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
-			was_active = true
-			meta:set_float("fuel_time", meta:get_float("fuel_time") + 1)
-			meta:set_float("src_time", meta:get_float("src_time") + 1)
-			if cooked and cooked.item and meta:get_float("src_time") >= cooked.time then
-				-- check if there's room for output in "dst" list
-				if inv:room_for_item("dst",cooked.item) then
-					-- Put result in "dst" list
-					inv:add_item("dst", cooked.item)
-					-- take stuff from "src" list
-					inv:set_stack("src", 1, aftercooked.items[1])
-				else
-					print("Could not insert '"..cooked.item:to_string().."'")
-				end
-				meta:set_string("src_time", 0)
-			end
+		for i = 1, math.min(1200, gt-meta:get_int("game_time")) do
+			default.furnace_step(pos, node, meta)
 		end
-		
-		if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
-			local percent = math.floor(meta:get_float("fuel_time") /
-					meta:get_float("fuel_totaltime") * 100)
-			meta:set_string("infotext","Furnace active: "..percent.."%")
-			hacky_swap_node(pos,"default:furnace_active")
-			meta:set_string("formspec",default.get_furnace_active_formspec(pos, percent))
-			return
-		end
-
-		local fuel = nil
-		local afterfuel
-		local cooked = nil
-		local fuellist = inv:get_list("fuel")
-		local srclist = inv:get_list("src")
-		
-		if srclist then
-			cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
-		end
-		if fuellist then
-			fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
-		end
-
-		if fuel.time <= 0 then
-			meta:set_string("infotext","Furnace out of fuel")
-			hacky_swap_node(pos,"default:furnace")
-			meta:set_string("formspec", default.furnace_inactive_formspec)
-			return
-		end
-
-		if cooked.item:is_empty() then
-			if was_active then
-				meta:set_string("infotext","Furnace is empty")
-				hacky_swap_node(pos,"default:furnace")
-				meta:set_string("formspec", default.furnace_inactive_formspec)
-			end
-			return
-		end
-
-		meta:set_string("fuel_totaltime", fuel.time)
-		meta:set_string("fuel_time", 0)
-		
-		inv:set_stack("fuel", 1, afterfuel.items[1])
+		hacky_swap_node(pos, node.name)
+		meta:set_int("game_time", gt)
 	end,
 })
 
