@@ -25,11 +25,11 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			if pointed_thing.type ~= "node" then
 				return itemstack
 			end
-			
+
 			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
-			
+
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local dir = {
@@ -39,7 +39,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				}
 				param2 = minetest.dir_to_facedir(dir)
 			end
-			
+
 			if p0.y-1 == p1.y then
 				param2 = param2 + 20
 				if param2 == 21 then
@@ -48,11 +48,11 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 					param2 = 21
 				end
 			end
-			
+
 			return minetest.item_place(itemstack, placer, pointed_thing, param2)
 		end,
 	})
-	
+
 	-- for replace ABM
 	minetest.register_node(":stairs:stair_" .. subname.."upside_down", {
 		replace_name = "stairs:stair_" .. subname,
@@ -108,10 +108,10 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			local n0 = minetest.get_node(p0)
 			local n1 = minetest.get_node(p1)
 			local param2 = 0
-			
+
 			local n0_is_upside_down = (n0.name == "stairs:slab_" .. subname and
 					n0.param2 >= 20)
-			
+
 			if n0.name == "stairs:slab_" .. subname and not n0_is_upside_down and p0.y+1 == p1.y then
 				slabpos = p0
 				slabnode = n0
@@ -125,7 +125,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				-- Make a fake stack of a single item and try to place it
 				local fakestack = ItemStack(recipeitem)
 				fakestack:set_count(itemstack:get_count())
-				
+
 				pointed_thing.above = slabpos
 				local success
 				fakestack, success = minetest.item_place(fakestack, placer, pointed_thing)
@@ -148,7 +148,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 					-- Make a fake stack of a single item and try to place it
 					local fakestack = ItemStack(recipeitem)
 					fakestack:set_count(itemstack:get_count())
-					
+
 					pointed_thing.above = p0
 					local success
 					fakestack, success = minetest.item_place(fakestack, placer, pointed_thing)
@@ -161,20 +161,20 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 					end
 					return itemstack
 				end
-				
+
 				-- Place upside down slab
 				param2 = 20
 			end
-			
+
 			-- If pointing at the side of a upside down slab
 			if n0_is_upside_down and p0.y+1 ~= p1.y then
 				param2 = 20
 			end
-			
+
 			return minetest.item_place(itemstack, placer, pointed_thing, param2)
 		end,
 	})
-	
+
 	-- for replace ABM
 	minetest.register_node(":stairs:slab_" .. subname.."upside_down", {
 		replace_name = "stairs:slab_"..subname,
