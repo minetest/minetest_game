@@ -30,7 +30,10 @@ minetest.register_abm({
 		pos.y = pos.y+1
 		local nn = minetest.get_node(pos).name
 		pos.y = pos.y-1
-		if minetest.registered_nodes[nn] and minetest.registered_nodes[nn].walkable then
+		if minetest.registered_nodes[nn] and
+				minetest.registered_nodes[nn].walkable and
+				minetest.get_item_group(nn, "plant") == 0
+		then
 			minetest.set_node(pos, {name="default:dirt"})
 		end
 		-- check if there is water nearby

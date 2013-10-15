@@ -44,6 +44,15 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				if pointed_thing.type ~= "node" then
 					return
 				end
+				
+				-- Call on_rightclick if the pointed node defines it
+				if user and not user:get_player_control().sneak then
+					local n = minetest.get_node(pointed_thing.under)
+					local nn = n.name
+					if minetest.registered_nodes[nn] and minetest.registered_nodes[nn].on_rightclick then
+						return minetest.registered_nodes[nn].on_rightclick(pointed_thing.under, n, user, itemstack) or itemstack
+					end
+				end
 
 				local place_liquid = function(pos, node, source, flowing, fullness)
 					if math.floor(fullness/128) == 1 or (not minetest.setting_getbool("liquid_finite")) then

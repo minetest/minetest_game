@@ -46,7 +46,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							elseif flower_choice == 4 then
 								flower = "flowers:dandelion_white"
 							elseif flower_choice == 5 then
-								flower = "flowers:flower_geranium"
+								flower = "flowers:geranium"
 							elseif flower_choice == 6 then
 								flower = "flowers:viola"
 							end
