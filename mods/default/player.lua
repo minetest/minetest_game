@@ -16,10 +16,29 @@ animation_blend = 0
 default_model = "character.x"
 default_textures = {"character.png", }
 
+if default.player == nil then
+    default.player = {}
+end
+
+-- Each model (character.x weild3d_character.x pony.x etc)
+-- may have different uh... indexes(?) for the state changes
+-- such as beginning to stand or done sitting.
+
+local animations = {}
+default.player.register_model_animation = function(model,animation)
+    animations[model] = animation
+end
+
 -- Frame ranges for each player model
 function player_get_animations(model)
-	if model == "character.x" then
-		return {
+    local animation = animations[model]
+    if animation then 
+        return animation 
+    end
+    if default.player.default_animation then
+        return default.player.default_animation
+    end
+    return {
 		stand_START = 0,
 		stand_END = 79,
 		sit_START = 81,
@@ -33,7 +52,6 @@ function player_get_animations(model)
 		walk_mine_START = 200,
 		walk_mine_END = 219
 		}
-	end
 end
 
 --
@@ -69,6 +87,7 @@ end
 
 -- Update appearance when the player joins
 minetest.register_on_joinplayer(player_update_visuals)
+
 
 -- Check each player and apply animations
 function player_step(dtime)
