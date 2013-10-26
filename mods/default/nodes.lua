@@ -1016,6 +1016,7 @@ minetest.register_node("default:cobble", {
 	description = "Cobblestone",
 	tiles = {"default_cobble.png"},
 	is_ground_content = true,
+	freezemelt = "default:lava_source",
 	groups = {cracky=3, stone=2, melt=2900},
 	sounds = default.node_sound_stone_defaults(),
 })
