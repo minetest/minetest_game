@@ -138,8 +138,8 @@ minetest.register_node("default:sand", {
 	tiles = {"default_sand.png"},
 	is_ground_content = true,
 	groups = {crumbly=3, falling_node=1, sand=1, liquid_flow=1, melt=1000},
-	freezemelt = "default:glass",
 	sounds = default.node_sound_sand_defaults(),
+	freezemelt = "default:glass",
 })
 
 minetest.register_node("default:desert_sand", {
