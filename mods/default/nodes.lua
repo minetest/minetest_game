@@ -128,7 +128,8 @@ minetest.register_node("default:dirt", {
 	description = "Dirt",
 	tiles = {"default_dirt.png"},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1},
+	groups = {crumbly=3,soil=1,melt=800},
+	freezemelt = "default:sand",
 	sounds = default.node_sound_dirt_defaults(),
 })
 
@@ -136,7 +137,8 @@ minetest.register_node("default:sand", {
 	description = "Sand",
 	tiles = {"default_sand.png"},
 	is_ground_content = true,
-	groups = {crumbly=3, falling_node=1, sand=1},
+	groups = {crumbly=3, falling_node=1, sand=1, melt=1000},
+	freezemelt = "default:glass",
 	sounds = default.node_sound_sand_defaults(),
 })
 
@@ -340,7 +342,8 @@ minetest.register_node("default:glass", {
 	inventory_image = minetest.inventorycube("default_glass.png"),
 	paramtype = "light",
 	sunlight_propagates = true,
-	groups = {cracky=3,oddly_breakable_by_hand=3},
+	groups = {cracky=3,oddly_breakable_by_hand=3, melt=1500},
+	freezemelt = "default:obsidian_glass",
 	sounds = default.node_sound_glass_defaults(),
 })
 
