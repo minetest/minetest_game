@@ -1,5 +1,7 @@
 -- mods/default/nodes.lua
 
+local weather = minetest.setting_getbool("weather")
+
 minetest.register_node("default:stone", {
 	description = "Stone",
 	tiles = {"default_stone.png"},
@@ -140,14 +142,16 @@ minetest.register_abm({
 		local above = {x=pos.x, y=pos.y+1, z=pos.z}
 		local name = minetest.get_node(above).name
 		local nodedef = minetest.registered_nodes[name]
-		if nodedef and (nodedef.sunlight_propagates or nodedef.paramtype == "light")
-				and nodedef.liquidtype == "none"
-				and (minetest.get_node_light(above) or 0) >= 13 then
-			if name == "default:snow" or name == "default:snowblock" then
-				minetest.set_node(pos, {name = "default:dirt_with_snow"})
-			else
-				minetest.set_node(pos, {name = "default:dirt_with_grass"})
-			end
+		if (weather and minetest.get_heat(pos) < -15) or name == "default:snow" or
+			name == "default:snowblock" or name == "default:ice"
+		then
+			minetest.set_node(pos, {name = "default:dirt_with_snow"})
+		elseif (not weather or minetest.get_heat(pos) > 5) and 
+			nodedef and (nodedef.sunlight_propagates or nodedef.paramtype == "light") and 
+			nodedef.liquidtype == "none" and
+			(minetest.get_node_light(above) or 0) >= 13
+		then
+			minetest.set_node(pos, {name = "default:dirt_with_grass"})
 		end
 	end
 })
@@ -160,9 +164,28 @@ minetest.register_abm({
 		local above = {x=pos.x, y=pos.y+1, z=pos.z}
 		local name = minetest.get_node(above).name
 		local nodedef = minetest.registered_nodes[name]
-		if name ~= "ignore" and nodedef
+		if (name ~= "ignore" and nodedef
 				and not ((nodedef.sunlight_propagates or nodedef.paramtype == "light")
-				and nodedef.liquidtype == "none") then
+				and nodedef.liquidtype == "none")) or (weather 
+				and (minetest.get_heat(pos) < -5 or minetest.get_heat(pos) > 60))
+				or name == "default:snow" or name == "default:snowblock" or name == "default:ice" 
+		then
+			minetest.set_node(pos, {name = "default:dirt"})
+		end
+	end
+})
+
+minetest.register_abm({
+	nodenames = {"default:dirt_with_snow"},
+	interval = 2,
+	chance = 200,
+	action = function(pos, node)
+		local above = {x=pos.x, y=pos.y+1, z=pos.z}
+		local name = minetest.get_node(above).name
+		local nodedef = minetest.registered_nodes[name]
+		if (name ~= "ignore" and nodedef and (nodedef.liquidtype ~= "none" or
+			(weather and minetest.get_heat(pos) > 3 and name ~= "default:snow" and name ~= "default:snowblock" and name ~= "default:ice")))
+		then
 			minetest.set_node(pos, {name = "default:dirt"})
 		end
 	end
@@ -732,7 +755,7 @@ minetest.register_node("default:lava_flowing", {
 	liquid_renewable = false,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=150, igniter=1, not_in_creative_inventory=1},
+	groups = {lava=3, liquid=2, hot=700, igniter=1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("default:lava_source", {
@@ -765,7 +788,7 @@ minetest.register_node("default:lava_source", {
 	liquid_renewable = false,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=200, igniter=1},
+	groups = {lava=3, liquid=2, hot=1200, igniter=1},
 })
 
 minetest.register_node("default:torch", {
