@@ -389,6 +389,7 @@ minetest.register_abm({
 	interval = 10,
 	chance = 50,
 	action = function(pos, node)
+		if weather and minetest.get_heat(pos) < 5 then return end
 		local is_soil = minetest.registered_nodes[minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name].groups.soil
 		if is_soil == nil or is_soil == 0 then return end
 		print("A sapling grows into a tree at "..minetest.pos_to_string(pos))
@@ -486,6 +487,7 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = function(pos, node)
+		if weather and minetest.get_heat(pos) < 15 then return end
 		local is_soil = minetest.registered_nodes[minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name].groups.soil
 		if is_soil == nil or is_soil == 0 then return end
 		print("A jungle sapling grows into a tree at "..minetest.pos_to_string(pos))
