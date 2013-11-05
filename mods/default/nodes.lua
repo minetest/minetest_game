@@ -550,16 +550,29 @@ minetest.register_node("default:bookshelf", {
 	sounds = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node("default:glass", {
-	description = "Glass",
-	drawtype = "glasslike",
-	tiles = {"default_glass.png"},
-	inventory_image = minetest.inventorycube("default_glass.png"),
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {cracky=3,oddly_breakable_by_hand=3},
-	sounds = default.node_sound_glass_defaults(),
-})
+if minetest.setting_getbool("new_style_glass") then
+	minetest.register_node("default:glass", {
+		description = "Glass",
+		drawtype = "glasslike_framed",
+		tiles = {"default_glass.png","default_glass_streaks.png"},
+		inventory_image = minetest.inventorycube("default_glass.png"),
+		paramtype = "light",
+		sunlight_propagates = true,
+		groups = {cracky=3,oddly_breakable_by_hand=3},
+		sounds = default.node_sound_glass_defaults(),
+	})
+else
+	minetest.register_node("default:glass", {
+		description = "Glass",
+		drawtype = "glasslike",
+		tiles = {"default_glass.png"},
+		inventory_image = minetest.inventorycube("default_glass.png"),
+		paramtype = "light",
+		sunlight_propagates = true,
+		groups = {cracky=3,oddly_breakable_by_hand=3},
+		sounds = default.node_sound_glass_defaults(),
+	})
+end
 
 minetest.register_node("default:fence_wood", {
 	description = "Wooden Fence",
@@ -1302,15 +1315,27 @@ minetest.register_node("default:diamondblock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:obsidian_glass", {
-	description = "Obsidian Glass",
-	drawtype = "glasslike",
-	tiles = {"default_obsidian_glass.png"},
-	paramtype = "light",
-	sunlight_propagates = true,
-	sounds = default.node_sound_glass_defaults(),
-	groups = {cracky=3,oddly_breakable_by_hand=3},
-})
+if minetest.setting_getbool("new_style_glass") then
+	minetest.register_node("default:obsidian_glass", {
+		description = "Obsidian Glass",
+		drawtype = "glasslike_framed",
+		tiles = {"default_obsidian_glass.png","default_obsidian_glass_streaks.png"},
+		paramtype = "light",
+		sunlight_propagates = true,
+		sounds = default.node_sound_glass_defaults(),
+		groups = {cracky=3,oddly_breakable_by_hand=3},
+	})
+else
+	minetest.register_node("default:obsidian_glass", {
+		description = "Obsidian Glass",
+		drawtype = "glasslike",
+		tiles = {"default_obsidian_glass.png"},
+		paramtype = "light",
+		sunlight_propagates = true,
+		sounds = default.node_sound_glass_defaults(),
+		groups = {cracky=3,oddly_breakable_by_hand=3},
+	})
+end
 
 minetest.register_node("default:obsidian", {
 	description = "Obsidian",
