@@ -89,8 +89,7 @@ minetest.register_on_dieplayer(function(player)
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	
 	local nn = minetest.get_node(pos).name
-	if minetest.registered_nodes[nn].can_dig and
-		not minetest.registered_nodes[nn].can_dig(pos, player) then
+	if minetest.registered_nodes[nn].can_dig then
 		local player_inv = player:get_inventory()
 
 		for i=1,player_inv:get_size("main") do
