@@ -142,13 +142,12 @@ minetest.register_abm({
 		local above = {x=pos.x, y=pos.y+1, z=pos.z}
 		local name = minetest.get_node(above).name
 		local nodedef = minetest.registered_nodes[name]
+		if ( not ((nodedef.sunlight_propagates or nodedef.paramtype == "light") and nodedef.liquidtype == "none")) then return end
 		if (weather and minetest.get_heat(pos) < -15) or name == "default:snow" or
 			name == "default:snowblock" or name == "default:ice"
 		then
 			minetest.set_node(pos, {name = "default:dirt_with_snow"})
-		elseif (not weather or minetest.get_heat(pos) > 5) and 
-			nodedef and (nodedef.sunlight_propagates or nodedef.paramtype == "light") and 
-			nodedef.liquidtype == "none" and
+		elseif (not weather or minetest.get_heat(pos) > 5) and nodedef and
 			(minetest.get_node_light(above) or 0) >= 13
 		then
 			minetest.set_node(pos, {name = "default:dirt_with_grass"})
