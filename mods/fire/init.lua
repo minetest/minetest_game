@@ -9,7 +9,7 @@ minetest.register_node("fire:basic_flame", {
 	}},
 	inventory_image = "fire_basic_flame.png",
 	light_source = 14,
-	groups = {igniter=2,dig_immediate=3,hot=3},
+	groups = {igniter=2,dig_immediate=3,hot=200},
 	drop = '',
 	walkable = false,
 	buildable_to = true,
@@ -190,3 +190,23 @@ minetest.register_abm({
 	end,
 })
 
+-- too hot
+if minetest.setting_getbool("weather") then
+minetest.register_abm({
+	nodenames = {"group:flammable"},
+	interval = 5,
+	chance = 5,
+	action = function(p0, node, _, _)
+		-- If there is water or stuff like that around flame, don't ignite
+		if minetest.get_heat(p0) < 500 then return end
+		if fire.flame_should_extinguish(p0) then
+			return
+		end
+		local p = fire.find_pos_for_flame_around(p0)
+		if p then
+			minetest.set_node(p, {name="fire:basic_flame"})
+			fire.on_flame_add_at(p)
+		end
+	end,
+})
+end
