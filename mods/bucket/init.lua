@@ -18,6 +18,19 @@ minetest.register_craft({
 bucket = {}
 bucket.liquids = {}
 
+local function check_protection(pos, name, text)
+	if minetest.is_protected(pos, name) then
+		minetest.log("action", name
+			.. " tried to " .. text
+			.. " at protected position "
+			.. minetest.pos_to_string(pos)
+			.. " with a bucket")
+		minetest.record_protection_violation(pos, name)
+		return true
+	end
+	return false
+end
+
 -- Register a new liquid
 --   source = name of the source node
 --   flowing = name of the flowing node
@@ -55,6 +68,11 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				end
 
 				local place_liquid = function(pos, node, source, flowing, fullness)
+					if check_protection(pos,
+							user:get_player_name(),
+							"place "..source) then
+						return
+					end
 					if math.floor(fullness/128) == 1 or (not minetest.setting_getbool("liquid_finite")) then
 						minetest.add_node(pos, {name=source, param2=fullness})
 						return
@@ -111,6 +129,12 @@ minetest.register_craftitem("bucket:bucket_empty", {
 		liquiddef = bucket.liquids[node.name]
 		if liquiddef ~= nil and liquiddef.itemname ~= nil and (node.name == liquiddef.source or
 			(node.name == liquiddef.flowing and minetest.setting_getbool("liquid_finite"))) then
+
+			if check_protection(pointed_thing.under,
+					user:get_player_name(),
+					"take ".. node.name) then
+				return
+			end
 
 			minetest.add_node(pointed_thing.under, {name="air"})
 
