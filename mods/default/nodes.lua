@@ -1167,6 +1167,7 @@ minetest.register_node("default:sapling", {
 	wield_image = "default_sapling.png",
 	paramtype = "light",
 	walkable = false,
+	is_ground_content = true,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -1184,6 +1185,7 @@ minetest.register_node("default:apple", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	is_ground_content = true,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
@@ -1207,6 +1209,7 @@ minetest.register_node("default:dry_shrub", {
 	wield_image = "default_dry_shrub.png",
 	paramtype = "light",
 	walkable = false,
+	is_ground_content = true,
 	buildable_to = true,
 	groups = {snappy=3,flammable=3,attached_node=1},
 	sounds = default.node_sound_leaves_defaults(),
@@ -1225,6 +1228,7 @@ minetest.register_node("default:grass_1", {
 	wield_image = "default_grass_3.png",
 	paramtype = "light",
 	walkable = false,
+	is_ground_content = true,
 	buildable_to = true,
 	groups = {snappy=3,flammable=3,flora=1,attached_node=1},
 	sounds = default.node_sound_leaves_defaults(),
