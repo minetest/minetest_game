@@ -189,7 +189,6 @@ minetest.register_node(":default:grass_1", {
 	inventory_image = "default_grass_3.png",
 	wield_image = "default_grass_3.png",
 	paramtype = "light",
-	waving = 1,
 	walkable = false,
 	buildable_to = true,
 	drop = {
@@ -221,7 +220,6 @@ for i=2,5 do
 		inventory_image = "default_grass_"..i..".png",
 		wield_image = "default_grass_"..i..".png",
 		paramtype = "light",
-		waving = 1,
 		walkable = false,
 		buildable_to = true,
 		is_ground_content = true,
@@ -249,7 +247,6 @@ minetest.register_node(":default:junglegrass", {
 	inventory_image = "default_junglegrass.png",
 	wield_image = "default_junglegrass.png",
 	paramtype = "light",
-	waving = 1,
 	walkable = false,
 	buildable_to = true,
 	is_ground_content = true,
@@ -366,9 +363,9 @@ for i=1,8 do
 	}
 	minetest.register_node("farming:wheat_"..i, {
 		drawtype = "plantlike",
+		waving = 1,
 		tiles = {"farming_wheat_"..i..".png"},
 		paramtype = "light",
-		waving = 1,
 		walkable = false,
 		buildable_to = true,
 		is_ground_content = true,
@@ -452,9 +449,9 @@ for i=1,8 do
 	}
 	minetest.register_node("farming:cotton_"..i, {
 		drawtype = "plantlike",
+		waving = 1,
 		tiles = {"farming_cotton_"..i..".png"},
 		paramtype = "light",
-		waving = 1,
 		walkable = false,
 		buildable_to = true,
 		is_ground_content = true,
