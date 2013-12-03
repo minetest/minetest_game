@@ -255,10 +255,10 @@ minetest.register_node("default:junglewood", {
 minetest.register_node("default:jungleleaves", {
 	description = "Jungle Leaves",
 	drawtype = "allfaces_optional",
+	waving = 1,
 	visual_scale = 1.3,
 	tiles = {"default_jungleleaves.png"},
 	paramtype = "light",
-	waving = 1,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
@@ -299,6 +299,7 @@ minetest.register_node("default:junglesapling", {
 minetest.register_node("default:junglegrass", {
 	description = "Jungle Grass",
 	drawtype = "plantlike",
+	waving = 1,
 	visual_scale = 1.3,
 	tiles = {"default_junglegrass.png"},
 	inventory_image = "default_junglegrass.png",
@@ -318,10 +319,10 @@ minetest.register_node("default:junglegrass", {
 minetest.register_node("default:leaves", {
 	description = "Leaves",
 	drawtype = "allfaces_optional",
+	waving = 1,
 	visual_scale = 1.3,
 	tiles = {"default_leaves.png"},
 	paramtype = "light",
-	waving = 1,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
@@ -1252,12 +1253,12 @@ minetest.register_node("default:apple", {
 minetest.register_node("default:dry_shrub", {
 	description = "Dry Shrub",
 	drawtype = "plantlike",
+	waving = 1,
 	visual_scale = 1.0,
 	tiles = {"default_dry_shrub.png"},
 	inventory_image = "default_dry_shrub.png",
 	wield_image = "default_dry_shrub.png",
 	paramtype = "light",
-	waving = 1,
 	walkable = false,
 	is_ground_content = true,
 	buildable_to = true,
@@ -1272,6 +1273,7 @@ minetest.register_node("default:dry_shrub", {
 minetest.register_node("default:grass_1", {
 	description = "Grass",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = {"default_grass_1.png"},
 	-- use a bigger inventory image
 	inventory_image = "default_grass_3.png",
@@ -1297,6 +1299,7 @@ minetest.register_node("default:grass_1", {
 minetest.register_node("default:grass_2", {
 	description = "Grass",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = {"default_grass_2.png"},
 	inventory_image = "default_grass_2.png",
 	wield_image = "default_grass_2.png",
@@ -1315,6 +1318,7 @@ minetest.register_node("default:grass_2", {
 minetest.register_node("default:grass_3", {
 	description = "Grass",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = {"default_grass_3.png"},
 	inventory_image = "default_grass_3.png",
 	wield_image = "default_grass_3.png",
@@ -1334,6 +1338,7 @@ minetest.register_node("default:grass_3", {
 minetest.register_node("default:grass_4", {
 	description = "Grass",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = {"default_grass_4.png"},
 	inventory_image = "default_grass_4.png",
 	wield_image = "default_grass_4.png",
@@ -1353,6 +1358,7 @@ minetest.register_node("default:grass_4", {
 minetest.register_node("default:grass_5", {
 	description = "Grass",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = {"default_grass_5.png"},
 	inventory_image = "default_grass_5.png",
 	wield_image = "default_grass_5.png",
