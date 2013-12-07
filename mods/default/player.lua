@@ -143,6 +143,13 @@ minetest.register_on_joinplayer(function(player)
 	default.player_set_model(player, "character.x")
 end)
 
+minetest.register_on_leaveplayer(function(player)
+	local name = player:get_player_name()
+	player_model[name] = nil
+	player_anim[name] = nil
+	player_textures[name] = nil
+end)
+
 -- Localize for better performance.
 local player_set_animation = default.player_set_animation
 
