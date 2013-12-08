@@ -113,14 +113,10 @@ function doors:register_door(name, def)
 		local p2 = minetest.get_node(pos).param2
 		p2 = params[p2+1]
 		
-		local meta = minetest.get_meta(pos):to_table()
-		minetest.set_node(pos, {name=replace_dir, param2=p2})
-		minetest.get_meta(pos):from_table(meta)
+		minetest.swap_node(pos, {name=replace_dir, param2=p2})
 		
 		pos.y = pos.y-dir
-		meta = minetest.get_meta(pos):to_table()
-		minetest.set_node(pos, {name=replace, param2=p2})
-		minetest.get_meta(pos):from_table(meta)
+		minetest.swap_node(pos, {name=replace, param2=p2})
 	end
 	
 	local function check_player_priv(pos, player)

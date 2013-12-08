@@ -113,12 +113,8 @@ function screwdriver_handler (itemstack,user,pointed_thing)
 				end
 			end
 			--print (dump(axisdir..", "..rotation))
-			local meta = minetest.get_meta(pos)
-			local meta0 = meta:to_table()
 			node.param2 = n
-			minetest.set_node(pos,node)
-			meta = minetest.get_meta(pos)
-			meta:from_table(meta0)
+			minetest.swap_node(pos,node)
 			local item=itemstack:to_table()
 			local item_wear=tonumber((item["wear"]))
 			item_wear=item_wear+327 
