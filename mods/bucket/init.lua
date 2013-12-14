@@ -53,8 +53,8 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 			liquids_pointable = true,
 			groups = {not_in_creative_inventory=1},
 			on_place = function(itemstack, user, pointed_thing)
-				-- Must be pointing to node
-				if pointed_thing.type ~= "node" then
+				-- Must be pointing to node and must pass protection
+				if pointed_thing.type ~= "node" or minetest.is_protected(pointed_thing.under,user:get_player_name()) then
 					return
 				end
 				
@@ -120,8 +120,8 @@ minetest.register_craftitem("bucket:bucket_empty", {
 	stack_max = 1,
 	liquids_pointable = true,
 	on_use = function(itemstack, user, pointed_thing)
-		-- Must be pointing to node
-		if pointed_thing.type ~= "node" then
+		-- Must be pointing to node and must pass protection
+		if pointed_thing.type ~= "node" or minetest.is_protected(pointed_thing.under,user:get_player_name())then
 			return
 		end
 		-- Check if pointing to a liquid source
