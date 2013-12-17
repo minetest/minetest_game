@@ -90,6 +90,10 @@ Calinou (CC BY-SA):
 
 MirceaKitsune (WTFPL):
   character.x
+  default_workbench_bottom.png
+  default_workbench_top.png
+  default_workbench_side.png
+  default_workbench_front.png
 
 Jordach (CC BY-SA 3.0):
   character.png

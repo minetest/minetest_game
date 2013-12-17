@@ -1061,6 +1061,42 @@ minetest.register_abm({
 	end,
 })
 
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+	if formname == "default:workbench" then
+		if fields.quit then
+			craft_resize(player, _)
+		end
+	end
+end)
+
+function default.get_workbench_formspec(size)
+	size = math.min(6, math.max(1, size))
+	local formspec =
+		"size[8,"..(size+4.5).."]"
+		.."list[current_player;main;0,"..(size+0.5)..";8,4;]"
+		.."list[current_player;craft;0,0;"..size..","..size..";]"
+		.."list[current_player;craftpreview;6,"..(size/2-0.5)..";1,1;]"
+	return formspec
+end
+
+minetest.register_node("default:workbench", {
+	description = "WorkBench",
+	tiles = {"default_workbench_top.png", "default_workbench_bottom.png", "default_workbench_side.png",
+		"default_workbench_side.png", "default_workbench_side.png", "default_workbench_front.png"},
+	paramtype2 = "facedir",
+	groups = {choppy=2,oddly_breakable_by_hand=2},
+	legacy_facedir_simple = true,
+	sounds = default.node_sound_wood_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", "Workbench")
+	end,
+	on_rightclick = function(pos, node, clicker)
+		craft_resize(clicker, 3)
+		minetest.show_formspec(clicker:get_player_name(), "default:workbench", default.get_workbench_formspec(3))
+	end,
+})
+
 minetest.register_node("default:cobble", {
 	description = "Cobblestone",
 	tiles = {"default_cobble.png"},

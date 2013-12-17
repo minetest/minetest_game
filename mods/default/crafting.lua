@@ -299,6 +299,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:workbench',
+	recipe = {
+		{'group:wood', 'group:wood', ''},
+		{'group:wood', 'group:wood', ''},
+		{'', '', ''},
+	}
+})
+
+minetest.register_craft({
 	type = "shapeless",
 	output = "default:bronze_ingot",
 	recipe = {"default:steel_ingot", "default:copper_ingot"},

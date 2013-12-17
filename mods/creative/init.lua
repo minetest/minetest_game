@@ -72,6 +72,7 @@ trash:set_size("main", 1)
 creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 	pagenum = math.floor(pagenum)
 	local pagemax = math.floor((creative_inventory.creative_inventory_size-1) / (6*4) + 1)
+	craft_resize(player, _)
 	player:set_inventory_formspec("size[13,7.5]"..
 			--"image[6,0.6;1,2;player.png]"..
 			"list[current_player;main;5,3.5;8,4;]"..

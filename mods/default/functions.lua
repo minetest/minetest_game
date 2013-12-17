@@ -1,6 +1,52 @@
 -- mods/default/functions.lua
 
 --
+-- Crafting
+--
+
+function move_items(s_inv, s_listname, d_inv, d_listname)
+	local s_size = s_inv:get_size(s_listname)
+	for i = 1, s_size do
+		local stack = s_inv:get_stack(s_listname, i)
+		if stack and not stack:is_empty() then
+			d_inv:add_item(d_listname, stack)
+		end
+	end
+	s_inv:set_list(s_listname, {})
+end
+
+function craft_resize(player, size)
+	-- if no size is given, set to default
+	if not size then
+		if minetest.setting_getbool("creative_mode") or
+		minetest.setting_getbool("inventory_crafting_full") then
+			size = 3
+		else
+			size = 2
+		end
+	end
+
+	local inv = player:get_inventory()
+	if inv:get_width("craft") ~= size then
+		move_items(inv, "craft", inv, "main")
+		inv:set_width("craft", size)
+		inv:set_size("craft", size*size)
+		return size
+	end
+end
+
+-- set non-creative inventory
+minetest.register_on_joinplayer(function(player)
+	local size = craft_resize(player, _)
+	if size and size < 3 then
+		player:set_inventory_formspec("size[8,7.5]"
+			.."list[current_player;main;0,3.5;8,4;]"
+			.."list[current_player;craft;3,0.5;2,2;]"
+			.."list[current_player;craftpreview;6,1;1,1;]")
+	end
+end)
+
+--
 -- Sounds
 --
 
