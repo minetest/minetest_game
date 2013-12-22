@@ -60,15 +60,15 @@ local function screwdriver_handler(itemstack, user, pointed_thing)
 		return
 	end
 	local pos = pointed_thing.under
-	if minetest.is_protected(pos, user:get_player_name()) then
-		minetest.record_protection_violation(pos, user:get_player_name())
-		return
-	end
 	local keys = user:get_player_control()
 	local player_name = user:get_player_name()
 	local mode = tonumber(itemstack:get_metadata())
 	if not mode or keys["sneak"] == true then
 		return screwdriver_setmode(user, itemstack)
+	end
+	if minetest.is_protected(pos, user:get_player_name()) then
+		minetest.record_protection_violation(pos, user:get_player_name())
+		return
 	end
 	local node = minetest.get_node(pos)
 	local node_name = node.name
