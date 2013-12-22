@@ -58,17 +58,18 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 					return
 				end
 				
+				local node = minetest.get_node_or_nil(pointed_thing.under)
+				local ndef
+				if node then
+					ndef = minetest.registered_nodes[node.name]
+				end
 				-- Call on_rightclick if the pointed node defines it
-				if user and not user:get_player_control().sneak then
-					local n = minetest.get_node(pointed_thing.under)
-					local nn = n.name
-					local ndef = minetest.registered_nodes[nn]
-					if ndef and ndef.on_rightclick then
-						return ndef.on_rightclick(
-							pointed_thing.under,
-							n, user,
-							itemstack) or itemstack
-					end
+				if ndef and ndef.on_rightclick and
+				   user and not user:get_player_control().sneak then
+					return ndef.on_rightclick(
+						pointed_thing.under,
+						node, user,
+						itemstack) or itemstack
 				end
 
 				local place_liquid = function(pos, node, source, flowing, fullness)
@@ -98,19 +99,18 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				end
 
 				-- Check if pointing to a buildable node
-				local node = minetest.get_node(pointed_thing.under)
 				local fullness = tonumber(itemstack:get_metadata())
 				if not fullness then fullness = LIQUID_MAX end
 
-				if minetest.registered_nodes[node.name].buildable_to then
+				if ndef and ndef.buildable_to then
 					-- buildable; replace the node
 					place_liquid(pointed_thing.under, node,
 							source, flowing, fullness)
 				else
 					-- not buildable to; place the liquid above
 					-- check if the node above can be replaced
-					local node = minetest.get_node(pointed_thing.above)
-					if minetest.registered_nodes[node.name].buildable_to then
+					local node = minetest.get_node_or_nil(pointed_thing.above)
+					if node and minetest.registered_nodes[node.name].buildable_to then
 						place_liquid(pointed_thing.above,
 								node, source,
 								flowing, fullness)
