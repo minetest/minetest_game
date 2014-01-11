@@ -1042,7 +1042,7 @@ minetest.register_abm({
 			fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
 		end
 
-		if fuel.time <= 0 then
+		if not fuel or fuel.time <= 0 then
 			meta:set_string("infotext","Furnace out of fuel")
 			swap_node(pos,"default:furnace")
 			meta:set_string("formspec", default.furnace_inactive_formspec)
