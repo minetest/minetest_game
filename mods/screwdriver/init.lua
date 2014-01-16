@@ -72,61 +72,59 @@ local function screwdriver_handler(itemstack, user, pointed_thing)
 	end
 	local node = minetest.get_node(pos)
 	local ndef = minetest.registered_nodes[node.name]
-	if ndef and ndef.paramtype2 == "facedir" then
-		if ndef.drawtype == "nodebox" and ndef.node_box.type ~= "fixed" then
-			return
-		end
-		if node.param2 == nil then
-			return
-		end
-		-- Get ready to set the param2
-		local n = node.param2
-		local axisdir = math.floor(n / 4)
-		local rotation = n - axisdir * 4
-		if mode == 1 then
+	if not ndef or not ndef.paramtype2 == "facedir" or
+			(ndef.drawtype == "nodebox" and
+			not ndef.node_box.type == "fixed") or
+			node.param2 == nil then
+		return
+	end
+	-- Get ready to set the param2
+	local n = node.param2
+	local axisdir = math.floor(n / 4)
+	local rotation = n - axisdir * 4
+	if mode == 1 then
+		n = axisdir * 4 + nextrange(rotation, 3)
+	elseif mode == 2 then
+		-- If you are pointing at the axisdir face or the
+		-- opposite one then you can just rotate the node.
+		-- Otherwise change the axisdir, avoiding the facing
+		-- and opposite axes.
+		local face = get_node_face(pointed_thing)
+		if axisdir == face or axisdir == opposite_faces[face] then
 			n = axisdir * 4 + nextrange(rotation, 3)
-		elseif mode == 2 then
-			-- If you are pointing at the axisdir face or the
-			-- opposite one then you can just rotate the node.
-			-- Otherwise change the axisdir, avoiding the facing
-			-- and opposite axes.
-			local face = get_node_face(pointed_thing)
+		else
+			axisdir = nextrange(axisdir, 5)
+			-- This is repeated because switching from the face
+			-- can move to to the opposite and vice-versa
 			if axisdir == face or axisdir == opposite_faces[face] then
-				n = axisdir * 4 + nextrange(rotation, 3)
-			else
 				axisdir = nextrange(axisdir, 5)
-				-- This is repeated because switching from the face
-				-- can move to to the opposite and vice-versa
-				if axisdir == face or axisdir == opposite_faces[face] then
-					axisdir = nextrange(axisdir, 5)
-				end
-				if axisdir == face or axisdir == opposite_faces[face] then
-					axisdir = nextrange(axisdir, 5)
-				end
-				n = axisdir * 4
 			end
-		elseif mode == 3 then
-			n = nextrange(axisdir, 5) * 4
-		elseif mode == 4 then
-			local face = get_node_face(pointed_thing)
-			if axisdir == face then
-				n = axisdir * 4 + nextrange(rotation, 3)
-			else
-				n = face * 4
+			if axisdir == face or axisdir == opposite_faces[face] then
+				axisdir = nextrange(axisdir, 5)
 			end
+			n = axisdir * 4
 		end
-		--print (dump(axisdir..", "..rotation))
-		node.param2 = n
-		minetest.swap_node(pos, node)
-		local item_wear = tonumber(itemstack:get_wear())
-		item_wear = item_wear + 327
-		if item_wear > 65535 then
-			itemstack:clear()
-			return itemstack
+	elseif mode == 3 then
+		n = nextrange(axisdir, 5) * 4
+	elseif mode == 4 then
+		local face = get_node_face(pointed_thing)
+		if axisdir == face then
+			n = axisdir * 4 + nextrange(rotation, 3)
+		else
+			n = face * 4
 		end
-		itemstack:set_wear(item_wear)
+	end
+	--print (dump(axisdir..", "..rotation))
+	node.param2 = n
+	minetest.swap_node(pos, node)
+	local item_wear = tonumber(itemstack:get_wear())
+	item_wear = item_wear + 327
+	if item_wear > 65535 then
+		itemstack:clear()
 		return itemstack
 	end
+	itemstack:set_wear(item_wear)
+	return itemstack
 end
 
 minetest.register_craft({
