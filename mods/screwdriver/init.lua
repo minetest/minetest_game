@@ -71,9 +71,8 @@ local function screwdriver_handler(itemstack, user, pointed_thing)
 		return
 	end
 	local node = minetest.get_node(pos)
-	local node_name = node.name
 	local ndef = minetest.registered_nodes[node.name]
-	if ndef.paramtype2 == "facedir" then
+	if ndef and ndef.paramtype2 == "facedir" then
 		if ndef.drawtype == "nodebox" and ndef.node_box.type ~= "fixed" then
 			return
 		end
