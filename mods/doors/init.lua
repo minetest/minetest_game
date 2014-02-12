@@ -59,6 +59,12 @@ function doors:register_door(name, def)
 			then
 				return itemstack
 			end
+
+			if minetest.is_protected(pt, placer:get_player_name()) or
+					minetest.is_protected(pt2, placer:get_player_name()) then
+				minetest.record_protection_violation(pt, placer:get_player_name())
+				return itemstack
+			end
 			
 			local p2 = minetest.dir_to_facedir(placer:get_look_dir())
 			local pt3 = {x=pt.x, y=pt.y, z=pt.z}
