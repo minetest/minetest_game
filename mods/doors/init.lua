@@ -17,9 +17,9 @@ doors = {}
 --                          open it
 function doors:register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
-	
+
 	local box = {{-0.5, -0.5, -0.5,   0.5, 0.5, -0.5+1.5/16}}
-	
+
 	if not def.node_box_bottom then
 		def.node_box_bottom = box
 	end
@@ -32,22 +32,22 @@ function doors:register_door(name, def)
 	if not def.selection_box_top then
 		def.selection_box_top = box
 	end
-	
+
 	minetest.register_craftitem(name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
-		
+
 		on_place = function(itemstack, placer, pointed_thing)
 			if not pointed_thing.type == "node" then
 				return itemstack
 			end
-			
+
 			local ptu = pointed_thing.under
 			local nu = minetest.get_node(ptu)
 			if minetest.registered_nodes[nu.name].on_rightclick then
 				return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 			end
-			
+
 			local pt = pointed_thing.above
 			local pt2 = {x=pt.x, y=pt.y, z=pt.z}
 			pt2.y = pt2.y+1
@@ -65,7 +65,7 @@ function doors:register_door(name, def)
 				minetest.record_protection_violation(pt, placer:get_player_name())
 				return itemstack
 			end
-			
+
 			local p2 = minetest.dir_to_facedir(placer:get_look_dir())
 			local pt3 = {x=pt.x, y=pt.y, z=pt.z}
 			if p2 == 0 then
@@ -84,7 +84,7 @@ function doors:register_door(name, def)
 				minetest.set_node(pt, {name=name.."_b_2", param2=p2})
 				minetest.set_node(pt2, {name=name.."_t_2", param2=p2})
 			end
-			
+
 			if def.only_placer_can_open then
 				local pn = placer:get_player_name()
 				local meta = minetest.get_meta(pt)
@@ -94,23 +94,23 @@ function doors:register_door(name, def)
 				meta:set_string("doors_owner", pn)
 				meta:set_string("infotext", "Owned by "..pn)
 			end
-			
+
 			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
 		end,
 	})
-	
+
 	local tt = def.tiles_top
 	local tb = def.tiles_bottom
-	
+
 	local function after_dig_node(pos, name)
 		if minetest.get_node(pos).name == name then
 			minetest.remove_node(pos)
 		end
 	end
-	
+
 	local function on_rightclick(pos, dir, check_name, replace, replace_dir, params)
 		pos.y = pos.y+dir
 		if not minetest.get_node(pos).name == check_name then
@@ -118,13 +118,13 @@ function doors:register_door(name, def)
 		end
 		local p2 = minetest.get_node(pos).param2
 		p2 = params[p2+1]
-		
+
 		minetest.swap_node(pos, {name=replace_dir, param2=p2})
-		
+
 		pos.y = pos.y-dir
 		minetest.swap_node(pos, {name=replace, param2=p2})
 	end
-	
+
 	local function check_player_priv(pos, player)
 		if not def.only_placer_can_open then
 			return true
@@ -133,7 +133,7 @@ function doors:register_door(name, def)
 		local pn = player:get_player_name()
 		return meta:get_string("doors_owner") == pn
 	end
-	
+
 	minetest.register_node(name.."_b_1", {
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
 		paramtype = "light",
@@ -149,21 +149,21 @@ function doors:register_door(name, def)
 			fixed = def.selection_box_bottom
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
 			after_dig_node(pos, name.."_t_1")
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
 			end
 		end,
-		
+
 		can_dig = check_player_priv,
 	})
-	
+
 	minetest.register_node(name.."_t_1", {
 		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
 		paramtype = "light",
@@ -179,21 +179,21 @@ function doors:register_door(name, def)
 			fixed = def.selection_box_top
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y-1
 			after_dig_node(pos, name.."_b_1")
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, -1, name.."_b_1", name.."_t_2", name.."_b_2", {1,2,3,0})
 			end
 		end,
-		
+
 		can_dig = check_player_priv,
 	})
-	
+
 	minetest.register_node(name.."_b_2", {
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1].."^[transformfx", tb[1]},
 		paramtype = "light",
@@ -209,21 +209,21 @@ function doors:register_door(name, def)
 			fixed = def.selection_box_bottom
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
 			after_dig_node(pos, name.."_t_2")
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
 			end
 		end,
-		
+
 		can_dig = check_player_priv,
 	})
-	
+
 	minetest.register_node(name.."_t_2", {
 		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
 		paramtype = "light",
@@ -239,21 +239,20 @@ function doors:register_door(name, def)
 			fixed = def.selection_box_top
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y-1
 			after_dig_node(pos, name.."_b_2")
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, -1, name.."_b_2", name.."_t_1", name.."_b_1", {3,0,1,2})
 			end
 		end,
-		
+
 		can_dig = check_player_priv,
 	})
-	
 end
 
 doors:register_door("doors:door_wood", {
