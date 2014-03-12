@@ -714,10 +714,10 @@ minetest.register_node("default:chest", {
 })
 
 local function has_locked_chest_privilege(meta, player)
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
+	if (player:get_player_name() == meta:get_string("owner")) or (minetest.check_player_privs(player:get_player_name(), {diglocks=true})) then
+		return true
 	end
-	return true
+	return false
 end
 
 minetest.register_node("default:chest_locked", {
