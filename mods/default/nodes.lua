@@ -389,12 +389,13 @@ minetest.register_node("default:glass", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
+local fence_texture = "default_fence_overlay.png^default_wood.png^default_fence_overlay.png^[makealpha:255,126,126"
 minetest.register_node("default:fence_wood", {
 	description = "Wooden Fence",
 	drawtype = "fencelike",
 	tiles = {"default_wood.png"},
-	inventory_image = "default_fence.png",
-	wield_image = "default_fence.png",
+	inventory_image = fence_texture,
+	wield_image = fence_texture,
 	paramtype = "light",
 	is_ground_content = false,
 	selection_box = {
