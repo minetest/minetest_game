@@ -140,6 +140,9 @@ Zeg9 (CC BY-SA 3.0):
 kaeza (WTFPL):
   bubble.png
 
+paramat (CC BY-SA 3.0):
+  wieldhand.png, based on character.png by Jordach (CC BY-SA 3.0)
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
