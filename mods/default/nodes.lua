@@ -15,7 +15,7 @@ minetest.register_node("default:desert_stone", {
 	tiles = {"default_desert_stone.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},
-	drop = 'default:desert_stone',
+	drop = 'default:desert_cobble',
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -1083,6 +1083,14 @@ minetest.register_abm({
 minetest.register_node("default:cobble", {
 	description = "Cobblestone",
 	tiles = {"default_cobble.png"},
+	is_ground_content = true,
+	groups = {cracky=3, stone=2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:desert_cobble", {
+	description = "Desert Cobblestone",
+	tiles = {"default_desert_cobble.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=2},
 	sounds = default.node_sound_stone_defaults(),

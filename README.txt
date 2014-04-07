@@ -51,3 +51,5 @@ http://creativecommons.org/licenses/by-sa/3.0/
 License of menu/header.png
 Copyright (C) 2013 BlockMen CC BY-3.0
 
+License of mods/default/textures/default_desert_cobble.png
+Copyright (C) 2014 brunob.santos CC-BY-SA 4.0
