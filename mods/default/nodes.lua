@@ -1172,6 +1172,14 @@ minetest.register_node("default:obsidian", {
 	groups = {cracky=1,level=2},
 })
 
+minetest.register_node("default:obsidian_brick", {
+	description = "Obsidian Brick",
+	tiles = {"default_obsidian_brick.png"},
+	is_ground_content = true,
+	sounds = default.node_sound_stone_defaults(),
+	groups = {cracky=1,level=2},
+})
+
 minetest.register_node("default:nyancat", {
 	description = "Nyan Cat",
 	tiles = {"default_nc_side.png", "default_nc_side.png", "default_nc_side.png",
