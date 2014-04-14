@@ -1,25 +1,12 @@
-The main game for the Minetest game engine [minetest_game]
-==========================================================
+An updated main game for the Minetest game engine [minetest_next]
+=================================================================
 
-To build the wholeness of the Minetest project, insert this repository as
-  /games/minetest_game
+To use this game with Minetest, insert this repository as
+  /games/minetest_next
 in the Minetest Engine.
 
 The Minetest Engine can be found in:
   https://github.com/minetest/minetest/
-
-Compatibility
---------------
-The minetest_game github master HEAD is generally compatible with the github
-master HEAD of minetest.
-
-Additionally, when the minetest engine is tagged to be a certain version (eg.
-0.4.dev-20120326), minetest_game is tagged with the version too.
-
-When stable releases are made, minetest_game is packaged and made available in
-  http://minetest.net/download.php
-and in case the repository has grown too much, it may be reset. In that sense,
-this is not a "real" git repository. (Package maintainers please note!)
 
 License of source code
 ----------------------
