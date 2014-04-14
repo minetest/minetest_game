@@ -142,6 +142,17 @@ end
 minetest.register_on_joinplayer(function(player)
 	default.player_set_model(player, "character.x")
 	player:set_local_animation({x=0, y=79}, {x=168, y=187}, {x=189, y=198}, {x=200, y=219}, 30)
+	
+	-- set GUI
+	if minetest.setting_getbool("creative_mode") then
+	--	creative.set_creative_formspec(player, 0, 1)
+	else
+		player:set_inventory_formspec(gui_suvival_form)
+	end
+	minetest.after(0.5,function()
+		player:hud_set_hotbar_image("gui_hotbar.png")
+		player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
+	end)
 end)
 
 minetest.register_on_leaveplayer(function(player)
