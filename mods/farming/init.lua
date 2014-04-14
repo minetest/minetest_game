@@ -182,26 +182,23 @@ minetest.register_craft({
 -- Override grass for drops
 --
 for i = 1, 5 do
-	newgrass = minetest.clone_node("default:grass_"..i)
-		newgrass.drop = {
+		
+	minetest.override_item("default:grass_"..i, {drop = {
 			max_items = 1,
 			items = {
 				{items = {'farming:seed_wheat'},rarity = 5},
 				{items = {'default:grass_1'}},
 			}
-		}
-	minetest.register_node(":default:grass_"..i, newgrass)
+		}})
 end
-
-newjunglegrass = minetest.clone_node("default:junglegrass")
-	newjunglegrass.drop = {
+	
+minetest.override_item("default:junglegrass", {drop = {
 		max_items = 1,
 		items = {
 			{items = {'farming:seed_cotton'},rarity = 8},
 			{items = {'default:junglegrass'}},
 		}
-	}
-minetest.register_node(":default:junglegrass", newjunglegrass)
+	}})
 
 --
 -- Place seeds
