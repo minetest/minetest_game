@@ -376,6 +376,16 @@ minetest.register_node("default:papyrus", {
 	end,
 })
 
+default.bookshelf_formspec =
+	"size[8,7;]"..
+	gui_bg..
+	gui_bg_img..
+	gui_slots..
+	"list[context;books;0,0.3;8,2;]"..
+	"list[current_player;main;0,2.85;8,1;]"..
+	"list[current_player;main;0,4.08;8,3;8]"..
+	default.get_hotbar_bg(0,2.85)
+
 minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
 	tiles = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},
@@ -384,7 +394,7 @@ minetest.register_node("default:bookshelf", {
 	sounds = default.node_sound_wood_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
-		meta:set_string("formspec","size[8,7;]list[context;books;0,0;8,2;]list[current_player;main;0,3;8,4;]")
+		meta:set_string("formspec", default.bookshelf_formspec)
 		local inv = meta:get_inventory()
 		inv:set_size("books", 8*2)
 	end,
