@@ -120,8 +120,6 @@ minetest.register_on_dieplayer(function(player)
 	local player_name = player:get_player_name()
 	local player_inv = player:get_inventory()
 	
-	minetest.chat_send_player(player_name, "You died at "..minetest.pos_to_string(pos))
-	
 	local nn = minetest.get_node(pos).name
 	if minetest.registered_nodes[nn].can_dig and
 		not minetest.registered_nodes[nn].can_dig(pos, player) then
