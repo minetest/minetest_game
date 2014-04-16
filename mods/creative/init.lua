@@ -72,9 +72,14 @@ trash:set_size("main", 1)
 creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 	pagenum = math.floor(pagenum)
 	local pagemax = math.floor((creative_inventory.creative_inventory_size-1) / (6*4) + 1)
-	player:set_inventory_formspec("size[13,7.5]"..
+	player:set_inventory_formspec(
+			"size[13,7.5]"..
 			--"image[6,0.6;1,2;player.png]"..
-			"list[current_player;main;5,3.5;8,4;]"..
+			gui_bg..
+			gui_bg_img..
+			gui_slots..
+			"list[current_player;main;5,3.5;8,1;]"..
+			"list[current_player;main;5,4.75;8,3;8]"..
 			"list[current_player;craft;8,0;3,3;]"..
 			"list[current_player;craftpreview;12,1;1,1;]"..
 			"list[detached:creative;main;0.3,0.5;4,6;"..tostring(start_i).."]"..
@@ -82,7 +87,9 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 			"button[0.3,6.5;1.6,1;creative_prev;<<]"..
 			"button[2.7,6.5;1.6,1;creative_next;>>]"..
 			"label[5,1.5;Trash:]"..
-			"list[detached:creative_trash;main;5,2;1,1;]")
+			"list[detached:creative_trash;main;5,2;1,1;]"..
+			default.get_hotbar_bg(5,3.5)
+	)
 end
 minetest.register_on_joinplayer(function(player)
 	-- If in creative mode, modify player's inventory forms
