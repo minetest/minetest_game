@@ -1,0 +1,27 @@
+farming.register_hoe(name, hoe definition)
+ -> Register a new hoe, see [hoe definition]
+ 
+farming.register_plant(name, Plant definition)
+ -> Register a new growing plant, see [Plant definition]
+
+Hoe Definition
+{
+	description = "",	-- Description for tooltip
+	inventory_image = "unknown_item.png",	-- Image to be used as wield- and inventory image
+	max_uses = 30,	-- Uses until destroyed
+	recipe = {	-- Craft recipe
+		{"air", "air", "air"},
+		{"", "group:stick"},
+		{"", "group:stick"},
+	}
+}
+
+Plant definition
+{
+	description = "",	-- Description of seed item
+	inventory_image = "unknown_item.png",	-- Image to be used as seed's wield- and inventory image
+	steps = 8,	-- How many steps the plant has to grow, until it can be harvested
+	^ Always provide a plant texture for ech step, format: modname_plantname_i.png (i = stepnumber)
+	minlight = 13, -- Minimum light to grow
+	maxlight = LIGHT_MAX -- Maximum light to grow
+}

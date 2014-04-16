@@ -3,7 +3,7 @@ Minetest 0.4 mod: farming
 
 License of source code:
 -----------------------
-Copyright (C) 2012-2013 PilzAdam
+Copyright (C) 2014 webdesigner97
 
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
