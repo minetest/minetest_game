@@ -1,9 +1,5 @@
--- legacy (Minetest 0.4 mod)
--- Provides as much backwards-compatibility as feasible
-
---
--- Aliases to support loading 0.3 and old 0.4 worlds and inventories
---
+-- aliases (Minetest 0.4 mod)
+-- Provides alias for most default items
 
 minetest.register_alias("stone", "default:stone")
 minetest.register_alias("stone_with_coal", "default:stone_with_coal")
@@ -70,38 +66,3 @@ minetest.register_alias("lump_of_clay", "default:clay_lump")
 minetest.register_alias("steel_ingot", "default:steel_ingot")
 minetest.register_alias("clay_brick", "default:clay_brick")
 minetest.register_alias("scorched_stuff", "default:scorched_stuff")
-
---
--- Old items
---
-
-minetest.register_craftitem(":rat", {
-	description = "Rat",
-	inventory_image = "rat.png",
-})
-
-minetest.register_craftitem(":cooked_rat", {
-	description = "Cooked rat",
-	inventory_image = "cooked_rat.png",
-	on_use = minetest.item_eat(6),
-})
-
-minetest.register_craftitem(":firefly", {
-	description = "Firefly",
-	inventory_image = "firefly.png",
-	groups = {not_in_creative_inventory=1},
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "cooked_rat",
-	recipe = "rat",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "scorched_stuff",
-	recipe = "cooked_rat",
-})
-
--- END
