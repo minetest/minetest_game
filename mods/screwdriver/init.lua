@@ -6,13 +6,26 @@ local mode_text = {
 	{"Bring top in front then rotate it."},
 }
 
+-- Use Lua-friendly tables to avoid hash-lookups:
 local opposite_faces = {
-	[0] = 5,
-	[1] = 2,
-	[2] = 1,
-	[3] = 4,
-	[4] = 3,
-	[5] = 0,
+--	0  1  2  3  4  5
+	5, 2, 1, 4, 3, 0
+}
+
+-- Rotational order for a given rotation axis as primary index:
+-- Negative values indicate X rotation adjustments (rotate to opposite side),
+-- 00 is just a visual indicator for invalid/unused axisdir indices.
+-- Rotation order is always clockwise.
+-- Layout: Row is selected by the face pointed at (the rotation axis),
+--         current axisdir selects column, value is next axisdir:
+local axis_rotations = {
+--	  0   1   2   3   4   5  
+	{00,  3,  4,  2,  1, 00},	-- Y+
+	{ 4, 00, 00,  0,  5,  3},	-- Z+
+	{ 3, 00, 00,  5,  0,  4},	-- Z-
+	{ 1, -5,  0, 00, 00, -2},	-- X+
+	{ 2,  0, -5, 00, 00, -1},	-- X-
+	{00,  4,  3,  1,  2, 00},	-- Y-
 }
 
 local function screwdriver_setmode(user,itemstack)
@@ -47,14 +60,6 @@ local function get_node_face(pointed_thing)
 	end
 end
 
-local function nextrange(x, max)
-	x = x + 1
-	if x > max then
-		x = 0
-	end
-	return x
-end
-
 local function screwdriver_handler(itemstack, user, pointed_thing)
 	if pointed_thing.type ~= "node" then
 		return
@@ -78,52 +83,61 @@ local function screwdriver_handler(itemstack, user, pointed_thing)
 			node.param2 == nil then
 		return
 	end
-	-- Get ready to set the param2
-	local n = node.param2
-	local axisdir = math.floor(n / 4)
-	local rotation = n - axisdir * 4
+
+	-- Split current param2 facedir value into axisdir and rotation:
+	local rotation = node.param2 % 4
+	local axisdir = math.floor(node.param2 / 4) % 6
+
 	if mode == 1 then
-		n = axisdir * 4 + nextrange(rotation, 3)
+		rotation = rotation + 1
 	elseif mode == 2 then
-		-- If you are pointing at the axisdir face or the
-		-- opposite one then you can just rotate the node.
-		-- Otherwise change the axisdir, avoiding the facing
-		-- and opposite axes.
+		-- rotates the pointed face clockwise:
 		local face = get_node_face(pointed_thing)
-		if axisdir == face or axisdir == opposite_faces[face] then
-			n = axisdir * 4 + nextrange(rotation, 3)
+		-- when rotating the top/bottom faces, only change rotation:
+		if axisdir == face then
+			rotation = rotation + 1
+		elseif axisdir == opposite_faces[face+1] then
+			rotation = rotation - 1
 		else
-			axisdir = nextrange(axisdir, 5)
-			-- This is repeated because switching from the face
-			-- can move to to the opposite and vice-versa
-			if axisdir == face or axisdir == opposite_faces[face] then
-				axisdir = nextrange(axisdir, 5)
+			-- rotate side faces: get next axisdir from table:
+			axisdir = axis_rotations[face+1][axisdir+1]
+
+			-- handle rotation adjustment (to keep face in front):
+			if face == 0 then			-- Y+ (top) axis rotation fix
+				rotation = rotation + 1
+			elseif face == 5 then		-- Y- (bottom)
+				rotation = rotation - 1
+			elseif axisdir < 0 then		-- X axis rotation fix
+				axisdir = -axisdir
+				rotation = rotation + 2
 			end
-			if axisdir == face or axisdir == opposite_faces[face] then
-				axisdir = nextrange(axisdir, 5)
-			end
-			n = axisdir * 4
 		end
 	elseif mode == 3 then
-		n = nextrange(axisdir, 5) * 4
+		axisdir = axisdir + 1
+		rotation = 0
 	elseif mode == 4 then
 		local face = get_node_face(pointed_thing)
 		if axisdir == face then
-			n = axisdir * 4 + nextrange(rotation, 3)
+			rotation = rotation + 1
 		else
-			n = face * 4
+			axisdir = face
+			rotation = 0
 		end
 	end
-	--print (dump(axisdir..", "..rotation))
-	node.param2 = n
+
+	-- recombine axisdir and rotation to facedir value:
+	node.param2 = (axisdir%6) * 4 + (rotation%4)
 	minetest.swap_node(pos, node)
-	local item_wear = tonumber(itemstack:get_wear())
-	item_wear = item_wear + 327
-	if item_wear > 65535 then
-		itemstack:clear()
-		return itemstack
+
+	if not minetest.setting_getbool("creative_mode") then
+		local item_wear = tonumber(itemstack:get_wear())
+		item_wear = item_wear + 327
+		if item_wear > 65535 then
+			itemstack:clear()
+			return itemstack
+		end
+		itemstack:set_wear(item_wear)
 	end
-	itemstack:set_wear(item_wear)
 	return itemstack
 end
 
