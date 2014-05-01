@@ -15,8 +15,8 @@ local ZMIN = -33000
 local ZMAX = 33000
 
 local YMIN = -33000 --  -- Approx lower limit
-local GRADCEN = 1 --  -- Gradient centre / terrain centre average level
-local YMAX = 150 --  -- Approx upper limit
+local GRADCEN = 15 --  -- Gradient centre / terrain centre average level
+local YMAX = 0 --  -- Approx upper limit
 
 local FOOT = true --  -- Footprints in dust
 local CENAMP = 64 --  -- Grad centre amplitude, terrain centre is varied by this
