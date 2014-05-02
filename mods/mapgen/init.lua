@@ -1,19 +1,10 @@
-minetest.register_on_mapgen_init(function(params)
-	minetest.set_mapgen_params({
-		mgname = "v7",
-		seed = params.seed,
-		water_level = 31000,
-		flags = "caves",
-	})
-end)
-
 dofile(minetest.get_modpath("mapgen").."/mapgen.lua")
 
 minetest.register_alias("mapgen_water_source", "mapgen:vacuum")
 minetest.register_alias("mapgen_lava_source", "default:lava_source")
-minetest.register_alias("mapgen_stone", "default:stone")
+minetest.register_alias("mapgen_stone", "mapgen:stone")
 minetest.register_alias("mapgen_dirt", "mapgen:dust")
-minetest.register_alias("mapgen_dirt_with_grass", "default:dirt_with_grass")
+minetest.register_alias("mapgen_dirt_with_grass", "air")
 
 minetest.register_node("mapgen:stone", {
 	description = "Moon Stone",
@@ -63,21 +54,10 @@ minetest.register_node("mapgen:dust", {
 	}),
 })
 
-minetest.register_node("mapgen:dustprint1", {
-	description = "Moon Dust Footprint1",
-	tiles = {"mapgen_dustprint1.png", "mapgen_dust.png"},
-	groups = {crumbly=3, falling_node=1},
-	drop = "mapgen:dust",
-	sounds = default.node_sound_sand_defaults({
-		footstep = {name="default_sand_footstep", gain=0.1},
-	}),
-})
-
-minetest.register_node("mapgen:dustprint2", {
-	description = "Moon Dust Footprint2",
-	tiles = {"mapgen_dustprint2.png", "mapgen_dust.png"},
-	groups = {crumbly=3, falling_node=1},
-	drop = "mapgen:dust",
+minetest.register_node("mapgen:compressed_dust", {
+	description = "Compressed Moon Dust",
+	tiles = {"mapgen_compressed_dust.png"},
+	groups = {crumbly=3},
 	sounds = default.node_sound_sand_defaults({
 		footstep = {name="default_sand_footstep", gain=0.1},
 	}),
