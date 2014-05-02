@@ -12,7 +12,7 @@ dofile(minetest.get_modpath("mapgen").."/mapgen.lua")
 minetest.register_alias("mapgen_water_source", "mapgen:vacuum")
 minetest.register_alias("mapgen_lava_source", "default:lava_source")
 minetest.register_alias("mapgen_stone", "default:stone")
-minetest.register_alias("mapgen_dirt", "default:dirt")
+minetest.register_alias("mapgen_dirt", "mapgen:dust")
 minetest.register_alias("mapgen_dirt_with_grass", "default:dirt_with_grass")
 
 minetest.register_node("mapgen:stone", {
