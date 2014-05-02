@@ -15,15 +15,15 @@ local ZMIN = -33000
 local ZMAX = 33000
 
 local YMIN = -33000 --  -- Approx lower limit
-local GRADCEN = 15 --  -- Gradient centre / terrain centre average level
-local YMAX = 0 --  -- Approx upper limit
+local GRADCEN = 58 --  -- Gradient centre / terrain centre average level
+local YMAX = 56 --  -- Approx upper limit
 
 local FOOT = true --  -- Footprints in dust
-local CENAMP = 64 --  -- Grad centre amplitude, terrain centre is varied by this
+local CENAMP = 128 --  -- Grad centre amplitude, terrain centre is varied by this
 local HIGRAD = 128 --  -- Surface generating noise gradient above gradcen, controls depth of upper terrain
 local LOGRAD = 128 --  -- Surface generating noise gradient below gradcen, controls depth of lower terrain
-local HEXP = 0.5 --  -- Noise offset exponent above gradcen, 1 = normal 3D perlin terrain
-local LEXP = 2 --  -- Noise offset exponent below gradcen
+local HEXP = 1 --  -- Noise offset exponent above gradcen, 1 = normal 3D perlin terrain
+local LEXP = 1.5 --  -- Noise offset exponent below gradcen
 local STOT = 1 --  -- Stone density threshold, depth of dust
 local ICECHA = 1 / (13*13*13) --  -- Ice chance per dust node at terrain centre, decreases with altitude
 local ICEGRAD = 128 --  -- Ice gradient, vertical distance for no ice
