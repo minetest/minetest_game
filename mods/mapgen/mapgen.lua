@@ -1,7 +1,8 @@
 minetest.register_biome({
 	name = "plains",
 	node_top = "mapgen:dust",
-	depth_top = 7,
+	node_bottom = "mapgen:stone",
+	depth_top = 2,
 	node_dust = "air",
 	height_min = -10,
 	height_max = 160,
