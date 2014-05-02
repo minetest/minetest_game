@@ -69,6 +69,10 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	end
 end)
 
+minetest.register_on_mapgen_init(function(mgparams)
+	minetest.set_mapgen_params({mgname="singlenode"})
+end)
+
 -- ABMs
 
 -- Air spreads
