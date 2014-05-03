@@ -1,3 +1,48 @@
+local YMIN = -33000
+local YMAX = 33000
+minetest.register_globalstep(function(dtime)
+	for _, player in ipairs(minetest.get_connected_players()) do
+		if FOOT and math.random() < 0.3 and player_pos_previous[player:get_player_name()] ~= nil then -- eternal footprints
+			local pos = player:getpos()
+			player_pos[player:get_player_name()] = {x=math.floor(pos.x+0.5),y=math.floor(pos.y+0.2),z=math.floor(pos.z+0.5)}
+			local p_ground = {x=math.floor(pos.x+0.5),y=math.floor(pos.y+0.4),z=math.floor(pos.z+0.5)}
+			local n_ground  = minetest.get_node(p_ground).name
+			local p_groundpl = {x=math.floor(pos.x+0.5),y=math.floor(pos.y-0.5),z=math.floor(pos.z+0.5)}
+			if player_pos[player:get_player_name()].x ~= player_pos_previous[player:get_player_name()].x
+			or player_pos[player:get_player_name()].y < player_pos_previous[player:get_player_name()].y
+			or player_pos[player:get_player_name()].z ~= player_pos_previous[player:get_player_name()].z then
+				if n_ground == "moonrealm:dust" then
+					if math.random() < 0.5 then
+						minetest.add_node(p_groundpl,{name="moonrealm:dustprint1"})
+					else
+						minetest.add_node(p_groundpl,{name="moonrealm:dustprint2"})
+					end
+				end
+			end
+			player_pos_previous[player:get_player_name()] = {
+				x=player_pos[player:get_player_name()].x,
+				y=player_pos[player:get_player_name()].y,
+				z=player_pos[player:get_player_name()].z
+			}
+		end
+		if math.random() < 0.1 then
+			if player:get_inventory():contains_item("main", "moonrealm:spacesuit")
+			and player:get_breath() < 10 then
+				player:set_breath(10)
+			end
+		end
+		if math.random() > 0.99 then
+			local pos = player:getpos()
+			if pos.y > YMIN and pos.y < YMAX then
+				player:set_physics_override(1, 0.6, 0.2)
+			else
+				player:set_physics_override(1, 1, 1) -- speed, jump, gravity
+			end
+		end
+	end
+end)
+
+
 -- Space apple tree
 
 function moonrealm_appletree(pos)
