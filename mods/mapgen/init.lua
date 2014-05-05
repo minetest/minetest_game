@@ -6,6 +6,182 @@ minetest.register_alias("mapgen_stone", "mapgen:stone")
 minetest.register_alias("mapgen_dirt", "mapgen:compressed_dust")
 minetest.register_alias("mapgen_dirt_with_grass", "air")
 
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:coalore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 8*8*8,
+	clust_num_ores = 8,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = 64,
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:coalore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 24*24*24,
+	clust_num_ores = 27,
+	clust_size     = 6,
+	height_min     = -31000,
+	height_max     = 0,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:ironore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 12*12*12,
+	clust_num_ores = 3,
+	clust_size     = 2,
+	height_min     = -15,
+	height_max     = 2,
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:ironore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 9*9*9,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -63,
+	height_max     = -16,
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:ironore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 7*7*7,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:ironore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 24*24*24,
+	clust_num_ores = 27,
+	clust_size     = 6,
+	height_min     = -31000,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:meseore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 18*18*18,
+	clust_num_ores = 3,
+	clust_size     = 2,
+	height_min     = -255,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:meseore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 14*14*14,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -256,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "default:mese",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 36*36*36,
+	clust_num_ores = 3,
+	clust_size     = 2,
+	height_min     = -31000,
+	height_max     = -1024,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:goldore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 15*15*15,
+	clust_num_ores = 3,
+	clust_size     = 2,
+	height_min     = -255,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:goldore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 13*13*13,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -256,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:diamondore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 17*17*17,
+	clust_num_ores = 4,
+	clust_size     = 3,
+	height_min     = -255,
+	height_max     = -128,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:diamondore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 15*15*15,
+	clust_num_ores = 4,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -256,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:copperore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 12*12*12,
+	clust_num_ores = 4,
+	clust_size     = 3,
+	height_min     = -63,
+	height_max     = -16,
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "mapgen:copperore",
+	wherein        = "mapgen:stone",
+	clust_scarcity = 9*9*9,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
 minetest.register_node("mapgen:stone", {
 	description = "Moon Stone",
 	tiles = {"mapgen_stone.png"},
@@ -42,6 +218,15 @@ minetest.register_node("mapgen:diamondore", {
 	tiles = {"mapgen_stone.png^default_mineral_diamond.png"},
 	groups = {cracky=1},
 	drop = "default:diamond",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+
+minetest.register_node("mapgen:meseore", {
+	description = "MR Mese Ore",
+	tiles = {"mapgen_stone.png^default_mineral_mese.png"},
+	groups = {cracky=1},
+	drop = "default:mese_crystal",
 	sounds = default.node_sound_stone_defaults(),
 })
 
