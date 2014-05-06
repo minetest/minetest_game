@@ -81,9 +81,12 @@ minetest.register_node("bones:bones", {
 			minetest.remove_node(pos)
 		end
 	end,
-	
+
 	on_timer = function(pos, elapsed)
 		local meta = minetest.get_meta(pos)
+		if meta:get_string("owner") == "" then
+			return
+		end
 		local time = meta:get_int("time")+elapsed
 		local publish = 1200
 		if tonumber(minetest.setting_get("share_bones_time")) then
