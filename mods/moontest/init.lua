@@ -7,6 +7,7 @@ local player_pos = {}
 local player_pos_previous = {}
 
 dofile(minetest.get_modpath("moontest").."/nodes.lua")
+dofile(minetest.get_modpath("moontest").."/crafting.lua")
 
 -- Globalstep function
 minetest.register_globalstep(function(dtime)
