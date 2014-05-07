@@ -1,625 +1,233 @@
-dofile(minetest.get_modpath("mapgen").."/mapgen.lua")
+-- moonrealm 0.6.5 by paramat
+-- Licenses: code WTFPL, textures CC BY-SA
 
-minetest.register_alias("mapgen_water_source", "mapgen:vacuum")
-minetest.register_alias("mapgen_lava_source", "default:lava_source")
-minetest.register_alias("mapgen_stone", "mapgen:stone")
-minetest.register_alias("mapgen_dirt", "mapgen:compressed_dust")
-minetest.register_alias("mapgen_dirt_with_grass", "air")
+mapgen = {}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:coalore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 8*8*8,
-	clust_num_ores = 8,
-	clust_size     = 3,
-	height_min     = -31000,
-	height_max     = 64,
-})
+-- Horizontal
+local XMIN = -33000
+local XMAX = 33000
+local ZMIN = -33000
+local ZMAX = 33000
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:coalore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 24*24*24,
-	clust_num_ores = 27,
-	clust_size     = 6,
-	height_min     = -31000,
-	height_max     = 0,
-	flags          = "absheight",
-})
+-- Vertical
+local YMIN = -500
+local GRADCEN = 0
+local YMAX = 500
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:ironore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 12*12*12,
-	clust_num_ores = 3,
-	clust_size     = 2,
-	height_min     = -15,
-	height_max     = 2,
-})
+-- Footprints in dust
+local FOOT = true
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:ironore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 9*9*9,
-	clust_num_ores = 5,
-	clust_size     = 3,
-	height_min     = -63,
-	height_max     = -16,
-})
+-- Other configs
+local CENAMP = 64 --  -- Grad centre amplitude, terrain centre is varied by this
+local HIGRAD = 128 --  -- Surface generating noise gradient above gradcen, controls depth of upper terrain
+local LOGRAD = 128 --  -- Surface generating noise gradient below gradcen, controls depth of lower terrain
+local HEXP = 0.5 --  -- Noise offset exponent above gradcen, 1 = normal 3D perlin terrain
+local LEXP = 2 --  -- Noise offset exponent below gradcen
+local STOT = 0.04 --  -- Stone density threshold, depth of dust
+local ICECHA = 1 / (13*13*13) --  -- Ice chance per dust node at terrain centre, decreases with altitude
+local ICEGRAD = 128 --  -- Ice gradient, vertical distance for no ice
+local ORECHA = 7*7*7 --  -- Ore 1/x chance per stone node
+local FISTS = 0 --  -- Fissure threshold at surface. Controls size of fissure entrances at surface
+local FISEXP = 0.05 --  -- Fissure expansion rate under surface
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:ironore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 7*7*7,
-	clust_num_ores = 5,
-	clust_size     = 3,
-	height_min     = -31000,
-	height_max     = -64,
-	flags          = "absheight",
-})
+-- Generate
+local np_terrain = {
+	offset = 0,
+	scale = 1,
+	spread = {x=512, y=512, z=512},
+	seed = 58588900033,
+	octaves = 6,
+	persist = 0.67
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:ironore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 24*24*24,
-	clust_num_ores = 27,
-	clust_size     = 6,
-	height_min     = -31000,
-	height_max     = -64,
-	flags          = "absheight",
-})
+local np_terralt = {
+	offset = 0,
+	scale = 1,
+	spread = {x=414, y=414, z=414},
+	seed = 13331930910,
+	octaves = 6,
+	persist = 0.67
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:meseore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 18*18*18,
-	clust_num_ores = 3,
-	clust_size     = 2,
-	height_min     = -255,
-	height_max     = -64,
-	flags          = "absheight",
-})
+local np_smooth = {
+	offset = 0,
+	scale = 1,
+	spread = {x=828, y=828, z=828},
+	seed = 113,
+	octaves = 4,
+	persist = 0.4
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:meseore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 14*14*14,
-	clust_num_ores = 5,
-	clust_size     = 3,
-	height_min     = -31000,
-	height_max     = -256,
-	flags          = "absheight",
-})
+local np_fissure = {
+	offset = 0,
+	scale = 1,
+	spread = {x=256, y=256, z=256},
+	seed = 8181112,
+	octaves = 5,
+	persist = 0.5
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "default:mese",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 36*36*36,
-	clust_num_ores = 3,
-	clust_size     = 2,
-	height_min     = -31000,
-	height_max     = -1024,
-	flags          = "absheight",
-})
+local np_fault = {
+	offset = 0,
+	scale = 1,
+	spread = {x=414, y=828, z=414},
+	seed = 14440002,
+	octaves = 4,
+	persist = 0.5
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:goldore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 15*15*15,
-	clust_num_ores = 3,
-	clust_size     = 2,
-	height_min     = -255,
-	height_max     = -64,
-	flags          = "absheight",
-})
+local np_gradcen = {
+	offset = 0,
+	scale = 1,
+	spread = {x=1024, y=1024, z=1024},
+	seed = 9344,
+	octaves = 4,
+	persist = 0.4
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:goldore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 13*13*13,
-	clust_num_ores = 5,
-	clust_size     = 3,
-	height_min     = -31000,
-	height_max     = -256,
-	flags          = "absheight",
-})
+local np_terblen = {
+	offset = 0,
+	scale = 1,
+	spread = {x=2048, y=2048, z=2048},
+	seed = -13002,
+	octaves = 3,
+	persist = 0.4
+}
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:diamondore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 17*17*17,
-	clust_num_ores = 4,
-	clust_size     = 3,
-	height_min     = -255,
-	height_max     = -128,
-	flags          = "absheight",
-})
+-- On generated function
 
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:diamondore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 15*15*15,
-	clust_num_ores = 4,
-	clust_size     = 3,
-	height_min     = -31000,
-	height_max     = -256,
-	flags          = "absheight",
-})
-
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:copperore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 12*12*12,
-	clust_num_ores = 4,
-	clust_size     = 3,
-	height_min     = -63,
-	height_max     = -16,
-})
-
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "mapgen:copperore",
-	wherein        = "mapgen:stone",
-	clust_scarcity = 9*9*9,
-	clust_num_ores = 5,
-	clust_size     = 3,
-	height_min     = -31000,
-	height_max     = -64,
-	flags          = "absheight",
-})
-
-minetest.register_node("mapgen:stone", {
-	description = "Moon Stone",
-	tiles = {"mapgen_stone.png"},
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:ironore", {
-	description = "MR Iron Ore",
-	tiles = {"mapgen_stone.png^default_mineral_iron.png"},
-	groups = {cracky=2},
-	drop = "default:iron_lump",
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:copperore", {
-	description = "MR Copper Ore",
-	tiles = {"mapgen_stone.png^default_mineral_copper.png"},
-	groups = {cracky=2},
-	drop = "default:copper_lump",
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:goldore", {
-	description = "MR Gold Ore",
-	tiles = {"mapgen_stone.png^default_mineral_gold.png"},
-	groups = {cracky=2},
-	drop = "default:gold_lump",
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:diamondore", {
-	description = "MR Diamond Ore",
-	tiles = {"mapgen_stone.png^default_mineral_diamond.png"},
-	groups = {cracky=1},
-	drop = "default:diamond",
-	sounds = default.node_sound_stone_defaults(),
-})
-
-
-minetest.register_node("mapgen:meseore", {
-	description = "MR Mese Ore",
-	tiles = {"mapgen_stone.png^default_mineral_mese.png"},
-	groups = {cracky=1},
-	drop = "default:mese_crystal",
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:dust", {
-	description = "Moon Dust",
-	tiles = {"mapgen_dust.png"},
-	groups = {crumbly=3, falling_node=1},
-	sounds = default.node_sound_sand_defaults({
-		footstep = {name="default_sand_footstep", gain=0.1},
-	}),
-})
-
-minetest.register_node("mapgen:compressed_dust", {
-	description = "Compressed Moon Dust",
-	tiles = {"mapgen_compressed_dust.png"},
-	groups = {crumbly=3},
-	sounds = default.node_sound_sand_defaults({
-		footstep = {name="default_sand_footstep", gain=0.1},
-	}),
-})
-
-minetest.register_node("mapgen:vacuum", {
-	description = "Vacuum",
-	drawtype = "airlike",
-	paramtype = "light",
-	sunlight_propagates = true,
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	drowning = 1,
-})
-
-minetest.register_node("mapgen:air", {
-	description = "Life Support Air",
-	drawtype = "glasslike",
-	tiles = {"mapgen_air.png"},
-	paramtype = "light",
-	sunlight_propagates = true,
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-})
-
-minetest.register_node("mapgen:airgen", {
-	description = "Air Generator",
-	tiles = {"mapgen_airgen.png"},
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-	on_construct = function(pos)
-		local x = pos.x
-		local y = pos.y
-		local z = pos.z
-		for i = -1,1 do
-		for j = -1,1 do
-		for k = -1,1 do
-			if not (i == 0 and j == 0 and k == 0) then
-				local nodename = minetest.get_node({x=x+i,y=y+j,z=z+k}).name
-				if nodename == "mapgen:vacuum" then
-					minetest.add_node({x=x+i,y=y+j,z=z+k},{name="mapgen:air"})
-					minetest.get_meta({x=x+i,y=y+j,z=z+k}):set_int("spread", 16)
-					print ("[mapgen] Added MR air node")
-				end
+minetest.register_on_generated(function(minp, maxp, seed)
+	if minp.x < XMIN or maxp.x > XMAX
+	or minp.y < YMIN or maxp.y > YMAX
+	or minp.z < ZMIN or maxp.z > ZMAX then
+		return
+	end
+	
+	local t1 = os.clock()
+	local x1 = maxp.x
+	local y1 = maxp.y
+	local z1 = maxp.z
+	local x0 = minp.x
+	local y0 = minp.y
+	local z0 = minp.z
+	
+	print ("[mapgen] chunk minp ("..x0.." "..y0.." "..z0..")")
+	
+	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
+	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
+	local data = vm:get_data()
+	
+	local c_mese = minetest.get_content_id("default:mese")
+	local c_mrironore = minetest.get_content_id("moontest:ironore")
+	local c_mrcopperore = minetest.get_content_id("moontest:copperore")
+	local c_mrgoldore = minetest.get_content_id("moontest:goldore")
+	local c_mrdiamondore = minetest.get_content_id("moontest:diamondore")
+	local c_mrstone = minetest.get_content_id("moontest:stone")
+	local c_waterice = minetest.get_content_id("moontest:waterice")
+	local c_dust = minetest.get_content_id("moontest:dust")
+	local c_vacuum = minetest.get_content_id("moontest:vacuum")
+	
+	local sidelen = x1 - x0 + 1
+	local chulens = {x=sidelen, y=sidelen, z=sidelen}
+	local minpos = {x=x0, y=y0, z=z0}
+	local minposd = {x=x0, y=z0}
+	
+	local nvals_terrain = minetest.get_perlin_map(np_terrain, chulens):get3dMap_flat(minpos)
+	local nvals_terralt = minetest.get_perlin_map(np_terralt, chulens):get3dMap_flat(minpos)
+	local nvals_smooth = minetest.get_perlin_map(np_smooth, chulens):get3dMap_flat(minpos)
+	local nvals_fissure = minetest.get_perlin_map(np_fissure, chulens):get3dMap_flat(minpos)
+	local nvals_fault = minetest.get_perlin_map(np_fault, chulens):get3dMap_flat(minpos)
+	
+	local nvals_terblen = minetest.get_perlin_map(np_terblen, chulens):get2dMap_flat(minposd)
+	local nvals_gradcen = minetest.get_perlin_map(np_gradcen, chulens):get2dMap_flat(minposd)
+	
+	local ni = 1
+	local nid = 1 -- 2D noise index
+	local stable = {}
+	for z = z0, z1 do
+		for x = x0, x1 do
+			local si = x - x0 + 1
+			local nodename = minetest.get_node({x=x,y=y0-1,z=z}).name
+			if nodename == "moontest:vacuum" then
+				stable[si] = false
+			else -- solid nodes and ignore in ungenerated chunks
+				stable[si] = true
 			end
 		end
+		for y = y0, y1 do
+			local vi = area:index(x0, y, z) -- LVM index for first node in x row
+			local icecha = ICECHA * (1 + (GRADCEN - y) / ICEGRAD)
+			for x = x0, x1 do -- for each node
+				local grad
+				local density
+				local si = x - x0 + 1 -- indexes start from 1
+				local terblen = math.max(math.min(math.abs(nvals_terblen[nid]) * 4, 1.5), 0.5) - 0.5 -- terrain blend with smooth
+				local gradcen = GRADCEN + nvals_gradcen[nid] * CENAMP
+				if y > gradcen then
+					grad = -((y - gradcen) / HIGRAD) ^ HEXP
+				else
+					grad = ((gradcen - y) / LOGRAD) ^ LEXP
+				end
+				if nvals_fault[ni] >= 0 then
+					density = (nvals_terrain[ni] + nvals_terralt[ni]) / 2 * (1 - terblen) + nvals_smooth[ni] * terblen + grad
+				else	
+					density = (nvals_terrain[ni] - nvals_terralt[ni]) / 2 * (1 - terblen) - nvals_smooth[ni] * terblen + grad
+				end
+				if density > 0 then -- if terrain
+					local nofis = false
+					if math.abs(nvals_fissure[ni]) > FISTS + math.sqrt(density) * FISEXP then
+						nofis = true
+					end
+					if density >= STOT and nofis then -- stone, ores 
+						if math.random(ORECHA) == 2 then
+							local osel = math.random(25)
+							if osel == 25 then
+								data[vi] = c_mese
+							elseif osel >= 22 then
+								data[vi] = c_mrdiamondore
+							elseif osel >= 19 then
+								data[vi] = c_mrgoldore
+							elseif osel >= 10 then
+								data[vi] = c_mrcopperore
+							else
+								data[vi] = c_mrironore
+							end
+						else
+							data[vi] = c_mrstone
+						end
+						stable[si] = true
+					elseif density < STOT then -- fine materials
+						if nofis and stable[si] then
+							if math.random() < icecha then
+								data[vi] = c_waterice
+							else
+								data[vi] = c_dust
+							end
+						else -- fissure
+							data[vi] = c_vacuum
+							stable[si] = false
+						end
+					else -- fissure or unstable missing node
+						data[vi] = c_vacuum
+						stable[si] = false
+					end
+				else -- vacuum
+					data[vi] = c_vacuum
+					stable[si] = false
+				end
+				ni = ni + 1
+				nid = nid + 1
+				vi = vi + 1
+			end
+			nid = nid - 80
 		end
-		end
-		
+		nid = nid + 80
 	end
-})
-
-minetest.register_node("mapgen:waterice", {
-	description = "Water Ice",
-	tiles = {"mapgen_waterice.png"},
-	light_source = 1,
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {cracky=3,melts=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("mapgen:hlflowing", {
-	description = "Flowing Hydroponics",
-	inventory_image = minetest.inventorycube("mapgen_hl.png"),
-	drawtype = "flowingliquid",
-	tiles = {"mapgen_hl.png"},
-	special_tiles = {
-		{
-			image="mapgen_hlflowing_animated.png",
-			backface_culling=false,
-			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
-		},
-		{
-			image="mapgen_hlflowing_animated.png",
-			backface_culling=true,
-			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
-		},
-	},
-	alpha = 224,
-	paramtype = "light",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	liquidtype = "flowing",
-	liquid_alternative_flowing = "mapgen:hlflowing",
-	liquid_alternative_source = "mapgen:hlsource",
-	liquid_viscosity = 1,
-	post_effect_color = {a=224, r=115, g=55, b=24},
-	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
-})
-
-minetest.register_node("mapgen:hlsource", {
-	description = "Hydroponic Source",
-	inventory_image = minetest.inventorycube("mapgen_hl.png"),
-	drawtype = "liquid",
-	tiles = {"mapgen_hl.png"},
-	alpha = 224,
-	paramtype = "light",
-	walkable = false,
-	pointable = false,
-	buildable_to = true,
-	liquidtype = "source",
-	liquid_alternative_flowing = "mapgen:hlflowing",
-	liquid_alternative_source = "mapgen:hlsource",
-	liquid_viscosity = 1,
-	post_effect_color = {a=224, r=115, g=55, b=24},
-	groups = {water=3, liquid=3, puts_out_fire=1},
-})
-
-minetest.register_node("mapgen:soil", {
-	description = "Moonsoil",
-	tiles = {"mapgen_soil.png"},
-	groups = {crumbly=3, falling_node=1, soil=3},
-	drop = "mapgen:dust",
-	sounds = default.node_sound_dirt_defaults(),
-})
-
-minetest.register_node("mapgen:airlock", {
-	description = "Airlock",
-	tiles = {"mapgen_airlock.png"},
-	light_source = 14,
-	walkable = false,
-	post_effect_color = {a=255, r=0, g=0, b=0},
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:glass", {
-	description = "MR Glass",
-	drawtype = "glasslike",
-	tiles = {"default_obsidian_glass.png"},
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {cracky=3,oddly_breakable_by_hand=3},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("mapgen:sapling", {
-	description = "MR Sapling",
-	drawtype = "plantlike",
-	visual_scale = 1.0,
-	tiles = {"default_sapling.png"},
-	inventory_image = "default_sapling.png",
-	wield_image = "default_sapling.png",
-	paramtype = "light",
-	walkable = false,
-	groups = {snappy=2,dig_immediate=3,flammable=2},
-	sounds = default.node_sound_defaults(),
-})
-
-minetest.register_node("mapgen:leaves", {
-	description = "MR Leaves",
-	drawtype = "allfaces_optional",
-	visual_scale = 1.3,
-	tiles = {"default_leaves.png"},
-	paramtype = "light",
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
-	drop = {
-		max_items = 1,
-		items = {
-			{items = {"mapgen:sapling"},rarity = 20,},
-			{items = {"mapgen:leaves"},}
-		}
-	},
-	sounds = default.node_sound_leaves_defaults(),
-})
-
-minetest.register_node("mapgen:light", {
-	description = "Light",
-	tiles = {"mapgen_light.png"},
-	light_source = 14,
-	groups = {cracky=3},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("mapgen:stonebrick", {
-	description = "Moon Stone Brick",
-	tiles = {"mapgen_stonebricktop.png", "mapgen_stonebrickbot.png", "mapgen_stonebrick.png"},
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:stoneslab", {
-	description = "Moon Stone Slab",
-	tiles = {"mapgen_stonebricktop.png", "mapgen_stonebrickbot.png", "mapgen_stonebrick.png"},
-	drawtype = "nodebox",
-	paramtype = "light",
-	sunlight_propagates = true,
-	buildable_to = true,
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-		},
-	},
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("mapgen:stonestair", {
-	description = "Moon Stone Stair",
-	tiles = {"mapgen_stonebricktop.png", "mapgen_stonebrickbot.png", "mapgen_stonebrick.png"},
-	drawtype = "nodebox",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {cracky=3},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-			{-0.5, 0, 0, 0.5, 0.5, 0.5},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-			{-0.5, 0, 0, 0.5, 0.5, 0.5},
-		},
-	},
-	sounds = default.node_sound_stone_defaults(),
-})
-
--- Items
-
-minetest.register_craftitem("mapgen:spacesuit", {
-	description = "MR Spacesuit",
-	inventory_image = "mapgen_spacesuit.png",
-	groups = {not_in_creative_inventory=1},
-})
-
-minetest.register_craftitem("mapgen:helmet", {
-	description = "MR Mesetint Helmet",
-	inventory_image = "mapgen_helmet.png",
-	groups = {not_in_creative_inventory=1},
-})
-
-minetest.register_craftitem("mapgen:lifesupport", {
-	description = "MR Life Support",
-	inventory_image = "mapgen_lifesupport.png",
-	groups = {not_in_creative_inventory=1},
-})
-
--- Crafting
-
-minetest.register_craft({
-    output = "mapgen:airlock",
-    recipe = {
-        {"default:steel_ingot", "", "default:steel_ingot"},
-        {"default:steel_ingot", "default:mese", "default:steel_ingot"},
-        {"default:steel_ingot", "", "default:steel_ingot"},
-    },
-})
-
-minetest.register_craft({
-    output = "mapgen:airgen",
-    recipe = {
-        {"default:steel_ingot", "mapgen:waterice", "default:steel_ingot"},
-        {"mapgen:waterice", "default:mese", "mapgen:waterice"},
-        {"default:steel_ingot", "mapgen:waterice", "default:steel_ingot"},
-    },
-})
-
-minetest.register_craft({
-	output = "default:water_source",
-	recipe = {
-		{"mapgen:waterice"},
-	},
-})
-
-minetest.register_craft({
-    output = "mapgen:hlsource",
-    recipe = {
-        {"mapgen:leaves", "mapgen:leaves", "mapgen:leaves"},
-        {"mapgen:leaves", "mapgen:waterice", "mapgen:leaves"},
-        {"mapgen:leaves", "mapgen:leaves", "mapgen:leaves"},
-    },
-})
-
-minetest.register_craft({
-	output = "mapgen:stonebrick 4",
-	recipe = {
-		{"mapgen:stone", "mapgen:stone"},
-		{"mapgen:stone", "mapgen:stone"},
-	}
-})
-
-minetest.register_craft({
-    output = "default:furnace",
-    recipe = {
-        {"mapgen:stone", "mapgen:stone", "mapgen:stone"},
-        {"mapgen:stone", "", "mapgen:stone"},
-        {"mapgen:stone", "mapgen:stone", "mapgen:stone"},
-    },
-})
-
-minetest.register_craft({
-	output = "mapgen:stoneslab 4",
-	recipe = {
-		{"mapgen:stone", "mapgen:stone"},
-	}
-})
-
-minetest.register_craft({
-	output = "mapgen:stonestair 4",
-	recipe = {
-		{"mapgen:stone", ""},
-		{"mapgen:stone", "mapgen:stone"},
-	}
-})
-
-minetest.register_craft({
-	output = "mapgen:helmet",
-	recipe = {
-		{"default:mese_crystal"},
-		{"default:glass"},
-		{"default:steel_ingot"},
-	}
-})
-
-minetest.register_craft({
-	output = "mapgen:lifesupport",
-	recipe = {
-		{"default:steel_ingot","default:steel_ingot" , "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:mese", "default:steel_ingot"},
-	}
-})
-
-minetest.register_craft({
-	output = "mapgen:spacesuit",
-	recipe = {
-		{"wool:white", "mapgen:helmet", "wool:white"},
-		{"", "mapgen:lifesupport", ""},
-		{"wool:white", "", "wool:white"},
-	}
-})
-
-minetest.register_craft({
-    output = "mapgen:light 8",
-    recipe = {
-        {"mapgen:glass", "mapgen:glass", "mapgen:glass"},
-        {"mapgen:glass", "default:mese", "mapgen:glass"},
-        {"mapgen:glass", "mapgen:glass", "mapgen:glass"},
-    },
-})
-
-minetest.register_craft({
-	output = "mapgen:sapling",
-	recipe = {
-		{"default:mese_crystal"},
-		{"default:sapling"},
-	}
-})
-
--- Cooking
-
-minetest.register_craft({
-	type = "cooking",
-	output = "mapgen:glass",
-	recipe = "mapgen:dust",
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:mese_crystal",
-	burntime = 50,
-})
+	
+	vm:set_data(data)
+	vm:set_lighting({day=0, night=0})
+	vm:calc_lighting()
+	vm:write_to_map(data)
+	local chugent = math.ceil((os.clock() - t1) * 1000)
+	print ("[mapgen] "..chugent.." ms")
+end)

@@ -650,6 +650,10 @@ minetest.register_node("default:sign_wall", {
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
 		--print("Sign at "..minetest.pos_to_string(pos).." got "..dump(fields))
+		if minetest.is_protected(pos, sender:get_player_name()) then
+			minetest.record_protection_violation(pos, sender:get_player_name())
+			return
+		end
 		local meta = minetest.get_meta(pos)
 		fields.text = fields.text or ""
 		minetest.log("action", (sender:get_player_name() or "").." wrote \""..fields.text..
@@ -891,8 +895,23 @@ minetest.register_node("default:furnace", {
 
 minetest.register_node("default:furnace_active", {
 	description = "Furnace",
-	tiles = {"default_furnace_top.png", "default_furnace_bottom.png", "default_furnace_side.png",
-		"default_furnace_side.png", "default_furnace_side.png", "default_furnace_front_active.png"},
+	tiles = {
+		"default_furnace_top.png",
+		"default_furnace_bottom.png",
+		"default_furnace_side.png",
+		"default_furnace_side.png",
+		"default_furnace_side.png",
+		{
+			image = "default_furnace_front_active.png",
+			backface_culling = false,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 1.5
+			},
+		}
+	},
 	paramtype2 = "facedir",
 	light_source = 8,
 	drop = "default:furnace",
@@ -1038,7 +1057,7 @@ minetest.register_abm({
 			fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
 		end
 
-		if fuel.time <= 0 then
+		if not fuel or fuel.time <= 0 then
 			meta:set_string("infotext","Furnace out of fuel")
 			swap_node(pos,"default:furnace")
 			meta:set_string("formspec", default.furnace_inactive_formspec)
