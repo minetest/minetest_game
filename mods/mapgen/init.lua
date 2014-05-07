@@ -30,9 +30,9 @@ local ORECHA = 7*7*7 --  -- Ore 1/x chance per stone node
 local FISTS = 0 --  -- Fissure threshold at surface. Controls size of fissure entrances at surface
 local FISEXP = 0.05 --  -- Fissure expansion rate under surface
 
--- Use singlenode.
+-- Use v7 mapgen.
 minetest.register_on_mapgen_init(function(mgparams)
-	minetest.set_mapgen_params({mgname="singlenode"})
+	minetest.set_mapgen_params({mgname="v7"})
 end)
 
 -- Generate
@@ -236,3 +236,5 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local chugent = math.ceil((os.clock() - t1) * 1000)
 	print ("[mapgen] "..chugent.." ms")
 end)
+
+minetest.register_alias("mapgen_stone", "moontest:stone")
