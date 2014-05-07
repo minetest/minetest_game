@@ -30,6 +30,11 @@ local ORECHA = 7*7*7 --  -- Ore 1/x chance per stone node
 local FISTS = 0 --  -- Fissure threshold at surface. Controls size of fissure entrances at surface
 local FISEXP = 0.05 --  -- Fissure expansion rate under surface
 
+-- Use singlenode.
+minetest.register_on_mapgen_init(function(mgparams)
+	minetest.set_mapgen_params({mgname="singlenode"})
+end)
+
 -- Generate
 local np_terrain = {
 	offset = 0,
