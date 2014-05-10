@@ -90,7 +90,6 @@ minetest.register_abm({
 		pos.y = pos.y-1
 		
 		if node.soil == nil or node.soil.wet == nil or node.soil.base == nil or node.soil.dry == nil then
-			minetest.log("error", "Could not process soil information of node " .. nn)
 			return
 		end
 		
