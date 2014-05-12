@@ -5,9 +5,12 @@ minetest.register_on_joinplayer(function(player)
     minetest.setting_set("time_speed", 0)
 end)
 
--- Disable clouds.
+-- Disable clouds and enable them again when player leaves the game.
 minetest.register_on_joinplayer(function(player)
     minetest.setting_set("enable_clouds", 0)
+end)
+minetest.register_on_joinplayer(function(player)
+    minetest.setting_set("enable_clouds", 1)
 end)
 
 -- Sky textures
