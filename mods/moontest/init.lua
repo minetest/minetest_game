@@ -37,8 +37,8 @@ minetest.register_globalstep(function(dtime)
 		end
 		if math.random() < 0.1 then
 			if player:get_inventory():contains_item("main", "moontest:spacesuit")
-			and player:get_breath() < 10 then
-				player:set_breath(10)
+			and player:get_breath() < 11 then
+				player:set_breath(11)
 			end
 		end
 		if math.random() > 0.99 then
