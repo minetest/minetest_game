@@ -16,7 +16,7 @@ end)
 -- Sky textures
 minetest.register_on_joinplayer(function(player)
 	minetest.after(0, function()
-		textures ={
+		skytex ={
 		"pink_planet_pos_y.png",
 		"pink_planet_neg_y.png",
 		"pink_planet_pos_z.png",
@@ -25,6 +25,6 @@ minetest.register_on_joinplayer(function(player)
 		"pink_planet_pos_x.png",
 		}
 		
-		player:set_sky({r=0, g=0, b=0, a=0},"skybox", textures)
+		player:set_sky({r=0, g=0, b=0, a=0},"skybox", skytex)
 	end)
 end)
