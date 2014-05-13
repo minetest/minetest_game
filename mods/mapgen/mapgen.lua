@@ -1,7 +1,7 @@
 minetest.register_biome({
 	name = "plains",
-	node_top = "mapgen:dust",
-	node_bottom = "mapgen:stone",
+	node_top = "moontest:dust",
+	node_bottom = "moontest:stone",
 	depth_top = 2,
 	node_dust = "air",
 	height_min = -10,
@@ -10,7 +10,7 @@ minetest.register_biome({
 minetest.register_biome({
 	name = "plains",
 	node_top = "default:obsidian",
-	node_bottom = "mapgen:stone",
+	node_bottom = "moontest:stone",
 	depth_top = 8,
 	node_dust = "air",
 	height_min = -30,
