@@ -52,7 +52,7 @@ minetest.register_node("bones:bones", {
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
-			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
+			meta:set_string("infotext", meta:get_string("owner").."'s broken bones")
 			meta:set_string("formspec", "")
 			meta:set_string("owner", "")
 		end
@@ -69,7 +69,7 @@ minetest.register_node("bones:bones", {
 			return
 		end
 		if time >= publish then
-			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
+			meta:set_string("infotext", meta:get_string("owner").."'s broken bones")
 			meta:set_string("owner", "")
 		else
 			return true
@@ -122,7 +122,7 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_string("formspec", "size[8,9;]"..
 			"list[current_name;main;0,0;8,4;]"..
 			"list[current_player;main;0,5;8,4;]")
-	meta:set_string("infotext", player:get_player_name().."'s fresh bones")
+	meta:set_string("infotext", player:get_player_name().."'s fleshy bones")
 	meta:set_string("owner", player:get_player_name())
 	meta:set_int("time", 0)
 	
