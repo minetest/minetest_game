@@ -131,17 +131,30 @@ minetest.register_node("moontest:hlsource", {
 	inventory_image = minetest.inventorycube("moontest_hl.png"),
 	drawtype = "liquid",
 	tiles = {"moontest_hl.png"},
+	special_tiles = {
+		{
+			image="moontest_hl_animated.png",
+			backface_culling=false,
+			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
+		},
+		{
+			image="moontest_hl_animated.png",
+			backface_culling=true,
+			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
+		},
+	},
 	alpha = 224,
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
+	diggable = false,
 	buildable_to = true,
 	liquidtype = "source",
 	liquid_alternative_flowing = "moontest:hlflowing",
 	liquid_alternative_source = "moontest:hlsource",
 	liquid_viscosity = 1,
 	post_effect_color = {a=224, r=115, g=55, b=24},
-	groups = {water=3, liquid=3, puts_out_fire=1},
+	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("moontest:soil", {
