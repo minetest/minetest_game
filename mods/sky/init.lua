@@ -9,7 +9,7 @@ end)
 minetest.register_on_joinplayer(function(player)
     minetest.setting_set("enable_clouds", 0)
 end)
-minetest.register_on_joinplayer(function(player)
+minetest.register_on_leaveplayer(function(player)
     minetest.setting_set("enable_clouds", 1)
 end)
 
