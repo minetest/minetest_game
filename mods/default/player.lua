@@ -50,6 +50,12 @@ model_def = {
 
 ]]
 
+if minetest.setting_getbool(astronaut) = false then
+	astSkin = "charater.png"
+else
+	astSkin = "astronaut.png"
+end
+
 -- Player animation blending
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
@@ -66,7 +72,7 @@ end
 -- Default player appearance
 default.player_register_model("character.x", {
 	animation_speed = 30,
-	textures = {"character.png", },
+	textures = {astSkin, },
 	animations = {
 		-- Standard animations.
 		stand     = { x=  0, y= 79, },
