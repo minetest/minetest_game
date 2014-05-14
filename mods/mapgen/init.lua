@@ -39,7 +39,7 @@ minetest.register_biome({
 	node_top = "moontest:waterice",
 	depth_top = 4,
 	node_filler = "moontest:dust",
-	depth_filler = 2
+	depth_filler = 2,
 	node_dust = "air",
 	height_min = 25,
 	height_max = 100,
