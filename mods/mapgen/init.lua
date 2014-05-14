@@ -21,20 +21,22 @@ minetest.register_biome({
 	height_max = 160,
 })
 
--- Obsidian Biome
+-- Basalt Biome
 minetest.register_biome({
-	name = "plains",
-	node_top = "default:obsidian",
-	node_bottom = "moontest:stone",
-	depth_top = 8,
+	name = "basalt",
+	node_top = "moontest:basalt",
+	depth_top = 2,
+	node_filler = "moontest:stone",
+	depth_filler = 3,
 	node_dust = "air",
-	height_min = -30,
-	height_max = 20,
+	height_min = -50,
+	height_max = 2,
+	heat_point = 54,
+	humidity_point = 51,
 })
 
 -- Aliases
 
-minetest.register_alias("mapgen_water_source", "moontest:vacuum")
-minetest.register_alias("mapgen_lava_source", "default:lava_source")
+minetest.register_alias("mapgen_lava_source", "moontest:hlsource")
+minetest.register_alias("mapgen_water_source", "moontest:hlsource")
 minetest.register_alias("mapgen_stone", "moontest:stone")
-minetest.register_alias("mapgen_dirt", "moontest:dust")

@@ -1,3 +1,6 @@
+-- Nodes
+
+-- Natural Blocks
 minetest.register_node("moontest:stone", {
 	description = "Moon Stone",
 	tiles = {"moontest_stone.png"},
@@ -14,6 +17,14 @@ minetest.register_node("moontest:dust", {
 	}),
 })
 
+minetest.register_node("moontest:basalt", {
+	description = "Basalt",
+	tiles = {"moontest_basalt.png"},
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+-- Footsteps
 minetest.register_node("moontest:dustprint1", {
 	description = "Moon Dust Footprint1",
 	tiles = {"moontest_dustprint1.png", "moontest_dust.png"},
@@ -96,7 +107,7 @@ minetest.register_node("moontest:waterice", {
 })
 
 minetest.register_node("moontest:hlflowing", {
-	description = "Flowing Hydroponics",
+	description = "Flowing Hydroponic Liquid",
 	inventory_image = minetest.inventorycube("moontest_hl.png"),
 	drawtype = "flowingliquid",
 	tiles = {"moontest_hl.png"},
@@ -127,18 +138,18 @@ minetest.register_node("moontest:hlflowing", {
 })
 
 minetest.register_node("moontest:hlsource", {
-	description = "Hydroponic Source",
+	description = "Hydroponic Liquid Source",
 	inventory_image = minetest.inventorycube("moontest_hl.png"),
 	drawtype = "liquid",
 	tiles = {"moontest_hl.png"},
 	special_tiles = {
 		{
-			image="moontest_hl_animated.png",
+			image="moontest_hlflowing_animated.png",
 			backface_culling=false,
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
 		},
 		{
-			image="moontest_hl_animated.png",
+			image="moontest_hlflowing_animated.png",
 			backface_culling=true,
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
 		},
@@ -147,14 +158,14 @@ minetest.register_node("moontest:hlsource", {
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
-	diggable = false,
+	diggable = false
 	buildable_to = true,
 	liquidtype = "source",
 	liquid_alternative_flowing = "moontest:hlflowing",
 	liquid_alternative_source = "moontest:hlsource",
 	liquid_viscosity = 1,
 	post_effect_color = {a=224, r=115, g=55, b=24},
-	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
+	groups = {water=3, liquid=3, puts_out_fire=1},
 })
 
 minetest.register_node("moontest:soil", {
@@ -282,17 +293,14 @@ minetest.register_node("moontest:stonestair", {
 minetest.register_craftitem("moontest:spacesuit", {
 	description = "Spacesuit",
 	inventory_image = "moontest_spacesuit.png",
-	groups = {not_in_creative_inventory=1},
 })
 
 minetest.register_craftitem("moontest:helmet", {
 	description = "Helmet",
 	inventory_image = "moontest_helmet.png",
-	groups = {not_in_creative_inventory=1},
 })
 
 minetest.register_craftitem("moontest:lifesupport", {
 	description = "Life Support",
 	inventory_image = "moontest_lifesupport.png",
-	groups = {not_in_creative_inventory=1},
 })
