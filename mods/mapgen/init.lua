@@ -1,11 +1,13 @@
 -- Mapgen
 
+dofile(minetest.get_modpath("mapgen").."/ores.lua")
+
 -- Set mapgen mode to v7
 minetest.register_on_mapgen_init(function(params)
 	minetest.set_mapgen_params({
 		mgname = "v7",
 		seed = params.seed,
-		water_level = 0,
+		water_level = -10,
 		flags = "caves",
 	})
 end)
@@ -17,7 +19,7 @@ minetest.register_biome({
 	depth_top = 2,
 	node_bottom = "moontest:stone",
 	node_dust = "air",
-	height_min = -10,
+	height_min = 3,
 	height_max = 30,
 })
 
@@ -30,7 +32,7 @@ minetest.register_biome({
 	depth_filler = 1,
 	node_dust = "air",
 	height_min = -50,
-	height_max = 2,
+	height_max = 5,
 })
 
 -- Lunar Ice Cap Biome
@@ -39,7 +41,7 @@ minetest.register_biome({
 	node_top = "moontest:waterice",
 	depth_top = 4,
 	node_filler = "moontest:dust",
-	depth_filler = 2
+	depth_filler = 2,
 	node_dust = "air",
 	height_min = 25,
 	height_max = 100,

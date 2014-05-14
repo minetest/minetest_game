@@ -290,11 +290,34 @@ minetest.register_node("moontest:stonestair", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("moontest:lightore", {
+	description = "Light ore",
+	tiles = {"moontest_stone.png^moontest_light_ore.png"},
+	light_source = 7,
+	groups = {cracky = 3, stone = 1},
+	drop = "moontest:light_crystal",
+})
+
+minetest.register_node("moontest:light", {
+	description = "Light",
+	tiles = {"moontest_light.png"},
+	light_source = 14,
+	groups = {cracky = 3, stone = 1},
+	drop = "moontest:light_crystal",
+})
+
+
+
 -- Items
 
 minetest.register_craftitem("moontest:spacesuit", {
 	description = "Spacesuit",
 	inventory_image = "moontest_spacesuit.png",
+})
+
+minetest.register_craftitem("moontest:light_crystal", {
+	description = "Light Cyrstal",
+	inventory_image = "moontest_light_crystal.png",
 })
 
 minetest.register_craftitem("moontest:helmet", {
