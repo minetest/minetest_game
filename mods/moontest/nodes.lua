@@ -228,14 +228,6 @@ minetest.register_node("moontest:leaves", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("moontest:light", {
-	description = "Light",
-	tiles = {"moontest_light.png"},
-	light_source = 14,
-	groups = {cracky=3},
-	sounds = default.node_sound_glass_defaults(),
-})
-
 minetest.register_node("moontest:stonebrick", {
 	description = "Moon Stone Brick",
 	tiles = {"moontest_stonebricktop.png", "moontest_stonebrickbot.png", "moontest_stonebrick.png"},
@@ -302,7 +294,7 @@ minetest.register_node("moontest:light", {
 	description = "Light",
 	tiles = {"moontest_light.png"},
 	light_source = 14,
-	groups = {cracky = 3, stone = 1},
+	groups = {cracky = 3},
 	drop = "moontest:light_crystal",
 })
 
