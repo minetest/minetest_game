@@ -10,6 +10,7 @@ For more information and discussion about this game, see the topic on the [Minet
 | Amaz1          | Code          |
 | 0gb_us         | Textures      |
 | CraigyDavi     | Code          |
+| HeroOfTheWind  | Code          |
 
 **License:** Textures: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) Code: Various (stated in readme's).
 
