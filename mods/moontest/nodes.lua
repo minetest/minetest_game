@@ -158,7 +158,7 @@ minetest.register_node("moontest:hlsource", {
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
-	diggable = false
+	diggable = false,
 	buildable_to = true,
 	liquidtype = "source",
 	liquid_alternative_flowing = "moontest:hlflowing",
