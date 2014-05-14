@@ -14,11 +14,11 @@ end)
 minetest.register_biome({
 	name = "plains",
 	node_top = "moontest:dust",
-	node_bottom = "moontest:stone",
 	depth_top = 2,
+	node_bottom = "moontest:stone",
 	node_dust = "air",
 	height_min = -10,
-	height_max = 160,
+	height_max = 30,
 })
 
 -- Basalt Biome
@@ -26,13 +26,23 @@ minetest.register_biome({
 	name = "basalt",
 	node_top = "moontest:basalt",
 	depth_top = 2,
-	node_filler = "moontest:stone",
-	depth_filler = 3,
+	node_filler = "moontest:dust",
+	depth_filler = 1,
 	node_dust = "air",
 	height_min = -50,
 	height_max = 2,
-	heat_point = 54,
-	humidity_point = 51,
+})
+
+-- Lunar Ice Cap Biome
+minetest.register_biome({
+	name = "plains",
+	node_top = "moontest:waterice",
+	depth_top = 4,
+	node_filler = "moontest:dust",
+	depth_filler = 2
+	node_dust = "air",
+	height_min = 25,
+	height_max = 100,
 })
 
 -- Aliases
