@@ -52,3 +52,38 @@ minetest.register_biome({
 minetest.register_alias("mapgen_lava_source", "moontest:hlsource")
 minetest.register_alias("mapgen_water_source", "moontest:hlsource")
 minetest.register_alias("mapgen_stone", "moontest:stone")
+
+--Set everything to vacuum on generate
+minetest.register_on_generated(function(minp, maxp, seed)
+	local x1 = maxp.x
+	local y1 = maxp.y
+	local z1 = maxp.z
+	local x0 = minp.x
+	local y0 = minp.y
+	local z0 = minp.z
+	--fire up the voxel manipulator
+	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
+	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
+	local data = vm:get_data()
+	--get the content ID #'s of air and vacuum
+	local c_air = minetest.get_content_id("air")
+	local c_vac = minetest.get_content_id("moontest:vacuum")
+	--loop through every node of the chunk
+	for z = z0, z1 do
+		for x = x0, x1 do
+			for y = y0, y1 do
+			    --grab the location of the node in question
+				local vi = area:index(x, y, z)
+				--if it's air, it won't be now!
+				if data[vi] == c_air then
+					data[vi] = c_vac
+				end
+			end
+		end
+	end
+	--write the voxel manipulator data back to world
+	vm:set_data(data)
+	vm:set_lighting({day=0, night=0})
+	vm:calc_lighting()
+	vm:write_to_map(data)
+end)
