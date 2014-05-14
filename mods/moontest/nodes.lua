@@ -11,6 +11,8 @@ minetest.register_node("moontest:stone", {
 minetest.register_node("moontest:dust", {
 	description = "Moon Dust",
 	tiles = {"moontest_dust.png"},
+	paramtype = "light",
+	light_source = 4,
 	groups = {crumbly=3, falling_node=1},
 	sounds = default.node_sound_sand_defaults({
 		footstep = {name="default_sand_footstep", gain=0.1},
