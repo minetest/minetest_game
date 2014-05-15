@@ -87,3 +87,24 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:calc_lighting()
 	vm:write_to_map(data)
 end)
+
+--make lava delete vacuum nodes nearby so as to allow flowing
+minetest.register_abm({
+	nodenames = {"group:lava"},
+	neighbors = {"moontest:vacuum"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		for x = -1,1 do
+			for y = -1,1 do
+				for z = -1,1 do
+					n_pos = {x=x + pos.x,y=y+pos.y,z=z+pos.z}
+					n_name = minetest.get_node(n_pos).name
+					if n_name == "moontest:vacuum" then
+						minetest.remove_node(n_pos)
+					end
+				end
+			end
+		end
+	end,
+})

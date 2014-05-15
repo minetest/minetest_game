@@ -50,7 +50,7 @@ model_def = {
 
 ]]
 
-if minetest.setting_getbool("astronaut") = false then
+if minetest.setting_getbool("astronaut") == false then
 	astSkin = "charater.png"
 else
 	astSkin = "astronaut.png"
