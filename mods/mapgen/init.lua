@@ -7,7 +7,7 @@ minetest.register_on_mapgen_init(function(params)
 	minetest.set_mapgen_params({
 		mgname = "v7",
 		seed = params.seed,
-		water_level = -10,
+		water_level = 1,
 		flags = "caves",
 	})
 end)
@@ -52,6 +52,7 @@ minetest.register_biome({
 minetest.register_alias("mapgen_lava_source", "moontest:hlsource")
 minetest.register_alias("mapgen_water_source", "moontest:hlsource")
 minetest.register_alias("mapgen_stone", "moontest:stone")
+minetest.register_alias("mapgen_dirt", "moontest:dust")
 
 --Set everything to vacuum on generate
 minetest.register_on_generated(function(minp, maxp, seed)
