@@ -19,6 +19,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+    output = "moontest:light_stick",
+    recipe = {
+        {"moontest:light_crystal"},
+        {"default:stick"},
+        {"default:stick"},
+    },
+})
+
+minetest.register_craft({
     output = "moontest:airgen",
     recipe = {
         {"default:steel_ingot", "moontest:waterice", "default:steel_ingot"},
