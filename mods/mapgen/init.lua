@@ -57,8 +57,8 @@ minetest.register_alias("mapgen_dirt", "moontest:dust")
 --treegen function
 local function moontest_tree(x, y, z, area, data)
 
-	local c_tree = minetest.get_content_id("default:tree")
-	local c_leaves = minetest.get_content_id("default:leaves")
+	local c_tree = minetest.get_content_id("moontest:tree")
+	local c_leaves = minetest.get_content_id("moontest:leaves")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do

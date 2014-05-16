@@ -209,11 +209,21 @@ minetest.register_node("moontest:sapling", {
 	sounds = default.node_sound_defaults(),
 })
 
+minetest.register_node("moontest:tree", {
+	description = "Moon Tree",
+	tiles = {"moontest_tree_top.png", "moontest_tree_top.png", "moontest_tree.png"},
+	paramtype2 = "facedir",
+	is_ground_content = false,
+	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
+	sounds = default.node_sound_wood_defaults(),
+	on_place = minetest.rotate_node
+})
+
 minetest.register_node("moontest:leaves", {
 	description = "Moon Leaves",
 	drawtype = "allfaces_optional",
 	visual_scale = 1.3,
-	tiles = {"default_leaves.png"},
+	tiles = {"moontest_leaves.png"},
 	paramtype = "light",
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {

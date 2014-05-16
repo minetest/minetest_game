@@ -37,6 +37,13 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "default:wood",
+	recipe = {
+		{"moontest:tree"},
+	},
+})
+
+minetest.register_craft({
 	output = "default:water_source",
 	recipe = {
 		{"moontest:waterice"},
