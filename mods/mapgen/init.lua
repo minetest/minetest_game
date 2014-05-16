@@ -54,6 +54,27 @@ minetest.register_alias("mapgen_water_source", "moontest:hlsource")
 minetest.register_alias("mapgen_stone", "moontest:stone")
 minetest.register_alias("mapgen_dirt", "moontest:dust")
 
+--treegen function
+local function moontest_tree(x, y, z, area, data)
+
+	local c_tree = minetest.get_content_id("default:tree")
+	local c_leaves = minetest.get_content_id("default:leaves")
+	for j = -2, 4 do
+		if j >= 1 then
+			for i = -2, 2 do
+			for k = -2, 2 do
+				local vi = area:index(x + i, y + j + 1, z + k)
+				if math.random(3) ~= 2 then
+					data[vi] = c_leaves
+				end
+			end
+			end
+		end
+		local vi = area:index(x, y + j, z)
+		data[vi] = c_tree
+	end
+end
+
 --Set everything to vacuum on generate
 minetest.register_on_generated(function(minp, maxp, seed)
 	local x1 = maxp.x
@@ -69,6 +90,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	--get the content ID #'s of air and vacuum
 	local c_air = minetest.get_content_id("air")
 	local c_vac = minetest.get_content_id("moontest:vacuum")
+	local c_dust = minetest.get_content_id("moontest:dust")
 	--loop through every node of the chunk
 	for z = z0, z1 do
 		for x = x0, x1 do
@@ -78,6 +100,24 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				--if it's air, it won't be now!
 				if data[vi] == c_air then
 					data[vi] = c_vac
+				end
+			end
+			--gen trees
+			--find surface
+			local yasurf = false -- y of above surface node
+			for y = y1, 2, -1 do --decrement, not increment
+				local vi = area:index(x, y, z)
+				local c_node = data[vi]
+				if y == y1 and c_node ~= c_vac then -- if top node solid
+					break
+				elseif c_node == c_dust then --if first surface node
+					yasurf = y + 1 --set the position of the surface
+					break
+				end
+			end
+			if yasurf then --if surface was found
+				if math.random() <= 0.0001337 then --much LEET
+					moontest_tree(x, yasurf+1, z, area, data)--place a tree
 				end
 			end
 		end
