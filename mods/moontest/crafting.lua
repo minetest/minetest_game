@@ -144,7 +144,19 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "cooking",
+	output = "moontest:titanium_ingot",
+	recipe = "moontest:titanium_lump",
+})
+
+minetest.register_craft({
 	type = "fuel",
 	recipe = "default:mese_crystal",
+	burntime = 50,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "moontest:phosphorus_lump",
 	burntime = 50,
 })

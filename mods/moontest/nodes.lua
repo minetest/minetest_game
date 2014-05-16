@@ -298,6 +298,45 @@ minetest.register_node("moontest:lightore", {
 	drop = "moontest:light_crystal",
 })
 
+minetest.register_node("moontest:phosphorusore", {
+	description = "Phosphorus Ore",
+	tiles = {"moontest_stone.png^moontest_mineral_phosphorus.png"},
+	groups = {cracky = 3, stone = 1},
+	drop = "moontest:phosphorus_lump",
+})
+
+minetest.register_node("moontest:siliconore", {
+	description = "Silicon ore",
+	tiles = {"moontest_stone.png^moontest_mineral_silicon.png"},
+	groups = {cracky = 3, stone = 1},
+	drop = "mesecons_materials:silicon",
+})
+
+minetest.register_node("moontest:titaniumore", {
+	description = "Titanium ore",
+	tiles = {"moontest_stone.png^moontest_mineral_titanium.png"},
+	groups = {cracky = 2, stone = 1},
+	drop = "moontest:titanium_lump",
+})
+
+minetest.register_node(":default:stone_with_iron", {
+	description = "Iron Ore",
+	tiles = {"moontest_stone.png^default_mineral_iron.png"},
+	is_ground_content = true,
+	groups = {cracky=2, stone = 1},
+	drop = 'default:iron_lump',
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node(":default:stone_with_mese", {
+	description = "Mese Ore",
+	tiles = {"moontest_stone.png^default_mineral_mese.png"},
+	is_ground_content = true,
+	groups = {cracky=1, stone = 1},
+	drop = "default:mese_crystal",
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("moontest:light", {
 	description = "Light",
 	tiles = {"moontest_light.png"},
@@ -346,6 +385,21 @@ minetest.register_craftitem("moontest:spacesuit", {
 minetest.register_craftitem("moontest:light_crystal", {
 	description = "Light Cyrstal",
 	inventory_image = "moontest_light_crystal.png",
+})
+
+minetest.register_craftitem("moontest:phosphorus_lump", {
+	description = "Phosphorus Lump",
+	inventory_image = "moontest_phosphorus_lump.png",
+})
+
+minetest.register_craftitem("moontest:titanium_lump", {
+	description = "Titanium Lump",
+	inventory_image = "moontest_titanium_lump.png",
+})
+
+minetest.register_craftitem("moontest:titanium_ingot", {
+	description = "Titanium Ingot",
+	inventory_image = "moontest_titanium_ingot.png",
 })
 
 minetest.register_craftitem("moontest:helmet", {
