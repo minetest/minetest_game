@@ -8,6 +8,7 @@ local player_pos_previous = {}
 
 dofile(minetest.get_modpath("moontest").."/nodes.lua")
 dofile(minetest.get_modpath("moontest").."/crafting.lua")
+dofile(minetest.get_modpath("moontest").."/tools.lua")
 
 -- Globalstep function
 minetest.register_globalstep(function(dtime)
@@ -83,7 +84,7 @@ function moontest_appletree(pos)
 			end
 			end
 		end
-		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="default:tree"})
+		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="moontest:tree"})
 	end
 	print ("[moontest] Appletree sapling grows")
 end

@@ -337,6 +337,15 @@ minetest.register_node(":default:stone_with_mese", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("moontest:lunariumore", {
+	description = "Lunarium Ore",
+	tiles = {"moontest_stone.png^moontest_mineral_lunarium.png"},
+	is_ground_content = true,
+	groups = {cracky=1, stone = 1},
+	drop = "moontest:lunarium_lump",
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("moontest:light", {
 	description = "Light",
 	tiles = {"moontest_light.png"},
@@ -400,6 +409,16 @@ minetest.register_craftitem("moontest:titanium_lump", {
 minetest.register_craftitem("moontest:titanium_ingot", {
 	description = "Titanium Ingot",
 	inventory_image = "moontest_titanium_ingot.png",
+})
+
+minetest.register_craftitem("moontest:lunarium_lump", {
+	description = "Lunarium Lump",
+	inventory_image = "moontest_lunarium_lump.png",
+})
+
+minetest.register_craftitem("moontest:lunarium_ingot", {
+	description = "Lunarium Ingot",
+	inventory_image = "moontest_lunarium_ingot.png",
 })
 
 minetest.register_craftitem("moontest:helmet", {

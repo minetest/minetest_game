@@ -135,6 +135,80 @@ minetest.register_craft({
 	}
 })
 
+--Tools
+
+minetest.register_craft({
+	output = 'moontest:pick_lunarium',
+	recipe = {
+		{'moontest:lunarium_ingot', 'moontest:lunarium_ingot', 'moontest:lunarium_ingot'},
+		{'', 'group:stick', ''},
+		{'', 'group:stick', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:pick_titanium',
+	recipe = {
+		{'moontest:titanium_ingot', 'moontest:titanium_ingot', 'moontest:titanium_ingot'},
+		{'', 'group:stick', ''},
+		{'', 'group:stick', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:shovel_lunarium',
+	recipe = {
+		{'moontest:lunarium_ingot'},
+		{'group:stick'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:shovel_titanium',
+	recipe = {
+		{'moontest:titanium_ingot'},
+		{'group:stick'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:axe_lunarium',
+	recipe = {
+		{'moontest:lunarium_ingot', 'moontest:lunarium_ingot'},
+		{'moontest:lunarium_ingot', 'group:stick'},
+		{'', 'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:axe_titanium',
+	recipe = {
+		{'moontest:titanium_ingot', 'moontest:titanium_ingot'},
+		{'moontest:titanium_ingot', 'group:stick'},
+		{'', 'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:sword_lunarium',
+	recipe = {
+		{'moontest:lunarium_ingot'},
+		{'moontest:lunarium_ingot'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'moontest:sword_titanium',
+	recipe = {
+		{'moontest:titanium_ingot'},
+		{'moontest:titanium_ingot'},
+		{'group:stick'},
+	}
+})
+
 -- Cooking
 
 minetest.register_craft({
@@ -147,6 +221,12 @@ minetest.register_craft({
 	type = "cooking",
 	output = "moontest:titanium_ingot",
 	recipe = "moontest:titanium_lump",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "moontest:lunarium_ingot",
+	recipe = "moontest:lunarium_lump",
 })
 
 minetest.register_craft({
