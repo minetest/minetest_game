@@ -49,7 +49,7 @@ minetest.register_biome({
 
 -- Aliases
 
-minetest.register_alias("mapgen_lava_source", "moontest:hlsource")
+minetest.register_alias("mapgen_lava_source", "default:lava_source")
 minetest.register_alias("mapgen_water_source", "moontest:hlsource")
 minetest.register_alias("mapgen_stone", "moontest:stone")
 minetest.register_alias("mapgen_dirt", "moontest:dust")
@@ -129,9 +129,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:write_to_map(data)
 end)
 
---make lava delete vacuum nodes nearby so as to allow flowing
+--make liquid delete vacuum nodes nearby so as to allow flowing
 minetest.register_abm({
-	nodenames = {"group:lava"},
+	nodenames = {"group:liquid"},
 	neighbors = {"moontest:vacuum"},
 	interval = 1.0,
 	chance = 1,
