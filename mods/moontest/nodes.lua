@@ -108,17 +108,17 @@ minetest.register_node("moontest:waterice", {
 
 minetest.register_node("moontest:hlflowing", {
 	description = "Flowing Hydroponic Liquid",
-	inventory_image = minetest.inventorycube("moontest_hl2.png"),
+	inventory_image = minetest.inventorycube("moontest_hl.png"),
 	drawtype = "flowingliquid",
-	tiles = {"moontest_hl2.png"},
+	tiles = {"moontest_hl.png"},
 	special_tiles = {
 		{
-			image="moontest_hlflowing_animated2.png",
+			image="moontest_hlflowing_animated.png",
 			backface_culling=false,
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
 		},
 		{
-			image="moontest_hlflowing_animated2.png",
+			image="moontest_hlflowing_animated.png",
 			backface_culling=true,
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
 		},
@@ -139,19 +139,19 @@ minetest.register_node("moontest:hlflowing", {
 
 minetest.register_node("moontest:hlsource", {
 	description = "Hydroponic Liquid Source",
-	inventory_image = minetest.inventorycube("moontest_hl2.png"),
+	inventory_image = minetest.inventorycube("moontest_hl.png"),
 	drawtype = "liquid",
 	tiles = {
-		{name="moontest_hlflowing_animated2.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}
+		{name="moontest_hlflowing_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}
 	},
 	special_tiles = {
 		{
-			image="moontest_hlflowing_animated2.png",
+			image="moontest_hlflowing_animated.png",
 			backface_culling=false,
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
 		},
 		{
-			image="moontest_hlflowing_animated2.png",
+			image="moontest_hlflowing_animated.png",
 			backface_culling=true,
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2}
 		},
