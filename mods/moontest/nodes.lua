@@ -384,7 +384,68 @@ minetest.register_node("moontest:light_stick", {
 	sounds = default.node_sound_defaults(),
 })
 
+--define unlit torch
+minetest.register_node("moontest:unlit_torch", {
+	description = "Unlit Torch",
+	drawtype = "torchlike",
+	tiles = {"moontest_unlit_torch_on_floor.png", "moontest_unlit_torch_on_ceiling.png", "moontest_unlit_torch.png"},
+	inventory_image = "default_torch_on_floor.png",
+	wield_image = "moontest_unlit_torch_on_floor.png",
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	walkable = false,
+	light_source = 0,
+	selection_box = {
+		type = "wallmounted",
+		wall_top = {-0.1, 0.5-0.6, -0.1, 0.1, 0.5, 0.1},
+		wall_bottom = {-0.1, -0.5, -0.1, 0.1, -0.5+0.6, 0.1},
+		wall_side = {-0.5, -0.3, -0.1, -0.5+0.3, 0.3, 0.1},
+	},
+	groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1},
+	legacy_wallmounted = true,
+	sounds = default.node_sound_defaults(),
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		--check if the player is holding a stick to relight it
+		if player:get_wielded_item():get_name() == "default:stick" then
+			--store whether the area is in a vacuum
+			local is_vacuum = false
+			--check in a three-node cube around the torch for vacuum
+			for x=-1,1 do
+				for y=-1,1 do
+					for z=-1,1 do
+						local vpos = {x=pos.x+x,y=pos.y+y,z=pos.z+z}
+						--this is a vacuum!
+						if minetest.get_node(vpos).name == "moontest:vacuum" then
+							is_vacuum = true
+							break
+						end
+					end
+				end
+			end
+			--if those loops didn't find vacuum, assume air
+			if is_vacuum ~= true then
+				local par2 = node.param2 --store the rotation of the old torch
+				minetest.set_node(pos, {name="default:torch", param2=par2})
+			else	
+				print("this is a vacuum!") --you idiot!
+			end
+		end
+	end,
+})
 
+--ABM to extinguish torches in vacuum
+minetest.register_abm({
+	nodenames = {"default:torch"},
+	neighbors = {"moontest:vacuum"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local p2 = node.param2 --store rotation of old torch
+		minetest.set_node(pos, {name = "moontest:unlit_torch", param2=p2})
+	end,
+})
 
 -- Items
 
