@@ -224,7 +224,7 @@ minetest.register_craft( {
 	recipe = {
 		{ "", "default:glass", ""},
 		{ "moontest:lunarium_lump", "", "moontest:lunarium_lump"},
-		{ "default:steelblock", "moontest:lunarium_lump", "default:steelblock"},
+		{ "default:steelblock", "moontest:lunarium_ingot", "default:steelblock"},
 	},
 })
 
