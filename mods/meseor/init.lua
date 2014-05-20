@@ -13,13 +13,13 @@ local DAMAGE = true -- Enable / disable player damage loop.
 local DAMMAX = 20 -- 20 -- Maximum damage. 20 = direct hit is fatal.
 
 local RADMIN = 3 -- 3 -- Minimum crater radius.
-local RADMAX = 31 -- 31 -- Maximum crater radius, on-gen craters are limited to 16.
+local RADMAX = 16 -- 31 -- Maximum crater radius, on-gen craters are limited to 16.
 local STOCHA = 5 -- 5 -- 1/x chance of stone boulders instead of gravel.
 
-local XMIN = -16000 -- Impact area dimensions. Impacts only inside this area.
-local XMAX = 16000
-local ZMIN = -16000
-local ZMAX = 16000
+local XMIN = -32000 -- Impact area dimensions. Impacts only inside this area.
+local XMAX = 32000
+local ZMIN = -32000
+local ZMAX = 32000
 
 local SAXMIN = 0 -- Safe area dimensions. No impacts inside this area.
 local SAXMAX = 0 -- When overlapping impact area, the safe area overrides.
