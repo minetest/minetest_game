@@ -5,9 +5,9 @@ local floor_pos = function(pos)
 	return {x=math.floor(pos.x),y=math.floor(pos.y),z=math.floor(pos.z)}
 end
 
-local UFO_SPEED = 1
-local UFO_TURN_SPEED = 2
-local UFO_MAX_SPEED = 10
+local UFO_SPEED = 2
+local UFO_TURN_SPEED = 4
+local UFO_MAX_SPEED = 20
 local UFO_FUEL_USE = .01
 
 ufos.fuel_from_wear = function(wear)
@@ -223,8 +223,8 @@ minetest.register_craft( {
 	output = 'ufos:ufo',
 	recipe = {
 		{ "", "default:glass", ""},
-		{ "default:mese_crystal_fragment", "", "default:mese_crystal_fragment"},
-		{ "default:steelblock", "default:mese", "default:steelblock"},
+		{ "moontest:lunarium_lump", "", "moontest:lunarium_lump"},
+		{ "default:steelblock", "moontest:lunarium_lump", "default:steelblock"},
 	},
 })
 
