@@ -139,10 +139,19 @@ minetest.register_abm({
 		for x = -1,1 do
 			for y = -1,0 do
 				for z = -1,1 do
-					n_pos = {x=x + pos.x,y=y+pos.y,z=z+pos.z}
-					n_name = minetest.get_node(n_pos).name
-					if n_name == "moontest:vacuum" or n_name == "moontest:air" then
-						minetest.remove_node(n_pos)
+					--ignore diagonals
+					if x ~= 1 and z ~= 1 then
+					if x ~= -1 and z ~= 1 then
+					if x ~= 1 and z ~= -1 then
+					if x ~= -1 and z ~= -1 then
+						n_pos = {x=x + pos.x,y=y+pos.y,z=z+pos.z}
+						n_name = minetest.get_node(n_pos).name
+						if n_name == "moontest:vacuum" or n_name == "moontest:air" then
+							minetest.remove_node(n_pos)
+						end
+					end
+					end
+					end
 					end
 				end
 			end

@@ -119,13 +119,13 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	end
 end)
 
--- Air dies
---this is the hackiest code I've ever written
+-- Air gets filled with vacuum or moontest:air, depending on surroudings
+-- this is the hackiest code I've ever written
 -- If neighbors worked as I would like it to, this wouldn't be necessary...
 minetest.register_abm({
-	nodenames = {"moontest:air"},
-	neighbors = {"moontest:vacuum"},
-	interval = 1,
+	nodenames = {"moontest:air", "air"},
+	neighbors = {"moontest:vacuum", "moontest:air"},
+	interval = 2,  --must be asynchronous with liquid ABM to avoid deadlock
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local x = pos.x
@@ -157,7 +157,27 @@ minetest.register_abm({
 		if minetest.get_node(back).name == "moontest:vacuum" then
 			minetest.set_node(pos, {name="moontest:vacuum"})
 		end
-		
+		--now cross reference if air should get filled with moontest:air
+		if node.name == "air" then
+			if minetest.get_node(left).name == "moontest:air" then
+				minetest.set_node(pos, {name="moontest:air"})
+			end
+			if minetest.get_node(right).name == "moontest:air" then
+				minetest.set_node(pos, {name="moontest:air"})
+			end
+			if minetest.get_node(up).name == "moontest:air" then
+				minetest.set_node(pos, {name="moontest:air"})
+			end
+			if minetest.get_node(down).name == "moontest:air" then
+				minetest.set_node(pos, {name="moontest:air"})
+			end
+			if minetest.get_node(forward).name == "moontest:air" then
+				minetest.set_node(pos, {name="moontest:air"})
+			end
+			if minetest.get_node(back).name == "moontest:air" then
+				minetest.set_node(pos, {name="moontest:air"})
+			end
+		end
 	end
 })
 
