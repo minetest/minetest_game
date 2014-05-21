@@ -78,21 +78,38 @@ minetest.register_node("moontest:airgen", {
 		local x = pos.x
 		local y = pos.y
 		local z = pos.z
-		for i = -1,1 do
-		for j = -1,1 do
-		for k = -1,1 do
+		--fire up the voxel manipulator
+		local vm = minetest.get_voxel_manip()
+		local p1 = {x=x-16,y=y-16,z=z-16}
+		local p2 = {x=x+16,y=y+16,z=z+16}
+		pmin, pmax = vm:read_from_map(p1,p2)
+		local area = VoxelArea:new{MinEdge=pmin, MaxEdge=pmax}
+		local data = vm:get_data()
+		
+		local c_vac = minetest.get_content_id("moontest:vacuum")
+		local c_gair = minetest.get_content_id("moontest:air")
+		
+		for i = -16,16 do
+		for j = -16,16 do
+		for k = -16,16 do
 			if not (i == 0 and j == 0 and k == 0) then
-				local nodename = minetest.get_node({x=x+i,y=y+j,z=z+k}).name
-				if nodename == "moontest:vacuum" then
-					minetest.add_node({x=x+i,y=y+j,z=z+k},{name="moontest:air"})
-					minetest.get_meta({x=x+i,y=y+j,z=z+k}):set_int("spread", 16)
-					print ("[moontest] Added MR air node")
+				if i*i+j*j+k*k <= 16 * 16 + 16 then
+					--grab the location of the node in question
+					local vi = area:index(x+i, y+j, z+k)
+					--if it's vacuum, it won't be now!
+					if data[vi] == c_vac then
+						data[vi] = c_gair
+					end
 				end
 			end
 		end
 		end
 		end
 		
+		--write the voxel manipulator data back to world
+		vm:set_data(data)
+		vm:write_to_map(data)
+		vm:update_map()
 	end
 })
 

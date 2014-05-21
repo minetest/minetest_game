@@ -119,36 +119,45 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	end
 end)
 
--- Air spreads
-
+-- Air dies
+--this is the hackiest code I've ever written
+-- If neighbors worked as I would like it to, this wouldn't be necessary...
 minetest.register_abm({
 	nodenames = {"moontest:air"},
-	neighbors = {"moontest:vacuum", "air"},
-	interval = 11,
-	chance = 9,
+	neighbors = {"moontest:vacuum"},
+	interval = 1,
+	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		local spread = minetest.get_meta(pos):get_int("spread")
-		if spread <= 0 then
-			return
-		end
 		local x = pos.x
 		local y = pos.y
 		local z = pos.z
-		for i = -1,1 do
-		for j = -1,1 do
-		for k = -1,1 do
-			if not (i == 0 and j == 0 and k == 0) then
-				local nodename = minetest.get_node({x=x+i,y=y+j,z=z+k}).name
-				if nodename == "moontest:vacuum"
-				or nodename == "air" then
-					minetest.add_node({x=x+i,y=y+j,z=z+k},{name="moontest:air"})
-					minetest.get_meta({x=x+i,y=y+j,z=z+k}):set_int("spread", (spread - 1))
-					print ("[moontest] MR air spreads "..(spread - 1))
-				end
-			end
+		--adjacent node positions
+		local left = {x=x-1,y=y,z=z}
+		local right = {x=x+1,y=y,z=z}
+		local up  = {x=x,y=y+1,z=z}
+		local down = {x=x,y=y-1,z=z}
+		local forward = {x=x,y=y,z=z+1}
+		local back = {x=x,y=y,z=z-1}
+		--cross references those for vacuum, spread if true
+		if minetest.get_node(left).name == "moontest:vacuum" then
+			minetest.set_node(pos, {name="moontest:vacuum"})
 		end
+		if minetest.get_node(right).name == "moontest:vacuum" then
+			minetest.set_node(pos, {name="moontest:vacuum"})
 		end
+		if minetest.get_node(up).name == "moontest:vacuum" then
+			minetest.set_node(pos, {name="moontest:vacuum"})
 		end
+		if minetest.get_node(down).name == "moontest:vacuum" then
+			minetest.set_node(pos, {name="moontest:vacuum"})
+		end
+		if minetest.get_node(forward).name == "moontest:vacuum" then
+			minetest.set_node(pos, {name="moontest:vacuum"})
+		end
+		if minetest.get_node(back).name == "moontest:vacuum" then
+			minetest.set_node(pos, {name="moontest:vacuum"})
+		end
+		
 	end
 })
 
