@@ -1,5 +1,5 @@
 
-ufos.fuel = "default:obsidian_shard"
+ufos.fuel = "default:lunarium_lump"
 ufos.fuel_time = 10
 
 ufos.furnace_inactive_formspec =
