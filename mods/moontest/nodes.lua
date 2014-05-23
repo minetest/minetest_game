@@ -69,6 +69,25 @@ minetest.register_node("moontest:air", {
 	buildable_to = true,
 })
 
+minetest.register_node("moontest:air_shield", {
+	description = "Air Shield",
+	drawtype = "glasslike",
+	inventory_image = minetest.inventorycube("moontest_air_shield.png"),
+	use_texture_alpha = true,
+	--tiles = {"moontest_air_shield.png"},
+	tiles = {
+		{name="moontest_air_shield_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=3.0}}
+	},
+	paramtype = "light",
+	sunlight_propagates = true,
+	light_source = 7,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	post_effect_color = {a=100, r=0, g=150, b=255},
+})
+
 minetest.register_node("moontest:airgen", {
 	description = "Air Generator",
 	tiles = {"moontest_airgen.png"},
