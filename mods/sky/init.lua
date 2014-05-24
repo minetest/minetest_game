@@ -14,6 +14,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 -- Sky textures
+if minetest.get_setting("newsky") == "1" {
 minetest.register_on_joinplayer(function(player)
 	minetest.after(0, function()
 		skytextures ={
@@ -28,3 +29,4 @@ minetest.register_on_joinplayer(function(player)
 		player:set_sky({r=0, g=0, b=0, a=0},"skybox", skytextures)
 	end)
 end)
+end}
