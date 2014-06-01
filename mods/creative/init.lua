@@ -75,9 +75,9 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 	player:set_inventory_formspec(
 			"size[13,7.5]"..
 			--"image[6,0.6;1,2;player.png]"..
-			gui_bg..
-			gui_bg_img..
-			gui_slots..
+			default.gui_bg..
+			default.gui_bg_img..
+			default.gui_slots..
 			"list[current_player;main;5,3.5;8,1;]"..
 			"list[current_player;main;5,4.75;8,3;8]"..
 			"list[current_player;craft;8,0;3,3;]"..

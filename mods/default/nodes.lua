@@ -378,9 +378,9 @@ minetest.register_node("default:papyrus", {
 
 default.bookshelf_formspec =
 	"size[8,7;]"..
-	gui_bg..
-	gui_bg_img..
-	gui_slots..
+	default.gui_bg..
+	default.gui_bg_img..
+	default.gui_slots..
 	"list[context;books;0,0.3;8,2;]"..
 	"list[current_player;main;0,2.85;8,1;]"..
 	"list[current_player;main;0,4.08;8,3;8]"..
@@ -733,9 +733,9 @@ minetest.register_node("default:sign_wall", {
 
 default.chest_formspec = 
 	"size[8,9]"..
-	gui_bg..
-	gui_bg_img..
-	gui_slots..
+	default.gui_bg..
+	default.gui_bg_img..
+	default.gui_slots..
 	"list[current_name;main;0,0.3;8,4;]"..
 	"list[current_player;main;0,4.85;8,1;]"..
 	"list[current_player;main;0,6.08;8,3;8]"..
@@ -745,9 +745,9 @@ function default.get_locked_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec =
 		"size[8,9]"..
-		gui_bg..
-		gui_bg_img..
-		gui_slots..
+		default.gui_bg..
+		default.gui_bg_img..
+		default.gui_slots..
 		"list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"..
 		"list[current_player;main;0,4.85;8,1;]"..
 		"list[current_player;main;0,6.08;8,3;8]"..
@@ -869,9 +869,9 @@ minetest.register_node("default:chest_locked", {
 function default.furnace_active(pos, percent, item_percent)
     local formspec = 
 	"size[8,8.5]"..
-	gui_bg..
-	gui_bg_img..
-	gui_slots..
+	default.gui_bg..
+	default.gui_bg_img..
+	default.gui_slots..
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
 	"image[2.75,1.5;1,1;default_furnace_fire_bg.png^[lowpart:"..
@@ -903,9 +903,9 @@ end
 
 default.furnace_inactive_formspec =
 	"size[8,8.5]"..
-	gui_bg..
-	gui_bg_img..
-	gui_slots..
+	default.gui_bg..
+	default.gui_bg_img..
+	default.gui_slots..
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
 	"image[2.75,1.5;1,1;default_furnace_fire_bg.png]"..
