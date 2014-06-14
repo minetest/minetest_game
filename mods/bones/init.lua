@@ -51,10 +51,8 @@ minetest.register_node("bones:bones", {
 	
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
-			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
-			meta:set_string("formspec", "")
-			meta:set_string("owner", "")
+		if meta:get_inventory():is_empty("main") then
+			minetest.remove_node(pos)
 		end
 	end,
 	
@@ -82,6 +80,12 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 	
+	local player_inv = player:get_inventory()
+	if player_inv:is_empty("main") and
+		player_inv:is_empty("craft") then
+		return
+	end
+
 	local pos = player:getpos()
 	pos.x = math.floor(pos.x+0.5)
 	pos.y = math.floor(pos.y+0.5)
@@ -91,8 +95,6 @@ minetest.register_on_dieplayer(function(player)
 	local nn = minetest.get_node(pos).name
 	if minetest.registered_nodes[nn].can_dig and
 		not minetest.registered_nodes[nn].can_dig(pos, player) then
-		local player_inv = player:get_inventory()
-
 		for i=1,player_inv:get_size("main") do
 			player_inv:set_stack("main", i, nil)
 		end
@@ -107,7 +109,6 @@ minetest.register_on_dieplayer(function(player)
 	
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
-	local player_inv = player:get_inventory()
 	inv:set_size("main", 8*4)
 	
 	local empty_list = inv:get_list("main")
