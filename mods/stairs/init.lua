@@ -260,3 +260,10 @@ stairs.register_stair_and_slab("stonebrick", "default:stonebrick",
 		"Stone Brick Stair",
 		"Stone Brick Slab",
 		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("quartz", "default:quartz",
+		{cracky=3},
+		{"default_quartz_block.png"},
+		"Quartz Stair",
+		"Quartz Slab",
+		default.node_sound_stone_defaults())
