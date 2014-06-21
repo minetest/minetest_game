@@ -51,10 +51,8 @@ minetest.register_node("bones:bones", {
 	
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
-			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
-			meta:set_string("formspec", "")
-			meta:set_string("owner", "")
+		if meta:get_inventory():is_empty("main") then
+			minetest.remove_node(pos)
 		end
 	end,
 	
