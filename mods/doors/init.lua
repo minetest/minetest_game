@@ -15,6 +15,7 @@ doors = {}
 --    selection_box_top
 --    only_placer_can_open: if true only the player who placed the door can
 --                          open it
+
 function doors:register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
 
@@ -131,7 +132,7 @@ function doors:register_door(name, def)
 		end
 		local meta = minetest.get_meta(pos)
 		local pn = player:get_player_name()
-		return meta:get_string("doors_owner") == pn
+		return (meta:get_string("doors_owner") == pn) or (minetest.check_player_privs(player:get_player_name(), {diglocks=true}))
 	end
 
 	minetest.register_node(name.."_b_1", {
