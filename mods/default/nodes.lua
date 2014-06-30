@@ -375,6 +375,56 @@ minetest.register_node("default:bookshelf", {
 	is_ground_content = false,
 	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3},
 	sounds = default.node_sound_wood_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("formspec","size[8,7;]list[context;books;0,0;8,2;]list[current_player;main;0,3;8,4;]")
+		local inv = meta:get_inventory()
+		inv:set_size("books", 8*2)
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.env:get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty("books")
+	end,
+
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		if listname == "books" then
+			if stack:get_name() == "default:book" then
+				return 1
+			else
+				return 0
+			end
+		end
+	end,
+
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		local stack = inv:get_stack(from_list, from_index)
+		local to_stack = inv:get_stack(to_list, to_index)
+		if to_list == "books" then
+			if stack:get_name() == "default:book" and to_stack:is_empty() then
+				return 1
+			else
+				return 0
+			end
+		end
+	end,
+
+	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		minetest.log("action", player:get_player_name()..
+			   " moves stuff in bookshelf at "..minetest.pos_to_string(pos))
+	end,
+	on_metadata_inventory_put = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name()..
+			   " moves stuff to bookshelf at "..minetest.pos_to_string(pos))
+	end,
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name()..
+			   " takes stuff from bookshelf at "..minetest.pos_to_string(pos))
+	end,
 })
 
 minetest.register_node("default:glass", {
