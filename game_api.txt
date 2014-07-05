@@ -1,0 +1,200 @@
+minetest_game API
+======================
+GitHub Repo: https://github.com/BlockMen/minetest_game
+
+Introduction
+------------
+The minetest_game gamemode offers multiple new possibilities in addition to Minetest's built-in API, allowing you to
+add new plants to farming mod, buckets for new liquids, new stairs and custom panes.
+For information on the Minetest API, visit https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
+Please note:
+	[XYZ] refers to a section the Minetest API
+	[#ABC] refers to a section in this document
+	^ Explanation for line above
+
+Bucket API
+----------
+The bucket API allows registering new types of buckets for non-default liquids.
+
+	bucket.register_liquid(
+		"default:lava_source",		-- Source node name
+		"default:lava_flowing",		-- Flowing node name
+		"bucket:bucket_lava",		-- Name to be used for bucket
+		"bucket_lava.png",			-- Bucket texture (for wielditem and inventory_image)
+		"Lava Bucket"				-- Bucket description
+	)
+	
+Doors API
+---------
+The doors mod allows modders to register custom doors.
+
+	doors:register_door(name, def)
+	^ Notice the ":" instaed of "."!
+	^ name: "Door name"
+	^ def: See [#Door definition]
+	
+#Door definition
+----------------
+{
+	description = "Door description",
+	inventory_image = "mod_door_inv.png",
+	groups = {group = 1},
+	tiles_bottom: [Tile definition],
+	^ the tiles of the bottom part of the door {front, side}
+	tiles_top: [Tile definition],
+	^ the tiles of the bottom part of the door {front, side}
+	node_box_bottom = regular nodebox, see [Node boxes], OPTIONAL,
+	node_box_top = regular nodebox, see [Node boxes], OPTIONAL,
+	selection_box_bottom = regular nodebox, see [Node boxes], OPTIONAL,
+	selection_box_top = regular nodebox, see [Node boxes], OPTIONAL,
+	only_placer_can_open = true/false,
+	^ If true, only placer can open the door (locked for others)
+}
+
+Farming API
+-----------
+The farming API allows you to easily register plants and hoes.
+
+farming.register_hoe(name, hoe definition)
+ -> Register a new hoe, see [#hoe definition]
+ 
+farming.register_plant(name, Plant definition)
+ -> Register a new growing plant, see [#Plant definition]
+
+#Hoe Definition
+---------------
+{
+	description = "",	-- Description for tooltip
+	inventory_image = "unknown_item.png",	-- Image to be used as wield- and inventory image
+	max_uses = 30,	-- Uses until destroyed
+	recipe = {	-- Craft recipe
+		{"air", "air", "air"},
+		{"", "group:stick"},
+		{"", "group:stick"},
+	}
+}
+
+#Plant definition
+-----------------
+{
+	description = "",	-- Description of seed item
+	inventory_image = "unknown_item.png",	-- Image to be used as seed's wield- and inventory image
+	steps = 8,	-- How many steps the plant has to grow, until it can be harvested
+	^ Always provide a plant texture for ech step, format: modname_plantname_i.png (i = stepnumber)
+	minlight = 13, -- Minimum light to grow
+	maxlight = LIGHT_MAX -- Maximum light to grow
+}
+
+Stairs API
+----------
+The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
+delivered with minetest_game, to keep them compatible with other mods.
+
+stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
+ -> Registers a stair.
+ -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
+ -> recipeitem: Item used in the craft recipe, e.g. "default:cobble"
+ -> groups: see [Known damage and digging time defining groups]
+ -> images: see [Tile definition]
+ -> description: used for the description field in the stair's definition
+ -> sounds: see [#Default sounds]
+ 
+stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
+ -> Registers a slabs
+ -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
+ -> recipeitem: Item used in the craft recipe, e.g. "default:cobble"
+ -> groups: see [Known damage and digging time defining groups]
+ -> images: see [Tile definition]
+ -> description: used for the description field in the stair's definition
+ -> sounds: see [#Default sounds]
+ 
+stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
+ -> A wrapper for stairs.register_stair and stairs.register_slab
+ -> Uses almost the same arguments as stairs.register_stair
+ -> desc_stair: Description for stair node
+ -> desc_slab: Description for slab node
+ 
+Xpanes API
+----------
+Creates panes that automatically connect to each other
+
+xpanes.register_pane(subname, def)
+ -> subname: used for nodename. Result: "xpanes:subname_{1..16}"
+ -> def: See [#Pane definition]
+
+#Pane definition
+----------------
+{
+	textures = {"texture_Bottom_top", "texture_left_right", "texture_front_back"},
+	^ More tiles aren't supported
+	groups = {group = rating},
+	^ Uses the known node groups, see [Known damage and digging time defining groups]
+	sounds = SoundSpec,
+	^ See [#Default sounds]
+	recipe = {{"","","","","","","","",""}},
+	^ Recipe field only
+	on_construct = function(pos)
+		update_pane(pos, "pane")
+    end,
+	^ Required to handle rotation correctly
+}
+
+Default sounds
+--------------
+Sounds inside the default table can be used within the sounds field of node definitions.
+
+default.node_sound_defaults()
+default.node_sound_stone_defaults()
+default.node_sound_dirt_defaults()
+default.node_sound_sand_defaults()
+default.node_sound_wood_defaults()
+default.node_sound_leaves_defaults()
+default.node_sound_glass_defaults()
+
+Player API
+----------
+The player API can register player models and update the player's appearence
+
+default.player_register_model(name, def)
+^ Register a new model to be used by players.
+ -> name: model filename such as "character.x", "foo.b3d", etc.
+ -> def: See [#Model definition]
+
+default.registered_player_models[name]
+^ Get a model's definition
+ -> see [#Model definition]
+
+default.player_set_model(player, model_name)
+^ Change a player's model
+ -> player: PlayerRef
+ -> model_name: model registered with player_register_model()
+
+default.player_set_animation(player, anim_name [, speed])
+^ Applies an animation to a player
+ -> anim_name: name of the animation.
+ -> speed: frames per second. If nil, default from the model is used
+
+default.player_set_textures(player, textures)
+^ Sets player textures
+ -> player: PlayerRef
+ -> textures: array of textures
+ ^ If <textures> is nil, the default textures from the model def are used
+
+default.player_get_animation(player)
+^ Returns a table containing fields "model", "textures" and "animation".
+^ Any of the fields of the returned table may be nil.
+ -> player: PlayerRef
+
+Model Definition
+----------------
+{
+	animation_speed = 30, -- Default animation speed, in FPS.
+	textures = {"character.png", }, -- Default array of textures.
+	visual_size = {x=1, y=1,}, -- Used to scale the model.
+	animations = {
+		-- <anim_name> = { x=<start_frame>, y=<end_frame>, },
+		foo = { x= 0, y=19, },
+		bar = { x=20, y=39, },
+		-- ...
+	},
+}

@@ -1,3 +1,5 @@
+xpanes = {}
+
 local function rshift(x, by)
   return math.floor(x / 2 ^ by)
 end
@@ -61,7 +63,7 @@ local sb_full_blocks = {
     {-0.06, -0.5, -0.5, 0.06, 0.5, 0.5}
 }
 --register panes and bars
-local function register_panes(name, def)
+function xpanes.register_pane(name, def)
 for i = 1, 15 do
     local need = {}
     local cnt = 0
@@ -122,7 +124,7 @@ end
 minetest.register_on_placenode(update_nearby)
 minetest.register_on_dignode(update_nearby)
 
-register_panes("pane", {
+xpanes.register_pane("pane", {
     description = "Glass Pane",
     tiles = {"xpanes_space.png"},
     drawtype = "airlike",
@@ -147,7 +149,7 @@ register_panes("pane", {
 	}
 })
 
-register_panes("bar", {
+xpanes.register_pane("bar", {
     description = "Iron bar",
     tiles = {"xpanes_space.png"},
     drawtype = "airlike",
