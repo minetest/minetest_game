@@ -28,7 +28,7 @@ local function is_right(pos)
 	end
 end
 
-function doors:register_door(name, def)
+function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
 
 	local box = {{-0.5, -0.5, -0.5, 0.5, 0.5, -0.5+1.5/16}}
@@ -291,7 +291,7 @@ function doors:register_door(name, def)
 
 end
 
-doors:register_door("doors:door_wood", {
+doors.register_door("doors:door_wood", {
 	description = "Wooden Door",
 	inventory_image = "door_wood.png",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
@@ -310,7 +310,7 @@ minetest.register_craft({
 	}
 })
 
-doors:register_door("doors:door_steel", {
+doors.register_door("doors:door_steel", {
 	description = "Steel Door",
 	inventory_image = "door_steel.png",
 	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
@@ -330,7 +330,7 @@ minetest.register_craft({
 	}
 })
 
-doors:register_door("doors:door_glass", {
+doors.register_door("doors:door_glass", {
 	description = "Glass Door",
 	inventory_image = "door_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},
@@ -349,7 +349,7 @@ minetest.register_craft({
 	}
 })
 
-doors:register_door("doors:door_obsidian_glass", {
+doors.register_door("doors:door_obsidian_glass", {
 	description = "Obsidian Glass Door",
 	inventory_image = "door_obsidian_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},

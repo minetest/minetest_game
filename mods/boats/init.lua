@@ -42,7 +42,7 @@ local boat = {
 	last_v = 0,
 }
 
-function boat:on_rightclick(clicker)
+function boat.on_rightclick(self, clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
@@ -63,7 +63,7 @@ function boat:on_rightclick(clicker)
 	end
 end
 
-function boat:on_activate(staticdata, dtime_s)
+function boat.on_activate(self, staticdata, dtime_s)
 	self.object:set_armor_groups({immortal=1})
 	if staticdata then
 		self.v = tonumber(staticdata)
@@ -71,11 +71,11 @@ function boat:on_activate(staticdata, dtime_s)
 	self.last_v = self.v
 end
 
-function boat:get_staticdata()
+function boat.get_staticdata()
 	return tostring(v)
 end
 
-function boat:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
+function boat.on_punch(self, puncher, time_from_last_punch, tool_capabilities, direction)
 	puncher:set_detach()
 	self.object:remove()
 	if puncher and puncher:is_player() and not minetest.setting_getbool("creative_mode") then
@@ -83,7 +83,7 @@ function boat:on_punch(puncher, time_from_last_punch, tool_capabilities, directi
 	end
 end
 
-function boat:on_step(dtime)
+function boat.on_step(self, dtime)
 	self.v = get_v(self.object:getvelocity())*get_sign(self.v)
 	if self.driver then
 		local ctrl = self.driver:get_player_control()

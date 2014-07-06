@@ -1,6 +1,6 @@
 minetest_game API
 ======================
-GitHub Repo: https://github.com/BlockMen/minetest_game
+GitHub Repo: https://github.com/minetest/minetest_game
 
 Introduction
 ------------
@@ -28,8 +28,7 @@ Doors API
 ---------
 The doors mod allows modders to register custom doors.
 
-	doors:register_door(name, def)
-	^ Notice the ":" instaed of "."!
+	doors.register_door(name, def)
 	^ name: "Door name"
 	^ def: See [#Door definition]
 	
