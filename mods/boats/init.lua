@@ -40,6 +40,7 @@ local boat = {
 	driver = nil,
 	v = 0,
 	last_v = 0,
+	removed = false
 }
 
 function boat.on_rightclick(self, clicker)
@@ -76,9 +77,18 @@ function boat.get_staticdata()
 end
 
 function boat.on_punch(self, puncher, time_from_last_punch, tool_capabilities, direction)
+	if not puncher or not puncher:is_player() or self.removed then
+		return
+	end
 	puncher:set_detach()
-	self.object:remove()
-	if puncher and puncher:is_player() and not minetest.setting_getbool("creative_mode") then
+	default.player_attached[puncher:get_player_name()] = false
+
+	self.removed = true
+	-- delay remove to ensure player is detached
+	minetest.after(0.1,function()
+		self.object:remove()
+	end)
+	if not minetest.setting_getbool("creative_mode") then
 		puncher:get_inventory():add_item("main", "boats:boat")
 	end
 end
