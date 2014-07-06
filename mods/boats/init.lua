@@ -36,7 +36,7 @@ local boat = {
 	visual = "mesh",
 	mesh = "boat.x",
 	textures = {"default_wood.png"},
-	
+
 	driver = nil,
 	v = 0,
 	last_v = 0,
@@ -76,6 +76,7 @@ function boat:get_staticdata()
 end
 
 function boat:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
+	puncher:set_detach()
 	self.object:remove()
 	if puncher and puncher:is_player() and not minetest.setting_getbool("creative_mode") then
 		puncher:get_inventory():add_item("main", "boats:boat")
@@ -94,14 +95,14 @@ function boat:on_step(dtime)
 			self.v = self.v-0.08
 		end
 		if ctrl.left then
-			if ctrl.down then 
+			if ctrl.down then
 				self.object:setyaw(yaw-math.pi/120-dtime*math.pi/120)
 			else
 				self.object:setyaw(yaw+math.pi/120+dtime*math.pi/120)
 			end
 		end
 		if ctrl.right then
-			if ctrl.down then 
+			if ctrl.down then
 				self.object:setyaw(yaw+math.pi/120+dtime*math.pi/120)
 			else
 				self.object:setyaw(yaw-math.pi/120-dtime*math.pi/120)
@@ -122,7 +123,7 @@ function boat:on_step(dtime)
 	if math.abs(self.v) > 4.5 then
 		self.v = 4.5*get_sign(self.v)
 	end
-	
+
 	local p = self.object:getpos()
 	p.y = p.y-0.5
 	local new_velo = {x=0,y=0,z=0}
@@ -170,7 +171,7 @@ minetest.register_craftitem("boats:boat", {
 	wield_image = "boat_wield.png",
 	wield_scale = {x=2, y=2, z=1},
 	liquids_pointable = true,
-	
+
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" then
 			return
