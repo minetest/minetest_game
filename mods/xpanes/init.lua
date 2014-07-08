@@ -179,8 +179,8 @@ xpanes.register_pane("bar", {
 		update_pane(pos, "bar")
 	end,
 	recipe = {
-		{'default:steel_ingot', 'default:glass', 'default:glass'},
-		{'default:glass', 'default:glass', 'default:glass'}
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'}
 	}
 })
 
