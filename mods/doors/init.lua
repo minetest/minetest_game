@@ -321,14 +321,16 @@ doors.register_door("doors:door_steel", {
 	sunlight = false,
 })
 
-minetest.register_craft({
-	output = "doors:door_steel",
-	recipe = {
-		{"default:steel_ingot", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot"}
-	}
-})
+if(minetest.setting_getbool("disable_locking") ~= true) then
+	minetest.register_craft({
+		output = "doors:door_steel",
+		recipe = {
+			{"default:steel_ingot", "default:steel_ingot"},
+			{"default:steel_ingot", "default:steel_ingot"},
+			{"default:steel_ingot", "default:steel_ingot"}
+		}
+	})
+end
 
 doors.register_door("doors:door_glass", {
 	description = "Glass Door",
