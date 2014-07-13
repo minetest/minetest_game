@@ -37,7 +37,11 @@ local add_drop = function(drops, pos, item)
 	end
 end
 
-local destroy = function(drops, pos, last, fast)
+local function destroy(drops, pos, last, fast)
+	if minetest.is_protected(pos, "") then
+		return
+	end
+
 	local nodename = minetest.get_node(pos).name
 	if nodename ~= "air" then
 		minetest.remove_node(pos, (fast and 1 or 0))
