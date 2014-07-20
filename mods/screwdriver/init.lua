@@ -20,7 +20,7 @@ local function screwdriver_setmode(user,itemstack)
 	local item = itemstack:to_table()
 	local mode = tonumber(itemstack:get_metadata())
 	if not mode then
-		minetest.chat_send_player(player_name, "Hold shift and use to change screwdriwer modes.")
+		minetest.chat_send_player(player_name, "Use while sneaking to change screwdriwer modes.")
 		mode = 0
 	end
 	mode = mode + 1
