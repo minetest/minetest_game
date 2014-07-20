@@ -90,7 +90,7 @@ function doors.register_door(name, def)
 			elseif p2 == 3 then
 				pt3.z = pt3.z-1
 			end
-			if not string.find(minetest.get_node(pt3).name, name.."_b_") then
+			if minetest.get_item_group(minetest.get_node(pt3).name, "door") == 0 then
 				minetest.set_node(pt, {name=name.."_b_1", param2=p2})
 				minetest.set_node(pt2, {name=name.."_t_1", param2=p2})
 			else
