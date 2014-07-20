@@ -429,6 +429,7 @@ minetest.register_node("doors:trapdoor_open", {
 	pointable = true,
 	stack_max = 0,
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
+	climbable = true,
 	sounds = default.node_sound_wood_defaults(),
 	drop = "doors:trapdoor",
 	node_box = {
