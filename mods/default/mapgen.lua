@@ -324,12 +324,13 @@ function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume
 end
 
 function default.make_papyrus(pos, size)
+	local rot = math.random(0,179)
 	for y=0,size-1 do
 		local p = {x=pos.x, y=pos.y+y, z=pos.z}
 		local nn = minetest.get_node(p).name
 		if minetest.registered_nodes[nn] and
 			minetest.registered_nodes[nn].buildable_to then
-			minetest.set_node(p, {name="default:papyrus"})
+			minetest.set_node(p, {name="default:papyrus", param2 = rot})
 		else
 			return
 		end
@@ -493,11 +494,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 						nn = minetest.get_node({x=x,y=ground_y,z=z}).name
 						-- If desert sand, add dry shrub
 						if nn == "default:desert_sand" then
-							minetest.set_node(p,{name="default:dry_shrub"})
+							minetest.set_node(p,
+								{name="default:dry_shrub",
+								param2 = math.random(0, 179)})
 							
 						-- If dirt with grass, add grass
 						elseif nn == "default:dirt_with_grass" then
-							minetest.set_node(p,{name="default:grass_"..pr:next(1, 5)})
+							minetest.set_node(p,
+								{name="default:grass_"..pr:next(1, 5),
+								param2 = math.random(0, 179)})
 						end
 					end
 				end

@@ -204,7 +204,7 @@ farming.register_plant = function(name, def)
 			end
 			
 			if fertmatch == true and minetest.get_item_group(minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z}).name, "wet") ~= 0 then
-				minetest.set_node(pos, {name = node.name:gsub("seed_", "") .. "_1"})
+				minetest.set_node(pos, {name = node.name:gsub("seed_", "") .. "_1", param2 = math.random(0, 179)})
 			end
 		end
 	})
@@ -272,7 +272,7 @@ farming.register_plant = function(name, def)
 			
 			-- grow
 			local height = minetest.get_item_group(node.name, pname) + 1
-			minetest.set_node(pos, {name = mname .. ":" .. pname .. "_" .. height})
+			minetest.set_node(pos, {name = mname .. ":" .. pname .. "_" .. height, param2 = node.param2})
 		end
 	})
 	-- Return
