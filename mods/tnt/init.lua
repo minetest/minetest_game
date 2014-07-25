@@ -2,8 +2,8 @@
 -- Default to enabled in singleplayer and disabled in multiplayer
 local singleplayer = minetest.is_singleplayer()
 local setting = minetest.setting_getbool("enable_tnt")
-if (not singleplayer and setting ~= false) or
-		(singleplayer and setting ~= true) then
+if (not singleplayer and setting ~= true) or
+		(singleplayer and setting == false) then
 	return
 end
 
