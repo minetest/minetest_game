@@ -350,7 +350,6 @@ minetest.register_node("default:cactus", {
 	is_ground_content = true,
 	groups = {snappy=1,choppy=3},
 	sounds = default.node_sound_wood_defaults(),
-	damage_per_second = 4,
 	on_place = minetest.rotate_node,
 	after_dig_node = function(pos, node, metadata, digger)
 		default.dig_up(pos, node, digger)
