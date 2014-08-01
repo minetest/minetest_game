@@ -1,5 +1,5 @@
-Minetest 0.4 mod: fence
-=======================
+Minetest 0.4 mod: fences
+========================
 
 License of source code:
 -----------------------
