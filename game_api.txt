@@ -46,6 +46,8 @@ The doors mod allows modders to register custom doors.
 	node_box_top = regular nodebox, see [Node boxes], OPTIONAL,
 	selection_box_bottom = regular nodebox, see [Node boxes], OPTIONAL,
 	selection_box_top = regular nodebox, see [Node boxes], OPTIONAL,
+	sound_open_door = sound play for open door, OPTIONAL,
+	sound_close_door = sound play for close door, OPTIONAL,
 	only_placer_can_open = true/false,
 	^ If true, only placer can open the door (locked for others)
 }

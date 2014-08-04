@@ -46,6 +46,14 @@ function doors.register_door(name, def)
 		def.selection_box_top = box
 	end
 
+	if not def.sound_close_door then
+		def.sound_close_door = "door_close"
+	end
+	if not def.sound_open_door then
+		def.sound_open_door = "door_open"
+	end
+	
+	
 	minetest.register_craftitem(name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
@@ -138,17 +146,17 @@ function doors.register_door(name, def)
 		pos.y = pos.y-dir
 		minetest.swap_node(pos, {name=replace, param2=p2})
 
-		local snd_1 = "_close"
-		local snd_2 = "_open"
+		local snd_1 = def.sound_close_door
+		local snd_2 = def.sound_open_door 
 		if params[1] == 3 then
-			snd_1 = "_open"
-			snd_2 = "_close"
+			snd_1 = def.sound_open_door 
+			snd_2 = def.sound_close_door
 		end
 
 		if is_right(pos) then
-			minetest.sound_play("door"..snd_1, {pos = pos, gain = 0.3, max_hear_distance = 10})
+			minetest.sound_play(snd_1, {pos = pos, gain = 0.3, max_hear_distance = 10})
 		else
-			minetest.sound_play("door"..snd_2, {pos = pos, gain = 0.3, max_hear_distance = 10})
+			minetest.sound_play(snd_2, {pos = pos, gain = 0.3, max_hear_distance = 10})
 		end
 	end
 
