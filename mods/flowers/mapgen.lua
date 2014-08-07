@@ -50,7 +50,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							elseif flower_choice == 6 then
 								flower = "flowers:viola"
 							end
-							minetest.set_node(p, {name=flower})
+							minetest.set_node(p, {name = flower,
+								param2 = math.random(0, 179)})
 						end
 					end
 				end
