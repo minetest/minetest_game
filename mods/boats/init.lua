@@ -106,21 +106,21 @@ function boat.on_step(self, dtime)
 		end
 		if ctrl.left then
 			if ctrl.down then
-				self.object:setyaw(yaw - math.pi / 120 - dtime * math.pi / 120)
+				self.object:setyaw(yaw - (1 + dtime) * 0.03)
 			else
-				self.object:setyaw(yaw + math.pi / 120 + dtime * math.pi / 120)
+				self.object:setyaw(yaw + (1 + dtime) * 0.03)
 			end
 		end
 		if ctrl.right then
 			if ctrl.down then
-				self.object:setyaw(yaw + math.pi / 120 + dtime * math.pi / 120)
+				self.object:setyaw(yaw + (1 + dtime) * 0.03)
 			else
-				self.object:setyaw(yaw - math.pi / 120 - dtime*math.pi/120)
+				self.object:setyaw(yaw - (1 + dtime) * 0.03)
 			end
 		end
 	end
 	local velo = self.object:getvelocity()
-	if self.v == 0 and velo.x == 0 and velo.z == 0 then
+	if self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
 		return
 	end
 	local s = get_sign(self.v)
@@ -142,8 +142,10 @@ function boat.on_step(self, dtime)
 		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
 		if (not nodedef) or nodedef.walkable then
 			self.v = 0
+			new_acce = {x = 0, y = 1, z = 0}
+		else
+			new_acce = {x = 0, y = -9.8, z = 0} -- freefall in air -9.81
 		end
-		new_acce = {x = 0, y = -10, z = 0}
 		new_velo = get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y)
 	else
 		p.y = p.y + 1
@@ -159,7 +161,7 @@ function boat.on_step(self, dtime)
 			new_velo = get_velocity(self.v, self.object:getyaw(), y)
 		else
 			new_acce = {x = 0, y = 0, z = 0}
-			if math.abs(self.object:getvelocity().y) < 1 then
+			if math.abs(self.object:getvelocity().y) <= 2 then
 				local pos = self.object:getpos()
 				pos.y = math.floor(pos.y) + 0.5
 				self.object:setpos(pos)
