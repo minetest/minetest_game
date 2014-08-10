@@ -45,3 +45,32 @@ dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/player.lua")
 dofile(minetest.get_modpath("default").."/trees.lua")
 dofile(minetest.get_modpath("default").."/aliases.lua")
+
+-- Flags to detect functions/features of the current game
+
+default.features = {
+	-- Alias for default:*
+	["alias"]		= true,
+	-- Contains default.gui_* variables
+	["gui"]			= true,
+	--[[	Ores
+		0 = exists minimal, lump and/or ingot only
+		1 = exists with blocks
+		2 = also generated as ore
+	]]
+	["coal"]	= 2,
+	["iron"]	= 2,
+	["copper"]	= 2,
+	["diamond"]	= 2,
+	["mese"]	= 2,
+	["gold"]	= 1,
+	["bronze"]	= 1,
+	--	Normal trees
+	["tree_normal"]		= true,
+	-- Jungle trees
+	["tree_jungle"]		= true,
+	-- Grow tree without transfer of VM
+	["new_grow_function"]	= true,
+	["papyrus"]		= true,
+	["cactus"]		= true,
+}
