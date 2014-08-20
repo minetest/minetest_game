@@ -15,32 +15,32 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 License of textures
 --------------------------------------
-following Textures created by Fernando Zapata (CC BY-SA 3.0):
-  door_wood.png
-  door_wood_a.png
-  door_wood_a_r.png
-  door_wood_b.png
-  door_wood_b_r.png
+following Textures created by Fernando Zapata (CC BY-SA 3.0):  
+  door_wood.png  
+  door_wood_a.png  
+  door_wood_a_r.png  
+  door_wood_b.png  
+  door_wood_b_r.png  
 
-following Textures created by BlockMen (WTFPL):
-  door_trapdoor.png
-  door_obsidian_glass_side.png
+following Textures created by BlockMen (WTFPL):  
+  door_trapdoor.png  
+  door_obsidian_glass_side.png  
 
-following textures created by celeron55 (CC BY-SA 3.0):
-  door_trapdoor_side.png
-  door_glass_a.png
-  door_glass_b.png
+following textures created by celeron55 (CC BY-SA 3.0):  
+  door_trapdoor_side.png  
+  door_glass_a.png  
+  door_glass_b.png  
   
-following Textures created by PenguinDad (CC BY-SA 4.0):
-  door_glass.png
-  door_obsidian_glass.png
+following Textures created by PenguinDad (CC BY-SA 4.0):  
+  door_glass.png  
+  door_obsidian_glass.png  
 
 All other textures (created by PilzAdam): WTFPL
 
 
 License of sounds
 --------------------------------------
-Opening-Sound created by CGEffex (CC BY 3.0), modified by BlockMen
-  door_open.ogg
-Closing-Sound created by bennstir (CC BY 3.0)
-  door_close.ogg
+Opening-Sound created by CGEffex (CC BY 3.0), modified by BlockMen  
+  door_open.ogg  
+Closing-Sound created by bennstir (CC BY 3.0)  
+  door_close.ogg  
