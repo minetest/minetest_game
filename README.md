@@ -1,12 +1,11 @@
 The main game for the Minetest game engine [minetest_game]
 ==========================================================
 
-To use this game with Minetest, insert this repository as
-  /games/minetest_game
+To use this game with Minetest, insert this repository as  
+  /games/minetest_game  
 in the Minetest Engine.
 
-The Minetest Engine can be found in:
-  https://github.com/minetest/minetest/
+The Minetest Engine can be found on [Github](https://github.com/minetest/minetest/)
 
 Compatibility
 --------------
