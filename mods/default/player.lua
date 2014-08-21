@@ -162,6 +162,7 @@ end)
 
 -- Localize for better performance.
 local player_set_animation = default.player_set_animation
+local player_attached = default.player_attached
 
 -- Check each player and apply animations
 minetest.register_globalstep(function(dtime)
@@ -169,7 +170,7 @@ minetest.register_globalstep(function(dtime)
 		local name = player:get_player_name()
 		local model_name = player_model[name]
 		local model = model_name and models[model_name]
-		if model and not default.player_attached[name] then
+		if model and not player_attached[name] then
 			local controls = player:get_player_control()
 			local walking = false
 			local animation_speed_mod = model.animation_speed or 30
