@@ -68,7 +68,8 @@ VanessaE (WTFPL):
   default_sand.png
   default_sandstone_brick.png
 
-Calinou (CC BY-SA):
+Calinou (CC BY-SA 3.0):
+  crack_anylength.png
   default_brick.png
   default_papyrus.png
   default_copper_lump.png
