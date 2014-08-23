@@ -1478,3 +1478,40 @@ minetest.register_node("default:snowblock", {
 		dug = {name="default_snow_footstep", gain=0.75},
 	}),
 })
+
+minetest.register_node("default:quartz", {
+	description = "Quartz Block",
+	tiles = {"default_quartz_block.png"},
+	is_ground_content = true,
+	groups = {cracky=1,level=2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:pillar_quartz", {
+	description = "Pillar Quartz Block",
+	tiles = {"default_pillar_quartz_block_top.png","default_pillar_quartz_block_top.png","default_pillar_quartz_block_side.png"},
+	paramtype2 = "facedir",
+	is_ground_content = true,
+	groups = {cracky=1,level=2},
+	sounds = default.node_sound_stone_defaults(),
+	on_place = minetest.rotate_node,
+})
+
+minetest.register_node("default:chiseled_quartz", {
+	description = "Chiseled Quartz Block",
+	tiles = {"default_chiseled_quartz_block_top.png","default_chiseled_quartz_block_top.png","default_chiseled_quartz_block_side.png"},
+	paramtype2 = "facedir",
+	is_ground_content = true,
+	groups = {cracky=1,level=2},
+	sounds = default.node_sound_stone_defaults(),
+	on_place = minetest.rotate_node,
+})
+
+minetest.register_node("default:stone_with_quartz", {
+	description = "Quartz Ore",
+	tiles = {"default_stone.png^default_mineral_quartz.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
+	drop = "default:quartz_shard",
+	sounds = default.node_sound_stone_defaults(),
+})

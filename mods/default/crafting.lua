@@ -605,6 +605,31 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "default:quartz",
+	recipe = {
+		{"default:quartz_shard","default:quartz_shard","default:quartz_shard"},
+		{"default:quartz_shard","default:quartz_shard","default:quartz_shard"},
+		{"default:quartz_shard","default:quartz_shard","default:quartz_shard"}
+	},
+})
+
+minetest.register_craft({
+	output = "default:pillar_quartz 2",
+	recipe = {
+		{"default:quartz"},
+		{"default:quartz"}
+	},
+})
+
+minetest.register_craft({
+	output = "default:chiseled_quartz",
+	recipe = {
+		{"stairs:slab_quartz"},
+		{"stairs:slab_quartz"}
+	},
+})
+
 --
 -- Crafting (tool repair)
 --
