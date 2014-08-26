@@ -63,18 +63,19 @@ local function add_trunk_and_leaves(data, a, pos, tree_cid, leaves_cid,
 	end
 
 	-- Force leaves near the trunk
-	for x_dist = -1, 1 do
-	for y_dist = -size, 1 do
 	for z_dist = -1, 1 do
-		local vi = a:index(x + x_dist, y + height + y_dist, z + z_dist)
-		if data[vi] == c_air then
-			if is_apple_tree and random(1, 8) == 1 then
-				data[vi] = c_apple
-			else
-				data[vi] = leaves_cid
+	for y_dist = -size, 1 do
+		local vi = a:index(x - 1, y + height + y_dist, z + z_dist)
+		for x_dist = -1, 1 do
+			if data[vi] == c_air then
+				if is_apple_tree and random(1, 8) == 1 then
+					data[vi] = c_apple
+				else
+					data[vi] = leaves_cid
+				end
 			end
+			vi = vi + 1
 		end
-	end
 	end
 	end
 
@@ -159,18 +160,20 @@ function default.grow_jungletree(pos, bad)
 	add_trunk_and_leaves(data, a, pos, c_jungletree, c_jungleleaves, height, 3, 30, false)
 
 	-- Roots
-	for x_dist = -1, 1 do
 	for z_dist = -1, 1 do
-		if random(1, 3) >= 2 then
-			local vi_1 = a:index(x + x_dist, y - 1, z + z_dist)
-			local vi_2 = a:index(x + x_dist, y,     z + z_dist)
-			if data[vi_1] == c_air then
-				data[vi_1] = c_jungletree
-			elseif data[vi_2] == c_air then
-				data[vi_2] = c_jungletree
+		local vi_1 = a:index(x - 1, y - 1, z + z_dist)
+		local vi_2 = a:index(x - 1, y,     z + z_dist)
+		for x_dist = -1, 1 do
+			if random(1, 3) >= 2 then
+				if data[vi_1] == c_air then
+					data[vi_1] = c_jungletree
+				elseif data[vi_2] == c_air then
+					data[vi_2] = c_jungletree
+				end
 			end
+			vi_1 = vi_1 + 1
+			vi_2 = vi_2 + 1
 		end
-	end
 	end
 
 	vm:set_data(data)
