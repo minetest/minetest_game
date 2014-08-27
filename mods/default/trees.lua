@@ -57,7 +57,7 @@ local function add_trunk_and_leaves(data, a, pos, tree_cid, leaves_cid,
 	-- Trunk
 	for y_dist = 0, height - 1 do
 		local vi = a:index(x, y + y_dist, z)
-		if y_dist == 0 or data[vi] == c_air then
+		if y_dist == 0 or data[vi] == c_air or data[vi] == leaves_cid then
 			data[vi] = tree_cid
 		end
 	end
