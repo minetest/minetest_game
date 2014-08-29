@@ -40,7 +40,7 @@ function carpet.register(def)
 end
 
 -- Add carpet from wool mod
-carpet.wool = {
+local added_wool = {
 	{"white",		"White"},
 	{"grey",		"Grey"},
 	{"black",		"Black"},
@@ -58,7 +58,7 @@ carpet.wool = {
 	{"dark_green",	"Dark Green"},
 }
 
-for _, row in ipairs(carpet.wool) do
+for _, row in ipairs(added_wool) do
 	local name = row[1]
 	local desc = row[2]
 	carpet.register({
