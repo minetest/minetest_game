@@ -67,7 +67,6 @@ VanessaE (WTFPL):
 Calinou (CC BY-SA):
   default_brick.png
   default_papyrus.png
-  default_mineral_copper.png
   default_glass_detail.png
 
 MirceaKitsune (WTFPL):
@@ -82,14 +81,10 @@ PilzAdam (WTFPL):
   default_junglewood.png
   default_obsidian_glass.png
   default_obsidian_shard.png
-  default_mineral_gold.png
   default_snowball.png
 
 jojoa1997 (WTFPL):
   default_obsidian.png
-
-InfinityProject (WTFPL):
-  default_mineral_diamond.png
 
 Splizard (CC BY-SA 3.0):
   default_snow.png
@@ -134,6 +129,13 @@ BlockMen (CC BY-SA 3.0):
   bubble.png
   heart.png
   gui_*.png
+  
+rubberduck (WTFPL):
+  default_mineral_coal.png
+  default_mineral_copper.png
+  default_mineral_diamond.png
+  default_mineral_gold.png
+  default_mineral_iron.png
 
 Neuromancer (CC BY-SA 2.0):
   default_cobble.png, based on texture by Brane praefect
