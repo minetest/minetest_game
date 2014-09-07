@@ -241,6 +241,9 @@ farming.register_plant = function(name, def)
 			if minetest.get_item_group(node.name, "seed") and node_def.fertility then
 				local can_grow = false
 				local soil_node = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
+				if not soil_node then
+					return
+				end
 				for _, v in pairs(node_def.fertility) do
 					if minetest.get_item_group(soil_node.name, v) ~= 0 then
 						can_grow = true
