@@ -73,7 +73,7 @@ dyelocal.dyes = {
 	{"dark_green", "Dark green dye",{dye=1, basecolor_green=1,   excolor_green=1,     unicolor_dark_green=1}},
 	{"green",      "Green dye",     {dye=1, basecolor_green=1,   excolor_green=1,     unicolor_green=1}},
 	{"yellow",     "Yellow dye",    {dye=1, basecolor_yellow=1,  excolor_yellow=1,    unicolor_yellow=1}},
-	{"brown",      "Brown dye",     {dye=1, basecolor_yellow=1,  excolor_orange=1,    unicolor_dark_orange=1}},
+	{"brown",      "Brown dye",     {dye=1, basecolor_brown=1,   excolor_orange=1,    unicolor_dark_orange=1}},
 	{"orange",     "Orange dye",    {dye=1, basecolor_orange=1,  excolor_orange=1,    unicolor_orange=1}},
 	{"red",        "Red dye",       {dye=1, basecolor_red=1,     excolor_red=1,       unicolor_red=1}},
 	{"magenta",    "Magenta dye",   {dye=1, basecolor_magenta=1, excolor_red_violet=1,unicolor_red_violet=1}},
@@ -98,6 +98,12 @@ for _, row in ipairs(dyelocal.dyes) do
 		recipe = {"group:flower,color_"..name},
 	})
 end
+-- manually add coal->black dye
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:black 4",
+	recipe = {"group:coal"},
+})
 
 -- Mix recipes
 -- Just mix everything to everything somehow sanely
