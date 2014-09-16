@@ -37,9 +37,18 @@ end
 
 local function update_nearby(pos, node)
 	node = node or minetest.get_node(pos)
-	if node.name:sub(1, 7) ~= "xpanes:" then return end
-	local underscore_pos = node.name:find("_") or 0
-	local name = node.name:sub(8, underscore_pos - 1)
+	local name = node.name
+	if not name or node.name:sub(1, 7) ~= "xpanes:" then
+		return
+	end
+	local underscore_pos = string.find(name, "_[^_]*$") or 0
+	local len = name:len()
+	local num = tonumber(name:sub(underscore_pos+1, len))
+	if not num or num < 1 or num > 15 then
+		name = name:sub(8)
+	else
+		name = name:sub(8, underscore_pos - 1)
+	end
 	for i, dir in pairs(directions) do
 		update_pane({
 			x = pos.x + dir.x,
@@ -105,7 +114,7 @@ function xpanes.register_pane(name, def)
 		if cnt == 1 then
 			texture = def.textures[1].."^"..def.textures[2]
 		end
-		minetest.register_node("xpanes:"..name.."_"..i, {
+		minetest.register_node(":xpanes:"..name.."_"..i, {
 			drawtype = "nodebox",
 			tiles = {def.textures[3], def.textures[3], texture},
 			paramtype = "light",
@@ -123,7 +132,11 @@ function xpanes.register_pane(name, def)
 		})
 	end
 
-	minetest.register_node("xpanes:"..name, def)
+	def.on_construct = function(pos)
+		update_pane(pos, name)
+	end
+
+	minetest.register_node(":xpanes:"..name, def)
 
 	minetest.register_craft({
 		output = "xpanes:"..name.." 16",
@@ -150,9 +163,6 @@ xpanes.register_pane("pane", {
 	wield_image = "default_glass.png",
 	sounds = default.node_sound_glass_defaults(),
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3, pane=1},
-	on_construct = function(pos)
-		update_pane(pos, "pane")
-	end,
 	recipe = {
 		{'default:glass', 'default:glass', 'default:glass'},
 		{'default:glass', 'default:glass', 'default:glass'}
@@ -175,9 +185,6 @@ xpanes.register_pane("bar", {
 	wield_image = "xpanes_bar.png",
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3, pane=1},
 	sounds = default.node_sound_stone_defaults(),
-	on_construct = function(pos)
-		update_pane(pos, "bar")
-	end,
 	recipe = {
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'}

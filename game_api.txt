@@ -120,7 +120,7 @@ Xpanes API
 Creates panes that automatically connect to each other
 
 xpanes.register_pane(subname, def)
- -> subname: used for nodename. Result: "xpanes:subname_{1..16}"
+ -> subname: used for nodename. Result: "xpanes:subname" and "xpanes:subname_{2..15}"
  -> def: See [#Pane definition]
 
 #Pane definition
@@ -134,10 +134,6 @@ xpanes.register_pane(subname, def)
 	^ See [#Default sounds]
 	recipe = {{"","","","","","","","",""}},
 	^ Recipe field only
-	on_construct = function(pos)
-		update_pane(pos, "pane")
-    end,
-	^ Required to handle rotation correctly
 }
 
 Default sounds
