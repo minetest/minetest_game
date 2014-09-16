@@ -3,8 +3,8 @@ Minetest 0.4 mod: stairs
 
 License of source code:
 -----------------------
-Copyright (C) 2011-2012 Kahrl <kahrl@gmx.net>
-Copyright (C) 2011-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2011-2012 Kahrl <kahrl@gmx.net>  
+Copyright (C) 2011-2012 celeron55, Perttu Ahola <celeron55@gmail.com>  
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -20,7 +20,7 @@ http://creativecommons.org/licenses/by-sa/3.0/
 
 Authors of media files
 -----------------------
-Everything not listed in here:
-Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+Everything not listed in here:  
+Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>  
 
 

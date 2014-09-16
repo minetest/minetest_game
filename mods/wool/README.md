@@ -20,9 +20,9 @@ http://creativecommons.org/licenses/by-sa/3.0/
 
 Authors of media files
 -----------------------
-Cisoun:
-- wool_black.png wool_brown.png wool_dark_green.png wool_green.png
-- wool_magenta.png wool_pink.png wool_violet.png wool_yellow.png wool_blue.png
-- wool_cyan.png wool_dark_grey.png wool_grey.png wool_orange.png wool_red.png
-- wool_white.png
+Cisoun:  
+* wool_black.png wool_brown.png wool_dark_green.png wool_green.png  
+* wool_magenta.png wool_pink.png wool_violet.png wool_yellow.png wool_blue.png  
+* wool_cyan.png wool_dark_grey.png wool_grey.png wool_orange.png wool_red.png  
+* wool_white.png  
 
