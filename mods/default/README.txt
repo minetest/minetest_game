@@ -27,9 +27,6 @@ Cisoun's WTFPL texture pack:
   default_chest_lock.png
   default_chest_side.png
   default_chest_top.png
-  default_dirt.png
-  default_grass.png
-  default_grass_side.png
   default_jungletree.png
   default_jungletree_top.png
   default_lava.png
@@ -86,7 +83,6 @@ PilzAdam (WTFPL):
   default_junglewood.png
   default_obsidian_glass.png
   default_obsidian_shard.png
-  default_mossycobble.png
   default_gold_lump.png
   default_mineral_gold.png
   default_snowball.png
@@ -118,7 +114,6 @@ brunob.santos (CC BY-SA 4.0):
 BlockMen (CC BY-SA 3.0):
   default_stone_brick.png
   default_wood.png
-  default_cobble.png
   default_clay_brick.png
   default_tool_steelsword.png
   default_bronze_ingot.png
@@ -135,6 +130,15 @@ BlockMen (CC BY-SA 3.0):
   bubble.png
   heart.png
   gui_*.png
+
+Neuromancer (CC BY-SA 2.0):
+  default_cobble.png, based on texture by Brane praefect
+  default_mossycobble.png, based on texture by Brane praefect
+Neuromancer (CC BY-SA 3.0):
+  default_dirt.png
+  default_grass.png
+  default_grass_side.png
+  default_furnace_*.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
