@@ -164,6 +164,8 @@ end)
 local player_set_animation = default.player_set_animation
 local player_attached = default.player_attached
 
+local ps = {}
+
 -- Check each player and apply animations
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
@@ -171,37 +173,34 @@ minetest.register_globalstep(function(dtime)
 		local model_name = player_model[name]
 		local model = model_name and models[model_name]
 		if model and not player_attached[name] then
+			local pos = player:getpos()
+			pos.y = 0
+			local lastpos = ps[name] or {x=0, y=0, z=0}
+			local v
+			if not vector.equals(lastpos, pos) then
+				ps[name] = pos
+				v = 6*vector.distance(lastpos, pos)/dtime
+			end
+
 			local controls = player:get_player_control()
-			local walking = false
-			local animation_speed_mod = model.animation_speed or 30
-
-			-- Determine if the player is walking
-			if controls.up or controls.down or controls.left or controls.right then
-				walking = true
-			end
-
-			-- Determine if the player is sneaking, and reduce animation speed if so
-			if controls.sneak then
-				animation_speed_mod = animation_speed_mod / 2
-			end
 
 			-- Apply animations based on what the player is doing
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
-			elseif walking then
+			elseif v then
 				if player_sneak[name] ~= controls.sneak then
 					player_anim[name] = nil
 					player_sneak[name] = controls.sneak
 				end
 				if controls.LMB then
-					player_set_animation(player, "walk_mine", animation_speed_mod)
+					player_set_animation(player, "walk_mine", v)
 				else
-					player_set_animation(player, "walk", animation_speed_mod)
+					player_set_animation(player, "walk", v)
 				end
 			elseif controls.LMB then
 				player_set_animation(player, "mine")
 			else
-				player_set_animation(player, "stand", animation_speed_mod)
+				player_set_animation(player, "stand", model.animation_speed or 30)
 			end
 		end
 	end
