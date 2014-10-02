@@ -70,6 +70,7 @@ Calinou (CC BY-SA):
   default_papyrus.png
   default_copper_lump.png
   default_mineral_copper.png
+  default_glass_detail.png
 
 MirceaKitsune (WTFPL):
   character.x
