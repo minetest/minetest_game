@@ -161,7 +161,9 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 
-if not minetest.is_singleplayer() then
+if minetest.is_singleplayer() then
+	return
+end
 
 -- Localize for better performance.
 local player_set_animation = default.player_set_animation
@@ -179,11 +181,11 @@ minetest.register_globalstep(function(dtime)
 			local pos = player:getpos()
 			pos.y = nil
 			local lastpos = ps[name] or {x=0, z=0}
-			local v
+			local animation_speed
 			if not (lastpos.x == pos.x
 			and lastpos.z == pos.z) then
 				ps[name] = pos
-				v = 6*math.hypot(lastpos.x-pos.x, lastpos.z-pos.z)/dtime
+				animation_speed = 6*math.hypot(lastpos.x-pos.x, lastpos.z-pos.z)/dtime
 			end
 
 			local controls = player:get_player_control()
@@ -191,15 +193,15 @@ minetest.register_globalstep(function(dtime)
 			-- Apply animations based on what the player is doing
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
-			elseif v then
+			elseif animation_speed then
 				if player_sneak[name] ~= controls.sneak then
 					player_anim[name] = nil
 					player_sneak[name] = controls.sneak
 				end
 				if controls.LMB then
-					player_set_animation(player, "walk_mine", v)
+					player_set_animation(player, "walk_mine", animation_speed)
 				else
-					player_set_animation(player, "walk", v)
+					player_set_animation(player, "walk", animation_speed)
 				end
 			elseif controls.LMB then
 				player_set_animation(player, "mine")
@@ -209,5 +211,3 @@ minetest.register_globalstep(function(dtime)
 		end
 	end
 end)
-
-end
