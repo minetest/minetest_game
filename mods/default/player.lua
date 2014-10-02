@@ -160,6 +160,9 @@ minetest.register_on_leaveplayer(function(player)
 	player_textures[name] = nil
 end)
 
+
+if not minetest.is_singleplayer() then
+
 -- Localize for better performance.
 local player_set_animation = default.player_set_animation
 local player_attached = default.player_attached
@@ -174,12 +177,13 @@ minetest.register_globalstep(function(dtime)
 		local model = model_name and models[model_name]
 		if model and not player_attached[name] then
 			local pos = player:getpos()
-			pos.y = 0
-			local lastpos = ps[name] or {x=0, y=0, z=0}
+			pos.y = nil
+			local lastpos = ps[name] or {x=0, z=0}
 			local v
-			if not vector.equals(lastpos, pos) then
+			if not (lastpos.x == pos.x
+			and lastpos.z == pos.z) then
 				ps[name] = pos
-				v = 6*vector.distance(lastpos, pos)/dtime
+				v = 6*math.hypot(lastpos.x-pos.x, lastpos.z-pos.z)/dtime
 			end
 
 			local controls = player:get_player_control()
@@ -205,3 +209,5 @@ minetest.register_globalstep(function(dtime)
 		end
 	end
 end)
+
+end
