@@ -80,16 +80,20 @@ function boat.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 	if not puncher or not puncher:is_player() or self.removed then
 		return
 	end
-	puncher:set_detach()
-	default.player_attached[puncher:get_player_name()] = false
-
-	self.removed = true
-	-- delay remove to ensure player is detached
-	minetest.after(0.1, function()
-		self.object:remove()
-	end)
-	if not minetest.setting_getbool("creative_mode") then
-		puncher:get_inventory():add_item("main", "boats:boat")
+	if self.driver and puncher == self.driver then
+		self.driver = nil
+		puncher:set_detach()
+		default.player_attached[puncher:get_player_name()] = false
+	end
+	if not self.driver then
+		self.removed = true
+		-- delay remove to ensure player is detached
+		minetest.after(0.1, function()
+			self.object:remove()
+		end)
+		if not minetest.setting_getbool("creative_mode") then
+			puncher:get_inventory():add_item("main", "boats:boat")
+		end
 	end
 end
 
