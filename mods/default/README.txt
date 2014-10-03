@@ -23,10 +23,6 @@ Everything not listed in here:
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
 
 Cisoun's WTFPL texture pack:
-  default_chest_front.png
-  default_chest_lock.png
-  default_chest_side.png
-  default_chest_top.png
   default_jungletree.png
   default_jungletree_top.png
   default_lava.png
@@ -128,6 +124,10 @@ BlockMen (CC BY-SA 3.0):
   default_book.png
   default_paper.png
   default_stick.png
+  default_chest_front.png
+  default_chest_lock.png
+  default_chest_side.png
+  default_chest_top.png
   bubble.png
   heart.png
   gui_*.png
@@ -137,9 +137,11 @@ Neuromancer (CC BY-SA 2.0):
   default_mossycobble.png, based on texture by Brane praefect
 Neuromancer (CC BY-SA 3.0):
   default_dirt.png
+  default_furnace_*.png
+
+Philipbenr (CC BY-SA 3.0):
   default_grass.png
   default_grass_side.png
-  default_furnace_*.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
