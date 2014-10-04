@@ -32,7 +32,7 @@ end
 
 local boat = {
 	physical = true,
-	collisionbox = {-0.6, -0.4, -0.6, 0.6, 0.3, 0.6},
+	collisionbox = {-0.5, -0.4, -0.5, 0.5, 0.3, 0.5},
 	visual = "mesh",
 	mesh = "boat.x",
 	textures = {"default_wood.png"},
@@ -104,19 +104,17 @@ function boat.on_step(self, dtime)
 		local yaw = self.object:getyaw()
 		if ctrl.up then
 			self.v = self.v + 0.1
-		end
-		if ctrl.down then
-			self.v = self.v - 0.08
+		elseif ctrl.down then
+			self.v = self.v - 0.1
 		end
 		if ctrl.left then
-			if ctrl.down then
+			if self.v < 0 then
 				self.object:setyaw(yaw - (1 + dtime) * 0.03)
 			else
 				self.object:setyaw(yaw + (1 + dtime) * 0.03)
 			end
-		end
-		if ctrl.right then
-			if ctrl.down then
+		elseif ctrl.right then
+			if self.v < 0 then
 				self.object:setyaw(yaw + (1 + dtime) * 0.03)
 			else
 				self.object:setyaw(yaw - (1 + dtime) * 0.03)
@@ -125,6 +123,7 @@ function boat.on_step(self, dtime)
 	end
 	local velo = self.object:getvelocity()
 	if self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
+		self.object:setpos(self.object:getpos())
 		return
 	end
 	local s = get_sign(self.v)
@@ -148,30 +147,33 @@ function boat.on_step(self, dtime)
 			self.v = 0
 			new_acce = {x = 0, y = 1, z = 0}
 		else
-			new_acce = {x = 0, y = -9.8, z = 0} -- freefall in air -9.81
+			new_acce = {x = 0, y = -9.8, z = 0}
 		end
 		new_velo = get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y)
+		self.object:setpos(self.object:getpos())
 	else
 		p.y = p.y + 1
 		if is_water(p) then
-			new_acce = {x = 0, y = 3, z = 0}
 			local y = self.object:getvelocity().y
-			if y > 2 then
-				y = 2
-			end
-			if y < 0 then
-				self.object:setacceleration({x = 0, y = 10, z = 0})
+			if y >= 4.5 then
+				y = 4.5
+			elseif y < 0 then
+				new_acce = {x = 0, y = 20, z = 0}
+			else
+				new_acce = {x = 0, y = 5, z = 0}
 			end
 			new_velo = get_velocity(self.v, self.object:getyaw(), y)
+			self.object:setpos(self.object:getpos())
 		else
 			new_acce = {x = 0, y = 0, z = 0}
-			if math.abs(self.object:getvelocity().y) <= 2 then
+			if math.abs(self.object:getvelocity().y) < 1 then
 				local pos = self.object:getpos()
 				pos.y = math.floor(pos.y) + 0.5
 				self.object:setpos(pos)
 				new_velo = get_velocity(self.v, self.object:getyaw(), 0)
 			else
 				new_velo = get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y)
+				self.object:setpos(self.object:getpos())
 			end
 		end
 	end
@@ -180,7 +182,6 @@ function boat.on_step(self, dtime)
 end
 
 minetest.register_entity("boats:boat", boat)
-
 
 minetest.register_craftitem("boats:boat", {
 	description = "Boat",
@@ -213,3 +214,4 @@ minetest.register_craft({
 		{"group:wood", "group:wood", "group:wood"},
 	},
 })
+
