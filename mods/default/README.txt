@@ -34,6 +34,9 @@ Cisoun's WTFPL texture pack:
   default_tree_top.png
   default_water.png
 
+Cisoun's conifers mod (WTFPL):
+  default_pine_needles.png
+
 Originating from G4JC's Almost MC Texture Pack:
   default_torch.png
   default_torch_on_ceiling.png
@@ -94,6 +97,7 @@ Splizard (CC BY-SA 3.0):
   default_snow.png
   default_snow_side.png
   default_ice.png
+  default_pine_sapling.png
 
 Zeg9 (CC BY-SA 3.0):
   default_coal_block.png
@@ -104,6 +108,9 @@ Zeg9 (CC BY-SA 3.0):
 
 paramat (CC BY-SA 3.0):
   wieldhand.png, based on character.png by Jordach (CC BY-SA 3.0)
+  default_pinetree.png
+  default_pinetree_top.png
+  default_pinewood.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
