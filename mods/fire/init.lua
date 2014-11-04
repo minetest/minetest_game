@@ -14,6 +14,7 @@ minetest.register_node("fire:basic_flame", {
 	walkable = false,
 	buildable_to = true,
 	damage_per_second = 4,
+	sunlight_propagates = true,
 	
 	after_place_node = function(pos, placer)
 		fire.on_flame_add_at(pos)
