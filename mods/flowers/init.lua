@@ -1,6 +1,9 @@
 -- Minetest 0.4 mod: default
 -- See README.txt for licensing and other information.
 
+-- Namespace for functions
+flowers = {}
+
 -- Map Generation
 dofile(minetest.get_modpath("flowers").."/mapgen.lua")
 
