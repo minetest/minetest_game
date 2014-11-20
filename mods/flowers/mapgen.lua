@@ -26,7 +26,7 @@ function flowers.mgv6ongen(minp, maxp, seed)
 						break
 					end
 				end
-				
+
 				if ground_y then
 					local p = {x=x,y=ground_y+1,z=z}
 					local nn = minetest.get_node(p).name
@@ -54,7 +54,7 @@ function flowers.mgv6ongen(minp, maxp, seed)
 						end
 					end
 				end
-				
+
 			end
 		end
 		end
@@ -63,10 +63,8 @@ end
 
 -- Enable in mapgen v6 only
 
-minetest.register_on_mapgen_init(function(MapgenParams)
-	mgname = MapgenParams.mgname
-	if mgname == "v6" then
+minetest.register_on_mapgen_init(function(mg_params)
+	if mg_params.mgname == "v6" then
 		minetest.register_on_generated(flowers.mgv6ongen)
 	end
 end)
-
