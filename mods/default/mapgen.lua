@@ -278,7 +278,7 @@ function default.mgv6_ongen(minp, maxp, seed)
 			end
 		end
 	end
-	
+
 	function default.make_cactus(pos, size)
 		for y=0,size-1 do
 			local p = {x=pos.x, y=pos.y+y, z=pos.z}
@@ -377,7 +377,7 @@ function default.mgv6_ongen(minp, maxp, seed)
 						break
 					end
 				end
-				
+
 				if ground_y then
 					local p = {x=x,y=ground_y+1,z=z}
 					local nn = minetest.get_node(p).name
@@ -388,14 +388,14 @@ function default.mgv6_ongen(minp, maxp, seed)
 						-- If desert sand, add dry shrub
 						if nn == "default:desert_sand" then
 							minetest.set_node(p,{name="default:dry_shrub"})
-							
+
 						-- If dirt with grass, add grass
 						elseif nn == "default:dirt_with_grass" then
 							minetest.set_node(p,{name="default:grass_"..pr:next(1, 5)})
 						end
 					end
 				end
-				
+
 			end
 		end
 		end
@@ -406,9 +406,8 @@ end
 -- Detect mapgen and register suitable on-generated function
 --
 
-minetest.register_on_mapgen_init(function(MapgenParams)
-	mgname = MapgenParams.mgname
-	if mgname == "v6" then
+minetest.register_on_mapgen_init(function(mg_params)
+	if mg_params.mgname == "v6" then
 		minetest.register_on_generated(default.mgv6_ongen)
 	end
 end)
@@ -466,4 +465,3 @@ function default.generate_nyancats(minp, maxp, seed)
 end
 
 minetest.register_on_generated(default.generate_nyancats)
-
