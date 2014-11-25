@@ -380,18 +380,17 @@ local function punch(pos)
 	local me = minetest.get_node(pos)
 	local tmp_node
 	local tmp_node2
-	oben = {x=pos.x, y=pos.y+1, z=pos.z}
-		if state == 1 then
-			state = 0
-			minetest.sound_play("door_close", {pos = pos, gain = 0.3, max_hear_distance = 10})
-			tmp_node = {name="doors:trapdoor", param1=me.param1, param2=me.param2}
-		else
-			state = 1
-			minetest.sound_play("door_open", {pos = pos, gain = 0.3, max_hear_distance = 10})
-			tmp_node = {name="doors:trapdoor_open", param1=me.param1, param2=me.param2}
-		end
-		update_door(pos, tmp_node)
-		meta:set_int("state", state)
+	if state == 1 then
+		state = 0
+		minetest.sound_play("door_close", {pos = pos, gain = 0.3, max_hear_distance = 10})
+		tmp_node = {name="doors:trapdoor", param1=me.param1, param2=me.param2}
+	else
+		state = 1
+		minetest.sound_play("door_open", {pos = pos, gain = 0.3, max_hear_distance = 10})
+		tmp_node = {name="doors:trapdoor_open", param1=me.param1, param2=me.param2}
+	end
+	update_door(pos, tmp_node)
+	meta:set_int("state", state)
 end
 
 minetest.register_node("doors:trapdoor", {
