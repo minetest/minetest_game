@@ -186,9 +186,10 @@ minetest.register_tool("default:axe_wood", {
 	inventory_image = "default_tool_woodaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
-		max_drop_level=0,
-		groupcaps={
-			choppy = {times={[2]=3.00, [3]=2.00}, uses=10, maxlevel=1},
+		max_drop_level = 0,
+		groupcaps = {
+			choppy = {times = {[2] = 3.00, [3] = 2.00}, uses = 10, maxlevel = 1},
+			snappy = {times = {[3] = 0.225}, uses = 0, maxlevel = 1},
 		},
 		damage_groups = {fleshy=2},
 	},
@@ -198,9 +199,10 @@ minetest.register_tool("default:axe_stone", {
 	inventory_image = "default_tool_stoneaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
-		max_drop_level=0,
-		groupcaps={
-			choppy={times={[1]=3.00, [2]=2.00, [3]=1.50}, uses=20, maxlevel=1},
+		max_drop_level = 0,
+		groupcaps = {
+			choppy = {times = {[1] = 3.00, [2] = 2.00, [3] = 1.50}, uses = 20, maxlevel = 1},
+			snappy = {times = {[3] = 0.2}, uses = 0, maxlevel = 1},
 		},
 		damage_groups = {fleshy=3},
 	},
@@ -210,9 +212,10 @@ minetest.register_tool("default:axe_steel", {
 	inventory_image = "default_tool_steelaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.50, [2]=1.40, [3]=1.00}, uses=20, maxlevel=2},
+		max_drop_level = 1,
+		groupcaps = {
+			choppy = {times = {[1] = 2.50, [2] = 1.40, [3] = 1.00}, uses = 20, maxlevel = 2},
+			snappy = {times = {[3] = 0.175}, uses = 0, maxlevel = 1},
 		},
 		damage_groups = {fleshy=4},
 	},
@@ -222,9 +225,10 @@ minetest.register_tool("default:axe_bronze", {
 	inventory_image = "default_tool_bronzeaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.50, [2]=1.40, [3]=1.00}, uses=30, maxlevel=2},
+		max_drop_level = 1,
+		groupcaps = {
+			choppy = {times = {[1] = 2.50, [2] = 1.40, [3] = 1.00}, uses = 30, maxlevel = 2},
+			snappy = {times = {[3] = 0.175}, uses = 0, maxlevel = 1},
 		},
 		damage_groups = {fleshy=4},
 	},
@@ -234,9 +238,10 @@ minetest.register_tool("default:axe_mese", {
 	inventory_image = "default_tool_meseaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.20, [2]=1.00, [3]=0.60}, uses=20, maxlevel=3},
+		max_drop_level = 1,
+		groupcaps = {
+			choppy = {times = {[1] = 2.20, [2] = 1.00, [3] = 0.60}, uses = 20, maxlevel = 3},
+			snappy = {times = {[3] = 0.15}, uses = 0, maxlevel = 1},
 		},
 		damage_groups = {fleshy=6},
 	},
@@ -246,9 +251,10 @@ minetest.register_tool("default:axe_diamond", {
 	inventory_image = "default_tool_diamondaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=2},
+		max_drop_level = 1,
+		groupcaps = {
+			choppy = {times = {[1] = 2.10, [2] = 0.90, [3] = 0.50}, uses = 30, maxlevel = 2},
+			snappy = {times = {[3] = 0.125}, uses = 0, maxlevel = 1},
 		},
 		damage_groups = {fleshy=7},
 	},
