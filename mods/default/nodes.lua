@@ -292,7 +292,7 @@ minetest.register_node("default:junglesapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1},
+	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -1330,7 +1330,7 @@ minetest.register_node("default:sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1},
+	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -1514,7 +1514,7 @@ minetest.register_node("default:pine_sapling", {
 	wield_image = "default_pine_sapling.png",
 	paramtype = "light",
 	walkable = false,
-	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1},
+	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
 	sounds = default.node_sound_defaults(),
 })
 
