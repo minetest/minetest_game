@@ -308,7 +308,7 @@ minetest.register_node("default:junglegrass", {
 	walkable = false,
 	buildable_to = true,
 	is_ground_content = true,
-	groups = {snappy=3,flammable=2,flora=1,attached_node=1},
+	groups = {snappy=3,flammable=2,flora=1,attached_node=1,fuel=2},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -348,7 +348,7 @@ minetest.register_node("default:cactus", {
 	tiles = {"default_cactus_top.png", "default_cactus_top.png", "default_cactus_side.png"},
 	paramtype2 = "facedir",
 	is_ground_content = true,
-	groups = {snappy=1,choppy=3,flammable=2},
+	groups = {snappy=1,choppy=3,flammable=2,fuel=15},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
 	after_dig_node = function(pos, node, metadata, digger)
@@ -369,7 +369,7 @@ minetest.register_node("default:papyrus", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.5, 0.3}
 	},
-	groups = {snappy=3,flammable=2},
+	groups = {snappy=3,flammable=2,fuel=1},
 	sounds = default.node_sound_leaves_defaults(),
 	after_dig_node = function(pos, node, metadata, digger)
 		default.dig_up(pos, node, digger)
@@ -390,7 +390,7 @@ minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
 	tiles = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},
 	is_ground_content = false,
-	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3},
+	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3,fuel=30},
 	sounds = default.node_sound_wood_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
@@ -471,7 +471,7 @@ minetest.register_node("default:fence_wood", {
 		type = "fixed",
 		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
 	},
-	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=2},
+	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=2,fuel=15},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -509,7 +509,7 @@ minetest.register_node("default:ladder", {
 		--wall_bottom = = <default>
 		--wall_side = = <default>
 	},
-	groups = {choppy=2,oddly_breakable_by_hand=3,flammable=2},
+	groups = {choppy=2,oddly_breakable_by_hand=3,flammable=2,fuel=5},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -628,7 +628,7 @@ minetest.register_node("default:lava_flowing", {
 	liquid_renewable = false,
 	damage_per_second = 4*2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
-	groups = {lava=3, liquid=2, hot=3, igniter=1, not_in_creative_inventory=1},
+	groups = {lava=3, liquid=2, hot=3, igniter=1, not_in_creative_inventory=1, fuel=60},
 })
 
 minetest.register_node("default:lava_source", {
@@ -687,7 +687,7 @@ minetest.register_node("default:torch", {
 		wall_bottom = {-0.1, -0.5, -0.1, 0.1, -0.5+0.6, 0.1},
 		wall_side = {-0.5, -0.3, -0.1, -0.5+0.3, 0.3, 0.1},
 	},
-	groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1,hot=2},
+	groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1,hot=2,fuel=4},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 })
@@ -709,7 +709,7 @@ minetest.register_node("default:sign_wall", {
 		--wall_bottom = <default>
 		--wall_side = <default>
 	},
-	groups = {choppy=2,dig_immediate=2,attached_node=1},
+	groups = {choppy=2,dig_immediate=2,attached_node=1,fuel=4},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 	on_construct = function(pos)
@@ -763,7 +763,7 @@ minetest.register_node("default:chest", {
 	tiles = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
 		"default_chest_side.png", "default_chest_side.png", "default_chest_front.png"},
 	paramtype2 = "facedir",
-	groups = {choppy=2,oddly_breakable_by_hand=2},
+	groups = {choppy=2,oddly_breakable_by_hand=2,fuel=30},
 	legacy_facedir_simple = true,
 	is_ground_content = false,
 	sounds = default.node_sound_wood_defaults(),
@@ -805,7 +805,7 @@ minetest.register_node("default:chest_locked", {
 	tiles = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
 		"default_chest_side.png", "default_chest_side.png", "default_chest_lock.png"},
 	paramtype2 = "facedir",
-	groups = {choppy=2,oddly_breakable_by_hand=2},
+	groups = {choppy=2,oddly_breakable_by_hand=2,fuel=30},
 	legacy_facedir_simple = true,
 	is_ground_content = false,
 	sounds = default.node_sound_wood_defaults(),
@@ -917,6 +917,26 @@ default.furnace_inactive_formspec =
 	"list[current_player;main;0,5.5;8,3;8]"..
 	default.get_hotbar_bg(0,4.25)
 
+function default.get_item_burntime(itemstack)
+	local fuel, afterfuel = minetest.get_craft_result({
+		method = "fuel",
+		width = 1,
+		items = {itemstack}
+	})
+	if fuel and fuel.time > 0 then
+		return fuel.time, afterfuel
+	else
+		fuel = minetest.get_item_group(itemstack:get_name(), "fuel")
+		return fuel, {
+			items = {
+				itemstack:peek_item(itemstack:get_count() - 1)
+			},
+			method = "fuel",
+			width = 1
+		}
+	end
+end
+
 minetest.register_node("default:furnace", {
 	description = "Furnace",
 	tiles = {"default_furnace_top.png", "default_furnace_bottom.png", "default_furnace_side.png",
@@ -954,7 +974,7 @@ minetest.register_node("default:furnace", {
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		if listname == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+			if default.get_item_burntime(stack) ~= 0 then
 				if inv:is_empty("src") then
 					meta:set_string("infotext","Furnace is empty")
 				end
@@ -976,7 +996,7 @@ minetest.register_node("default:furnace", {
 		local inv = meta:get_inventory()
 		local stack = inv:get_stack(from_list, from_index)
 		if to_list == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+			if default.get_item_burntime(stack) ~= 0 then
 				if inv:is_empty("src") then
 					meta:set_string("infotext","Furnace is empty")
 				end
@@ -1052,7 +1072,7 @@ minetest.register_node("default:furnace_active", {
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		if listname == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+			if default.get_item_burntime(stack) ~= 0 then
 				if inv:is_empty("src") then
 					meta:set_string("infotext","Furnace is empty")
 				end
@@ -1074,7 +1094,7 @@ minetest.register_node("default:furnace_active", {
 		local inv = meta:get_inventory()
 		local stack = inv:get_stack(from_list, from_index)
 		if to_list == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+			if default.get_item_burntime(stack) ~= 0 then
 				if inv:is_empty("src") then
 					meta:set_string("infotext","Furnace is empty")
 				end
@@ -1161,7 +1181,7 @@ minetest.register_abm({
 			return
 		end
 
-		local fuel = nil
+		local fuel_time = 0
 		local afterfuel
 		local cooked = nil
 		local fuellist = inv:get_list("fuel")
@@ -1171,10 +1191,10 @@ minetest.register_abm({
 			cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
 		end
 		if fuellist then
-			fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+			fuel_time, afterfuel = default.get_item_burntime(fuellist[1])
 		end
 
-		if not fuel or fuel.time <= 0 then
+		if fuel_time <= 0 then
 			meta:set_string("infotext","Furnace out of fuel")
 			swap_node(pos,"default:furnace")
 			meta:set_string("formspec", default.furnace_inactive_formspec)
@@ -1190,7 +1210,7 @@ minetest.register_abm({
 			return
 		end
 
-		meta:set_string("fuel_totaltime", fuel.time)
+		meta:set_string("fuel_totaltime", fuel_time)
 		meta:set_string("fuel_time", 0)
 		
 		inv:set_stack("fuel", 1, afterfuel.items[1])
@@ -1225,7 +1245,7 @@ minetest.register_node("default:coalblock", {
 	description = "Coal Block",
 	tiles = {"default_coal_block.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3,fuel=370},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1302,7 +1322,7 @@ minetest.register_node("default:nyancat", {
 	tiles = {"default_nc_side.png", "default_nc_side.png", "default_nc_side.png",
 		"default_nc_side.png", "default_nc_back.png", "default_nc_front.png"},
 	paramtype2 = "facedir",
-	groups = {cracky=2},
+	groups = {cracky=2,fuel=1},
 	is_ground_content = false,
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_defaults(),
@@ -1313,7 +1333,7 @@ minetest.register_node("default:nyancat_rainbow", {
 	tiles = {"default_nc_rb.png^[transformR90", "default_nc_rb.png^[transformR90",
 		"default_nc_rb.png", "default_nc_rb.png"},
 	paramtype2 = "facedir",
-	groups = {cracky=2},
+	groups = {cracky=2,fuel=1},
 	is_ground_content = false,
 	sounds = default.node_sound_defaults(),
 })
@@ -1350,7 +1370,7 @@ minetest.register_node("default:apple", {
 		type = "fixed",
 		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
 	},
-	groups = {fleshy=3,dig_immediate=3,flammable=2,leafdecay=3,leafdecay_drop=1},
+	groups = {fleshy=3,dig_immediate=3,flammable=2,leafdecay=3,leafdecay_drop=1,fuel=3},
 	on_use = minetest.item_eat(1),
 	sounds = default.node_sound_leaves_defaults(),
 	after_place_node = function(pos, placer, itemstack)
@@ -1392,7 +1412,7 @@ minetest.register_node("default:grass_1", {
 	walkable = false,
 	is_ground_content = true,
 	buildable_to = true,
-	groups = {snappy=3,flammable=3,flora=1,attached_node=1},
+	groups = {snappy=3,flammable=3,flora=1,attached_node=1,fuel=2},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1419,7 +1439,7 @@ for i=2,5 do
 		buildable_to = true,
 		is_ground_content = true,
 		drop = "default:grass_1",
-		groups = {snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1},
+		groups = {snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1,fuel=2},
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
 			type = "fixed",
