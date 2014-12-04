@@ -259,6 +259,8 @@ minetest.register_node("default:jungleleaves", {
 	visual_scale = 1.3,
 	tiles = {"default_jungleleaves.png"},
 	paramtype = "light",
+	paramtype2 = "facedir",
+	on_place = minetest.rotate_node,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
@@ -323,6 +325,8 @@ minetest.register_node("default:leaves", {
 	visual_scale = 1.3,
 	tiles = {"default_leaves.png"},
 	paramtype = "light",
+	paramtype2 = "facedir",
+	on_place = minetest.rotate_node,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
