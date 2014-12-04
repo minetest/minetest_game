@@ -277,6 +277,7 @@ minetest.register_node("default:jungleleaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_place = minetest.rotate_node,
 })
 
 minetest.register_node("default:junglesapling", {
@@ -341,6 +342,7 @@ minetest.register_node("default:leaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_place = minetest.rotate_node,
 })
 
 minetest.register_node("default:cactus", {
