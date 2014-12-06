@@ -407,8 +407,9 @@ minetest.register_node("default:bookshelf", {
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
+		local to_stack = inv:get_stack(listname, index)
 		if listname == "books" then
-			if stack:get_name() == "default:book" then
+			if stack:get_name() == "default:book" and to_stack:is_empty() then
 				return 1
 			else
 				return 0
