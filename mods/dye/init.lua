@@ -14,7 +14,7 @@
 -- })
 
 -- Other mods can use these for looping through available colors
-local dye = {}
+dye = {}
 dye.basecolors = {"white", "grey", "black", "red", "yellow", "green", "cyan", "blue", "magenta"}
 dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow", "lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"}
 
@@ -138,8 +138,3 @@ for one,results in pairs(dyelocal.mixes) do
 		})
 	end
 end
-
--- Hide dyelocal
-dyelocal = nil
-
--- EOF
