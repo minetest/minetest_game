@@ -244,6 +244,12 @@ minetest.register_globalstep(function(dtime)
 			math.floor(dtime * finds_per_second)
 end)
 
+default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
+	local node = minetest.get_node(pos)
+	node.param2 = 1
+	minetest.set_node(pos, node)
+end
+
 minetest.register_abm({
 	nodenames = {"group:leafdecay"},
 	neighbors = {"air", "group:liquid"},

@@ -206,5 +206,9 @@ the node can be without decaying.
 If param2 of the node is ~= 0, the node will always be preserved. Thus, if
 the player places a node of that kind, you will want to set param2=1 or so.
 
+The function default.after_place_leaves can be set as after_place_node of a node
+to set param2 to 1 if the player places the node (should not be used for nodes
+that use param2 otherwise (e.g. facedir)).
+
 If the node is in the leafdecay_drop group then it will always be dropped as an
 item.
