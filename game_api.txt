@@ -195,3 +195,11 @@ Model Definition
 		-- ...
 	},
 }
+
+Fuel API
+--------
+In addition to minetest.register_craft({type = "fuel", ...}) it is also possible
+to mark an item as a fuel source by adding it to the fuel group (with the group
+rating being the burntime). However, it is not possible to define a replacement
+or defining the same burntime for a whole group of items like this (use
+minetest.register_craft(...) for this).
