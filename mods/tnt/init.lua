@@ -255,7 +255,7 @@ minetest.register_node("tnt:tnt_burning", {
 minetest.register_node("tnt:boom", {
 	drawtype = "plantlike",
 	tiles = {"tnt_boom.png"},
-	light_source = LIGHT_MAX,
+	light_source = default.LIGHT_MAX,
 	walkable = false,
 	drop = "",
 	groups = {dig_immediate=3},
