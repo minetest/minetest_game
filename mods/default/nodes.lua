@@ -1155,7 +1155,8 @@ minetest.register_node("default:pine_needles",{
 	tiles = {"default_pine_needles.png"},
 	waving = 1,
 	paramtype = "light",
-	groups = {snappy=3,leafdecay=3,leaves=1},
+	is_ground_content = false,
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -1184,8 +1185,13 @@ minetest.register_node("default:pine_sapling", {
 	wield_image = "default_pine_sapling.png",
 	paramtype = "light",
 	walkable = false,
+	is_ground_content = true,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
+	},
 	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
-	sounds = default.node_sound_defaults(),
+	sounds = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_node("default:pinetree", {
