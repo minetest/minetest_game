@@ -45,7 +45,7 @@ minetest.register_abm({
 
 		minetest.log("action", "A jungle sapling grows into a tree at "..
 				minetest.pos_to_string(pos))
-		default.grow_jungletree(pos)
+		default.grow_jungle_tree(pos)
 	end
 })
 
@@ -60,7 +60,7 @@ minetest.register_abm({
 
 		minetest.log("action", "A pine sapling grows into a tree at "..
 				minetest.pos_to_string(pos))
-		default.grow_pinetree(pos)
+		default.grow_pine_tree(pos)
 	end
 })
 
@@ -157,14 +157,14 @@ end
 
 -- Jungletree
 
-function default.grow_jungletree(pos, bad)
+function default.grow_jungle_tree(pos, bad)
 	--[[
 		NOTE: Jungletree-placing code is currently duplicated in the engine
 		and in games that have saplings; both are deprecated but not
 		replaced yet
 	--]]
 	if bad then
-		error("Deprecated use of default.grow_jungletree")
+		error("Deprecated use of default.grow_jungle_tree")
 	end
 
 	local x, y, z = pos.x, pos.y, pos.z
@@ -220,7 +220,7 @@ local function add_snow(data, vi, c_air, c_ignore, c_snow)
 	end
 end
 
-function default.grow_pinetree(pos)
+function default.grow_pine_tree(pos)
 	local x, y, z = pos.x, pos.y, pos.z
 	local maxy = y + random(9, 13) -- Trunk top
 
