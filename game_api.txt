@@ -23,7 +23,7 @@ The bucket API allows registering new types of buckets for non-default liquids.
 		"bucket_lava.png",			-- Bucket texture (for wielditem and inventory_image)
 		"Lava Bucket"				-- Bucket description
 	)
-	
+
 Doors API
 ---------
 The doors mod allows modders to register custom doors.
@@ -31,7 +31,7 @@ The doors mod allows modders to register custom doors.
 	doors.register_door(name, def)
 	^ name: "Door name"
 	^ def: See [#Door definition]
-	
+
 #Door definition
 ----------------
 {
@@ -58,7 +58,7 @@ The farming API allows you to easily register plants and hoes.
 
 farming.register_hoe(name, hoe definition)
  -> Register a new hoe, see [#hoe definition]
- 
+
 farming.register_plant(name, Plant definition)
  -> Register a new growing plant, see [#Plant definition]
 
@@ -99,7 +99,7 @@ stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
  -> images: see [Tile definition]
  -> description: used for the description field in the stair's definition
  -> sounds: see [#Default sounds]
- 
+
 stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
  -> Registers a slabs
  -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
@@ -108,13 +108,13 @@ stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
  -> images: see [Tile definition]
  -> description: used for the description field in the stair's definition
  -> sounds: see [#Default sounds]
- 
+
 stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
  -> A wrapper for stairs.register_stair and stairs.register_slab
  -> Uses almost the same arguments as stairs.register_stair
  -> desc_stair: Description for stair node
  -> desc_slab: Description for slab node
- 
+
 Xpanes API
 ----------
 Creates panes that automatically connect to each other
@@ -280,3 +280,14 @@ dye.basecolors
 
 dye.excolors
 ^ Array containing the names of the available extended colors
+
+Trees
+-----
+default.grow_tree(pos, is_apple_tree)
+^ Grows a tree or apple tree at pos
+
+default.grow_jungle_tree(pos)
+^ Grows a jungletree at pos
+
+default.grow_pine_tree(pos)
+^ Grows a pinetree at pos
