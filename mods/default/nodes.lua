@@ -480,7 +480,7 @@ minetest.register_node("default:fence_wood", {
 minetest.register_node("default:rail", {
 	description = "Rail",
 	drawtype = "raillike",
-	tiles = {"default_rail.png", "default_rail_curved.png", "default_rail_t_junction.png", "default_rail_crossing.png"},
+	tiles = {"default_rail.png", "default_rail_curved.png", "default_rail_t_junction.png", "default_rail_crossing.png", "default_rail_diagonal.png", "default_rail_diagonal_end.png"},
 	inventory_image = "default_rail.png",
 	wield_image = "default_rail.png",
 	paramtype = "light",
