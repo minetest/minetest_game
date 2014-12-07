@@ -32,6 +32,10 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 		return
 	end
 
+	if ndef.can_dig and not ndef.can_dig(pos, user) then
+		return
+	end
+
 	-- Set param2
 	local n = node.param2
 	local axisdir = math.floor(n / 4)
