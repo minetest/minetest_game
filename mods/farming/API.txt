@@ -23,5 +23,5 @@ Plant definition
 	steps = 8,	-- How many steps the plant has to grow, until it can be harvested
 	^ Always provide a plant texture for ech step, format: modname_plantname_i.png (i = stepnumber)
 	minlight = 13, -- Minimum light to grow
-	maxlight = LIGHT_MAX -- Maximum light to grow
+	maxlight = default.LIGHT_MAX -- Maximum light to grow
 }
