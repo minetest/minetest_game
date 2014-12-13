@@ -133,7 +133,7 @@ minetest.register_node("default:furnace_active", {
 	
 	can_dig = can_dig,
 	
-	aallow_metadata_inventory_put = allow_metadata_inventory_put,
+	allow_metadata_inventory_put = allow_metadata_inventory_put,
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
 })
