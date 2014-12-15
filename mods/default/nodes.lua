@@ -870,7 +870,7 @@ minetest.register_node("default:water_source", {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 2.0
+				length = 2.0,
 			},
 		},
 	},
@@ -882,7 +882,7 @@ minetest.register_node("default:water_source", {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 2.0
+				length = 2.0,
 			},
 			backface_culling = false,
 		},
@@ -910,23 +910,23 @@ minetest.register_node("default:water_flowing", {
 	tiles = {"default_water.png"},
 	special_tiles = {
 		{
-			image = "default_water_flowing_animated.png",
+			name = "default_water_flowing_animated.png",
 			backface_culling = false,
 			animation = {
-				type =" vertical_frames",
+				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 0.8
+				length = 0.8,
 			},
 		},
 		{
-			image = "default_water_flowing_animated.png",
+			name = "default_water_flowing_animated.png",
 			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 0.8
+				length = 0.8,
 			},
 		},
 	},
@@ -960,7 +960,7 @@ minetest.register_node("default:lava_source", {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 3.0
+				length = 3.0,
 			},
 		},
 	},
@@ -972,7 +972,7 @@ minetest.register_node("default:lava_source", {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 3.0
+				length = 3.0,
 			},
 			backface_culling = false,
 		},
@@ -1002,23 +1002,23 @@ minetest.register_node("default:lava_flowing", {
 	tiles = {"default_lava.png"},
 	special_tiles = {
 		{
-			image = "default_lava_flowing_animated.png",
+			name = "default_lava_flowing_animated.png",
 			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 3.3
+				length = 3.3,
 			},
 		},
 		{
-			image = "default_lava_flowing_animated.png",
+			name = "default_lava_flowing_animated.png",
 			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
-				length = 3.3
+				length = 3.3,
 			},
 		},
 	},
