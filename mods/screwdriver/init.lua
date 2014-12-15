@@ -37,16 +37,18 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 	end
 
 	-- Set param2
-	local n = node.param2
-	local axisdir = math.floor(n / 4)
-	local rotation = n - axisdir * 4
+	local rotationPart = node.param2 % 32 -- get first 4 bits
+	local preservePart = node.param2 - rotationPart
+
+	local axisdir = math.floor(rotationPart / 4)
+	local rotation = rotationPart - axisdir * 4
 	if mode == ROTATE_FACE then
-		n = axisdir * 4 + nextrange(rotation, 3)
+		rotationPart = axisdir * 4 + nextrange(rotation, 3)
 	elseif mode == ROTATE_AXIS then
-		n = nextrange(axisdir, 5) * 4
+		rotationPart = nextrange(axisdir, 5) * 4
 	end
 
-	node.param2 = n
+	node.param2 = preservePart + rotationPart
 	minetest.swap_node(pos, node)
 
 	if not minetest.setting_getbool("creative_mode") then
