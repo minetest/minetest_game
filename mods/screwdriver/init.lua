@@ -8,7 +8,7 @@ end
 
 local ROTATE_FACE = 1
 local ROTATE_AXIS = 2
-local USES = 10
+local USES = 200
 
 -- Handles rotation
 local function screwdriver_handler(itemstack, user, pointed_thing, mode)
