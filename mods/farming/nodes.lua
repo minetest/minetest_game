@@ -84,7 +84,7 @@ minetest.register_node("farming:straw", {
 	description = "Straw",
 	drop = "farming:straw",
 	tiles = {"farming_straw.png"},
-	groups = {crumbly=3},
+	groups = {snappy=3},
 })
 
 minetest.register_abm({
