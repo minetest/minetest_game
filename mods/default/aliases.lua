@@ -1,6 +1,7 @@
--- aliases (Minetest 0.4 mod)
--- Provides alias for most default items
+-- mods/default/aliases.lua
 
+-- Aliases to support loading worlds using nodes following the old naming convention
+-- These can also be helpful when using chat commands, for example /giveme
 minetest.register_alias("stone", "default:stone")
 minetest.register_alias("stone_with_coal", "default:stone_with_coal")
 minetest.register_alias("stone_with_iron", "default:stone_with_iron")
@@ -65,3 +66,7 @@ minetest.register_alias("lump_of_iron", "default:iron_lump")
 minetest.register_alias("lump_of_clay", "default:clay_lump")
 minetest.register_alias("steel_ingot", "default:steel_ingot")
 minetest.register_alias("clay_brick", "default:clay_brick")
+minetest.register_alias("snow", "default:snow")
+
+-- Mese now comes in the form of blocks, ore, crystal and fragments
+minetest.register_alias("default:mese", "default:mese_block")

@@ -21,7 +21,7 @@ function default.get_hotbar_bg(x,y)
 	return out
 end
 
-default.gui_suvival_form = "size[8,8.5]"..
+default.gui_survival_form = "size[8,8.5]"..
 			default.gui_bg..
 			default.gui_bg_img..
 			default.gui_slots..
@@ -43,9 +43,4 @@ dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/player.lua")
 dofile(minetest.get_modpath("default").."/trees.lua")
 dofile(minetest.get_modpath("default").."/aliases.lua")
-
--- Legacy:
-WATER_ALPHA = minetest.registered_nodes["default:water_source"].alpha
-WATER_VISC = minetest.registered_nodes["default:water_source"].liquid_viscosity
-LAVA_VISC = minetest.registered_nodes["default:lava_source"].liquid_viscosity
-LIGHT_MAX = default.LIGHT_MAX
+dofile(minetest.get_modpath("default").."/legacy.lua")
