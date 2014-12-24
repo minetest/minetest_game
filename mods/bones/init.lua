@@ -1,6 +1,8 @@
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information. 
 
+bones = {}
+
 local function is_owner(pos, name)
 	local owner = minetest.get_meta(pos):get_string("owner")
 	if owner == "" or owner == name then
@@ -8,6 +10,16 @@ local function is_owner(pos, name)
 	end
 	return false
 end
+
+bones.bones_formspec =
+	"size[8,9]"..
+	default.gui_bg..
+	default.gui_bg_img..
+	default.gui_slots..
+	"list[current_name;main;0,0.3;8,4;]"..
+	"list[current_player;main;0,4.85;8,1;]"..
+	"list[current_player;main;0,6.08;8,3;8]"..
+	default.get_hotbar_bg(0,4.85)
 
 minetest.register_node("bones:bones", {
 	description = "Bones",
@@ -158,9 +170,7 @@ minetest.register_on_dieplayer(function(player)
 	player_inv:set_list("main", {})
 	player_inv:set_list("craft", {})
 	
-	meta:set_string("formspec", "size[8,9;]"..
-			"list[current_name;main;0,0;8,4;]"..
-			"list[current_player;main;0,5;8,4;]")
+	meta:set_string("formspec", bones.bones_formspec)
 	meta:set_string("infotext", player_name.."'s fresh bones")
 	meta:set_string("owner", player_name)
 	meta:set_int("time", 0)
