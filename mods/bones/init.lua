@@ -101,6 +101,25 @@ minetest.register_node("bones:bones", {
 	end,
 })
 
+local function may_replace(pos, player)
+	local nodename = minetest.get_node(pos).name
+	print(nodename)
+
+	-- allow replacing air and liquids
+	if nodename == "air" or minetest.registered_nodes[nodename].liquidtype ~= "none" then
+		return true
+	end
+
+	-- don't replace filled chests and other nodes that don't allow it
+	if minetest.registered_nodes[nodename].can_dig and
+		not minetest.registered_nodes[nodename].can_dig(pos, player) then
+		return false
+	end
+
+	-- only replace nodes that are not protected
+	return not minetest.is_protected(pos, player:get_player_name())
+end
+
 minetest.register_on_dieplayer(function(player)
 	if minetest.setting_getbool("creative_mode") then
 		return
@@ -119,11 +138,8 @@ minetest.register_on_dieplayer(function(player)
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	local player_name = player:get_player_name()
 	local player_inv = player:get_inventory()
-	
-	local nn = minetest.get_node(pos).name
-	if minetest.registered_nodes[nn].can_dig and
-		not minetest.registered_nodes[nn].can_dig(pos, player) then
 
+	if (not may_replace(pos, player)) then
 		-- drop items instead of delete
 		for i=1,player_inv:get_size("main") do
 			minetest.add_item(pos, player_inv:get_stack("main", i))
@@ -137,8 +153,7 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 	
-	minetest.dig_node(pos)
-	minetest.add_node(pos, {name="bones:bones", param2=param2})
+	minetest.set_node(pos, {name="bones:bones", param2=param2})
 	
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
