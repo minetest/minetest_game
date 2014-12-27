@@ -29,14 +29,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:fence_wood 2',
-	recipe = {
-		{'group:stick', 'group:stick', 'group:stick'},
-		{'group:stick', 'group:stick', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
 	output = 'default:sign_wall',
 	recipe = {
 		{'group:wood', 'group:wood', 'group:wood'},
@@ -718,12 +710,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:bookshelf",
 	burntime = 30,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:fence_wood",
-	burntime = 15,
 })
 
 minetest.register_craft({
