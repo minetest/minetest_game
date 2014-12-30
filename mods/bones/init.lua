@@ -102,17 +102,23 @@ minetest.register_node("bones:bones", {
 })
 
 local function may_replace(pos, player)
-	local nodename = minetest.get_node(pos).name
+	local node_name = minetest.get_node(pos).name
+	local node_definition = minetest.registered_nodes[node_name]
 
-	-- allow replacing air and liquids
-	if nodename == "air" or minetest.registered_nodes[nodename].liquidtype ~= "none" then
-		return true
-	end
+	-- if the node is unknown, we let the protection mod decide
+	-- unknown decoration would often be removed
+	-- while unknown building materials in use would usually be left
+	if node_definition then
+		-- allow replacing air and liquids
+		if node_name == "air" or node_definition.liquidtype ~= "none" then
+			return true
+		end
 
-	-- don't replace filled chests and other nodes that don't allow it
-	if minetest.registered_nodes[nodename].can_dig and
-		not minetest.registered_nodes[nodename].can_dig(pos, player) then
-		return false
+		-- don't replace filled chests and other nodes that don't allow it
+		local can_dig_func = node_definition.can_dig
+		if can_dig_func and not can_dig_func(pos, player) then
+			return false
+		end
 	end
 
 	-- only replace nodes that are not protected
