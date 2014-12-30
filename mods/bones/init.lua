@@ -103,7 +103,6 @@ minetest.register_node("bones:bones", {
 
 local function may_replace(pos, player)
 	local nodename = minetest.get_node(pos).name
-	print(nodename)
 
 	-- allow replacing air and liquids
 	if nodename == "air" or minetest.registered_nodes[nodename].liquidtype ~= "none" then
