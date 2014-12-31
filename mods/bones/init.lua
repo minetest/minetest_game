@@ -10,6 +10,7 @@ local function is_owner(pos, name)
 end
 
 local share_bones_time = tonumber(minetest.setting_get("share_bones_time") or 1200)
+local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early") or (share_bones_time/4))
 
 minetest.register_node("bones:bones", {
 	description = "Bones",
@@ -188,7 +189,13 @@ minetest.register_on_dieplayer(function(player)
 	
 	if share_bones_time ~= 0 then
 		meta:set_string("infotext", player_name.."'s fresh bones")
-		meta:set_int("time", 0)
+
+		if share_bones_time_early == 0 or not minetest.is_protected(pos, player_name) then
+			meta:set_int("time", 0)
+		else
+			meta:set_int("time", (share_bones_time - share_bones_time_early))
+		end
+
 		minetest.get_node_timer(pos):start(10)
 	else
 		meta:set_string("infotext", player_name.."'s bones")
