@@ -9,6 +9,8 @@ local function is_owner(pos, name)
 	return false
 end
 
+local share_bones_time = tonumber(minetest.setting_get("share_bones_time") or 1200)
+
 minetest.register_node("bones:bones", {
 	description = "Bones",
 	tiles = {
@@ -84,15 +86,8 @@ minetest.register_node("bones:bones", {
 	
 	on_timer = function(pos, elapsed)
 		local meta = minetest.get_meta(pos)
-		local time = meta:get_int("time")+elapsed
-		local publish = 1200
-		if tonumber(minetest.setting_get("share_bones_time")) then
-			publish = tonumber(minetest.setting_get("share_bones_time"))
-		end
-		if publish == 0 then
-			return
-		end
-		if time >= publish then
+		local time = meta:get_int("time") + elapsed
+		if time >= share_bones_time then
 			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
 			meta:set_string("owner", "")
 		else
@@ -188,10 +183,13 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_string("formspec", "size[8,9;]"..
 			"list[current_name;main;0,0;8,4;]"..
 			"list[current_player;main;0,5;8,4;]")
-	meta:set_string("infotext", player_name.."'s fresh bones")
 	meta:set_string("owner", player_name)
-	meta:set_int("time", 0)
 	
-	local timer  = minetest.get_node_timer(pos)
-	timer:start(10)
+	if share_bones_time ~= 0 then
+		meta:set_string("infotext", player_name.."'s fresh bones")
+		meta:set_int("time", 0)
+		minetest.get_node_timer(pos):start(10)
+	else
+		meta:set_string("infotext", player_name.."'s bones")
+	end
 end)
