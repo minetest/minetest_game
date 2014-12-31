@@ -91,6 +91,7 @@ minetest.register_node("bones:bones", {
 			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
 			meta:set_string("owner", "")
 		else
+			meta:set_int("time", time)
 			return true
 		end
 	end,
