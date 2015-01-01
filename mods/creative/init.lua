@@ -82,6 +82,7 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 			"list[current_player;main;5,4.75;8,3;8]"..
 			"list[current_player;craft;8,0;3,3;]"..
 			"list[current_player;craftpreview;12,1;1,1;]"..
+			"image[11,1;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
 			"list[detached:creative;main;0.3,0.5;4,6;"..tostring(start_i).."]"..
 			"label[2.0,6.55;"..tostring(pagenum).."/"..tostring(pagemax).."]"..
 			"button[0.3,6.5;1.6,1;creative_prev;<<]"..
