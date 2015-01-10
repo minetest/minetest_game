@@ -103,23 +103,29 @@ local function may_replace(pos, player)
 	local node_definition = minetest.registered_nodes[node_name]
 
 	-- if the node is unknown, we let the protection mod decide
+	-- this is consistent with when a player could dig or not dig it
 	-- unknown decoration would often be removed
 	-- while unknown building materials in use would usually be left
-	if node_definition then
-		-- allow replacing air and liquids
-		if node_name == "air" or node_definition.liquidtype ~= "none" then
-			return true
-		end
-
-		-- don't replace filled chests and other nodes that don't allow it
-		local can_dig_func = node_definition.can_dig
-		if can_dig_func and not can_dig_func(pos, player) then
-			return false
-		end
+	if not node_definition then
+		-- only replace nodes that are not protected
+		return not minetest.is_protected(pos, player:get_player_name())
 	end
 
-	-- only replace nodes that are not protected
-	return not minetest.is_protected(pos, player:get_player_name())
+	-- allow replacing air and liquids
+	if node_name == "air" or node_definition.liquidtype ~= "none" then
+		return true
+	end
+
+	-- don't replace filled chests and other nodes that don't allow it
+	local can_dig_func = node_definition.can_dig
+	if can_dig_func and not can_dig_func(pos, player) then
+		return false
+	end
+
+	-- default to each nodes buildable_to; if a placed block would replace it, why shouldn't bones?
+	-- flowers being squished by bones are more realistical than a squished stone, too
+	-- exception are of course any protected buildable_to
+	return node_definition.buildable_to and not minetest.is_protected(pos, player:get_player_name())
 end
 
 minetest.register_on_dieplayer(function(player)
