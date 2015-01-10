@@ -1,22 +1,6 @@
 doors = {}
 
 -- Registers a door
---  name: The name of the door
---  def: a table with the folowing fields:
---    description
---    inventory_image
---    groups
---    tiles_bottom: the tiles of the bottom part of the door {front, side}
---    tiles_top: the tiles of the bottom part of the door {front, side}
---    If the following fields are not defined the default values are used
---    node_box_bottom
---    node_box_top
---    selection_box_bottom
---    selection_box_top
---    only_placer_can_open: if true only the player who placed the door can
---                          open it
-
-
 function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
 
@@ -36,10 +20,10 @@ function doors.register_door(name, def)
 	end
 
 	if not def.sound_close_door then
-		def.sound_close_door = "door_close"
+		def.sound_close_door = "doors_door_close"
 	end
 	if not def.sound_open_door then
-		def.sound_open_door = "door_open"
+		def.sound_open_door = "doors_door_open"
 	end
 	
 	
@@ -292,10 +276,10 @@ end
 
 doors.register_door("doors:door_wood", {
 	description = "Wooden Door",
-	inventory_image = "door_wood.png",
+	inventory_image = "doors_wood.png",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
-	tiles_bottom = {"door_wood_b.png", "door_brown.png"},
-	tiles_top = {"door_wood_a.png", "door_brown.png"},
+	tiles_bottom = {"doors_wood_b.png", "doors_brown.png"},
+	tiles_top = {"doors_wood_a.png", "doors_brown.png"},
 	sounds = default.node_sound_wood_defaults(),
 	sunlight = false,
 })
@@ -311,10 +295,10 @@ minetest.register_craft({
 
 doors.register_door("doors:door_steel", {
 	description = "Steel Door",
-	inventory_image = "door_steel.png",
+	inventory_image = "doors_steel.png",
 	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
-	tiles_bottom = {"door_steel_b.png", "door_grey.png"},
-	tiles_top = {"door_steel_a.png", "door_grey.png"},
+	tiles_bottom = {"doors_steel_b.png", "doors_grey.png"},
+	tiles_top = {"doors_steel_a.png", "doors_grey.png"},
 	only_placer_can_open = true,
 	sounds = default.node_sound_wood_defaults(),
 	sunlight = false,
@@ -331,10 +315,10 @@ minetest.register_craft({
 
 doors.register_door("doors:door_glass", {
 	description = "Glass Door",
-	inventory_image = "door_glass.png",
+	inventory_image = "doors_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},
-	tiles_bottom = {"door_glass_b.png", "door_glass_side.png"},
-	tiles_top = {"door_glass_a.png", "door_glass_side.png"},
+	tiles_bottom = {"doors_glass_b.png", "doors_glass_side.png"},
+	tiles_top = {"doors_glass_a.png", "doors_glass_side.png"},
 	sounds = default.node_sound_glass_defaults(),
 	sunlight = true,
 })
@@ -350,10 +334,10 @@ minetest.register_craft({
 
 doors.register_door("doors:door_obsidian_glass", {
 	description = "Obsidian Glass Door",
-	inventory_image = "door_obsidian_glass.png",
+	inventory_image = "doors_obsidian_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},
-	tiles_bottom = {"door_obsidian_glass_b.png", "door_obsidian_glass_side.png"},
-	tiles_top = {"door_obsidian_glass_b.png", "door_obsidian_glass_side.png"},
+	tiles_bottom = {"doors_obsidian_glass_b.png", "doors_obsidian_glass_side.png"},
+	tiles_top = {"doors_obsidian_glass_b.png", "doors_obsidian_glass_side.png"},
 	sounds = default.node_sound_glass_defaults(),
 	sunlight = true,
 })
@@ -382,11 +366,11 @@ local function punch(pos)
 	local tmp_node2
 	if state == 1 then
 		state = 0
-		minetest.sound_play("door_close", {pos = pos, gain = 0.3, max_hear_distance = 10})
+		minetest.sound_play("doors_door_close", {pos = pos, gain = 0.3, max_hear_distance = 10})
 		tmp_node = {name="doors:trapdoor", param1=me.param1, param2=me.param2}
 	else
 		state = 1
-		minetest.sound_play("door_open", {pos = pos, gain = 0.3, max_hear_distance = 10})
+		minetest.sound_play("doors_door_open", {pos = pos, gain = 0.3, max_hear_distance = 10})
 		tmp_node = {name="doors:trapdoor_open", param1=me.param1, param2=me.param2}
 	end
 	update_door(pos, tmp_node)
@@ -395,9 +379,9 @@ end
 
 minetest.register_node("doors:trapdoor", {
 	description = "Trapdoor",
-	inventory_image = "door_trapdoor.png",
+	inventory_image = "doors_trapdoor.png",
 	drawtype = "nodebox",
-	tiles = {"door_trapdoor.png", "door_trapdoor.png",  "door_trapdoor_side.png",  "door_trapdoor_side.png", "door_trapdoor_side.png", "door_trapdoor_side.png"},
+	tiles = {"doors_trapdoor.png", "doors_trapdoor.png",  "doors_trapdoor_side.png",  "doors_trapdoor_side.png", "doors_trapdoor_side.png", "doors_trapdoor_side.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
@@ -421,7 +405,7 @@ minetest.register_node("doors:trapdoor", {
 
 minetest.register_node("doors:trapdoor_open", {
 	drawtype = "nodebox",
-	tiles = {"door_trapdoor_side.png", "door_trapdoor_side.png",  "door_trapdoor_side.png",  "door_trapdoor_side.png", "door_trapdoor.png", "door_trapdoor.png"},
+	tiles = {"doors_trapdoor_side.png", "doors_trapdoor_side.png",  "doors_trapdoor_side.png",  "doors_trapdoor_side.png", "doors_trapdoor.png", "doors_trapdoor.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	pointable = true,
