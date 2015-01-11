@@ -80,6 +80,13 @@ minetest.register_node("farming:desert_sand_soil_wet", {
 	}
 })
 
+minetest.register_node("farming:straw", {
+	description = "Straw",
+	drop = "farming:straw",
+	tiles = {"farming_straw.png"},
+	groups = {snappy=3},
+})
+
 minetest.register_abm({
 	nodenames = {"group:field"},
 	interval = 15,
