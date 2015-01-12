@@ -59,3 +59,12 @@ minetest.register_craft({
 		{"farming:cotton", "farming:cotton"},
 	}
 })
+
+-- Straw
+minetest.register_craft({
+	output = "farming:straw",
+	recipe = {
+		{"farming:wheat", "farming:wheat"},
+		{"farming:wheat", "farming:wheat"},
+	}
+})
