@@ -57,3 +57,6 @@ Created by VanessaE (License: WTFPL):
   farming_cotton_6.png
   farming_cotton_7.png
   farming_cotton_8.png
+
+Created by MasterGollum (License: WTFPL):
+  farming_straw.png
