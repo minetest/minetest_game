@@ -30,7 +30,7 @@ minetest.register_craftitem("farming:bread", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "farming:flour",
-	recipe = {"farming:wheat", "farming:wheat", "farming:wheat"}
+	recipe = {"farming:wheat", "farming:wheat", "farming:wheat", "farming:wheat"}
 })
 
 minetest.register_craft({
@@ -62,9 +62,17 @@ minetest.register_craft({
 
 -- Straw
 minetest.register_craft({
-	output = "farming:straw",
+	output = "farming:straw 3",
 	recipe = {
-		{"farming:wheat", "farming:wheat"},
-		{"farming:wheat", "farming:wheat"},
+		{"farming:wheat", "farming:wheat", "farming:wheat"},
+		{"farming:wheat", "farming:wheat", "farming:wheat"},
+		{"farming:wheat", "farming:wheat", "farming:wheat"},
+	}
+})
+
+minetest.register_craft({
+	output = "farming:wheat 3",
+	recipe = {
+		{"farming:straw"},
 	}
 })
