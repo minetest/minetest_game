@@ -189,3 +189,17 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
+
+earthcalling (sounds) (CC0):
+  default_flow_water.ogg
+  default_flow_lava.ogg
+
+LeonMire (sounds) (CC0):
+  default_use_chest.ogg
+
+Stephan (sounds) (CC0):
+  default_use_furnace.ogg
+  default_eat.ogg
+
+Thore (sounds) (CC0):
+  default_use_workbench.ogg

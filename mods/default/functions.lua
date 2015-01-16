@@ -84,6 +84,78 @@ function default.node_sound_glass_defaults(table)
 end
 
 --
+-- Fluid flow sounds
+--
+
+local flow_sounds = {}
+
+local function flow_sound_start(pos, file)
+	local pos_hash = minetest.hash_node_position(pos)
+	local sound = flow_sounds[pos_hash]
+
+	if not sound then
+		-- Abort if this touches another liquid source, or lakes can cause heavy sound spam
+		local positions = {}
+		table.insert(positions, {x = pos.x - 1, y = pos.y, z = pos.z})
+		table.insert(positions, {x = pos.x + 1, y = pos.y, z = pos.z})
+		table.insert(positions, {x = pos.x, y = pos.y - 1, z = pos.z})
+		table.insert(positions, {x = pos.x, y = pos.y + 1, z = pos.z})
+		table.insert(positions, {x = pos.x, y = pos.y, z = pos.z - 1})
+		table.insert(positions, {x = pos.x, y = pos.y, z = pos.z + 1})
+		for i, entry in ipairs(positions) do
+			local pos_here = { x = entry.x, y = entry.y, z = entry.z }
+			local node_here = minetest.get_node(pos_here)
+			local nodedef_here = minetest.registered_nodes[node_here.name]
+			if(nodedef_here.drawtype == "liquid") then
+				return
+			end
+		end
+
+		flow_sounds[pos_hash] = {
+			handle = minetest.sound_play(file, {pos = pos, gain = 0.5, loop = true}),
+		}
+	end
+end
+
+local function flow_sound_stop(pos)
+	local pos_hash = minetest.hash_node_position(pos)
+	local sound = flow_sounds[pos_hash]
+
+	if sound then
+		minetest.sound_stop(sound.handle)
+		flow_sounds[pos_hash] = nil
+	end
+end
+
+minetest.register_on_placenode(function(pos, _, _, _, _)
+	flow_sound_stop(pos)
+end)
+
+minetest.register_on_dignode(function(pos, _, _)
+	flow_sound_stop(pos)
+end)
+
+minetest.register_abm({
+	nodenames = {"default:water_source"},
+	neighbors = {"default:water_flowing"},
+	interval = 0.5,
+	chance = 1,
+	action = function(pos, node, _, _)
+		flow_sound_start(pos, "default_flow_water")
+	end,
+})
+
+minetest.register_abm({
+	nodenames = {"default:lava_source"},
+	neighbors = {"default:lava_flowing"},
+	interval = 0.5,
+	chance = 1,
+	action = function(pos, node, _, _)
+		flow_sound_start(pos, "default_flow_lava")
+	end,
+})
+
+--
 -- Legacy
 --
 

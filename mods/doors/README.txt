@@ -35,6 +35,13 @@ following Textures created by PenguinDad (CC BY-SA 4.0):
   door_glass.png
   door_obsidian_glass.png
 
+Door sounds created by Slanesh (CC-BY 3.0):
+  doors_door_open.ogg
+  doors_door_close.ogg
+
+Gate sound created by j1987 (CC0):
+  doors_gate_open_close.ogg
+
 All other textures (created by PilzAdam): WTFPL
 
 
