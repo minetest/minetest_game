@@ -122,7 +122,9 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		default.cool_lava_flowing(pos, node, active_object_count, active_object_count_wider)
+		if not minetest.is_protected(pos, "") then
+			default.cool_lava_flowing(pos, node, active_object_count, active_object_count_wider)
+		end
 	end,
 })
 
@@ -132,7 +134,9 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		default.cool_lava_source(pos, node, active_object_count, active_object_count_wider)
+		if not minetest.is_protected(pos, "") then
+			default.cool_lava_source(pos, node, active_object_count, active_object_count_wider)
+		end
 	end,
 })
 
