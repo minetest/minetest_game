@@ -64,12 +64,15 @@ VanessaE (WTFPL):
   default_sand.png
   default_sandstone_brick.png
 
-Calinou (CC BY-SA):
+Calinou (CC BY-SA 3.0):
   default_brick.png
   default_papyrus.png
   default_copper_lump.png
   default_mineral_copper.png
   default_glass_detail.png
+
+Calinou (CC0 1.0):
+  crosshair.png
 
 MirceaKitsune (WTFPL):
   character.x
