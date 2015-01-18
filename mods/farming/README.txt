@@ -36,27 +36,13 @@ Created by BlockMen (License: CC BY 3.0):
   farming_tool_stonehoe.png
   farming_tool_woodhoe.png
 
-Created by VanessaE (License: WTFPL):
-  farming_cotton_seed.png
-  farming_wheat_seed.png
-  farming_flour.png
-  farming_wheat.png
-  farming_wheat_1.png
-  farming_wheat_2.png
-  farming_wheat_3.png
-  farming_wheat_4.png
-  farming_wheat_5.png
-  farming_wheat_5.png
-  farming_wheat_7.png
-  farming_wheat_8.png
-  farming_cotton_1.png
-  farming_cotton_2.png
-  farming_cotton_3.png
-  farming_cotton_4.png
-  farming_cotton_5.png
-  farming_cotton_6.png
-  farming_cotton_7.png
-  farming_cotton_8.png
-
 Created by MasterGollum (License: WTFPL):
   farming_straw.png
+
+Created by Gambit (License: WTFPL):
+  farming_wheat.png
+  farming_wheat_*.png
+  farming_cotton_*.png
+  farming_flour.png
+  farming_cotton_seed.png
+  farming_wheat_seed.png

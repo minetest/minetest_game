@@ -67,7 +67,6 @@ VanessaE (WTFPL):
 Calinou (CC BY-SA):
   default_brick.png
   default_papyrus.png
-  default_copper_lump.png
   default_mineral_copper.png
   default_glass_detail.png
 
@@ -83,7 +82,6 @@ PilzAdam (WTFPL):
   default_junglewood.png
   default_obsidian_glass.png
   default_obsidian_shard.png
-  default_gold_lump.png
   default_mineral_gold.png
   default_snowball.png
 
@@ -119,17 +117,15 @@ BlockMen (CC BY-SA 3.0):
   default_stone_brick.png
   default_wood.png
   default_clay_brick.png
-  default_tool_steelsword.png
-  default_bronze_ingot.png
-  default_copper_ingot.png
+  default_iron_ingot.png
   default_gold_ingot.png
+  default_tool_steelsword.png
   default_diamond.png
   default_diamond_block.png
+  default_book.png
   default_tool_*.png
   default_lava_source_animated.png
   default_lava_flowing_animated.png
-  default_book.png
-  default_paper.png
   default_stick.png
   default_chest_front.png
   default_chest_lock.png
@@ -189,3 +185,14 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
+
+Gambit (WTFPL):
+  default_bronze_ingot.png
+  default_copper_ingot.png
+  default_copper_lump.png
+  default_iron_lump.png
+  default_gold_lump.png
+  default_clay_lump.png
+  default_coal.png
+  default_grass_*.png
+  default_paper.png
