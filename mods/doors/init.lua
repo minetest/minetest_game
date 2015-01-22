@@ -337,7 +337,7 @@ doors.register_door("doors:door_obsidian_glass", {
 	inventory_image = "doors_obsidian_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},
 	tiles_bottom = {"doors_obsidian_glass_b.png", "doors_obsidian_glass_side.png"},
-	tiles_top = {"doors_obsidian_glass_b.png", "doors_obsidian_glass_side.png"},
+	tiles_top = {"doors_obsidian_glass_a.png", "doors_obsidian_glass_side.png"},
 	sounds = default.node_sound_glass_defaults(),
 	sunlight = true,
 })
