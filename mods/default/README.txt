@@ -187,6 +187,8 @@ Mito551 (sounds) (CC BY-SA):
   default_glass_footstep.ogg
 
 Gambit (WTFPL):
+  default_bronze_ingot.png
+  default_copper_ingot.png
   default_copper_lump.png
   default_iron_lump.png
   default_gold_lump.png
