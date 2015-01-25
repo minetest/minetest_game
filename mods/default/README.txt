@@ -70,10 +70,8 @@ Calinou (CC BY-SA):
   default_mineral_copper.png
   default_glass_detail.png
 
-MirceaKitsune (WTFPL):
-  character.x
-
-Jordach (CC BY-SA 3.0):
+stu (WTFPL):
+  character.b3d
   character.png
 
 PilzAdam (WTFPL):
