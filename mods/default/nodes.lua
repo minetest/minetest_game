@@ -1101,7 +1101,11 @@ minetest.register_node("default:torch", {
 local chest_formspec =
 	"size[8,9]"..
 	default.gui_bg..
+<<<<<<< HEAD
+	"image[-2,-0.5;15,11.25;default_chest_bg.png]"..
+=======
 	default.gui_bg_img..
+>>>>>>> 5518c277f31800d407ddf2af8b64e532a85f7533
 	default.gui_slots..
 	"list[current_name;main;0,0.3;8,4;]"..
 	"list[current_player;main;0,4.85;8,1;]"..
@@ -1113,7 +1117,11 @@ local function get_locked_chest_formspec(pos)
 	local formspec =
 		"size[8,9]"..
 		default.gui_bg..
+<<<<<<< HEAD
+		"image[-2,-0.5;15,11.25;default_chest_bg.png]"..
+=======
 		default.gui_bg_img..
+>>>>>>> 5518c277f31800d407ddf2af8b64e532a85f7533
 		default.gui_slots..
 		"list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"..
 		"list[current_player;main;0,4.85;8,1;]"..
