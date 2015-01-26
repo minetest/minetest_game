@@ -23,7 +23,11 @@ end
 
 default.gui_suvival_form = "size[8,8.5]"..
 			default.gui_bg..
+<<<<<<< HEAD
 			"image[-2,-0.5;15,11.25;default_inventory_bg.png]"..
+=======
+			default.gui_bg_img..
+>>>>>>> 5518c277f31800d407ddf2af8b64e532a85f7533
 			default.gui_slots..
 			"list[current_player;main;0,4.25;8,1;]"..
 			"list[current_player;main;0,5.5;8,3;8]"..

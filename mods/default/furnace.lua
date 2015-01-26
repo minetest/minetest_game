@@ -7,7 +7,11 @@ local function active_formspec(fuel_percent, item_percent)
 	local formspec = 
 		"size[8,8.5]"..
 		default.gui_bg..
+<<<<<<< HEAD
 		"image[-2,-0.5;15,11.25;default_furnace_bg.png]"..
+=======
+		default.gui_bg_img..
+>>>>>>> 5518c277f31800d407ddf2af8b64e532a85f7533
 		default.gui_slots..
 		"list[current_name;src;2.75,0.5;1,1;]"..
 		"list[current_name;fuel;2.75,2.5;1,1;]"..
@@ -25,7 +29,11 @@ end
 local inactive_formspec =
 	"size[8,8.5]"..
 	default.gui_bg..
+<<<<<<< HEAD
 	"image[-2,-0.5;15,11.25;default_furnace_bg.png]"..
+=======
+	default.gui_bg_img..
+>>>>>>> 5518c277f31800d407ddf2af8b64e532a85f7533
 	default.gui_slots..
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
