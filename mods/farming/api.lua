@@ -83,10 +83,30 @@ farming.register_hoe = function(name, def)
 		end
 	})
 	-- Register its recipe
-	minetest.register_craft({
-		output = name:gsub(":", "", 1),
-		recipe = def.recipe
-	})
+	if def.material == nil then
+		minetest.register_craft({
+			output = name:gsub(":", "", 1),
+			recipe = def.recipe
+		})
+	else
+		minetest.register_craft({
+			output = name:gsub(":", "", 1),
+			recipe = {
+				{def.material, def.material, ""},
+				{"", "group:stick", ""},
+				{"", "group:stick", ""}
+			}
+		})
+		-- Reverse Recipe
+		minetest.register_craft({
+			output = name:gsub(":", "", 1),
+			recipe = {
+				{"", def.material, def.material},
+				{"", "group:stick", ""},
+				{"", "group:stick", ""}
+			}
+		})
+	end
 end
 
 -- Seed placement
