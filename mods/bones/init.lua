@@ -76,6 +76,10 @@ minetest.register_node("bones:bones", {
 			return
 		end
 		
+		if(minetest.get_meta(pos):get_string("infotext") == "") then
+			return
+		end
+		
 		local inv = minetest.get_meta(pos):get_inventory()
 		local player_inv = player:get_inventory()
 		local has_space = true
@@ -93,6 +97,11 @@ minetest.register_node("bones:bones", {
 		
 		-- remove bones if player emptied them
 		if has_space then
+			if player_inv:room_for_item("main", {name = "bones:bones"}) then
+				player_inv:add_item("main", {name = "bones:bones"})
+			else
+				minetest.add_item(pos,"bones:bones")
+			end
 			minetest.remove_node(pos)
 		end
 	end,
