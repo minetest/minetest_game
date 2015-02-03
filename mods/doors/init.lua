@@ -354,78 +354,69 @@ minetest.register_craft({
 
 ----trapdoor----
 
-local function update_door(pos, node) 
-	minetest.set_node(pos, node)
-end
+function doors.register_trapdoor(name, def)
+	local name_closed = name
+	local name_opened = name.."_open"
 
-local function punch(pos)
-	local meta = minetest.get_meta(pos)
-	local state = meta:get_int("state")
-	local me = minetest.get_node(pos)
-	local tmp_node
-	local tmp_node2
-	if state == 1 then
-		state = 0
-		minetest.sound_play("doors_door_close", {pos = pos, gain = 0.3, max_hear_distance = 10})
-		tmp_node = {name="doors:trapdoor", param1=me.param1, param2=me.param2}
-	else
-		state = 1
-		minetest.sound_play("doors_door_open", {pos = pos, gain = 0.3, max_hear_distance = 10})
-		tmp_node = {name="doors:trapdoor_open", param1=me.param1, param2=me.param2}
+	def.on_rightclick = function (pos, node)
+		local newname = node.name == name_closed and name_opened or name_closed
+		local sound = false
+		if node.name == name_closed then sound = def.sound_open end
+		if node.name == name_opened then sound = def.sound_close end
+		if sound then
+			minetest.sound_play(sound, {pos = pos, gain = 0.3, max_hear_distance = 10})
+		end
+		minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
 	end
-	update_door(pos, tmp_node)
-	meta:set_int("state", state)
+
+	-- Common trapdoor configuration
+	def.drawtype = "nodebox"
+	def.paramtype = "light"
+	def.paramtype2 = "facedir"
+
+	local def_opened = table.copy(def)
+	local def_closed = table.copy(def)
+
+	def_closed.node_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5}
+	}
+	def_closed.selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5}
+	}
+	def_closed.tiles = { def.tile_front, def.tile_front, def.tile_side, def.tile_side,
+		def.tile_side, def.tile_side }
+
+	def_opened.node_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, 0.4, 0.5, 0.5, 0.5}
+	}
+	def_opened.selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, 0.4, 0.5, 0.5, 0.5}
+	}
+	def_opened.tiles = { def.tile_side, def.tile_side, def.tile_side, def.tile_side,
+		def.tile_front, def.tile_front }
+	def_opened.drop = name_closed
+	def_opened.groups.not_in_creative_inventory = 1
+
+	minetest.register_node(name_opened, def_opened)
+	minetest.register_node(name_closed, def_closed)
 end
 
-minetest.register_node("doors:trapdoor", {
+
+
+doors.register_trapdoor("doors:trapdoor", {
 	description = "Trapdoor",
 	inventory_image = "doors_trapdoor.png",
 	wield_image = "doors_trapdoor.png",
-	drawtype = "nodebox",
-	tiles = {"doors_trapdoor.png", "doors_trapdoor.png",  "doors_trapdoor_side.png",  "doors_trapdoor_side.png", "doors_trapdoor_side.png", "doors_trapdoor_side.png"},
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
+	tile_front = "doors_trapdoor.png",
+	tile_side = "doors_trapdoor_side.png",
+	groups = {snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1},
 	sounds = default.node_sound_wood_defaults(),
-	drop = "doors:trapdoor",
-	node_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5}
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5}
-	},
-	on_creation = function(pos)
-		state = 0
-	end,
-	on_rightclick = function(pos, node, clicker)
-		punch(pos)
-	end,
-})
-
-minetest.register_node("doors:trapdoor_open", {
-	drawtype = "nodebox",
-	tiles = {"doors_trapdoor_side.png", "doors_trapdoor_side.png",  "doors_trapdoor_side.png",  "doors_trapdoor_side.png", "doors_trapdoor.png", "doors_trapdoor.png"},
-	paramtype = "light",
-	paramtype2 = "facedir",
-	pointable = true,
-	stack_max = 0,
-	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
-	climbable = true,
-	sounds = default.node_sound_wood_defaults(),
-	drop = "doors:trapdoor",
-	node_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, 0.4, 0.5, 0.5, 0.5}
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, 0.4, 0.5, 0.5, 0.5}
-	},
-	on_rightclick = function(pos, node, clicker)
-		punch(pos)
-	end,
+	sound_open = "doors_door_open",
+	sound_close = "doors_door_close"
 })
 
 minetest.register_craft({

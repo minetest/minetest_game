@@ -26,11 +26,17 @@ The bucket API allows registering new types of buckets for non-default liquids.
 
 Doors API
 ---------
-The doors mod allows modders to register custom doors.
+The doors mod allows modders to register custom doors and trapdoors.
 
-	doors.register_door(name, def)
-	^ name: "Door name"
-	^ def: See [#Door definition]
+doors.register_door(name, def)
+^ name: "Door name"
+^ def: See [#Door definition]
+ -> Registers new door
+
+doors.register_trapdoor(name, def)
+^ name: "Trapdoor name"
+^ def: See [#Trapdoor definition]
+ -> Registers new trapdoor
 
 #Door definition
 ----------------
@@ -50,6 +56,21 @@ The doors mod allows modders to register custom doors.
 	sound_close_door = sound play for close door, OPTIONAL,
 	only_placer_can_open = true/false,
 	^ If true, only placer can open the door (locked for others)
+}
+
+#Trapdoor definition
+----------------
+{
+	tile_front = "doors_trapdoor.png",
+	^ the texture for the front and back of the trapdoor
+	tile_side: "doors_trapdoor_side.png",
+	^ the tiles of the four side parts of the trapdoor
+	sound_open = sound to play when opening the trapdoor, OPTIONAL,
+	sound_close = sound to play when closing the trapdoor, OPTIONAL,
+	-> You can add any other node definition properties for minetest.register_node,
+	   such as wield_image, inventory_image, sounds, groups, description, ...
+	   Only node_box, selection_box, tiles, drop, drawtype, paramtype, paramtype2, on_rightclick
+	   will be overwritten by the trapdoor registration function
 }
 
 Farming API
