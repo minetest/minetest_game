@@ -85,12 +85,12 @@ farming.register_hoe = function(name, def)
 	-- Register its recipe
 	if def.material == nil then
 		minetest.register_craft({
-			output = name:gsub(":", "", 1),
+			output = name:sub(2),
 			recipe = def.recipe
 		})
 	else
 		minetest.register_craft({
-			output = name:gsub(":", "", 1),
+			output = name:sub(2),
 			recipe = {
 				{def.material, def.material, ""},
 				{"", "group:stick", ""},
@@ -99,7 +99,7 @@ farming.register_hoe = function(name, def)
 		})
 		-- Reverse Recipe
 		minetest.register_craft({
-			output = name:gsub(":", "", 1),
+			output = name:sub(2),
 			recipe = {
 				{"", def.material, def.material},
 				{"", "group:stick", ""},
