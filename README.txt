@@ -17,7 +17,7 @@ Additionally, when the minetest engine is tagged to be a certain version (eg.
 0.4.10), minetest_game is tagged with the version too.
 
 When stable releases are made, minetest_game is packaged and made available in
-  http://minetest.net/download.php
+  http://minetest.net/download
 and in case the repository has grown too much, it may be reset. In that sense,
 this is not a "real" git repository. (Package maintainers please note!)
 
