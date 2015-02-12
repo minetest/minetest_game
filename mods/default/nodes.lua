@@ -422,6 +422,8 @@ minetest.register_node("default:leaves", {
 	visual_scale = 1.3,
 	tiles = {"default_leaves.png"},
 	paramtype = "light",
+	walkable = false,
+	climbable = true,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
@@ -496,6 +498,8 @@ minetest.register_node("default:jungleleaves", {
 	visual_scale = 1.3,
 	tiles = {"default_jungleleaves.png"},
 	paramtype = "light",
+	walkable = false,
+	climbable = true,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
@@ -562,6 +566,8 @@ minetest.register_node("default:pine_needles",{
 	tiles = {"default_pine_needles.png"},
 	waving = 1,
 	paramtype = "light",
+	walkable = false,
+	climbable = true,
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
