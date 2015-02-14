@@ -125,7 +125,8 @@ farming.register_plant(name, Plant definition)
 	description = "",	-- Description for tooltip
 	inventory_image = "unknown_item.png",	-- Image to be used as wield- and inventory image
 	max_uses = 30,	-- Uses until destroyed
-	recipe = {	-- Craft recipe
+	material = "",	-- Material for recipes
+	recipe = {	-- Craft recipe, if material isn't used
 		{"air", "air", "air"},
 		{"", "group:stick"},
 		{"", "group:stick"},
@@ -138,7 +139,7 @@ farming.register_plant(name, Plant definition)
 	description = "",	-- Description of seed item
 	inventory_image = "unknown_item.png",	-- Image to be used as seed's wield- and inventory image
 	steps = 8,	-- How many steps the plant has to grow, until it can be harvested
-	^ Always provide a plant texture for ech step, format: modname_plantname_i.png (i = stepnumber)
+	^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
 	minlight = 13, -- Minimum light to grow
 	maxlight = default.LIGHT_MAX -- Maximum light to grow
 }
