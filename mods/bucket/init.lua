@@ -75,7 +75,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 							"place "..source) then
 						return
 					end
-					minetest.add_node(pos, {name=source})
+					minetest.place_node(pos, {name=source})
 				end
 
 				-- Check if pointing to a buildable node
@@ -123,6 +123,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 				return
 			end
 
+			minetest.dig_node(pointed_thing.under)
 			minetest.add_node(pointed_thing.under, {name="air"})
 
 			return ItemStack(liquiddef.itemname)

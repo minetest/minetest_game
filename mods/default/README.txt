@@ -196,3 +196,11 @@ Gambit (WTFPL):
   default_coal.png
   default_grass_*.png
   default_paper.png
+
+Michel Baradari (CC BY 3.0):
+  default_water_footstep.1.ogg
+  default_water_footstep.2.ogg
+
+mikhog (CC BY 3.0):
+  default_lava_footstep.1.ogg
+  default_lava_footstep.2.ogg
