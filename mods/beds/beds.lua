@@ -42,7 +42,7 @@ beds.register_bed("beds:fancy_bed", {
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
 	recipe = {
-		{"group:wool", "group:wool", "group:stick"},
+		{"wool:red", "wool:white", "group:stick"},
 		{"group:wood", "group:wood", "group:wood"},
 	},
 })
@@ -76,7 +76,7 @@ beds.register_bed("beds:bed", {
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
 	recipe = {
-		{"group:wool", "group:wool", "group:wool"},
+		{"wool:red", "wool:red", "wool:white"},
 		{"group:wood", "group:wood", "group:wood"}
 	},
 
@@ -84,21 +84,4 @@ beds.register_bed("beds:bed", {
 
 -- aliases for PA's beds mod
 minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_orange", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_yellow", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_green", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_blue", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_violet", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_black", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_grey", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_white", "beds:bed_bottom")
-
 minetest.register_alias("beds:bed_top_red", "beds:bed_top")
-minetest.register_alias("beds:bed_top_orange", "beds:bed_top")
-minetest.register_alias("beds:bed_top_yellow", "beds:bed_top")
-minetest.register_alias("beds:bed_top_green", "beds:bed_top")
-minetest.register_alias("beds:bed_top_blue", "beds:bed_top")
-minetest.register_alias("beds:bed_top_violet", "beds:bed_top")
-minetest.register_alias("beds:bed_top_black", "beds:bed_top")
-minetest.register_alias("beds:bed_top_grey", "beds:bed_top")
-minetest.register_alias("beds:bed_top_white", "beds:bed_top")

@@ -16,14 +16,14 @@ function beds.read_spawns()
 	local input = io.open(file, "r")
 	if input and not bkwd then
 		repeat
-		local x = input:read("*n")
-		if x == nil then
-            		break
-            	end
-		local y = input:read("*n")
-		local z = input:read("*n")
-		local name = input:read("*l")
-		spawns[name:sub(2)] = {x = x, y = y, z = z}
+			local x = input:read("*n")
+			if x == nil then
+            			break
+            		end
+			local y = input:read("*n")
+			local z = input:read("*n")
+			local name = input:read("*l")
+			spawns[name:sub(2)] = {x = x, y = y, z = z}
 		until input:read(0) == nil
 		io.close(input)
 	elseif input and bkwd then
