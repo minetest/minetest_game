@@ -901,6 +901,7 @@ minetest.register_node("default:water_source", {
 	liquid_viscosity = 1,
 	post_effect_color = {a=64, r=100, g=100, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1},
+	sounds = default.node_sound_water_defaults(),
 })
 
 minetest.register_node("default:water_flowing", {
@@ -945,6 +946,7 @@ minetest.register_node("default:water_flowing", {
 	liquid_viscosity = 1,
 	post_effect_color = {a=64, r=100, g=100, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
+	sounds = default.node_sound_water_defaults(),
 })
 
 
@@ -993,6 +995,7 @@ minetest.register_node("default:lava_source", {
 	damage_per_second = 4 * 2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
 	groups = {lava=3, liquid=2, hot=3, igniter=1},
+	sounds = default.node_sound_lava_defaults(),
 })
 
 minetest.register_node("default:lava_flowing", {
@@ -1039,6 +1042,7 @@ minetest.register_node("default:lava_flowing", {
 	damage_per_second = 4 * 2,
 	post_effect_color = {a=192, r=255, g=64, b=0},
 	groups = {lava=3, liquid=2, hot=3, igniter=1, not_in_creative_inventory=1},
+	sounds = default.node_sound_lava_defaults(),
 })
 
 --

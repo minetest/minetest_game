@@ -83,6 +83,34 @@ function default.node_sound_glass_defaults(table)
 	return table
 end
 
+function default.node_sound_water_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name="default_water_footstep", gain=0.25}
+	table.dug = table.dug or
+			{name="default_water_footstep", gain=0.4}
+	table.dig = table.dig or
+			{name="default_water_footstep", gain=0.4}
+	table.place = table.place or
+			{name="default_water_footstep", gain=0.4}
+	default.node_sound_defaults(table)
+	return table
+end
+
+function default.node_sound_lava_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name="default_lava_footstep", gain=0.25}
+	table.dug = table.dug or
+			{name="default_lava_footstep", gain=0.4}
+	table.dig = table.dig or
+			{name="default_lava_footstep", gain=0.4}
+	table.place = table.place or
+			{name="default_lava_footstep", gain=0.4}
+	default.node_sound_defaults(table)
+	return table
+end
+
 --
 -- Lavacooling
 --
