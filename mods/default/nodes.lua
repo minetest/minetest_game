@@ -352,6 +352,7 @@ minetest.register_node("default:snow", {
 	end,
 })
 
+
 minetest.register_node("default:snowblock", {
 	description = "Snow Block",
 	tiles = {"default_snow.png"},
@@ -687,6 +688,9 @@ minetest.register_node("default:mese", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+
+
+
 minetest.register_node("default:stone_with_gold", {
 	description = "Gold Ore",
 	tiles = {"default_stone.png^default_mineral_gold.png"},
@@ -703,6 +707,8 @@ minetest.register_node("default:goldblock", {
 	groups = {cracky=1},
 	sounds = default.node_sound_stone_defaults(),
 })
+
+
 
 minetest.register_node("default:stone_with_diamond", {
 	description = "Diamond Ore",
