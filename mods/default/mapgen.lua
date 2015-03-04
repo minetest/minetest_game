@@ -784,5 +784,8 @@ elseif mg_params.mgname == "v7" then
 	default.register_biomes()
 	default.register_blobs()
 	default.register_ores()
+elseif mg_params.mgname == "singlenode" then -- custom mapgens may use these features
+	default.register_blobs()
+	default.register_ores()
 end
 
