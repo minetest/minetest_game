@@ -127,6 +127,8 @@ default:rail
 
 default:brick
 
+default:meselamp
+
 Misc
 ----
 default:cloud
@@ -674,18 +676,22 @@ minetest.register_node("default:bronzeblock", {
 minetest.register_node("default:stone_with_mese", {
 	description = "Mese Ore",
 	tiles = {"default_stone.png^default_mineral_mese.png"},
+	paramtype = "light",
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky = 1},
 	drop = "default:mese_crystal",
 	sounds = default.node_sound_stone_defaults(),
+	light_source = 1,
 })
 
 minetest.register_node("default:mese", {
 	description = "Mese Block",
 	tiles = {"default_mese_block.png"},
+	paramtype = "light",
 	is_ground_content = true,
-	groups = {cracky=1,level=2},
+	groups = {cracky = 1, level = 2},
 	sounds = default.node_sound_stone_defaults(),
+	light_source = 3,
 })
 
 
@@ -1444,6 +1450,19 @@ minetest.register_node("default:brick", {
 	is_ground_content = false,
 	groups = {cracky=3},
 	sounds = default.node_sound_stone_defaults(),
+})
+
+
+minetest.register_node("default:meselamp", {
+	description = "Mese Lamp",
+	drawtype = "glasslike",
+	tiles = {"default_meselamp.png"},
+	paramtype = "light",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	groups = {cracky = 3, oddly_breakable_by_hand = 3},
+	sounds = default.node_sound_glass_defaults(),
+	light_source = 12,
 })
 
 --

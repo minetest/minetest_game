@@ -131,6 +131,8 @@ BlockMen (CC BY-SA 3.0):
   default_chest_lock.png
   default_chest_side.png
   default_chest_top.png
+  default_mineral_mese.png
+  default_meselamp.png
   bubble.png
   heart.png
   gui_*.png
