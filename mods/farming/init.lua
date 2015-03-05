@@ -60,6 +60,17 @@ minetest.register_craft({
 	}
 })
 
+-- Pie
+
+minetest.register_craft({
+	output = "farming:pie",
+	recipe = {
+		{"farming:wheat", "farming:wheat", "farming:wheat"},
+		{"default:apple", "default:sugar", "default:apple"},
+		{"farming:wheat", "farming:wheat", "farming:wheat"},
+	}
+})
+
 -- Straw
 minetest.register_craft({
 	output = "farming:straw 3",
