@@ -1,5 +1,6 @@
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
+local enable_respawn = minetest.setting_getbool("enable_bed_respawn") or true
 
 
 -- helper functions
@@ -166,7 +167,11 @@ minetest.register_on_joinplayer(function(player)
 	beds.read_spawns()
 end)
 
+-- respawn player at bed if enabled and valid position is found
 minetest.register_on_respawnplayer(function(player)
+	if not enable_respawn then
+		return false
+	end
 	local name = player:get_player_name()
 	local pos = beds.spawn[name] or nil
 	if pos then
