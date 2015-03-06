@@ -41,7 +41,7 @@ function beds.save_spawns()
 	if not beds.spawn then
 		return
 	end
-	writing = true
+	local writing = true
 	local output = io.open(org_file, "w")
 	for i, v in pairs(beds.spawn) do
 		output:write(v.x.." "..v.y.." "..v.z.." "..i.."\n")
