@@ -157,6 +157,25 @@ xpanes.register_pane(subname, def)
 	^ Recipe field only
 }
 
+Raillike definitions
+--------------------
+The following nodes use the group `connect_to_raillike` and will only connect to
+raillike nodes within this group and the same group value:
+
+| Node type		| Group value
++-----------------------+------------
+| default:rail		| 2
+
+This is an overview of currently used groups:
+| Group value	| Description
++---------------+------------
+| 2		| Rails
+
+Example:
+If you want to add a new rail type and want it to connect with default:rail,
+add `connect_to_raillike=2` into the `groups` table of your node.
+
+
 Default sounds
 --------------
 Sounds inside the default table can be used within the sounds field of node definitions.
