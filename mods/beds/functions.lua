@@ -1,6 +1,9 @@
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
-local enable_respawn = minetest.setting_getbool("enable_bed_respawn") or true
+local enable_respawn = minetest.setting_getbool("enable_bed_respawn")
+if enable_respawn == nil then
+	enable_respawn = true
+end
 
 
 -- helper functions
