@@ -277,7 +277,7 @@ minetest.register_node("tnt:gunpowder", {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
-	groups = {dig_immediate=2,attached_node=1,connect_to_raillike=1},
+	groups = {dig_immediate=2,attached_node=1,connect_to_raillike=3},
 	sounds = default.node_sound_leaves_defaults(),
 	
 	on_punch = function(pos, node, puncher)
@@ -334,7 +334,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
 	drop = "",
-	groups = {dig_immediate=2,attached_node=1,connect_to_raillike=1},
+	groups = {dig_immediate=2,attached_node=1,connect_to_raillike=3},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
 		for dx = -1, 1 do
