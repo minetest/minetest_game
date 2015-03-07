@@ -23,6 +23,7 @@ minetest.after(0, function()
 			name = name,
 			drops = def.drops,
 			flammable = def.groups.flammable,
+			on_blast = def.on_blast,
 		}
 	end
 end)
@@ -82,7 +83,13 @@ local function destroy(drops, pos, cid)
 	if def and def.flammable then
 		minetest.set_node(pos, fire_node)
 	else
-		minetest.remove_node(pos)
+		local on_blast = def.on_blast
+		if on_blast ~= nil then
+			on_blast(pos, 1)
+			return
+		else
+			minetest.remove_node(pos)
+		end
 		if def then
 			local node_drops = minetest.get_node_drops(def.name, "")
 			for _, item in ipairs(node_drops) do
@@ -172,12 +179,6 @@ local function explode(pos, radius)
 	local p = {}
 
 	local c_air = minetest.get_content_id("air")
-	local c_tnt = minetest.get_content_id("tnt:tnt")
-	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
-	local c_gunpowder = minetest.get_content_id("tnt:gunpowder")
-	local c_gunpowder_burning = minetest.get_content_id("tnt:gunpowder_burning")
-	local c_boom = minetest.get_content_id("tnt:boom")
-	local c_fire = minetest.get_content_id("fire:basic_flame")
 
 	for z = -radius, radius do
 	for y = -radius, radius do
@@ -189,13 +190,7 @@ local function explode(pos, radius)
 			p.x = pos.x + x
 			p.y = pos.y + y
 			p.z = pos.z + z
-			if cid == c_tnt or cid == c_gunpowder then
-				burn(p)
-			elseif cid ~= c_tnt_burning and
-					cid ~= c_gunpowder_burning and
-					cid ~= c_air and
-					cid ~= c_fire and
-					cid ~= c_boom then
+			if cid ~= c_air then
 				destroy(drops, p, cid)
 			end
 		end
@@ -231,6 +226,9 @@ minetest.register_node("tnt:tnt", {
 			minetest.get_node_timer(pos):start(4)
 		end
 	end,
+	on_blast = function(pos, intensity)
+		burn(pos)
+	end,
 	mesecons = {effector = {action_on = boom}},
 })
 
@@ -250,6 +248,8 @@ minetest.register_node("tnt:tnt_burning", {
 	drop = "",
 	sounds = default.node_sound_wood_defaults(),
 	on_timer = boom,
+	-- unaffected by explosions
+	on_blast = function() end,
 })
 
 minetest.register_node("tnt:boom", {
@@ -262,6 +262,8 @@ minetest.register_node("tnt:boom", {
 	on_timer = function(pos, elapsed)
 		minetest.remove_node(pos)
 	end,
+	-- unaffected by explosions
+	on_blast = function() end,
 })
 
 minetest.register_node("tnt:gunpowder", {
@@ -284,6 +286,9 @@ minetest.register_node("tnt:gunpowder", {
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			burn(pos)
 		end
+	end,
+	on_blast = function(pos, intensity)
+		burn(pos)
 	end,
 })
 
@@ -324,7 +329,9 @@ minetest.register_node("tnt:gunpowder_burning", {
 		end
 		end
 		minetest.remove_node(pos)
-	end
+	end,
+	-- unaffected by explosions
+	on_blast = function() end,
 })
 
 minetest.register_abm({
