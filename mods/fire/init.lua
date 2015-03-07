@@ -24,6 +24,8 @@ minetest.register_node("fire:basic_flame", {
 	on_destruct = function(pos)
 		minetest.after(0, fire.on_flame_remove_at, pos)
 	end,
+
+	on_blast = function() end,
 })
 
 fire.D = 6

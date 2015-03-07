@@ -25,6 +25,9 @@ function doors.register_door(name, def)
 	if not def.sound_open_door then
 		def.sound_open_door = "doors_door_open"
 	end
+	if def.only_placer_can_open then
+		def.on_blast = function() end
+	end
 	
 	
 	minetest.register_craftitem(name, {
@@ -173,7 +176,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		on_blast = def.on_blast,
 	})
 
 	minetest.register_node(name.."_t_1", {
@@ -205,7 +209,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight,
+		sunlight_propagates = def.sunlight,
+		on_blast = def.on_blast,
 	})
 
 	minetest.register_node(name.."_b_2", {
@@ -237,7 +242,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		on_blast = def.on_blast,
 	})
 
 	minetest.register_node(name.."_t_2", {
@@ -269,7 +275,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		on_blast = def.on_blast,
 	})
 
 end
