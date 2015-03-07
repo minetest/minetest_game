@@ -25,6 +25,7 @@ minetest.register_node("fire:basic_flame", {
 		minetest.after(0, fire.on_flame_remove_at, pos)
 	end,
 
+	-- unaffected by explosions
 	on_blast = function() end,
 })
 

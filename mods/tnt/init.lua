@@ -248,6 +248,7 @@ minetest.register_node("tnt:tnt_burning", {
 	drop = "",
 	sounds = default.node_sound_wood_defaults(),
 	on_timer = boom,
+	-- unaffected by explosions
 	on_blast = function() end,
 })
 
@@ -261,6 +262,7 @@ minetest.register_node("tnt:boom", {
 	on_timer = function(pos, elapsed)
 		minetest.remove_node(pos)
 	end,
+	-- unaffected by explosions
 	on_blast = function() end,
 })
 
@@ -328,6 +330,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 		end
 		minetest.remove_node(pos)
 	end,
+	-- unaffected by explosions
 	on_blast = function() end,
 })
 

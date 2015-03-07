@@ -26,6 +26,7 @@ function doors.register_door(name, def)
 		def.sound_open_door = "doors_door_open"
 	end
 	if def.only_placer_can_open then
+		-- unaffected by explosions
 		def.on_blast = function() end
 	end
 	
