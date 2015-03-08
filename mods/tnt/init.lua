@@ -23,6 +23,7 @@ minetest.after(0, function()
 			name = name,
 			drops = def.drops,
 			flammable = def.groups.flammable,
+			on_blast = def.on_blast,
 		}
 	end
 end)
@@ -82,8 +83,8 @@ local function destroy(drops, pos, cid)
 	if def and def.flammable then
 		minetest.set_node(pos, fire_node)
 	else
-		local nodename = cid_data[cid].name
-		local on_blast = minetest.registered_nodes[nodename].on_blast
+		local nodename = def.name
+		local on_blast = def.on_blast
 		if on_blast ~= nil then
 			on_blast(pos, 1)
 			return
