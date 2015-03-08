@@ -83,7 +83,6 @@ local function destroy(drops, pos, cid)
 	if def and def.flammable then
 		minetest.set_node(pos, fire_node)
 	else
-		local nodename = def.name
 		local on_blast = def.on_blast
 		if on_blast ~= nil then
 			on_blast(pos, 1)
