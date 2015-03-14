@@ -97,7 +97,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 					end
 				end
 				if not minetest.setting_getbool("creative_mode") then
-				return {name="bucket:bucket_empty"}
+					return {name="bucket:bucket_empty"}
 				end
 			end
 		})
