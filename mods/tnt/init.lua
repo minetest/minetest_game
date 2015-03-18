@@ -123,7 +123,7 @@ local function entity_physics(pos, radius)
 		end
 
 		local damage = (4 / dist) * radius
-		obj:set_hp(obj:get_hp() - damage)
+		obj:apply_damages(damage)
 	end
 end
 
