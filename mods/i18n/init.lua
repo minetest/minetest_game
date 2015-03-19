@@ -43,13 +43,13 @@ function i18n.load_mo_file(modpath, modname)
 	if not fd then return nil,err end
 	local mo_data=fd:read("*all")
 	fd:close()
- 
+
 	--------------------------------
 	-- precache some functions
 	--------------------------------
 	local byte=string.byte
 	local sub=string.sub
- 
+
 	--------------------------------
 	-- check format
 	--------------------------------
@@ -70,7 +70,7 @@ function i18n.load_mo_file(modpath, modname)
 	else
 		return nil,"no valid mo-file"
 	end
- 
+
 	--------------------------------
 	-- version
 	--------------------------------
@@ -78,7 +78,7 @@ function i18n.load_mo_file(modpath, modname)
 	if V~=0 then
 		return nul,"unsupported version"
 	end
- 
+
 	------------------------------
 	-- get number of offsets of table
 	------------------------------
@@ -92,9 +92,6 @@ function i18n.load_mo_file(modpath, modname)
 		local tl,to=peek_long(T),peek_long(T+4) T=T+8
 		hash[sub(mo_data,oo+1,oo+ol)]=sub(mo_data,to+1,to+tl)
 	end
---	return function(text)
---		return hash[text] or text
---	end
-	i18n.hash = hash	
+	i18n.hash = hash
 end
 

@@ -23,7 +23,7 @@ How do I enable i18n in my foo mod ?
 ------------------------------------
  0 - You need following gettext tools on your system to use scripts/i18n.sh
  bash script :
- 	- xgettext
+	- xgettext
 	- msgfmt
 
  1 - Add i18n dependency to mods/foo/depends.txt
