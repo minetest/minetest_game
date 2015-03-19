@@ -1,0 +1,30 @@
+# French translation of minetest_game/mods/beds/i18n/template.po
+# Copyright (C) 2015 minetest_game developers
+# This file is distributed under the same license as the minetest_game package.
+# netfab <netbox253@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: minetest_game git\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-18 18:06+0100\n"
+"PO-Revision-Date: 2015-03-18 18:12+0100\n"
+"Last-Translator: netfab <netbox253@gmail.com>\n"
+"Language-Team: minetest_game french translation team\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: beds.lua:3
+msgid "Fancy Bed"
+msgstr "Lit Luxueux"
+
+#: beds.lua:53
+msgid "Simple Bed"
+msgstr "Lit Simple"
+
+#: functions.lua:139
+msgid "You can only sleep at night."
+msgstr "Vous ne pouvez dormir que la nuit."
