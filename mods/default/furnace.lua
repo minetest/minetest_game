@@ -298,6 +298,22 @@ minetest.register_abm({
 		minp.z = minp.z-0.4
 		maxp.z = maxp.z+0.4
 	end
+	minetest.register_abm({
+	nodenames = {"default:furnace_active"},
+	interval = 1.5,
+	chance = 1,
+	action = function(pos, node)
+		local fdir = minetest.facedir_to_dir(node.param2)
+		local minp = {x=pos.x-fdir.x*0.59, y=pos.y-4/16, z=pos.z-fdir.z*0.4}
+		local maxp = vector.new(minp)
+		maxp.y = maxp.y+3/16
+		if fdir.x == 0 then
+			minp.x = minp.x-0.4
+			maxp.x = maxp.x+0.4
+	elseif fdir.z == 0 then
+		minp.z = minp.z-0.4
+		maxp.z = maxp.z+0.4
+	end
 	minetest.add_particlespawner({
 		amount = 5,
 		time = 1,
@@ -310,7 +326,7 @@ minetest.register_abm({
 		minexptime = 0.2,
 		maxexptime = 0.5,
 		minsize = 2,
-		maxsize = 4,
+		maxsize = 6,
 		collisiondetection = false,
 		vertical = true,
 		texture = "default_furnace_particle.png",
