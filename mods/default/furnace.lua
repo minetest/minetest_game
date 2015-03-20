@@ -284,22 +284,6 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:furnace_active"},
-	interval = 1,
-	chance = 2,
-	action = function(pos, node)
-		local fdir = minetest.facedir_to_dir(node.param2)
-		local minp = {x=pos.x-fdir.x*0.52, y=pos.y-6/16, z=pos.z-fdir.z*0.4}
-		local maxp = vector.new(minp)
-		maxp.y = maxp.y+3/16
-		if fdir.x == 0 then
-			minp.x = minp.x-0.4
-			maxp.x = maxp.x+0.4
-	elseif fdir.z == 0 then
-		minp.z = minp.z-0.4
-		maxp.z = maxp.z+0.4
-	end
-	minetest.register_abm({
-	nodenames = {"default:furnace_active"},
 	interval = 1.5,
 	chance = 1,
 	action = function(pos, node)
