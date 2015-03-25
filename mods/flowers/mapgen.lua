@@ -13,7 +13,7 @@ local function register_flower(name)
 		},
 		y_min = 1,
 		y_max = 30,
-		decoration = "flowers:"..name.."",
+		decoration = "flowers:"..name,
 	})
 end
 
