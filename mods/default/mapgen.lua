@@ -353,6 +353,7 @@ function default.register_mgv6_decorations()
 		height = 2,
 	        height_max = 4,
 		spawn_by = "default:water_source",
+		num_spawn_by = 1,
 	})
 
 	-- Cacti
