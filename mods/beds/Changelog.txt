@@ -16,3 +16,7 @@
 1.1.1
 -----
 - Prevent possbile crash by trying to reposition leaving players
+
+1.2.0
+-----
+- Beds converted in meshes, code changed accordingly
