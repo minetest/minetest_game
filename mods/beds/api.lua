@@ -17,32 +17,43 @@ function beds.register_bed(name, def)
 		selection_box = {
 			type = "fixed",
 			fixed = def.selectionbox,
-				
 		},
+		on_construct = function(pos)
+			local n = minetest.get_node(pos)
+			local p = vector.add(pos, minetest.facedir_to_dir(n.param2))
+			local n2 = minetest.get_node_or_nil(p)
+			local def = minetest.registered_nodes[n2.name]
+			if n2
+			and def
+			and def.buildable_to then
+				minetest.set_node(p, {name = name.."_top", param2 = n.param2})
+			end
+		end,
 		after_place_node = function(pos, placer, itemstack)
 			local n = minetest.get_node_or_nil(pos)
 			if not n or not n.param2 then
 				minetest.remove_node(pos)
 				return true
 			end
-			local dir = minetest.facedir_to_dir(n.param2)
-			local p = {x=pos.x+dir.x,y=pos.y,z=pos.z+dir.z}
-			local n2 = minetest.get_node_or_nil(p)
-			local def = minetest.registered_items[n2.name] or nil
-			if not n2 or not def or not def.buildable_to then
-				minetest.remove_node(pos)
-				return true
+			local n2 = minetest.get_node_or_nil(vector.add(pos, minetest.facedir_to_dir(n.param2)))
+			if n2
+			and n2.param2 == n.param2
+			and n2.name == name.."_top" then
+				return false
 			end
-			minetest.set_node(p, {name = n.name:gsub("%_bottom", "_top"), param2 = n.param2})
-			return false
-		end,	
+			minetest.remove_node(pos)
+			return true
+		end,
 		on_destruct = function(pos)
 			local n = minetest.get_node_or_nil(pos)
-			if not n then return end
+			if not n then
+				return
+			end
 			local dir = minetest.facedir_to_dir(n.param2)
-			local p = {x=pos.x+dir.x,y=pos.y,z=pos.z+dir.z}
+			local p = vector.add(pos, dir)
 			local n2 = minetest.get_node(p)
-			if minetest.get_item_group(n2.name, "bed") == 2 and n.param2 == n2.param2 then
+			if minetest.get_item_group(n2.name, "bed") == 2
+			and n.param2 == n2.param2 then
 				minetest.remove_node(p)
 			end
 		end,
