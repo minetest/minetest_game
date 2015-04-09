@@ -25,14 +25,16 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 
 	local node = minetest.get_node(pos)
 	local ndef = minetest.registered_nodes[node.name]
-	if not ndef or not ndef.paramtype2 == "facedir" or
-			(ndef.drawtype == "nodebox" and
-			not ndef.node_box.type == "fixed") or
-			node.param2 == nil then
+	if not ndef
+	or not ndef.paramtype2 == "facedir"
+	or (ndef.drawtype == "nodebox"
+		and not ndef.node_box.type == "fixed")
+	or node.param2 == nil then
 		return
 	end
 
-	if ndef.can_dig and not ndef.can_dig(pos, user) then
+	if ndef.can_dig
+	and not ndef.can_dig(pos, user) then
 		return
 	end
 
@@ -48,8 +50,22 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 		rotationPart = nextrange(axisdir, 5) * 4
 	end
 
+	if ndef.on_destruct then
+		ndef.on_destruct(vector.new(pos))
+	end
+
+	local oldnode = ndef.after_destruct and table.copy(node)
+
 	node.param2 = preservePart + rotationPart
 	minetest.swap_node(pos, node)
+
+	if oldnode then
+		ndef.after_destruct(vector.new(pos), oldnode)
+	end
+
+	if ndef.on_construct then
+		ndef.on_construct(vector.new(pos))
+	end
 
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:add_wear(65535 / (USES - 1))
