@@ -1,5 +1,7 @@
-Minetest 0.4 mod: flowers
-=========================
+Minetest Game mod: flowers
+==========================
+
+Adds flowers, which are added while worldgeneration.
 
 License of source code:
 -----------------------
@@ -11,6 +13,9 @@ and/or modify it under the terms of the Do What The Fuck You Want
 To Public License, Version 2, as published by Sam Hocevar. See
 http://sam.zoy.org/wtfpl/COPYING for more details.
 
-License of media (textures and sounds)
---------------------------------------
-WTFPL
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)
+
+RHRhino (WTFPL):
+  flowers_*.png

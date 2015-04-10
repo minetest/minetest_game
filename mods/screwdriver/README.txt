@@ -1,5 +1,7 @@
-Minetest mod: screwdriver
-=========================
+Minetest Game mod: screwdriver
+==============================
+
+Allows to rotate nodes that store orientation (facedir).
 
 License of source code:
 -----------------------
@@ -12,10 +14,10 @@ the Free Software Foundation; either version 2 of the License, or
 
 http://www.gnu.org/licenses/lgpl-2.1.html
 
-License of media (textures and sounds)
---------------------------------------
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)                                 
-http://creativecommons.org/licenses/by-sa/3.0/
 
-Created by Gambit (WTFPL):
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)
+
+Gambit (WTFPL):
   screwdriver.png

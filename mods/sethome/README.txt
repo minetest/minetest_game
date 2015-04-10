@@ -1,14 +1,16 @@
-Minetest Game mod: dye
-======================
+Minetest Game mod: sethome
+==========================
 
-Adds combinations for colors, used e.g. for wool colors.
+Allows players to define a home place by using chat command "/sethome".
+Players can always teleport themself to that position by using chat command "/home".
 
-See init.lua for documentation.
+Requires "home" privileg, which is only default on singleplayer worlds.
 
 
 License of source code:
 -----------------------
-Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com>
+Copyright (C) 2012 xyz
+Copyright (C) 2014 sfan5
 
 This program is free software. It comes without any warranty, to
 the extent permitted by applicable law. You can redistribute it
@@ -19,6 +21,3 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 License of media (textures, sounds, meshes):
 --------------------------------------------
 (by Authors)
-
-celeron55 (WTFPL):
-  dye_*.png
