@@ -1,10 +1,10 @@
-minetest_game API
+Minetest Game API
 ======================
 GitHub Repo: https://github.com/minetest/minetest_game
 
 Introduction
 ------------
-The minetest_game gamemode offers multiple new possibilities in addition to Minetest's built-in API, allowing you to
+The Minetest Game gamemode offers multiple new possibilities in addition to Minetest's built-in API, allowing you to
 add new plants to farming mod, buckets for new liquids, new stairs and custom panes.
 For information on the Minetest API, visit https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
 Please note:
@@ -147,7 +147,7 @@ farming.register_plant(name, Plant definition)
 Stairs API
 ----------
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
-delivered with minetest_game, to keep them compatible with other mods.
+delivered with Minetest Game, to keep them compatible with other mods.
 
 stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
  -> Registers a stair.
