@@ -403,7 +403,7 @@ function default.register_mgv6_decorations()
 
 	minetest.register_decoration({
 		deco_type = "simple",
-		place_on = {"default:desert_sand"},
+		place_on = {"default:desert_sand", "default:dirt_with_snow"},
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
