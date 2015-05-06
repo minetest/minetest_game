@@ -125,7 +125,7 @@ end
 
 -- Appletree
 
-function default.grow_tree(pos, is_apple_tree, bad)
+function default.grow_tree(pos, is_apple_tree, bad, disable_map_update)
 	--[[
 		NOTE: Tree-placing code is currently duplicated in the engine
 		and in games that have saplings; both are deprecated but not
@@ -152,12 +152,14 @@ function default.grow_tree(pos, is_apple_tree, bad)
 
 	vm:set_data(data)
 	vm:write_to_map()
-	vm:update_map()
+	if not disable_map_update then
+		vm:update_map()
+	end
 end
 
 -- Jungletree
 
-function default.grow_jungle_tree(pos, bad)
+function default.grow_jungle_tree(pos, bad, disable_map_update)
 	--[[
 		NOTE: Jungletree-placing code is currently duplicated in the engine
 		and in games that have saplings; both are deprecated but not
@@ -203,7 +205,9 @@ function default.grow_jungle_tree(pos, bad)
 
 	vm:set_data(data)
 	vm:write_to_map()
-	vm:update_map()
+	if not disable_map_update then
+		vm:update_map()
+	end
 end
 
 -- Pinetree from mg mapgen mod, design by sfan5, pointy top added by paramat
@@ -220,7 +224,7 @@ local function add_snow(data, vi, c_air, c_ignore, c_snow)
 	end
 end
 
-function default.grow_pine_tree(pos)
+function default.grow_pine_tree(pos, disable_map_update)
 	local x, y, z = pos.x, pos.y, pos.z
 	local maxy = y + random(9, 13) -- Trunk top
 
@@ -339,6 +343,8 @@ function default.grow_pine_tree(pos)
 
 	vm:set_data(data)
 	vm:write_to_map()
-	vm:update_map()
+	if not disable_map_update then
+		vm:update_map()
+	end
 end
 
