@@ -1,5 +1,5 @@
 function beds.register_bed(name, def)
-	minetest.register_node(name .. "_bottom", {
+	minetest.register_node(":" .. name .. "_bottom", {
 		description = def.description,
 		inventory_image = def.inventory_image,
 		wield_image = def.wield_image,
@@ -51,7 +51,7 @@ function beds.register_bed(name, def)
 		end,
 	})
 
-	minetest.register_node(name .. "_top", {
+	minetest.register_node(":" .. name .. "_top", {
 		drawtype = "nodebox",
 		tiles = def.tiles.top,
 		paramtype = "light",
