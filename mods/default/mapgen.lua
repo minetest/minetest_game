@@ -640,14 +640,10 @@ end
 -- the use of minetest.generate_ores or minetest.generate_decorations
 
 local mg_params = minetest.get_mapgen_params()
-if mg_params.mgname == "v5" then
-	default.register_ores()
-	default.register_biomes()
-	default.register_decorations()
-elseif mg_params.mgname == "v6" then
+if mg_params.mgname == "v6" then
 	default.register_ores()
 	default.register_mgv6_decorations()
-elseif mg_params.mgname == "v7" then
+elseif mg_params.mgname ~= "singlenode" then
 	default.register_ores()
 	default.register_biomes()
 	default.register_decorations()
