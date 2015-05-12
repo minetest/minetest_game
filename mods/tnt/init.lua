@@ -80,16 +80,15 @@ local function destroy(drops, pos, cid)
 		return
 	end
 	local def = cid_data[cid]
+	if def and def.on_blast then
+		def.on_blast(pos, 1)
+		return
+	end
 	if def and def.flammable then
+		print(dump(def), dump(pos), cid)
 		minetest.set_node(pos, fire_node)
 	else
-		local on_blast = def.on_blast
-		if on_blast ~= nil then
-			on_blast(pos, 1)
-			return
-		else
-			minetest.remove_node(pos)
-		end
+		minetest.remove_node(pos)
 		if def then
 			local node_drops = minetest.get_node_drops(def.name, "")
 			for _, item in ipairs(node_drops) do

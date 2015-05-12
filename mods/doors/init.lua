@@ -121,15 +121,15 @@ function doors.register_door(name, def)
 		else
 			if door_type == "_b_1" or door_type == "_b_2" then
 				return function(pos, intensity)
-					check_and_blast(pos, name..door_type)
+					check_and_blast(pos, base_name .. door_type)
 					pos.y = pos.y + 1
-					check_and_blast(pos, name..other_door_type)
+					check_and_blast(pos, base_name .. other_door_type)
 				end
 			elseif door_type == "_t_1" or door_type == "_t_2" then
 				return function(pos, intensity)
-					check_and_blast(pos, name..door_type)
+					check_and_blast(pos, base_name .. door_type)
 					pos.y = pos.y - 1
-					check_and_blast(pos, name..other_door_type)
+					check_and_blast(pos, base_name .. other_door_type)
 				end
 			end
 		end
