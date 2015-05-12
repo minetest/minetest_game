@@ -108,6 +108,33 @@ function doors.register_door(name, def)
 		end
 	end
 
+	local function check_and_blast(pos, name)
+		local node = minetest.get_node(pos)
+		if node.name == name then
+			minetest.remove_node(pos)
+		end
+	end
+
+	local function make_on_blast(base_name, door_type, other_door_type)
+		if def.only_placer_can_open then
+			return function() end
+		else
+			if door_type == "_b_1" or door_type == "_b_2" then
+				return function(pos, intensity)
+					check_and_blast(pos, name..door_type)
+					pos.y = pos.y + 1
+					check_and_blast(pos, name..other_door_type)
+				end
+			elseif door_type == "_t_1" or door_type == "_t_2" then
+				return function(pos, intensity)
+					check_and_blast(pos, name..door_type)
+					pos.y = pos.y - 1
+					check_and_blast(pos, name..other_door_type)
+				end
+			end
+		end
+	end
+
 	local function on_rightclick(pos, dir, check_name, replace, replace_dir, params)
 		pos.y = pos.y+dir
 		if not minetest.get_node(pos).name == check_name then
@@ -173,7 +200,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		on_blast = make_on_blast(name, "_b_1", "_t_1")
 	})
 
 	minetest.register_node(name.."_t_1", {
@@ -205,7 +233,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight,
+		sunlight_propagates = def.sunlight,
+		on_blast = make_on_blast(name, "_t_1", "_b_1")
 	})
 
 	minetest.register_node(name.."_b_2", {
@@ -237,7 +266,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		on_blast = make_on_blast(name, "_b_2", "_t_2")
 	})
 
 	minetest.register_node(name.."_t_2", {
@@ -269,7 +299,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		on_blast = make_on_blast(name, "_t_2", "_b_2")
 	})
 
 end

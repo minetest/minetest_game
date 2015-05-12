@@ -1341,6 +1341,7 @@ minetest.register_node("default:chest_locked", {
 			)
 		end
 	end,
+	on_blast = function() end,
 })
 
 
