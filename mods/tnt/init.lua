@@ -81,11 +81,10 @@ local function destroy(drops, pos, cid)
 	end
 	local def = cid_data[cid]
 	if def and def.on_blast then
-		def.on_blast(pos, 1)
+		def.on_blast(vector.new(pos), 1)
 		return
 	end
 	if def and def.flammable then
-		print(dump(def), dump(pos), cid)
 		minetest.set_node(pos, fire_node)
 	else
 		minetest.remove_node(pos)
