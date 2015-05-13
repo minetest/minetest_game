@@ -160,20 +160,16 @@ xpanes.register_pane(subname, def)
 Raillike definitions
 --------------------
 The following nodes use the group `connect_to_raillike` and will only connect to
-raillike nodes within this group and the same group value:
+raillike nodes within this group and the same group value.
+Use `minetest.raillike_group(<Name>)` to get the group value.
 
-| Node type		| Group value
+| Node type		| Raillike group name
 +-----------------------+----------------------------------
-| default:rail		| default.connect_to_raillike.rails
-
-This is an overview of currently used groups:
-| Group value				| Description
-+---------------------------------------+------------
-| default.connect_to_raillike.rails	| Rails
+| default:rail		| "rail"
 
 Example:
 If you want to add a new rail type and want it to connect with default:rail,
-add `connect_to_raillike=default.connect_to_raillike.rails` into the `groups` table
+add `connect_to_raillike=minetest.raillike_group("rail")` into the `groups` table
 of your node.
 
 
