@@ -144,6 +144,21 @@ farming.register_plant(name, Plant definition)
 	maxlight = default.LIGHT_MAX -- Maximum light to grow
 }
 
+Screwdriver API
+---------------
+The screwdriver API allows you to control a node's behaviour when a screwdriver is used on it.
+To use it, add the on_screwdriver function to the node definition.
+on_rotate(pos, node, user, mode, new_param2)
+^ pos: position of the node that the screwdriver is being used on
+^ node: that node
+^ user: the player who used the screwdriver
+^ mode: screwdriver.ROTATE_FACE or screwdriver.ROTATE_AXIS
+^ new_param2: the new value of param2 that would have been set if on_rotate wasn't there
+^ return value: false to disallow rotation, nil to keep default behaviour, true to allow
+  it but to indicate that changed have already been made (so the screwdriver will wear out)
+^ use on_rotate = screwdriver.disallow to always disallow rotation
+^ use on_rotate = screwdriver.rotate_simple to allow only face rotation
+
 Stairs API
 ----------
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
