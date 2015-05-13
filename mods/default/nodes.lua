@@ -104,6 +104,9 @@ Liquids
 default:water_source
 default:water_flowing
 
+default:river_water_source
+default:river_water_flowing
+
 default:lava_source
 default:lava_flowing
 
@@ -126,6 +129,8 @@ default:obsidian_glass
 default:rail
 
 default:brick
+
+default:meselamp
 
 Misc
 ----
@@ -351,7 +356,7 @@ minetest.register_node("default:snow", {
 		end
 	end,
 })
-minetest.register_alias("snow", "default:snow")
+
 
 minetest.register_node("default:snowblock", {
 	description = "Snow Block",
@@ -369,7 +374,7 @@ minetest.register_node("default:snowblock", {
 minetest.register_node("default:ice", {
 	description = "Ice",
 	tiles = {"default_ice.png"},
-	is_ground_content = true,
+	is_ground_content = false,
 	paramtype = "light",
 	groups = {cracky=3},
 	sounds = default.node_sound_glass_defaults(),
@@ -674,20 +679,24 @@ minetest.register_node("default:bronzeblock", {
 minetest.register_node("default:stone_with_mese", {
 	description = "Mese Ore",
 	tiles = {"default_stone.png^default_mineral_mese.png"},
+	paramtype = "light",
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky = 1},
 	drop = "default:mese_crystal",
 	sounds = default.node_sound_stone_defaults(),
+	light_source = 1,
 })
 
 minetest.register_node("default:mese", {
 	description = "Mese Block",
 	tiles = {"default_mese_block.png"},
+	paramtype = "light",
 	is_ground_content = true,
-	groups = {cracky=1,level=2},
+	groups = {cracky = 1, level = 2},
 	sounds = default.node_sound_stone_defaults(),
+	light_source = 3,
 })
-minetest.register_alias("default:mese_block", "default:mese")
+
 
 
 
@@ -893,6 +902,7 @@ minetest.register_node("default:water_source", {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	is_ground_content = false,
 	drop = "",
 	drowning = 1,
 	liquidtype = "source",
@@ -937,12 +947,107 @@ minetest.register_node("default:water_flowing", {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	is_ground_content = false,
 	drop = "",
 	drowning = 1,
 	liquidtype = "flowing",
 	liquid_alternative_flowing = "default:water_flowing",
 	liquid_alternative_source = "default:water_source",
 	liquid_viscosity = 1,
+	post_effect_color = {a=64, r=100, g=100, b=200},
+	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
+})
+
+
+minetest.register_node("default:river_water_source", {
+	description = "River Water Source",
+	inventory_image = minetest.inventorycube("default_water.png"),
+	drawtype = "liquid",
+	tiles = {
+		{
+			name = "default_water_source_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.0,
+			},
+		},
+	},
+	special_tiles = {
+		{
+			name = "default_water_source_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.0,
+			},
+			backface_culling = false,
+		},
+	},
+	alpha = 160,
+	paramtype = "light",
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	is_ground_content = false,
+	drop = "",
+	drowning = 1,
+	liquidtype = "source",
+	liquid_alternative_flowing = "default:river_water_flowing",
+	liquid_alternative_source = "default:river_water_source",
+	liquid_viscosity = 1,
+	liquid_renewable = false,
+	liquid_range = 2,
+	post_effect_color = {a=64, r=100, g=100, b=200},
+	groups = {water=3, liquid=3, puts_out_fire=1},
+})
+
+minetest.register_node("default:river_water_flowing", {
+	description = "Flowing River Water",
+	inventory_image = minetest.inventorycube("default_water.png"),
+	drawtype = "flowingliquid",
+	tiles = {"default_water.png"},
+	special_tiles = {
+		{
+			name = "default_water_flowing_animated.png",
+			backface_culling = false,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 0.8,
+			},
+		},
+		{
+			name = "default_water_flowing_animated.png",
+			backface_culling = true,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 0.8,
+			},
+		},
+	},
+	alpha = 160,
+	paramtype = "light",
+	paramtype2 = "flowingliquid",
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	is_ground_content = false,
+	drop = "",
+	drowning = 1,
+	liquidtype = "flowing",
+	liquid_alternative_flowing = "default:river_water_flowing",
+	liquid_alternative_source = "default:river_water_source",
+	liquid_viscosity = 1,
+	liquid_renewable = false,
+	liquid_range = 2,
 	post_effect_color = {a=64, r=100, g=100, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
@@ -983,6 +1088,7 @@ minetest.register_node("default:lava_source", {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	is_ground_content = false,
 	drop = "",
 	drowning = 1,
 	liquidtype = "source",
@@ -1029,6 +1135,7 @@ minetest.register_node("default:lava_flowing", {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	is_ground_content = false,
 	drop = "",
 	drowning = 1,
 	liquidtype = "flowing",
@@ -1234,6 +1341,7 @@ minetest.register_node("default:chest_locked", {
 			)
 		end
 	end,
+	on_blast = function() end,
 })
 
 
@@ -1444,6 +1552,19 @@ minetest.register_node("default:brick", {
 	is_ground_content = false,
 	groups = {cracky=3},
 	sounds = default.node_sound_stone_defaults(),
+})
+
+
+minetest.register_node("default:meselamp", {
+	description = "Mese Lamp",
+	drawtype = "glasslike",
+	tiles = {"default_meselamp.png"},
+	paramtype = "light",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	groups = {cracky = 3, oddly_breakable_by_hand = 3},
+	sounds = default.node_sound_glass_defaults(),
+	light_source = default.LIGHT_MAX,
 })
 
 --
