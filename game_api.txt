@@ -1,10 +1,10 @@
-minetest_game API
-======================
+Minetest Game -  API
+====================
 GitHub Repo: https://github.com/minetest/minetest_game
 
 Introduction
 ------------
-The minetest_game gamemode offers multiple new possibilities in addition to Minetest's built-in API, allowing you to
+Minetest Game offers multiple new possibilities in addition to Minetest's built-in API, allowing you to
 add new plants to farming mod, buckets for new liquids, new stairs and custom panes.
 For information on the Minetest API, visit https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
 Please note:
@@ -20,8 +20,8 @@ The bucket API allows registering new types of buckets for non-default liquids.
 		"default:lava_source",		-- Source node name
 		"default:lava_flowing",		-- Flowing node name
 		"bucket:bucket_lava",		-- Name to be used for bucket
-		"bucket_lava.png",			-- Bucket texture (for wielditem and inventory_image)
-		"Lava Bucket"				-- Bucket description
+		"bucket_lava.png",		-- Bucket texture (for wielditem and inventory_image)
+		"Lava Bucket"			-- Bucket description
 	)
 
 Beds API

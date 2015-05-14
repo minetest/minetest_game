@@ -1,34 +1,31 @@
-Minetest 0.4 mod: farming
-=========================
+Minetest Game mod: farming
+==========================
+
+Adds wheat and cotton. Handles growing of crops.
+
 
 License of source code:
 -----------------------
 Copyright (C) 2014 webdesigner97
 
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-                    Version 2, December 2004
+This program is free software. It comes without any warranty, to
+the extent permitted by applicable law. You can redistribute it
+and/or modify it under the terms of the Do What The Fuck You Want
+To Public License, Version 2, as published by Sam Hocevar. See
+http://sam.zoy.org/wtfpl/COPYING for more details.
 
- Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)
 
- Everyone is permitted to copy and distribute verbatim or modified
- copies of this license document, and changing it is allowed as long
- as the name is changed.
-
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-
-  0. You just DO WHAT THE FUCK YOU WANT TO. 
-
-License of media (textures):
-----------------------------
-Created by PilzAdam (License: WTFPL):
+PilzAdam (WTFPL):
   farming_bread.png
   farming_soil.png
   farming_soil_wet.png
   farming_soil_wet_side.png
   farming_string.png
 
-Created by BlockMen (License: CC BY 3.0):
+BlockMen (CC BY 3.0):
   farming_tool_diamondhoe.png
   farming_tool_mesehoe.png
   farming_tool_bronzehoe.png
@@ -36,10 +33,10 @@ Created by BlockMen (License: CC BY 3.0):
   farming_tool_stonehoe.png
   farming_tool_woodhoe.png
 
-Created by MasterGollum (License: WTFPL):
+MasterGollum (WTFPL):
   farming_straw.png
 
-Created by Gambit (License: WTFPL):
+Gambit (WTFPL):
   farming_wheat.png
   farming_wheat_*.png
   farming_cotton_*.png

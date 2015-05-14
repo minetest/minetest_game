@@ -1,5 +1,5 @@
-Minetest 0.4 mod: creative
-==========================
+Minetest Game mod: creative
+===========================
 
 Implements creative mode.
 
@@ -10,8 +10,10 @@ Registered items that
 - do not have the group not_in_creative_inventory
 are added to the creative inventory.
 
-License of source code and media files:
----------------------------------------
+
+
+License of source code:
+-----------------------
 Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com>
 
 This program is free software. It comes without any warranty, to
@@ -20,3 +22,6 @@ and/or modify it under the terms of the Do What The Fuck You Want
 To Public License, Version 2, as published by Sam Hocevar. See
 http://sam.zoy.org/wtfpl/COPYING for more details.
 
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)

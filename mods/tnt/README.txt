@@ -1,36 +1,39 @@
-=== TNT mod for Minetest ===
-by PilzAdam and ShadowNinja
+Minetest Game mod: tnt
+======================
 
-Introduction:
-This mod adds TNT to Minetest. TNT is a tool to help the player
-in mining.
+Adds TNT blocks and gunpowder.
+Gunpowder can be used to craft TNT or as fuze for TNT.
 
-How to use the mod:
-Craft gunpowder by placing coal and gravel in the crafting area. The
-gunpowder can be used to craft TNT or as fuze for TNT. To craft TNT
-surround gunpowder with 4 wood in a + shape.
 There are different ways to blow up TNT:
   1. Hit it with a torch.
   2. Hit a gunpowder fuze that leads to a TNT block with a torch.
-  3. Activate it with mesecons (fastest way)
-Be aware of the damage radius of 7 blocks!
+  3. Activate it with mesecons (not included in Minetest Game)
+TNT has a damage radius of 7 blocks.
 
-License:
-WTFPL (see below)
+By default TNT is disabled in multiplayer. Add "enable_tnt = true" to minetest.conf to enable it.
 
-See also:
-http://minetest.net/
 
-         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-                    Version 2, December 2004
+License of source code:
+-----------------------
+Copyright (C) 2013 PilzAdam
+Copyright (C) 2014 ShadowNinja
 
- Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+This program is free software. It comes without any warranty, to
+the extent permitted by applicable law. You can redistribute it
+and/or modify it under the terms of the Do What The Fuck You Want
+To Public License, Version 2, as published by Sam Hocevar. See
+http://sam.zoy.org/wtfpl/COPYING for more details.
 
- Everyone is permitted to copy and distribute verbatim or modified
- copies of this license document, and changing it is allowed as long
- as the name is changed.
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)
 
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+PilzAdam (WTFPL):
+  tnt_gunpowder_*.png
+  tnt_top_*.png
+  tnt_bottom.png
+  tnt_side.png
 
-  0. You just DO WHAT THE FUCK YOU WANT TO.
+ShadowNinja (WTFPL):
+  tnt_smoke.png
+  tnt_boom.png

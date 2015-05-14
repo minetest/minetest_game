@@ -1,5 +1,14 @@
-Minetest 0.4 mod: default
+Minetest Game mod: default
 ==========================
+
+Contains main parts of the Game, like:
+- mapgeneration (mapgen.lua)
+- active nodes (functions.lua, furnace.lua, trees.lua)
+- player definition, gui (player.lua)
+- sounds (functions.lua)
+- most node definitions and crafting recipes (nodes.lua, crafting.lua)
+- tools and items (tools.lua, craftitems.lua)
+
 
 License of source code:
 -----------------------
@@ -12,21 +21,16 @@ the Free Software Foundation; either version 2.1 of the License, or
 
 http://www.gnu.org/licenses/lgpl-2.1.html
 
-License of media (textures and sounds)
---------------------------------------
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-http://creativecommons.org/licenses/by-sa/3.0/
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)
 
-Authors of media files
------------------------
-Everything not listed in here:
-Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
-
-Cisoun's WTFPL texture pack:
+Cisoun's (WTFPL):
   default_jungletree.png
   default_jungletree_top.png
   default_lava.png
   default_leaves.png
+  default_pine_needles.png
   default_sapling.png
   default_sign_wall.png
   default_stone.png
@@ -34,23 +38,10 @@ Cisoun's WTFPL texture pack:
   default_tree_top.png
   default_water.png
 
-Cisoun's conifers mod (WTFPL):
-  default_pine_needles.png
-
-Originating from G4JC's Almost MC Texture Pack:
+Gaming4JC (CC BY-SA 3.0):
   default_torch.png
   default_torch_on_ceiling.png
   default_torch_on_floor.png
-
-VanessaE's animated torches (WTFPL):
-  default_torch_animated.png
-  default_torch_on_ceiling_animated.png
-  default_torch_on_floor_animated.png
-  default_torch_on_floor.png
-
-RealBadAngel's animated water (WTFPL):
-  default_water_source_animated.png
-  default_water_flowing_animated.png
 
 VanessaE (WTFPL):
   default_nc_back.png
@@ -60,9 +51,15 @@ VanessaE (WTFPL):
   default_grass_*.png
   default_desert_sand.png
   default_desert_stone.png
-  default_desert_stone_brick.png
   default_sand.png
-  default_sandstone_brick.png
+  default_torch_animated.png
+  default_torch_on_ceiling_animated.png
+  default_torch_on_floor_animated.png
+  default_torch_on_floor.png
+
+RealBadAngel (WTFPL):
+  default_water_source_animated.png
+  default_water_flowing_animated.png
 
 Calinou (CC BY-SA):
   default_brick.png
@@ -71,7 +68,8 @@ Calinou (CC BY-SA):
   default_glass_detail.png
 
 MirceaKitsune (WTFPL):
-  character.x
+  character.obj
+  character.blend
 
 Jordach (CC BY-SA 3.0):
   character.png
@@ -113,13 +111,14 @@ paramat (CC BY-SA 3.0):
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
 
-BlockMen (CC BY-SA 3.0):
+BlockMen (CC-BY 3.0):
   default_stone_brick.png
+  default_desert_stone_brick.png
+  default_sandstone_brick.png
   default_wood.png
   default_clay_brick.png
   default_iron_ingot.png
   default_gold_ingot.png
-  default_tool_steelsword.png
   default_diamond.png
   default_diamond_block.png
   default_book.png
@@ -140,6 +139,7 @@ BlockMen (CC BY-SA 3.0):
 Neuromancer (CC BY-SA 2.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
+
 Neuromancer (CC BY-SA 3.0):
   default_dirt.png
   default_furnace_*.png
@@ -148,12 +148,16 @@ Philipbenr (CC BY-SA 3.0):
   default_grass.png
   default_grass_side.png
 
-Glass breaking sounds (CC BY 3.0):
-  1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
-  2: http://www.freesound.org/people/Tomlija/sounds/97669/
-  3: http://www.freesound.org/people/lsprice/sounds/88808/
+cmusounddesign (CC BY-SA 3.0):
+  default_break_glass.1.ogg (http://www.freesound.org)
 
-Mito551 (sounds) (CC BY-SA):
+Tomlija (CC BY-SA 3.0):
+  default_break_glass.2.ogg (http://www.freesound.org)
+
+lsprice (CC BY-SA 3.0):
+  default_break_glass.3.ogg (http://www.freesound.org)
+
+Mito551 (CC BY-SA):
   default_dig_choppy.ogg
   default_dig_cracky.ogg
   default_dig_crumbly.1.ogg
@@ -198,3 +202,7 @@ Gambit (WTFPL):
   default_coal.png
   default_grass_*.png
   default_paper.png
+
+Everything not listed in here:
+Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)

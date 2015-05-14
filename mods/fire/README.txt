@@ -1,5 +1,9 @@
-Minetest 0.4 mod: fire
-======================
+Minetest Game mod: fire
+=======================
+
+Adds and handles fire in Minetest Game.
+Can be disabled by setting "disable_fire = true" in minetest.conf.
+
 
 License of source code:
 -----------------------
@@ -12,21 +16,19 @@ the Free Software Foundation; either version 2.1 of the License, or
 
 http://www.gnu.org/licenses/lgpl-2.1.html
 
-License of media (textures and sounds)
---------------------------------------
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)                                 
-http://creativecommons.org/licenses/by-sa/3.0/
 
-Authors of media files
------------------------
-Everything not listed in here:
-Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com>
+License of media (textures, sounds, meshes):
+--------------------------------------------
+(by Authors)
 
-fire_small.ogg sampled from:
-  http://www.freesound.org/people/dobroide/sounds/4211/
+dobroide (CC BY-SA 3.0):
+  fire_small.ogg (http://www.freesound.org)
 
-fire_large.ogg sampled from:
-  http://www.freesound.org/people/Dynamicell/sounds/17548/
+Dynamicell (CC BY-SA 3.0):
+  fire_large.ogg (http://www.freesound.org)
 
-fire_basic_flame_animated.png:
-  Muadtralk
+Muadtralk (CC BY-SA 3.0):
+  fire_basic_flame_animated.png
+
+celeron55 (CC BY-SA 3.0):
+  fire_basic_flame.png
