@@ -53,7 +53,7 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 		-- Copy pos and node because callback can modify it
 		local result = ndef.on_rotate(vector.new(pos),
 				{name = node.name, param1 = node.param1, param2 = node.param2},
-				user, mode)
+				user, mode, new_param2)
 		if result == false then -- Disallow rotation
 			return
 		elseif result == true then
