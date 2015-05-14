@@ -34,7 +34,7 @@ local function check_in_beds(players)
 		end
 	end
 
-	return true
+	return #players > 0
 end
 
 local function lay_down(player, pos, bed_pos, state, skip)
