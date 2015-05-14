@@ -24,6 +24,42 @@ The bucket API allows registering new types of buckets for non-default liquids.
 		"Lava Bucket"				-- Bucket description
 	)
 
+Beds API
+--------
+	beds.register_bed(
+		"beds:bed",			-- Bed name
+		def: See [#Bed definition]	-- Bed definition
+	)
+
+	beds.read_spawns()			-- returns a table containing players respawn positions
+	beds.kick_players()			-- forces all players to leave bed
+	beds.skip_night()			-- sets world time to morning and saves respawn position of all players currently sleeping
+
+#Bed definition
+---------------
+{
+	description = "Simple Bed",
+	inventory_image = "beds_bed.png",
+	wield_image = "beds_bed.png",
+	tiles = {
+	    bottom = {[Tile definition],
+		^ the tiles of the bottom part of the bed
+	    },
+	    top = {[Tile definition],
+		^ the tiles of the bottom part of the bed
+	    }
+	},
+	nodebox = {
+	    bottom = regular nodebox, see [Node boxes],		-- bottm part of bed
+	    top = regular nodebox, see [Node boxes],		-- top part of bed
+	},
+	selectionbox = regular nodebox, see [Node boxes],	-- for both nodeboxes
+	recipe = {	-- Craft recipe
+		{"group:wool", "group:wool", "group:wool"},
+		{"group:wood", "group:wood", "group:wood"}
+	}
+}
+
 Doors API
 ---------
 The doors mod allows modders to register custom doors and trapdoors.
@@ -89,7 +125,8 @@ farming.register_plant(name, Plant definition)
 	description = "",	-- Description for tooltip
 	inventory_image = "unknown_item.png",	-- Image to be used as wield- and inventory image
 	max_uses = 30,	-- Uses until destroyed
-	recipe = {	-- Craft recipe
+	material = "",	-- Material for recipes
+	recipe = {	-- Craft recipe, if material isn't used
 		{"air", "air", "air"},
 		{"", "group:stick"},
 		{"", "group:stick"},
@@ -102,10 +139,25 @@ farming.register_plant(name, Plant definition)
 	description = "",	-- Description of seed item
 	inventory_image = "unknown_item.png",	-- Image to be used as seed's wield- and inventory image
 	steps = 8,	-- How many steps the plant has to grow, until it can be harvested
-	^ Always provide a plant texture for ech step, format: modname_plantname_i.png (i = stepnumber)
+	^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
 	minlight = 13, -- Minimum light to grow
 	maxlight = default.LIGHT_MAX -- Maximum light to grow
 }
+
+Screwdriver API
+---------------
+The screwdriver API allows you to control a node's behaviour when a screwdriver is used on it.
+To use it, add the on_screwdriver function to the node definition.
+on_rotate(pos, node, user, mode, new_param2)
+^ pos: position of the node that the screwdriver is being used on
+^ node: that node
+^ user: the player who used the screwdriver
+^ mode: screwdriver.ROTATE_FACE or screwdriver.ROTATE_AXIS
+^ new_param2: the new value of param2 that would have been set if on_rotate wasn't there
+^ return value: false to disallow rotation, nil to keep default behaviour, true to allow
+  it but to indicate that changed have already been made (so the screwdriver will wear out)
+^ use on_rotate = screwdriver.disallow to always disallow rotation
+^ use on_rotate = screwdriver.rotate_simple to allow only face rotation
 
 Stairs API
 ----------
@@ -156,6 +208,22 @@ xpanes.register_pane(subname, def)
 	recipe = {{"","","","","","","","",""}},
 	^ Recipe field only
 }
+
+Raillike definitions
+--------------------
+The following nodes use the group `connect_to_raillike` and will only connect to
+raillike nodes within this group and the same group value.
+Use `minetest.raillike_group(<Name>)` to get the group value.
+
+| Node type		| Raillike group name
++-----------------------+----------------------------------
+| default:rail		| "rail"
+
+Example:
+If you want to add a new rail type and want it to connect with default:rail,
+add `connect_to_raillike=minetest.raillike_group("rail")` into the `groups` table
+of your node.
+
 
 Default sounds
 --------------
