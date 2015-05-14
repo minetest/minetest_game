@@ -218,6 +218,8 @@ Use `minetest.raillike_group(<Name>)` to get the group value.
 | Node type		| Raillike group name
 +-----------------------+----------------------------------
 | default:rail		| "rail"
+| tnt:gunpowder		| "gunpowder"
+| tnt:gunpowder_burning	| "gunpowder"
 
 Example:
 If you want to add a new rail type and want it to connect with default:rail,
