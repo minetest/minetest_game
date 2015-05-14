@@ -26,3 +26,11 @@
 # Enable the stairs mod ABM that replaces the old 'upside down'
 # stair and slab nodes in old maps with the new param2 versions.
 #enable_stairs_replace_abm = false
+
+# Whether you allow respawning in beds
+# Default value is true
+#enable_bed_respawn = true
+
+# Whether players can skip night by sleeping
+# Default value is true
+#enable_bed_night_skip = true
