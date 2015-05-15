@@ -1,3 +1,6 @@
+-- Variable used to stop recursive destruction
+local do_not_destruct = false
+
 function beds.register_bed(name, def)
 	minetest.register_node(name .. "_bottom", {
 		description = def.description,
@@ -35,14 +38,14 @@ function beds.register_bed(name, def)
 			end
 			minetest.set_node(p, {name = n.name:gsub("%_bottom", "_top"), param2 = n.param2})
 			return false
-		end,	
+		end,
 		on_destruct = function(pos)
 			local n = minetest.get_node_or_nil(pos)
 			if not n then return end
 			local dir = minetest.facedir_to_dir(n.param2)
 			local p = vector.add(pos, dir)
 			local n2 = minetest.get_node(p)
-			if minetest.get_item_group(n2.name, "bed") == 2 and n.param2 == n2.param2 then
+			if minetest.get_item_group(n2.name, "bed") == 2 and n.param2 == n2.param2 and not do_not_destruct then
 				minetest.remove_node(p)
 			end
 		end,
@@ -95,6 +98,22 @@ function beds.register_bed(name, def)
 			type = "fixed",
 			fixed = def.nodebox.top,
 		},
+		selection_box = {
+			type = "fixed",
+			fixed = {0, 0, 0, 0, 0, 0},
+		},
+		on_destruct = function(pos)
+			local n = minetest.get_node_or_nil(pos)
+			if not n then return end
+			local dir = minetest.facedir_to_dir(n.param2)
+			local p = vector.subtract(pos,dir)
+			local n2 = minetest.get_node(p)
+			if minetest.get_item_group(n2.name, "bed") == 1 and n.param2 == n2.param2 then
+				do_not_destruct = true
+				minetest.remove_node(p)
+				do_not_destruct = false
+			end
+		end,
 	})
 
 	minetest.register_alias(name, name .. "_bottom")
