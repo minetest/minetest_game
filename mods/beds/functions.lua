@@ -36,7 +36,7 @@ local function check_in_beds(players)
 		end
 	end
 
-	return true
+	return #players > 0
 end
 
 local function lay_down(player, pos, bed_pos, state, skip)
@@ -99,13 +99,13 @@ local function update_formspecs(finished)
 
 	if finished then
 		form_n = beds.formspec ..
-			S("label[2.7,11; Good morning.]")
+			"label[2.7,11; " .. S("Good morning.") .. "]"
 	else
 		form_n = beds.formspec ..
 			"label[2.2,11;"..tostring(player_in_bed)..S(" of ")..tostring(ges)..S(" players are in bed]")	
 		if is_majority then
 			form_n = form_n ..
-				S("button_exit[2,8;4,0.75;force;Force night skip]")
+				"button_exit[2,8;4,0.75;force;" .. S("Force night skip") .. "]"
 		end
 	end
 

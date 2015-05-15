@@ -1,5 +1,3 @@
-# translation by Adimgar
-
 #craftitems.lua
 Stick = Vara
 Paper = Papel
