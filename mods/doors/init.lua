@@ -1,5 +1,13 @@
 doors = {}
 
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+doors.intllib = S
+
 -- Registers a door
 function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
@@ -341,7 +349,7 @@ function doors.register_door(name, def)
 end
 
 doors.register_door("doors:door_wood", {
-	description = "Wooden Door",
+	description = S("Wooden Door"),
 	inventory_image = "doors_wood.png",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
 	tiles_bottom = {"doors_wood_b.png", "doors_brown.png"},
@@ -360,7 +368,7 @@ minetest.register_craft({
 })
 
 doors.register_door("doors:door_steel", {
-	description = "Steel Door",
+	description = S("Steel Door"),
 	inventory_image = "doors_steel.png",
 	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
 	tiles_bottom = {"doors_steel_b.png", "doors_grey.png"},
@@ -380,7 +388,7 @@ minetest.register_craft({
 })
 
 doors.register_door("doors:door_glass", {
-	description = "Glass Door",
+	description = S("Glass Door"),
 	inventory_image = "doors_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},
 	tiles_bottom = {"doors_glass_b.png", "doors_glass_side.png"},
@@ -399,7 +407,7 @@ minetest.register_craft({
 })
 
 doors.register_door("doors:door_obsidian_glass", {
-	description = "Obsidian Glass Door",
+	description = S("Obsidian Glass Door"),
 	inventory_image = "doors_obsidian_glass.png",
 	groups = {snappy=1,cracky=1,oddly_breakable_by_hand=3,door=1},
 	tiles_bottom = {"doors_obsidian_glass_b.png", "doors_obsidian_glass_side.png"},
@@ -476,7 +484,7 @@ end
 
 
 doors.register_trapdoor("doors:trapdoor", {
-	description = "Trapdoor",
+	description = S("Trapdoor"),
 	inventory_image = "doors_trapdoor.png",
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",

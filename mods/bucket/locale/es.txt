@@ -1,0 +1,4 @@
+#init.lua
+Empty Bucket = Cubo vacío
+Water Bucket = Cubo con agua
+Lava Bucket = Cubo con agua

@@ -16,6 +16,14 @@ minetest.register_craft({
 bucket = {}
 bucket.liquids = {}
 
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+bucket.intllib = S
+
 local function check_protection(pos, name, text)
 	if minetest.is_protected(pos, name) then
 		minetest.log("action", (name ~= "" and name or "A mod")
@@ -103,7 +111,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 end
 
 minetest.register_craftitem("bucket:bucket_empty", {
-	description = "Empty Bucket",
+	description = S("Empty Bucket"),
 	inventory_image = "bucket.png",
 	stack_max = 99,
 	liquids_pointable = true,
@@ -159,7 +167,7 @@ bucket.register_liquid(
 	"default:water_flowing",
 	"bucket:bucket_water",
 	"bucket_water.png",
-	"Water Bucket"
+	S("Water Bucket")
 )
 
 bucket.register_liquid(
@@ -167,7 +175,7 @@ bucket.register_liquid(
 	"default:lava_flowing",
 	"bucket:bucket_lava",
 	"bucket_lava.png",
-	"Lava Bucket"
+	S("Lava Bucket")
 )
 
 minetest.register_craft({

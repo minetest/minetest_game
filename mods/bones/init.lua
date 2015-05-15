@@ -3,6 +3,14 @@
 
 bones = {}
 
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+bones.intllib = S
+
 local function is_owner(pos, name)
 	local owner = minetest.get_meta(pos):get_string("owner")
 	if owner == "" or owner == name then
@@ -25,7 +33,7 @@ local share_bones_time = tonumber(minetest.setting_get("share_bones_time") or 12
 local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early") or (share_bones_time/4))
 
 minetest.register_node("bones:bones", {
-	description = "Bones",
+	description = S("Bones"),
 	tiles = {
 		"bones_top.png",
 		"bones_bottom.png",
@@ -101,7 +109,7 @@ minetest.register_node("bones:bones", {
 		local meta = minetest.get_meta(pos)
 		local time = meta:get_int("time") + elapsed
 		if time >= share_bones_time then
-			meta:set_string("infotext", meta:get_string("owner").."'s old bones")
+			meta:set_string("infotext", meta:get_string("owner")..S("'s old bones"))
 			meta:set_string("owner", "")
 		else
 			meta:set_int("time", time)

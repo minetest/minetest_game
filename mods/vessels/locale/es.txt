@@ -1,0 +1,10 @@
+#init.lua
+Vessels shelf = Estantería
+ moves stuff in vessels shelf at  =  mueve objetos en la estantería en 
+ moves stuff to vessels shelf at  =  coloca objetos en la estantería en
+ takes stuff from vessels shelf at  =  retira objetos de la estantería en
+Glass Bottle (empty) = Botella de vidrio (vacía)
+Drinking Glass (empty) = Vaso de vidrio (vacío)
+Heavy Steel Bottle (empty) = Bote pesado de acero (vacío)
+Pile of Glass Fragments = Pila de fragmentos de vidrio
+  

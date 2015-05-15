@@ -1,0 +1,21 @@
+#init.lua
+Wheat seed = Semillas de trigo
+Flour = Harina
+Bread = Pan
+Cotton seed = Semillas de algodón
+
+#hoes.lua
+Wooden Hoe = Azada de madera
+Stone Hoe = Azada de piedra
+Steel Hoe = Azada de acero
+Bronze Hoe = Azada de bronce
+Mese Hoe = Azada de mese
+Diamond Hoe = Azada de diamante
+
+#nodes.lua
+Soil = Suelo
+Wet Soil = Suelo húmedo
+Desert Sand Soil = Suelo de desierto
+Wet Desert Sand Soil = Suelo de desierto húmedo
+Straw = Paja
+

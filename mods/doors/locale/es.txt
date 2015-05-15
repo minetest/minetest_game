@@ -1,0 +1,6 @@
+#init.lua
+Wooden Door = Puerta de madera
+Steel Door = Puerta de acero
+Glass Door = Puerta de vidrio
+Obsidian Glass Door = Puerta de cristal de obsidiana
+Trapdoor = Escotilla

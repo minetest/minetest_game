@@ -2,6 +2,15 @@
 farming = {}
 farming.path = minetest.get_modpath("farming")
 
+-- Intllib
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+farming.intllib = S
+
 -- Load files
 dofile(farming.path .. "/api.lua")
 dofile(farming.path .. "/nodes.lua")
@@ -9,7 +18,7 @@ dofile(farming.path .. "/hoes.lua")
 
 -- WHEAT
 farming.register_plant("farming:wheat", {
-	description = "Wheat seed",
+	description = S("Wheat seed"),
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
 	minlight = 13,
@@ -17,12 +26,12 @@ farming.register_plant("farming:wheat", {
 	fertility = {"grassland"}
 })
 minetest.register_craftitem("farming:flour", {
-	description = "Flour",
+	description = S("Flour"),
 	inventory_image = "farming_flour.png",
 })
 
 minetest.register_craftitem("farming:bread", {
-	description = "Bread",
+	description = S("Bread"),
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
 })
@@ -42,7 +51,7 @@ minetest.register_craft({
 
 -- Cotton
 farming.register_plant("farming:cotton", {
-	description = "Cotton seed",
+	description = S("Cotton seed"),
 	inventory_image = "farming_cotton_seed.png",
 	steps = 8,
 	minlight = 13,

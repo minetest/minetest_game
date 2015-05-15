@@ -1,0 +1,7 @@
+#init.lua
+White Dandelion = Diente de León blanco
+Yellow Dandelion = Diente de León amarillo
+Blue Geranium = Geranio azúl
+Rose = Rosa
+Tulip = Tulipán
+Viola = Violeta

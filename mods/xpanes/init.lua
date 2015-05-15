@@ -1,5 +1,14 @@
 xpanes = {}
 
+-- Intllib
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+xpanes.intllib = S
+
 local function rshift(x, by)
 	return math.floor(x / 2 ^ by)
 end
@@ -148,7 +157,7 @@ minetest.register_on_placenode(update_nearby)
 minetest.register_on_dignode(update_nearby)
 
 xpanes.register_pane("pane", {
-	description = "Glass Pane",
+	description = S("Glass Pane"),
 	tiles = {"xpanes_space.png"},
 	drawtype = "airlike",
 	paramtype = "light",
@@ -170,7 +179,7 @@ xpanes.register_pane("pane", {
 })
 
 xpanes.register_pane("bar", {
-	description = "Iron bar",
+	description = S("Iron bar"),
 	tiles = {"xpanes_space.png"},
 	drawtype = "airlike",
 	paramtype = "light",

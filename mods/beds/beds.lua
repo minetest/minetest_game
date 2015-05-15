@@ -1,6 +1,8 @@
+local S = default.intllib
+
 -- fancy shaped bed
 beds.register_bed("beds:fancy_bed", {
-	description = "Fancy Bed",
+	description = S("Fancy Bed"),
 	inventory_image = "beds_bed_fancy.png",
 	wield_image = "beds_bed_fancy.png",
 	tiles = {
@@ -50,7 +52,7 @@ beds.register_bed("beds:fancy_bed", {
 
 -- simple shaped bed
 beds.register_bed("beds:bed", {
-	description = "Simple Bed",
+	description = S("Simple Bed"),
 	inventory_image = "beds_bed.png",
 	wield_image = "beds_bed.png",
 	tiles = {

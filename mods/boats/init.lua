@@ -1,3 +1,12 @@
+boats = {}
+
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+boats.intllib = S
 
 --
 -- Helper functions
@@ -184,7 +193,7 @@ end
 minetest.register_entity("boats:boat", boat)
 
 minetest.register_craftitem("boats:boat", {
-	description = "Boat",
+	description = S("Boat"),
 	inventory_image = "boat_inventory.png",
 	wield_image = "boat_wield.png",
 	wield_scale = {x = 2, y = 2, z = 1},

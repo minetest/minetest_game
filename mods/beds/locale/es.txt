@@ -1,0 +1,13 @@
+#beds.lua
+Fancy Bed = Cama elegante
+Simple Bed = Cama simple
+
+#functions
+ of  =  de 
+  players are in bed] =  jugadores están en cama]
+label[2.7,11; Good morning.] = label[2.7,11; Buen día.]
+button_exit[2,8;4,0.75;force;Force night skip] = button_exit[2,8;4,0.75;force;Forzar saltar noche]
+You can only sleep at night. = Solo es posible dormir por la noche.
+
+#init.lua
+button_exit[2,12;4,0.75;leave;Leave Bed] = button_exit[2,12;4,0.75;leave;Dejar la cama]

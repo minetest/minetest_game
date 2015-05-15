@@ -3,6 +3,15 @@
 
 stairs = {}
 
+-- Intllib
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+stairs.intllib = S
+
 -- Node will be called stairs:stair_<subname>
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
 	minetest.register_node(":stairs:stair_" .. subname, {
@@ -215,97 +224,97 @@ end
 stairs.register_stair_and_slab("wood", "default:wood",
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_wood.png"},
-		"Wooden Stair",
-		"Wooden Slab",
+		S("Wooden Stair"),
+		S("Wooden Slab"),
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("stone", "default:stone",
 		{cracky=3},
 		{"default_stone.png"},
-		"Stone Stair",
-		"Stone Slab",
+		S("Stone Stair"),
+		S("Stone Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("cobble", "default:cobble",
 		{cracky=3},
 		{"default_cobble.png"},
-		"Cobblestone Stair",
-		"Cobblestone Slab",
+		S("Cobblestone Stair"),
+		S("Cobblestone Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("desert_stone", "default:desert_stone",
 		{cracky=3},
 		{"default_desert_stone.png"},
-		"Desertstone Stair",
-		"Desertstone Slab",
+		S("Desertstone Stair"),
+		S("Desertstone Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("desert_cobble", "default:desert_cobble",
 		{cracky=3},
 		{"default_desert_cobble.png"},
-		"Desert Cobblestone Stair",
-		"Desert Cobblestone Slab",
+		S("Desert Cobblestone Stair"),
+		S("Desert Cobblestone Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("desert_stonebrick", "default:desert_stonebrick",
 		{cracky=3},
 		{"default_desert_stone_brick.png"},
-		"Desert Stone Brick Stair",
-		"Desert Stone Brick Slab",
+		S("Desert Stone Brick Stair"),
+		S("Desert Stone Brick Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("brick", "default:brick",
 		{cracky=3},
 		{"default_brick.png"},
-		"Brick Stair",
-		"Brick Slab",
+		S("Brick Stair"),
+		S("Brick Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		{crumbly=2,cracky=2},
 		{"default_sandstone.png"},
-		"Sandstone Stair",
-		"Sandstone Slab",
+		S("Sandstone Stair"),
+		S("Sandstone Slab"),
 		default.node_sound_stone_defaults())
 		
 stairs.register_stair_and_slab("sandstonebrick", "default:sandstonebrick",
 		{crumbly=2,cracky=2},
 		{"default_sandstone_brick.png"},
-		"Sandstone Brick Stair",
-		"Sandstone Brick Slab",
+		S("Sandstone Brick Stair"),
+		S("Sandstone Brick Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("junglewood", "default:junglewood",
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_junglewood.png"},
-		"Junglewood Stair",
-		"Junglewood Slab",
+		S("Junglewood Stair"),
+		S("Junglewood Slab"),
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("stonebrick", "default:stonebrick",
 		{cracky=3},
 		{"default_stone_brick.png"},
-		"Stone Brick Stair",
-		"Stone Brick Slab",
+		S("Stone Brick Stair"),
+		S("Stone Brick Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("pinewood", "default:pinewood",
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_pinewood.png"},
-		"Pinewood Stair",
-		"Pinewood Slab",
+		S("Pinewood Stair"),
+		S("Pinewood Slab"),
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("obsidian", "default:obsidian",
 		{cracky=1,level=2},
 		{"default_obsidian.png"},
-		"Obsidian Stair",
-		"Obsidian Slab",
+		S("Obsidian Stair"),
+		S("Obsidian Slab"),
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("obsidianbrick", "default:obsidianbrick",
 		{cracky=1,level=2},
 		{"default_obsidian_brick.png"},
-		"Obsidian Brick Stair",
-		"Obsidian Brick Slab",
+		S("Obsidian Brick Stair"),
+		S("Obsidian Brick Slab"),
 		default.node_sound_stone_defaults())

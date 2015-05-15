@@ -2,6 +2,8 @@
 -- Grow trees
 --
 
+local S = default.intllib
+
 local random = math.random
 
 local function can_grow(pos)
@@ -28,7 +30,7 @@ minetest.register_abm({
 			return
 		end
 
-		minetest.log("action", "A sapling grows into a tree at "..
+		minetest.log("action", S("A sapling grows into a tree at ")..
 				minetest.pos_to_string(pos))
 		default.grow_tree(pos, random(1, 4) == 1)
 	end
@@ -43,7 +45,7 @@ minetest.register_abm({
 			return
 		end
 
-		minetest.log("action", "A jungle sapling grows into a tree at "..
+		minetest.log("action", S("A jungle sapling grows into a tree at ")..
 				minetest.pos_to_string(pos))
 		default.grow_jungle_tree(pos)
 	end
@@ -58,7 +60,7 @@ minetest.register_abm({
 			return
 		end
 
-		minetest.log("action", "A pine sapling grows into a tree at "..
+		minetest.log("action", S("A pine sapling grows into a tree at ")..
 				minetest.pos_to_string(pos))
 		default.grow_pine_tree(pos)
 	end

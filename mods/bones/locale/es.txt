@@ -1,0 +1,3 @@
+#init.lua
+Bones = Huesos
+'s old bones = 's old bones

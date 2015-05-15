@@ -1,3 +1,13 @@
+-- Intllib
+tnt = {}
+
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+tnt.intllib = S
 
 -- Default to enabled in singleplayer and disabled in multiplayer
 local singleplayer = minetest.is_singleplayer()
@@ -265,7 +275,7 @@ minetest.register_node("tnt:boom", {
 })
 
 minetest.register_node("tnt:gunpowder", {
-	description = "Gun Powder",
+	description = S("Gun Powder"),
 	drawtype = "raillike",
 	paramtype = "light",
 	sunlight_propagates = true,
@@ -356,6 +366,6 @@ minetest.register_craft({
 })
 
 if minetest.setting_get("log_mods") then
-	minetest.debug("[TNT] Loaded!")
+	minetest.debug(S("[TNT] Loaded!"))
 end
 
