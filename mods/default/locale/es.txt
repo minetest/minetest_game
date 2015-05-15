@@ -15,7 +15,7 @@ Bronze Ingot = Lingote de bronce
 Gold Ingot = Lingote de oro
 Mese Crystal Fragment = Fragmento de cirstal mese
 Clay Brick = Ladrillo de arcilla
-Obsidian Shard = Espada de obsidiana
+Obsidian Shard = Fragmento de obsidiana
 
 #furnance.lua
 Furnace = Horno
@@ -104,7 +104,7 @@ Wooden Fence = Valla de madera
 Glass = Vidrio
 Obsidian Glass = Vidrio de obsidiana
 Rail = Riel
-Brick Block = bloque de ladrillo
+Brick Block = Bloque de ladrillo
 Mese Lamp = Lámpara de mese
 Cloud = Nube
 Nyan Cat = Nyan Cat
