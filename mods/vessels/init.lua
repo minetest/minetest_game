@@ -70,16 +70,16 @@ minetest.register_node("vessels:shelf", {
 	end,
 
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		minetest.log("action", player:get_player_name()..
-			   S(" moves stuff in vessels shelf at ")..minetest.pos_to_string(pos))
+		minetest.log("action", S("@1 moves stuff in vessels shelf at @2", 
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-			   S(" moves stuff to vessels shelf at ")..minetest.pos_to_string(pos))
+	  minetest.log("action", S("@1 moves stuff to vessels shelf at @2", 
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-			   S(" takes stuff from vessels shelf at ")..minetest.pos_to_string(pos))
+	  minetest.log("action", S("@1 takes stuff from vessels shelf at @2", 
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 })
 

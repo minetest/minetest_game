@@ -42,7 +42,7 @@ for _, row in ipairs(wool.dyes) do
 	local craft_color_group = row[3]
 	-- Node Definition
 	minetest.register_node("wool:"..name, {
-		description = desc..S(" Wool"),
+		description = S("@1 Wool", desc), --desc..S(" Wool"),
 		tiles = {"wool_"..name..".png"},
 		groups = {snappy=2,choppy=2,oddly_breakable_by_hand=3,flammable=3,wool=1},
 		sounds = default.node_sound_defaults(),

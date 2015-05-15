@@ -1226,16 +1226,16 @@ minetest.register_node("default:chest", {
 		return inv:is_empty("main")
 	end,
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		minetest.log("action", player:get_player_name()..
-				S(" moves stuff in chest at ")..minetest.pos_to_string(pos))
+		minetest.log("action", S("@1 moves stuff in chest at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-				S(" moves stuff to chest at ")..minetest.pos_to_string(pos))
+    minetest.log("action", S("@1 moves stuff to chest at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-				S(" takes stuff from chest at ")..minetest.pos_to_string(pos))
+    minetest.log("action", S("@1 takes stuff from chest at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 })
 
@@ -1252,8 +1252,7 @@ minetest.register_node("default:chest_locked", {
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
-		meta:set_string("infotext", S("Locked Chest (owned by ")..
-				meta:get_string("owner")..")")
+		meta:set_string("infotext", S("Locked Chest (owned by @1)", meta:get_string("owner")))
 	end,
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
@@ -1289,12 +1288,12 @@ minetest.register_node("default:chest_locked", {
 		return stack:get_count()
 	end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-				S(" moves stuff to locked chest at ")..minetest.pos_to_string(pos))
+    minetest.log("action", S("@1 moves stuff to locked chest at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-				S(" takes stuff from locked chest at ")..minetest.pos_to_string(pos))
+    minetest.log("action", S("@1 takes stuff from locked chest at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 	on_rightclick = function(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
@@ -1367,16 +1366,16 @@ minetest.register_node("default:bookshelf", {
 	end,
 
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		minetest.log("action", player:get_player_name()..
-			   S(" moves stuff in bookshelf at ")..minetest.pos_to_string(pos))
+	  minetest.log("action", S("@1 moves stuff in bookshelf at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-			   S(" moves stuff to bookshelf at ")..minetest.pos_to_string(pos))
+		minetest.log("action", S("@1 moves stuff to bookshelf at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-			   S(" takes stuff from bookshelf at ")..minetest.pos_to_string(pos))
+	  minetest.log("action", S("@1 takes stuff from bookshelf at @2",
+		  player:get_player_name(), minetest.pos_to_string(pos)))
 	end,
 })
 
@@ -1415,8 +1414,10 @@ minetest.register_node("default:sign_wall", {
 		end
 		local meta = minetest.get_meta(pos)
 		if not fields.text then return end
-		minetest.log("action", (sender:get_player_name() or "")..S(" wrote \"")..fields.text..
-				S("\" to sign at ")..minetest.pos_to_string(pos))
+		minetest.log("action", S("@1 wrote \"@2\" to sign at @3",
+		  (sender:get_player_name() or ""), fields.text, minetest.pos_to_string(pos))) 
+--		minetest.log("action", (sender:get_player_name() or "")..S(" wrote \"")..fields.text..
+--				S("\" to sign at ")..minetest.pos_to_string(pos))
 		meta:set_string("text", fields.text)
 		meta:set_string("infotext", '"'..fields.text..'"')
 	end,

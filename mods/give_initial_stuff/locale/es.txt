@@ -1,1 +1,1 @@
-Giving initial stuff to player  = Otorgando objetos iniciales al jugador 
+Giving initial stuff to player @1 = Otorgando objetos iniciales al jugador @1

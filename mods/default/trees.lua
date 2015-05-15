@@ -30,8 +30,8 @@ minetest.register_abm({
 			return
 		end
 
-		minetest.log("action", S("A sapling grows into a tree at ")..
-				minetest.pos_to_string(pos))
+		minetest.log("action", S("A sapling grows into a tree at @1",
+		  minetest.pos_to_string(pos)))
 		default.grow_tree(pos, random(1, 4) == 1)
 	end
 })
@@ -45,8 +45,8 @@ minetest.register_abm({
 			return
 		end
 
-		minetest.log("action", S("A jungle sapling grows into a tree at ")..
-				minetest.pos_to_string(pos))
+		minetest.log("action", S("A jungle sapling grows into a tree at @1",
+		  minetest.pos_to_string(pos)))
 		default.grow_jungle_tree(pos)
 	end
 })
@@ -60,8 +60,8 @@ minetest.register_abm({
 			return
 		end
 
-		minetest.log("action", S("A pine sapling grows into a tree at ")..
-				minetest.pos_to_string(pos))
+		minetest.log("action", S("A pine sapling grows into a tree at @1",
+		  minetest.pos_to_string(pos)))
 		default.grow_pine_tree(pos)
 	end
 })
@@ -134,7 +134,7 @@ function default.grow_tree(pos, is_apple_tree, bad)
 		replaced yet
 	--]]
 	if bad then
-		error("Deprecated use of default.grow_tree")
+		error(S("Deprecated use of default.grow_tree"))
 	end
 
 	local x, y, z = pos.x, pos.y, pos.z
@@ -166,7 +166,7 @@ function default.grow_jungle_tree(pos, bad)
 		replaced yet
 	--]]
 	if bad then
-		error("Deprecated use of default.grow_jungle_tree")
+		error(S("Deprecated use of default.grow_jungle_tree"))
 	end
 
 	local x, y, z = pos.x, pos.y, pos.z

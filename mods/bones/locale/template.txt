@@ -1,0 +1,5 @@
+#init.lua
+Bones = 
+@1's old bones = 
+@1's fresh bones = 
+@1's bones = 

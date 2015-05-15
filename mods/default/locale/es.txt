@@ -86,20 +86,19 @@ Lava Source = Fuente de lava
 Flowing Lava = Lava fluyendo
 Torch = Antorcha
 Chest = Cofre
- moves stuff in chest at  =  mueve objetos en el cofre en 
- moves stuff to chest at  =  coloca objetos en el cofre en 
- takes stuff from chest at  =  retira objetos del cofre en 
+@1 moves stuff in chest at @2 = @1 mueve objetos dentro del cofre en @2
+@1 moves stuff to chest at @2 = @1 coloca objetos en el cofre en @2
+@1 takes stuff from chest at @2 = @1 retira objetos del cofre en @2
 Locked Chest = Cofre con cerradura
-Locked Chest (owned by  = Cofre con cerradura (propiedad de 
- moves stuff to locked chest at  = 
- takes stuff from locked chest at  =
+Locked Chest (owned by @1) = Cofre con cerradura (propiedad de @1)
+@1 moves stuff to locked chest at @2 = @1 coloca objetos dentro del cofre con cerradura en @2
+@1 takes stuff from locked chest at @2 = @1 retira objetos del cofre con cerradura en @2
 Bookshelf = Librero
- moves stuff in bookshelf at  =  mueve objetos en el librero en 
- moves stuff to bookshelf at  =  coloca objetos en el librero en 
- takes stuff from bookshelf at  =  retira objetos del librero en 
+@1 moves stuff in bookshelf at @2 = @1 mueve objetos en el librero en @2
+@1 moves stuff to bookshelf at @2 = @1 coloca objetos en el librero en @2
+@1 takes stuff from bookshelf at @2 = @1 retira objetos del librero en @2
 Sign = Señal
- wrote \" =  escribió \"
- "\" to sign at  = 
+@1 wrote \"@2\" to sign at @3 = @1 escribió \"@2\" en una señal en @3
 Ladder = Escalera
 Wooden Fence = Valla de madera
 Glass = Vidrio
@@ -138,8 +137,8 @@ Mese Sword = Espada de mese
 Diamond Sword = Espada de diamante
 
 #trees.lua
-A sapling grows into a tree at  = Un brote crece en un árbol en 
-A jungle sapling grows into a tree at  = Un brote selvático crece en un árbol en 
-A pine sapling grows into a tree at  = Un brote de pino crece en un árbol en 
-
-
+A sapling grows into a tree at @1 = Un brote crece en un árbol en @2
+A jungle sapling grows into a tree at @1 = Un brote selvático crece en un árbol en @2
+A pine sapling grows into a tree at @1 = Un brote de pino crece en un árbol en @2
+Deprecated use of default.grow_tree = Uso descontinuado de default.grow_tree
+Deprecated use of default.grow_jungle_tree = Uso descontinuado de default.grow_jungle_tree
