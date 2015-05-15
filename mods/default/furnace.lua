@@ -257,9 +257,9 @@ minetest.register_abm({
 		end
 		
 		local fuel_state = S("Empty")
-		local active = "inactive "
+		local active = S("inactive") .. " "
 		if fuel_time <= fuel_totaltime and fuel_totaltime ~= 0 then
-			active = "active "
+			active = S("active") .. " "
 			local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
 			fuel_state = fuel_percent .. "%"
 			formspec = active_formspec(fuel_percent, item_percent)
@@ -270,8 +270,9 @@ minetest.register_abm({
 			end
 			swap_node(pos, "default:furnace")
 		end
-		
-		local infotext =  S("Furnace ") .. active .. S("(Item: ") .. item_state .. S("; Fuel: ") .. fuel_state .. ")"
+
+		local infotext = S("Furnance @1 Item: @2; Fuel: @3", tostring(active), tostring(item_state), tostring(fuel_state))
+--		local infotext =  S("Furnace ") .. active .. S("(Item: ") .. item_state .. S("; Fuel: ") .. fuel_state .. ")"
 		
 		--
 		-- Set meta values

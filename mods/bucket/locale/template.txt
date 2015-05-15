@@ -1,0 +1,4 @@
+#init.lua
+Empty Bucket = 
+Water Bucket = 
+Lava Bucket = 

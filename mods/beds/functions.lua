@@ -104,7 +104,6 @@ local function update_formspecs(finished)
 		form_n = beds.formspec ..
 		  "label[2.2,11;" ..
 		  S("@1 of @2 players are in bed]", tostring(player_in_bed), tostring(ges))
---			"label[2.2,11;"..tostring(player_in_bed)..S(" of ")..tostring(ges)..S(" players are in bed]")	
 		if is_majority then
 			form_n = form_n ..
 				"button_exit[2,8;4,0.75;force;" .. S("Force night skip") .. "]"

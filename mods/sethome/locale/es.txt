@@ -1,6 +1,6 @@
 #init.lua
 Can use /sethome and /home = Permite usar /sethome y /home
-Teleport you to your home point = Te transporta a tu punto de hogar
+Teleport you to your home point = Te transporta a tu hogar
 Teleported to home! = Transportado al hogar!
 Set a home using /sethome = Establece un hogar usando /sethome
 Set your home point = Establece tu hogar

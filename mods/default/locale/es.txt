@@ -19,12 +19,12 @@ Obsidian Shard = Espada de obsidiana
 
 #furnance.lua
 Furnace = Horno
-Furnace  = Horno 
 Furnace is empty = El horno está vacío
-Item:  = Objeto:  
-; Fuel:  = ; Combustible:  
+Furnance @1 Item: @2; Fuel: @3 = Horno @1 Objeto: @2; Combustible: @3
 Empty = Vacío
 Not cookable = No se puede cocinar
+inactive = inactivo
+active = activo
 
 #nodes
 Stone = Roca
@@ -91,12 +91,15 @@ Chest = Cofre
  takes stuff from chest at  =  retira objetos del cofre en 
 Locked Chest = Cofre con cerradura
 Locked Chest (owned by  = Cofre con cerradura (propiedad de 
+ moves stuff to locked chest at  = 
+ takes stuff from locked chest at  =
 Bookshelf = Librero
  moves stuff in bookshelf at  =  mueve objetos en el librero en 
  moves stuff to bookshelf at  =  coloca objetos en el librero en 
  takes stuff from bookshelf at  =  retira objetos del librero en 
 Sign = Señal
  wrote \" =  escribió \"
+ "\" to sign at  = 
 Ladder = Escalera
 Wooden Fence = Valla de madera
 Glass = Vidrio

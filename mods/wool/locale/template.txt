@@ -1,0 +1,17 @@
+#init.lua
+White = 
+Grey = 
+Black = 
+Red = 
+Yellow = 
+Green = 
+Cyan = 
+Blue = 
+Magenta = 
+Orange = 
+Violet = 
+Brown = 
+Pink = 
+Dark Grey = 
+Dark Green = 
+ Wool =  

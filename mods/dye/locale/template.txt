@@ -1,0 +1,16 @@
+#init.lua
+White dye = 
+Grey dye = 
+Dark grey dye = 
+Black dye = 
+Violet dye = 
+Blue dye = 
+Cyan dye = 
+Dark green dye = 
+Green dye = 
+Yellow dye = 
+Brown dye = 
+Orange dye = 
+Red dye = 
+Magenta dye = 
+Pink dye = 

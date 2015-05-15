@@ -14,3 +14,4 @@ Brown = Marrón
 Pink = Rosa
 Dark Grey = Gris oscruo
 Dark Green = Verde oscuro
+ Wool =  Lana

@@ -1,0 +1,3 @@
+#init.lua
+Gun Powder = 
+[TNT] Loaded! = 

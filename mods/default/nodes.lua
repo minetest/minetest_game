@@ -179,8 +179,6 @@ minetest.register_node("default:mossycobble", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-
-
 minetest.register_node("default:desert_stone", {
 	description = S("Desert Stone"),
 	tiles = {"default_desert_stone.png"},
@@ -206,8 +204,6 @@ minetest.register_node("default:desert_stonebrick", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-
-
 minetest.register_node("default:sandstone", {
 	description = S("Sandstone"),
 	tiles = {"default_sandstone.png"},
@@ -223,8 +219,6 @@ minetest.register_node("default:sandstonebrick", {
 	groups = {cracky=2},
 	sounds = default.node_sound_stone_defaults(),
 })
-
-
 
 minetest.register_node("default:obsidian", {
 	description = S("Obsidian"),
@@ -286,8 +280,6 @@ minetest.register_node("default:dirt_with_snow", {
 	}),
 })
 
-
-
 minetest.register_node("default:sand", {
 	description = S("Sand"),
 	tiles = {"default_sand.png"},
@@ -304,8 +296,6 @@ minetest.register_node("default:desert_sand", {
 	sounds = default.node_sound_sand_defaults(),
 })
 
-
-
 minetest.register_node("default:gravel", {
 	description = S("Gravel"),
 	tiles = {"default_gravel.png"},
@@ -317,8 +307,6 @@ minetest.register_node("default:gravel", {
 	}),
 })
 
-
-
 minetest.register_node("default:clay", {
 	description = S("Clay"),
 	tiles = {"default_clay.png"},
@@ -327,8 +315,6 @@ minetest.register_node("default:clay", {
 	drop = 'default:clay_lump 4',
 	sounds = default.node_sound_dirt_defaults(),
 })
-
-
 
 minetest.register_node("default:snow", {
 	description = S("Snow"),
@@ -475,7 +461,6 @@ minetest.register_node("default:apple", {
 	end,
 })
 
-
 minetest.register_node("default:jungletree", {
 	description = S("Jungle Tree"),
 	tiles = {"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
@@ -539,7 +524,6 @@ minetest.register_node("default:junglesapling", {
 	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
-
 
 minetest.register_node("default:pinetree", {
 	description = S("Pine Tree"),
@@ -946,7 +930,6 @@ minetest.register_node("default:water_flowing", {
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
 
-
 minetest.register_node("default:river_water_source", {
 	description = S("River Water Source"),
 	inventory_image = minetest.inventorycube("default_water.png"),
@@ -1307,11 +1290,11 @@ minetest.register_node("default:chest_locked", {
 	end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
-				" moves stuff to locked chest at "..minetest.pos_to_string(pos))
+				S(" moves stuff to locked chest at ")..minetest.pos_to_string(pos))
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
-				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
+				S(" takes stuff from locked chest at ")..minetest.pos_to_string(pos))
 	end,
 	on_rightclick = function(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
@@ -1433,7 +1416,7 @@ minetest.register_node("default:sign_wall", {
 		local meta = minetest.get_meta(pos)
 		if not fields.text then return end
 		minetest.log("action", (sender:get_player_name() or "")..S(" wrote \"")..fields.text..
-				"\" to sign at "..minetest.pos_to_string(pos))
+				S("\" to sign at ")..minetest.pos_to_string(pos))
 		meta:set_string("text", fields.text)
 		meta:set_string("infotext", '"'..fields.text..'"')
 	end,
@@ -1478,8 +1461,6 @@ minetest.register_node("default:fence_wood", {
 	sounds = default.node_sound_wood_defaults(),
 })
 
-
-
 minetest.register_node("default:glass", {
 	description = S("Glass"),
 	drawtype = "glasslike_framed_optional",
@@ -1503,8 +1484,6 @@ minetest.register_node("default:obsidian_glass", {
 	groups = {cracky=3,oddly_breakable_by_hand=3},
 })
 
-
-
 minetest.register_node("default:rail", {
 	description = S("Rail"),
 	drawtype = "raillike",
@@ -1522,8 +1501,6 @@ minetest.register_node("default:rail", {
 	groups = {bendy=2,dig_immediate=2,attached_node=1},
 })
 
-
-
 minetest.register_node("default:brick", {
 	description = S("Brick Block"),
 	tiles = {"default_brick.png"},
@@ -1531,7 +1508,6 @@ minetest.register_node("default:brick", {
 	groups = {cracky=3},
 	sounds = default.node_sound_stone_defaults(),
 })
-
 
 minetest.register_node("default:meselamp", {
 	description = S("Mese Lamp"),
