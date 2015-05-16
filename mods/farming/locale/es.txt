@@ -19,3 +19,6 @@ Desert Sand Soil = Suelo de desierto
 Wet Desert Sand Soil = Suelo de desierto húmedo
 Straw = Paja
 
+#api.lua
+Hoe = Azada
+Seed = Semilla
