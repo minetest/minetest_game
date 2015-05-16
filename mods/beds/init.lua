@@ -3,6 +3,7 @@ beds.player = {}
 beds.pos = {}
 beds.spawn = {}
 
+-- Intllib
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()

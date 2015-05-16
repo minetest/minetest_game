@@ -3,6 +3,7 @@
 
 bones = {}
 
+-- Intllib
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()

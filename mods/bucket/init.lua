@@ -16,6 +16,7 @@ minetest.register_craft({
 bucket = {}
 bucket.liquids = {}
 
+-- Intllib
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()

@@ -2,13 +2,15 @@ local homes_file = minetest.get_worldpath() .. "/homes"
 local homepos = {}
 
 -- Intllib
+sethome = {}
+
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-homepos.intllib = S
+sethome.intllib = S
 
 local function loadhomes()
     local input = io.open(homes_file, "r")
