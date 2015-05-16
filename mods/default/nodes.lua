@@ -1415,9 +1415,7 @@ minetest.register_node("default:sign_wall", {
 		local meta = minetest.get_meta(pos)
 		if not fields.text then return end
 		minetest.log("action", S("@1 wrote \"@2\" to sign at @3",
-		  (sender:get_player_name() or ""), fields.text, minetest.pos_to_string(pos))) 
---		minetest.log("action", (sender:get_player_name() or "")..S(" wrote \"")..fields.text..
---				S("\" to sign at ")..minetest.pos_to_string(pos))
+		  (sender:get_player_name() or ""), fields.text, minetest.pos_to_string(pos)))
 		meta:set_string("text", fields.text)
 		meta:set_string("infotext", '"'..fields.text..'"')
 	end,
