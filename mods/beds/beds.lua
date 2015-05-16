@@ -1,4 +1,4 @@
-local S = default.intllib
+local S = beds.intllib
 
 -- fancy shaped bed
 beds.register_bed("beds:fancy_bed", {

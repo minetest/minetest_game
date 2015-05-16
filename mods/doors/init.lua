@@ -93,10 +93,10 @@ function doors.register_door(name, def)
 				local pn = placer:get_player_name()
 				local meta = minetest.get_meta(pt)
 				meta:set_string("doors_owner", pn)
-				meta:set_string("infotext", "Owned by "..pn)
+				meta:set_string("infotext", S("Owned by @1", meta:get_string("doors_owner")))
 				meta = minetest.get_meta(pt2)
 				meta:set_string("doors_owner", pn)
-				meta:set_string("infotext", "Owned by "..pn)
+				meta:set_string("infotext", S("Owned by @1", meta:get_string("doors_owner")))
 			end
 
 			if not minetest.setting_getbool("creative_mode") then
