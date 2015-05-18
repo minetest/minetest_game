@@ -1,0 +1,4 @@
+#init.lua
+Glass Pane = Panel de vidrio
+Iron bar = Barra de hierro
+

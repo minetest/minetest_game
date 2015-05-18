@@ -1,0 +1,10 @@
+#init.lua
+Vessels shelf = 
+@1 moves stuff in vessels shelf at @2 =  
+@1 moves stuff to vessels shelf at @2 =  
+@1 takes stuff from vessels shelf at @2 =  
+Glass Bottle (empty) = 
+Drinking Glass (empty) = 
+Heavy Steel Bottle (empty) = 
+Pile of Glass Fragments = 
+  

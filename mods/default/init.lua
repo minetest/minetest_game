@@ -6,6 +6,16 @@
 -- Definitions made by this mod that other mods can use too
 default = {}
 
+-- Intllib
+idefault = {}
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+idefault.intllib = S
+
 default.LIGHT_MAX = 14
 
 -- GUI related stuff

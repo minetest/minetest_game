@@ -1,0 +1,1 @@
+Giving initial stuff to player @1 = Otorgando objetos iniciales al jugador @1

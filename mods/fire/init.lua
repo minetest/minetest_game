@@ -2,8 +2,18 @@
 
 fire = {}
 
+-- Intllib
+ifire = {}
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+ifire.intllib = S
+
 minetest.register_node("fire:basic_flame", {
-	description = "Fire",
+	description = S("Fire"),
 	drawtype = "firelike",
 	tiles = {{
 		name="fire_basic_flame_animated.png",

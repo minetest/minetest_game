@@ -1,5 +1,15 @@
 screwdriver = {}
 
+-- Intllib
+isdriver = {}
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+isdriver.intllib = S
+
 local function nextrange(x, max)
 	x = x + 1
 	if x > max then
@@ -86,7 +96,7 @@ end
 
 -- Screwdriver
 minetest.register_tool("screwdriver:screwdriver", {
-	description = "Screwdriver (left-click rotates face, right-click rotates axis)",
+	description = S("Screwdriver (left-click rotates face, right-click rotates axis)"),
 	inventory_image = "screwdriver.png",
 	on_use = function(itemstack, user, pointed_thing)
 		screwdriver_handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE)

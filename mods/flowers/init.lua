@@ -4,6 +4,16 @@
 -- Namespace for functions
 flowers = {}
 
+-- Intllib
+iflowers = {}
+local S
+if minetest.get_modpath("intllib") then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+iflowers.intllib = S
+
 -- Map Generation
 dofile(minetest.get_modpath("flowers").."/mapgen.lua")
 
@@ -16,7 +26,7 @@ minetest.register_alias("flowers:flower_tulip", "flowers:tulip")
 minetest.register_alias("flowers:flower_viola", "flowers:viola")
 
 minetest.register_node("flowers:dandelion_white", {
-	description = "White Dandelion",
+	description = S("White Dandelion"),
 	drawtype = "plantlike",
 	tiles = { "flowers_dandelion_white.png" },
 	inventory_image = "flowers_dandelion_white.png",
@@ -34,7 +44,7 @@ minetest.register_node("flowers:dandelion_white", {
 })
 
 minetest.register_node("flowers:dandelion_yellow", {
-	description = "Yellow Dandelion",
+	description = S("Yellow Dandelion"),
 	drawtype = "plantlike",
 	tiles = { "flowers_dandelion_yellow.png" },
 	inventory_image = "flowers_dandelion_yellow.png",
@@ -52,7 +62,7 @@ minetest.register_node("flowers:dandelion_yellow", {
 })
 
 minetest.register_node("flowers:geranium", {
-	description = "Blue Geranium",
+	description = S("Blue Geranium"),
 	drawtype = "plantlike",
 	tiles = { "flowers_geranium.png" },
 	inventory_image = "flowers_geranium.png",
@@ -70,7 +80,7 @@ minetest.register_node("flowers:geranium", {
 })
 
 minetest.register_node("flowers:rose", {
-	description = "Rose",
+	description = S("Rose"),
 	drawtype = "plantlike",
 	tiles = { "flowers_rose.png" },
 	inventory_image = "flowers_rose.png",
@@ -88,7 +98,7 @@ minetest.register_node("flowers:rose", {
 })
 
 minetest.register_node("flowers:tulip", {
-	description = "Tulip",
+	description = S("Tulip"),
 	drawtype = "plantlike",
 	tiles = { "flowers_tulip.png" },
 	inventory_image = "flowers_tulip.png",
@@ -106,7 +116,7 @@ minetest.register_node("flowers:tulip", {
 })
 
 minetest.register_node("flowers:viola", {
-	description = "Viola",
+	description = S("Viola"),
 	drawtype = "plantlike",
 	tiles = { "flowers_viola.png" },
 	inventory_image = "flowers_viola.png",

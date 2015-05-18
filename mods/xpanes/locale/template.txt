@@ -1,0 +1,4 @@
+#init.lua
+Glass Pane = 
+Iron bar = 
+

@@ -1,3 +1,5 @@
+local S = ifarming.intllib
+
 minetest.override_item("default:dirt", {
 	groups = {crumbly=3,soil=1},
 	soil = {
@@ -17,7 +19,7 @@ minetest.override_item("default:dirt_with_grass", {
 })
 
 minetest.register_node("farming:soil", {
-	description = "Soil",
+	description = S("Soil"),
 	tiles = {"default_dirt.png^farming_soil.png", "default_dirt.png"},
 	drop = "default:dirt",
 	is_ground_content = true,
@@ -31,7 +33,7 @@ minetest.register_node("farming:soil", {
 })
 
 minetest.register_node("farming:soil_wet", {
-	description = "Wet Soil",
+	description = S("Wet Soil"),
 	tiles = {"default_dirt.png^farming_soil_wet.png", "default_dirt.png^farming_soil_wet_side.png"},
 	drop = "default:dirt",
 	is_ground_content = true,
@@ -53,7 +55,7 @@ minetest.override_item("default:desert_sand", {
 	}
 })
 minetest.register_node("farming:desert_sand_soil", {
-	description = "Desert Sand Soil",
+	description = S("Desert Sand Soil"),
 	drop = "default:desert_sand",
 	tiles = {"farming_desert_sand_soil.png", "default_desert_sand.png"},
 	is_ground_content = true,
@@ -67,7 +69,7 @@ minetest.register_node("farming:desert_sand_soil", {
 })
 
 minetest.register_node("farming:desert_sand_soil_wet", {
-	description = "Wet Desert Sand Soil",
+	description = S("Wet Desert Sand Soil"),
 	drop = "default:desert_sand",
 	tiles = {"farming_desert_sand_soil_wet.png", "farming_desert_sand_soil_wet_side.png"},
 	is_ground_content = true,
@@ -81,7 +83,7 @@ minetest.register_node("farming:desert_sand_soil_wet", {
 })
 
 minetest.register_node("farming:straw", {
-	description = "Straw",
+	description = S("Straw"),
 	tiles = {"farming_straw.png"},
 	is_ground_content = false,
 	groups = {snappy=3, flammable=4},

@@ -1,0 +1,7 @@
+#init.lua
+Wooden Door = 
+Steel Door = 
+Glass Door = 
+Obsidian Glass Door = 
+Trapdoor = 
+Owned by @1 = 

@@ -1,0 +1,17 @@
+#init.lua
+White = Blanca
+Grey = Gris
+Black = Negra
+Red = Roja
+Yellow = Amarilla
+Green = Verde
+Cyan = Cyan
+Blue = Azúl
+Magenta = Magenta
+Orange = Anaranjada
+Violet = Violeta
+Brown = Marrón
+Pink = Rosa
+Dark Grey = Gris oscruo
+Dark Green = Verde oscuro
+@1 Wool = Lana @1

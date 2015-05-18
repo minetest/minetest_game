@@ -1,0 +1,16 @@
+#init.lua
+White dye = Tinte blanco
+Grey dye = Tinte gris
+Dark grey dye = Tinte gris oscuro
+Black dye = Tinte negro
+Violet dye = Tinte violeta
+Blue dye = Tinte azúl
+Cyan dye = Tinte cyan
+Dark green dye = Tinte verde oscuro
+Green dye = Tinte verde
+Yellow dye = Tinte amarillo
+Brown dye = Tinte marrón
+Orange dye = Tinte anaranjado
+Red dye = Tinte rojo
+Magenta dye = Tinte magenta
+Pink dye = Tinte rosa
