@@ -1,6 +1,6 @@
 -- mods/default/craftitems.lua
 
-local S = default.intllib
+local S = idefault.intllib
 
 minetest.register_craftitem("default:stick", {
 	description = S("Stick"),

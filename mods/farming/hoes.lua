@@ -1,4 +1,4 @@
-local S = farming.intllib
+local S = ifarming.intllib
 
 farming.register_hoe(":farming:hoe_wood", {
 	description = S("Wooden Hoe"),

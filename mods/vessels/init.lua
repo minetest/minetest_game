@@ -2,7 +2,7 @@
 -- See README.txt for licensing and other information.
 
 -- Intllib
-vessels = {}
+ivessels = {}
 
 local S
 if minetest.get_modpath("intllib") then
@@ -10,7 +10,7 @@ if minetest.get_modpath("intllib") then
 else
 	S = function(s) return s end
 end
-vessels.intllib = S
+ivessels.intllib = S
 
 local vessels_shelf_formspec =
 	"size[8,7;]"..

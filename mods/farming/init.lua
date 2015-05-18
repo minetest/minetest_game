@@ -3,13 +3,14 @@ farming = {}
 farming.path = minetest.get_modpath("farming")
 
 -- Intllib
+ifarming = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-farming.intllib = S
+ifarming.intllib = S
 
 -- Load files
 dofile(farming.path .. "/api.lua")

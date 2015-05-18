@@ -2,7 +2,7 @@ local homes_file = minetest.get_worldpath() .. "/homes"
 local homepos = {}
 
 -- Intllib
-sethome = {}
+isethome = {}
 
 local S
 if minetest.get_modpath("intllib") then
@@ -10,7 +10,7 @@ if minetest.get_modpath("intllib") then
 else
 	S = function(s) return s end
 end
-sethome.intllib = S
+isethome.intllib = S
 
 local function loadhomes()
     local input = io.open(homes_file, "r")

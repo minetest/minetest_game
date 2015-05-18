@@ -17,13 +17,14 @@ bucket = {}
 bucket.liquids = {}
 
 -- Intllib
+ibucket = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-bucket.intllib = S
+ibucket.intllib = S
 
 local function check_protection(pos, name, text)
 	if minetest.is_protected(pos, name) then

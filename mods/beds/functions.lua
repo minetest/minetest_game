@@ -1,4 +1,4 @@
-local S = beds.intllib
+local S = ibeds.intllib
 
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()

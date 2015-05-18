@@ -1,6 +1,6 @@
 -- mods/default/tools.lua
 
-local S = default.intllib
+local S = idefault.intllib
 
 -- The hand
 minetest.register_item(":", {

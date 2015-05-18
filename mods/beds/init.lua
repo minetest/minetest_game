@@ -4,13 +4,14 @@ beds.pos = {}
 beds.spawn = {}
 
 -- Intllib
+ibeds = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-beds.intllib = S
+ibeds.intllib = S
 
 beds.formspec = "size[8,15;true]"..
 		"bgcolor[#080808BB; true]"..

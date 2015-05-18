@@ -1,5 +1,5 @@
 -- Intllib
-give_initial_stuff = {}
+igistuff = {}
 
 local S
 if minetest.get_modpath("intllib") then
@@ -7,7 +7,7 @@ if minetest.get_modpath("intllib") then
 else
 	S = function(s) return s end
 end
-give_initial_stuff.intllib = S
+igistuff.intllib = S
 
 minetest.register_on_newplayer(function(player)
 	--print("on_newplayer")

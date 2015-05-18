@@ -7,13 +7,14 @@
 default = {}
 
 -- Intllib
+idefault = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-default.intllib = S
+idefault.intllib = S
 
 default.LIGHT_MAX = 14
 

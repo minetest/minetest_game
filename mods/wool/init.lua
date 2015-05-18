@@ -7,13 +7,14 @@ minetest.register_alias("wool:gold", "wool:yellow")
 local wool = {}
 
 -- Intllib
+iwool = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-wool.intllib = S
+iwool.intllib = S
 
 -- This uses a trick: you can first define the recipes using all of the base
 -- colors, and then some recipes using more specific colors for a few non-base

@@ -2,7 +2,7 @@
 -- Grow trees
 --
 
-local S = default.intllib
+local S = idefault.intllib
 
 local random = math.random
 

@@ -4,13 +4,14 @@
 stairs = {}
 
 -- Intllib
+istairs = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-stairs.intllib = S
+istairs.intllib = S
 
 -- Node will be called stairs:stair_<subname>
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)

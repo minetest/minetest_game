@@ -9,13 +9,14 @@ dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orang
 local dyelocal = {}
 
 -- Intllib
+idye = {}
 local S
 if minetest.get_modpath("intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
 end
-dye.intllib = S
+idye.intllib = S
 
 -- This collection of colors is partly a historic thing, partly something else.
 dyelocal.dyes = {

@@ -1,5 +1,5 @@
 -- Intllib
-tnt = {}
+itnt = {}
 
 local S
 if minetest.get_modpath("intllib") then
@@ -7,7 +7,7 @@ if minetest.get_modpath("intllib") then
 else
 	S = function(s) return s end
 end
-tnt.intllib = S
+itnt.intllib = S
 
 -- Default to enabled in singleplayer and disabled in multiplayer
 local singleplayer = minetest.is_singleplayer()
