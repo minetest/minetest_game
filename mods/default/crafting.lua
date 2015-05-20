@@ -341,14 +341,16 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = 'default:chest_locked',
-	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:wood', 'default:steel_ingot', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
-	}
-})
+if(minetest.setting_getbool("disable_locking") ~= true) then
+	minetest.register_craft({
+		output = 'default:chest_locked',
+		recipe = {
+			{'group:wood', 'group:wood', 'group:wood'},
+			{'group:wood', 'default:steel_ingot', 'group:wood'},
+			{'group:wood', 'group:wood', 'group:wood'},
+		}
+	})
+end
 
 minetest.register_craft({
 	output = 'default:furnace',
