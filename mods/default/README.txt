@@ -62,7 +62,6 @@ VanessaE (WTFPL):
   default_desert_stone.png
   default_desert_stone_brick.png
   default_sand.png
-  default_sandstone_brick.png
 
 Calinou (CC BY-SA):
   default_brick.png
@@ -109,6 +108,7 @@ paramat (CC BY-SA 3.0):
   default_pinetree.png
   default_pinetree_top.png
   default_pinewood.png
+  default_sandstone_brick.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
