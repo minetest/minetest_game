@@ -9,7 +9,7 @@
 ---
 - Add fancy bed model (based on jp's model)
 - Add API to register beds
-- Allow players always to detach from bed (by donat-b) 
+- Allow players always to detach from bed (by donat-b)
 - If more than 50% of players want sleep they can skip the night
 - Don't show sleep dialog in singleplayer
 

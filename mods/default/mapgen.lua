@@ -43,7 +43,7 @@ minetest.register_alias("mapgen_stair_sandstonebrick", "stairs:stair_sandstonebr
 -- Blob ore first to avoid other ores inside blobs
 
 function default.register_ores()
-	minetest.register_ore({ 
+	minetest.register_ore({
 		ore_type         = "blob",
 		ore              = "default:clay",
 		wherein          = {"default:sand"},
@@ -62,7 +62,7 @@ function default.register_ores()
 		},
 	})
 
-	minetest.register_ore({ 
+	minetest.register_ore({
 		ore_type         = "blob",
 		ore              = "default:sand",
 		wherein          = {"default:stone"},
@@ -449,7 +449,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "flowers:rose",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -467,7 +467,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "flowers:tulip",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -485,7 +485,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "flowers:dandelion_yellow",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -503,7 +503,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "flowers:geranium",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -521,7 +521,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "flowers:viola",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -559,7 +559,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "default:grass_1",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -577,7 +577,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "default:grass_2",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -595,7 +595,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "default:grass_3",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
@@ -613,7 +613,7 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "default:grass_4",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},

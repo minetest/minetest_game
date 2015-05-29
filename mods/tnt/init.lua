@@ -279,7 +279,7 @@ minetest.register_node("tnt:gunpowder", {
 	},
 	groups = {dig_immediate=2,attached_node=1},
 	sounds = default.node_sound_leaves_defaults(),
-	
+
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			burn(pos)

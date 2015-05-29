@@ -25,8 +25,8 @@ function doors.register_door(name, def)
 	if not def.sound_open_door then
 		def.sound_open_door = "doors_door_open"
 	end
-	
-	
+
+
 	minetest.register_craftitem(name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
@@ -100,7 +100,7 @@ function doors.register_door(name, def)
 
 	local tt = def.tiles_top
 	local tb = def.tiles_bottom
-	
+
 	local function after_dig_node(pos, name, digger)
 		local node = minetest.get_node(pos)
 		if node.name == name then
@@ -134,16 +134,16 @@ function doors.register_door(name, def)
 		end
 		local p2 = minetest.get_node(pos).param2
 		p2 = params[p2+1]
-		
+
 		minetest.swap_node(pos, {name=replace_dir, param2=p2})
-		
+
 		pos.y = pos.y-dir
 		minetest.swap_node(pos, {name=replace, param2=p2})
 
 		local snd_1 = def.sound_close_door
-		local snd_2 = def.sound_open_door 
+		local snd_2 = def.sound_open_door
 		if params[1] == 3 then
-			snd_1 = def.sound_open_door 
+			snd_1 = def.sound_open_door
 			snd_2 = def.sound_close_door
 		end
 
@@ -205,18 +205,18 @@ function doors.register_door(name, def)
 			fixed = def.selection_box_bottom
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
 			after_dig_node(pos, name.."_t_1", digger)
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
 			end
 		end,
-		
+
 		on_rotate = function(pos, node, user, mode, new_param2)
 			return on_rotate(pos, node, 1, user, name.."_t_1", mode)
 		end,
@@ -242,18 +242,18 @@ function doors.register_door(name, def)
 			fixed = def.selection_box_top
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y-1
 			after_dig_node(pos, name.."_b_1", digger)
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, -1, name.."_b_1", name.."_t_2", name.."_b_2", {1,2,3,0})
 			end
 		end,
-		
+
 		on_rotate = function(pos, node, user, mode, new_param2)
 			return on_rotate(pos, node, -1, user, name.."_b_1", mode)
 		end,
@@ -279,18 +279,18 @@ function doors.register_door(name, def)
 			fixed = def.selection_box_bottom
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
 			after_dig_node(pos, name.."_t_2", digger)
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
 			end
 		end,
-		
+
 		on_rotate = function(pos, node, user, mode, new_param2)
 			return on_rotate(pos, node, 1, user, name.."_t_2", mode)
 		end,
@@ -316,18 +316,18 @@ function doors.register_door(name, def)
 			fixed = def.selection_box_top
 		},
 		groups = def.groups,
-		
+
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y-1
 			after_dig_node(pos, name.."_b_2", digger)
 		end,
-		
+
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, -1, name.."_b_2", name.."_t_1", name.."_b_1", {3,0,1,2})
 			end
 		end,
-		
+
 		on_rotate = function(pos, node, user, mode, new_param2)
 			return on_rotate(pos, node, -1, user, name.."_b_2", mode)
 		end,

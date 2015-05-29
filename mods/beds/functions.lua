@@ -56,7 +56,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		if skip then
 			return
 		end
-		if p then 
+		if p then
 			player:setpos(p)
 		end
 
@@ -100,7 +100,7 @@ local function update_formspecs(finished)
 			"label[2.7,11; Good morning.]"
 	else
 		form_n = beds.formspec ..
-			"label[2.2,11;"..tostring(player_in_bed).." of "..tostring(ges).." players are in bed]"	
+			"label[2.2,11;"..tostring(player_in_bed).." of "..tostring(ges).." players are in bed]"
 		if is_majority then
 			form_n = form_n ..
 				"button_exit[2,8;4,0.75;force;Force night skip]"

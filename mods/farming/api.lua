@@ -9,11 +9,11 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	if pt.type ~= "node" then
 		return
 	end
-	
+
 	local under = minetest.get_node(pt.under)
 	local p = {x=pt.under.x, y=pt.under.y+1, z=pt.under.z}
 	local above = minetest.get_node(p)
-	
+
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
 		return
@@ -21,30 +21,30 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	if not minetest.registered_nodes[above.name] then
 		return
 	end
-	
+
 	-- check if the node above the pointed thing is air
 	if above.name ~= "air" then
 		return
 	end
-	
+
 	-- check if pointing at soil
 	if minetest.get_item_group(under.name, "soil") ~= 1 then
 		return
 	end
-	
+
 	-- check if (wet) soil defined
 	local regN = minetest.registered_nodes
 	if regN[under.name].soil == nil or regN[under.name].soil.wet == nil or regN[under.name].soil.dry == nil then
 		return
 	end
-	
+
 	-- turn the node into soil, wear out item and play sound
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
 		gain = 0.5,
 	})
-	
+
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:add_wear(65535/(uses-1))
 	end
@@ -119,10 +119,10 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	if pt.type ~= "node" then
 		return
 	end
-	
+
 	local under = minetest.get_node(pt.under)
 	local above = minetest.get_node(pt.above)
-	
+
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
 		return
@@ -130,22 +130,22 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	if not minetest.registered_nodes[above.name] then
 		return
 	end
-	
+
 	-- check if pointing at the top of the node
 	if pt.above.y ~= pt.under.y+1 then
 		return
 	end
-	
+
 	-- check if you can replace the node above the pointed node
 	if not minetest.registered_nodes[above.name].buildable_to then
 		return
 	end
-	
+
 	-- check if pointing at soil
 	if minetest.get_item_group(under.name, "soil") < 2 then
 		return
 	end
-	
+
 	-- add the node and remove 1 item from the itemstack
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	if not minetest.setting_getbool("creative_mode") then

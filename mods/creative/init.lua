@@ -122,7 +122,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if start_i >= creative_inventory.creative_inventory_size then
 		start_i = start_i - 4*6
 	end
-		
+
 	if start_i < 0 or start_i >= creative_inventory.creative_inventory_size then
 		start_i = 0
 	end
@@ -150,11 +150,11 @@ if minetest.setting_getbool("creative_mode") then
 			damage_groups = {fleshy = 10},
 		}
 	})
-	
+
 	minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
 		return true
 	end)
-	
+
 	function minetest.handle_node_drops(pos, drops, digger)
 		if not digger or not digger:is_player() then
 			return
@@ -169,5 +169,5 @@ if minetest.setting_getbool("creative_mode") then
 			end
 		end
 	end
-	
+
 end
