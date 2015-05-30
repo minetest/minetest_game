@@ -109,6 +109,10 @@ paramat (CC BY-SA 3.0):
   default_pinetree_top.png
   default_pinewood.png
   default_sandstone_brick.png
+  default_obsidian_brick.png
+  default_river_water.png
+  default_river_water_source_animated.png
+  default_river_water_flowing_animated.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
