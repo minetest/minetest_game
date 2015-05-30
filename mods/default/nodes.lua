@@ -968,11 +968,11 @@ minetest.register_node("default:water_flowing", {
 
 minetest.register_node("default:river_water_source", {
 	description = "River Water Source",
-	inventory_image = minetest.inventorycube("default_water.png"),
+	inventory_image = minetest.inventorycube("default_river_water.png"),
 	drawtype = "liquid",
 	tiles = {
 		{
-			name = "default_water_source_animated.png",
+			name = "default_river_water_source_animated.png",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -983,7 +983,7 @@ minetest.register_node("default:river_water_source", {
 	},
 	special_tiles = {
 		{
-			name = "default_water_source_animated.png",
+			name = "default_river_water_source_animated.png",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1008,18 +1008,18 @@ minetest.register_node("default:river_water_source", {
 	liquid_viscosity = 1,
 	liquid_renewable = false,
 	liquid_range = 2,
-	post_effect_color = {a=64, r=100, g=100, b=200},
+	post_effect_color = {a=64, r=100, g=178, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1},
 })
 
 minetest.register_node("default:river_water_flowing", {
 	description = "Flowing River Water",
-	inventory_image = minetest.inventorycube("default_water.png"),
+	inventory_image = minetest.inventorycube("default_river_water.png"),
 	drawtype = "flowingliquid",
-	tiles = {"default_water.png"},
+	tiles = {"default_river_water.png"},
 	special_tiles = {
 		{
-			name = "default_water_flowing_animated.png",
+			name = "default_river_water_flowing_animated.png",
 			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
@@ -1029,7 +1029,7 @@ minetest.register_node("default:river_water_flowing", {
 			},
 		},
 		{
-			name = "default_water_flowing_animated.png",
+			name = "default_river_water_flowing_animated.png",
 			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
@@ -1055,7 +1055,7 @@ minetest.register_node("default:river_water_flowing", {
 	liquid_viscosity = 1,
 	liquid_renewable = false,
 	liquid_range = 2,
-	post_effect_color = {a=64, r=100, g=100, b=200},
+	post_effect_color = {a=64, r=100, g=178, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
 
