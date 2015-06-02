@@ -11,6 +11,11 @@ minetest.register_craftitem("default:paper", {
 	inventory_image = "default_paper.png",
 })
 
+minetest.register_craftitem("default:sugar", {
+	description = "Sugar",
+	inventory_image = "default_sugar.png",
+})
+
 minetest.register_craftitem("default:book", {
 	description = "Book",
 	inventory_image = "default_book.png",

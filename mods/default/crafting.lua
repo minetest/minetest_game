@@ -628,6 +628,13 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'default:sugar 4',
+	recipe = {
+		{'default:papyrus'},
+	}
+})
+
 --
 -- Crafting (tool repair)
 --

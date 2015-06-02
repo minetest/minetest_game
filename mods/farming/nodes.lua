@@ -88,6 +88,45 @@ minetest.register_node("farming:straw", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
+minetest.register_node("farming:pie", {
+	description = "Apple Pie",
+	tiles = {"farming_pie_top.png","farming_pie_bottom.png","farming_pie_side.png"},
+	is_ground_content = false,
+	drawtype = "nodebox",
+	paramtype = "light",
+	groups = {crumbly=3},
+	sounds = default.node_sound_leaves_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+	},
+	on_rightclick = function(pos,node,player)
+		local health = player:get_hp()
+		player:set_hp(health + 5)
+		minetest.set_node(pos,{name="farming:pie_half"})
+	end,
+})
+
+minetest.register_node("farming:pie_half", {
+	description = "Apple Pie Half",
+	tiles = {"farming_pie_top.png","farming_pie_bottom.png","farming_pie_side.png",
+		"farming_pie_front.png","farming_pie_side.png","farming_pie_side.png"},
+	is_ground_content = false,
+	drawtype = "nodebox",
+	paramtype = "light",
+	groups = {crumbly=3,not_in_creative_inventory=1},
+	sounds = default.node_sound_leaves_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {-0, -0.5, -0.5, 0.5, 0, 0.5},
+	},
+	on_rightclick = function(pos,node,player)
+		local health = player:get_hp()
+		player:set_hp(health + 5)
+		minetest.set_node(pos,{name="air"})
+	end,
+})
+
 minetest.register_abm({
 	nodenames = {"group:field"},
 	interval = 15,
