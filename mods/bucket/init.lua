@@ -30,12 +30,14 @@ local function check_protection(pos, name, text)
 end
 
 -- Register a new liquid
---   source = name of the source node
---   flowing = name of the flowing node
---   itemname = name of the new bucket item (or nil if liquid is not takeable)
---   inventory_image = texture of the new bucket item (ignored if itemname == nil)
+--    source = name of the source node
+--    flowing = name of the flowing node
+--    itemname = name of the new bucket item (or nil if liquid is not takeable)
+--    inventory_image = texture of the new bucket item (ignored if itemname == nil)
+--    name = text description of the bucket item
+--    groups = (optional) groups of the bucket item, for example {water_bucket = 1}
 -- This function can be called from any mod (that depends on bucket).
-function bucket.register_liquid(source, flowing, itemname, inventory_image, name)
+function bucket.register_liquid(source, flowing, itemname, inventory_image, name, groups)
 	bucket.liquids[source] = {
 		source = source,
 		flowing = flowing,
@@ -49,6 +51,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 			inventory_image = inventory_image,
 			stack_max = 1,
 			liquids_pointable = true,
+			groups = groups,
 			on_place = function(itemstack, user, pointed_thing)
 				-- Must be pointing to node
 				if pointed_thing.type ~= "node" then
@@ -159,7 +162,17 @@ bucket.register_liquid(
 	"default:water_flowing",
 	"bucket:bucket_water",
 	"bucket_water.png",
-	"Water Bucket"
+	"Water Bucket",
+	{water_bucket = 1}
+)
+
+bucket.register_liquid(
+	"default:river_water_source",
+	"default:river_water_flowing",
+	"bucket:bucket_river_water",
+	"bucket_river_water.png",
+	"River Water Bucket",
+	{water_bucket = 1}
 )
 
 bucket.register_liquid(
@@ -176,3 +189,4 @@ minetest.register_craft({
 	burntime = 60,
 	replacements = {{"bucket:bucket_lava", "bucket:bucket_empty"}},
 })
+
