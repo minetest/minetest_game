@@ -124,7 +124,7 @@ minetest.register_abm({
 --
 
 function default.grow_cactus(pos, node)
-	if node.param2 ~= 0 then
+	if node.param2 >= 4 then
 		return
 	end
 	pos.y = pos.y-1
