@@ -5,3 +5,5 @@
 tags
 *.vim
 
+## Files related to minetest development cycle
+*.patch
