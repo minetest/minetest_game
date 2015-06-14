@@ -194,6 +194,7 @@ function doors.register_door(name, def)
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
 		drop = name,
 		drawtype = "nodebox",
 		node_box = {
@@ -231,6 +232,7 @@ function doors.register_door(name, def)
 		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
 		drop = "",
 		drawtype = "nodebox",
 		node_box = {
@@ -268,6 +270,7 @@ function doors.register_door(name, def)
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1].."^[transformfx", tb[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
 		drop = name,
 		drawtype = "nodebox",
 		node_box = {
@@ -305,6 +308,7 @@ function doors.register_door(name, def)
 		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
 		drop = "",
 		drawtype = "nodebox",
 		node_box = {
@@ -441,6 +445,7 @@ function doors.register_trapdoor(name, def)
 	def.drawtype = "nodebox"
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
+	def.is_ground_content = false
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)

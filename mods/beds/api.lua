@@ -7,6 +7,7 @@ function beds.register_bed(name, def)
 		tiles = def.tiles.bottom,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
 		stack_max = 1,
 		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 1},
 		sounds = default.node_sound_wood_defaults(),
@@ -87,6 +88,7 @@ function beds.register_bed(name, def)
 		tiles = def.tiles.top,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
 		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
 		sounds = default.node_sound_wood_defaults(),
 		node_box = {
