@@ -87,6 +87,10 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 			"label[2.0,6.55;"..tostring(pagenum).."/"..tostring(pagemax).."]"..
 			"button[0.3,6.5;1.6,1;creative_prev;<<]"..
 			"button[2.7,6.5;1.6,1;creative_next;>>]"..
+			"listring[current_player;main]"..
+			"listring[current_player;craft]"..
+			"listring[current_player;main]"..
+			"listring[detached:creative;main]"..
 			"label[5,1.5;Trash:]"..
 			"list[detached:creative_trash;main;5,2;1,1;]"..
 			default.get_hotbar_bg(5,3.5)

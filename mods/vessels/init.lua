@@ -9,6 +9,8 @@ local vessels_shelf_formspec =
 	"list[context;vessels;0,0.3;8,2;]"..
 	"list[current_player;main;0,2.85;8,1;]"..
 	"list[current_player;main;0,4.08;8,3;8]"..
+	"listring[context;vessels]"..
+	"listring[current_player;main]"..
 	default.get_hotbar_bg(0,2.85)
 
 minetest.register_node("vessels:shelf", {
