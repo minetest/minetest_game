@@ -52,7 +52,7 @@ minetest.register_node("vessels:shelf", {
 		local stack = inv:get_stack(from_list, from_index)
 		local to_stack = inv:get_stack(to_list, to_index)
 		if to_list == "vessels" then
-			if minetest.get_item_group(stack:get_name(), "vessel") ~= 0 
+			if minetest.get_item_group(stack:get_name(), "vessel") ~= 0
 					and to_stack:is_empty() then
 				return 1
 			else

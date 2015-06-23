@@ -6,7 +6,7 @@ Version: 1.1.1
 
 About
 ~~~~~
-This mod adds a bed to Minetest which allows to skip the night. To sleep rightclick the bed, if playing 
+This mod adds a bed to Minetest which allows to skip the night. To sleep rightclick the bed, if playing
 in singleplayer mode the night gets skipped imideatly. If playing on server you get shown how many other
 players are in bed too. If all players are sleeping the night gets skipped aswell. Also the night skip can be forced
 if more than 50% of the players are lying in bed and use this option.
