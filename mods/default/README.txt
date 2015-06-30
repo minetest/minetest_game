@@ -125,7 +125,6 @@ BlockMen (CC BY-SA 3.0):
   default_gold_ingot.png
   default_tool_steelsword.png
   default_diamond.png
-  default_diamond_block.png
   default_book.png
   default_tool_*.png
   default_lava_source_animated.png
@@ -202,3 +201,4 @@ Gambit (WTFPL):
   default_coal.png
   default_grass_*.png
   default_paper.png
+  default_diamond_block.png
