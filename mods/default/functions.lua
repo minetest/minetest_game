@@ -328,7 +328,7 @@ minetest.register_abm({
 })
 
 minetest.register_abm({
-	nodenames = {"default:dirt_with_grass"},
+	nodenames = {"default:dirt_with_grass", "default:dirt_with_dry_grass"},
 	interval = 2,
 	chance = 20,
 	action = function(pos, node)
