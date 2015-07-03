@@ -7,14 +7,22 @@ stairs = {}
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
-		drawtype = "nodebox",
+		drawtype = "mesh",
+		mesh = "stairs.obj",
 		tiles = images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = groups,
 		sounds = sounds,
-		node_box = {
+		selection_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0.5, 0.5, 0.5},
+			},
+		},
+		collision_box = {
 			type = "fixed",
 			fixed = {
 				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
