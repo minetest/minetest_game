@@ -416,6 +416,7 @@ minetest.register_node("default:leaves", {
 	waving = 1,
 	visual_scale = 1.3,
 	tiles = {"default_leaves.png"},
+	special_tiles = {"default_leaves_simple.png"},
 	paramtype = "light",
 	is_ground_content = false,
 	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
@@ -1551,7 +1552,7 @@ minetest.register_node("default:brick", {
 
 minetest.register_node("default:meselamp", {
 	description = "Mese Lamp",
-	drawtype = "glasslike",
+	--drawtype = "glasslike",
 	tiles = {"default_meselamp.png"},
 	paramtype = "light",
 	sunlight_propagates = true,
