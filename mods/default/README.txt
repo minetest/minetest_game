@@ -92,7 +92,6 @@ InfinityProject (WTFPL):
 Splizard (CC BY-SA 3.0):
   default_snow.png
   default_snow_side.png
-  default_ice.png
   default_pine_sapling.png
 
 Zeg9 (CC BY-SA 3.0):
@@ -169,6 +168,9 @@ Gambit (WTFPL):
   default_grass_*.png
   default_paper.png
   default_diamond_block.png
+
+asl97 (WTFPL):
+  default_ice.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
