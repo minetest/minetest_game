@@ -8,7 +8,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
 		drawtype = "mesh",
-		mesh = "stairs.obj",
+		mesh = "stairs_stair.obj",
 		tiles = images,
 		paramtype = "light",
 		paramtype2 = "facedir",
