@@ -14,3 +14,6 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 License of media (textures and sounds)
 --------------------------------------
 WTFPL
+
+Gambit (WTFPL):
+  flowers_mushroom_*.png

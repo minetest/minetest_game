@@ -57,6 +57,33 @@ for _,item in pairs(flowers.datas) do
 	add_simple_flower(unpack(item))
 end
 
+local mushrooms_datas = {
+	{"brown", 2}, {"red", -6}
+}
+
+for _, m in pairs(mushrooms_datas) do
+	local name, nut = m[1], m[2]
+	minetest.register_node("flowers:mushroom_"..name, {
+		description = string.sub(string.upper(name), 0, 1)..
+			string.sub(name, 2).." Mushroom",
+		tiles = {"flowers_mushroom_"..name..".png"},
+		inventory_image = "flowers_mushroom_"..name..".png",
+		wield_image = "flowers_mushroom_"..name..".png",
+		drawtype = "plantlike",
+		paramtype = "light",
+		sunlight_propagates = true,
+		walkable = false,
+		buildable_to = true,
+		groups = {snappy=3,flammable=3,attached_node=1,not_in_creative_inventory=1},
+		sounds = default.node_sound_leaves_defaults(),
+		on_use = minetest.item_eat(nut),
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.3, -0.5, -0.3, 0.3, 0, 0.3}
+		}
+	})
+end
+
 minetest.register_abm({
 	nodenames = {"group:flora"},
 	neighbors = {"default:dirt_with_grass", "default:desert_sand"},
