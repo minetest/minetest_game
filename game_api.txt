@@ -195,29 +195,20 @@ Stairs API
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
 delivered with Minetest Game, to keep them compatible with other mods.
 
-stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
+stairs.register_stair({origin = string[, fixed_name = string, recipe = string, add_crafting = bool}, extradef])
  -> Registers a stair.
- -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
- -> recipeitem: Item used in the craft recipe, e.g. "default:cobble"
- -> groups: see [Known damage and digging time defining groups]
- -> images: see [Tile definition]
- -> description: used for the description field in the stair's definition
- -> sounds: see [#Default sounds]
+ -> origin is the node the stair consists of, selected parts of the node definition of origin are copied and used for the stair, TODO: find out why it copies weird stuff although dumping the def of the original node (superpick mod) doesn't show them and try to avoid it
+ -> fixed_name can be used to avoid giving the stair a name automatically, do not use it for register_stair_and_slab
+ -> recipe is the craft recipe, if omitted origin is used
+ -> add_crafting can be set to false to disable adding a craft recipe for the stair
+ -> extradef is a custom node definition table, it can be used e.g. to give the slab a specific drop
 
-stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
- -> Registers a slabs
- -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
- -> recipeitem: Item used in the craft recipe, e.g. "default:cobble"
- -> groups: see [Known damage and digging time defining groups]
- -> images: see [Tile definition]
- -> description: used for the description field in the stair's definition
- -> sounds: see [#Default sounds]
+stairs.register_slab is like register_stair but adds a slab
+stairs.register_stair_and_slab calls register_stair and register_slab
 
-stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
- -> A wrapper for stairs.register_stair and stairs.register_slab
- -> Uses almost the same arguments as stairs.register_stair
- -> desc_stair: Description for stair node
- -> desc_slab: Description for slab node
+For example, following code adds a stone slab and stair:
+stairs.register_stair_and_slab({origin = "default:stone"})
+The stair is named "default:stair_stone" and contains groups, sounds, etc. from "default:stone".
 
 Xpanes API
 ----------
