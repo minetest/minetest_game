@@ -74,7 +74,7 @@ for _, m in pairs(mushrooms_datas) do
 		sunlight_propagates = true,
 		walkable = false,
 		buildable_to = true,
-		groups = {snappy=3,flammable=3,attached_node=1,not_in_creative_inventory=1},
+		groups = {snappy=3,flammable=3,attached_node=1},
 		sounds = default.node_sound_leaves_defaults(),
 		on_use = minetest.item_eat(nut),
 		selection_box = {
