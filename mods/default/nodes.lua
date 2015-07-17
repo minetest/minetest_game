@@ -946,7 +946,33 @@ for i=2,5 do
 	})
 end
 
-for i = 1, 5 do
+minetest.register_node("default:dry_grass_1", {
+	description = "Dry Grass",
+	drawtype = "plantlike",
+	waving = 1,
+	tiles = {"default_dry_grass_1.png"},
+	inventory_image = "default_dry_grass_3.png",
+	wield_image = "default_dry_grass_3.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy=3,flammable=3,flora=1,attached_node=1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+	},
+
+	on_place = function(itemstack, placer, pointed_thing)
+		-- place a random dry grass node
+		local stack = ItemStack("default:dry_grass_"..math.random(1,5))
+		local ret = minetest.item_place(stack, placer, pointed_thing)
+		return ItemStack("default:dry_grass_1 "..itemstack:get_count()-(1-ret:get_count()))
+	end,
+})
+
+for i=2,5 do
 	minetest.register_node("default:dry_grass_"..i, {
 		description = "Dry Grass",
 		drawtype = "plantlike",
@@ -958,13 +984,7 @@ for i = 1, 5 do
 		sunlight_propagates = true,
 		walkable = false,
 		buildable_to = true,
-		groups = {
-			snappy = 3,
-			flammable = 3,
-			flora = 1,
-			attached_node = 1,
-			not_in_creative_inventory = 1
-		},
+		groups = {snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1},
 		drop = "default:dry_grass_1",
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
