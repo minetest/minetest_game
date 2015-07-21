@@ -46,6 +46,10 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 	bucket.liquids[flowing] = bucket.liquids[source]
 
 	if itemname ~= nil then
+		if groups and groups.overlay_texture then
+			inventory_image = "bucket_overlay.png^"..inventory_image.."^[noalpha^bucket_overlay.png^[makealpha:255,126,126"
+			groups.overlay_texture = nil
+		end
 		minetest.register_craftitem(itemname, {
 			description = name,
 			inventory_image = inventory_image,
@@ -161,26 +165,27 @@ bucket.register_liquid(
 	"default:water_source",
 	"default:water_flowing",
 	"bucket:bucket_water",
-	"bucket_water.png",
+	"default_water.png",
 	"Water Bucket",
-	{water_bucket = 1}
+	{water_bucket = 1, overlay_texture = 1}
 )
 
 bucket.register_liquid(
 	"default:river_water_source",
 	"default:river_water_flowing",
 	"bucket:bucket_river_water",
-	"bucket_river_water.png",
+	"default_river_water.png",
 	"River Water Bucket",
-	{water_bucket = 1}
+	{water_bucket = 1, overlay_texture = 1}
 )
 
 bucket.register_liquid(
 	"default:lava_source",
 	"default:lava_flowing",
 	"bucket:bucket_lava",
-	"bucket_lava.png",
-	"Lava Bucket"
+	"default_lava.png",
+	"Lava Bucket",
+	{overlay_texture = 1}
 )
 
 minetest.register_craft({
