@@ -20,7 +20,7 @@ end
 local function register_mushroom(name)
 	minetest.register_decoration({
 		deco_type = "simple",
-		place_on = {"default:dirt_with_grass", "default:dirt"},
+		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
@@ -30,7 +30,7 @@ local function register_mushroom(name)
 			octaves = 3,
 			persist = 0.6
 		},
-		y_min = -31000,
+		y_min = 1,
 		y_max = 30,
 		decoration = "flowers:"..name,
 	})
