@@ -635,26 +635,7 @@ end
 
 
 --
--- Detect mapgen to select functions
---
-
-
--- Mods using singlenode mapgen can call these functions to enable
--- the use of minetest.generate_ores or minetest.generate_decorations
-
-local mg_params = minetest.get_mapgen_params()
-if mg_params.mgname == "v6" then
-	default.register_ores()
-	default.register_mgv6_decorations()
-elseif mg_params.mgname ~= "singlenode" then
-	default.register_ores()
-	default.register_biomes()
-	default.register_decorations()
-end
-
-
---
--- Generate nyan cats in all mapgens
+-- Generate nyan cats
 --
 
 
@@ -708,4 +689,23 @@ function default.generate_nyancats(minp, maxp, seed)
 end
 
 
-minetest.register_on_generated(default.generate_nyancats)
+--
+-- Detect mapgen to select functions
+--
+
+
+-- Mods using singlenode mapgen can call these functions to enable
+-- the use of minetest.generate_ores or minetest.generate_decorations
+
+local mg_params = minetest.get_mapgen_params()
+if mg_params.mgname == "v6" then
+	default.register_ores()
+	default.register_mgv6_decorations()
+	minetest.register_on_generated(default.generate_nyancats)
+elseif mg_params.mgname ~= "singlenode" then
+	default.register_ores()
+	default.register_biomes()
+	default.register_decorations()
+	minetest.register_on_generated(default.generate_nyancats)
+end
+
