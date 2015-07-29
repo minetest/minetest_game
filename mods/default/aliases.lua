@@ -69,4 +69,4 @@ minetest.register_alias("clay_brick", "default:clay_brick")
 minetest.register_alias("snow", "default:snow")
 
 -- Mese now comes in the form of blocks, ore, crystal and fragments
-minetest.register_alias("default:mese", "default:mese_block")
+minetest.register_alias("default:mese_block", "default:mese")
