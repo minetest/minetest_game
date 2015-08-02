@@ -200,7 +200,7 @@ end
 -- Replace old "upside_down" nodes with new param2 versions
 minetest.register_abm({
 	nodenames = {"group:slabs_replace"},
-	interval = 1,
+	interval = 8,
 	chance = 1,
 	action = function(pos, node)
 		node.name = minetest.registered_nodes[node.name].replace_name
