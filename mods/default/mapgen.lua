@@ -330,9 +330,9 @@ function default.register_biomes()
 		depth_filler = 3,
 		node_stone = "default:ice",
 		node_water_top = "default:ice",
-		depth_water_top = 8,
+		depth_water_top = 10,
 		--node_water = "",
-		y_min = -6,
+		y_min = -8,
 		y_max = 31000,
 		heat_point = -5,
 		humidity_point = 50,
@@ -341,16 +341,16 @@ function default.register_biomes()
 	minetest.register_biome({
 		name = "glacier_ocean",
 		node_dust = "default:snowblock",
-		node_top = "default:sand",
+		node_top = "default:gravel",
 		depth_top = 1,
-		node_filler = "default:sand",
+		node_filler = "default:gravel",
 		depth_filler = 2,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
 		--node_water = "",
 		y_min = -112,
-		y_max = -7,
+		y_max = -9,
 		heat_point = -5,
 		humidity_point = 50,
 	})
@@ -734,7 +734,7 @@ function default.register_mgv6_decorations()
 		y_max = 1,
 		decoration = "default:papyrus",
 		height = 2,
-	        height_max = 4,
+		height_max = 4,
 		spawn_by = "default:water_source",
 		num_spawn_by = 1,
 	})
@@ -828,14 +828,14 @@ local function register_grass_decoration(offset, scale, length)
 	})
 end
 
-local function register_dry_grass_decoration(length)
+local function register_dry_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
 		noise_params = {
-			offset = 0.04,
-			scale = 0.02,
+			offset = offset,
+			scale = scale,
 			spread = {x=200, y=200, z=200},
 			seed = 329,
 			octaves = 3,
@@ -914,8 +914,8 @@ function default.register_decorations()
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 80,
 		noise_params = {
-			offset = 0.001,
-			scale = 0.0015,
+			offset = 0,
+			scale = 0.003,
 			spread = {x=250, y=250, z=250},
 			seed = 2,
 			octaves = 3,
@@ -1003,11 +1003,11 @@ function default.register_decorations()
 
 	-- Dry grasses
 
-	register_dry_grass_decoration(5)
-	register_dry_grass_decoration(4)
-	register_dry_grass_decoration(3)
-	register_dry_grass_decoration(2)
-	register_dry_grass_decoration(1)
+	register_dry_grass_decoration(0.01, 0.05,  5)
+	register_dry_grass_decoration(0.03, 0.03,  4)
+	register_dry_grass_decoration(0.05, 0.01,  3)
+	register_dry_grass_decoration(0.07, -0.01, 2)
+	register_dry_grass_decoration(0.09, -0.03, 1)
 
 	-- Junglegrass
 
