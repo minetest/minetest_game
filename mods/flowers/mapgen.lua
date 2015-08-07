@@ -1,4 +1,6 @@
+--
 -- Mgv6
+--
 
 local function register_mgv6_flower(name)
 	minetest.register_decoration({
@@ -26,7 +28,7 @@ local function register_mgv6_mushroom(name)
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
-			scale = 0.006,
+			scale = 0.04,
 			spread = {x=100, y=100, z=100},
 			seed = 7133,
 			octaves = 3,
@@ -35,6 +37,8 @@ local function register_mgv6_mushroom(name)
 		y_min = 1,
 		y_max = 30,
 		decoration = "flowers:"..name,
+		spawn_by = "default:tree",
+		num_spawn_by = 1,
 	})
 end
 
@@ -50,7 +54,10 @@ function flowers.register_mgv6_decorations()
 	register_mgv6_mushroom("mushroom_red")
 end
 
--- All other biome API mapgens (not singlenode)
+
+--
+-- All other biome API mapgens
+--
 
 local function register_flower(seed, name)
 	minetest.register_decoration({
@@ -86,9 +93,9 @@ local function register_mushroom(name)
 			offset = 0,
 			scale = 0.006,
 			spread = {x=200, y=200, z=200},
-			seed = 7133,
+			seed = 2,
 			octaves = 3,
-			persist = 0.6
+			persist = 0.66
 		},
 		biomes = {"deciduous_forest", "coniferous_forest"},
 		y_min = 6,
@@ -109,7 +116,10 @@ function flowers.register_decorations()
 	register_mushroom("mushroom_red")
 end
 
+
+--
 -- Detect mapgen to select functions
+--
 
 -- Mods using singlenode mapgen can call these functions to enable
 -- the use of minetest.generate_ores or minetest.generate_decorations
