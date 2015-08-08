@@ -369,7 +369,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "default:bronze_ingot",
-	recipe = {"default:steel_ingot", "default:copper_ingot"},
+	recipe = {"default:copper_ingot"},
 })
 
 minetest.register_craft({
@@ -404,21 +404,21 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = 'default:copperblock',
-	recipe = {
-		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
-		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
-		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
-	}
-})
+-- minetest.register_craft({
+-- 	output = 'default:copperblock',
+-- 	recipe = {
+-- 		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
+-- 		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
+-- 		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
+-- 	}
+-- })
 
-minetest.register_craft({
-	output = 'default:copper_ingot 9',
-	recipe = {
-		{'default:copperblock'},
-	}
-})
+-- minetest.register_craft({
+-- 	output = 'default:copper_ingot 9',
+-- 	recipe = {
+-- 		{'default:copperblock'},
+-- 	}
+-- })
 
 minetest.register_craft({
 	output = 'default:bronzeblock',
@@ -683,11 +683,11 @@ minetest.register_craft({
 	recipe = "default:iron_lump",
 })
 
-minetest.register_craft({
-	type = "cooking",
-	output = "default:copper_ingot",
-	recipe = "default:copper_lump",
-})
+--minetest.register_craft({
+--	type = "cooking",
+--	output = "default:copper_ingot",
+--	recipe = "default:copper_lump",
+--})
 
 minetest.register_craft({
 	type = "cooking",
