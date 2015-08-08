@@ -57,9 +57,9 @@ minetest.register_tool("default:pick_steel", {
 		damage_groups = {fleshy=4},
 	},
 })
-minetest.register_tool("default:pick_bronze", {
-	description = "Bronze Pickaxe",
-	inventory_image = "default_tool_bronzepick.png",
+minetest.register_tool("default:pick_gnucydur", {
+	description = "Gnucydur Pickaxe",
+	inventory_image = "default_tool_gnucydurpick.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
 		max_drop_level=1,
@@ -137,10 +137,10 @@ minetest.register_tool("default:shovel_steel", {
 		damage_groups = {fleshy=3},
 	},
 })
-minetest.register_tool("default:shovel_bronze", {
-	description = "Bronze Shovel",
-	inventory_image = "default_tool_bronzeshovel.png",
-	wield_image = "default_tool_bronzeshovel.png^[transformR90",
+minetest.register_tool("default:shovel_gnucydur", {
+	description = "Gnucydur Shovel",
+	inventory_image = "default_tool_gnucydurshovel.png",
+	wield_image = "default_tool_gnucydurshovel.png^[transformR90",
 	tool_capabilities = {
 		full_punch_interval = 1.1,
 		max_drop_level=1,
@@ -217,9 +217,9 @@ minetest.register_tool("default:axe_steel", {
 		damage_groups = {fleshy=4},
 	},
 })
-minetest.register_tool("default:axe_bronze", {
-	description = "Bronze Axe",
-	inventory_image = "default_tool_bronzeaxe.png",
+minetest.register_tool("default:axe_gnucydur", {
+	description = "Gnucydur Axe",
+	inventory_image = "default_tool_gnucyduraxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
 		max_drop_level=1,
@@ -294,9 +294,9 @@ minetest.register_tool("default:sword_steel", {
 		damage_groups = {fleshy=6},
 	}
 })
-minetest.register_tool("default:sword_bronze", {
-	description = "Bronze Sword",
-	inventory_image = "default_tool_bronzesword.png",
+minetest.register_tool("default:sword_gnucydur", {
+	description = "Gnucydur Sword",
+	inventory_image = "default_tool_gnucydursword.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,
 		max_drop_level=1,

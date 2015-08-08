@@ -98,7 +98,7 @@ Zeg9 (CC BY-SA 3.0):
   default_coal_block.png
   default_steel_block.png
   default_copper_block.png
-  default_bronze_block.png
+  default_gnucydur_block.png
   default_gold_block.png
 
 paramat (CC BY-SA 3.0):
@@ -158,7 +158,7 @@ Philipbenr (CC BY-SA 3.0):
   default_grass_side.png
 
 Gambit (WTFPL):
-  default_bronze_ingot.png
+  default_gnucydur_ingot.png
   default_copper_ingot.png
   default_copper_lump.png
   default_iron_lump.png
