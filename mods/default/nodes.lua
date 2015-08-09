@@ -53,13 +53,13 @@ default:leaves
 default:sapling
 default:apple
 
-default:jungletree
-default:junglewood
-default:jungleleaves
-default:junglesapling
+default:jungle_tree
+default:jungle_wood
+default:jungle_leaves
+default:jungle_sapling
 
-default:pinetree
-default:pinewood
+default:pine_tree
+default:pine_wood
 default:pine_needles
 default:pine_sapling
 
@@ -404,7 +404,7 @@ minetest.register_node("default:tree", {
 	tiles = {"default_tree_top.png", "default_tree_top.png", "default_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
@@ -414,7 +414,7 @@ minetest.register_node("default:wood", {
 	description = "Wooden Planks",
 	tiles = {"default_wood.png"},
 	is_ground_content = false,
-	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -432,7 +432,8 @@ minetest.register_node("default:sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -445,7 +446,7 @@ minetest.register_node("default:leaves", {
 	special_tiles = {"default_leaves_simple.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -480,95 +481,24 @@ minetest.register_node("default:apple", {
 		type = "fixed",
 		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
 	},
-	groups = {fleshy=3,dig_immediate=3,flammable=2,leafdecay=3,leafdecay_drop=1},
+	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
+		leafdecay = 3, leafdecay_drop = 1},
 	on_use = minetest.item_eat(2),
 	sounds = default.node_sound_leaves_defaults(),
 
 	after_place_node = function(pos, placer, itemstack)
 		if placer:is_player() then
-			minetest.set_node(pos, {name="default:apple", param2=1})
+			minetest.set_node(pos, {name="default:apple", param2 = 1})
 		end
 	end,
 })
 
 
 
-minetest.register_node("default:jungletree", {
+minetest.register_node("default:jungle_tree", {
 	description = "Jungle Tree",
-	tiles = {"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
-	paramtype2 = "facedir",
-	is_ground_content = false,
-	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
-	sounds = default.node_sound_wood_defaults(),
-
-	on_place = minetest.rotate_node
-})
-
-minetest.register_node("default:junglewood", {
-	description = "Junglewood Planks",
-	tiles = {"default_junglewood.png"},
-	is_ground_content = false,
-	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1},
-	sounds = default.node_sound_wood_defaults(),
-})
-
-minetest.register_node("default:jungleleaves", {
-	description = "Jungle Leaves",
-	drawtype = "allfaces_optional",
-	waving = 1,
-	visual_scale = 1.3,
-	tiles = {"default_jungleleaves.png"},
-	special_tiles = {"default_jungleleaves_simple.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
-	drop = {
-		max_items = 1,
-		items = {
-			{
-				-- player will get sapling with 1/20 chance
-				items = {'default:junglesapling'},
-				rarity = 20,
-			},
-			{
-				-- player will get leaves only if he get no saplings,
-				-- this is because max_items is 1
-				items = {'default:jungleleaves'},
-			}
-		}
-	},
-	sounds = default.node_sound_leaves_defaults(),
-
-	after_place_node = default.after_place_leaves,
-})
-
-minetest.register_node("default:junglesapling", {
-	description = "Jungle Sapling",
-	drawtype = "plantlike",
-	visual_scale = 1.0,
-	tiles = {"default_junglesapling.png"},
-	inventory_image = "default_junglesapling.png",
-	wield_image = "default_junglesapling.png",
-	paramtype = "light",
-	sunlight_propagates = true,
-	walkable = false,
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
-	},
-	groups = {snappy=2,dig_immediate=3,flammable=2,attached_node=1,sapling=1},
-	sounds = default.node_sound_leaves_defaults(),
-})
-
-
-
-minetest.register_node("default:pinetree", {
-	description = "Pine Tree",
-	tiles = {
-		"default_pinetree_top.png",
-		"default_pinetree_top.png",
-		"default_pinetree.png"
-	},
+	tiles = {"default_jungle_tree_top.png", "default_jungle_tree_top.png",
+		"default_jungle_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
@@ -577,9 +507,72 @@ minetest.register_node("default:pinetree", {
 	on_place = minetest.rotate_node
 })
 
-minetest.register_node("default:pinewood", {
-	description = "Pinewood Planks",
-	tiles = {"default_pinewood.png"},
+minetest.register_node("default:jungle_wood", {
+	description = "Jungle Wood Planks",
+	tiles = {"default_jungle_wood.png"},
+	is_ground_content = false,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
+	sounds = default.node_sound_wood_defaults(),
+})
+
+minetest.register_node("default:jungle_leaves", {
+	description = "Jungle Leaves",
+	drawtype = "allfaces_optional",
+	waving = 1,
+	visual_scale = 1.3,
+	tiles = {"default_jungle_leaves.png"},
+	special_tiles = {"default_jungle_leaves_simple.png"},
+	paramtype = "light",
+	is_ground_content = false,
+	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {'default:jungle_sapling'}, rarity = 20,},
+			{items = {'default:jungle_leaves'}}
+		}
+	},
+	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
+})
+
+minetest.register_node("default:jungle_sapling", {
+	description = "Jungle Sapling",
+	drawtype = "plantlike",
+	visual_scale = 1.0,
+	tiles = {"default_jungle_sapling.png"},
+	inventory_image = "default_jungle_sapling.png",
+	wield_image = "default_jungle_sapling.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
+	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
+
+
+minetest.register_node("default:pine_tree", {
+	description = "Pine Tree",
+	tiles = {"default_pine_tree_top.png", "default_pine_tree_top.png",
+		"default_pine_tree.png"},
+	paramtype2 = "facedir",
+	is_ground_content = false,
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	sounds = default.node_sound_wood_defaults(),
+
+	on_place = minetest.rotate_node
+})
+
+minetest.register_node("default:pine_wood", {
+	description = "Pine Wood Planks",
+	tiles = {"default_pine_wood.png"},
 	is_ground_content = false,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
 	sounds = default.node_sound_wood_defaults(),
@@ -620,23 +613,15 @@ minetest.register_node("default:pine_sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {
-		snappy = 2,
-		dig_immediate = 3,
-		flammable = 2,
-		attached_node = 1,
-		sapling = 1
-	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_node("default:acacia_tree", {
 	description = "Acacia Tree",
-	tiles = {
-		"default_acacia_tree_top.png",
-		"default_acacia_tree_top.png",
-		"default_acacia_tree.png"
-	},
+	tiles = {"default_acacia_tree_top.png", "default_acacia_tree_top.png",
+		"default_acacia_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
@@ -687,13 +672,8 @@ minetest.register_node("default:acacia_sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {
-		snappy = 2,
-		dig_immediate = 3,
-		flammable = 2,
-		attached_node = 1,
-		sapling = 1
-	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
@@ -877,14 +857,14 @@ minetest.register_node("default:dry_shrub", {
 	},
 })
 
-minetest.register_node("default:junglegrass", {
+minetest.register_node("default:jungle_grass", {
 	description = "Jungle Grass",
 	drawtype = "plantlike",
 	waving = 1,
 	visual_scale = 1.3,
-	tiles = {"default_junglegrass.png"},
-	inventory_image = "default_junglegrass.png",
-	wield_image = "default_junglegrass.png",
+	tiles = {"default_jungle_grass.png"},
+	inventory_image = "default_jungle_grass.png",
+	wield_image = "default_jungle_grass.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,

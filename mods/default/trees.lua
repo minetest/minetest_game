@@ -23,7 +23,7 @@ end
 -- Sapling ABM
 
 minetest.register_abm({
-	nodenames = {"default:sapling", "default:junglesapling",
+	nodenames = {"default:sapling", "default:jungle_sapling",
 		"default:pine_sapling", "default:acacia_sapling"},
 	interval = 10,
 	chance = 50,
@@ -41,7 +41,7 @@ minetest.register_abm({
 			else
 				default.grow_new_apple_tree(pos)
 			end
-		elseif node.name == "default:junglesapling" then
+		elseif node.name == "default:jungle_sapling" then
 			minetest.log("action", "A jungle sapling grows into a tree at "..
 				minetest.pos_to_string(pos))
 			if mapgen == "v6" then
@@ -179,8 +179,8 @@ function default.grow_jungle_tree(pos, bad)
 	local height = random(8, 12)
 	local c_air = minetest.get_content_id("air")
 	local c_ignore = minetest.get_content_id("ignore")
-	local c_jungletree = minetest.get_content_id("default:jungletree")
-	local c_jungleleaves = minetest.get_content_id("default:jungleleaves")
+	local c_jungletree = minetest.get_content_id("default:jungle_tree")
+	local c_jungleleaves = minetest.get_content_id("default:jungle_leaves")
 
 	local vm = minetest.get_voxel_manip()
 	local minp, maxp = vm:read_from_map(
@@ -237,7 +237,7 @@ function default.grow_pine_tree(pos)
 
 	local c_air = minetest.get_content_id("air")
 	local c_ignore = minetest.get_content_id("ignore")
-	local c_pinetree = minetest.get_content_id("default:pinetree")
+	local c_pinetree = minetest.get_content_id("default:pine_tree")
 	local c_pine_needles  = minetest.get_content_id("default:pine_needles")
 	local c_snow = minetest.get_content_id("default:snow")
 	local c_snowblock = minetest.get_content_id("default:snowblock")

@@ -14,8 +14,8 @@ minetest.register_alias("sandstone", "default:sandstone")
 minetest.register_alias("clay", "default:clay")
 minetest.register_alias("brick", "default:brick")
 minetest.register_alias("tree", "default:tree")
-minetest.register_alias("jungletree", "default:jungletree")
-minetest.register_alias("junglegrass", "default:junglegrass")
+minetest.register_alias("jungletree", "default:jungle_tree")
+minetest.register_alias("junglegrass", "default:jungle_grass")
 minetest.register_alias("leaves", "default:leaves")
 minetest.register_alias("cactus", "default:cactus")
 minetest.register_alias("papyrus", "default:papyrus")
@@ -70,3 +70,12 @@ minetest.register_alias("snow", "default:snow")
 
 -- Mese now comes in the form of blocks, ore, crystal and fragments
 minetest.register_alias("default:mese_block", "default:mese")
+
+-- Aliases for correction of jungle tree, pine tree and jungle grass node names
+minetest.register_alias("default:junglegrass", "default:jungle_grass")
+minetest.register_alias("default:jungletree", "default:jungle_tree")
+minetest.register_alias("default:junglewood", "default:jungle_wood")
+minetest.register_alias("default:jungleleaves", "default:jungle_leaves")
+minetest.register_alias("default:junglesapling", "default:jungle_sapling")
+minetest.register_alias("default:pinetree", "default:pine_tree")
+minetest.register_alias("default:pinewood", "default:pine_wood")

@@ -8,16 +8,16 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:junglewood 4',
+	output = 'default:jungle_wood 4',
 	recipe = {
-		{'default:jungletree'},
+		{'default:jungle_tree'},
 	}
 })
 
 minetest.register_craft({
-	output = 'default:pinewood 4',
+	output = 'default:pine_wood 4',
 	recipe = {
-		{'default:pinetree'},
+		{'default:pine_tree'},
 	}
 })
 
@@ -713,7 +713,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:junglegrass",
+	recipe = "default:jungle_grass",
 	burntime = 2,
 })
 
