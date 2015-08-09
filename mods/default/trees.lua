@@ -237,7 +237,7 @@ function default.grow_pine_tree(pos)
 
 	local c_air = minetest.get_content_id("air")
 	local c_ignore = minetest.get_content_id("ignore")
-	local c_pinetree = minetest.get_content_id("default:pinetree")
+	local c_pine_tree = minetest.get_content_id("default:pine_tree")
 	local c_pine_needles  = minetest.get_content_id("default:pine_needles")
 	local c_snow = minetest.get_content_id("default:snow")
 	local c_snowblock = minetest.get_content_id("default:snowblock")
@@ -341,12 +341,13 @@ function default.grow_pine_tree(pos)
 	end
 
 	-- Trunk
-	data[a:index(x, y, z)] = c_pinetree -- Force-place lowest trunk node to replace sapling
+	data[a:index(x, y, z)] = c_pine_tree -- Force-place lowest trunk node to replace sapling
 	for yy = y + 1, maxy do
 		local vi = a:index(x, yy, z)
 		local node_id = data[vi]
-		if node_id == c_air or node_id == c_ignore or node_id == c_pine_needles then
-			data[vi] = c_pinetree
+		if node_id == c_air or node_id == c_ignore or
+				node_id == c_pine_needles or node_id == c_snow then
+			data[vi] = c_pine_tree
 		end
 	end
 

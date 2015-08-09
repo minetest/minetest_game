@@ -26,7 +26,7 @@ minetest.register_alias("mapgen_apple", "default:apple")
 minetest.register_alias("mapgen_jungletree", "default:jungletree")
 minetest.register_alias("mapgen_jungleleaves", "default:jungleleaves")
 minetest.register_alias("mapgen_junglegrass", "default:junglegrass")
-minetest.register_alias("mapgen_pinetree", "default:pinetree")
+minetest.register_alias("mapgen_pine_tree", "default:pine_tree")
 minetest.register_alias("mapgen_pine_needles", "default:pine_needles")
 
 -- Dungeons
