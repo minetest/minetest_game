@@ -85,23 +85,23 @@ minetest.register_abm({
 		elseif under.name ~= "default:dirt_with_grass" then
 			return
 		end
-		
+
 		local light = minetest.get_node_light(pos)
 		if not light or light < 13 then
 			return
 		end
-		
+
 		local pos0 = {x = pos.x - 4, y = pos.y - 4, z = pos.z - 4}
 		local pos1 = {x = pos.x + 4, y = pos.y + 4, z = pos.z + 4}
 		if #minetest.find_nodes_in_area(pos0, pos1, "group:flora_block") > 0 then
 			return
 		end
-		
+
 		local flowers = minetest.find_nodes_in_area(pos0, pos1, "group:flora")
 		if #flowers > 3 then
 			return
 		end
-		
+
 		local seedling = minetest.find_nodes_in_area(pos0, pos1, "default:dirt_with_grass")
 		if #seedling > 0 then
 			seedling = seedling[math.random(#seedling)]
@@ -145,11 +145,12 @@ for _, m in pairs(mushrooms_datas) do
 		buildable_to = true,
 		groups = {snappy = 3, flammable = 3, attached_node = 1},
 		drop = {
+			max_items = 1,
 			items = {
-				{items = {"flowers:mushroom_spores_" .. name}, rarity = 2,},
-				{items = {"flowers:mushroom_spores_" .. name}, rarity = 2,},
-				{items = {"flowers:mushroom_spores_" .. name}, rarity = 2,},
-				{items = {"flowers:mushroom_" .. name},},
+				{items = {"flowers:mushroom_" .. name}, rarity = 2,},
+				{items = {"flowers:mushroom_spores_" .. name}, rarity = 3,},
+				{items = {"flowers:mushroom_spores_" .. name .. " 2"}, rarity = 2,},
+				{items = {"flowers:mushroom_spores_" .. name .. " 3"}, rarity = 2,},
 			},
 		},
 		sounds = default.node_sound_leaves_defaults(),
