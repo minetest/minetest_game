@@ -234,11 +234,11 @@ stairs.register_stair_and_slab("junglewood", "default:junglewood",
 		"Junglewood Slab",
 		default.node_sound_wood_defaults())
 
-stairs.register_stair_and_slab("pinewood", "default:pinewood",
+stairs.register_stair_and_slab("pine_wood", "default:pine_wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
-		{"default_pinewood.png"},
-		"Pinewood Stair",
-		"Pinewood Slab",
+		{"default_pine_wood.png"},
+		"Pine Wood Stair",
+		"Pine Wood Slab",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("acacia_wood", "default:acacia_wood",

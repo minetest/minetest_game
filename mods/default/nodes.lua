@@ -1,5 +1,15 @@
 -- mods/default/nodes.lua
 
+
+--[[ Node name convention:
+
+Although many node names are in combined-word form, the required form for new
+node names is words separated by underscores. If both forms are used in written
+language (for example pinewood and pine wood) the underscore form should be used.
+
+--]]
+
+
 --[[ Index:
 
 Stone
@@ -58,8 +68,8 @@ default:junglewood
 default:jungleleaves
 default:junglesapling
 
-default:pinetree
-default:pinewood
+default:pine_tree
+default:pine_wood
 default:pine_needles
 default:pine_sapling
 
@@ -562,13 +572,10 @@ minetest.register_node("default:junglesapling", {
 
 
 
-minetest.register_node("default:pinetree", {
+minetest.register_node("default:pine_tree", {
 	description = "Pine Tree",
-	tiles = {
-		"default_pinetree_top.png",
-		"default_pinetree_top.png",
-		"default_pinetree.png"
-	},
+	tiles = {"default_pine_tree_top.png", "default_pine_tree_top.png",
+		"default_pine_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
@@ -577,9 +584,9 @@ minetest.register_node("default:pinetree", {
 	on_place = minetest.rotate_node
 })
 
-minetest.register_node("default:pinewood", {
-	description = "Pinewood Planks",
-	tiles = {"default_pinewood.png"},
+minetest.register_node("default:pine_wood", {
+	description = "Pine Wood Planks",
+	tiles = {"default_pine_wood.png"},
 	is_ground_content = false,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
 	sounds = default.node_sound_wood_defaults(),
@@ -620,23 +627,15 @@ minetest.register_node("default:pine_sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {
-		snappy = 2,
-		dig_immediate = 3,
-		flammable = 2,
-		attached_node = 1,
-		sapling = 1
-	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_node("default:acacia_tree", {
 	description = "Acacia Tree",
-	tiles = {
-		"default_acacia_tree_top.png",
-		"default_acacia_tree_top.png",
-		"default_acacia_tree.png"
-	},
+	tiles = {"default_acacia_tree_top.png", "default_acacia_tree_top.png",
+		"default_acacia_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
@@ -687,13 +686,8 @@ minetest.register_node("default:acacia_sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {
-		snappy = 2,
-		dig_immediate = 3,
-		flammable = 2,
-		attached_node = 1,
-		sapling = 1
-	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
