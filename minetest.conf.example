@@ -22,3 +22,6 @@
 
 # The radius of a TNT explosion
 #tnt_radius = 3
+
+#Notify player with the location of their dropped bones
+#show_bone_pos = false
