@@ -17,7 +17,7 @@ minetest.register_node("vessels:shelf", {
 	description = "Vessels shelf",
 	tiles = {"default_wood.png", "default_wood.png", "default_wood.png^vessels_shelf.png"},
 	is_ground_content = false,
-	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3},
+	groups = {choppy=3, oddly_breakable_by_hand=2, flammable=3},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_construct = function(pos)
@@ -27,12 +27,12 @@ minetest.register_node("vessels:shelf", {
 		inv:set_size("vessels", 8*2)
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		return inv:is_empty("vessels")
 	end,
 
-	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+	allow_metadata_inventory_put = function(pos, listname, index, stack)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		local to_stack = inv:get_stack(listname, index)
@@ -46,7 +46,7 @@ minetest.register_node("vessels:shelf", {
 		end
 	end,
 
-	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		local stack = inv:get_stack(from_list, from_index)
@@ -61,26 +61,26 @@ minetest.register_node("vessels:shelf", {
 		end
 	end,
 
-	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+	on_metadata_inventory_move = function(pos, _, _, _, _, _, player)
 		minetest.log("action", player:get_player_name()..
-			   " moves stuff in vessels shelf at "..minetest.pos_to_string(pos))
+			" moves stuff in vessels shelf at "..minetest.pos_to_string(pos))
 	end,
-	on_metadata_inventory_put = function(pos, listname, index, stack, player)
+	on_metadata_inventory_put = function(pos, _, _, _, _, _, player)
 		minetest.log("action", player:get_player_name()..
-			   " moves stuff to vessels shelf at "..minetest.pos_to_string(pos))
+			" moves stuff to vessels shelf at "..minetest.pos_to_string(pos))
 	end,
-	on_metadata_inventory_take = function(pos, listname, index, stack, player)
+	on_metadata_inventory_take = function(pos, _, _, _, _, _, player)
 		minetest.log("action", player:get_player_name()..
-			   " takes stuff from vessels shelf at "..minetest.pos_to_string(pos))
-	end,
+			" takes stuff from vessels shelf at "..minetest.pos_to_string(pos))
+	end
 })
 
 minetest.register_craft({
-	output = 'vessels:shelf',
+	output = "vessels:shelf",
 	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:vessel', 'group:vessel', 'group:vessel'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{"group:wood", "group:wood", "group:wood"},
+		{"group:vessel", "group:vessel", "group:vessel"},
+		{"group:wood", "group:wood", "group:wood"}
 	}
 })
 
@@ -97,16 +97,16 @@ minetest.register_node("vessels:glass_bottle", {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
 	},
-	groups = {vessel=1,dig_immediate=3,attached_node=1},
-	sounds = default.node_sound_glass_defaults(),
+	groups = {vessel=1, dig_immediate=3, attached_node=1},
+	sounds = default.node_sound_glass_defaults()
 })
 
 minetest.register_craft( {
 	output = "vessels:glass_bottle 10",
 	recipe = {
-		{ "default:glass", "", "default:glass" },
-		{ "default:glass", "", "default:glass" },
-		{ "", "default:glass", "" }
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "", "default:glass"},
+		{"", "default:glass", ""}
 	}
 })
 
@@ -123,16 +123,16 @@ minetest.register_node("vessels:drinking_glass", {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
 	},
-	groups = {vessel=1,dig_immediate=3,attached_node=1},
-	sounds = default.node_sound_glass_defaults(),
+	groups = {vessel=1, dig_immediate=3, attached_node=1},
+	sounds = default.node_sound_glass_defaults()
 })
 
 minetest.register_craft( {
 	output = "vessels:drinking_glass 14",
 	recipe = {
-		{ "default:glass", "", "default:glass" },
-		{ "default:glass", "", "default:glass" },
-		{ "default:glass", "default:glass", "default:glass" }
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "default:glass", "default:glass"}
 	}
 })
 
@@ -149,16 +149,16 @@ minetest.register_node("vessels:steel_bottle", {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
 	},
-	groups = {vessel=1,dig_immediate=3,attached_node=1},
-	sounds = default.node_sound_defaults(),
+	groups = {vessel=1, dig_immediate=3, attached_node=1},
+	sounds = default.node_sound_defaults()
 })
 
 minetest.register_craft( {
 	output = "vessels:steel_bottle 5",
 	recipe = {
-		{ "default:steel_ingot", "", "default:steel_ingot" },
-		{ "default:steel_ingot", "", "default:steel_ingot" },
-		{ "", "default:steel_ingot", "" }
+		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"", "default:steel_ingot", ""}
 	}
 })
 
@@ -167,7 +167,7 @@ minetest.register_craft( {
 
 minetest.register_craftitem("vessels:glass_fragments", {
 	description = "Pile of Glass Fragments",
-	inventory_image = "vessels_glass_fragments.png",
+	inventory_image = "vessels_glass_fragments.png"
 })
 
 minetest.register_craft( {
@@ -175,8 +175,8 @@ minetest.register_craft( {
 	output = "vessels:glass_fragments",
 	recipe = {
 		"vessels:glass_bottle",
-		"vessels:glass_bottle",
-	},
+		"vessels:glass_bottle"
+	}
 })
 
 minetest.register_craft( {
@@ -184,19 +184,18 @@ minetest.register_craft( {
 	output = "vessels:glass_fragments",
 	recipe = {
 		"vessels:drinking_glass",
-		"vessels:drinking_glass",
-	},
+		"vessels:drinking_glass"
+	}
 })
 
 minetest.register_craft({
 	type = "cooking",
 	output = "default:glass",
-	recipe = "vessels:glass_fragments",
+	recipe = "vessels:glass_fragments"
 })
 
 minetest.register_craft( {
 	type = "cooking",
 	output = "default:steel_ingot",
-	recipe = "vessels:steel_bottle",
+	recipe = "vessels:steel_bottle"
 })
-
