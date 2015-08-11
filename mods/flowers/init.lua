@@ -144,14 +144,15 @@ for _, m in pairs(mushrooms_datas) do
 		walkable = false,
 		buildable_to = true,
 		groups = {snappy = 3, flammable = 3, attached_node = 1},
+		-- Drop 0 to 3 spores, with an average of 1.25 spores per mushroom
+		-- for a slow multiplication of mushrooms when farming
 		drop = {
-			max_items = 1,
 			items = {
-				{items = {"flowers:mushroom_" .. name}, rarity = 2,},
-				{items = {"flowers:mushroom_spores_" .. name}, rarity = 3,},
-				{items = {"flowers:mushroom_spores_" .. name .. " 2"}, rarity = 2,},
-				{items = {"flowers:mushroom_spores_" .. name .. " 3"}, rarity = 2,},
-			},
+				{items = {"flowers:mushroom_" .. name}},
+				{items = {"flowers:mushroom_spores_" .. name}, rarity = 2},
+				{items = {"flowers:mushroom_spores_" .. name}, rarity = 2},
+				{items = {"flowers:mushroom_spores_" .. name}, rarity = 4}
+			}
 		},
 		sounds = default.node_sound_leaves_defaults(),
 		on_use = minetest.item_eat(nut),
@@ -199,7 +200,7 @@ minetest.register_abm({
 				minetest.get_node_light(pos, nil) <= 13 then
 			if node.name == "flowers:mushroom_spores_brown" then
 				minetest.set_node(pos, {name = "flowers:mushroom_brown"})
-			else
+			elseif node.name == "flowers:mushroom_spores_red" then
 				minetest.set_node(pos, {name = "flowers:mushroom_red"})
 			end
 		end
