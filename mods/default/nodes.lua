@@ -264,7 +264,9 @@ minetest.register_node("default:dirt", {
 
 minetest.register_node("default:dirt_with_grass", {
 	description = "Dirt with Grass",
-	tiles = {"default_grass.png", "default_dirt.png", "default_dirt.png^default_grass_side.png"},
+	tiles = {"default_grass.png", "default_dirt.png", 
+		{name = "default_dirt.png^default_grass_side.png",
+		tileable_vertical = false}},
 	groups = {crumbly=3,soil=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
@@ -274,10 +276,9 @@ minetest.register_node("default:dirt_with_grass", {
 
 minetest.register_node("default:dirt_with_dry_grass", {
 	description = "Dirt with Dry Grass",
-	tiles = {"default_dry_grass.png",
-		"default_dirt.png",
-		"default_dirt.png^default_dry_grass_side.png"
-	},
+	tiles = {"default_dry_grass.png", "default_dirt.png", 
+		{name = "default_dirt.png^default_dry_grass_side.png",
+		tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
@@ -287,7 +288,9 @@ minetest.register_node("default:dirt_with_dry_grass", {
 
 minetest.register_node("default:dirt_with_grass_footsteps", {
 	description = "Dirt with Grass and Footsteps",
-	tiles = {"default_grass_footsteps.png", "default_dirt.png", "default_dirt.png^default_grass_side.png"},
+	tiles = {"default_grass_footsteps.png", "default_dirt.png", 
+		{name = "default_dirt.png^default_grass_side.png",
+		tileable_vertical = false}},
 	groups = {crumbly=3,soil=1,not_in_creative_inventory=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
@@ -297,7 +300,9 @@ minetest.register_node("default:dirt_with_grass_footsteps", {
 
 minetest.register_node("default:dirt_with_snow", {
 	description = "Dirt with Snow",
-	tiles = {"default_snow.png", "default_dirt.png", "default_dirt.png^default_snow_side.png"},
+	tiles = {"default_snow.png", "default_dirt.png", 
+		{name = "default_dirt.png^default_snow_side.png",
+		tileable_vertical = false}},
 	groups = {crumbly=3,soil=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
@@ -356,19 +361,19 @@ minetest.register_node("default:snow", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5,  0.5, -0.5+2/16, 0.5},
+			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
 		},
 	},
-	groups = {crumbly=3,falling_node=1},
+	groups = {crumbly = 3, falling_node = 1},
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_snow_footstep", gain=0.25},
-		dug = {name="default_snow_footstep", gain=0.75},
+		footstep = {name = "default_snow_footstep", gain = 0.25},
+		dug = {name = "default_snow_footstep", gain = 0.75},
 	}),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
 		if minetest.get_node(pos).name == "default:dirt_with_grass" then
-			minetest.set_node(pos, {name="default:dirt_with_snow"})
+			minetest.set_node(pos, {name = "default:dirt_with_snow"})
 		end
 	end,
 })
@@ -546,7 +551,10 @@ minetest.register_node("default:junglesapling", {
 	description = "Jungle Sapling",
 	drawtype = "plantlike",
 	visual_scale = 1.0,
-	tiles = {"default_junglesapling.png"},
+	tiles = {{name = "default_junglesapling.png",
+		tileable_vertical = false,
+		tileable_horizontal = false,
+		}},
 	inventory_image = "default_junglesapling.png",
 	wield_image = "default_junglesapling.png",
 	paramtype = "light",
@@ -946,7 +954,33 @@ for i=2,5 do
 	})
 end
 
-for i = 1, 5 do
+minetest.register_node("default:dry_grass_1", {
+	description = "Dry Grass",
+	drawtype = "plantlike",
+	waving = 1,
+	tiles = {"default_dry_grass_1.png"},
+	inventory_image = "default_dry_grass_3.png",
+	wield_image = "default_dry_grass_3.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy=3,flammable=3,flora=1,attached_node=1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+	},
+
+	on_place = function(itemstack, placer, pointed_thing)
+		-- place a random dry grass node
+		local stack = ItemStack("default:dry_grass_"..math.random(1,5))
+		local ret = minetest.item_place(stack, placer, pointed_thing)
+		return ItemStack("default:dry_grass_1 "..itemstack:get_count()-(1-ret:get_count()))
+	end,
+})
+
+for i=2,5 do
 	minetest.register_node("default:dry_grass_"..i, {
 		description = "Dry Grass",
 		drawtype = "plantlike",
@@ -958,13 +992,7 @@ for i = 1, 5 do
 		sunlight_propagates = true,
 		walkable = false,
 		buildable_to = true,
-		groups = {
-			snappy = 3,
-			flammable = 3,
-			flora = 1,
-			attached_node = 1,
-			not_in_creative_inventory = 1
-		},
+		groups = {snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1},
 		drop = "default:dry_grass_1",
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
