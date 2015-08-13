@@ -24,7 +24,6 @@ Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
 
 Cisoun's WTFPL texture pack:
   default_jungletree.png
-  default_jungletree_top.png
   default_lava.png
   default_leaves.png
   default_sapling.png
@@ -61,6 +60,7 @@ VanessaE (WTFPL):
   default_desert_stone.png
   default_desert_stone_brick.png
   default_sand.png
+  default_jungletree_top.png
 
 Calinou (CC BY-SA):
   default_brick.png
@@ -77,7 +77,6 @@ Jordach (CC BY-SA 3.0):
 PilzAdam (WTFPL):
   default_jungleleaves.png
   default_junglesapling.png
-  default_junglewood.png
   default_obsidian_glass.png
   default_obsidian_shard.png
   default_mineral_gold.png
@@ -119,6 +118,7 @@ paramat (CC BY-SA 3.0):
   default_dry_grass.png
   default_dry_grass_side.png
   default_dry_grass_*.png
+  default_junglewood.png, derived from a texture by BlockMen (CC BY-SA 3.0)
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
