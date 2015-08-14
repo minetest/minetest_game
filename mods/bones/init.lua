@@ -181,6 +181,12 @@ minetest.register_on_dieplayer(function(player)
 	end
 	
 	minetest.set_node(pos, {name="bones:bones", param2=param2})
+
+	if minetest.setting_getbool("show_bone_pos") == true then
+		local pos_string = minetest.pos_to_string(pos)
+		minetest.chat_send_player(player_name, "Your bones were left at "..pos_string)
+		minetest.log("action", player_name.." left their bones at "..pos_string)
+	end
 	
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
