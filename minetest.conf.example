@@ -22,3 +22,7 @@
 
 # The radius of a TNT explosion
 #tnt_radius = 3
+
+# Enable the stairs mod ABM that replaces the old 'upside down'
+# stair and slab nodes in old maps with the new param2 versions.
+#enable_stairs_replace_abm = false
