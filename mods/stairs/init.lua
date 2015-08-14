@@ -1,9 +1,20 @@
 -- Minetest 0.4 mod: stairs
 -- See README.txt for licensing and other information.
 
+
+-- Global namespace for functions
+
 stairs = {}
 
+
+-- Get setting for replace ABM
+
+local replace = minetest.setting_getbool("enable_stairs_replace_abm")
+
+
+-- Register stairs.
 -- Node will be called stairs:stair_<subname>
+
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
@@ -48,7 +59,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				param2 = minetest.dir_to_facedir(dir)
 			end
 
-			if p0.y-1 == p1.y then
+			if p0.y - 1 == p1.y then
 				param2 = param2 + 20
 				if param2 == 21 then
 					param2 = 23
@@ -62,10 +73,12 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	})
 
 	-- for replace ABM
-	minetest.register_node(":stairs:stair_" .. subname.."upside_down", {
-		replace_name = "stairs:stair_" .. subname,
-		groups = {slabs_replace=1},
-	})
+	if replace then
+		minetest.register_node(":stairs:stair_" .. subname .. "upside_down", {
+			replace_name = "stairs:stair_" .. subname,
+			groups = {slabs_replace = 1},
+		})
+	end
 
 	minetest.register_craft({
 		output = 'stairs:stair_' .. subname .. ' 6',
@@ -87,7 +100,10 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	})
 end
 
+
+-- Register slabs.
 -- Node will be called stairs:slab_<subname>
+
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
@@ -120,7 +136,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			local n0_is_upside_down = (n0.name == "stairs:slab_" .. subname and
 					n0.param2 >= 20)
 
-			if n0.name == "stairs:slab_" .. subname and not n0_is_upside_down and p0.y+1 == p1.y then
+			if n0.name == "stairs:slab_" .. subname and not n0_is_upside_down and
+					p0.y + 1 == p1.y then
 				slabpos = p0
 				slabnode = n0
 			elseif n1.name == "stairs:slab_" .. subname then
@@ -136,7 +153,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 
 				pointed_thing.above = slabpos
 				local success
-				fakestack, success = minetest.item_place(fakestack, placer, pointed_thing)
+				fakestack, success = minetest.item_place(fakestack, placer,
+					pointed_thing)
 				-- If the item was taken from the fake stack, decrement original
 				if success then
 					itemstack:set_count(fakestack:get_count())
@@ -148,7 +166,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			end
 			
 			-- Upside down slabs
-			if p0.y-1 == p1.y then
+			if p0.y - 1 == p1.y then
 				-- Turn into full block if pointing at a existing slab
 				if n0_is_upside_down  then
 					-- Remove the slab at the position of the slab
@@ -159,7 +177,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 
 					pointed_thing.above = p0
 					local success
-					fakestack, success = minetest.item_place(fakestack, placer, pointed_thing)
+					fakestack, success = minetest.item_place(fakestack, placer,
+						pointed_thing)
 					-- If the item was taken from the fake stack, decrement original
 					if success then
 						itemstack:set_count(fakestack:get_count())
@@ -175,7 +194,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			end
 
 			-- If pointing at the side of a upside down slab
-			if n0_is_upside_down and p0.y+1 ~= p1.y then
+			if n0_is_upside_down and p0.y + 1 ~= p1.y then
 				param2 = 20
 			end
 
@@ -184,10 +203,12 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 	})
 
 	-- for replace ABM
-	minetest.register_node(":stairs:slab_" .. subname.."upside_down", {
-		replace_name = "stairs:slab_"..subname,
-		groups = {slabs_replace=1},
-	})
+	if replace then
+		minetest.register_node(":stairs:slab_" .. subname .. "upside_down", {
+			replace_name = "stairs:slab_".. subname,
+			groups = {slabs_replace = 1},
+		})
+	end
 
 	minetest.register_craft({
 		output = 'stairs:slab_' .. subname .. ' 6',
@@ -197,28 +218,40 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 	})
 end
 
--- Replace old "upside_down" nodes with new param2 versions
-minetest.register_abm({
-	nodenames = {"group:slabs_replace"},
-	interval = 8,
-	chance = 1,
-	action = function(pos, node)
-		node.name = minetest.registered_nodes[node.name].replace_name
-		node.param2 = node.param2 + 20
-		if node.param2 == 21 then
-			node.param2 = 23
-		elseif node.param2 == 23 then
-			node.param2 = 21
-		end
-		minetest.set_node(pos, node)
-	end,
-})
 
+-- Optionally replace old "upside_down" nodes with new param2 versions.
+-- Disabled by default.
+
+if replace then
+	minetest.register_abm({
+		nodenames = {"group:slabs_replace"},
+		interval = 8,
+		chance = 1,
+		action = function(pos, node)
+			node.name = minetest.registered_nodes[node.name].replace_name
+			node.param2 = node.param2 + 20
+			if node.param2 == 21 then
+				node.param2 = 23
+			elseif node.param2 == 23 then
+				node.param2 = 21
+			end
+			minetest.set_node(pos, node)
+		end,
+	})
+end
+
+
+-- Stair/slab registration function.
 -- Nodes will be called stairs:{stair,slab}_<subname>
-function stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
+
+function stairs.register_stair_and_slab(subname, recipeitem, groups, images,
+		desc_stair, desc_slab, sounds)
 	stairs.register_stair(subname, recipeitem, groups, images, desc_stair, sounds)
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
+
+
+-- Register default stairs and slabs
 
 stairs.register_stair_and_slab("wood", "default:wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
@@ -290,13 +323,6 @@ stairs.register_stair_and_slab("desert_stonebrick", "default:desert_stonebrick",
 		"Desert Stone Brick Slab",
 		default.node_sound_stone_defaults())
 
-stairs.register_stair_and_slab("brick", "default:brick",
-		{cracky = 3},
-		{"default_brick.png"},
-		"Brick Stair",
-		"Brick Slab",
-		default.node_sound_stone_defaults())
-
 stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		{crumbly = 2, cracky = 2},
 		{"default_sandstone.png"},
@@ -323,4 +349,46 @@ stairs.register_stair_and_slab("obsidianbrick", "default:obsidianbrick",
 		{"default_obsidian_brick.png"},
 		"Obsidian Brick Stair",
 		"Obsidian Brick Slab",
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("brick", "default:brick",
+		{cracky = 3},
+		{"default_brick.png"},
+		"Brick Stair",
+		"Brick Slab",
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("straw", "farming:straw",
+		{snappy = 3, flammable = 4},
+		{"farming_straw.png"},
+		"Straw Stair",
+		"Straw Slab",
+		default.node_sound_leaves_defaults())
+
+stairs.register_stair_and_slab("steelblock", "default:steelblock",
+		{cracky = 1, level = 2},
+		{"default_steel_block.png"},
+		"Steel Block Stair",
+		"Steel Block Slab",
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("copperblock", "default:copperblock",
+		{cracky = 1, level = 2},
+		{"default_copper_block.png"},
+		"Copper Block Stair",
+		"Copper Block Slab",
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("bronzeblock", "default:bronzeblock",
+		{cracky = 1, level = 2},
+		{"default_bronze_block.png"},
+		"Bronze Block Stair",
+		"Bronze Block Slab",
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("goldblock", "default:goldblock",
+		{cracky = 1},
+		{"default_gold_block.png"},
+		"Gold Block Stair",
+		"Gold Block Slab",
 		default.node_sound_stone_defaults())
