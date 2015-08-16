@@ -53,6 +53,11 @@ function boat.on_rightclick(self, clicker)
 		clicker:set_detach()
 		default.player_attached[name] = false
 		default.player_set_animation(clicker, "stand" , 30)
+		local pos = clicker:getpos()
+		pos = {x=pos.x+0, y=pos.y+0.2, z=pos.z+0}
+		minetest.after(0.1, function()
+			clicker:setpos(pos)
+		end)
 	elseif not self.driver then
 		self.driver = clicker
 		clicker:set_attach(self.object, "", {x = 0, y = 11, z = -3}, {x = 0, y = 0, z = 0})
