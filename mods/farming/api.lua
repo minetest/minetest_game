@@ -2,31 +2,26 @@
 -- TODO Ignore group:flower
 
 local creative = minetest.setting_getbool("creative_mode")
-function farming.hoe_on_use(itemstack, user, pt, uses)
+function farming.hoe_on_use(itemstack, user, pt, max_uses)
 	-- check if pointing at a node's top
-	if not pt
-	or pt.type ~= "node"
-	or pt.above.y ~= pt.under.y+1 then
+	if not pt or pt.type ~= "node" or pt.above.y ~= pt.under.y+1 then
 		return
 	end
 
 	local above = minetest.get_node(pt.above)
-	if above.name ~= "air"
-	or not minetest.registered_nodes[above.name] then
+	if above.name ~= "air" or not minetest.registered_nodes[above.name] then
 		return
 	end
 
 	local under = minetest.get_node(pt.under)
-	if not minetest.registered_nodes[under.name]
-	or minetest.get_item_group(under.name, "soil") ~= 1 then
+	if not minetest.registered_nodes[under.name] or
+			minetest.get_item_group(under.name, "soil") ~= 1 then
 		return
 	end
 
 	-- check if (wet) soil defined
 	local soil = minetest.registered_nodes[under.name].soil
-	if not soil
-	or not soil.wet
-	or not soil.dry then
+	if not soil or not soil.wet or not soil.dry then
 		return
 	end
 
@@ -50,7 +45,7 @@ function farming.hoe_on_use(itemstack, user, pt, uses)
 		return
 	end
 
-	itemstack:add_wear(65535/(uses-1))
+	itemstack:add_wear(65535/(max_uses-1))
 	return itemstack
 end
 
@@ -61,21 +56,21 @@ function farming.register_hoe(name, def)
 		name = ":" .. name
 	end
 	-- Check def table
-	if not def.description then
-		def.description = "Hoe"
-	end
-	assert(def.inventory_image, "[farming] missing field inventory_image ("..name..")")
-	if not def.max_uses then
-		def.max_uses = 30
-	end
+	assert(def.description, "[farming] missing field description (hoe "..name..")")
+	assert(def.inventory_image, "[farming] missing field inventory_image (hoe "..name..")")
+
+	local uses = tonumber(def.max_uses)
+	assert(uses and uses > 1, "[farming] max uses are invalid (hoe "..name..")")
+
 	-- Register the tool
 	minetest.register_tool(name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
 		on_use = function(itemstack, user, pointed_thing)
-			return farming.hoe_on_use(itemstack, user, pointed_thing, def.max_uses)
+			return farming.hoe_on_use(itemstack, user, pointed_thing, uses)
 		end
 	})
+
 	-- Register its recipe
 	if not def.material then
 		if def.recipe then
@@ -86,6 +81,7 @@ function farming.register_hoe(name, def)
 		end
 		return
 	end
+
 	minetest.register_craft({
 		output = name:sub(2),
 		recipe = {
@@ -94,6 +90,7 @@ function farming.register_hoe(name, def)
 			{"", "group:stick", ""}
 		}
 	})
+
 	-- Reverse Recipe
 	minetest.register_craft({
 		output = name:sub(2),
@@ -108,9 +105,7 @@ end
 -- Seed placement
 function farming.place_seed(itemstack, placer, pt, plantname)
 	-- check if pointing at a node's top
-	if not pt
-	or pt.type ~= "node"
-	or pt.above.y ~= pt.under.y+1 then
+	if not pt or pt.type ~= "node" or pt.above.y ~= pt.under.y+1 then
 		return
 	end
 
@@ -126,15 +121,15 @@ function farming.place_seed(itemstack, placer, pt, plantname)
 
 	-- check if you can replace the node above the pointed node
 	local above = minetest.get_node(pt.above)
-	if not minetest.registered_nodes[above.name]
-	or not minetest.registered_nodes[above.name].buildable_to then
+	if not (minetest.registered_nodes[above.name] and
+			minetest.registered_nodes[above.name].buildable_to) then
 		return
 	end
 
 	-- check if pointing at soil
 	local under = minetest.get_node(pt.under)
-	if not minetest.registered_nodes[under.name]
-	or minetest.get_item_group(under.name, "soil") < 2 then
+	if not minetest.registered_nodes[under.name] or
+			minetest.get_item_group(under.name, "soil") < 2 then
 		return
 	end
 
@@ -151,15 +146,11 @@ end
 
 -- Register plants
 function farming.register_plant(name, def)
-	if not def.steps then
-		return
-	end
-
 	-- Check def table
-	assert(def.inventory_image, "[farming] missing field inventory_image ("..name..")")
-	if not def.fertility then
-		def.fertility = {}
-	end
+	assert(def.steps, "[farming] missing field steps (plant "..name..")")
+	assert(def.inventory_image, "[farming] missing field inventory_image (plant "..name..")")
+	assert(def.description, "[farming] missing field description (plant "..name..")")
+	def.fertility = def.fertility or {}
 
 	-- Register seed
 	local g = {seed = 1, snappy = 3, attached_node = 1}
@@ -170,7 +161,7 @@ function farming.register_plant(name, def)
 	local mname, pname = unpack(name:split(":"))
 
 	minetest.register_node(":" .. mname .. ":seed_" .. pname, {
-		description = def.description or "Seed",
+		description = def.description,
 		tiles = {def.inventory_image},
 		inventory_image = def.inventory_image,
 		wield_image = def.inventory_image,
@@ -186,7 +177,8 @@ function farming.register_plant(name, def)
 		},
 		fertility = def.fertility,
 		on_place = function(itemstack, placer, pointed_thing)
-			return farming.place_seed(itemstack, placer, pointed_thing, mname .. ":seed_" .. pname)
+			return farming.place_seed(itemstack, placer, pointed_thing,
+					mname .. ":seed_" .. pname)
 		end
 	})
 
@@ -197,8 +189,14 @@ function farming.register_plant(name, def)
 	})
 
 	-- Register growing steps
-	for i=1,def.steps do
-		local nodegroups = {snappy = 3, flammable = 2, plant = 1, not_in_creative_inventory = 1, attached_node = 1}
+	for i = 1, def.steps do
+		local nodegroups = {
+			snappy = 3,
+			flammable = 2,
+			plant = 1,
+			not_in_creative_inventory = 1,
+			attached_node = 1
+		}
 		nodegroups[pname] = i
 
 		minetest.register_node(mname .. ":" .. pname .. "_" .. i, {
@@ -225,12 +223,8 @@ function farming.register_plant(name, def)
 		})
 	end
 
-	if not def.minlight then
-		def.minlight = 1
-	end
-	if not def.maxlight then
-		def.maxlight = 14
-	end
+	def.minlight = def.minlight or 1
+	def.maxlight = def.maxlight or 14
 
 	-- Growing ABM
 	minetest.register_abm({
@@ -254,20 +248,14 @@ function farming.register_plant(name, def)
 			local fertility = minetest.registered_items[node.name].fertility
 
 			-- grow seed
-			if fertility
-			and minetest.get_item_group(node.name, "seed") then
-				local can_grow
+			if fertility and minetest.get_item_group(node.name, "seed") then
 				for _, v in pairs(fertility) do
 					if minetest.get_item_group(soil_node.name, v) ~= 0 then
-						can_grow = true
-						break
+						node.name = node.name:gsub("seed_", "") .. "_1"
+						minetest.set_node(pos, node)
+						return
 					end
 				end
-				if not can_grow then
-					return
-				end
-				node.name = node.name:gsub("seed_", "") .. "_1"
-				minetest.set_node(pos, node)
 				return
 			end
 
@@ -279,9 +267,7 @@ function farming.register_plant(name, def)
 			-- check light
 			local ll = minetest.get_node_light(pos)
 
-			if not ll
-			or ll < def.minlight
-			or ll > def.maxlight then
+			if not ll or ll < def.minlight or ll > def.maxlight then
 				return
 			end
 
