@@ -578,7 +578,7 @@ function default.register_biomes()
 		--node_water_top = "",
 		--depth_water_top = ,
 		--node_water = "",
-		y_min = 1,
+		y_min = 5,
 		y_max = 31000,
 		heat_point = 95,
 		humidity_point = 10,
@@ -596,7 +596,7 @@ function default.register_biomes()
 		--depth_water_top = ,
 		--node_water = "",
 		y_min = -112,
-		y_max = 0,
+		y_max = 4,
 		heat_point = 95,
 		humidity_point = 10,
 	})
@@ -944,7 +944,7 @@ function default.register_decorations()
 			persist = 0.6
 		},
 		biomes = {"desert"},
-		y_min = 2,
+		y_min = 5,
 		y_max = 31000,
 		schematic = minetest.get_modpath("default").."/schematics/large_cactus.mts",
 		flags = "place_center_x",
@@ -966,11 +966,11 @@ function default.register_decorations()
 			persist = 0.6
 		},
 		biomes = {"desert"},
-		y_min = 2,
+		y_min = 5,
 		y_max = 31000,
 		decoration = "default:cactus",
 		height = 2,
-	        height_max = 5,
+		height_max = 5,
 	})
 
 	-- Papyrus
