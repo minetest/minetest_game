@@ -360,7 +360,7 @@ end
 -- New apple tree
 
 function default.grow_new_apple_tree(pos)
-	local path = minetest.get_modpath("default") .. "/schematics/apple_tree.mts"
+	local path = minetest.get_modpath("default") .. "/schematics/apple_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 		path, 0, nil, false)
 end
@@ -369,7 +369,7 @@ end
 -- New jungle tree
 
 function default.grow_new_jungle_tree(pos)
-	local path = minetest.get_modpath("default") .. "/schematics/jungle_tree.mts"
+	local path = minetest.get_modpath("default") .. "/schematics/jungle_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 		path, 0, nil, false)
 end
@@ -378,7 +378,7 @@ end
 -- New pine tree
 
 function default.grow_new_pine_tree(pos)
-	local path = minetest.get_modpath("default") .. "/schematics/pine_tree.mts"
+	local path = minetest.get_modpath("default") .. "/schematics/pine_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 		path, 0, nil, false)
 end
@@ -387,7 +387,7 @@ end
 -- New acacia tree
 
 function default.grow_new_acacia_tree(pos)
-	local path = minetest.get_modpath("default") .. "/schematics/acacia_tree.mts"
+	local path = minetest.get_modpath("default") .. "/schematics/acacia_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 4, y = pos.y - 1, z = pos.z - 4},
 		path, random, nil, false)
 end
