@@ -198,6 +198,8 @@ minetest.register_abm({
 			minetest.remove_node(p0)
 			return
 		end
+		--check if fire is permenant or not
+		if minetest.env:get_node(p0).param1 == 1 then return end
 		-- Make the following things rarer
 		if math.random(1, 3) == 1 then
 			return
