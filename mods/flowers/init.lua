@@ -236,3 +236,25 @@ minetest.register_abm({
 		end
 	end
 })
+
+minetest.register_node("flowers:lilypad", {
+	description = "Lilypad",
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	walkable = false,
+	tiles = {"flowers_lilypad.png"},
+	inventory_image = "flowers_lilypad.png",
+	wield_image = "flowers_lilypad.png",
+	sunlight_propagates = true,
+	groups = {snappy = 3, flammable = 2, flora = 1, attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5}
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.46, 0.5}
+	}
+})

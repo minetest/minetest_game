@@ -116,6 +116,26 @@ function flowers.register_decorations()
 	register_mushroom("mushroom_fertile_red")
 end
 
+minetest.register_decoration({
+	deco_type = "schematic",
+	place_on = {"default:sand", "default:dirt"},
+	spawn_by = {"default:water_source"},
+	num_spawn_by = 1,
+	sidelen = 16,
+	noise_params = {
+		offset = -0.3,
+		scale = 0.7,
+		spread = {x=200, y=200, z=200},
+		seed = 354,
+		octaves = 3,
+		persist = 0.7
+	},
+	y_min = 0,
+	y_max = 0,
+	schematic = minetest.get_modpath("flowers").."/schematics/lilypad.mts",
+	rotation = "random",
+})
+
 
 --
 -- Detect mapgen to select functions
