@@ -236,3 +236,39 @@ minetest.register_abm({
 		end
 	end
 })
+
+
+--
+-- Waterlily
+--
+
+minetest.register_node("flowers:waterlily", {
+	description = "Waterlily",
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	tiles = {"flowers_waterlily.png"},
+	inventory_image = "flowers_waterlily.png",
+	wield_image = "flowers_waterlily.png",
+	liquids_pointable = true,
+	groups = {snappy = 3},
+	sounds = default.node_sound_leaves_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.46875, 0.5}
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5}
+	},
+
+	after_place_node = function(pos, placer, itemstack, pointed_thing)
+		local find_water = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y, z = pos.z - 1},
+			{x = pos.x + 1, y = pos.y, z = pos.z + 1}, "default:water_source")
+		if #find_water ~= 0 then
+			minetest.set_node(pos, {name = "default:water_source"})
+			pos.y = pos.y + 1
+		end
+		minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+	end
+})

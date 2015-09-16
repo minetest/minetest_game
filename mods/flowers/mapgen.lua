@@ -10,7 +10,7 @@ local function register_mgv6_flower(name)
 		noise_params = {
 			offset = 0,
 			scale = 0.006,
-			spread = {x=100, y=100, z=100},
+			spread = {x = 100, y = 100, z = 100},
 			seed = 436,
 			octaves = 3,
 			persist = 0.6
@@ -29,7 +29,7 @@ local function register_mgv6_mushroom(name)
 		noise_params = {
 			offset = 0,
 			scale = 0.04,
-			spread = {x=100, y=100, z=100},
+			spread = {x = 100, y = 100, z = 100},
 			seed = 7133,
 			octaves = 3,
 			persist = 0.6
@@ -39,6 +39,26 @@ local function register_mgv6_mushroom(name)
 		decoration = "flowers:"..name,
 		spawn_by = "default:tree",
 		num_spawn_by = 1,
+	})
+end
+
+local function register_mgv6_waterlily()
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:dirt"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.12,
+			scale = 0.3,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 33,
+			octaves = 3,
+			persist = 0.7
+		},
+		y_min = 0,
+		y_max = 0,
+		schematic = minetest.get_modpath("flowers").."/schematics/waterlily.mts",
+		rotation = "random",
 	})
 end
 
@@ -52,6 +72,8 @@ function flowers.register_mgv6_decorations()
 
 	register_mgv6_mushroom("mushroom_fertile_brown")
 	register_mgv6_mushroom("mushroom_fertile_red")
+
+	register_mgv6_waterlily()
 end
 
 
@@ -67,7 +89,7 @@ local function register_flower(seed, name)
 		noise_params = {
 			offset = -0.02,
 			scale = 0.03,
-			spread = {x=200, y=200, z=200},
+			spread = {x = 200, y = 200, z = 200},
 			seed = seed,
 			octaves = 3,
 			persist = 0.6
@@ -92,7 +114,7 @@ local function register_mushroom(name)
 		noise_params = {
 			offset = 0,
 			scale = 0.006,
-			spread = {x=200, y=200, z=200},
+			spread = {x = 200, y = 200, z = 200},
 			seed = 2,
 			octaves = 3,
 			persist = 0.66
@@ -101,6 +123,28 @@ local function register_mushroom(name)
 		y_min = 6,
 		y_max = 31000,
 		decoration = "flowers:"..name,
+	})
+end
+
+local function register_waterlily()
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:dirt", "default:sand"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.12,
+			scale = 0.3,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 33,
+			octaves = 3,
+			persist = 0.7
+		},
+		biomes = {"deciduous_forest_ocean", "sandstone_grassland_ocean",
+			"rainforest_swamp", "savanna_ocean", "desert_ocean"},
+		y_min = 0,
+		y_max = 0,
+		schematic = minetest.get_modpath("flowers").."/schematics/waterlily.mts",
+		rotation = "random",
 	})
 end
 
@@ -114,6 +158,8 @@ function flowers.register_decorations()
 
 	register_mushroom("mushroom_fertile_brown")
 	register_mushroom("mushroom_fertile_red")
+
+	register_waterlily()
 end
 
 
