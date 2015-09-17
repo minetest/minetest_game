@@ -251,7 +251,8 @@ minetest.register_node("flowers:waterlily", {
 	inventory_image = "flowers_waterlily.png",
 	wield_image = "flowers_waterlily.png",
 	liquids_pointable = true,
-	groups = {snappy = 3},
+	walkable = false,
+	groups = {snappy = 3, flower = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	node_box = {
 		type = "fixed",
