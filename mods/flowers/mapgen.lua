@@ -94,13 +94,9 @@ local function register_flower(seed, name)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {
-			"stone_grassland",
-			"sandstone_grassland",
-			"deciduous_forest",
-			"coniferous_forest",
-		},
-		y_min = 6,
+		biomes = {"stone_grassland", "sandstone_grassland",
+			"deciduous_forest", "coniferous_forest"},
+		y_min = 1,
 		y_max = 31000,
 		decoration = "flowers:"..name,
 	})
@@ -120,7 +116,7 @@ local function register_mushroom(name)
 			persist = 0.66
 		},
 		biomes = {"deciduous_forest", "coniferous_forest"},
-		y_min = 6,
+		y_min = 1,
 		y_max = 31000,
 		decoration = "flowers:"..name,
 	})
@@ -129,7 +125,7 @@ end
 local function register_waterlily()
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:dirt", "default:sand"},
+		place_on = {"default:dirt"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.12,
@@ -139,8 +135,7 @@ local function register_waterlily()
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"deciduous_forest_ocean", "sandstone_grassland_ocean",
-			"rainforest_swamp", "savanna_ocean", "desert_ocean"},
+		biomes = {"rainforest_swamp", "savanna_swamp", "deciduous_forest_swamp"},
 		y_min = 0,
 		y_max = 0,
 		schematic = minetest.get_modpath("flowers").."/schematics/waterlily.mts",
