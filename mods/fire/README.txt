@@ -1,5 +1,5 @@
-Minetest 0.4 mod: fire
-======================
+Minetest Game mod: fire
+=======================
 
 License of source code:
 -----------------------

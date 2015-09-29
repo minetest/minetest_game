@@ -1,6 +1,4 @@
-# This file contains settings of minetest_game that can be changed in
-# minetest.conf
-#
+# This file contains settings of Minetest Game that can be changed in minetest.conf
 # By default, all the settings are commented and not functional.
 # Uncomment settings by removing the preceding #.
 

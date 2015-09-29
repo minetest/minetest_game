@@ -1,5 +1,5 @@
-Minetest 0.4 mod: creative
-==========================
+Minetest Game mod: creative
+===========================
 
 Implements creative mode.
 

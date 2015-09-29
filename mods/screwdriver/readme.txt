@@ -1,5 +1,5 @@
-Minetest mod: screwdriver
-=========================
+Minetest Game mod: screwdriver
+==============================
 
 License of source code:
 -----------------------

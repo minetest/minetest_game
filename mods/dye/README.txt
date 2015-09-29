@@ -1,4 +1,4 @@
-Minetest 0.4 mod: dye
+Minetest Game mod: dye
 ======================
 
 See init.lua for documentation.

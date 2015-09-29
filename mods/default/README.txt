@@ -1,4 +1,4 @@
-Minetest 0.4 mod: default
+Minetest Game mod: default
 ==========================
 
 License of source code:
