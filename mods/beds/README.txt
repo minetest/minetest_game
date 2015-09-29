@@ -1,5 +1,5 @@
-Minetest mod "Beds"
-===================
+Minetest Game mod: beds
+=======================
 by BlockMen (c) 2014-2015
 
 Version: 1.1.1

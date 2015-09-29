@@ -1,4 +1,4 @@
-Minetest 0.4 mod: stairs
+Minetest Game mod: stairs
 =========================
 
 License of source code:

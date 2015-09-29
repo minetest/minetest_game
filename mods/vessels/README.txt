@@ -1,4 +1,4 @@
-Minetest 0.4 mod: vessels
+Minetest Game mod: vessels
 ==========================
 
 Crafts

@@ -1,11 +1,11 @@
-minetest_game API
-======================
+Minetest Game API
+=================
 GitHub Repo: https://github.com/minetest/minetest_game
 
 Introduction
 ------------
-The minetest_game gamemode offers multiple new possibilities in addition to Minetest's built-in API, allowing you to
-add new plants to farming mod, buckets for new liquids, new stairs and custom panes.
+The Minetest Game subgame offers multiple new possibilities in addition to the Minetest engine's built-in API,
+allowing you to add new plants to farming mod, buckets for new liquids, new stairs and custom panes.
 For information on the Minetest API, visit https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
 Please note:
 	[XYZ] refers to a section the Minetest API
@@ -17,23 +17,24 @@ Bucket API
 The bucket API allows registering new types of buckets for non-default liquids.
 
 	bucket.register_liquid(
-		"default:lava_source",		-- Source node name
-		"default:lava_flowing",		-- Flowing node name
-		"bucket:bucket_lava",		-- Name to be used for bucket
-		"bucket_lava.png",			-- Bucket texture (for wielditem and inventory_image)
-		"Lava Bucket"				-- Bucket description
+		"default:lava_source",   -- name of the source node
+		"default:lava_flowing",  -- name of the flowing node
+		"bucket:bucket_lava",    -- name of the new bucket item (or nil if liquid is not takeable)
+		"bucket_lava.png",       -- texture of the new bucket item (ignored if itemname == nil)
+		"Lava Bucket",           -- text description of the bucket item
+		{lava_bucket = 1}        -- groups of the bucket item, OPTIONAL
 	)
 
 Beds API
 --------
 	beds.register_bed(
-		"beds:bed",			-- Bed name
-		def: See [#Bed definition]	-- Bed definition
+		"beds:bed",                 -- Bed name
+		def: See [#Bed definition]  -- Bed definition
 	)
 
-	beds.read_spawns()			-- returns a table containing players respawn positions
-	beds.kick_players()			-- forces all players to leave bed
-	beds.skip_night()			-- sets world time to morning and saves respawn position of all players currently sleeping
+	beds.read_spawns()   -- returns a table containing players respawn positions
+	beds.kick_players()  -- forces all players to leave bed
+	beds.skip_night()    -- sets world time to morning and saves respawn position of all players currently sleeping
 
 #Bed definition
 ---------------
@@ -50,11 +51,11 @@ Beds API
 	    }
 	},
 	nodebox = {
-	    bottom = regular nodebox, see [Node boxes],		-- bottm part of bed
-	    top = regular nodebox, see [Node boxes],		-- top part of bed
+	    bottom = regular nodebox, see [Node boxes],    -- bottm part of bed
+	    top = regular nodebox, see [Node boxes],       -- top part of bed
 	},
-	selectionbox = regular nodebox, see [Node boxes],	-- for both nodeboxes
-	recipe = {	-- Craft recipe
+	selectionbox = regular nodebox, see [Node boxes],  -- for both nodeboxes
+	recipe = {                                         -- Craft recipe
 		{"group:wool", "group:wool", "group:wool"},
 		{"group:wood", "group:wood", "group:wood"}
 	}
@@ -104,9 +105,9 @@ doors.register_trapdoor(name, def)
 	sound_open = sound to play when opening the trapdoor, OPTIONAL,
 	sound_close = sound to play when closing the trapdoor, OPTIONAL,
 	-> You can add any other node definition properties for minetest.register_node,
-	   such as wield_image, inventory_image, sounds, groups, description, ...
-	   Only node_box, selection_box, tiles, drop, drawtype, paramtype, paramtype2, on_rightclick
-	   will be overwritten by the trapdoor registration function
+		such as wield_image, inventory_image, sounds, groups, description, ...
+		Only node_box, selection_box, tiles, drop, drawtype, paramtype, paramtype2, on_rightclick
+		will be overwritten by the trapdoor registration function
 }
 
 Farming API
@@ -122,11 +123,11 @@ farming.register_plant(name, Plant definition)
 #Hoe Definition
 ---------------
 {
-	description = "",	-- Description for tooltip
-	inventory_image = "unknown_item.png",	-- Image to be used as wield- and inventory image
-	max_uses = 30,	-- Uses until destroyed
-	material = "",	-- Material for recipes
-	recipe = {	-- Craft recipe, if material isn't used
+	description = "",                      -- Description for tooltip
+	inventory_image = "unknown_item.png",  -- Image to be used as wield- and inventory image
+	max_uses = 30,                         -- Uses until destroyed
+	material = "",                         -- Material for recipes
+	recipe = {                             -- Craft recipe, if material isn't used
 		{"air", "air", "air"},
 		{"", "group:stick"},
 		{"", "group:stick"},
@@ -136,12 +137,12 @@ farming.register_plant(name, Plant definition)
 #Plant definition
 -----------------
 {
-	description = "",	-- Description of seed item
-	inventory_image = "unknown_item.png",	-- Image to be used as seed's wield- and inventory image
-	steps = 8,	-- How many steps the plant has to grow, until it can be harvested
+	description = "",                      -- Description of seed item
+	inventory_image = "unknown_item.png",  -- Image to be used as seed's wield- and inventory image
+	steps = 8,                             -- How many steps the plant has to grow, until it can be harvested
 	^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
-	minlight = 13, -- Minimum light to grow
-	maxlight = default.LIGHT_MAX -- Maximum light to grow
+	minlight = 13,                         -- Minimum light to grow
+	maxlight = default.LIGHT_MAX           -- Maximum light to grow
 }
 
 Screwdriver API
@@ -155,7 +156,7 @@ on_rotate(pos, node, user, mode, new_param2)
 ^ mode: screwdriver.ROTATE_FACE or screwdriver.ROTATE_AXIS
 ^ new_param2: the new value of param2 that would have been set if on_rotate wasn't there
 ^ return value: false to disallow rotation, nil to keep default behaviour, true to allow
-  it but to indicate that changed have already been made (so the screwdriver will wear out)
+ 	it but to indicate that changed have already been made (so the screwdriver will wear out)
 ^ use on_rotate = screwdriver.disallow to always disallow rotation
 ^ use on_rotate = screwdriver.rotate_simple to allow only face rotation
 
@@ -215,10 +216,10 @@ The following nodes use the group `connect_to_raillike` and will only connect to
 raillike nodes within this group and the same group value.
 Use `minetest.raillike_group(<Name>)` to get the group value.
 
-| Node type		| Raillike group name
-+-----------------------+----------------------------------
-| default:rail		| "rail"
-| tnt:gunpowder		| "gunpowder"
+| Node type             | Raillike group name
++-----------------------+--------------------
+| default:rail          | "rail"
+| tnt:gunpowder         | "gunpowder"
 | tnt:gunpowder_burning	| "gunpowder"
 
 Example:
@@ -281,13 +282,13 @@ default.player_get_animation(player)
 Model Definition
 ----------------
 {
-	animation_speed = 30, -- Default animation speed, in FPS.
-	textures = {"character.png", }, -- Default array of textures.
-	visual_size = {x=1, y=1,}, -- Used to scale the model.
+	animation_speed = 30,            -- Default animation speed, in FPS.
+	textures = {"character.png", },  -- Default array of textures.
+	visual_size = {x = 1, y = 1},    -- Used to scale the model.
 	animations = {
-		-- <anim_name> = { x=<start_frame>, y=<end_frame>, },
-		foo = { x= 0, y=19, },
-		bar = { x=20, y=39, },
+		-- <anim_name> = {x = <start_frame>, y = <end_frame>},
+		foo = {x = 0, y = 19},
+		bar = {x = 20, y = 39},
 		-- ...
 	},
 }
@@ -375,10 +376,22 @@ dye.excolors
 Trees
 -----
 default.grow_tree(pos, is_apple_tree)
-^ Grows a tree or apple tree at pos
+^ Grows a mgv6 tree or apple tree at pos
 
 default.grow_jungle_tree(pos)
-^ Grows a jungletree at pos
+^ Grows a mgv6 jungletree at pos
 
 default.grow_pine_tree(pos)
-^ Grows a pinetree at pos
+^ Grows a mgv6 pinetree at pos
+
+default.grow_new_apple_tree(pos)
+^ Grows a new design apple tree at pos
+
+default.grow_new_jungle_tree(pos)
+^ Grows a new design jungle tree at pos
+
+default.grow_new_pine_tree(pos)
+^ Grows a new design pine tree at pos
+
+default.grow_new_acacia_tree(pos)
+^ Grows a new design acacia tree at pos

@@ -1,5 +1,5 @@
-Minetest 0.4 mod: doors
-=======================
+Minetest Game mod: doors
+========================
 version: 1.3
 
 License of source code:

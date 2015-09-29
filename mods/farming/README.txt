@@ -1,5 +1,5 @@
-Minetest 0.4 mod: farming
-=========================
+Minetest Game mod: farming
+==========================
 
 License of source code:
 -----------------------

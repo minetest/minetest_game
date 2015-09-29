@@ -1,5 +1,5 @@
-Minetest 0.4 mod: flowers
-=========================
+Minetest Game mod: flowers
+==========================
 
 License of source code:
 -----------------------

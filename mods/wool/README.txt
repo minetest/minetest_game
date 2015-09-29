@@ -1,5 +1,5 @@
-Minetest 0.4 mod: wool
-======================
+Minetest Game mod: wool
+=======================
 
 Mostly backward-compatible with jordach's 16-color wool mod.
 
