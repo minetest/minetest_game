@@ -5,11 +5,11 @@ dye = {}
 dye.basecolors = {"white", "grey", "black", "red", "yellow", "green", "cyan", "blue", "magenta"}
 dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow", "lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"}
 
--- Local stuff
-local dyelocal = {}
+-- Collection stuff
+dye.collection = {}
 
 -- This collection of colors is partly a historic thing, partly something else.
-dyelocal.dyes = {
+dye.collection.dyes = {
 	{"white",      "White dye",     {dye=1, basecolor_white=1,   excolor_white=1,     unicolor_white=1}},
 	{"grey",       "Grey dye",      {dye=1, basecolor_grey=1,    excolor_grey=1,      unicolor_grey=1}},
 	{"dark_grey",  "Dark grey dye", {dye=1, basecolor_grey=1,    excolor_darkgrey=1,  unicolor_darkgrey=1}},
@@ -28,7 +28,7 @@ dyelocal.dyes = {
 }
 
 -- Define items
-for _, row in ipairs(dyelocal.dyes) do
+for _, row in ipairs(dye.collection.dyes) do
 	local name = row[1]
 	local description = row[2]
 	local groups = row[3]
@@ -55,9 +55,9 @@ minetest.register_craft({
 -- Mix recipes
 -- Just mix everything to everything somehow sanely
 
-dyelocal.mixbases = {"magenta", "red", "orange", "brown", "yellow", "green", "dark_green", "cyan", "blue", "violet", "black", "dark_grey", "grey", "white"}
+dye.collection.mixbases = {"magenta", "red", "orange", "brown", "yellow", "green", "dark_green", "cyan", "blue", "violet", "black", "dark_grey", "grey", "white"}
 
-dyelocal.mixes = {
+dye.collection.mixes = {
 	--       magenta,  red,    orange,   brown,    yellow,  green,  dark_green, cyan,    blue,   violet,   black,  dark_grey,  grey,   white
 	white = {"pink",  "pink", "orange", "orange", "yellow", "green", "green",  "grey",  "cyan", "violet",  "grey",  "grey",   "white", "white"},
 	grey  = {"pink",  "pink", "orange", "orange", "yellow", "green", "green",  "grey",  "cyan",  "pink",  "dark_grey","grey", "grey"},
@@ -75,9 +75,9 @@ dyelocal.mixes = {
 	magenta={"magenta"},
 }
 
-for one,results in pairs(dyelocal.mixes) do
+for one,results in pairs(dye.collection.mixes) do
 	for i,result in ipairs(results) do
-		local another = dyelocal.mixbases[i]
+		local another = dye.collection.mixbases[i]
 		minetest.register_craft({
 			type = "shapeless",
 			output = 'dye:'..result..' 2',
