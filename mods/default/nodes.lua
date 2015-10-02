@@ -324,6 +324,7 @@ minetest.register_node("default:dirt_with_snow", {
 minetest.register_node("default:sand", {
 	description = "Sand",
 	tiles = {"default_sand.png"},
+	drowning = 1,
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
 })
@@ -331,6 +332,7 @@ minetest.register_node("default:sand", {
 minetest.register_node("default:desert_sand", {
 	description = "Desert Sand",
 	tiles = {"default_desert_sand.png"},
+	drowning = 1,
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
 })
@@ -339,6 +341,7 @@ minetest.register_node("default:desert_sand", {
 minetest.register_node("default:gravel", {
 	description = "Gravel",
 	tiles = {"default_gravel.png"},
+	drowning = 1,
 	groups = {crumbly = 2, falling_node = 1},
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_gravel_footstep", gain = 0.5},
