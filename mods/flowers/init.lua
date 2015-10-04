@@ -46,6 +46,7 @@ local function add_simple_flower(name, desc, box, f_groups)
 		sunlight_propagates = true,
 		paramtype = "light",
 		walkable = false,
+		buildable_to = true,
 		stack_max = 99,
 		groups = f_groups,
 		sounds = default.node_sound_leaves_defaults(),
@@ -252,6 +253,7 @@ minetest.register_node("flowers:waterlily", {
 	wield_image = "flowers_waterlily.png",
 	liquids_pointable = true,
 	walkable = false,
+	buildable_to = true,
 	groups = {snappy = 3, flower = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	node_box = {
@@ -266,10 +268,19 @@ minetest.register_node("flowers:waterlily", {
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
 		local find_water = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y, z = pos.z - 1},
 			{x = pos.x + 1, y = pos.y, z = pos.z + 1}, "default:water_source")
+		local find_river_water = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y, z = pos.z - 1},
+			{x = pos.x + 1, y = pos.y, z = pos.z + 1}, "default:river_water_source")
 		if #find_water ~= 0 then
 			minetest.set_node(pos, {name = "default:water_source"})
 			pos.y = pos.y + 1
+			minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+		elseif #find_river_water ~= 0 then
+			minetest.set_node(pos, {name = "default:river_water_source"})
+			pos.y = pos.y + 1
+			minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+		else
+			minetest.remove_node(pos)
+			return true
 		end
-		minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
 	end
 })
