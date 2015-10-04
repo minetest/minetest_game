@@ -1,3 +1,4 @@
+local pi = math.pi
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
 local enable_respawn = minetest.setting_getbool("enable_bed_respawn")
@@ -11,13 +12,13 @@ end
 local function get_look_yaw(pos)
 	local n = minetest.get_node(pos)
 	if n.param2 == 1 then
-		return 7.9, n.param2
+		return pi/2, n.param2
 	elseif n.param2 == 3 then
-		return 4.75, n.param2
+		return -pi/2, n.param2
 	elseif n.param2 == 0 then
-		return 3.15, n.param2
+		return pi, n.param2
 	else
-		return 6.28, n.param2
+		return 0, n.param2
 	end
 end
 
