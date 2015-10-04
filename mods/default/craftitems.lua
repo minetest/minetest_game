@@ -30,7 +30,8 @@ local function book_on_use(itemstack, user, pointed_thing)
 		formspec = "size[8,8]"..default.gui_bg..
 			"label[0.5,0.5;by "..owner.."]"..
 			"label[0.5,0;"..minetest.formspec_escape(title).."]"..
-			"textarea[0.5,1.5;7.5,7;;"..minetest.formspec_escape(text)..";]"
+			"tableoptions[background=#00000000;highlight=#00000000;border=false]"..
+			"table[0.5,1.5;7.5,7;;"..minetest.formspec_escape(text):gsub("\n", ",")..";1]"
 	end
 	minetest.show_formspec(user:get_player_name(), "default:book", formspec)
 end
