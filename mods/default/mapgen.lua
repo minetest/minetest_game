@@ -1054,7 +1054,7 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:dirt", "default:sand"},
+		place_on = {"default:dirt"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.3,
@@ -1064,7 +1064,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"savanna_swamp", "desert_ocean"},
+		biomes = {"savanna_swamp"},
 		y_min = 0,
 		y_max = 0,
 		schematic = minetest.get_modpath("default").."/schematics/papyrus.mts",
