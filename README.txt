@@ -50,4 +50,4 @@ Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 http://creativecommons.org/licenses/by-sa/3.0/
 
 License of menu/header.png
-Copyright (C) 2013 BlockMen CC BY-3.0
+Copyright (C) 2015 paramat CC BY-SA 3.0
