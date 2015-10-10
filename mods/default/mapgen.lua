@@ -342,9 +342,9 @@ function default.register_biomes()
 	minetest.register_biome({
 		name = "glacier_ocean",
 		node_dust = "default:snowblock",
-		node_top = "default:gravel",
+		node_top = "default:sand",
 		depth_top = 1,
-		node_filler = "default:gravel",
+		node_filler = "default:sand",
 		depth_filler = 2,
 		--node_stone = "",
 		--node_water_top = "",
@@ -483,26 +483,8 @@ function default.register_biomes()
 		--depth_water_top = ,
 		--node_water = "",
 		--node_river_water = "",
-		y_min = 9,
-		y_max = 31000,
-		heat_point = 45,
-		humidity_point = 75,
-	})
-
-	minetest.register_biome({
-		name = "coniferous_forest_dunes",
-		--node_dust = "",
-		node_top = "default:sand",
-		depth_top = 1,
-		node_filler = "default:sand",
-		depth_filler = 2,
-		--node_stone = "",
-		--node_water_top = "",
-		--depth_water_top = ,
-		--node_water = "",
-		--node_river_water = "",
 		y_min = 5,
-		y_max = 8,
+		y_max = 31000,
 		heat_point = 45,
 		humidity_point = 75,
 	})
@@ -897,7 +879,7 @@ local function register_grass_decoration(offset, scale, length)
 			persist = 0.6
 		},
 		biomes = {"stone_grassland", "sandstone_grassland",
-			"deciduous_forest", "coniferous_forest", "coniferous_forest_dunes"},
+			"deciduous_forest", "coniferous_forest"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "default:grass_"..length,
