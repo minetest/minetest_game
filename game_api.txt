@@ -163,7 +163,7 @@ on_rotate(pos, node, user, mode, new_param2)
 Stairs API
 ----------
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
-delivered with minetest_game, to keep them compatible with other mods.
+delivered with Minetest Game, to keep them compatible with other mods.
 
 stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
  -> Registers a stair.
