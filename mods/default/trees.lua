@@ -16,6 +16,10 @@ local function can_grow(pos)
 	if is_soil == 0 then
 		return false
 	end
+	local ll = minetest.get_node_light(pos)
+	if not ll or ll < 13 then -- Minimum light level for growth
+		return false          -- matches grass, wheat and cotton
+	end
 	return true
 end
 
