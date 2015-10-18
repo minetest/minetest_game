@@ -3,6 +3,7 @@
 
 #    In creative mode players are able to dig all kind of blocks nearly instantly,
 #    and have access to unlimited resources.
+#    Some of the functionality is only available if this setting is present at startup.
 creative_mode (Creative mode) bool false
 
 #    Flammable nodes will be ignited by nearby igniters. Spreading fire may cause sever harm.
@@ -11,6 +12,13 @@ enable_fire (Fire) bool true
 
 #    If enabled, steel tools, torches and cobblestone will be given to new players.
 give_initial_stuff (Give initial items) bool false
+
+#    If enabled, players respawn at the bed they last slept at instead of normal spawn.
+#    This setting is only read at startup.
+enable_bed_respawn (Respawn at bed) bool true
+
+#    If enabled, the night can be skipped if more than half of the players are in beds.
+enable_bed_night_skip (Skip night when sleeping) bool true
 
 #    When TNT explodes it destroys nearby nodes, possibl causing a lot of harm on servers.
 #    This setting is disabled by default on servers.
@@ -22,3 +30,6 @@ tnt_radius (TNT radius) int 3 0
 #    The time in seconds after which the bones of a dead player can be looted by everyone.
 #    Setting this to 0 will disable sharing of bones completly.
 share_bones_time (Bone share time) int 1200 0
+
+#    Replaces old stairs with new ones. Only required for older worlds.
+enable_stairs_replace_abm (Replace old stairs) bool false
