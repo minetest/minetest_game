@@ -1,0 +1,24 @@
+# This file contains settings of minetest_game that can be changed in
+# minetest.conf
+
+#    In creative mode players are able to dig all kind of blocks nearly instantly,
+#    and have access to unlimited resources.
+creative_mode (Creative mode) bool false
+
+#    Flammable nodes will be ignited by nearby igniters. Spreading fire may cause sever harm.
+#    All fire nodes with instantly disappear when fire is disabled.
+enable_fire (Fire) bool true
+
+#    If enabled, steel tools, torches and cobblestone will be given to new players.
+give_initial_stuff (Give initial items) bool false
+
+#    When TNT explodes it destroys nearby nodes, possibl causing a lot of harm on servers.
+#    This setting is disabled by default on servers.
+enable_tnt (TNT) bool true
+
+#    The radius in which nodes will be destroyed by a TNT explosion.
+tnt_radius (TNT radius) int 3 0
+
+#    The time in seconds after which the bones of a dead player can be looted by everyone.
+#    Setting this to 0 will disable sharing of bones completly.
+share_bones_time (Bone share time) int 1200 0

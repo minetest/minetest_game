@@ -9,8 +9,8 @@
 # 0 to disable
 #share_bones_time = 1200
 
-# Whether fire should be disabled (all fire nodes will instantly disappear)
-#disable_fire = false
+# Whether fire should be enabled (if disabled, all fire nodes will instantly disappear)
+#enable_fire = false
 
 # Whether steel tools, torches and cobblestone should be given to new players
 #give_initial_stuff = false

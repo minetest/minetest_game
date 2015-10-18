@@ -129,9 +129,16 @@ function fire.flame_should_extinguish(pos)
 end
 
 
--- Enable ABMs according to 'disable fire' setting
+-- Enable ABMs according to 'enable fire' setting
 
-if minetest.setting_getbool("disable_fire") then
+local fire_enabled = minetest.setting_getbool("enable_fire")
+if fire_enabled == nil then
+	-- Check disable_fire for legacy reasons
+	-- Check for false explicitly, so fire is enabled by default
+	fire_enabled = minetest.setting_getbool("disable_fire") == false
+end
+
+if fire_enabled then
 
 	-- Extinguish flames quickly with dedicated ABM
 
