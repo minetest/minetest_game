@@ -105,7 +105,12 @@ function boat.on_punch(self, puncher, time_from_last_punch,
 			self.object:remove()
 		end)
 		if not minetest.setting_getbool("creative_mode") then
-			puncher:get_inventory():add_item("main", "boats:boat")
+			local inv = puncher:get_inventory()
+			if inv:room_for_item("main", "boats:boat") then
+				inv:add_item("main", "boats:boat")
+			else
+				minetest.add_item(self.object:getpos(), "boats:boat")
+			end
 		end
 	end
 end
