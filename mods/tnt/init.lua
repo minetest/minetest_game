@@ -29,8 +29,20 @@ minetest.after(0, function()
 end)
 
 local function rand_pos(center, pos, radius)
-	pos.x = center.x + math.random(-radius, radius)
-	pos.z = center.z + math.random(-radius, radius)
+	local def
+	local reg_nodes = minetest.registered_nodes
+	local i = 0
+	repeat
+		-- Give up and use the center if this takes too long
+		if i > 4 then
+			pos.x, pos.z = center.x, center.z
+			break
+		end
+		pos.x = center.x + math.random(-radius, radius)
+		pos.z = center.z + math.random(-radius, radius)
+		def = reg_nodes[minetest.get_node(pos).name]
+		i = i + 1
+	until def and not def.walkable
 end
 
 local function eject_drops(drops, pos, radius)
