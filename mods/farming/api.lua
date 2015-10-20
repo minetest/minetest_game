@@ -34,7 +34,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	
 	-- check if (wet) soil defined
 	local regN = minetest.registered_nodes
-	if regN[under.name].soil == nil or regN[under.name].soil.wet == nil or regN[under.name].soil.dry == nil then
+	if not regN[under.name].soil or not regN[under.name].soil.wet or not regN[under.name].soil.dry then
 		return
 	end
 	
@@ -52,7 +52,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
-		gain = 0.5,
+		gain = 0.5
 	})
 	
 	if not minetest.setting_getbool("creative_mode") then
@@ -64,26 +64,20 @@ end
 -- Register new hoes
 farming.register_hoe = function(name, def)
 	-- Check for : prefix (register new hoes in your mod's namespace)
-	if name:sub(1,1) ~= ":" then
+	if name:sub(1, 1) ~= ":" then
 		name = ":" .. name
 	end
+
 	-- Check def table
-	if def.description == nil then
-		def.description = "Hoe"
-	end
-	if def.inventory_image == nil then
-		def.inventory_image = "unknown_item.png"
-	end
-	if def.recipe == nil then
-		def.recipe = {
-			{"air","air",""},
-			{"","group:stick",""},
-			{"","group:stick",""}
-		}
-	end
-	if def.max_uses == nil then
-		def.max_uses = 30
-	end
+	def.description = def.description or "Hoe"
+	def.inventory_image = def.inventory_image or "unknown_item.png"
+	def.max_uses = def.max_uses or 30
+	def.recipe = def.recipe or {
+		{"air","air",""},
+		{"","group:stick",""},
+		{"","group:stick",""}
+	}
+
 	-- Register the tool
 	minetest.register_tool(name, {
 		description = def.description,
@@ -92,8 +86,9 @@ farming.register_hoe = function(name, def)
 			return farming.hoe_on_use(itemstack, user, pointed_thing, def.max_uses)
 		end
 	})
+
 	-- Register its recipe
-	if def.material == nil then
+	if not def.material then
 		minetest.register_craft({
 			output = name:sub(2),
 			recipe = def.recipe
@@ -180,37 +175,30 @@ farming.register_plant = function(name, def)
 	local pname = name:split(":")[2]
 
 	-- Check def table
-	if not def.description then
-		def.description = "Seed"
-	end
-	if not def.inventory_image then
-		def.inventory_image = "unknown_item.png"
-	end
 	if not def.steps then
-		return nil
-	end
-	if not def.minlight then
-		def.minlight = 1
-	end
-	if not def.maxlight then
-		def.maxlight = 14
-	end
-	if not def.fertility then
-		def.fertility = {}
+		return
 	end
 
+	def.description = def.description or "Seed"
+	def.inventory_image = def.inventory_image or "unknown_item.png"
+	def.minlight = def.minlight or 1
+	def.maxlight = def.maxlight or 14
+	def.fertility = def.fertility or {}
+	def.visual_scale = def.visual_scale or 1
+
 	-- Register seed
-	local g = {seed = 1, snappy = 3, attached_node = 1}
+	local groups = {seed = 1, snappy = 3, attached_node = 1}
 	for k, v in pairs(def.fertility) do
-		g[v] = 1
+		groups[v] = 1
 	end
 	minetest.register_node(":" .. mname .. ":seed_" .. pname, {
 		description = def.description,
 		tiles = {def.inventory_image},
 		inventory_image = def.inventory_image,
 		wield_image = def.inventory_image,
+		visual_scale = def.visual_scale,
 		drawtype = "signlike",
-		groups = g,
+		groups = groups,
 		paramtype = "light",
 		paramtype2 = "wallmounted",
 		walkable = false,
