@@ -345,3 +345,15 @@ minetest.register_abm({
 	end
 })
 
+-- Destroy items when they touch lava or fire
+
+local old_on_step = minetest.registered_entities["__builtin:item"].on_step
+
+minetest.registered_entities["__builtin:item"].on_step = function(self, dtime)
+	if minetest.get_item_group(
+			minetest.get_node(self.object:getpos()).name, "igniter") >= 1 then
+		self.object:remove()
+		return
+	end
+	old_on_step(self, dtime)
+end
