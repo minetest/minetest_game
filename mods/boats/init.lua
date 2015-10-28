@@ -62,6 +62,14 @@ function boat.on_rightclick(self, clicker)
 			clicker:setpos(pos)
 		end)
 	elseif not self.driver then
+		local attach = clicker:get_attach()
+		if attach and attach:get_luaentity() then
+			local luaentity = attach:get_luaentity()
+			if luaentity.driver then
+				luaentity.driver = nil
+			end
+			clicker:set_detach()
+		end
 		self.driver = clicker
 		clicker:set_attach(self.object, "",
 			{x = 0, y = 11, z = -3}, {x = 0, y = 0, z = 0})
@@ -88,8 +96,7 @@ function boat.get_staticdata(self)
 end
 
 
-function boat.on_punch(self, puncher, time_from_last_punch,
-		tool_capabilities, direction)
+function boat.on_punch(self, puncher)
 	if not puncher or not puncher:is_player() or self.removed then
 		return
 	end
