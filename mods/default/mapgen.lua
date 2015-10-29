@@ -604,8 +604,8 @@ function default.register_biomes()
 	minetest.register_biome({
 		name = "desert",
 		--node_dust = "",
-		node_top = "default:desert_sand",
-		depth_top = 1,
+		--node_top = "",
+		--depth_top = ,
 		node_filler = "default:desert_sand",
 		depth_filler = 1,
 		node_stone = "default:desert_stone",
