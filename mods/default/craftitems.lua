@@ -11,6 +11,24 @@ minetest.register_craftitem("default:paper", {
 	inventory_image = "default_paper.png",
 })
 
+local function book_wrap_text(str)
+	local result = ""
+	for _, text in ipairs(str:split("\n")) do
+		while #text > 45 do
+			if result ~= "" then
+				result = result..","
+			end
+			result = result..minetest.formspec_escape(text:sub(1, 44))
+			text = text:sub(45, -1)
+		end
+		if result ~= "" then
+			result = result..","
+		end
+		result = result..minetest.formspec_escape(text)
+	end
+	return result
+end
+
 local function book_on_use(itemstack, user, pointed_thing)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
@@ -31,7 +49,7 @@ local function book_on_use(itemstack, user, pointed_thing)
 			"label[0.5,0.5;by "..owner.."]"..
 			"label[0.5,0;"..minetest.formspec_escape(title).."]"..
 			"tableoptions[background=#00000000;highlight=#00000000;border=false]"..
-			"table[0.5,1.5;7.5,7;;"..minetest.formspec_escape(text):gsub("\n", ",")..";1]"
+			"table[0.5,1.5;7.5,7;;"..book_wrap_text(text)..";1]"
 	end
 	minetest.show_formspec(user:get_player_name(), "default:book", formspec)
 end
