@@ -335,7 +335,7 @@ function default.register_biomes()
 		node_river_water = "default:ice",
 		y_min = -8,
 		y_max = 31000,
-		heat_point = -5,
+		heat_point = 5,
 		humidity_point = 50,
 	})
 
@@ -345,7 +345,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -353,7 +353,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = -9,
-		heat_point = -5,
+		heat_point = 5,
 		humidity_point = 50,
 	})
 
@@ -365,7 +365,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_snow",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 0,
+		depth_filler = 1,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -373,8 +373,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 2,
 		y_max = 31000,
-		heat_point = 20,
-		humidity_point = 25,
+		heat_point = 15,
+		humidity_point = 30,
 	})
 
 	minetest.register_biome({
@@ -383,7 +383,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -391,8 +391,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = 1,
-		heat_point = 20,
-		humidity_point = 25,
+		heat_point = 15,
+		humidity_point = 30,
 	})
 
 
@@ -402,7 +402,7 @@ function default.register_biomes()
 		node_top = "default:snowblock",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 4,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -410,8 +410,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 2,
 		y_max = 31000,
-		heat_point = 20,
-		humidity_point = 75,
+		heat_point = 15,
+		humidity_point = 70,
 	})
 
 	minetest.register_biome({
@@ -420,7 +420,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -428,8 +428,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = 1,
-		heat_point = 20,
-		humidity_point = 75,
+		heat_point = 15,
+		humidity_point = 70,
 	})
 
 	-- Temperate
@@ -440,7 +440,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 0,
+		depth_filler = 1,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -449,7 +449,7 @@ function default.register_biomes()
 		y_min = 5,
 		y_max = 31000,
 		heat_point = 45,
-		humidity_point = 25,
+		humidity_point = 30,
 	})
 
 	minetest.register_biome({
@@ -458,7 +458,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -467,7 +467,7 @@ function default.register_biomes()
 		y_min = -112,
 		y_max = 4,
 		heat_point = 45,
-		humidity_point = 25,
+		humidity_point = 30,
 	})
 
 
@@ -477,7 +477,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -486,7 +486,7 @@ function default.register_biomes()
 		y_min = 5,
 		y_max = 31000,
 		heat_point = 45,
-		humidity_point = 75,
+		humidity_point = 70,
 	})
 
 	minetest.register_biome({
@@ -495,7 +495,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -504,7 +504,7 @@ function default.register_biomes()
 		y_min = -112,
 		y_max = 4,
 		heat_point = 45,
-		humidity_point = 75,
+		humidity_point = 70,
 	})
 
 
@@ -514,7 +514,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 0,
+		depth_filler = 1,
 		node_stone = "default:sandstone",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -522,8 +522,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 5,
 		y_max = 31000,
-		heat_point = 70,
-		humidity_point = 25,
+		heat_point = 55,
+		humidity_point = 30,
 	})
 
 	minetest.register_biome({
@@ -532,7 +532,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		node_stone = "default:sandstone",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -540,8 +540,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = 4,
-		heat_point = 70,
-		humidity_point = 25,
+		heat_point = 55,
+		humidity_point = 30,
 	})
 
 
@@ -551,7 +551,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -559,8 +559,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 1,
 		y_max = 31000,
-		heat_point = 70,
-		humidity_point = 75,
+		heat_point = 55,
+		humidity_point = 70,
 	})
 
 	minetest.register_biome({
@@ -569,7 +569,7 @@ function default.register_biomes()
 		node_top = "default:dirt",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -577,8 +577,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -3,
 		y_max = 0,
-		heat_point = 70,
-		humidity_point = 75,
+		heat_point = 55,
+		humidity_point = 70,
 	})
 
 	minetest.register_biome({
@@ -587,7 +587,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -595,8 +595,8 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = -4,
-		heat_point = 70,
-		humidity_point = 75,
+		heat_point = 55,
+		humidity_point = 70,
 	})
 
 	-- Hot
@@ -615,7 +615,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 5,
 		y_max = 31000,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 10,
 	})
 
@@ -625,7 +625,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		node_stone = "default:desert_stone",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -633,7 +633,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = 4,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 10,
 	})
 
@@ -652,7 +652,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 1,
 		y_max = 31000,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 50,
 	})
 
@@ -662,7 +662,7 @@ function default.register_biomes()
 		node_top = "default:dirt",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -670,7 +670,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -3,
 		y_max = 0,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 50,
 	})
 
@@ -680,7 +680,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -688,7 +688,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = -4,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 50,
 	})
 
@@ -699,7 +699,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -707,7 +707,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = 1,
 		y_max = 31000,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 90,
 	})
 
@@ -717,7 +717,7 @@ function default.register_biomes()
 		node_top = "default:dirt",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -725,7 +725,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -3,
 		y_max = 0,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 90,
 	})
 
@@ -735,7 +735,7 @@ function default.register_biomes()
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
-		depth_filler = 2,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -743,7 +743,7 @@ function default.register_biomes()
 		--node_river_water = "",
 		y_min = -112,
 		y_max = -4,
-		heat_point = 95,
+		heat_point = 85,
 		humidity_point = 90,
 	})
 
