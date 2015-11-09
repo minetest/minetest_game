@@ -945,11 +945,11 @@ function default.register_decorations()
 		rotation = "random",
 	})
 
-	-- Taiga and temperate forest pine tree
+	-- Taiga and temperate coniferous forest pine tree
 
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:snowblock", "default:dirt_with_grass"},
+		place_on = {"default:dirt_with_snow", "default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = 0.04,
