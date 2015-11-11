@@ -13,12 +13,11 @@ function beds.register_bed(name, def)
 		sounds = default.node_sound_wood_defaults(),
 		node_box = {
 			type = "fixed",
-			fixed = def.nodebox.bottom,
+			fixed = def.nodebox.bottom
 		},
 		selection_box = {
 			type = "fixed",
-			fixed = def.selectionbox,
-				
+			fixed = def.selectionbox
 		},
 		after_place_node = function(pos, placer, itemstack)
 			local n = minetest.get_node_or_nil(pos)
@@ -89,16 +88,13 @@ function beds.register_bed(name, def)
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
+		pointable = false,
 		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
 		sounds = default.node_sound_wood_defaults(),
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.top,
-		},
-		selection_box = {
-			type = "fixed",
-			fixed = {0, 0, 0, 0, 0, 0},
-		},
+		}
 	})
 
 	minetest.register_alias(name, name .. "_bottom")
