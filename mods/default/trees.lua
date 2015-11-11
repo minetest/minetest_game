@@ -17,7 +17,8 @@ local function can_grow(pos)
 		return false
 	end
 	local light_level = minetest.get_node_light(pos)
-	if not light_level or light_level < 13 then
+	local min_light_level = tonumber(minetest.setting_get("trees_min_light_level")) or 13
+	if not light_level or light_level < min_light_level then
 		return false
 	end
 	return true
