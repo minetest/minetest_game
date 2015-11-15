@@ -5,7 +5,8 @@
 -- 'Can grow' function
 
 local random = math.random
-
+local min_light_level = tonumber(minetest.setting_get("trees_min_light_level")) or 13
+	
 local function can_grow(pos)
 	local node_under = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
 	if not node_under then
@@ -17,7 +18,7 @@ local function can_grow(pos)
 		return false
 	end
 	local light_level = minetest.get_node_light(pos)
-	if not light_level or light_level < 13 then
+	if not light_level or light_level < min_light_level then
 		return false
 	end
 	return true
