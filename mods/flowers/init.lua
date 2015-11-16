@@ -265,22 +265,17 @@ minetest.register_node("flowers:waterlily", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5}
 	},
 
-	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		local find_water = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y, z = pos.z - 1},
-			{x = pos.x + 1, y = pos.y, z = pos.z + 1}, "default:water_source")
-		local find_river_water = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y, z = pos.z - 1},
-			{x = pos.x + 1, y = pos.y, z = pos.z + 1}, "default:river_water_source")
-		if #find_water ~= 0 then
-			minetest.set_node(pos, {name = "default:water_source"})
-			pos.y = pos.y + 1
-			minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
-		elseif #find_river_water ~= 0 then
-			minetest.set_node(pos, {name = "default:river_water_source"})
-			pos.y = pos.y + 1
-			minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
-		else
-			minetest.remove_node(pos)
-			return true
+	on_place = function(itemstack, placer, pointed_thing)
+		local under = pointed_thing.under
+		local node_under = minetest.get_node(under)
+		if node_under
+		and minetest.get_item_group(node_under.name, "water") ~= 0
+		and minetest.registered_nodes[node_under.name].buildable_to then
+			local above = pointed_thing.above
+			local pos_diff = vector.subtract(above, under)
+			pointed_thing.above = vector.add(above, pos_diff)
+			pointed_thing.under = vector.add(under, pos_diff)
+			return minetest.item_place(itemstack, placer, pointed_thing, math.random(0, 3))
 		end
 	end
 })
