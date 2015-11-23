@@ -995,8 +995,8 @@ function default.register_decorations()
 		place_on = {"default:desert_sand"},
 		sidelen = 16,
 		noise_params = {
-			offset = -0.0005,
-			scale = 0.0015,
+			offset = -0.0003,
+			scale = 0.0009,
 			spread = {x = 200, y = 200, z = 200},
 			seed = 230,
 			octaves = 3,
@@ -1017,8 +1017,8 @@ function default.register_decorations()
 		place_on = {"default:desert_sand"},
 		sidelen = 16,
 		noise_params = {
-			offset = -0.0005,
-			scale = 0.0015,
+			offset = -0.0003,
+			scale = 0.0009,
 			spread = {x = 200, y = 200, z = 200},
 			seed = 230,
 			octaves = 3,
