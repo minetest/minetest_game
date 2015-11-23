@@ -6,7 +6,7 @@
 
 local random = math.random
 
-local function can_grow(pos)
+function default.can_grow(pos)
 	local node_under = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
 	if not node_under then
 		return false
@@ -32,7 +32,7 @@ minetest.register_abm({
 	interval = 10,
 	chance = 50,
 	action = function(pos, node)
-		if not can_grow(pos) then
+		if not default.can_grow(pos) then
 			return
 		end
 
