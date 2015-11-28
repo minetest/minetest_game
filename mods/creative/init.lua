@@ -39,14 +39,12 @@ minetest.after(0, function()
 	for name,def in pairs(minetest.registered_items) do
 		if (not def.groups.not_in_creative_inventory or def.groups.not_in_creative_inventory == 0)
 				and def.description and def.description ~= "" then
-			table.insert(creative_list, name)
+			creative_list[#creative_list+1] = name
 		end
 	end
 	table.sort(creative_list)
 	inv:set_size("main", #creative_list)
-	for _,itemstring in ipairs(creative_list) do
-		inv:add_item("main", ItemStack(itemstring))
-	end
+	inv:set_list("main", creative_list)
 	creative_inventory.creative_inventory_size = #creative_list
 	--print("creative inventory size: "..dump(creative_inventory.creative_inventory_size))
 end)
