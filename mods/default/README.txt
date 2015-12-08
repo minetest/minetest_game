@@ -148,6 +148,9 @@ BlockMen (CC BY-SA 3.0):
   heart.png
   gui_*.png
 
+sofar (CC BY-SA 3.0):
+  default_book_written.png, based on default_book.png
+
 Neuromancer (CC BY-SA 2.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
