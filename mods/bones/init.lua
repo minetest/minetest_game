@@ -23,6 +23,7 @@ bones.bones_formspec =
 
 local share_bones_time = tonumber(minetest.setting_get("share_bones_time") or 1200)
 local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early") or (share_bones_time/4))
+local disable_bones = minetest.setting_get("disable_bones") or false
 
 minetest.register_node("bones:bones", {
 	description = "Bones",
@@ -149,6 +150,8 @@ local function may_replace(pos, player)
 	return node_definition.buildable_to and not minetest.is_protected(pos, player:get_player_name())
 end
 
+
+if disable_bones then
 minetest.register_on_dieplayer(function(player)
 	if minetest.setting_getbool("creative_mode") then
 		return
@@ -226,3 +229,4 @@ minetest.register_on_dieplayer(function(player)
 		meta:set_string("infotext", player_name.."'s bones")
 	end
 end)
+end
