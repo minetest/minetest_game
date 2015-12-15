@@ -428,7 +428,19 @@ function doors.register_trapdoor(name, def)
 	local name_closed = name
 	local name_opened = name.."_open"
 
-	def.on_rightclick = function (pos, node)
+	local function check_player_priv(pos, player)
+		if not def.only_placer_can_open then
+			return true
+		end
+		local meta = minetest.get_meta(pos)
+		local pn = player:get_player_name()
+		return meta:get_string("doors_owner") == pn
+	end
+
+	def.on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
+		if not check_player_priv(pos, clicker) then
+			return
+		end
 		local newname = node.name == name_closed and name_opened or name_closed
 		local sound = false
 		if node.name == name_closed then sound = def.sound_open end
@@ -436,7 +448,7 @@ function doors.register_trapdoor(name, def)
 		if sound then
 			minetest.sound_play(sound, {pos = pos, gain = 0.3, max_hear_distance = 10})
 		end
-		minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
+		minetest.swap_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
 	end
 
 	def.on_rotate = minetest.get_modpath("screwdriver") and screwdriver.rotate_simple
@@ -446,6 +458,21 @@ function doors.register_trapdoor(name, def)
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
 	def.is_ground_content = false
+	def.can_dig = check_player_priv
+
+	if def.only_placer_can_open then
+		def.after_place_node = function(pos, placer, itemstack, pointed_thing)
+			local pn = placer:get_player_name()
+			local meta = minetest.get_meta(pos)
+			meta:set_string("doors_owner", pn)
+			meta:set_string("infotext", "Owned by "..pn)
+
+			if not minetest.setting_getbool("creative_mode") then
+				return true
+			end
+			return false
+		end
+	end
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
@@ -492,6 +519,19 @@ doors.register_trapdoor("doors:trapdoor", {
 	sound_close = "doors_door_close"
 })
 
+doors.register_trapdoor("doors:trapdoor_steel", {
+	description = "Steel Trapdoor",
+	inventory_image = "doors_trapdoor_steel.png",
+	wield_image = "doors_trapdoor_steel.png",
+	tile_front = "doors_trapdoor_steel.png",
+	tile_side = "doors_trapdoor_steel_side.png",
+	only_placer_can_open = true,
+	groups = {snappy=1, bendy=2, cracky=1, melty=2, level=2, door=1},
+	sounds = default.node_sound_wood_defaults(),
+	sound_open = "doors_door_open",
+	sound_close = "doors_door_close"
+})
+
 minetest.register_craft({
 	output = 'doors:trapdoor 2',
 	recipe = {
@@ -500,3 +540,13 @@ minetest.register_craft({
 		{'', '', ''},
 	}
 })
+
+minetest.register_craft({
+	output = 'doors:trapdoor_steel 2',
+	recipe = {
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'', '', ''},
+	}
+})
+
