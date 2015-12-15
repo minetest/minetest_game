@@ -151,6 +151,10 @@ default:sign_wall
 default:ladder
 
 default:fence_wood
+default:fence_acacia_wood
+default:fence_junglewood
+default:fence_pine_wood
+default:fence_aspen_wood
 
 default:glass
 default:obsidian_glass
@@ -1674,26 +1678,45 @@ minetest.register_node("default:ladder", {
 	sounds = default.node_sound_wood_defaults(),
 })
 
-
-local fence_texture =
-	"default_fence_overlay.png^default_wood.png^default_fence_overlay.png^[makealpha:255,126,126"
-minetest.register_node("default:fence_wood", {
+default.register_fence("default:fence_wood", {
 	description = "Wooden Fence",
-	drawtype = "fencelike",
-	tiles = {"default_wood.png"},
-	inventory_image = fence_texture,
-	wield_image = fence_texture,
-	paramtype = "light",
-	sunlight_propagates = true,
-	is_ground_content = false,
-	selection_box = {
-		type = "fixed",
-		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
-	},
+	texture = "default_wood.png",
+	material = "default:wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = default.node_sound_wood_defaults()
 })
 
+default.register_fence("default:fence_acacia_wood", {
+	description = "Acacia Fence",
+	texture = "default_acacia_wood.png",
+	material = "default:acacia_wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	sounds = default.node_sound_wood_defaults()
+})
+
+default.register_fence("default:fence_junglewood", {
+	description = "Junglewood Fence",
+	texture = "default_junglewood.png",
+	material = "default:junglewood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	sounds = default.node_sound_wood_defaults()
+})
+
+default.register_fence("default:fence_pine_wood", {
+	description = "Pine Fence",
+	texture = "default_pine_wood.png",
+	material = "default:pine_wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	sounds = default.node_sound_wood_defaults()
+})
+
+default.register_fence("default:fence_aspen_wood", {
+	description = "Aspen Fence",
+	texture = "default_aspen_wood.png",
+	material = "default:aspen_wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	sounds = default.node_sound_wood_defaults()
+})
 
 minetest.register_node("default:glass", {
 	description = "Glass",

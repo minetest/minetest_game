@@ -110,6 +110,24 @@ doors.register_trapdoor(name, def)
 		will be overwritten by the trapdoor registration function
 }
 
+Fence API
+---------
+Allows creation of new fences with "fencelike" drawtype.
+
+default.register_fence(name, item definition)
+ ^ Registers a new fence. Custom fields texture and material are required, as
+ ^ are name and description. The rest is optional. You can pass most normal
+ ^ nodedef fields here except drawtype. The fence group will always be added
+ ^ for this node.
+
+#fence definition
+	name = "default:fence_wood",
+	description = "Wooden Fence",
+	texture = "default_wood.png",
+	material = "default:wood",
+	groups = {choppy=2, oddly_breakable_by_hand = 2, flammable = 2},
+	sounds = default.node_sound_wood_defaults(),
+
 Farming API
 -----------
 The farming API allows you to easily register plants and hoes.

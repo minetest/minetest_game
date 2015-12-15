@@ -210,6 +210,51 @@ end
 
 
 --
+-- Fence registration helper
+--
+function default.register_fence(name, def)
+	minetest.register_craft({
+		output = name .. " 4",
+		recipe = {
+			{ def.material, 'group:stick', def.material },
+			{ def.material, 'group:stick', def.material },
+		}
+	})
+
+	local fence_texture = "default_fence_overlay.png^" .. def.texture ..
+			"^default_fence_overlay.png^[makealpha:255,126,126"
+	-- Allow almost everything to be overridden
+	local default_fields = {
+		paramtype = "light",
+		drawtype = "fencelike",
+		inventory_image = fence_texture,
+		wield_image = fence_texture,
+		tiles = { def.texture },
+		sunlight_propagates = true,
+		is_ground_content = false,
+		selection_box = {
+			type = "fixed",
+			fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
+		},
+		groups = {},
+	}
+	for k, v in pairs(default_fields) do
+		if not def[k] then
+			def[k] = v
+		end
+	end
+
+	-- Always add to the fence group, even if no group provided
+	def.groups.fence = 1
+
+	def.texture = nil
+	def.material = nil
+
+	minetest.register_node(name, def)
+end
+
+
+--
 -- Leafdecay
 --
 
