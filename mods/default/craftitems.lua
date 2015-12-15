@@ -88,6 +88,36 @@ minetest.register_craftitem("default:book_written", {
 	on_use = book_on_use,
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:book_written",
+	recipe = { "default:book", "default:book_written" }
+})
+
+minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+	if itemstack:get_name() ~= "default:book_written" then
+		return
+	end
+
+	local copy = ItemStack("default:book_written")
+	local original
+	local index
+	for i = 1, player:get_inventory():get_size("craft") do
+		if old_craft_grid[i]:get_name() == "default:book_written" then
+			original = old_craft_grid[i]
+			index = i
+		end
+	end
+	if not original then
+		return
+	end
+	local copymeta = original:get_metadata()
+	-- copy of the book held by player's mouse cursor
+	itemstack:set_metadata(copymeta)
+	-- put the book with metadata back in the craft grid
+	craft_inv:set_stack("craft", index, original)
+end)
+
 minetest.register_craftitem("default:coal_lump", {
 	description = "Coal Lump",
 	inventory_image = "default_coal_lump.png",
