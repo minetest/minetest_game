@@ -1713,7 +1713,7 @@ minetest.register_node("default:ladder_steel", {
 
 default.register_fence("default:fence_wood", {
 	description = "Wooden Fence",
-	texture = "default_wood.png",
+	texture = "default_fence_wood.png",
 	material = "default:wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults()
@@ -1721,7 +1721,7 @@ default.register_fence("default:fence_wood", {
 
 default.register_fence("default:fence_acacia_wood", {
 	description = "Acacia Fence",
-	texture = "default_acacia_wood.png",
+	texture = "default_fence_acacia_wood.png",
 	material = "default:acacia_wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults()
@@ -1729,7 +1729,7 @@ default.register_fence("default:fence_acacia_wood", {
 
 default.register_fence("default:fence_junglewood", {
 	description = "Junglewood Fence",
-	texture = "default_junglewood.png",
+	texture = "default_fence_junglewood.png",
 	material = "default:junglewood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults()
@@ -1737,7 +1737,7 @@ default.register_fence("default:fence_junglewood", {
 
 default.register_fence("default:fence_pine_wood", {
 	description = "Pine Fence",
-	texture = "default_pine_wood.png",
+	texture = "default_fence_pine_wood.png",
 	material = "default:pine_wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults()
@@ -1745,7 +1745,7 @@ default.register_fence("default:fence_pine_wood", {
 
 default.register_fence("default:fence_aspen_wood", {
 	description = "Aspen Fence",
-	texture = "default_aspen_wood.png",
+	texture = "default_fence_aspen_wood.png",
 	material = "default:aspen_wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults()
