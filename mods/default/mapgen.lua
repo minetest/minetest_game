@@ -50,15 +50,15 @@ function default.register_ores()
 	-- Clay
 
 	minetest.register_ore({ 
-		ore_type         = "blob",
-		ore              = "default:clay",
-		wherein          = {"default:sand"},
-		clust_scarcity   = 16 * 16 * 16,
-		clust_size       = 5,
-		y_min            = -15,
-		y_max            = 0,
+		ore_type        = "blob",
+		ore             = "default:clay",
+		wherein         = {"default:sand"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -15,
+		y_max           = 0,
 		noise_threshold = 0.0,
-		noise_params     = {
+		noise_params    = {
 			offset = 0.5,
 			scale = 0.2,
 			spread = {x = 5, y = 5, z = 5},
@@ -71,15 +71,16 @@ function default.register_ores()
 	-- Sand
 
 	minetest.register_ore({ 
-		ore_type         = "blob",
-		ore              = "default:sand",
-		wherein          = {"default:stone"},
-		clust_scarcity   = 16 * 16 * 16,
-		clust_size       = 5,
-		y_min            = -31,
-		y_max            = 4,
+		ore_type        = "blob",
+		ore             = "default:sand",
+		wherein         = {"default:stone", "default:sandstone",
+			"default:desert_stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -31,
+		y_max           = 4,
 		noise_threshold = 0.0,
-		noise_params     = {
+		noise_params    = {
 			offset = 0.5,
 			scale = 0.2,
 			spread = {x = 5, y = 5, z = 5},
@@ -92,15 +93,15 @@ function default.register_ores()
 	-- Dirt
 
 	minetest.register_ore({
-		ore_type         = "blob",
-		ore              = "default:dirt",
-		wherein          = {"default:stone"},
-		clust_scarcity   = 16 * 16 * 16,
-		clust_size       = 5,
-		y_min            = -31,
-		y_max            = 31000,
+		ore_type        = "blob",
+		ore             = "default:dirt",
+		wherein         = {"default:stone", "default:sandstone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -31,
+		y_max           = 31000,
 		noise_threshold = 0.0,
-		noise_params     = {
+		noise_params    = {
 			offset = 0.5,
 			scale = 0.2,
 			spread = {x = 5, y = 5, z = 5},
@@ -113,15 +114,15 @@ function default.register_ores()
 	-- Gravel
 
 	minetest.register_ore({
-		ore_type         = "blob",
-		ore              = "default:gravel",
-		wherein          = {"default:stone"},
-		clust_scarcity   = 16 * 16 * 16,
-		clust_size       = 5,
-		y_min            = -31000,
-		y_max            = 31000,
+		ore_type        = "blob",
+		ore             = "default:gravel",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -31000,
+		y_max           = 31000,
 		noise_threshold = 0.0,
-		noise_params     = {
+		noise_params    = {
 			offset = 0.5,
 			scale = 0.2,
 			spread = {x = 5, y = 5, z = 5},
