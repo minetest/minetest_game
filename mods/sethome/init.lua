@@ -54,11 +54,13 @@ minetest.register_chatcommand("sethome", {
         minetest.chat_send_player(name, "Home set!")
         changed = true
         if changed then
-        	local output = io.open(homes_file, "w")
-            for i, v in pairs(homepos) do
-                output:write(v.x.." "..v.y.." "..v.z.." "..i.."\n")
-            end
-            io.close(output)
+        	local output = io.open(home_file, "w")
+			local data = {}
+			for n, p in pairs(homepos) do
+				table.insert(data,(p.x.." "..p.y.." "..p.z.." "..n.."\n")) 
+			end
+			output:write(table.concat(data))
+			io.close(output)
             changed = false
         end
     end,
