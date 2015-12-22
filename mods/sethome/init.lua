@@ -57,7 +57,7 @@ minetest.register_chatcommand("sethome", {
         	local output = io.open(home_file, "w")
 			local data = {}
 			for n, p in pairs(homepos) do
-				table.insert(data,(p.x.." "..p.y.." "..p.z.." "..n.."\n")
+				table.insert(data,(p.x.." "..p.y.." "..p.z.." "..n.."\n")) 
 			end
 			output:write(table.concat(data))
 			io.close(output)
