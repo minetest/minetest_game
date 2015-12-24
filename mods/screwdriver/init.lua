@@ -35,6 +35,10 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 
 	local node = minetest.get_node(pos)
 	local ndef = minetest.registered_nodes[node.name]
+	-- verify node is facedir (expected to be rotatable)
+	if ndef.paramtype2 ~= "facedir" then
+		return
+	end
 	-- Compute param2
 	local rotationPart = node.param2 % 32 -- get first 4 bits
 	local preservePart = node.param2 - rotationPart
