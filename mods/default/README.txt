@@ -118,8 +118,8 @@ paramat (CC BY-SA 3.0):
   default_dry_grass_side.png
   default_dry_grass_*.png
   default_junglewood.png, derived from a texture by BlockMen (CC BY-SA 3.0)
-  default_grass.png, derived from a texture by Philipbenr (CC BY-SA 3.0)
-  default_grass_side.png, derived from a texture by Philipbenr (CC BY-SA 3.0)
+  default_grass.png, derived from a texture by PilzAdam (CC BY-SA 3.0)
+  default_grass_side.png, derived from a texture by PilzAdam (CC BY-SA 3.0)
   default_stone_brick.png, derived from a texture by Cisoun (WTFPL)
   default_desert_stone_brick.png, derived from a texture by VanessaE (WTFPL)
 
