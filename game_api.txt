@@ -672,3 +672,61 @@ Carts
 	like speed, acceleration, player attachment. The handler will
 	likely be called many times per second, so the function needs
 	to make sure that the event is handled properly.
+
+Key API
+-------
+
+The key API allows mods to add key functionality to nodes that have
+ownership or specific permissions. Using the API will make it so
+that a node owner can use skeleton keys on their nodes to create keys
+for that node in that location, and give that key to other players,
+allowing them some sort of access that they otherwise would not have
+due to node protection.
+
+To make your new nodes work with the key API, you need to register
+two callback functions in each nodedef:
+
+
+`on_key_use(pos, player)`
+ * Is called when a player right-clicks (uses) a normal key on your
+ * node.
+ * `pos` - position of the node
+ * `player` - PlayerRef
+ * return value: none, ignored
+
+The `on_key_use` callback should validate that the player is wielding
+a key item with the right key meta secret. If needed the code should
+deny access to the node functionality.
+
+If formspecs are used, the formspec callbacks should duplicate these
+checks in the metadata callback functions.
+
+
+`on_skeleton_key_use(pos, player, newsecret)`
+
+ * Is called when a player right-clicks (uses) a skeleton key on your
+ * node.
+ * `pos` - position of the node
+ * `player` - PlayerRef
+ * `newsecret` - a secret value(string)
+ * return values:
+ * `secret` - `nil` or the secret value that unlocks the door
+ * `name` - a string description of the node ("a locked chest")
+ * `owner` - name of the node owner
+
+The `on_skeleton_key_use` function should validate that the player has
+the right permissions to make a new key for the item. The newsecret
+value is useful if the node has no secret value. The function should
+store this secret value somewhere so that in the future it may compare
+key secrets and match them to allow access. If a node already has a
+secret value, the function should return that secret value instead
+of the newsecret value. The secret value stored for the node should
+not be overwritten, as this would invalidate existing keys.
+
+Aside from the secret value, the function should retun a descriptive
+name for the node and the owner name. The return values are all
+encoded in the key that will be given to the player in replacement
+for the wielded skeleton key.
+
+if `nil` is returned, it is assumed that the wielder did not have
+permissions to create a key for this node, and no key is created.

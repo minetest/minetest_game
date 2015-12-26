@@ -1619,16 +1619,30 @@ local function get_locked_chest_formspec(pos)
 end
 
 local function has_locked_chest_privilege(meta, player)
-	local name = ""
 	if player then
 		if minetest.check_player_privs(player, "protection_bypass") then
 			return true
 		end
-		name = player:get_player_name()
-	end
-	if name ~= meta:get_string("owner") then
+	else
 		return false
 	end
+
+	-- is player wielding the right key?
+	local item = player:get_wielded_item()
+	if item:get_name() == "default:key" then
+		local key_meta = minetest.parse_json(item.get_metadata())
+		local secret = meta:get_string("key_lock_secret")
+		if secret ~= key_meta.secret then
+			return false
+		end
+
+		return true
+	end
+
+	if player:get_player_name() ~= meta:get_string("owner") then
+		return false
+	end
+
 	return true
 end
 
@@ -1748,6 +1762,41 @@ minetest.register_node("default:chest_locked", {
 		return itemstack
 	end,
 	on_blast = function() end,
+	on_key_use = function(pos, player)
+		local secret = minetest.get_meta(pos):get_string("key_lock_secret")
+		local itemstack = player:get_wielded_item()
+		local key_meta = minetest.parse_json(itemstack:get_metadata())
+
+		if secret ~= key_meta.secret then
+			return
+		end
+
+		minetest.show_formspec(
+			player:get_player_name(),
+			"default:chest_locked",
+			get_locked_chest_formspec(pos)
+		)
+	end,
+	on_skeleton_key_use = function(pos, player, newsecret)
+		local meta = minetest.get_meta(pos)
+		local owner = meta:get_string("owner")
+		local name = player:get_player_name()
+
+		-- verify placer is owner of lockable chest
+		if owner ~= name then
+			minetest.record_protection_violation(pos, name)
+			minetest.chat_send_player(name, "You do not own this chest.")
+			return nil
+		end
+
+		local secret = meta:get_string("key_lock_secret")
+		if secret == "" then
+			secret = newsecret
+			meta:set_string("key_lock_secret", secret)
+		end
+
+		return secret, "a locked chest", owner
+	end,
 })
 
 
