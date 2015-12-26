@@ -51,10 +51,9 @@ function creative_inventory.update(player_name, filter)
 
 	for name, def in pairs(minetest.registered_items) do
 		if not (def.groups.not_in_creative_inventory == 1) and
-				def.description and def.description ~= "" then
-			if (filter and def.name:find(filter, 1, true)) or not filter then
-				creative_list[#creative_list+1] = name
-			end
+				def.description and def.description ~= "" and
+				(not filter or def.name:find(filter, 1, true)) then
+			creative_list[#creative_list+1] = name
 		end
 	end
 
@@ -136,10 +135,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local current_page = 0
 	local player_name = player:get_player_name()
 	local formspec = player:get_inventory_formspec()
-	local start_i = formspec:match("list%[detached:creative_" .. player_name .. ";main;[%d.]+,[%d.]+;[%d.]+,[%d.]+;(%d+)%]")
+	local start_i = formspec:match("list%[detached:creative_" .. player_name .. ";.*;(%d+)%]")
+	local inv_size = creative_inventory[player_name].size
 	start_i = tonumber(start_i) or 0
 
-	if fields.creative_prev or start_i >= creative_inventory[player_name].size then
+	if fields.creative_prev or start_i >= inv_size then
 		start_i = start_i - 4*6
 	elseif fields.creative_next or start_i < 0 then
 		start_i = start_i + 4*6
@@ -157,9 +157,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			creative_inventory.set_creative_formspec(player, 0, 1)
 		end)
 	end
-	
-	if start_i < 0 or start_i >= creative_inventory[player_name].size then
+
+	if start_i >= inv_size then
 		start_i = 0
+	elseif start_i < 0 then
+		start_i = inv_size - (inv_size % (6*4))
 	end
 
 	creative_inventory.set_creative_formspec(player, start_i, start_i / (6*4) + 1)
