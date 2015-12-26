@@ -378,3 +378,76 @@ minetest.register_tool("default:sword_diamond", {
 	},
 	sound = {breaks = "default_tool_breaks"},
 })
+
+minetest.register_tool("default:skeleton_key", {
+	description = "Skeleton Key",
+	inventory_image = "default_key_skeleton.png",
+	groups = {key = 1},
+	on_place = function(itemstack, placer, pointed_thing)
+		if pointed_thing.type ~= "node" then
+			return itemstack
+		end
+
+		local pos = pointed_thing.under
+		local node = minetest.get_node(pos)
+
+		if not node then
+			return itemstack
+		end
+
+		local on_skeleton_key_use = minetest.registered_nodes[node.name].on_skeleton_key_use
+		if on_skeleton_key_use then
+			-- make a new key secret in case the node callback needs it
+			local random = math.random
+			local newsecret = string.format(
+				"%04x%04x%04x%04x",
+				random(2^16) - 1, random(2^16) - 1,
+				random(2^16) - 1, random(2^16) - 1)
+
+			local secret, _, _ = on_skeleton_key_use(pos, placer, newsecret)
+
+			if secret then
+				-- finish and return the new key
+				itemstack:take_item()
+				itemstack:add_item("default:key")
+				itemstack:set_metadata(minetest.write_json({
+					secret = secret
+				}))
+				return itemstack
+			end
+		end
+		return nil
+	end
+})
+
+minetest.register_tool("default:key", {
+	description = "Key",
+	inventory_image = "default_key.png",
+	groups = {key = 1, not_in_creative_inventory = 1},
+	stack_max = 1,
+	on_place = function(itemstack, placer, pointed_thing)
+		if pointed_thing.type ~= "node" then
+			return itemstack
+		end
+
+		local pos = pointed_thing.under
+		local node = minetest.get_node(pos)
+
+		if not node or node.name == "ignore" then
+			return itemstack
+		end
+
+		local ndef = minetest.registered_nodes[node.name]
+		if not ndef then
+			return itemstack
+		end
+
+		local on_key_use = ndef.on_key_use
+		if on_key_use then
+			on_key_use(pos, placer)
+		end
+
+		return nil
+	end
+})
+

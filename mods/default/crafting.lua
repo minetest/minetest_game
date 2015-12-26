@@ -353,6 +353,13 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:skeleton_key',
+	recipe = {
+		{'default:gold_ingot'},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:chest',
 	recipe = {
 		{'group:wood', 'group:wood', 'group:wood'},
@@ -779,6 +786,20 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:clay_brick",
 	recipe = "default:clay_lump",
+})
+
+minetest.register_craft({
+	type = 'cooking',
+	output = 'default:gold_ingot',
+	recipe = 'default:skeleton_key',
+	cooktime = 5,
+})
+
+minetest.register_craft({
+	type = 'cooking',
+	output = 'default:gold_ingot',
+	recipe = 'default:key',
+	cooktime = 5,
 })
 
 --
