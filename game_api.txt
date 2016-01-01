@@ -145,6 +145,17 @@ farming.register_plant(name, Plant definition)
 	maxlight = default.LIGHT_MAX           -- Maximum light to grow
 }
 
+Fire API
+--------
+The fire API supports nodes with groups.flammable set, with an optional callback function:
+
+on_burn(position, igniter_node_name, action)
+^ Optionally return true to prevent node being removed
+ -> position: "Burn position"
+ -> igniter_node_name: "Igniting node's name"
+ -> action: "Action in progress"
+ ^ Current <action> passed to, is "remove"
+
 Screwdriver API
 ---------------
 The screwdriver API allows you to control a node's behaviour when a screwdriver is used on it.

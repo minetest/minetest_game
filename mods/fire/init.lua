@@ -3,7 +3,12 @@
 -- Global namespace for functions
 
 fire = {}
-
+fire.features = {
+	on_burn_callback = true, -- When groups.flammable node about to be burnt, calls:
+				 -- node.on_burn(position, source_node_name, action_string)
+				 -- `action_string` = "remove"
+				 -- Return: true, stops the node being removed.
+}
 
 -- Register flame nodes
 
@@ -172,10 +177,10 @@ minetest.register_abm({
 	interval = 3,
 	chance = 2,
 	catch_up = false,
-	action = function(p0, node, _, _)
-		minetest.remove_node(p0)
+	action = function(position, node, _, _)
+		minetest.remove_node(position)
 		minetest.sound_play("fire_extinguish_flame",
-			{pos = p0, max_hear_distance = 16, gain = 0.25})
+			{pos = position, max_hear_distance = 16, gain = 0.25})
 	end,
 })
 
@@ -191,13 +196,11 @@ if minetest.setting_getbool("disable_fire") then
 		interval = 7,
 		chance = 2,
 		catch_up = false,
-		action = function(p0, node, _, _)
-			minetest.remove_node(p0)
+		action = function(position, node, _, _)
+			minetest.remove_node(position)
 		end,
 	})
-
 else
-
 	-- Ignite neighboring nodes, add basic flames
 
 	minetest.register_abm({
@@ -206,14 +209,15 @@ else
 		interval = 7,
 		chance = 16,
 		catch_up = false,
-		action = function(p0, node, _, _)
+		action = function(position, node, _, _)
 			-- If there is water or stuff like that around node, don't ignite
-			if fire.flame_should_extinguish(p0) then
+			if fire.flame_should_extinguish(position) then
 				return
 			end
-			local p = fire.find_pos_for_flame_around(p0)
-			if p then
-				minetest.set_node(p, {name = "fire:basic_flame"})
+
+			local air_position = fire.find_pos_for_flame_around(position)
+			if air_position then
+				minetest.set_node(air_position, {name = "fire:basic_flame"})
 			end
 		end,
 	})
@@ -225,18 +229,29 @@ else
 		interval = 5,
 		chance = 16,
 		catch_up = false,
-		action = function(p0, node, _, _)
+		action = function(position, node, _, _)
 			-- If there are no flammable nodes around flame, remove flame
-			if not minetest.find_node_near(p0, 1, {"group:flammable"}) then
-				minetest.remove_node(p0)
+			local flammable_position = minetest.find_node_near(position, 1, {"group:flammable"})
+			if not flammable_position then
+				minetest.remove_node(position)
 				return
 			end
+
 			if math.random(1, 4) == 1 then
-				-- remove flammable nodes around flame
-				local p = minetest.find_node_near(p0, 1, {"group:flammable"})
-				if p then
-					minetest.remove_node(p)
-					nodeupdate(p)
+				local node_def = minetest.registered_nodes[minetest.get_node(flammable_position).name]
+				local remove = node_def -- Used as later check to not remove Unknown nodes!
+				 
+				if node_def and node_def.on_burn then
+					-- Allow node to handle, if it returns true, no removal
+					-- Note: "not" reversing result, so nil/false defaults to remove
+					remove = not node_def.on_burn(flammable_position, node.name, "remove")
+				end
+				if remove then
+					-- Remove flammable nodes around flame
+					minetest.remove_node(flammable_position)
+
+					-- Trigger any falling nodes supported
+					nodeupdate(flammable_position)
 				end
 			end
 		end,
@@ -255,21 +270,23 @@ minetest.register_abm({
 	neighbors = {"air"},
 	interval = 5,
 	chance = 10,
-	action = function(p0, node, _, _)
-		local reg = minetest.registered_nodes[node.name]
-		if not reg or not reg.groups.igniter or reg.groups.igniter < 2 then
+	action = function(position, node, _, _)
+		local node_def = minetest.registered_nodes[node.name]
+		if not node_def or not node_def.groups.igniter or node_def.groups.igniter < 2 then
 			return
 		end
-		local d = reg.groups.igniter
-		local p = minetest.find_node_near(p0, d, {"group:flammable"})
-		if p then
+
+		local igniter_radius = node_def.groups.igniter
+		local flammable_position = minetest.find_node_near(position, igniter_radius, {"group:flammable"})
+		if flammable_position then
 			-- If there is water or stuff like that around flame, don't ignite
-			if fire.flame_should_extinguish(p) then
+			if fire.flame_should_extinguish(flammable_position) then
 				return
 			end
-			local p2 = fire.find_pos_for_flame_around(p)
-			if p2 then
-				minetest.set_node(p2, {name = "fire:basic_flame"})
+
+			local air_position = fire.find_pos_for_flame_around(flammable_position)
+			if air_position then
+				minetest.set_node(air_position, {name = "fire:basic_flame"})
 			end
 		end
 	end,
