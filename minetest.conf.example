@@ -18,8 +18,9 @@
 # 'permanent flame' nodes will remain with either setting
 #disable_fire = false
 
-# Whether steel tools, torches and cobblestone should be given to new players
+# Whether the stuff in initial_stuff should be given to new players
 #give_initial_stuff = false
+#initial_stuff = default:pick_steel,default:axe_steel,default:shovel_steel,default:torch 99,default:cobble 99
 
 # Whether the TNT mod should be enabled
 #enable_tnt = <true in singleplayer, false in multiplayer>

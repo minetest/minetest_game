@@ -39,8 +39,8 @@ Beds API
  * `beds.read_spawns() `   Returns a table containing players respawn positions
  * `beds.kick_players()`  Forces all players to leave bed
  * `beds.skip_night()`   Sets world time to morning and saves respawn position of all players currently sleeping
- 
-###Bed definition
+
+### Bed definition
 
 	{
 		description = "Simple Bed",
@@ -85,12 +85,12 @@ The doors mod allows modders to register custom doors and trapdoors.
  * `def`  See [#Fence gate definition]
 
 `doors.get(pos)`
- 
+
  * `pos` A position as a table, e.g `{x = 1, y = 1, z = 1}`
- * Returns an ObjecRef to a door, or nil if the position does not contain a door
- 
- ###Methods
- 
+ * Returns an ObjectRef to a door, or nil if the position does not contain a door
+
+    ### Methods
+
         :open(player)   -- Open the door object, returns if door was opened
         :close(player)  -- Close the door object, returns if door was closed
         :toggle(player) -- Toggle the door state, returns if state was toggled
@@ -101,7 +101,7 @@ The doors mod allows modders to register custom doors and trapdoors.
     has the permissions needed to open this door. If omitted then no
     permission checks are performed.
 
-###Door definition
+### Door definition
 
 	description = "Door description",
 	inventory_image = "mod_door_inv.png",
@@ -113,7 +113,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sound_close = sound play for close door, -- optional
 	protected = false, -- If true, only placer can open the door (locked for others)
 
-###Trapdoor definition
+### Trapdoor definition
 
 	description = "Trapdoor description",
 	inventory_image = "mod_trapdoor_inv.png",
@@ -125,7 +125,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sound_close = sound play for close door, -- optional
 	protected = false, -- If true, only placer can open the door (locked for others)
 
-###Fence gate definition
+### Fence gate definition
 
 	description = "Wooden Fence Gate",
 	texture = "default_wood.png",
@@ -135,6 +135,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 
 Fence API
 ---------
+
 Allows creation of new fences with "fencelike" drawtype.
 
 `default.register_fence(name, item definition)`
@@ -144,7 +145,7 @@ Allows creation of new fences with "fencelike" drawtype.
  nodedef fields here except drawtype. The fence group will always be added
  for this node.
 
-###fence definition
+### fence definition
 
 	name = "default:fence_wood",
 	description = "Wooden Fence",
@@ -153,8 +154,9 @@ Allows creation of new fences with "fencelike" drawtype.
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
-#Walls API
+Walls API
 ---------
+
 The walls API allows easy addition of stone auto-connecting wall nodes.
 
 walls.register(name, desc, texture, mat, sounds)
@@ -175,7 +177,7 @@ The farming API allows you to easily register plants and hoes.
 `farming.register_plant(name, Plant definition)`
  * Register a new growing plant, see [#Plant definition]
 
-###Hoe Definition
+### Hoe Definition
 
 
 	{
@@ -190,7 +192,7 @@ The farming API allows you to easily register plants and hoes.
 		}
 	}
 
-###Plant definition
+### Plant definition
 
 	{
 		description = "",                      -- Description of seed item
@@ -204,16 +206,49 @@ The farming API allows you to easily register plants and hoes.
 Fire API
 --------
 
+New node def property:
+
 `on_burn(pos)`
 
  * Called when fire attempts to remove a burning node.
  * `pos` Position of the burning node.
 
+Give Initial Stuff API
+----------------------
 
-#TNT API
+`give_initial_stuff.give(player)`
+
+^ Give initial stuff to "player"
+
+`give_initial_stuff.add(stack)`
+
+^ Add item to the initial stuff
+^ Stack can be an ItemStack or a item name eg: "default:dirt 99"
+^ Can be called after the game has loaded
+
+`give_initial_stuff.clear()`
+
+^ Removes all items from the initial stuff
+^ Can be called after the game has loaded
+
+`give_initial_stuff.get_list()`
+
+^ returns list of item stacks
+
+`give_initial_stuff.set_list(list)`
+
+^ List of initial items with numeric indices.
+
+`give_initial_stuff.add_from_csv(str)`
+
+^ str is a comma separated list of initial stuff
+^ Adds items to the list of items to be given
+
+
+TNT API
 ----------
 
-tnt.register_tnt(definition)
+`tnt.register_tnt(definition)`
 
 ^ Register a new type of tnt.
 
@@ -341,7 +376,7 @@ Creates panes that automatically connect to each other
  * `subname`: used for nodename. Result: "xpanes:subname" and "xpanes:subname_{2..15}"
  * `def`: See [#Pane definition]
 
-###Pane definition
+### Pane definition
 
 	{
 		textures = {"texture_Bottom_top", "texture_left_right", "texture_front_back"}, -- More tiles aren't supported
@@ -427,7 +462,7 @@ default.player_get_animation(player)
  * Any of the fields of the returned table may be nil.
  * player: PlayerRef
 
-###Model Definition
+### Model Definition
 
 	{
 		animation_speed = 30,            -- Default animation speed, in FPS.
@@ -466,7 +501,7 @@ To make recipes that will work with any dye ever made by anybody, define
 them based on groups. You can select any group of groups, based on your need for
 amount of colors.
 
-###Color groups
+### Color groups
 
 Base color groups:
 
@@ -521,7 +556,7 @@ Example of one shapeless recipe using a color group:
 		recipe = {'<mod>:item_no_color', 'group:basecolor_yellow'},
 	})
 
-###Color lists
+### Color lists
 
  * `dye.basecolors` are an array containing the names of available base colors
 
@@ -536,7 +571,7 @@ Trees
  * `default.grow_jungle_tree(pos)`
   * Grows a mgv6 jungletree at pos
 
- * `default.grow_pine_tree(pos)` 
+ * `default.grow_pine_tree(pos)`
   * Grows a mgv6 pinetree at pos
 
  * `default.grow_new_apple_tree(pos)`
