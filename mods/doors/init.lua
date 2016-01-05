@@ -467,10 +467,7 @@ function doors.register_trapdoor(name, def)
 			meta:set_string("doors_owner", pn)
 			meta:set_string("infotext", "Owned by "..pn)
 
-			if not minetest.setting_getbool("creative_mode") then
-				return true
-			end
-			return false
+			return minetest.setting_getbool("creative_mode")
 		end
 	end
 
