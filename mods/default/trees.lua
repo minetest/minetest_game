@@ -28,7 +28,8 @@ end
 
 minetest.register_abm({
 	nodenames = {"default:sapling", "default:junglesapling",
-		"default:pine_sapling", "default:acacia_sapling"},
+		"default:pine_sapling", "default:acacia_sapling",
+		"default:aspen_sapling"},
 	interval = 10,
 	chance = 50,
 	action = function(pos, node)
@@ -65,6 +66,10 @@ minetest.register_abm({
 			minetest.log("action", "An acacia sapling grows into a tree at "..
 				minetest.pos_to_string(pos))
 			default.grow_new_acacia_tree(pos)
+		elseif node.name == "default:aspen_sapling" then
+			minetest.log("action", "An aspen sapling grows into a tree at "..
+				minetest.pos_to_string(pos))
+			default.grow_new_aspen_tree(pos)
 		end
 	end
 })
@@ -394,4 +399,12 @@ function default.grow_new_acacia_tree(pos)
 	local path = minetest.get_modpath("default") .. "/schematics/acacia_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 4, y = pos.y - 1, z = pos.z - 4},
 		path, random, nil, false)
+end
+
+-- New aspen tree
+
+function default.grow_new_aspen_tree(pos)
+	local path = minetest.get_modpath("default") .. "/schematics/aspen_tree_from_sapling.mts"
+	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
+		path, 0, nil, false)
 end
