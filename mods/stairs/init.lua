@@ -287,6 +287,13 @@ stairs.register_stair_and_slab("acacia_wood", "default:acacia_wood",
 		"Acacia Wood Slab",
 		default.node_sound_wood_defaults())
 
+stairs.register_stair_and_slab("aspen_wood", "default:aspen_wood",
+		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+		{"default_aspen_wood.png"},
+		"Aspen Wood Stair",
+		"Aspen Wood Slab",
+		default.node_sound_wood_defaults())
+
 stairs.register_stair_and_slab("stone", "default:stone",
 		{cracky = 3},
 		{"default_stone.png"},
