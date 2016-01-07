@@ -70,8 +70,8 @@ function flowers.register_mgv6_decorations()
 	register_mgv6_flower("viola")
 	register_mgv6_flower("dandelion_white")
 
-	register_mgv6_mushroom("mushroom_fertile_brown")
-	register_mgv6_mushroom("mushroom_fertile_red")
+	register_mgv6_mushroom("mushroom_brown")
+	register_mgv6_mushroom("mushroom_red")
 
 	register_mgv6_waterlily()
 end
@@ -151,8 +151,8 @@ function flowers.register_decorations()
 	register_flower(1133,    "viola")
 	register_flower(73133,   "dandelion_white")
 
-	register_mushroom("mushroom_fertile_brown")
-	register_mushroom("mushroom_fertile_red")
+	register_mushroom("mushroom_brown")
+	register_mushroom("mushroom_red")
 
 	register_waterlily()
 end
