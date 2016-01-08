@@ -1094,7 +1094,7 @@ function default.register_decorations()
 				{ name = "default:pine_tree", param2 = 12 },
 				{ name = "default:pine_tree", param2 = 12, prob = 127 },
 				{ name = "air", prob = 0 },
-				{ name = "flowers:mushroom_red", prob = 127 },
+				{ name = "flowers:mushroom_red", prob = 63 },
 				{ name = "air", prob = 0 },
 			},
 		},
