@@ -41,15 +41,28 @@ creative_inventory.init_creative_inventory = function(player)
 		end,
 	})
 
-	creative_inventory.update(player_name, nil)
+	creative_inventory.update(player_name, nil, 2)
 	--print("creative inventory size: "..dump(creative_inventory.creative_inventory_size))
 end
 
-function creative_inventory.update(player_name, filter)
+local function tab_category(tab_id)
+	local id_category = {
+		nil, -- Reserved for crafting tab.
+		minetest.registered_items,
+		minetest.registered_nodes,
+		minetest.registered_tools,
+		minetest.registered_craftitems
+	}
+
+	-- If index out of range, show default ("All") page.
+	return id_category[tab_id] or id_category[2]
+end
+
+function creative_inventory.update(player_name, filter, tab_id)
 	local creative_list = {}
 	local inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
 
-	for name, def in pairs(minetest.registered_items) do
+	for name, def in pairs(tab_category(tab_id)) do
 		if not (def.groups.not_in_creative_inventory == 1) and
 				def.description and def.description ~= "" and
 				(not filter or def.name:find(filter, 1, true)) then
@@ -80,41 +93,55 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 })
 trash:set_size("main", 1)
 
-creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
+creative_inventory.set_creative_formspec = function(player, start_i, pagenum, tab_id)
 	local player_name = player:get_player_name()
 	local filter = creative_inventory[player_name].filter or ""
 	pagenum = math.floor(pagenum)
-	local pagemax = math.floor((creative_inventory[player_name].size - 1) / (6*4) + 1)
+	local pagemax = math.floor((creative_inventory[player_name].size - 1) / (3*8) + 1)
+	tab_id = tab_id or 2
 
-	player:set_inventory_formspec(
-			"size[13,7.5]"..
-			--"image[6,0.6;1,2;player.png]"..
-			default.gui_bg..
-			default.gui_bg_img..
-			default.gui_slots..
-			"list[current_player;main;5,3.5;8,1;]"..
-			"list[current_player;main;5,4.75;8,3;8]"..
-			"list[current_player;craft;8,0;3,3;]"..
-			"list[current_player;craftpreview;12,1;1,1;]"..
-			"image[11,1;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
-			"list[detached:creative_" .. player_name .. ";main;0.05,1;4,6;" .. tostring(start_i) .. "]"..
-			"tablecolumns[color;text;color;text]"..
-			"tableoptions[background=#00000000;highlight=#00000000;border=false]"..
-			"table[1.4,7.2;1.1,0.5;pagenum;#FFFF00," .. tostring(pagenum) .. ",#FFFFFF,/ " .. tostring(pagemax) .. "]"..
-			"button[0,7;1,1;creative_prev;<<]"..
-			"button[3.08,7;1,1;creative_next;>>]"..
-			"button[2.55,0.2;0.8,0.5;search;?]"..
-			"button[3.3,0.2;0.8,0.5;clear;X]"..
-			"tooltip[search;Search]"..
-			"tooltip[clear;Reset]"..
-			"listring[current_player;main]"..
-			"listring[current_player;craft]"..
-			"listring[current_player;main]"..
-			"listring[detached:creative_" .. player_name .. ";main]"..
-			"label[5,1.5;Trash:]"..
-			"list[detached:creative_trash;main;5,2;1,1;]"..
-			"field[0.3,0.3;2.6,1;filter;;" .. filter .. "]"..
-			default.get_hotbar_bg(5,3.5)
+	player:set_inventory_formspec([[
+		size[8,8.6]
+		image[4.06,3.4;0.8,0.8;trash_icon.png]
+		list[current_player;main;0,4.7;8,1;]
+		list[current_player;main;0,5.85;8,3;8]
+		list[detached:creative_trash;main;4,3.3;1,1;]
+		tablecolumns[color;text;color;text]
+		tableoptions[background=#00000000;highlight=#00000000;border=false]
+		button[5.4,3.2;0.8,0.9;creative_prev;<]
+		button[7.25,3.2;0.8,0.9;creative_next;>]
+		button[2.1,3.4;0.8,0.5;search;?]
+		button[2.75,3.4;0.8,0.5;clear;X]
+		tooltip[search;Search]
+		tooltip[clear;Reset]
+		listring[current_player;main]
+		]] ..
+		"field[0.3,3.5;2.2,1;filter;;".. filter .."]"..
+		"listring[detached:creative_".. player_name ..";main]"..
+		"tabheader[0,0;tabs;Crafting,All,Nodes,Tools,Items;".. tostring(tab_id) ..";true;false]"..
+		"list[detached:creative_".. player_name ..";main;0,0;8,3;".. tostring(start_i) .."]"..
+		"table[6.05,3.35;1.15,0.5;pagenum;#FFFF00,".. tostring(pagenum) ..",#FFFFFF,/ ".. tostring(pagemax) .."]"..
+		default.get_hotbar_bg(0,4.7)..
+		default.gui_bg .. default.gui_bg_img .. default.gui_slots
+	)
+end
+
+creative_inventory.set_crafting_formspec = function(player)
+	player:set_inventory_formspec([[
+		size[8,7.5]
+		list[current_player;craft;2,0.25;3,3;]
+ 		list[current_player;craftpreview;6,1.25;1,1;]
+		list[current_player;main;0,3.6;8,1;]
+		list[current_player;main;0,4.75;8,3;8]
+		list[detached:creative_trash;main;0,2.25;1,1;]
+		image[0.06,2.35;0.8,0.8;trash_icon.png]
+		image[5,1.25;1,1;gui_furnace_arrow_bg.png^[transformR270]
+		tabheader[0,0;tabs;Crafting,All,Nodes,Tools,Items;1;true;false]
+		listring[current_player;main]
+		listring[current_player;craft]
+		]] ..
+		default.get_hotbar_bg(0,3.6)..
+		default.gui_bg .. default.gui_bg_img .. default.gui_slots
 	)
 end
 
@@ -124,7 +151,7 @@ minetest.register_on_joinplayer(function(player)
 		return
 	end
 	creative_inventory.init_creative_inventory(player)
-	creative_inventory.set_creative_formspec(player, 0, 1)
+	creative_inventory.set_creative_formspec(player, 0, 1, 2)
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -132,39 +159,48 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 	-- Figure out current page from formspec
-	local current_page = 0
 	local player_name = player:get_player_name()
 	local formspec = player:get_inventory_formspec()
-	local start_i = formspec:match("list%[detached:creative_" .. player_name .. ";.*;(%d+)%]")
+	local filter = formspec:match("filter;;([%w_:]+)") or ""
+	local start_i = formspec:match("list%[detached:creative_".. player_name ..";.*;(%d+)%]")
+	local tab_id = tonumber(formspec:match("tabheader%[.*;(%d+)%;.*%]"))
 	local inv_size = creative_inventory[player_name].size
 	start_i = tonumber(start_i) or 0
 
-	if fields.creative_prev or start_i >= inv_size then
-		start_i = start_i - 4*6
-	elseif fields.creative_next or start_i < 0 then
-		start_i = start_i + 4*6
-	end
-
-	if fields.search or fields.clear then
-		if fields.clear then
-			creative_inventory[player_name].filter = ""
-			creative_inventory.update(player_name, nil)
-		else
-			creative_inventory[player_name].filter = fields.filter:lower()
-			creative_inventory.update(player_name, fields.filter:lower())
+	if fields.quit then
+		if tab_id == 1 then
+			creative_inventory.set_crafting_formspec(player)
 		end
-		minetest.after(0, function()
-			creative_inventory.set_creative_formspec(player, 0, 1)
-		end)
-	end
+	elseif fields.tabs then
+		if tonumber(fields.tabs) == 1 then
+			creative_inventory.set_crafting_formspec(player)
+		else
+			creative_inventory.update(player_name, filter, tonumber(fields.tabs))
+			creative_inventory.set_creative_formspec(player, 0, 1, tonumber(fields.tabs))
+		end
+	elseif fields.clear then
+		creative_inventory[player_name].filter = ""
+		creative_inventory.update(player_name, nil, tab_id)
+		creative_inventory.set_creative_formspec(player, 0, 1, tab_id)
+	elseif fields.search then
+		creative_inventory[player_name].filter = fields.filter:lower()
+		creative_inventory.update(player_name, fields.filter:lower(), tab_id)
+		creative_inventory.set_creative_formspec(player, 0, 1, tab_id)
+	else
+		if fields.creative_prev then
+			start_i = start_i - 3*8
+			if start_i < 0 then
+				start_i = inv_size - (inv_size % (3*8))
+			end
+		elseif fields.creative_next then
+			start_i = start_i + 3*8
+			if start_i >= inv_size then
+				start_i = 0
+			end
+		end
 
-	if start_i >= inv_size then
-		start_i = 0
-	elseif start_i < 0 then
-		start_i = inv_size - (inv_size % (6*4))
+		creative_inventory.set_creative_formspec(player, start_i, start_i / (3*8) + 1, tab_id)
 	end
-
-	creative_inventory.set_creative_formspec(player, start_i, start_i / (6*4) + 1)
 end)
 
 if minetest.setting_getbool("creative_mode") then
@@ -172,7 +208,7 @@ if minetest.setting_getbool("creative_mode") then
 	minetest.register_item(":", {
 		type = "none",
 		wield_image = "wieldhand.png",
-		wield_scale = {x=1,y=1,z=2.5},
+		wield_scale = {x=1, y=1, z=2.5},
 		range = 10,
 		tool_capabilities = {
 			full_punch_interval = 0.5,
