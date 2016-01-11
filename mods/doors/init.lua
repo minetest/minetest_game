@@ -539,11 +539,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'doors:trapdoor_steel 2',
+	output = 'doors:trapdoor_steel',
 	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'', '', ''},
+		{'default:steel_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'default:steel_ingot'},
 	}
 })
 
