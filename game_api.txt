@@ -139,6 +139,17 @@ Allows creation of new fences with "fencelike" drawtype.
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
+#Walls API
+---------
+The walls API allows easy addition of stone auto-connecting wall nodes.
+
+walls.register(name, desc, texture, mat, sounds)
+^ name = "walls:stone_wall". Node name.
+^ desc = "A Stone wall"
+^ texture = "default_stone.png"
+^ mat = "default:stone". Used to auto-generate crafting recipe.
+^ sounds = sounds: see [#Default sounds]
+
 Farming API
 -----------
 
