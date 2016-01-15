@@ -451,8 +451,6 @@ function doors.register_trapdoor(name, def)
 		minetest.swap_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
 	end
 
-	def.on_rotate = minetest.get_modpath("screwdriver") and screwdriver.rotate_simple
-
 	-- Common trapdoor configuration
 	def.drawtype = "nodebox"
 	def.paramtype = "light"
