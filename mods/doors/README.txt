@@ -1,12 +1,15 @@
 Minetest Game mod: doors
 ========================
-version: 1.3
+version: 2.0
 
 License of source code:
 -----------------------
 Copyright (C) 2012 PilzAdam
 modified by BlockMen (added sounds, glassdoors[glass, obsidian glass], trapdoor)
 Steel trapdoor added by sofar.
+Copyright (C) 2015 sofar@foo-projects.org
+Re-implemented most of the door algorithms, added meshes, UV wrapped texture
+Added doors API to facilitate coding mods accessing and operating doors.
 
 This program is free software. It comes without any warranty, to
 the extent permitted by applicable law. You can redistribute it
@@ -40,7 +43,19 @@ following textures created by sofar (CC-BY-SA-3.0)
   doors_trapdoor_steel_side.png
   door_trapdoor_side.png
 
+Door 3d models by sofar (CC-BY-SA-3.0)
+  door_a.obj
+  door_b.obj
+
+Obsidian door textures by red-001 based on textures by Pilzadam and BlockMen: WTFPL
+  door_obsidian_glass.png
+
+Glass door textures by red-001 based on textures by celeron55: CC BY-SA 3.0
+  door_glass.png
 All other textures (created by PilzAdam): WTFPL
+
+Door textures were converted to the new texture map by sofar, paramat and
+red-001, under the same license as the originals.
 
 
 License of sounds
