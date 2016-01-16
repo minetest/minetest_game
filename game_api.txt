@@ -71,43 +71,55 @@ doors.register_door(name, def)
  -> Registers new door
 
 doors.register_trapdoor(name, def)
-^ name: "Trapdoor name"
+^ name: "mod_door"
 ^ def: See [#Trapdoor definition]
  -> Registers new trapdoor
+
+doors.get(pos)
+^ pos = { x = .., y = .., z = ..}
+ -> Returns an ObjecRef to a door, or nil if the pos did not contain a door
+
+    Methods:
+        :open(player)   -- Open the door object, returns if door was opened
+        :close(player)  -- Close the door object, returns if door was closed
+        :toggle(player) -- Toggle the door state, returns if state was toggled
+        :state()        -- returns the door state, true = open, false = closed
+
+    the "player" parameter can be omitted in all methods. If passed then
+    the usual permission checks will be performed to make sure the player
+    has the permissions needed to open this door. If omitted then no
+    permission checks are performed.
 
 #Door definition
 ----------------
 {
 	description = "Door description",
 	inventory_image = "mod_door_inv.png",
-	groups = {group = 1},
-	tiles_bottom: [Tile definition],
-	^ the tiles of the bottom part of the door {front, side}
-	tiles_top: [Tile definition],
-	^ the tiles of the bottom part of the door {front, side}
-	node_box_bottom = regular nodebox, see [Node boxes], OPTIONAL,
-	node_box_top = regular nodebox, see [Node boxes], OPTIONAL,
-	selection_box_bottom = regular nodebox, see [Node boxes], OPTIONAL,
-	selection_box_top = regular nodebox, see [Node boxes], OPTIONAL,
-	sound_open_door = sound play for open door, OPTIONAL,
-	sound_close_door = sound play for close door, OPTIONAL,
-	only_placer_can_open = true/false,
+	groups = {choppy = 1},
+	tiles = { "mod_door.png" },
+	material = "default:wood", -- used to make a craft recipe
+	sounds = default.node_sound_wood_defaults(), -- optional
+	sound_open = sound play for open door, -- optional
+	sound_close = sound play for close door, -- optional
+	protected = false,
 	^ If true, only placer can open the door (locked for others)
 }
 
 #Trapdoor definition
 ----------------
 {
+	description = "Trapdoor description",
+	inventory_image = "mod_trapdoor_inv.png",
+	groups = {choppy = 1},
 	tile_front = "doors_trapdoor.png",
 	^ the texture for the front and back of the trapdoor
 	tile_side: "doors_trapdoor_side.png",
 	^ the tiles of the four side parts of the trapdoor
-	sound_open = sound to play when opening the trapdoor, OPTIONAL,
-	sound_close = sound to play when closing the trapdoor, OPTIONAL,
-	-> You can add any other node definition properties for minetest.register_node,
-		such as wield_image, inventory_image, sounds, groups, description, ...
-		Only node_box, selection_box, tiles, drop, drawtype, paramtype, paramtype2, on_rightclick
-		will be overwritten by the trapdoor registration function
+	sounds = default.node_sound_wood_defaults(), -- optional
+	sound_open = sound play for open door, -- optional
+	sound_close = sound play for close door, -- optional
+	protected = false,
+	^ If true, only placer can open the door (locked for others)
 }
 
 Fence API
