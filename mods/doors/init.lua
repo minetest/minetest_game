@@ -474,25 +474,28 @@ function doors.register_trapdoor(name, def)
 
 	def_closed.node_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5}
+		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
 	}
 	def_closed.selection_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5}
+		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
 	}
 	def_closed.tiles = { def.tile_front, def.tile_front, def.tile_side, def.tile_side,
 		def.tile_side, def.tile_side }
 
 	def_opened.node_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, 0.4, 0.5, 0.5, 0.5}
+		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
 	}
 	def_opened.selection_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, 0.4, 0.5, 0.5, 0.5}
+		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
 	}
-	def_opened.tiles = { def.tile_side, def.tile_side, def.tile_side, def.tile_side,
-		def.tile_front, def.tile_front }
+	def_opened.tiles = { def.tile_side, def.tile_side,
+			def.tile_side .. '^[transform3',
+			def.tile_side .. '^[transform1',
+			def.tile_front, def.tile_front }
+
 	def_opened.drop = name_closed
 	def_opened.groups.not_in_creative_inventory = 1
 
