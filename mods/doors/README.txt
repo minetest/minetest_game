@@ -28,7 +28,6 @@ following Textures created by BlockMen (WTFPL):
   door_obsidian_glass_side.png
 
 following textures created by celeron55 (CC BY-SA 3.0):
-  door_trapdoor_side.png
   door_glass_a.png
   door_glass_b.png
 
@@ -36,9 +35,10 @@ following Textures created by PenguinDad (CC BY-SA 4.0):
   door_glass.png
   door_obsidian_glass.png
 
-Steel trapdoor textures by sofar (CC-BY-SA-3.0)
+following textures created by sofar (CC-BY-SA-3.0)
   doors_trapdoor_steel.png
   doors_trapdoor_steel_side.png
+  door_trapdoor_side.png
 
 All other textures (created by PilzAdam): WTFPL
 
