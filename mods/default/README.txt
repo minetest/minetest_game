@@ -154,6 +154,9 @@ sofar (CC BY-SA 3.0):
   default_aspen_tree
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
   default_aspen_wood, derived from default_pine_wood (by paramat)
+  default_chest_wood, default_chest_wood_locked derived from default_chest_* textures by BlockMen
+
+sofar (WTFPL):
   default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
 
 Neuromancer (CC BY-SA 2.0):
@@ -285,3 +288,13 @@ https://www.freesound.org/people/AGFX/packs/1253/
 blukotek (CC0 1.0)
 https://www.freesound.org/people/blukotek/sounds/251660/
   default_dig_snappy.ogg
+
+Chests sounds added by sofar, derived of several files mixed together:
+  default_chest_open.ogg
+  default_chest_close.ogg
+    - http://www.freesound.org/people/Sevin7/sounds/269722/ CC0
+    - http://www.freesound.org/people/Percy%20Duke/sounds/23448/ CC-BY-3.0
+    - http://www.freesound.org/people/kingsamas/sounds/135576/ CC-BY-3.0
+    - http://www.freesound.org/people/bulbastre/sounds/126887/ CC-BY-3.0
+    - http://www.freesound.org/people/Yoyodaman234/sounds/183541/ CC0
+
