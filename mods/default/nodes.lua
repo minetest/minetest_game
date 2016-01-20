@@ -1412,6 +1412,9 @@ end
 local function has_locked_chest_privilege(meta, player)
 	local name = ""
 	if player then
+		if minetest.check_player_privs(player, "protection_bypass") then
+			return true
+		end
 		name = player:get_player_name()
 	end
 	if name ~= meta:get_string("owner") then

@@ -121,7 +121,7 @@ function _doors.door_toggle(pos, clicker)
 	local def = minetest.registered_nodes[minetest.get_node(pos).name]
 	local name = def.door.name
 
-	if clicker then
+	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
 		local owner = meta:get_string("doors_owner")
 		if owner ~= "" then
 			if clicker:get_player_name() ~= owner then
@@ -492,7 +492,7 @@ end
 ----trapdoor----
 
 function _doors.trapdoor_toggle(pos, clicker)
-	if clicker then
+	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
 		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("doors_owner")
 		if owner ~= "" then
@@ -519,7 +519,7 @@ function doors.register_trapdoor(name, def)
 	local name_opened = name.."_open"
 
 	local function check_player_priv(pos, player)
-		if not def.protected then
+		if not def.protected or minetest.check_player_privs(player, "protection_bypass") then
 			return true
 		end
 		local meta = minetest.get_meta(pos)
