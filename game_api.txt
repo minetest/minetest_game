@@ -176,6 +176,14 @@ The farming API allows you to easily register plants and hoes.
 		maxlight = default.LIGHT_MAX           -- Maximum light to grow
 	}
 
+Fire API
+--------
+
+`on_burn(pos)`
+
+ * Called when fire attempts to remove a burning node.
+ * `pos` Position of the burning node.
+
 Screwdriver API
 ---------------
 

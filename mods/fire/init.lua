@@ -235,8 +235,14 @@ else
 				-- remove flammable nodes around flame
 				local p = minetest.find_node_near(p0, 1, {"group:flammable"})
 				if p then
-					minetest.remove_node(p)
-					nodeupdate(p)
+					local node = minetest.get_node(p)
+					local def = minetest.registered_nodes[node.name]
+					if def.on_burn then
+						def.on_burn(p)
+					else 
+						minetest.remove_node(p)
+						nodeupdate(p)
+					end
 				end
 			end
 		end,
