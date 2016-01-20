@@ -158,9 +158,10 @@ function doors.register_door(name, def)
 		if not def.only_placer_can_open then
 			return true
 		end
-		local meta = minetest.get_meta(pos)
+		local owner = minetest.get_meta(pos):get_string("doors_owner")
 		local pn = player:get_player_name()
-		return meta:get_string("doors_owner") == pn
+		return owner == pn or minetest.get_player_privs(pn).access
+
 	end
 
 	local function on_rotate(pos, node, dir, user, check_name, mode, new_param2)
@@ -432,9 +433,9 @@ function doors.register_trapdoor(name, def)
 		if not def.only_placer_can_open then
 			return true
 		end
-		local meta = minetest.get_meta(pos)
+		local owner = minetest.get_meta(pos):get_string("doors_owner")
 		local pn = player:get_player_name()
-		return meta:get_string("doors_owner") == pn
+		return owner == pn or minetest.get_player_privs(pn).access
 	end
 
 	def.on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)

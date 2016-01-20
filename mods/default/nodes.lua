@@ -1353,10 +1353,9 @@ local function get_locked_chest_formspec(pos)
 end
 
 local function has_locked_chest_privilege(meta, player)
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
-	end
-	return true
+	local name = player:get_player_name()
+	local owner = meta:get_string("owner")
+	return name == owner or minetest.get_player_privs(name).access
 end
 
 minetest.register_node("default:chest", {
