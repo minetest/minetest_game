@@ -247,3 +247,5 @@ Metal sounds:
   default_place_node_metal.*.ogg - Ogrebane - CC0
   - http://opengameart.org/content/wood-and-metal-sound-effects-volume-2
 
+Tool breaking sounds added by sofar: CC-BY-3.0
+  default_tool_breaks.* - http://www.freesound.org/people/HerbertBoland/sounds/33206/
