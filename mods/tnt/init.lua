@@ -49,23 +49,20 @@ local function eject_drops(drops, pos, radius)
 	local drop_pos = vector.new(pos)
 	for _, item in pairs(drops) do
 		local count = item:get_count()
-		local max = item:get_stack_max()
-		if count > max then
-			item:set_count(max)
-		end
 		while count > 0 do
-			if count < max then
-				item:set_count(count)
-			end
+			local take = math.min(math.random(2,5),
+					item:get_count(),
+					item:get_stack_max())
 			rand_pos(pos, drop_pos, radius)
-			local obj = minetest.add_item(drop_pos, item)
+			local obj = minetest.add_item(drop_pos, item:get_name() .. " " .. take)
 			if obj then
 				obj:get_luaentity().collect = true
 				obj:setacceleration({x=0, y=-10, z=0})
-				obj:setvelocity({x=math.random(-3, 3), y=10,
+				obj:setvelocity({x=math.random(-3, 3),
+						y=math.random(0, 10),
 						z=math.random(-3, 3)})
 			end
-			count = count - max
+			count = count - take
 		end
 	end
 end
