@@ -162,6 +162,37 @@ local function add_effects(pos, radius)
 		maxsize = 16,
 		texture = "tnt_smoke.png",
 	})
+
+	-- we just dropped some items. Look at the items entities and pick
+	-- one of them to use as texture
+	local texture = "tnt_blast.png" --fallback texture
+	local objs = minetest.get_objects_inside_radius(pos, 2)
+	for _, obj in pairs(objs) do
+		if obj and obj:get_luaentity() then
+			local def = ItemStack(obj:get_luaentity().itemstring):get_definition()
+			if def.tiles then
+				texture = def.tiles[1]
+				break
+			end
+		end
+	end
+
+	minetest.add_particlespawner({
+		amount = 64,
+		time = 0.1,
+		minpos = vector.subtract(pos, radius / 2),
+		maxpos = vector.add(pos, radius / 2),
+		minvel = {x=-3, y=0, z=-3},
+		maxvel = {x=3,  y=5,  z=3},
+		minacc = {x=0, y=-10, z=0},
+		maxacc = {x=0, y=-10, z=0},
+		minexptime = 0.8,
+		maxexptime = 2.0,
+		minsize = 2,
+		maxsize = 6,
+		texture = texture,
+		collisiondetection = true,
+	})
 end
 
 local function burn(pos)
