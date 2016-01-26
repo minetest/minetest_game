@@ -93,7 +93,12 @@ local function destroy(drops, pos, cid)
 	end
 	local def = cid_data[cid]
 	if def and def.on_blast then
-		def.on_blast(vector.new(pos), 1)
+		local node_drops = def.on_blast(vector.new(pos), 1)
+		if node_drops then
+			for _, item in ipairs(node_drops) do
+				add_drop(drops, item)
+			end
+		end
 		return
 	end
 	if def and def.flammable then
