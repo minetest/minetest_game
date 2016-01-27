@@ -19,11 +19,11 @@ farming.register_hoe(":farming:hoe_steel", {
 	material = "default:steel_ingot"
 })
 
-farming.register_hoe(":farming:hoe_bronze", {
-	description = "Bronze Hoe",
-	inventory_image = "farming_tool_bronzehoe.png",
+farming.register_hoe(":farming:hoe_gnucydur", {
+	description = "Gnucydur Hoe",
+	inventory_image = "farming_tool_gnucydurhoe.png",
 	max_uses = 220,
-	material = "default:bronze_ingot"
+	material = "default:gnucydur_ingot"
 })
 
 farming.register_hoe(":farming:hoe_mese", {

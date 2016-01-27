@@ -95,9 +95,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:pick_bronze',
+	output = 'default:pick_gnucydur',
 	recipe = {
-		{'default:bronze_ingot', 'default:bronze_ingot', 'default:bronze_ingot'},
+		{'default:gnucydur_ingot', 'default:gnucydur_ingot', 'default:gnucydur_ingot'},
 		{'', 'group:stick', ''},
 		{'', 'group:stick', ''},
 	}
@@ -149,9 +149,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:shovel_bronze',
+	output = 'default:shovel_gnucydur',
 	recipe = {
-		{'default:bronze_ingot'},
+		{'default:gnucydur_ingot'},
 		{'group:stick'},
 		{'group:stick'},
 	}
@@ -203,10 +203,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:axe_bronze',
+	output = 'default:axe_gnucydur',
 	recipe = {
-		{'default:bronze_ingot', 'default:bronze_ingot'},
-		{'default:bronze_ingot', 'group:stick'},
+		{'default:gnucydur_ingot', 'default:gnucydur_ingot'},
+		{'default:gnucydur_ingot', 'group:stick'},
 		{'', 'group:stick'},
 	}
 })
@@ -257,10 +257,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:axe_bronze',
+	output = 'default:axe_gnucydur',
 	recipe = {
-		{'default:bronze_ingot', 'default:bronze_ingot'},
-		{'group:stick', 'default:bronze_ingot'},
+		{'default:gnucydur_ingot', 'default:gnucydur_ingot'},
+		{'group:stick', 'default:gnucydur_ingot'},
 		{'group:stick', ''},
 	}
 })
@@ -311,10 +311,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:sword_bronze',
+	output = 'default:sword_gnucydur',
 	recipe = {
-		{'default:bronze_ingot'},
-		{'default:bronze_ingot'},
+		{'default:gnucydur_ingot'},
+		{'default:gnucydur_ingot'},
 		{'group:stick'},
 	}
 })
@@ -375,7 +375,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:bronze_ingot",
+	output = "default:gnucydur_ingot",
 	recipe = {"default:steel_ingot", "default:copper_ingot"},
 })
 
@@ -428,18 +428,18 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:bronzeblock',
+	output = 'default:gnucydurblock',
 	recipe = {
-		{'default:bronze_ingot', 'default:bronze_ingot', 'default:bronze_ingot'},
-		{'default:bronze_ingot', 'default:bronze_ingot', 'default:bronze_ingot'},
-		{'default:bronze_ingot', 'default:bronze_ingot', 'default:bronze_ingot'},
+		{'default:gnucydur_ingot', 'default:gnucydur_ingot', 'default:gnucydur_ingot'},
+		{'default:gnucydur_ingot', 'default:gnucydur_ingot', 'default:gnucydur_ingot'},
+		{'default:gnucydur_ingot', 'default:gnucydur_ingot', 'default:gnucydur_ingot'},
 	}
 })
 
 minetest.register_craft({
-	output = 'default:bronze_ingot 9',
+	output = 'default:gnucydur_ingot 9',
 	recipe = {
-		{'default:bronzeblock'},
+		{'default:gnucydurblock'},
 	}
 })
 

@@ -31,7 +31,7 @@ Created by PilzAdam (License: WTFPL):
 Created by BlockMen (License: CC BY 3.0):
   farming_tool_diamondhoe.png
   farming_tool_mesehoe.png
-  farming_tool_bronzehoe.png
+  farming_tool_gnucydurhoe.png
   farming_tool_steelhoe.png
   farming_tool_stonehoe.png
   farming_tool_woodhoe.png

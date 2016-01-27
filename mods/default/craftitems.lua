@@ -164,9 +164,9 @@ minetest.register_craftitem("default:copper_ingot", {
 	inventory_image = "default_copper_ingot.png",
 })
 
-minetest.register_craftitem("default:bronze_ingot", {
-	description = "Bronze Ingot",
-	inventory_image = "default_bronze_ingot.png",
+minetest.register_craftitem("default:gnucydur_ingot", {
+	description = "Gnucydur Ingot",
+	inventory_image = "default_gnucydur_ingot.png",
 })
 
 minetest.register_craftitem("default:gold_ingot", {

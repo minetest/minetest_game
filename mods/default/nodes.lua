@@ -94,7 +94,7 @@ default:steelblock
 
 default:stone_with_copper
 default:copperblock
-default:bronzeblock
+default:gnucydurblock
 
 default:stone_with_gold
 default:goldblock
@@ -803,9 +803,9 @@ minetest.register_node("default:copperblock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:bronzeblock", {
-	description = "Bronze Block",
-	tiles = {"default_bronze_block.png"},
+minetest.register_node("default:gnucydurblock", {
+	description = "Gnucydur Block",
+	tiles = {"default_gnucydur_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 1, level = 2},
 	sounds = default.node_sound_stone_defaults(),
