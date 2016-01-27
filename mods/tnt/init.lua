@@ -93,7 +93,7 @@ local function destroy(drops, npos, cid, bpos)
 	end
 	local def = cid_data[cid]
 	if def and def.on_blast then
-		local dist = vector.distance(bpos, npos)
+		local dist = vector.distance(bpos, npos) or 0.5
 		local intensity = 1 / (dist * dist)
 		def.on_blast(vector.new(npos), intensity)
 		return
