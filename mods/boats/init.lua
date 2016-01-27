@@ -1,3 +1,5 @@
+local pi = math.pi
+
 --
 -- Helper functions
 --
@@ -9,10 +11,12 @@ end
 
 
 local function get_sign(i)
-	if i == 0 then
-		return 0
+	if i < 0 then
+		return -1
+	elseif i > 0 then
+		return 1
 	else
-		return i / math.abs(i)
+		return 0
 	end
 end
 
@@ -55,7 +59,7 @@ function boat.on_rightclick(self, clicker)
 		self.driver = nil
 		clicker:set_detach()
 		default.player_attached[name] = false
-		default.player_set_animation(clicker, "stand" , 30)
+		default.player_set_animation(clicker, "stand", 30)
 		local pos = clicker:getpos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
 		minetest.after(0.1, function()
@@ -77,7 +81,7 @@ function boat.on_rightclick(self, clicker)
 		minetest.after(0.2, function()
 			default.player_set_animation(clicker, "sit" , 30)
 		end)
-		self.object:setyaw(clicker:get_look_yaw() - math.pi / 2)
+		self.object:setyaw(clicker:get_look_yaw() - pi / 2)
 	end
 end
 
@@ -128,24 +132,26 @@ function boat.on_step(self, dtime)
 	if self.driver then
 		local ctrl = self.driver:get_player_control()
 		local yaw = self.object:getyaw()
+		local delta = 0
 		if ctrl.up then
 			self.v = self.v + 0.1
+			local d = self.driver:get_look_yaw() - pi / 2 - yaw
+			d = d - math.floor((1 + d / pi) / 2) * pi * 2
+			delta = delta + d * self.v * dtime / 10
 		elseif ctrl.down then
 			self.v = self.v - 0.1
 		end
 		if ctrl.left then
-			if self.v < 0 then
-				self.object:setyaw(yaw - (1 + dtime) * 0.03)
-			else
-				self.object:setyaw(yaw + (1 + dtime) * 0.03)
-			end
+			delta = delta + (1 + dtime) * 0.03
 		elseif ctrl.right then
-			if self.v < 0 then
-				self.object:setyaw(yaw + (1 + dtime) * 0.03)
-			else
-				self.object:setyaw(yaw - (1 + dtime) * 0.03)
-			end
+			delta = delta - (1 + dtime) * 0.03
 		end
+		if self.v < 0 then
+			yaw = yaw - delta
+		else
+			yaw = yaw + delta
+		end
+		self.object:setyaw(yaw)
 	end
 	local velo = self.object:getvelocity()
 	if self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
