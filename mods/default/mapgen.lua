@@ -379,6 +379,24 @@ function default.register_biomes()
 	})
 
 	minetest.register_biome({
+		name = "tundra_beach",
+		--node_dust = "",
+		node_top = "default:gravel",
+		depth_top = 1,
+		node_filler = "default:gravel",
+		depth_filler = 2,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		y_min = -3,
+		y_max = 1,
+		heat_point = 15,
+		humidity_point = 35,
+	})
+
+	minetest.register_biome({
 		name = "tundra_ocean",
 		--node_dust = "",
 		node_top = "default:sand",
@@ -391,7 +409,7 @@ function default.register_biomes()
 		--node_water = "",
 		--node_river_water = "",
 		y_min = -112,
-		y_max = 1,
+		y_max = -4,
 		heat_point = 15,
 		humidity_point = 35,
 	})
