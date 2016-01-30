@@ -1,14 +1,16 @@
 -- minetest/creative/init.lua
 
-creative_inventory = {}
+creative = {}
+local player_inventory = {}
 
 -- Create detached creative inventory after loading all mods
-creative_inventory.init_creative_inventory = function(player)
+creative.init_creative_inventory = function(player)
 	local player_name = player:get_player_name()
-	creative_inventory[player_name] = {}
-	creative_inventory[player_name].size = 0
-	creative_inventory[player_name].filter = nil
-	creative_inventory[player_name].start_i = 1
+
+	player_inventory[player_name] = {}
+	player_inventory[player_name].size = 0
+	player_inventory[player_name].filter = nil
+	player_inventory[player_name].start_i = 1
 
 	local inv = minetest.create_detached_inventory("creative_" .. player_name, {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
@@ -41,8 +43,8 @@ creative_inventory.init_creative_inventory = function(player)
 		end,
 	})
 
-	creative_inventory.update(player_name, nil, 2)
-	--print("creative inventory size: "..dump(creative_inventory[player_name].size))
+	creative.update_creative_inventory(player_name, nil, 2)
+	--print("creative inventory size: "..dump(player_inventory[player_name].size))
 end
 
 local function tab_category(tab_id)
@@ -58,7 +60,7 @@ local function tab_category(tab_id)
 	return id_category[tab_id] or id_category[2]
 end
 
-function creative_inventory.update(player_name, filter, tab_id)
+function creative.update_creative_inventory(player_name, filter, tab_id)
 	local creative_list = {}
 	local inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
 
@@ -73,7 +75,7 @@ function creative_inventory.update(player_name, filter, tab_id)
 	table.sort(creative_list)
 	inv:set_size("main", #creative_list)
 	inv:set_list("main", creative_list)
-	creative_inventory[player_name].size = #creative_list
+	player_inventory[player_name].size = #creative_list
 end
 
 -- Create the trash field
@@ -93,11 +95,11 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 })
 trash:set_size("main", 1)
 
-creative_inventory.set_creative_formspec = function(player, start_i, pagenum, tab_id)
+creative.set_creative_formspec = function(player, start_i, pagenum, tab_id)
 	local player_name = player:get_player_name()
-	local filter = creative_inventory[player_name].filter or ""
+	local filter = player_inventory[player_name].filter or ""
 	pagenum = math.floor(pagenum)
-	local pagemax = math.floor((creative_inventory[player_name].size - 1) / (3*8) + 1)
+	local pagemax = math.floor((player_inventory[player_name].size - 1) / (3*8) + 1)
 	tab_id = tab_id or 2
 
 	player:set_inventory_formspec([[
@@ -126,7 +128,7 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum, ta
 	)
 end
 
-creative_inventory.set_crafting_formspec = function(player)
+creative.set_crafting_formspec = function(player)
 	player:set_inventory_formspec([[
 		size[8,8.6]
 		list[current_player;craft;2,0.75;3,3;]
@@ -150,8 +152,8 @@ minetest.register_on_joinplayer(function(player)
 	if not minetest.setting_getbool("creative_mode") then
 		return
 	end
-	creative_inventory.init_creative_inventory(player)
-	creative_inventory.set_creative_formspec(player, 0, 1, 2)
+	creative.init_creative_inventory(player)
+	creative.set_creative_formspec(player, 0, 1, 2)
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -164,28 +166,28 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local filter = formspec:match("filter;;([%w_:]+)") or ""
 	local start_i = formspec:match("list%[detached:creative_".. player_name ..";.*;(%d+)%]")
 	local tab_id = tonumber(formspec:match("tabheader%[.*;(%d+)%;.*%]"))
-	local inv_size = creative_inventory[player_name].size
+	local inv_size = player_inventory[player_name].size
 	start_i = tonumber(start_i) or 0
 
 	if fields.quit then
 		if tab_id == 1 then
-			creative_inventory.set_crafting_formspec(player)
+			creative.set_crafting_formspec(player)
 		end
 	elseif fields.tabs then
 		if tonumber(fields.tabs) == 1 then
-			creative_inventory.set_crafting_formspec(player)
+			creative.set_crafting_formspec(player)
 		else
-			creative_inventory.update(player_name, filter, tonumber(fields.tabs))
-			creative_inventory.set_creative_formspec(player, 0, 1, tonumber(fields.tabs))
+			creative.update_creative_inventory(player_name, filter, tonumber(fields.tabs))
+			creative.set_creative_formspec(player, 0, 1, tonumber(fields.tabs))
 		end
 	elseif fields.clear then
-		creative_inventory[player_name].filter = ""
-		creative_inventory.update(player_name, nil, tab_id)
-		creative_inventory.set_creative_formspec(player, 0, 1, tab_id)
+		player_inventory[player_name].filter = ""
+		creative.update_creative_inventory(player_name, nil, tab_id)
+		creative.set_creative_formspec(player, 0, 1, tab_id)
 	elseif fields.search then
-		creative_inventory[player_name].filter = fields.filter:lower()
-		creative_inventory.update(player_name, fields.filter:lower(), tab_id)
-		creative_inventory.set_creative_formspec(player, 0, 1, tab_id)
+		player_inventory[player_name].filter = fields.filter:lower()
+		creative.update_creative_inventory(player_name, fields.filter:lower(), tab_id)
+		creative.set_creative_formspec(player, 0, 1, tab_id)
 	else
 		if fields.creative_prev then
 			start_i = start_i - 3*8
@@ -202,7 +204,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 
-		creative_inventory.set_creative_formspec(player, start_i, start_i / (3*8) + 1, tab_id)
+		creative.set_creative_formspec(player, start_i, start_i / (3*8) + 1, tab_id)
 	end
 end)
 
