@@ -85,27 +85,28 @@ local function add_drop(drops, item)
 	end
 end
 
-local fire_node = {name="fire:basic_flame"}
 
-local function destroy(drops, pos, cid)
+
+local function destroy(drops, pos, cid, c_air ,c_fire, on_blast_queue)
 	if minetest.is_protected(pos, "") then
-		return
+		return cid
 	end
 	local def = cid_data[cid]
 	if def and def.on_blast then
-		def.on_blast(vector.new(pos), 1)
-		return
+		on_blast_queue[#on_blast_queue + 1] = {pos=vector.new(pos), on_blast=def.on_blast} 
+		return cid
 	end
 	if def and def.flammable then
-		minetest.set_node(pos, fire_node)
+		return c_fire
 	else
-		minetest.remove_node(pos)
+
 		if def then
 			local node_drops = minetest.get_node_drops(def.name, "")
 			for _, item in ipairs(node_drops) do
 				add_drop(drops, item)
 			end
 		end
+		return c_air
 	end
 end
 
@@ -187,9 +188,10 @@ local function explode(pos, radius)
 
 	local drops = {}
 	local p = {}
+	local on_blast_queue = {}
 
 	local c_air = minetest.get_content_id("air")
-
+	local c_fire = minetest.get_content_id("fire:basic_flame")
 	for z = -radius, radius do
 	for y = -radius, radius do
 	local vi = a:index(pos.x + (-radius), pos.y + y, pos.z + z)
@@ -201,12 +203,21 @@ local function explode(pos, radius)
 			p.y = pos.y + y
 			p.z = pos.z + z
 			if cid ~= c_air then
-				destroy(drops, p, cid)
+				data[vi] = destroy(drops, p, cid, c_air, c_fire, on_blast_queue)
 			end
+
 		end
 		vi = vi + 1
 	end
 	end
+	end
+	
+	vm:set_data(data)
+	vm:update_liquids()
+	vm:write_to_map()
+	vm:update_map()
+	for _, data in ipairs(on_blast_queue) do
+		data.on_blast(data.pos, 1)
 	end
 
 	return drops
