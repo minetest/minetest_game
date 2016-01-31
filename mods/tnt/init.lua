@@ -82,7 +82,6 @@ local function add_drop(drops, item)
 	end
 end
 
-local fire_node = {name="fire:basic_flame"}
 
 local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_protection, ignore_on_blast)
 	if not ignore_protection and minetest.is_protected(npos, "") then
@@ -90,26 +89,19 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 	end
 	local def = cid_data[cid]
 	if not ignore_on_blast and def and def.on_blast then
-		local dist = vector.distance(bpos, npos)
-		local intensity = 1 / (dist * dist)
-		local node_drops = def.on_blast(vector.new(npos), intensity)
-		if node_drops then
-			for _, item in ipairs(node_drops) do
-				add_drop(drops, item)
-			end
-		end
-		return
+		on_blast_queue[#on_blast_queue + 1] = {pos=vector.new(npos), on_blast=def.on_blast}
+		return cid
 	end
-	if def and def.flammable then
-		minetest.set_node(npos, fire_node)
+	if not def then
+		return c_air
+	elseif def.flammable then
+		return c_fire
 	else
-		minetest.remove_node(npos)
-		if def then
-			local node_drops = minetest.get_node_drops(def.name, "")
-			for _, item in ipairs(node_drops) do
-				add_drop(drops, item)
-			end
+		local node_drops = minetest.get_node_drops(def.name, "")
+		for _, item in ipairs(node_drops) do
+			add_drop(drops, item)
 		end
+		return c_air
 	end
 end
 
@@ -220,10 +212,10 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	local data = vm:get_data()
 
 	local drops = {}
-	local p = {}
+	local on_blast_queue = {}
 
 	local c_air = minetest.get_content_id("air")
-
+	local c_fire = minetest.get_content_id("fire:basic_flame")
 	for z = -radius, radius do
 	for y = -radius, radius do
 	local vi = a:index(pos.x + (-radius), pos.y + y, pos.z + z)
@@ -231,16 +223,31 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 		if (x * x) + (y * y) + (z * z) <=
 				(radius * radius) + pr:next(-radius, radius) then
 			local cid = data[vi]
-			p.x = pos.x + x
-			p.y = pos.y + y
-			p.z = pos.z + z
+			local p = {x = pos.x + x, y = pos.y + y, z = pos.z + z}
 			if cid ~= c_air then
-				destroy(drops, p, cid, pos, ignore_protection, ignore_on_blast)
+				data[vi] = destroy(drops, p, cid, c_air, c_fire, on_blast_queue, ignore_protection, ignore_on_blast)
 			end
+
 		end
 		vi = vi + 1
 	end
 	end
+	end
+
+	vm:set_data(data)
+	vm:write_to_map()
+	vm:update_map()
+	vm:update_liquids()
+
+	for _, data in ipairs(on_blast_queue) do
+		local dist = math.max(1, vector.distance(data.pos, pos))
+		local intensity = 1 / (dist * dist)
+		local node_drops = data.on_blast(data.pos, intensity)
+		if node_drops then
+			for _, item in ipairs(node_drops) do
+				add_drop(drops, item)
+			end
+		end
 	end
 
 	return drops
