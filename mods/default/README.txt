@@ -156,6 +156,9 @@ sofar (CC BY-SA 3.0):
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
   default_aspen_wood, derived from default_pine_wood (by paramat)
 
+sofar (WTFPL):
+  default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
+
 Neuromancer (CC BY-SA 2.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
