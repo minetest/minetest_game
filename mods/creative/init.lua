@@ -102,7 +102,7 @@ creative_inventory.set_creative_formspec = function(player, start_i, pagenum, ta
 
 	player:set_inventory_formspec([[
 		size[8,8.6]
-		image[4.06,3.4;0.8,0.8;trash_icon.png]
+		image[4.06,3.4;0.8,0.8;creative_trash_icon.png]
 		list[current_player;main;0,4.7;8,1;]
 		list[current_player;main;0,5.85;8,3;8]
 		list[detached:creative_trash;main;4,3.3;1,1;]
@@ -134,7 +134,7 @@ creative_inventory.set_crafting_formspec = function(player)
 		list[current_player;main;0,4.7;8,1;]
 		list[current_player;main;0,5.85;8,3;8]
 		list[detached:creative_trash;main;0,2.75;1,1;]
-		image[0.06,2.85;0.8,0.8;trash_icon.png]
+		image[0.06,2.85;0.8,0.8;creative_trash_icon.png]
 		image[5,1.75;1,1;gui_furnace_arrow_bg.png^[transformR270]
 		tabheader[0,0;tabs;Crafting,All,Nodes,Tools,Items;1;true;false]
 		listring[current_player;main]
