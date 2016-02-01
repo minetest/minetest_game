@@ -395,8 +395,3 @@ minetest.register_craft({
 		{"",           "group:wood",    ""}
 	}
 })
-
-if minetest.setting_get("log_mods") then
-	minetest.debug("[TNT] Loaded!")
-end
-
