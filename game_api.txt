@@ -163,6 +163,51 @@ farming.register_plant(name, Plant definition)
 	maxlight = default.LIGHT_MAX           -- Maximum light to grow
 }
 
+#TNT API
+----------
+
+tnt.register_tnt(definition) 
+
+^ Register a new type of tnt.
+
+ * `name` The name of the node. If no perfix is given `tnt` is used.
+ * `description` A description for your TNT.
+ * `radius` The radius within which the TNT can damage nodes. The radius by default is 3.	
+ * `damage_radius` The radius within which the TNT can damage players and mobs. By default it is twice the `radius`.
+ * `disable_drops` Disable drops. By default it is set to false.
+ * `ignore_protection` Don't check `minetest.is_protected` before removing a node.
+ * `ignore_on_blast` Don't call `on_blast` even if a node has one.
+ * `tiles` Textures for node
+  * `side`  Side tiles. By default the name of the tnt with a suffix of `_side.png`.
+  * `top`  Top tile. By default the name of the tnt with a suffix of `_top.png`.
+  * `bottom` Bottom tile. By default the name of the tnt with a suffix of `_bottom.png`.
+  * `burning` Top tile when lit. By default the name of the tnt with a suffix of `_top_burning_animated.png".
+
+`tnt.boom(position, radius, damage_radius, disable_drops) `
+
+^ Create an explosion.
+
+* `position` The centrer of explosion.
+* `radius` The distance form the centrer that block can get damaged in.
+* `damage_radius` The distance form the centrer that players and mobs can get damaged in.
+* `disable_drops`  Disable drops.
+* `ignore_protection` Don't check `minetest.is_protected` before removing a node.
+* `ignore_on_blast` Don't call `on_blast` even if a node has one.
+
+`tnt.explode(pos, radius, ignore_protection, ignore_on_blast)`
+
+^ Create an explosion crater, returns node drops.
+ 
+ * `pos` Center of the crater.
+ * `radius` Radius of the crater.
+ * `ignore_protection` Don't check `minetest.is_protected` before removing a node.
+ * `ignore_on_blast` Don't call `on_blast` even if a node has one.
+
+`tnt.burn(pos)`
+
+^ Ignite TNT at position
+
+
 Screwdriver API
 ---------------
 The screwdriver API allows you to control a node's behaviour when a screwdriver is used on it.
