@@ -250,6 +250,7 @@ farming.register_plant = function(name, def)
 			paramtype = "light",
 			walkable = false,
 			buildable_to = true,
+			floodable = true,
 			drop = drop,
 			selection_box = {
 				type = "fixed",

@@ -86,6 +86,7 @@ local pane_def_fields = {
 	pointable = false,
 	diggable = false,
 	buildable_to = true,
+	floodable = true,
 	air_equivalent = true,
 }
 
