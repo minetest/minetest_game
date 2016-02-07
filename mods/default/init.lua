@@ -8,6 +8,7 @@ default = {}
 
 default.LIGHT_MAX = 14
 
+minetest.register_privilege("access", "Can open any locked door or chest")
 -- GUI related stuff
 default.gui_bg = "bgcolor[#080808BB;true]"
 default.gui_bg_img = "background[5,5;1,1;gui_formbg.png;true]"
