@@ -125,18 +125,6 @@ minetest.register_abm({
 	interval = 15,
 	chance = 4,
 	action = function(pos, node)
-		local soil = minetest.registered_nodes[node.name].soil
-		if not soil then
-			error("[farming] field "..node.name.." doesn't have soil")
-		end
-		local wet = soil.wet
-		local base = soil.base
-		local dry = soil.dry
-		if not (wet and base and dry) then
-			error("[farming] field "..node.name..
-					"'s soil must have wet, base and dry")
-		end
-
 		pos.y = pos.y + 1
 		local nn = minetest.get_node_or_nil(pos)
 		if not nn then
@@ -145,10 +133,24 @@ minetest.register_abm({
 		local nn_def = minetest.registered_nodes[nn.name]
 		pos.y = pos.y - 1
 
+		local soil = minetest.registered_nodes[node.name].soil
+		assert(soil, "[farming] field "..node.name.." doesn't have soil")
+		local wet = soil.wet
+		local base = soil.base
+		local dry = soil.dry
+		assert(wet and base and dry, "[farming] field "..node.name..
+				"'s soil must have wet, base and dry")
+
 		if nn_def and nn_def.walkable and
 				minetest.get_item_group(nn.name, "plant") == 0 then
 			node.name = base
 			minetest.set_node(pos, node)
+			return
+		end
+
+		-- only turn back if there are no unloaded blocks (and therefore
+		-- possible water sources) nearby
+		if minetest.find_node_near(pos, 3, {"ignore"}) then
 			return
 		end
 
@@ -163,11 +165,6 @@ minetest.register_abm({
 			return
 		end
 
-		-- only turn back if there are no unloaded blocks (and therefore
-		-- possible water sources) nearby
-		if minetest.find_node_near(pos, 3, {"ignore"}) then
-			return
-		end
 		-- turn it back into base if it is already dry
 		if wet_lvl == 0 then
 			-- only turn it back if there is no plant/seed on top of it
