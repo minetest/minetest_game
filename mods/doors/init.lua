@@ -38,7 +38,8 @@ function doors.register_door(name, def)
 
 			local ptu = pointed_thing.under
 			local nu = minetest.get_node(ptu)
-			if minetest.registered_nodes[nu.name].on_rightclick then
+			if minetest.registered_nodes[nu.name]
+			and minetest.registered_nodes[nu.name].on_rightclick then
 				return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 			end
 
