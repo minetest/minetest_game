@@ -234,7 +234,6 @@ minetest.register_node("tnt:tnt", {
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			minetest.sound_play("tnt_ignite", {pos=pos})
 			minetest.set_node(pos, {name="tnt:tnt_burning"})
-			minetest.get_node_timer(pos):start(4)
 		end
 	end,
 	on_blast = function(pos, intensity)
@@ -258,6 +257,9 @@ minetest.register_node("tnt:tnt_burning", {
 	light_source = 5,
 	drop = "",
 	sounds = default.node_sound_wood_defaults(),
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(4)
+	end,
 	on_timer = boom,
 	-- unaffected by explosions
 	on_blast = function() end,
