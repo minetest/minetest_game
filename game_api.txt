@@ -175,6 +175,10 @@ farming.register_plant(name, Plant definition)
 	maxlight = default.LIGHT_MAX           -- Maximum light to grow
 }
 
+Fire API
+----------
+Add group flammable when registering a node to make fire seek for it.
+
 Screwdriver API
 ---------------
 The screwdriver API allows you to control a node's behaviour when a screwdriver is used on it.
