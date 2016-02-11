@@ -178,6 +178,9 @@ farming.register_plant(name, Plant definition)
 Fire API
 ----------
 Add group flammable when registering a node to make fire seek for it.
+Add on_burn to nodedef to do sth different than simply removing the flammable node:
+If on_burn is a string, then the node gets replaced with on_burn,
+else on_burn is a function with the params pos and node, if it returns false, the node will be removed.
 
 Screwdriver API
 ---------------

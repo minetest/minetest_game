@@ -207,6 +207,19 @@ else
 			if not p then
 				return
 			end
+			local node = minetest.get_node(p)
+			local on_burn = minetest.registered_nodes[node.name].on_burn
+			if on_burn then
+				if type(on_burn) == "string" then
+					node.name = on_burn
+					minetest.set_node(p, node)
+					nodeupdate(p)
+					return
+				end
+				if on_burn(p, node) ~= false then
+					return
+				end
+			end
 			minetest.remove_node(p)
 			nodeupdate(p)
 		end,
