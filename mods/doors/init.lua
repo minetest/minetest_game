@@ -352,14 +352,12 @@ function doors.register(name, def)
 		},
 	})
 
-	minetest.register_craft({
-		output = "doors:" .. name,
-		recipe = {
-			{def.material,def.material};
-			{def.material,def.material};
-			{def.material,def.material};
-		}
-	})
+	if def.recipe then
+		minetest.register_craft({
+			output = "doors:" .. name,
+			recipe = def.recipe,
+		})
+	end
 
 	_doors.registered_doors["doors:" .. name .. "_a"] = true
 	_doors.registered_doors["doors:" .. name .. "_b"] = true
@@ -370,7 +368,11 @@ doors.register("door_wood", {
 		description = "Wooden Door",
 		inventory_image = "doors_item_wood.png",
 		groups = { snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2 },
-		material = "group:wood",
+		recipe = {
+			{"group:wood", "group:wood"},
+			{"group:wood", "group:wood"},
+			{"group:wood", "group:wood"},
+		}
 })
 
 doors.register("door_steel", {
@@ -379,7 +381,11 @@ doors.register("door_steel", {
 		inventory_image = "doors_item_steel.png",
 		protected = true,
 		groups = { snappy = 1, bendy = 2, cracky = 1, melty = 2, level = 2 },
-		material = "default:steel_ingot",
+		recipe = {
+			{"default:steel_ingot", "default:steel_ingot"},
+			{"default:steel_ingot", "default:steel_ingot"},
+			{"default:steel_ingot", "default:steel_ingot"},
+		}
 })
 
 doors.register("door_glass", {
@@ -387,8 +393,12 @@ doors.register("door_glass", {
 		description = "Glass Door",
 		inventory_image = "doors_item_glass.png",
 		groups = { snappy=1, cracky=1, oddly_breakable_by_hand=3 },
-		material = "default:glass",
 		sounds = default.node_sound_glass_defaults(),
+		recipe = {
+			{"default:glass", "default:glass"},
+			{"default:glass", "default:glass"},
+			{"default:glass", "default:glass"},
+		}
 })
 
 doors.register("door_obsidian_glass", {
@@ -396,8 +406,12 @@ doors.register("door_obsidian_glass", {
 		description = "Glass Door",
 		inventory_image = "doors_item_obsidian_glass.png",
 		groups = { snappy=1, cracky=1, oddly_breakable_by_hand=3 },
-		material = "default:obsidian_glass",
 		sounds = default.node_sound_glass_defaults(),
+		recipe = {
+			{"default:obsidian_glass", "default:obsidian_glass"},
+			{"default:obsidian_glass", "default:obsidian_glass"},
+			{"default:obsidian_glass", "default:obsidian_glass"},
+		},
 })
 
 ----trapdoor----
