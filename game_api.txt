@@ -97,7 +97,7 @@ doors.get(pos)
 	inventory_image = "mod_door_inv.png",
 	groups = {choppy = 1},
 	tiles = { "mod_door.png" },
-	material = "default:wood", -- used to make a craft recipe
+	recipe = craftrecipe,
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
