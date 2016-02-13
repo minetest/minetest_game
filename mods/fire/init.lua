@@ -170,7 +170,7 @@ minetest.register_abm({
 	nodenames = {"fire:basic_flame", "fire:permanent_flame"},
 	neighbors = {"group:puts_out_fire"},
 	interval = 3,
-	chance = 2,
+	chance = 1,
 	catch_up = false,
 	action = function(p0, node, _, _)
 		minetest.remove_node(p0)
@@ -189,7 +189,7 @@ if minetest.setting_getbool("disable_fire") then
 	minetest.register_abm({
 		nodenames = {"fire:basic_flame"},
 		interval = 7,
-		chance = 2,
+		chance = 1,
 		catch_up = false,
 		action = function(p0, node, _, _)
 			minetest.remove_node(p0)

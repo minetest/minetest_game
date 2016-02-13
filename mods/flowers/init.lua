@@ -76,8 +76,8 @@ end
 minetest.register_abm({
 	nodenames = {"group:flora"},
 	neighbors = {"default:dirt_with_grass", "default:desert_sand"},
-	interval = 50,
-	chance = 25,
+	interval = 13,
+	chance = 96,
 	action = function(pos, node)
 		pos.y = pos.y - 1
 		local under = minetest.get_node(pos)
