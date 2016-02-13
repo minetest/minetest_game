@@ -270,9 +270,11 @@ minetest.register_globalstep(function(dtime)
 end)
 
 default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
-	local node = minetest.get_node(pos)
-	node.param2 = 1
-	minetest.set_node(pos, node)
+	if placer and placer:get_player_control().sneak then
+		local node = minetest.get_node(pos)
+		node.param2 = 1
+		minetest.set_node(pos, node)
+	end
 end
 
 minetest.register_abm({
