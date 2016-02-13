@@ -178,7 +178,7 @@ function doors.register(name, def)
 		end
 	})
 
-	minetest.register_craftitem("doors:" .. name, {
+	minetest.register_craftitem(":doors:" .. name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
 
@@ -288,7 +288,7 @@ function doors.register(name, def)
 		end
 	end
 
-	minetest.register_node("doors:" .. name .. "_a", {
+	minetest.register_node(":doors:" .. name .. "_a", {
 		description = def.description,
 		visual = "mesh",
 		mesh = "door_a.obj",
@@ -320,7 +320,7 @@ function doors.register(name, def)
 		},
 	})
 
-	minetest.register_node("doors:" .. name .. "_b", {
+	minetest.register_node(":doors:" .. name .. "_b", {
 		description = def.description,
 		visual = "mesh",
 		mesh = "door_b.obj",
