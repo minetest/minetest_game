@@ -264,8 +264,8 @@ farming.register_plant = function(name, def)
 	minetest.register_abm({
 		nodenames = {"group:" .. pname, "group:seed"},
 		neighbors = {"group:soil"},
-		interval = 90,
-		chance = 2,
+		interval = 9,
+		chance = 20,
 		action = function(pos, node)
 			local plant_height = minetest.get_item_group(node.name, pname)
 

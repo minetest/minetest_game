@@ -233,7 +233,7 @@ end
 if replace then
 	minetest.register_abm({
 		nodenames = {"group:slabs_replace"},
-		interval = 8,
+		interval = 16,
 		chance = 1,
 		action = function(pos, node)
 			node.name = minetest.registered_nodes[node.name].replace_name

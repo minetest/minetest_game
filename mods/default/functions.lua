@@ -88,37 +88,24 @@ end
 -- Lavacooling
 --
 
-default.cool_lava_source = function(pos)
-	minetest.set_node(pos, {name = "default:obsidian"})
-	minetest.sound_play("default_cool_lava",
-		{pos = pos, max_hear_distance = 16, gain = 0.25})
-end
-
-default.cool_lava_flowing = function(pos)
-	minetest.set_node(pos, {name = "default:stone"})
+default.cool_lava = function(pos, node)
+	if node.name == "default:lava_source" then
+		minetest.set_node(pos, {name = "default:obsidian"})
+	else -- Lava flowing
+		minetest.set_node(pos, {name = "default:stone"})
+	end
 	minetest.sound_play("default_cool_lava",
 		{pos = pos, max_hear_distance = 16, gain = 0.25})
 end
 
 minetest.register_abm({
-	nodenames = {"default:lava_flowing"},
+	nodenames = {"default:lava_source", "default:lava_flowing"},
 	neighbors = {"group:water"},
 	interval = 1,
-	chance = 2,
+	chance = 1,
 	catch_up = false,
 	action = function(...)
-		default.cool_lava_flowing(...)
-	end,
-})
-
-minetest.register_abm({
-	nodenames = {"default:lava_source"},
-	neighbors = {"group:water"},
-	interval = 1,
-	chance = 2,
-	catch_up = false,
-	action = function(...)
-		default.cool_lava_source(...)
+		default.cool_lava(...)
 	end,
 })
 
@@ -177,8 +164,8 @@ end
 minetest.register_abm({
 	nodenames = {"default:cactus"},
 	neighbors = {"group:sand"},
-	interval = 50,
-	chance = 20,
+	interval = 12,
+	chance = 83,
 	action = function(...)
 		default.grow_cactus(...)
 	end
@@ -186,9 +173,9 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:papyrus"},
-	neighbors = {"default:dirt", "default:dirt_with_grass", "default:sand"},
-	interval = 50,
-	chance = 20,
+	neighbors = {"default:dirt", "default:dirt_with_grass"},
+	interval = 14,
+	chance = 71,
 	action = function(...)
 		default.grow_papyrus(...)
 	end
@@ -358,8 +345,9 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:dirt"},
-	interval = 2,
-	chance = 200,
+	neighbors = {"air"},
+	interval = 6,
+	chance = 67,
 	catch_up = false,
 	action = function(pos, node)
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
@@ -384,8 +372,8 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:dirt_with_grass", "default:dirt_with_dry_grass"},
-	interval = 2,
-	chance = 20,
+	interval = 8,
+	chance = 50,
 	catch_up = false,
 	action = function(pos, node)
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
@@ -407,7 +395,7 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = {"default:cobble"},
 	neighbors = {"group:water"},
-	interval = 17,
+	interval = 16,
 	chance = 200,
 	catch_up = false,
 	action = function(pos, node)
