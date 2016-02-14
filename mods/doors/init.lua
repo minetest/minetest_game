@@ -183,8 +183,15 @@ function doors.register(name, def)
 		inventory_image = def.inventory_image,
 
 		on_place = function(itemstack, placer, pointed_thing)
-			local pos = pointed_thing.above
-			local node = minetest.get_node(pos)
+			local pos = nil
+
+			local node = minetest.get_node(pointed_thing.under)
+			if minetest.registered_nodes[node.name].buildable_to then
+				pos = pointed_thing.under
+			else
+				pos = pointed_thing.above
+				node = minetest.get_node(pos)
+			end
 
 			if not minetest.registered_nodes[node.name].buildable_to then
 				return itemstack
