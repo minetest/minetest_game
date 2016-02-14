@@ -154,6 +154,25 @@ function _doors.door_toggle(pos, clicker)
 	return true
 end
 
+
+local function on_place_node(place_to, newnode, placer, oldnode, itemstack, pointed_thing)
+	-- Run script hook
+	local _, callback
+	for _, callback in ipairs(core.registered_on_placenodes) do
+		-- Deepcopy pos, node and pointed_thing because callback can modify them
+		local place_to_copy = {x = place_to.x, y = place_to.y, z = place_to.z}
+		local newnode_copy = {name = newnode.name, param1 = newnode.param1, param2 = newnode.param2}
+		local oldnode_copy = {name = oldnode.name, param1 = oldnode.param1, param2 = oldnode.param2}
+		local pointed_thing_copy = {
+			type  = pointed_thing.type,
+			above = vector.new(pointed_thing.above),
+			under = vector.new(pointed_thing.under),
+			ref   = pointed_thing.ref,
+		}
+		callback(place_to_copy, newnode_copy, placer, oldnode_copy, itemstack, pointed_thing_copy)
+	end
+end
+
 function doors.register(name, def)
 	-- replace old doors of this type automatically
 	minetest.register_abm({
@@ -248,6 +267,8 @@ function doors.register(name, def)
 			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
 			end
+
+			on_place_node(pos, minetest.get_node(pos), placer, node, itemstack, pointed_thing)
 
 			return itemstack
 		end
