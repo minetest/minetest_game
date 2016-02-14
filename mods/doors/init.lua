@@ -185,16 +185,26 @@ function doors.register(name, def)
 		on_place = function(itemstack, placer, pointed_thing)
 			local pos = nil
 
+			if not pointed_thing.type == "node" then
+				return itemstack
+			end
+
 			local node = minetest.get_node(pointed_thing.under)
-			if minetest.registered_nodes[node.name].buildable_to then
+			local def = minetest.registered_nodes[node.name]
+			if def and def.on_rightclick then
+				return def.on_rightclick(pointed_thing.under,
+						node, placer, itemstack)
+			end
+
+			if def and def.buildable_to then
 				pos = pointed_thing.under
 			else
 				pos = pointed_thing.above
 				node = minetest.get_node(pos)
-			end
-
-			if not minetest.registered_nodes[node.name].buildable_to then
-				return itemstack
+				def = minetest.registered_nodes[node.name]
+				if not def or not def.buildable_to then
+					return itemstack
+				end
 			end
 
 			local above = { x = pos.x, y = pos.y + 1, z = pos.z }
