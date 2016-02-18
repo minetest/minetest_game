@@ -7,259 +7,345 @@
 stairs = {}
 
 
--- Register aliases for new pine node names
-
-minetest.register_alias("stairs:stair_pinewood", "stairs:stair_pine_wood")
-minetest.register_alias("stairs:slab_pinewood", "stairs:slab_pine_wood")
-
-
 -- Get setting for replace ABM
 
 local replace = minetest.setting_getbool("enable_stairs_replace_abm")
 
 
--- Register stairs.
--- Node will be called stairs:stair_<subname>
+-- link functions instead of redefining them every time
 
-function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
-	groups.stair = 1
-	minetest.register_node(":stairs:stair_" .. subname, {
-		description = description,
-		drawtype = "mesh",
-		mesh = "stairs_stair.obj",
-		tiles = images,
-		paramtype = "light",
-		paramtype2 = "facedir",
-		is_ground_content = false,
-		groups = groups,
-		sounds = sounds,
-		selection_box = {
-			type = "fixed",
-			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0.5, 0.5, 0.5},
-			},
-		},
-		collision_box = {
-			type = "fixed",
-			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0.5, 0.5, 0.5},
-			},
-		},
-		on_place = function(itemstack, placer, pointed_thing)
-			if pointed_thing.type ~= "node" then
-				return itemstack
+local function on_place_stair(itemstack, placer, pointed_thing)
+	if pointed_thing.type ~= "node" then
+		return itemstack
+	end
+
+	local p0 = pointed_thing.under
+	local p1 = pointed_thing.above
+	local param2 = 0
+
+	local placer_pos = placer:getpos()
+	if placer_pos then
+		local dir = {
+			x = p1.x - placer_pos.x,
+			y = p1.y - placer_pos.y,
+			z = p1.z - placer_pos.z
+		}
+		param2 = minetest.dir_to_facedir(dir)
+	end
+
+	if p0.y - 1 == p1.y then
+		param2 = param2 + 20
+		if param2 == 21 then
+			param2 = 23
+		elseif param2 == 23 then
+			param2 = 21
+		end
+	end
+
+	return minetest.item_place(itemstack, placer, pointed_thing, param2)
+end
+
+local function on_place_slab(itemstack, placer, pointed_thing, slabname, recipeitem)
+	if pointed_thing.type ~= "node" then
+		return itemstack
+	end
+
+	-- If it's being placed on an another similar one, replace it with
+	-- a full block
+	local slabpos = nil
+	local slabnode = nil
+	local p0 = pointed_thing.under
+	local p1 = pointed_thing.above
+	local n0 = minetest.get_node(p0)
+	local n1 = minetest.get_node(p1)
+	local param2 = 0
+
+	local n0_is_upside_down = (n0.name == slabname and
+			n0.param2 >= 20)
+
+	if n0.name == slabname and not n0_is_upside_down and
+			p0.y + 1 == p1.y then
+		slabpos = p0
+		slabnode = n0
+	elseif n1.name == slabname then
+		slabpos = p1
+		slabnode = n1
+	end
+	if slabpos then
+		-- Remove the slab at slabpos
+		minetest.remove_node(slabpos)
+		-- Make a fake stack of a single item and try to place it
+		local fakestack = ItemStack(recipeitem)
+		fakestack:set_count(itemstack:get_count())
+
+		pointed_thing.above = slabpos
+		local success
+		fakestack, success = minetest.item_place(fakestack, placer,
+			pointed_thing)
+		-- If the item was taken from the fake stack, decrement original
+		if success then
+			itemstack:set_count(fakestack:get_count())
+		-- Else put old node back
+		else
+			minetest.set_node(slabpos, slabnode)
+		end
+		return itemstack
+	end
+
+	-- Upside down slabs
+	if p0.y - 1 == p1.y then
+		-- Turn into full block if pointing at a existing slab
+		if n0_is_upside_down  then
+			-- Remove the slab at the position of the slab
+			minetest.remove_node(p0)
+			-- Make a fake stack of a single item and try to place it
+			local fakestack = ItemStack(recipeitem)
+			fakestack:set_count(itemstack:get_count())
+
+			pointed_thing.above = p0
+			local success
+			fakestack, success = minetest.item_place(fakestack, placer,
+				pointed_thing)
+			-- If the item was taken from the fake stack, decrement original
+			if success then
+				itemstack:set_count(fakestack:get_count())
+			-- Else put old node back
+			else
+				minetest.set_node(p0, n0)
 			end
+			return itemstack
+		end
 
-			local p0 = pointed_thing.under
-			local p1 = pointed_thing.above
-			local param2 = 0
+		-- Place upside down slab
+		param2 = 20
+	end
 
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local dir = {
-					x = p1.x - placer_pos.x,
-					y = p1.y - placer_pos.y,
-					z = p1.z - placer_pos.z
-				}
-				param2 = minetest.dir_to_facedir(dir)
-			end
+	-- If pointing at the side of a upside down slab
+	if n0_is_upside_down and p0.y + 1 ~= p1.y then
+		param2 = 20
+	end
 
-			if p0.y - 1 == p1.y then
-				param2 = param2 + 20
-				if param2 == 21 then
-					param2 = 23
-				elseif param2 == 23 then
-					param2 = 21
-				end
-			end
+	return minetest.item_place(itemstack, placer, pointed_thing, param2)
+end
 
-			return minetest.item_place(itemstack, placer, pointed_thing, param2)
-		end,
-	})
+
+-- boxes for stairs and slabs
+
+local stairbox = {
+	type = "fixed",
+	fixed = {
+		{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+		{-0.5, 0, 0, 0.5, 0.5, 0.5},
+	},
+}
+
+local slabbox = {
+	type = "fixed",
+	fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+}
+
+
+-- contents of the node definition which gets copied
+
+local to_copy = {"tiles", "use_texture_alpha", "post_effect_color",
+	"is_ground_content", "walkable", "pointable", "diggable", "climbable",
+	"buildable_to", "light_source", "damage_per_second", "sounds", "groups",
+	"sunlight_propagates"}
+
+-- Node will be called like origin, just with "stair_" after the ":"
+function stairs.register_stair(data, extradef, groups, images, description, sounds)
+	if groups then
+		-- support the previous function using a tail call
+		local ldata = {
+			fixed_name = "stairs:stair_" .. data,
+			origin = extradef,
+		}
+		if replace then
+			ldata.upside_down = ldata.fixed_name .. "upside_down"
+		end
+		return stairs.register_stair(
+			ldata,
+			{
+				description = description,
+				tiles = images,
+				groups = groups,
+				sounds = sounds,
+			}
+		)
+	end
+
+	local origname = data.origin
+	local origdef = minetest.registered_nodes[origname]
+	if not origdef then
+		origdef = {}
+		minetest.log("error", "[stairs] "..origname.." should exist before adding a stair for it.")
+	end
+
+	local def = {}
+	for _,i in pairs(to_copy) do
+		def[i] = rawget(origdef, i)
+	end
+
+	if origdef.description then
+		def.description = origdef.description.." Stair"
+	end
+
+	def.drawtype = "mesh"
+	def.mesh = "stairs_stair.obj"
+	def.paramtype = "light"
+	def.paramtype2 = "facedir"
+	def.selection_box = stairbox
+	def.collision_box = stairbox
+	def.on_place = on_place_stair
+
+	if extradef then
+		for i,v in pairs(extradef) do
+			def[i] = v
+		end
+	end
+
+	def.groups = def.groups or {}
+	def.groups.stair = 1
+
+	local name = data.fixed_name
+	if not name then
+		local modname, nodename = unpack(string.split(origname, ":"))
+		name = modname..":stair_"..nodename
+	end
+	minetest.register_node(":"..name, def)
 
 	-- for replace ABM
-	if replace then
-		minetest.register_node(":stairs:stair_" .. subname .. "upside_down", {
-			replace_name = "stairs:stair_" .. subname,
+	if data.upside_down then
+		minetest.register_node(":"..data.upside_down, {
+			replace_name = name,
 			groups = {slabs_replace = 1},
 		})
 	end
 
+	if data.add_crafting == false then
+		return
+	end
+
+	local input = data.recipe or origname
+
 	minetest.register_craft({
-		output = 'stairs:stair_' .. subname .. ' 6',
+		output = name .. " 6",
 		recipe = {
-			{recipeitem, "", ""},
-			{recipeitem, recipeitem, ""},
-			{recipeitem, recipeitem, recipeitem},
+			{input, "", ""},
+			{input, input, ""},
+			{input, input, input},
 		},
 	})
 
 	-- Flipped recipe for the silly minecrafters
 	minetest.register_craft({
-		output = 'stairs:stair_' .. subname .. ' 6',
+		output = name .. " 6",
 		recipe = {
-			{"", "", recipeitem},
-			{"", recipeitem, recipeitem},
-			{recipeitem, recipeitem, recipeitem},
+			{"", "", input},
+			{"", input, input},
+			{input, input, input},
 		},
 	})
 end
 
+-- Node will be called like origin, just with "slab_" after the ":"
+function stairs.register_slab(data, extradef, groups, images, description, sounds)
+	if groups then
+		-- support the previous function using a tail call
+		local ldata = {
+			fixed_name = "stairs:slab_" .. data,
+			origin = extradef,
+		}
+		if replace then
+			ldata.upside_down = ldata.fixed_name .. "upside_down"
+		end
+		return stairs.register_slab(
+			ldata,
+			{
+				description = description,
+				tiles = images,
+				groups = groups,
+				sounds = sounds,
+			}
+		)
+	end
 
--- Register slabs.
--- Node will be called stairs:slab_<subname>
+	local origname = data.origin
+	local origdef = minetest.registered_nodes[origname]
+	if not origdef then
+		origdef = {}
+		minetest.log("error", "[stairs] "..origname.." should exist before adding a slab for it.")
+	end
 
-function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
-	groups.slab = 1
-	minetest.register_node(":stairs:slab_" .. subname, {
-		description = description,
-		drawtype = "nodebox",
-		tiles = images,
-		paramtype = "light",
-		paramtype2 = "facedir",
-		is_ground_content = false,
-		groups = groups,
-		sounds = sounds,
-		node_box = {
-			type = "fixed",
-			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-		},
-		on_place = function(itemstack, placer, pointed_thing)
-			if pointed_thing.type ~= "node" then
-				return itemstack
-			end
+	local def = {}
+	for _,i in pairs(to_copy) do
+		def[i] = rawget(origdef, i)
+	end
 
-			-- If it's being placed on an another similar one, replace it with
-			-- a full block
-			local slabpos = nil
-			local slabnode = nil
-			local p0 = pointed_thing.under
-			local p1 = pointed_thing.above
-			local n0 = minetest.get_node(p0)
-			local n1 = minetest.get_node(p1)
-			local param2 = 0
+	if origdef.description then
+		def.description = origdef.description.." Slab"
+	end
 
-			local n0_is_upside_down = (n0.name == "stairs:slab_" .. subname and
-					n0.param2 >= 20)
+	def.drawtype = "nodebox"
+	def.paramtype = "light"
+	def.paramtype2 = "facedir"
+	def.node_box = slabbox
 
-			if n0.name == "stairs:slab_" .. subname and not n0_is_upside_down and
-					p0.y + 1 == p1.y then
-				slabpos = p0
-				slabnode = n0
-			elseif n1.name == "stairs:slab_" .. subname then
-				slabpos = p1
-				slabnode = n1
-			end
-			if slabpos then
-				-- Remove the slab at slabpos
-				minetest.remove_node(slabpos)
-				-- Make a fake stack of a single item and try to place it
-				local fakestack = ItemStack(recipeitem)
-				fakestack:set_count(itemstack:get_count())
+	local name = data.fixed_name
+	if not name then
+		local modname, nodename = unpack(string.split(origname, ":"))
+		name = modname..":slab_"..nodename
+	end
 
-				pointed_thing.above = slabpos
-				local success
-				fakestack, success = minetest.item_place(fakestack, placer,
-					pointed_thing)
-				-- If the item was taken from the fake stack, decrement original
-				if success then
-					itemstack:set_count(fakestack:get_count())
-				-- Else put old node back
-				else
-					minetest.set_node(slabpos, slabnode)
-				end
-				return itemstack
-			end
-			
-			-- Upside down slabs
-			if p0.y - 1 == p1.y then
-				-- Turn into full block if pointing at a existing slab
-				if n0_is_upside_down  then
-					-- Remove the slab at the position of the slab
-					minetest.remove_node(p0)
-					-- Make a fake stack of a single item and try to place it
-					local fakestack = ItemStack(recipeitem)
-					fakestack:set_count(itemstack:get_count())
+	def.on_place = function(itemstack, placer, pointed_thing)
+		return on_place_slab(itemstack, placer, pointed_thing, name, origname)
+	end
 
-					pointed_thing.above = p0
-					local success
-					fakestack, success = minetest.item_place(fakestack, placer,
-						pointed_thing)
-					-- If the item was taken from the fake stack, decrement original
-					if success then
-						itemstack:set_count(fakestack:get_count())
-					-- Else put old node back
-					else
-						minetest.set_node(p0, n0)
-					end
-					return itemstack
-				end
+	if extradef then
+		for i,v in pairs(extradef) do
+			def[i] = v
+		end
+	end
 
-				-- Place upside down slab
-				param2 = 20
-			end
+	def.groups = def.groups or {}
+	def.groups.slab = 1
 
-			-- If pointing at the side of a upside down slab
-			if n0_is_upside_down and p0.y + 1 ~= p1.y then
-				param2 = 20
-			end
-
-			return minetest.item_place(itemstack, placer, pointed_thing, param2)
-		end,
-	})
+	minetest.register_node(":"..name, def)
 
 	-- for replace ABM
-	if replace then
-		minetest.register_node(":stairs:slab_" .. subname .. "upside_down", {
-			replace_name = "stairs:slab_".. subname,
+	if data.upside_down then
+		minetest.register_node(":"..data.upside_down, {
+			replace_name = name,
 			groups = {slabs_replace = 1},
 		})
 	end
 
+	if data.add_crafting == false then
+		return
+	end
+
+	local input = data.recipe or origname
+
 	minetest.register_craft({
-		output = 'stairs:slab_' .. subname .. ' 6',
+		output = name .. " 6",
 		recipe = {
-			{recipeitem, recipeitem, recipeitem},
+			{input, input, input},
 		},
-	})
-end
-
-
--- Optionally replace old "upside_down" nodes with new param2 versions.
--- Disabled by default.
-
-if replace then
-	minetest.register_abm({
-		nodenames = {"group:slabs_replace"},
-		interval = 16,
-		chance = 1,
-		action = function(pos, node)
-			node.name = minetest.registered_nodes[node.name].replace_name
-			node.param2 = node.param2 + 20
-			if node.param2 == 21 then
-				node.param2 = 23
-			elseif node.param2 == 23 then
-				node.param2 = 21
-			end
-			minetest.set_node(pos, node)
-		end,
 	})
 end
 
 
 -- Stair/slab registration function.
--- Nodes will be called stairs:{stair,slab}_<subname>
+-- If groups etc. given (deprecated), nodes will be called stairs:{stair,slab}_<subname>
 
-function stairs.register_stair_and_slab(subname, recipeitem, groups, images,
-		desc_stair, desc_slab, sounds)
+function stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
 	stairs.register_stair(subname, recipeitem, groups, images, desc_stair, sounds)
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
 
 
 -- Register default stairs and slabs
+-- TODO: put this into default and use the new way of adding stairs and slabs
 
 stairs.register_stair_and_slab("wood", "default:wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
@@ -344,7 +430,7 @@ stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		"Sandstone Stair",
 		"Sandstone Slab",
 		default.node_sound_stone_defaults())
-		
+
 stairs.register_stair_and_slab("sandstonebrick", "default:sandstonebrick",
 		{crumbly = 2, cracky = 2},
 		{"default_sandstone_brick.png"},
@@ -407,3 +493,35 @@ stairs.register_stair_and_slab("goldblock", "default:goldblock",
 		"Gold Block Stair",
 		"Gold Block Slab",
 		default.node_sound_stone_defaults())
+
+
+
+-- legacy
+
+
+-- Register aliases for new pine node names
+
+minetest.register_alias("stairs:stair_pinewood", "stairs:stair_pine_wood")
+minetest.register_alias("stairs:slab_pinewood", "stairs:slab_pine_wood")
+
+
+-- Optionally replace old "upside_down" nodes with new param2 versions.
+-- Disabled by default.
+
+if replace then
+	minetest.register_abm({
+		nodenames = {"group:slabs_replace"},
+		interval = 16,
+		chance = 1,
+		action = function(pos, node)
+			node.name = minetest.registered_nodes[node.name].replace_name
+			node.param2 = node.param2 + 20
+			if node.param2 == 21 then
+				node.param2 = 23
+			elseif node.param2 == 23 then
+				node.param2 = 21
+			end
+			minetest.set_node(pos, node)
+		end,
+	})
+end
