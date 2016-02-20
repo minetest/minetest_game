@@ -452,6 +452,59 @@ doors.register("door_obsidian_glass", {
 		},
 })
 
+-- Capture mods using the old API as best as possible.
+function doors.register_door(name, def)
+	if def.only_placer_can_open then
+		def.protected = true
+	end
+	def.only_placer_can_open = nil
+
+	local i = name:find(":")
+	local modname = name:sub(1, i - 1)
+	local doorname = modname .. "_" .. name:sub(i + 1, -1)
+	if not def.tiles then
+		if def.protected then
+			def.tiles = {{name = "doors_door_steel.png", backface_culling = true}}
+		else
+			def.tiles = {{name = "doors_door_wood.png", backface_culling = true}}
+		end
+		minetest.log("warning", modname .. " registered door \"" .. name .. "\" " ..
+				"using deprecated API method \"doors.register_door()\" but " ..
+				"did not provide the \"tiles\" parameter. A fallback tiledef " ..
+				"will be used instead.")
+	end
+
+	doors.register(doorname, def)
+
+	-- these help replace items present and conversion
+	minetest.register_alias(name, "doors:" .. doorname)
+	minetest.register_alias(name .. "_t_1", "doors:hidden")
+	minetest.register_alias(name .. "_t_2", "doors:hidden")
+
+	minetest.register_abm({
+		nodenames = {name .. "_b_1", name .. "_b_2"},
+		interval = 7.0,
+		chance = 1,
+		action = function(pos, node, active_object_count, active_object_count_wider)
+			local l = tonumber(node.name:sub(-1))
+			local meta = minetest.get_meta(pos)
+			local h = meta:get_int("right") + 1
+			local p2 = node.param2
+			local replace = {
+				{{type = "a", state = 0}, {type = "a", state = 3}},
+				{{type = "b", state = 1}, {type = "b", state = 2}}
+			}
+			local new = replace[l][h]
+
+			-- retain infotext and doors_owner fields
+			minetest.swap_node(pos, {name = "doors:" .. doorname .. "_" .. new.type, param2 = p2})
+			meta:set_int("state", new.state)
+			-- wipe meta on top node as it's unused
+			minetest.set_node({x = pos.sx, y = pos.y + 1, z = pos.z}, {name = "doors:hidden"})
+		end
+	})
+end
+
 ----trapdoor----
 
 function _doors.trapdoor_toggle(pos, clicker)
