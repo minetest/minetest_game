@@ -113,15 +113,15 @@ creative.set_creative_formspec = function(player, start_i, pagenum, tab_id)
 		tableoptions[background=#00000000;highlight=#00000000;border=false]
 		button[5.4,3.2;0.8,0.9;creative_prev;<]
 		button[7.25,3.2;0.8,0.9;creative_next;>]
-		button[2.1,3.4;0.8,0.5;search;?]
-		button[2.75,3.4;0.8,0.5;clear;X]
-		tooltip[search;Search]
-		tooltip[clear;Reset]
+		button[2.1,3.4;0.8,0.5;creative_search;?]
+		button[2.75,3.4;0.8,0.5;creative_clear;X]
+		tooltip[creative_search;Search]
+		tooltip[creative_clear;Reset]
 		listring[current_player;main]
 		]] ..
-		"field[0.3,3.5;2.2,1;filter;;".. filter .."]"..
+		"field[0.3,3.5;2.2,1;creative_filter;;".. filter .."]"..
 		"listring[detached:creative_".. player_name ..";main]"..
-		"tabheader[0,0;tabs;Crafting,All,Nodes,Tools,Items;".. tostring(tab_id) ..";true;false]"..
+		"tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;".. tostring(tab_id) ..";true;false]"..
 		"list[detached:creative_".. player_name ..";main;0,0;8,3;".. tostring(start_i) .."]"..
 		"table[6.05,3.35;1.15,0.5;pagenum;#FFFF00,".. tostring(pagenum) ..",#FFFFFF,/ ".. tostring(pagemax) .."]"..
 		default.get_hotbar_bg(0,4.7)..
@@ -139,7 +139,7 @@ creative.set_crafting_formspec = function(player)
 		list[detached:creative_trash;main;0,2.75;1,1;]
 		image[0.06,2.85;0.8,0.8;creative_trash_icon.png]
 		image[5,1.75;1,1;gui_furnace_arrow_bg.png^[transformR270]
-		tabheader[0,0;tabs;Crafting,All,Nodes,Tools,Items;1;true;false]
+		tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;1;true;false]
 		listring[current_player;main]
 		listring[current_player;craft]
 		]] ..
@@ -158,15 +158,15 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if not minetest.setting_getbool("creative_mode") then
+	if formname ~= "" or not minetest.setting_getbool("creative_mode") then
 		return
 	end
-	-- Figure out current page from formspec
+
 	local player_name = player:get_player_name()
 	local formspec = player:get_inventory_formspec()
-	local filter = formspec:match("filter;;([%w_:]+)") or ""
-	local start_i = formspec:match("list%[detached:creative_".. player_name ..";.*;(%d+)%]")
-	local tab_id = tonumber(formspec:match("tabheader%[.*;(%d+)%;.*%]"))
+	local filter = formspec:match("creative_filter;;([%w_:]+)") or ""
+	local start_i = formspec:match("list%[.-".. player_name ..";.-;(%d+)%]")
+	local tab_id = tonumber(formspec:match("tabheader%[.-;(%d+)%;"))
 	local inv_size = player_inventory[player_name].size
 	start_i = tonumber(start_i) or 0
 
@@ -174,20 +174,22 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if tab_id == 1 then
 			creative.set_crafting_formspec(player)
 		end
-	elseif fields.tabs then
-		if tonumber(fields.tabs) == 1 then
+	elseif fields.creative_tabs then
+		local tab = tonumber(fields.creative_tabs)
+		if tab == 1 then
 			creative.set_crafting_formspec(player)
 		else
-			creative.update_creative_inventory(player_name, filter, tonumber(fields.tabs))
-			creative.set_creative_formspec(player, 0, 1, tonumber(fields.tabs))
+			creative.update_creative_inventory(player_name, filter, tab)
+			creative.set_creative_formspec(player, 0, 1, tab)
 		end
-	elseif fields.clear then
+	elseif fields.creative_clear then
 		player_inventory[player_name].filter = ""
 		creative.update_creative_inventory(player_name, nil, tab_id)
 		creative.set_creative_formspec(player, 0, 1, tab_id)
-	elseif fields.search then
-		player_inventory[player_name].filter = fields.filter:lower()
-		creative.update_creative_inventory(player_name, fields.filter:lower(), tab_id)
+	elseif fields.creative_search then
+		local lowstr = fields.creative_filter:lower()
+		player_inventory[player_name].filter = lowstr
+		creative.update_creative_inventory(player_name, lowstr, tab_id)
 		creative.set_creative_formspec(player, 0, 1, tab_id)
 	else
 		if fields.creative_prev then
