@@ -49,23 +49,20 @@ local function eject_drops(drops, pos, radius)
 	local drop_pos = vector.new(pos)
 	for _, item in pairs(drops) do
 		local count = item:get_count()
-		local max = item:get_stack_max()
-		if count > max then
-			item:set_count(max)
-		end
 		while count > 0 do
-			if count < max then
-				item:set_count(count)
-			end
+			local take = math.min(math.random(2,5),
+					item:get_count(),
+					item:get_stack_max())
 			rand_pos(pos, drop_pos, radius)
-			local obj = minetest.add_item(drop_pos, item)
+			local obj = minetest.add_item(drop_pos, item:get_name() .. " " .. take)
 			if obj then
 				obj:get_luaentity().collect = true
 				obj:setacceleration({x=0, y=-10, z=0})
-				obj:setvelocity({x=math.random(-3, 3), y=10,
+				obj:setvelocity({x=math.random(-3, 3),
+						y=math.random(0, 10),
 						z=math.random(-3, 3)})
 			end
-			count = count - max
+			count = count - take
 		end
 	end
 end
@@ -93,7 +90,12 @@ local function destroy(drops, pos, cid)
 	end
 	local def = cid_data[cid]
 	if def and def.on_blast then
-		def.on_blast(vector.new(pos), 1)
+		local node_drops = def.on_blast(vector.new(pos), 1)
+		if node_drops then
+			for _, item in ipairs(node_drops) do
+				add_drop(drops, item)
+			end
+		end
 		return
 	end
 	if def and def.flammable then
@@ -144,7 +146,7 @@ local function entity_physics(pos, radius)
 	end
 end
 
-local function add_effects(pos, radius)
+local function add_effects(pos, radius, drops)
 	minetest.add_particlespawner({
 		amount = 128,
 		time = 1,
@@ -159,6 +161,34 @@ local function add_effects(pos, radius)
 		minsize = 8,
 		maxsize = 16,
 		texture = "tnt_smoke.png",
+	})
+
+	-- we just dropped some items. Look at the items entities and pick
+	-- one of them to use as texture
+	local texture = "tnt_blast.png" --fallback texture
+	for name, drop in pairs(drops) do
+		local def = minetest.registered_nodes[name]
+		if def and def.tiles and def.tiles[1] then
+			texture = def.tiles[1]
+			break
+		end
+	end
+
+	minetest.add_particlespawner({
+		amount = 64,
+		time = 0.1,
+		minpos = vector.subtract(pos, radius / 2),
+		maxpos = vector.add(pos, radius / 2),
+		minvel = {x=-3, y=0, z=-3},
+		maxvel = {x=3,  y=5,  z=3},
+		minacc = {x=0, y=-10, z=0},
+		maxacc = {x=0, y=-10, z=0},
+		minexptime = 0.8,
+		maxexptime = 2.0,
+		minsize = 2,
+		maxsize = 6,
+		texture = texture,
+		collisiondetection = true,
 	})
 end
 
@@ -221,7 +251,7 @@ local function boom(pos)
 	local drops = explode(pos, radius)
 	entity_physics(pos, radius)
 	eject_drops(drops, pos, radius)
-	add_effects(pos, radius)
+	add_effects(pos, radius, drops)
 end
 
 minetest.register_node("tnt:tnt", {
