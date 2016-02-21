@@ -87,19 +87,21 @@ end
 
 local fire_node = {name="fire:basic_flame"}
 
-local function destroy(drops, pos, cid)
+local function destroy(drops, npos, cid, bpos)
 	if minetest.is_protected(pos, "") then
 		return
 	end
 	local def = cid_data[cid]
 	if def and def.on_blast then
-		def.on_blast(vector.new(pos), 1)
+		local dist = vector.distance(bpos, npos) or 0.5
+		local intensity = 1 / (dist * dist)
+		def.on_blast(vector.new(npos), intensity)
 		return
 	end
 	if def and def.flammable then
-		minetest.set_node(pos, fire_node)
+		minetest.set_node(npos, fire_node)
 	else
-		minetest.remove_node(pos)
+		minetest.remove_node(npos)
 		if def then
 			local node_drops = minetest.get_node_drops(def.name, "")
 			for _, item in ipairs(node_drops) do
@@ -201,7 +203,7 @@ local function explode(pos, radius)
 			p.y = pos.y + y
 			p.z = pos.z + z
 			if cid ~= c_air then
-				destroy(drops, p, cid)
+				destroy(drops, p, cid, pos)
 			end
 		end
 		vi = vi + 1
