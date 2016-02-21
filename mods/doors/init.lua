@@ -119,7 +119,7 @@ function _doors.door_toggle(pos, clicker)
 	local meta = minetest.get_meta(pos)
 	local state = meta:get_int("state")
 	local def = minetest.registered_nodes[minetest.get_node(pos).name]
-	local name = def.door.basename
+	local name = def.door.name
 
 	if clicker then
 		local owner = meta:get_string("doors_owner")
@@ -146,7 +146,7 @@ function _doors.door_toggle(pos, clicker)
 	end
 
 	minetest.swap_node(pos, {
-		name = "doors:" .. name .. transform[state + 1][dir+1].v,
+		name = name .. transform[state + 1][dir+1].v,
 		param2 = transform[state + 1][dir+1].param2
 	})
 	meta:set_int("state", state)
@@ -174,9 +174,13 @@ local function on_place_node(place_to, newnode, placer, oldnode, itemstack, poin
 end
 
 function doors.register(name, def)
+	if not name:find(":") then
+		name = "doors:" .. name
+	end
+
 	-- replace old doors of this type automatically
 	minetest.register_abm({
-		nodenames = {"doors:"..name.."_b_1", "doors:"..name.."_b_2"},
+		nodenames = {name.."_b_1", name.."_b_2"},
 		interval = 7.0,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
@@ -190,14 +194,14 @@ function doors.register(name, def)
 			}
 			local new = replace[l][h]
 			-- retain infotext and doors_owner fields
-			minetest.swap_node(pos, { name = "doors:" .. name .. "_" .. new.type, param2 = p2})
+			minetest.swap_node(pos, {name = name .. "_" .. new.type, param2 = p2})
 			meta:set_int("state", new.state)
 			-- wipe meta on top node as it's unused
 			minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, { name = "doors:hidden" })
 		end
 	})
 
-	minetest.register_craftitem(":doors:" .. name, {
+	minetest.register_craftitem(":" .. name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
 
@@ -249,9 +253,9 @@ function doors.register(name, def)
 			local state = 0
 			if minetest.get_item_group(minetest.get_node(aside).name, "door") == 1 then
 				state = state + 2
-				minetest.set_node(pos, {name = "doors:" .. name .. "_b", param2 = dir})
+				minetest.set_node(pos, {name = name .. "_b", param2 = dir})
 			else
-				minetest.set_node(pos, {name = "doors:" .. name .. "_a", param2 = dir})
+				minetest.set_node(pos, {name = name .. "_a", param2 = dir})
 			end
 			minetest.set_node(above, { name = "doors:hidden" })
 
@@ -296,9 +300,9 @@ function doors.register(name, def)
 
 	def.groups.not_in_creative_inventory = 1
 	def.groups.door = 1
-	def.drop = "doors:" .. name
+	def.drop = name
 	def.door = {
-		basename = name,
+		name = name,
 		sounds = { def.sound_close, def.sound_open },
 	}
 
@@ -321,12 +325,12 @@ function doors.register(name, def)
 		def.on_blast = function(pos, intensity)
 			minetest.remove_node(pos)
 			-- hidden node doesn't get blasted away.
-			minetest.remove_node({ x = pos.x, y = pos.y + 1, z = pos.z})
-			return { "doors:" .. name }
+			minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+			return {name}
 		end
 	end
 
-	minetest.register_node(":doors:" .. name .. "_a", {
+	minetest.register_node(":" .. name .. "_a", {
 		description = def.description,
 		visual = "mesh",
 		mesh = "door_a.obj",
@@ -358,7 +362,7 @@ function doors.register(name, def)
 		},
 	})
 
-	minetest.register_node(":doors:" .. name .. "_b", {
+	minetest.register_node(":" .. name .. "_b", {
 		description = def.description,
 		visual = "mesh",
 		mesh = "door_b.obj",
@@ -392,13 +396,13 @@ function doors.register(name, def)
 
 	if def.recipe then
 		minetest.register_craft({
-			output = "doors:" .. name,
+			output = name,
 			recipe = def.recipe,
 		})
 	end
 
-	_doors.registered_doors["doors:" .. name .. "_a"] = true
-	_doors.registered_doors["doors:" .. name .. "_b"] = true
+	_doors.registered_doors[name .. "_a"] = true
+	_doors.registered_doors[name .. "_b"] = true
 end
 
 doors.register("door_wood", {
@@ -461,7 +465,6 @@ function doors.register_door(name, def)
 
 	local i = name:find(":")
 	local modname = name:sub(1, i - 1)
-	local doorname = modname .. "_" .. name:sub(i + 1, -1)
 	if not def.tiles then
 		if def.protected then
 			def.tiles = {{name = "doors_door_steel.png", backface_culling = true}}
@@ -474,35 +477,7 @@ function doors.register_door(name, def)
 				"will be used instead.")
 	end
 
-	doors.register(doorname, def)
-
-	-- these help replace items present and conversion
-	minetest.register_alias(name, "doors:" .. doorname)
-	minetest.register_alias(name .. "_t_1", "doors:hidden")
-	minetest.register_alias(name .. "_t_2", "doors:hidden")
-
-	minetest.register_abm({
-		nodenames = {name .. "_b_1", name .. "_b_2"},
-		interval = 7.0,
-		chance = 1,
-		action = function(pos, node, active_object_count, active_object_count_wider)
-			local l = tonumber(node.name:sub(-1))
-			local meta = minetest.get_meta(pos)
-			local h = meta:get_int("right") + 1
-			local p2 = node.param2
-			local replace = {
-				{{type = "a", state = 0}, {type = "a", state = 3}},
-				{{type = "b", state = 1}, {type = "b", state = 2}}
-			}
-			local new = replace[l][h]
-
-			-- retain infotext and doors_owner fields
-			minetest.swap_node(pos, {name = "doors:" .. doorname .. "_" .. new.type, param2 = p2})
-			meta:set_int("state", new.state)
-			-- wipe meta on top node as it's unused
-			minetest.set_node({x = pos.sx, y = pos.y + 1, z = pos.z}, {name = "doors:hidden"})
-		end
-	})
+	doors.register(name, def)
 end
 
 ----trapdoor----
