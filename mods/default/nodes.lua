@@ -879,10 +879,6 @@ minetest.register_node("default:cactus", {
 	groups = {snappy = 1, choppy = 3, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
-
-	after_dig_node = function(pos, node, metadata, digger)
-		default.dig_up(pos, node, digger)
-	end,
 })
 
 minetest.register_node("default:papyrus", {
