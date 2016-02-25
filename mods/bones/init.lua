@@ -43,7 +43,11 @@ minetest.register_node("bones:bones", {
 	
 	can_dig = function(pos, player)
 		local inv = minetest.get_meta(pos):get_inventory()
-		return is_owner(pos, player:get_player_name()) and inv:is_empty("main")
+		local name = ""
+		if player then
+			name = player:get_player_name()
+		end
+		return is_owner(pos, name) and inv:is_empty("main")
 	end,
 	
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
