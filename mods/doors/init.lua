@@ -288,7 +288,11 @@ function doors.register(name, def)
 			return true
 		end
 		local meta = minetest.get_meta(pos)
-		return meta:get_string("doors_owner") == digger:get_player_name()
+		local name = ""
+		if digger then
+			name = digger:get_player_name()
+		end
+		return meta:get_string("doors_owner") == name
 	end
 
 	if not def.sounds then
