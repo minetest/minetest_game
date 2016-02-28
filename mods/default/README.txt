@@ -59,7 +59,6 @@ VanessaE (WTFPL):
   default_desert_sand.png
   default_desert_stone.png
   default_sand.png
-  default_jungletree_top.png
 
 Calinou (CC BY-SA):
   default_brick.png
@@ -100,28 +99,29 @@ Zeg9 (CC BY-SA 3.0):
   default_gold_block.png
 
 paramat (CC BY-SA 3.0):
-  wieldhand.png, derived from character.png by Jordach (CC BY-SA 3.0)
+  wieldhand.png copied from character.png by Jordach (CC BY-SA 3.0)
   default_pinetree.png
   default_pinetree_top.png
   default_pinewood.png
-  default_sandstone_brick.png
-  default_obsidian_brick.png
-  default_river_water.png
-  default_river_water_source_animated.png
-  default_river_water_flowing_animated.png
   default_acacia_leaves.png
   default_acacia_sapling.png
   default_acacia_tree.png
   default_acacia_tree_top.png
   default_acacia_wood.png
+  default_junglewood.png
+  default_jungletree_top.png
+  default_sandstone_brick.png
+  default_obsidian_brick.png
+  default_stone_brick.png
+  default_desert_stone_brick.png
+  default_river_water.png
+  default_river_water_source_animated.png
+  default_river_water_flowing_animated.png
   default_dry_grass.png
   default_dry_grass_side.png
   default_dry_grass_*.png
-  default_junglewood.png, derived from a texture by BlockMen (CC BY-SA 3.0)
-  default_grass.png, derived from a texture by Philipbenr (CC BY-SA 3.0)
-  default_grass_side.png, derived from a texture by Philipbenr (CC BY-SA 3.0)
-  default_stone_brick.png, derived from a texture by Cisoun (WTFPL)
-  default_desert_stone_brick.png, derived from a texture by VanessaE (WTFPL)
+  default_grass.png
+  default_grass_side.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
