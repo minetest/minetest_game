@@ -235,6 +235,11 @@ function doors.register(name, def)
 				return itemstack
 			end
 
+			local pn = placer:get_player_name()
+			if minetest.is_protected(pos, pn) or minetest.is_protected(above, pn) then
+				return itemstack
+			end
+
 			local dir = minetest.dir_to_facedir(placer:get_look_dir())
 
 			local ref = {
