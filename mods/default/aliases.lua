@@ -23,7 +23,7 @@ minetest.register_alias("bookshelf", "default:bookshelf")
 minetest.register_alias("glass", "default:glass")
 minetest.register_alias("wooden_fence", "default:fence_wood")
 minetest.register_alias("rail", "default:rail")
-minetest.register_alias("ladder", "default:ladder")
+minetest.register_alias("ladder", "default:ladder_wood")
 minetest.register_alias("wood", "default:wood")
 minetest.register_alias("mese", "default:mese")
 minetest.register_alias("cloud", "default:cloud")
@@ -74,3 +74,6 @@ minetest.register_alias("default:mese_block", "default:mese")
 -- Aliases for corrected pine node names
 minetest.register_alias("default:pinetree", "default:pine_tree")
 minetest.register_alias("default:pinewood", "default:pine_wood")
+
+minetest.register_alias("default:ladder", "default:ladder_wood")
+

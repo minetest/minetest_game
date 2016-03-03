@@ -177,6 +177,7 @@ Gambit (WTFPL):
   default_grass_*.png
   default_paper.png
   default_diamond_block.png
+  default_ladder_steel.png
 
 asl97 (WTFPL):
   default_ice.png
