@@ -4,17 +4,20 @@ GitHub Repo: https://github.com/minetest/minetest_game
 
 Introduction
 ------------
+
 The Minetest Game subgame offers multiple new possibilities in addition to the Minetest engine's built-in API,
 allowing you to add new plants to farming mod, buckets for new liquids, new stairs and custom panes.
 For information on the Minetest API, visit https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
 Please note:
-	[XYZ] refers to a section the Minetest API
-	[#ABC] refers to a section in this document
-	^ Explanation for line above
+
+ * [XYZ] refers to a section the Minetest API
+ * [#ABC] refers to a section in this document
 
 Bucket API
 ----------
+
 The bucket API allows registering new types of buckets for non-default liquids.
+
 
 	bucket.register_liquid(
 		"default:lava_source",   -- name of the source node
@@ -27,59 +30,61 @@ The bucket API allows registering new types of buckets for non-default liquids.
 
 Beds API
 --------
+
 	beds.register_bed(
-		"beds:bed",                 -- Bed name
-		def: See [#Bed definition]  -- Bed definition
+		"beds:bed",    -- Bed name
+		def            -- See [#Bed definition]
 	)
 
-	beds.read_spawns()   -- returns a table containing players respawn positions
-	beds.kick_players()  -- forces all players to leave bed
-	beds.skip_night()    -- sets world time to morning and saves respawn position of all players currently sleeping
+ * `beds.read_spawns() `   Returns a table containing players respawn positions
+ * `beds.kick_players()`  Forces all players to leave bed
+ * `beds.skip_night()`   Sets world time to morning and saves respawn position of all players currently sleeping
+ 
+###Bed definition
 
-#Bed definition
----------------
-{
-	description = "Simple Bed",
-	inventory_image = "beds_bed.png",
-	wield_image = "beds_bed.png",
-	tiles = {
-	    bottom = {[Tile definition],
-		^ the tiles of the bottom part of the bed
-	    },
-	    top = {[Tile definition],
-		^ the tiles of the bottom part of the bed
-	    }
-	},
-	nodebox = {
-	    bottom = regular nodebox, see [Node boxes],    -- bottm part of bed
-	    top = regular nodebox, see [Node boxes],       -- top part of bed
-	},
-	selectionbox = regular nodebox, see [Node boxes],  -- for both nodeboxes
-	recipe = {                                         -- Craft recipe
-		{"group:wool", "group:wool", "group:wool"},
-		{"group:wood", "group:wood", "group:wood"}
+	{
+		description = "Simple Bed",
+		inventory_image = "beds_bed.png",
+		wield_image = "beds_bed.png",
+		tiles = {
+			bottom = {'Tile definition'}, -- the tiles of the bottom part of the bed.
+			top = {Tile definition} -- the tiles of the bottom part of the bed.
+		},
+		nodebox = {
+			bottom = 'regular nodebox',     -- bottom part of bed (see [Node boxes])
+			top = 'regular nodebox',        -- top part of bed (see [Node boxes])
+		},
+		selectionbox = 'regular nodebox',  -- for both nodeboxes (see [Node boxes])
+		recipe = {                                         -- Craft recipe
+			{"group:wool", "group:wool", "group:wool"},
+			{"group:wood", "group:wood", "group:wood"}
+		}
 	}
-}
 
 Doors API
 ---------
+
 The doors mod allows modders to register custom doors and trapdoors.
 
-doors.register_door(name, def)
-^ name: "Door name"
-^ def: See [#Door definition]
- -> Registers new door
+`doors.register_door(name, def)`
 
-doors.register_trapdoor(name, def)
-^ name: "mod_door"
-^ def: See [#Trapdoor definition]
- -> Registers new trapdoor
+ * Registers new door
+ * `name` Name for door
+ * `def`  See [#Door definition]
 
-doors.get(pos)
-^ pos = { x = .., y = .., z = ..}
- -> Returns an ObjecRef to a door, or nil if the pos did not contain a door
+`doors.register_trapdoor(name, def)`
 
-    Methods:
+ * Registers new trapdoor
+ * `name` Name for trapdoor
+ * `def`  See [#Trapdoor definition]
+
+`doors.get(pos)`
+ 
+ * `pos` A position as a table, e.g `{x = 1, y = 1, z = 1}`
+ * Returns an ObjecRef to a door, or nil if the position does not contain a door
+ 
+ ###Methods
+ 
         :open(player)   -- Open the door object, returns if door was opened
         :close(player)  -- Close the door object, returns if door was closed
         :toggle(player) -- Toggle the door state, returns if state was toggled
@@ -90,164 +95,166 @@ doors.get(pos)
     has the permissions needed to open this door. If omitted then no
     permission checks are performed.
 
-#Door definition
-----------------
-{
+###Door definition
+
 	description = "Door description",
 	inventory_image = "mod_door_inv.png",
-	groups = {choppy = 1},
-	tiles = { "mod_door.png" },
+	groups = {choppy = 2},
+	tiles = {"mod_door.png"}, -- UV map.
 	recipe = craftrecipe,
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
-	protected = false,
-	^ If true, only placer can open the door (locked for others)
-}
+	protected = false, -- If true, only placer can open the door (locked for others)
 
-#Trapdoor definition
-----------------
-{
+###Trapdoor definition
+
 	description = "Trapdoor description",
 	inventory_image = "mod_trapdoor_inv.png",
-	groups = {choppy = 1},
-	tile_front = "doors_trapdoor.png",
-	^ the texture for the front and back of the trapdoor
-	tile_side: "doors_trapdoor_side.png",
-	^ the tiles of the four side parts of the trapdoor
+	groups = {choppy = 2},
+	tile_front = "doors_trapdoor.png", -- the texture for the front and back of the trapdoor
+	tile_side = "doors_trapdoor_side.png", -- the tiles of the four side parts of the trapdoor
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
-	protected = false,
-	^ If true, only placer can open the door (locked for others)
-}
+	protected = false, -- If true, only placer can open the door (locked for others)
 
 Fence API
 ---------
 Allows creation of new fences with "fencelike" drawtype.
 
-default.register_fence(name, item definition)
- ^ Registers a new fence. Custom fields texture and material are required, as
- ^ are name and description. The rest is optional. You can pass most normal
- ^ nodedef fields here except drawtype. The fence group will always be added
- ^ for this node.
+`default.register_fence(name, item definition)`
 
-#fence definition
+ Registers a new fence. Custom fields texture and material are required, as
+ are name and description. The rest is optional. You can pass most normal
+ nodedef fields here except drawtype. The fence group will always be added
+ for this node.
+
+###fence definition
+
 	name = "default:fence_wood",
 	description = "Wooden Fence",
 	texture = "default_wood.png",
 	material = "default:wood",
-	groups = {choppy=2, oddly_breakable_by_hand = 2, flammable = 2},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
 Farming API
 -----------
+
 The farming API allows you to easily register plants and hoes.
 
-farming.register_hoe(name, hoe definition)
- -> Register a new hoe, see [#hoe definition]
+`farming.register_hoe(name, hoe definition)`
+ * Register a new hoe, see [#hoe definition]
 
-farming.register_plant(name, Plant definition)
- -> Register a new growing plant, see [#Plant definition]
+`farming.register_plant(name, Plant definition)`
+ * Register a new growing plant, see [#Plant definition]
 
-#Hoe Definition
----------------
-{
-	description = "",                      -- Description for tooltip
-	inventory_image = "unknown_item.png",  -- Image to be used as wield- and inventory image
-	max_uses = 30,                         -- Uses until destroyed
-	material = "",                         -- Material for recipes
-	recipe = {                             -- Craft recipe, if material isn't used
-		{"air", "air", "air"},
-		{"", "group:stick"},
-		{"", "group:stick"},
+###Hoe Definition
+
+
+	{
+		description = "",                      -- Description for tooltip
+		inventory_image = "unknown_item.png",  -- Image to be used as wield- and inventory image
+		max_uses = 30,                         -- Uses until destroyed
+		material = "",                         -- Material for recipes
+		recipe = {                             -- Craft recipe, if material isn't used
+			{"air", "air", "air"},
+			{"", "group:stick"},
+			{"", "group:stick"},
+		}
 	}
-}
 
-#Plant definition
------------------
-{
-	description = "",                      -- Description of seed item
-	inventory_image = "unknown_item.png",  -- Image to be used as seed's wield- and inventory image
-	steps = 8,                             -- How many steps the plant has to grow, until it can be harvested
-	^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
-	minlight = 13,                         -- Minimum light to grow
-	maxlight = default.LIGHT_MAX           -- Maximum light to grow
-}
+###Plant definition
+
+	{
+		description = "",                      -- Description of seed item
+		inventory_image = "unknown_item.png",  -- Image to be used as seed's wield- and inventory image
+		steps = 8,                             -- How many steps the plant has to grow, until it can be harvested
+		-- ^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
+		minlight = 13,                         -- Minimum light to grow
+		maxlight = default.LIGHT_MAX           -- Maximum light to grow
+	}
 
 Screwdriver API
 ---------------
+
 The screwdriver API allows you to control a node's behaviour when a screwdriver is used on it.
-To use it, add the on_screwdriver function to the node definition.
-on_rotate(pos, node, user, mode, new_param2)
-^ pos: position of the node that the screwdriver is being used on
-^ node: that node
-^ user: the player who used the screwdriver
-^ mode: screwdriver.ROTATE_FACE or screwdriver.ROTATE_AXIS
-^ new_param2: the new value of param2 that would have been set if on_rotate wasn't there
-^ return value: false to disallow rotation, nil to keep default behaviour, true to allow
+To use it, add the `on_screwdriver` function to the node definition.
+
+`on_rotate(pos, node, user, mode, new_param2)`
+
+ * `pos` Position of the node that the screwdriver is being used on
+ * `node` that node
+ * `user` The player who used the screwdriver
+ * `mode` screwdriver.ROTATE_FACE or screwdriver.ROTATE_AXIS
+ * `new_param2` the new value of param2 that would have been set if on_rotate wasn't there
+ * return value: false to disallow rotation, nil to keep default behaviour, true to allow
  	it but to indicate that changed have already been made (so the screwdriver will wear out)
-^ use on_rotate = screwdriver.disallow to always disallow rotation
-^ use on_rotate = screwdriver.rotate_simple to allow only face rotation
+ * use `on_rotate = screwdriver.disallow` to always disallow rotation
+ * use `on_rotate = screwdriver.rotate_simple` to allow only face rotation
 
 Stairs API
 ----------
+
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
 delivered with Minetest Game, to keep them compatible with other mods.
 
-stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
- -> Registers a stair.
- -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
- -> recipeitem: Item used in the craft recipe, e.g. "default:cobble"
- -> groups: see [Known damage and digging time defining groups]
- -> images: see [Tile definition]
- -> description: used for the description field in the stair's definition
- -> sounds: see [#Default sounds]
+`stairs.register_stair(subname, recipeitem, groups, images, description, sounds)`
 
-stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
- -> Registers a slabs
- -> subname: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
- -> recipeitem: Item used in the craft recipe, e.g. "default:cobble"
- -> groups: see [Known damage and digging time defining groups]
- -> images: see [Tile definition]
- -> description: used for the description field in the stair's definition
- -> sounds: see [#Default sounds]
+ * Registers a stair.
+ * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
+ * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble"
+ * `groups`: see [Known damage and digging time defining groups]
+ * `images`: see [Tile definition]
+ * `description`: used for the description field in the stair's definition
+ * `sounds`: see [#Default sounds]
 
-stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
- -> A wrapper for stairs.register_stair and stairs.register_slab
- -> Uses almost the same arguments as stairs.register_stair
- -> desc_stair: Description for stair node
- -> desc_slab: Description for slab node
+`stairs.register_slab(subname, recipeitem, groups, images, description, sounds)`
+
+ * Registers a slabs
+ * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
+ * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble"
+ * `groups`: see [Known damage and digging time defining groups]
+ * `images`: see [Tile definition]
+ * `description`: used for the description field in the stair's definition
+ * `sounds`: see [#Default sounds]
+
+`stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)`
+
+ * A wrapper for stairs.register_stair and stairs.register_slab
+ * Uses almost the same arguments as stairs.register_stair
+ * `desc_stair`: Description for stair node
+ * `desc_slab`: Description for slab node
 
 Xpanes API
 ----------
+
 Creates panes that automatically connect to each other
 
-xpanes.register_pane(subname, def)
- -> subname: used for nodename. Result: "xpanes:subname" and "xpanes:subname_{2..15}"
- -> def: See [#Pane definition]
+`xpanes.register_pane(subname, def)`
 
-#Pane definition
-----------------
-{
-	textures = {"texture_Bottom_top", "texture_left_right", "texture_front_back"},
-	^ More tiles aren't supported
-	groups = {group = rating},
-	^ Uses the known node groups, see [Known damage and digging time defining groups]
-	sounds = SoundSpec,
-	^ See [#Default sounds]
-	recipe = {{"","","","","","","","",""}},
-	^ Recipe field only
-}
+ * `subname`: used for nodename. Result: "xpanes:subname" and "xpanes:subname_{2..15}"
+ * `def`: See [#Pane definition]
+
+###Pane definition
+
+	{
+		textures = {"texture_Bottom_top", "texture_left_right", "texture_front_back"}, -- More tiles aren't supported
+		groups = {group = rating}, -- Uses the known node groups, see [Known damage and digging time defining groups]
+		sounds = SoundSpec,        -- See [#Default sounds]
+		recipe = {{"","","","","","","","",""}}, -- Recipe field only
+	}
 
 Raillike definitions
 --------------------
+
 The following nodes use the group `connect_to_raillike` and will only connect to
 raillike nodes within this group and the same group value.
 Use `minetest.raillike_group(<Name>)` to get the group value.
 
 | Node type             | Raillike group name
-+-----------------------+--------------------
+|-----------------------|---------------------
 | default:rail          | "rail"
 | tnt:gunpowder         | "gunpowder"
 | tnt:gunpowder_burning	| "gunpowder"
@@ -260,168 +267,188 @@ of your node.
 
 Default sounds
 --------------
+
 Sounds inside the default table can be used within the sounds field of node definitions.
 
-default.node_sound_defaults()
-default.node_sound_stone_defaults()
-default.node_sound_dirt_defaults()
-default.node_sound_sand_defaults()
-default.node_sound_wood_defaults()
-default.node_sound_leaves_defaults()
-default.node_sound_glass_defaults()
+ * `default.node_sound_defaults()`
+ * `default.node_sound_stone_defaults()`
+ * `default.node_sound_dirt_defaults()`
+ * `default.node_sound_sand_defaults()`
+ * `default.node_sound_wood_defaults()`
+ * `default.node_sound_leaves_defaults()`
+ * `default.node_sound_glass_defaults()`
 
 Default constants
 -----------------
-default.LIGHT_MAX
-^ The maximum light level (see [Node definition] light_source)
+
+`default.LIGHT_MAX`  The maximum light level (see [Node definition] light_source)
 
 Player API
 ----------
+
 The player API can register player models and update the player's appearence
 
-default.player_register_model(name, def)
-^ Register a new model to be used by players.
- -> name: model filename such as "character.x", "foo.b3d", etc.
- -> def: See [#Model definition]
+`default.player_register_model(name, def)`
 
-default.registered_player_models[name]
-^ Get a model's definition
- -> see [#Model definition]
+ * Register a new model to be used by players.
+ * name: model filename such as "character.x", "foo.b3d", etc.
+ * def: See [#Model definition]
 
-default.player_set_model(player, model_name)
-^ Change a player's model
- -> player: PlayerRef
- -> model_name: model registered with player_register_model()
+`default.registered_player_models[name]`
 
-default.player_set_animation(player, anim_name [, speed])
-^ Applies an animation to a player
- -> anim_name: name of the animation.
- -> speed: frames per second. If nil, default from the model is used
+ * Get a model's definition
+ * see [#Model definition]
 
-default.player_set_textures(player, textures)
-^ Sets player textures
- -> player: PlayerRef
- -> textures: array of textures
- ^ If <textures> is nil, the default textures from the model def are used
+`default.player_set_model(player, model_name)`
+
+ * Change a player's model
+ * `player`: PlayerRef
+ * `model_name`: model registered with player_register_model()
+
+`default.player_set_animation(player, anim_name [, speed])`
+
+ * Applies an animation to a player
+ * anim_name: name of the animation.
+ * speed: frames per second. If nil, default from the model is used
+
+`default.player_set_textures(player, textures)`
+
+ * Sets player textures
+ * `player`: PlayerRef
+ * `textures`: array of textures, If `textures` is nil, the default textures from the model def are used
 
 default.player_get_animation(player)
-^ Returns a table containing fields "model", "textures" and "animation".
-^ Any of the fields of the returned table may be nil.
- -> player: PlayerRef
 
-Model Definition
-----------------
-{
-	animation_speed = 30,            -- Default animation speed, in FPS.
-	textures = {"character.png", },  -- Default array of textures.
-	visual_size = {x = 1, y = 1},    -- Used to scale the model.
-	animations = {
-		-- <anim_name> = {x = <start_frame>, y = <end_frame>},
-		foo = {x = 0, y = 19},
-		bar = {x = 20, y = 39},
+ * Returns a table containing fields `model`, `textures` and `animation`.
+ * Any of the fields of the returned table may be nil.
+ * player: PlayerRef
+
+###Model Definition
+
+	{
+		animation_speed = 30,            -- Default animation speed, in FPS.
+		textures = {"character.png", },  -- Default array of textures.
+		visual_size = {x = 1, y = 1},    -- Used to scale the model.
+		animations = {
+			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
+			foo = {x = 0, y = 19},
+			bar = {x = 20, y = 39},
 		-- ...
-	},
-}
+		},
+	}
 
 Leafdecay
 ---------
-To enable leaf decay for a node, add it to the "leafdecay" group.
 
-The rating of the group determines how far from a node in the group "tree"
+To enable leaf decay for a node, add it to the `leafdecay` group.
+
+The rating of the group determines how far from a node in the group `tree`
 the node can be without decaying.
 
-If param2 of the node is ~= 0, the node will always be preserved. Thus, if
-the player places a node of that kind, you will want to set param2=1 or so.
+If `param2` of the node is ~= 0, the node will always be preserved. Thus, if
+the player places a node of that kind, you will want to set `param2 = 1` or so.
 
-The function default.after_place_leaves can be set as after_place_node of a node
+The function `default.after_place_leaves` can be set as `after_place_node of a node`
 to set param2 to 1 if the player places the node (should not be used for nodes
 that use param2 otherwise (e.g. facedir)).
 
-If the node is in the leafdecay_drop group then it will always be dropped as an
+If the node is in the `leafdecay_drop` group then it will always be dropped as an
 item.
 
 Dyes
 ----
+
 To make recipes that will work with any dye ever made by anybody, define
 them based on groups. You can select any group of groups, based on your need for
 amount of colors.
 
-#Color groups
--------------
-Base color groups:
-- basecolor_white
-- basecolor_grey
-- basecolor_black
-- basecolor_red
-- basecolor_yellow
-- basecolor_green
-- basecolor_cyan
-- basecolor_blue
-- basecolor_magenta
+###Color groups
 
-Extended color groups (* = equal to a base color):
-* excolor_white
-- excolor_lightgrey
-* excolor_grey
-- excolor_darkgrey
-* excolor_black
-* excolor_red
-- excolor_orange
-* excolor_yellow
-- excolor_lime
-* excolor_green
-- excolor_aqua
-* excolor_cyan
-- excolor_sky_blue
-* excolor_blue
-- excolor_violet
-* excolor_magenta
-- excolor_red_violet
+Base color groups:
+
+ * `basecolor_white`
+ * `basecolor_grey`
+ * `basecolor_black`
+ * `basecolor_red`
+ * `basecolor_yellow`
+ * `basecolor_green`
+ * `basecolor_cyan`
+ * `basecolor_blue`
+ * `basecolor_magenta`
+
+Extended color groups ( * means also base color )
+
+ * `excolor_white` *
+ * `excolor_lightgrey`
+ * `excolor_grey` *
+ * `excolor_darkgrey`
+ * `excolor_black` *
+ * `excolor_red` *
+ * `excolor_orange`
+ * `excolor_yellow` *
+ * `excolor_lime`
+ * `excolor_green` *
+ * `excolor_aqua`
+ * `excolor_cyan` *
+ * `excolor_sky_blue`
+ * `excolor_blue` *
+ * `excolor_violet`
+ * `excolor_magenta` *
+ * `excolor_red_violet`
 
 The whole unifieddyes palette as groups:
-- unicolor_<excolor>
+
+ * `unicolor_<excolor>`
+
 For the following, no white/grey/black is allowed:
-- unicolor_medium_<excolor>
-- unicolor_dark_<excolor>
-- unicolor_light_<excolor>
-- unicolor_<excolor>_s50
-- unicolor_medium_<excolor>_s50
-- unicolor_dark_<excolor>_s50
+
+ * `unicolor_medium_<excolor>`
+ * `unicolor_dark_<excolor>`
+ * `unicolor_light_<excolor>`
+ * `unicolor_<excolor>_s50`
+ * `unicolor_medium_<excolor>_s50`
+ * `unicolor_dark_<excolor>_s50`
 
 Example of one shapeless recipe using a color group:
-minetest.register_craft({
-	type = "shapeless",
-	output = '<mod>:item_yellow',
-	recipe = {'<mod>:item_no_color', 'group:basecolor_yellow'},
-})
 
-#Color lists
-------------
-dye.basecolors
-^ Array containing the names of available base colors
+	minetest.register_craft({
+		type = "shapeless",
+		output = '<mod>:item_yellow',
+		recipe = {'<mod>:item_no_color', 'group:basecolor_yellow'},
+	})
 
-dye.excolors
-^ Array containing the names of the available extended colors
+###Color lists
+
+ * `dye.basecolors` are an array containing the names of available base colors
+
+ * `dye.excolors` are an array containing the names of the available extended colors
 
 Trees
 -----
-default.grow_tree(pos, is_apple_tree)
-^ Grows a mgv6 tree or apple tree at pos
 
-default.grow_jungle_tree(pos)
-^ Grows a mgv6 jungletree at pos
+ * `default.grow_tree(pos, is_apple_tree)`
+  * Grows a mgv6 tree or apple tree at pos
 
-default.grow_pine_tree(pos)
-^ Grows a mgv6 pinetree at pos
+ * `default.grow_jungle_tree(pos)`
+  * Grows a mgv6 jungletree at pos
 
-default.grow_new_apple_tree(pos)
-^ Grows a new design apple tree at pos
+ * `default.grow_pine_tree(pos)` 
+  * Grows a mgv6 pinetree at pos
 
-default.grow_new_jungle_tree(pos)
-^ Grows a new design jungle tree at pos
+ * `default.grow_new_apple_tree(pos)`
+  * Grows a new design apple tree at pos
 
-default.grow_new_pine_tree(pos)
-^ Grows a new design pine tree at pos
+ * `default.grow_new_jungle_tree(pos)`
+  * Grows a new design jungle tree at pos
 
-default.grow_new_acacia_tree(pos)
-^ Grows a new design acacia tree at pos
+ * `default.grow_new_pine_tree(pos)`
+  * Grows a new design pine tree at pos
+
+ * `default.grow_new_acacia_tree(pos)`
+  * Grows a new design acacia tree at pos
+
+ * `default.grow_new_aspen_tree(pos)`
+  * Grows a new design aspen tree at pos
+
+ * `default.grow_new_snowy_pine_tree(pos)`
+  * Grows a new design snowy pine tree at pos
