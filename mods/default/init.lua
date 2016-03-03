@@ -35,6 +35,7 @@ default.gui_survival_form = "size[8,8.5]"..
 			default.get_hotbar_bg(0,4.25)
 
 -- Load files
+dofile(minetest.get_modpath("default").."/config.lua")
 dofile(minetest.get_modpath("default").."/functions.lua")
 dofile(minetest.get_modpath("default").."/nodes.lua")
 dofile(minetest.get_modpath("default").."/furnace.lua")
