@@ -3,7 +3,7 @@
 minetest.register_craftitem("default:stick", {
 	description = "Stick",
 	inventory_image = "default_stick.png",
-	groups = {stick=1},
+	groups = {stick = 1},
 })
 
 minetest.register_craftitem("default:paper", {
@@ -20,20 +20,20 @@ local function book_on_use(itemstack, user, pointed_thing)
 	end
 	local formspec
 	if owner == player_name then
-		formspec = "size[8,8]"..default.gui_bg..
-			default.gui_bg_img..
-			"field[0.5,1;7.5,0;title;Title:;"..
-				minetest.formspec_escape(title).."]"..
-			"textarea[0.5,1.5;7.5,7;text;Contents:;"..
-				minetest.formspec_escape(text).."]"..
+		formspec = "size[8,8]" .. default.gui_bg ..
+			default.gui_bg_img ..
+			"field[0.5,1;7.5,0;title;Title:;" ..
+				minetest.formspec_escape(title) .. "]" ..
+			"textarea[0.5,1.5;7.5,7;text;Contents:;" ..
+				minetest.formspec_escape(text) .. "]" ..
 			"button_exit[2.5,7.5;3,1;save;Save]"
 	else
-		formspec = "size[8,8]"..default.gui_bg..
-			default.gui_bg_img..
-			"label[0.5,0.5;by "..owner.."]"..
-			"label[0.5,0;"..minetest.formspec_escape(title).."]"..
-			"textarea[0.5,1.5;7.5,7;text;;"..
- 				minetest.formspec_escape(text).."]"
+		formspec = "size[8,8]" .. default.gui_bg ..
+			default.gui_bg_img ..
+			"label[0.5,0.5;by " .. owner .. "]" ..
+			"label[0.5,0;" .. minetest.formspec_escape(title) .. "]" ..
+			"textarea[0.5,1.5;7.5,7;text;;" ..
+				minetest.formspec_escape(text) .. "]"
 	end
 	minetest.show_formspec(user:get_player_name(), "default:book", formspec)
 end
@@ -78,14 +78,14 @@ end)
 minetest.register_craftitem("default:book", {
 	description = "Book",
 	inventory_image = "default_book.png",
-	groups = {book=1},
+	groups = {book = 1},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("default:book_written", {
 	description = "Book With Text",
 	inventory_image = "default_book_written.png",
-	groups = {book=1, not_in_creative_inventory=1},
+	groups = {book = 1, not_in_creative_inventory = 1},
 	stack_max = 1,
 	on_use = book_on_use,
 })
@@ -93,7 +93,7 @@ minetest.register_craftitem("default:book_written", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "default:book_written",
-	recipe = { "default:book", "default:book_written" }
+	recipe = {"default:book", "default:book_written"}
 })
 
 minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
