@@ -18,10 +18,9 @@ screwdriver.rotate_simple = function(pos, node, user, mode, new_param2)
 		return false
 	end
 end
-local USES = 200
 
 -- Handles rotation
-local function screwdriver_handler(itemstack, user, pointed_thing, mode)
+screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	if pointed_thing.type ~= "node" then
 		return
 	end
@@ -82,7 +81,7 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode)
 	end
 
 	if not minetest.setting_getbool("creative_mode") then
-		itemstack:add_wear(65535 / (USES - 1))
+		itemstack:add_wear(65535 / ((uses or 200) - 1))
 	end
 
 	return itemstack
@@ -93,11 +92,11 @@ minetest.register_tool("screwdriver:screwdriver", {
 	description = "Screwdriver (left-click rotates face, right-click rotates axis)",
 	inventory_image = "screwdriver.png",
 	on_use = function(itemstack, user, pointed_thing)
-		screwdriver_handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE)
+		screwdriver.handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE, 200)
 		return itemstack
 	end,
 	on_place = function(itemstack, user, pointed_thing)
-		screwdriver_handler(itemstack, user, pointed_thing, screwdriver.ROTATE_AXIS)
+		screwdriver.handler(itemstack, user, pointed_thing, screwdriver.ROTATE_AXIS, 200)
 		return itemstack
 	end,
 })
