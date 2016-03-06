@@ -1,2 +1,3 @@
 default
+i18n
 wool
