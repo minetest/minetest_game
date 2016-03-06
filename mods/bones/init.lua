@@ -154,7 +154,8 @@ local function may_replace(pos, player)
 end
 
 minetest.register_on_dieplayer(function(player)
-	if minetest.setting_getbool("creative_mode") then
+	if minetest.setting_getbool("creative_mode") or
+	   minetest.setting_getbool("disable_bones") then
 		return
 	end
 	
