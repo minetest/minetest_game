@@ -27,7 +27,6 @@ Cisoun's WTFPL texture pack:
   default_lava.png
   default_leaves.png
   default_sapling.png
-  default_sign_wall.png
   default_stone.png
   default_tree.png
   default_tree_top.png
@@ -178,6 +177,7 @@ Gambit (WTFPL):
   default_paper.png
   default_diamond_block.png
   default_ladder_steel.png
+  default_sign_wall_wood.png
 
 asl97 (WTFPL):
   default_ice.png
