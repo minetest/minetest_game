@@ -35,16 +35,9 @@ function beds.register_bed(name, def)
 			end
 			minetest.set_node(p, {name = n.name:gsub("%_bottom", "_top"), param2 = n.param2})
 			return false
-		end,	
+		end,
 		on_destruct = function(pos)
-			local n = minetest.get_node_or_nil(pos)
-			if not n then return end
-			local dir = minetest.facedir_to_dir(n.param2)
-			local p = vector.add(pos, dir)
-			local n2 = minetest.get_node(p)
-			if minetest.get_item_group(n2.name, "bed") == 2 and n.param2 == n2.param2 then
-				minetest.remove_node(p)
-			end
+			beds.destroy_bed(pos, false)
 		end,
 		on_rightclick = function(pos, node, clicker)
 			beds.on_rightclick(pos, clicker)
@@ -89,12 +82,20 @@ function beds.register_bed(name, def)
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		pointable = false,
-		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
+		groups = {bed = 2},
 		sounds = default.node_sound_wood_defaults(),
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.top,
 		},
+		selection_box = {
+			type = "fixed",
+			fixed = {0, 0, 0, 0, 0, 0},
+		},
+		on_destruct = function(pos)
+			beds.destroy_bed(pos, true)
+		end,
+		drop = name .. "_bottom",
 	})
 
 	minetest.register_alias(name, name .. "_bottom")

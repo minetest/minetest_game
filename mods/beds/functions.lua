@@ -7,6 +7,7 @@ if enable_respawn == nil then
 end
 
 
+
 -- helper functions
 
 local function get_look_yaw(pos)
@@ -171,6 +172,17 @@ function beds.on_rightclick(pos, player)
 				beds.kick_players()
 			end
 		end)
+	end
+end
+
+function beds.destroy_bed(pos, reverse)
+	local n = minetest.get_node_or_nil(pos)
+	if not n then return end
+	local dir = minetest.facedir_to_dir(n.param2)
+	local p = vector.add(pos, dir)
+	local n2 = minetest.get_node(p)
+	if minetest.get_item_group(n2.name, "bed") == 2 then
+		minetest.remove_node(p)
 	end
 end
 
