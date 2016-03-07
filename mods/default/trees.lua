@@ -225,6 +225,7 @@ function default.grow_jungle_tree(pos, bad)
 	local c_air = minetest.get_content_id("air")
 	local c_ignore = minetest.get_content_id("ignore")
 	local c_jungletree = minetest.get_content_id("default:jungletree")
+	local c_jungletree_branch = minetest.get_content_id("default:jungletree_branch")
 	local c_jungleleaves = minetest.get_content_id("default:jungleleaves")
 
 	local vm = minetest.get_voxel_manip()
@@ -234,6 +235,7 @@ function default.grow_jungle_tree(pos, bad)
 	)
 	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
 	local data = vm:get_data()
+	local p2data = vm:get_param2_data()
 
 	add_trunk_and_leaves(data, a, pos, c_jungletree, c_jungleleaves,
 		height, 3, 30, false)
@@ -245,9 +247,11 @@ function default.grow_jungle_tree(pos, bad)
 		for x_dist = -1, 1 do
 			if random(1, 3) >= 2 then
 				if data[vi_1] == c_air or data[vi_1] == c_ignore then
-					data[vi_1] = c_jungletree
+					data[vi_1] = c_jungletree_branch
+					p2data[vi_1] = random(0, 1)
 				elseif data[vi_2] == c_air or data[vi_2] == c_ignore then
-					data[vi_2] = c_jungletree
+					data[vi_2] = c_jungletree_branch
+					p2data[vi_2] = random(0, 1)
 				end
 			end
 			vi_1 = vi_1 + 1
@@ -256,6 +260,7 @@ function default.grow_jungle_tree(pos, bad)
 	end
 
 	vm:set_data(data)
+	vm:set_param2_data(p2data)
 	vm:write_to_map()
 	vm:update_map()
 end
@@ -403,7 +408,7 @@ function default.grow_new_jungle_tree(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/jungle_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
-		path, "0", nil, false)
+		path, "random", nil, false)
 end
 
 
