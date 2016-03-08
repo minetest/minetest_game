@@ -2,7 +2,28 @@
 
 dye = {}
 dye.basecolors = {"white", "grey", "black", "red", "yellow", "green", "cyan", "blue", "magenta"}
-dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow", "lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"}
+dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow",
+	"lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"}
+
+-- Make dye names and descriptions available globally
+
+dye.dyes = {
+	{"white",      "White"},
+	{"grey",       "Grey"},
+	{"dark_grey",  "Dark grey"},
+	{"black",      "Black"},
+	{"violet",     "Violet"},
+	{"blue",       "Blue"},
+	{"cyan",       "Cyan"},
+	{"dark_green", "Dark green"},
+	{"green",      "Green"},
+	{"yellow",     "Yellow"},
+	{"brown",      "Brown"},
+	{"orange",     "Orange"},
+	{"red",        "Red"},
+	{"magenta",    "Magenta"},
+	{"pink",       "Pink"},
+}
 
 -- This collection of colors is partly a historic thing, partly something else
 
