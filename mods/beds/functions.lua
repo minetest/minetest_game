@@ -6,15 +6,14 @@ if enable_respawn == nil then
 	enable_respawn = true
 end
 
-
--- helper functions
+-- Helper functions
 
 local function get_look_yaw(pos)
 	local n = minetest.get_node(pos)
 	if n.param2 == 1 then
-		return pi/2, n.param2
+		return pi / 2, n.param2
 	elseif n.param2 == 3 then
-		return -pi/2, n.param2
+		return -pi / 2, n.param2
 	elseif n.param2 == 0 then
 		return pi, n.param2
 	else
@@ -70,8 +69,8 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		end
 
 		-- physics, eye_offset, etc
-		player:set_eye_offset({x=0,y=0,z=0}, {x=0,y=0,z=0})
-		player:set_look_yaw(math.random(1, 180)/100)
+		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
+		player:set_look_yaw(math.random(1, 180) / 100)
 		default.player_attached[name] = false
 		player:set_physics_override(1, 1, 1)
 		hud_flags.wielditem = true
@@ -84,11 +83,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		player_in_bed = player_in_bed + 1
 
 		-- physics, eye_offset, etc
-		player:set_eye_offset({x=0,y=-13,z=0}, {x=0,y=0,z=0})
+		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
 		local yaw, param2 = get_look_yaw(bed_pos)
 		player:set_look_yaw(yaw)
 		local dir = minetest.facedir_to_dir(param2)
-		local p = {x=bed_pos.x+dir.x/2,y=bed_pos.y,z=bed_pos.z+dir.z/2}
+		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
 		player:set_physics_override(0, 0, 0)
 		player:setpos(p)
 		default.player_attached[name] = true
@@ -102,17 +101,15 @@ end
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
 	local form_n = ""
-	local is_majority = (ges/2) < player_in_bed
+	local is_majority = (ges / 2) < player_in_bed
 
 	if finished then
-		form_n = beds.formspec ..
-			"label[2.7,11; Good morning.]"
+		form_n = beds.formspec .. "label[2.7,11; Good morning.]"
 	else
-		form_n = beds.formspec ..
-			"label[2.2,11;"..tostring(player_in_bed).." of "..tostring(ges).." players are in bed]"
+		form_n = beds.formspec .. "label[2.2,11;" .. tostring(player_in_bed) ..
+			" of " .. tostring(ges) .. " players are in bed]"
 		if is_majority and is_night_skip_enabled() then
-			form_n = form_n ..
-				"button_exit[2,8;4,0.75;force;Force night skip]"
+			form_n = form_n .. "button_exit[2,8;4,0.75;force;Force night skip]"
 		end
 	end
 
@@ -122,10 +119,10 @@ local function update_formspecs(finished)
 end
 
 
--- public functions
+-- Public functions
 
 function beds.kick_players()
-	for name,_ in pairs(beds.player) do
+	for name, _ in pairs(beds.player) do
 		local player = minetest.get_player_by_name(name)
 		lay_down(player, nil, nil, false)
 	end
@@ -175,7 +172,7 @@ function beds.on_rightclick(pos, player)
 end
 
 
--- callbacks
+-- Callbacks
 
 minetest.register_on_joinplayer(function(player)
 	beds.read_spawns()
