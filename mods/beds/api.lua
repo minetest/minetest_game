@@ -19,6 +19,7 @@ function beds.register_bed(name, def)
 			type = "fixed",
 			fixed = def.selectionbox,
 		},
+
 		after_place_node = function(pos, placer, itemstack)
 			local n = minetest.get_node_or_nil(pos)
 			if not n or not n.param2 then
@@ -36,6 +37,7 @@ function beds.register_bed(name, def)
 			minetest.set_node(p, {name = n.name:gsub("%_bottom", "_top"), param2 = n.param2})
 			return false
 		end,	
+
 		on_destruct = function(pos)
 			local n = minetest.get_node_or_nil(pos)
 			if not n then return end
@@ -46,9 +48,11 @@ function beds.register_bed(name, def)
 				minetest.remove_node(p)
 			end
 		end,
+
 		on_rightclick = function(pos, node, clicker)
 			beds.on_rightclick(pos, clicker)
 		end,
+
 		on_rotate = function(pos, node, user, mode, new_param2)
 			local dir = minetest.facedir_to_dir(node.param2)
 			local p = vector.add(pos, dir)
@@ -99,7 +103,6 @@ function beds.register_bed(name, def)
 
 	minetest.register_alias(name, name .. "_bottom")
 
-	-- register recipe
 	minetest.register_craft({
 		output = name,
 		recipe = def.recipe
