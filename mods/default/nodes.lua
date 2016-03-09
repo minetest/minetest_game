@@ -1092,6 +1092,7 @@ minetest.register_node("default:water_source", {
 	liquid_viscosity = 1,
 	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
 	groups = {water = 3, liquid = 3, puts_out_fire = 1},
+	sounds = default.node_sound_water_defaults(),
 })
 
 minetest.register_node("default:water_flowing", {
@@ -1137,6 +1138,7 @@ minetest.register_node("default:water_flowing", {
 	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
 	groups = {water = 3, liquid = 3, puts_out_fire = 1,
 		not_in_creative_inventory = 1},
+	sounds = default.node_sound_water_defaults(),
 })
 
 
@@ -1183,6 +1185,7 @@ minetest.register_node("default:river_water_source", {
 	liquid_range = 2,
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
 	groups = {water = 3, liquid = 3, puts_out_fire = 1},
+	sounds = default.node_sound_water_defaults(),
 })
 
 minetest.register_node("default:river_water_flowing", {
@@ -1230,6 +1233,7 @@ minetest.register_node("default:river_water_flowing", {
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
 	groups = {water = 3, liquid = 3, puts_out_fire = 1,
 		not_in_creative_inventory = 1},
+	sounds = default.node_sound_water_defaults(),
 })
 
 

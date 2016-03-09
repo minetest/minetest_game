@@ -221,3 +221,9 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
+
+Water footsteps - CC-BY-3.0 - by akemov - http://www.freesound.org/people/akemov/sounds/255597/
+  default_water_footstep.1.ogg
+  default_water_footstep.2.ogg
+  default_water_footstep.3.ogg
+  default_water_footstep.4.ogg
