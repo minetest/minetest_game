@@ -1708,7 +1708,7 @@ minetest.register_node("default:ladder_steel", {
 		--wall_side = = <default>
 	},
 	groups = {cracky = 2},
-	sounds = default.node_sound_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 })
 
 default.register_fence("default:fence_wood", {
