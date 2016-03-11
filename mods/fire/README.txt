@@ -30,3 +30,7 @@ fire_large.ogg sampled from:
 
 fire_basic_flame_animated.png:
   Muadtralk
+
+fire_flint_steel.png
+  Gambit (WTFPL)
+
