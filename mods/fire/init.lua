@@ -8,7 +8,6 @@ fire = {}
 -- Register flame nodes
 
 minetest.register_node("fire:basic_flame", {
-	description = "Basic Flame",
 	drawtype = "firelike",
 	tiles = {
 		{
@@ -28,7 +27,7 @@ minetest.register_node("fire:basic_flame", {
 	buildable_to = true,
 	sunlight_propagates = true,
 	damage_per_second = 4,
-	groups = {igniter = 2, dig_immediate = 3},
+	groups = {igniter = 2, dig_immediate = 3, not_in_creative_inventory = 1},
 	drop = "",
 
 	on_construct = function(pos)
@@ -71,6 +70,34 @@ minetest.register_node("fire:permanent_flame", {
 	end,
 })
 
+minetest.register_tool("fire:flint_and_steel", {
+	description = "Flint and Steel",
+	inventory_image = "fire_flint_steel.png",
+	on_use = function(itemstack, user, pointed_thing)
+		local player_name = user:get_player_name()
+		local pt = pointed_thing
+
+		if pt.type == "node" and minetest.get_node(pt.above).name == "air" then
+			if not minetest.is_protected(pt.above, player_name) then
+				minetest.set_node(pt.above, {name="fire:basic_flame"})
+			else
+				minetest.chat_send_player(player_name, "This area is protected")
+			end
+		end
+		
+		if not minetest.setting_getbool("creative_mode") then
+			itemstack:add_wear(1000)
+			return itemstack
+		end
+	end
+})
+
+minetest.register_craft({
+	output = "fire:flint_and_steel",
+	recipe = {
+		{"default:flint", "default:steel_ingot"}
+	}
+})
 
 -- Get sound area of position
 
