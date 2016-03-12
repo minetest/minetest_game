@@ -339,6 +339,10 @@ function doors.register(name, def)
 		end
 	end
 
+	def.on_destruct = function(pos)
+		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+	end
+
 	minetest.register_node(":" .. name .. "_a", {
 		description = def.description,
 		visual = "mesh",
@@ -361,6 +365,7 @@ function doors.register(name, def)
 		can_dig = def.can_dig,
 		on_rotate = def.on_rotate,
 		on_blast = def.on_blast,
+		on_destruct = def.on_destruct,
 		selection_box = {
 			type = "fixed",
 			fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16}
@@ -393,6 +398,7 @@ function doors.register(name, def)
 		can_dig = def.can_dig,
 		on_rotate = def.on_rotate,
 		on_blast = def.on_blast,
+		on_destruct = def.on_destruct,
 		selection_box = {
 			type = "fixed",
 			fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16}
