@@ -1,3 +1,27 @@
+
+local reverse = true
+
+local function destruct_bed(pos, n)
+	local node = minetest.get_node(pos)
+	local other
+
+	if n == 2 then
+		local dir = minetest.facedir_to_dir(node.param2)
+		other = vector.subtract(pos, dir)
+	elseif n == 1 then
+		local dir = minetest.facedir_to_dir(node.param2)
+		other = vector.add(pos, dir)
+	end
+
+	if reverse then
+		reverse = not reverse
+		minetest.remove_node(other)
+		nodeupdate(other)
+	else
+		reverse = not reverse
+	end
+end
+
 function beds.register_bed(name, def)
 	minetest.register_node(name .. "_bottom", {
 		description = def.description,
@@ -39,14 +63,7 @@ function beds.register_bed(name, def)
 		end,	
 
 		on_destruct = function(pos)
-			local n = minetest.get_node_or_nil(pos)
-			if not n then return end
-			local dir = minetest.facedir_to_dir(n.param2)
-			local p = vector.add(pos, dir)
-			local n2 = minetest.get_node(p)
-			if minetest.get_item_group(n2.name, "bed") == 2 and n.param2 == n2.param2 then
-				minetest.remove_node(p)
-			end
+			destruct_bed(pos, 1)
 		end,
 
 		on_rightclick = function(pos, node, clicker)
@@ -95,10 +112,14 @@ function beds.register_bed(name, def)
 		pointable = false,
 		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
 		sounds = default.node_sound_wood_defaults(),
+		drop = name .. "_bottom",
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.top,
 		},
+		on_destruct = function(pos)
+			destruct_bed(pos, 2)
+		end,
 	})
 
 	minetest.register_alias(name, name .. "_bottom")
