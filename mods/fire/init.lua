@@ -28,14 +28,24 @@ minetest.register_node("fire:basic_flame", {
 	sunlight_propagates = true,
 	damage_per_second = 4,
 	groups = {igniter = 2, dig_immediate = 3, not_in_creative_inventory = 1},
+	on_timer = function(pos)
+		local f = minetest.find_node_near(pos, 1, {"group:flammable"})
+		if not f then
+			minetest.remove_node(pos)
+			return
+		end
+		-- restart timer
+		return true
+	end,
 	drop = "",
 
 	on_construct = function(pos)
-		minetest.after(0, fire.on_flame_add_at, pos)
+		minetest.get_node_timer(pos):start(math.random(30, 60))
+		minetest.after(0, fire.update_sounds_around, pos)
 	end,
 
 	on_destruct = function(pos)
-		minetest.after(0, fire.on_flame_remove_at, pos)
+		minetest.after(0, fire.update_sounds_around, pos)
 	end,
 
 	on_blast = function()
@@ -169,32 +179,6 @@ function fire.update_sounds_around(pos)
 end
 
 
--- Update fire sounds on flame node construct or destruct
-
-function fire.on_flame_add_at(pos)
-	fire.update_sounds_around(pos)
-end
-
-
-function fire.on_flame_remove_at(pos)
-	fire.update_sounds_around(pos)
-end
-
-
--- Return positions for flames around a burning node
-
-function fire.find_pos_for_flame_around(pos)
-	return minetest.find_node_near(pos, 1, {"air"})
-end
-
-
--- Detect nearby extinguishing nodes
-
-function fire.flame_should_extinguish(pos)
-	return minetest.find_node_near(pos, 1, {"group:puts_out_fire"})
-end
-
-
 -- Extinguish all flames quickly with water, snow, ice
 
 minetest.register_abm({
@@ -239,31 +223,27 @@ else
 		catch_up = false,
 		action = function(p0, node, _, _)
 			-- If there is water or stuff like that around node, don't ignite
-			if fire.flame_should_extinguish(p0) then
+			if minetest.find_node_near(p0, 1, {"group:puts_out_fire"}) then
 				return
 			end
-			local p = fire.find_pos_for_flame_around(p0)
+			local p = minetest.find_node_near(p0, 1, {"air"})
 			if p then
 				minetest.set_node(p, {name = "fire:basic_flame"})
 			end
 		end,
 	})
 
-	-- Remove basic flames and flammable nodes
+	-- Remove flammable nodes
 
 	minetest.register_abm({
 		nodenames = {"fire:basic_flame"},
+		neighbors = "group:flammable",
 		interval = 5,
-		chance = 6,
+		chance = 18,
 		catch_up = false,
 		action = function(p0, node, _, _)
-			-- If there are no flammable nodes around flame, remove flame
 			local p = minetest.find_node_near(p0, 1, {"group:flammable"})
-			if not p then
-				minetest.remove_node(p0)
-				return
-			end
-			if math.random(1, 3) == 1 then
+			if p then
 				-- remove flammable nodes around flame
 				local node = minetest.get_node(p)
 				local def = minetest.registered_nodes[node.name]
