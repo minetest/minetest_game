@@ -227,22 +227,20 @@ else
 		catch_up = false,
 		action = function(p0, node, _, _)
 			-- If there are no flammable nodes around flame, remove flame
-			if not minetest.find_node_near(p0, 1, {"group:flammable"}) then
+			local p = minetest.find_node_near(p0, 1, {"group:flammable"})
+			if not p then
 				minetest.remove_node(p0)
 				return
 			end
 			if math.random(1, 4) == 1 then
 				-- remove flammable nodes around flame
-				local p = minetest.find_node_near(p0, 1, {"group:flammable"})
-				if p then
-					local node = minetest.get_node(p)
-					local def = minetest.registered_nodes[node.name]
-					if def.on_burn then
-						def.on_burn(p)
-					else 
-						minetest.remove_node(p)
-						nodeupdate(p)
-					end
+				local node = minetest.get_node(p)
+				local def = minetest.registered_nodes[node.name]
+				if def.on_burn then
+					def.on_burn(p)
+				else
+					minetest.remove_node(p)
+					nodeupdate(p)
 				end
 			end
 		end,
