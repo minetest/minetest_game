@@ -109,6 +109,7 @@ creative.set_creative_formspec = function(player, start_i, pagenum, tab_id)
 		list[current_player;main;0,4.7;8,1;]
 		list[current_player;main;0,5.85;8,3;8]
 		list[detached:creative_trash;main;4,3.3;1,1;]
+		listring[]
 		tablecolumns[color;text;color;text]
 		tableoptions[background=#00000000;highlight=#00000000;border=false]
 		button[5.4,3.2;0.8,0.9;creative_prev;<]
