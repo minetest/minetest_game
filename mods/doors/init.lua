@@ -320,6 +320,15 @@ function doors.register(name, def)
 			return itemstack
 		end
 	})
+	def.inventory_image = nil
+
+	if def.recipe then
+		minetest.register_craft({
+			output = name,
+			recipe = def.recipe,
+		})
+	end
+	def.recipe = nil
 
 	local can_dig = function(pos, digger)
 		if not def.protected then
@@ -385,76 +394,22 @@ function doors.register(name, def)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
 	end
 
-	minetest.register_node(":" .. name .. "_a", {
-		description = def.description,
-		visual = "mesh",
-		mesh = "door_a.obj",
-		tiles = def.tiles,
-		drawtype = "mesh",
-		paramtype = "light",
-		paramtype2 = "facedir",
-		sunlight_propagates = true,
-		walkable = true,
-		is_ground_content = false,
-		buildable_to = false,
-		drop = def.drop,
-		groups = def.groups,
-		sounds = def.sounds,
-		door = def.door,
-		on_rightclick = def.on_rightclick,
-		after_dig_node = def.after_dig_node,
-		can_dig = def.can_dig,
-		on_rotate = def.on_rotate,
-		on_blast = def.on_blast,
-		on_destruct = def.on_destruct,
-		selection_box = {
-			type = "fixed",
-			fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16}
-		},
-		collision_box = {
-			type = "fixed",
-			fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16}
-		},
-	})
+	def.drawtype = "mesh"
+	def.paramtype = "light"
+	def.paramtype2 = "facedir"
+	def.sunlight_propagates = true
+	def.use_texture_alpha = true
+	def.walkable = true
+	def.is_ground_content = false
+	def.buildable_to = false
+	def.selection_box = { type = "fixed", fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16} }
+	def.collision_box = { type = "fixed", fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16} }
 
-	minetest.register_node(":" .. name .. "_b", {
-		description = def.description,
-		visual = "mesh",
-		mesh = "door_b.obj",
-		tiles = def.tiles,
-		drawtype = "mesh",
-		paramtype = "light",
-		paramtype2 = "facedir",
-		sunlight_propagates = true,
-		walkable = true,
-		is_ground_content = false,
-		buildable_to = false,
-		drop = def.drop,
-		groups = def.groups,
-		sounds = def.sounds,
-		door = def.door,
-		on_rightclick = def.on_rightclick,
-		after_dig_node = def.after_dig_node,
-		can_dig = def.can_dig,
-		on_rotate = def.on_rotate,
-		on_blast = def.on_blast,
-		on_destruct = def.on_destruct,
-		selection_box = {
-			type = "fixed",
-			fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16}
-		},
-		collision_box = {
-			type = "fixed",
-			fixed = { -1/2,-1/2,-1/2,1/2,3/2,-6/16}
-		},
-	})
+	def.mesh = "door_a.obj"
+	minetest.register_node(":" .. name .. "_a", def)
 
-	if def.recipe then
-		minetest.register_craft({
-			output = name,
-			recipe = def.recipe,
-		})
-	end
+	def.mesh = "door_b.obj"
+	minetest.register_node(":" .. name .. "_b", def)
 
 	_doors.registered_doors[name .. "_a"] = true
 	_doors.registered_doors[name .. "_b"] = true
