@@ -77,7 +77,7 @@ minetest.register_node("doors:hidden", {
 	drawtype = "airlike",
 	paramtype = "light",
 	sunlight_propagates = true,
-	walkable = false,
+	walkable = true,
 	pointable = false,
 	diggable = false,
 	buildable_to = false,
