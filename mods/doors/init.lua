@@ -74,17 +74,32 @@ end
 -- nodes from being placed in the top half of the door.
 minetest.register_node("doors:hidden", {
 	description = "Hidden Door Segment",
-	drawtype = "airlike",
+	-- can't use airlike otherwise falling nodes will turn to entities
+	-- and will be forever stuck until door is removed.
+	drawtype = "nodebox",
 	paramtype = "light",
+	paramtype2 = "facedir",
 	sunlight_propagates = true,
-	walkable = false,
+	-- has to be walkable for falling nodes to stop falling.
+	walkable = true,
 	pointable = false,
 	diggable = false,
 	buildable_to = false,
 	floodable = false,
 	drop = "",
-	groups = { not_in_creative_inventory = 1 },
-	on_blast = function() end
+	groups = {not_in_creative_inventory = 1},
+	on_blast = function() end,
+	tiles = {"doors_blank.png"},
+	-- 1px transparent block inside door hinge near node top.
+	nodebox = {
+		type = "fixed",
+		fixed = {-15/32, 13/32, -15/32, -13/32, 1/2, -13/32},
+	},
+	-- collision_box needed otherise selection box would be full node size
+	collision_box = {
+		type = "fixed",
+		fixed = {-15/32, 13/32, -15/32, -13/32, 1/2, -13/32},
+	},
 })
 
 -- table used to aid door opening/closing
@@ -196,8 +211,21 @@ function doors.register(name, def)
 			-- retain infotext and doors_owner fields
 			minetest.swap_node(pos, {name = name .. "_" .. new.type, param2 = p2})
 			meta:set_int("state", new.state)
+			-- properly place doors:hidden at the right spot
+			local p3 = p2
+			if new.state >= 2 then
+				p3 = (p3 + 3) % 4
+			end
+			if new.state % 2 == 1 then
+				if new.state >= 2 then
+					p3 = (p3 + 1) % 4
+				else
+					p3 = (p3 + 3) % 4
+				end
+			end
 			-- wipe meta on top node as it's unused
-			minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, { name = "doors:hidden" })
+			minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},
+				{name = "doors:hidden", param2 = p3})
 		end
 	})
 
@@ -259,10 +287,11 @@ function doors.register(name, def)
 			if minetest.get_item_group(minetest.get_node(aside).name, "door") == 1 then
 				state = state + 2
 				minetest.set_node(pos, {name = name .. "_b", param2 = dir})
+				minetest.set_node(above, {name = "doors:hidden", param2 = (dir + 3) % 4})
 			else
 				minetest.set_node(pos, {name = name .. "_a", param2 = dir})
+				minetest.set_node(above, {name = "doors:hidden", param2 = dir})
 			end
-			minetest.set_node(above, { name = "doors:hidden" })
 
 			local meta = minetest.get_meta(pos)
 			meta:set_int("state", state)
@@ -319,7 +348,8 @@ function doors.register(name, def)
 		_doors.door_toggle(pos, clicker)
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
-		minetest.remove_node({ x = pos.x, y = pos.y + 1, z = pos.z})
+		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+		nodeupdate({x = pos.x, y = pos.y + 1, z = pos.z})
 	end
 	def.can_dig = function(pos, player)
 		return can_dig(pos, player)
