@@ -5,7 +5,7 @@ bones = {}
 
 local function is_owner(pos, name)
 	local owner = minetest.get_meta(pos):get_string("owner")
-	if owner == "" or owner == name or minetest.check_player_privs(placer, "protection_bypass") then
+	if owner == "" or owner == name or minetest.check_player_privs(name, "protection_bypass") then
 		return true
 	end
 	return false
