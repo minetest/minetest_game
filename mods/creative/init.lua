@@ -6,15 +6,15 @@ local player_inventory = {}
 -- Create detached creative inventory after loading all mods
 creative.init_creative_inventory = function(player)
 	local player_name = player:get_player_name()
-
 	player_inventory[player_name] = {}
 	player_inventory[player_name].size = 0
-	player_inventory[player_name].filter = nil
+	player_inventory[player_name].filter = ""
 	player_inventory[player_name].start_i = 1
+	player_inventory[player_name].tab_id = 2
 
-	local inv = minetest.create_detached_inventory("creative_" .. player_name, {
+	minetest.create_detached_inventory("creative_" .. player_name, {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			if minetest.setting_getbool("creative_mode") then
+			if minetest.setting_getbool("creative_mode") and not to_list == "main" then
 				return count
 			else
 				return 0
@@ -35,16 +35,17 @@ creative.init_creative_inventory = function(player)
 		on_put = function(inv, listname, index, stack, player)
 		end,
 		on_take = function(inv, listname, index, stack, player)
-			--print(player:get_player_name().." takes item from creative inventory; listname="..dump(listname)..", index="..dump(index)..", stack="..dump(stack))
+			local player_name, stack_name = player:get_player_name(), stack:get_name()
+			--print(player_name .. " takes item from creative inventory; listname = " .. listname .. ", index = " .. index .. ", stack = " .. dump(stack:to_table()))
 			if stack then
-				minetest.log("action", player:get_player_name().." takes "..dump(stack:get_name()).." from creative inventory")
-				--print("stack:get_name()="..dump(stack:get_name())..", stack:get_count()="..dump(stack:get_count()))
+				minetest.log("action", player_name .. " takes " .. stack_name .. " from creative inventory")
+				--print("Stack name: " .. stack_name .. ", Stack count: " .. stack:get_count())
 			end
 		end,
 	})
 
-	creative.update_creative_inventory(player_name, nil, 2)
-	--print("creative inventory size: "..dump(player_inventory[player_name].size))
+	creative.update_creative_inventory(player_name)
+	--print("creative inventory size: " .. player_inventory[player_name].size)
 end
 
 local function tab_category(tab_id)
@@ -60,23 +61,24 @@ local function tab_category(tab_id)
 	return id_category[tab_id] or id_category[2]
 end
 
-function creative.update_creative_inventory(player_name, filter, tab_id)
+function creative.update_creative_inventory(player_name)
 	local creative_list = {}
-	local inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
+	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
+	local inv = player_inventory[player_name]
 
-	for name, def in pairs(tab_category(tab_id)) do
+	for name, def in pairs(tab_category(inv.tab_id)) do
 		if not (def.groups.not_in_creative_inventory == 1) and
 				def.description and def.description ~= "" and
-				(not filter or def.name:find(filter, 1, true) or
-					def.description:lower():find(filter, 1, true)) then
+				(def.name:find(inv.filter, 1, true) or
+					def.description:lower():find(inv.filter, 1, true)) then
 			creative_list[#creative_list+1] = name
 		end
 	end
 
 	table.sort(creative_list)
-	inv:set_size("main", #creative_list)
-	inv:set_list("main", creative_list)
-	player_inventory[player_name].size = #creative_list
+	player_inv:set_size("main", #creative_list)
+	player_inv:set_list("main", creative_list)
+	inv.size = #creative_list
 end
 
 -- Create the trash field
@@ -90,18 +92,17 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 			return 0
 		end
 	end,
-	on_put = function(inv, listname, index, stack, player)
-		inv:set_stack(listname, index, "")
+	on_put = function(inv, listname)
+		inv:set_list(listname, {})
 	end,
 })
 trash:set_size("main", 1)
 
-creative.set_creative_formspec = function(player, start_i, pagenum, tab_id)
+creative.set_creative_formspec = function(player, start_i)
 	local player_name = player:get_player_name()
-	local filter = player_inventory[player_name].filter or ""
-	pagenum = math.floor(pagenum)
-	local pagemax = math.floor((player_inventory[player_name].size - 1) / (3*8) + 1)
-	tab_id = tab_id or 2
+	local inv = player_inventory[player_name]
+	local pagenum = math.floor(start_i / (3*8) + 1)
+	local pagemax = math.ceil(inv.size / (3*8))
 
 	player:set_inventory_formspec([[
 		size[8,8.6]
@@ -109,6 +110,7 @@ creative.set_creative_formspec = function(player, start_i, pagenum, tab_id)
 		list[current_player;main;0,4.7;8,1;]
 		list[current_player;main;0,5.85;8,3;8]
 		list[detached:creative_trash;main;4,3.3;1,1;]
+		listring[]
 		tablecolumns[color;text;color;text]
 		tableoptions[background=#00000000;highlight=#00000000;border=false]
 		button[5.4,3.2;0.8,0.9;creative_prev;<]
@@ -119,12 +121,12 @@ creative.set_creative_formspec = function(player, start_i, pagenum, tab_id)
 		tooltip[creative_clear;Reset]
 		listring[current_player;main]
 		]] ..
-		"field[0.3,3.5;2.2,1;creative_filter;;".. filter .."]"..
-		"listring[detached:creative_".. player_name ..";main]"..
-		"tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;".. tostring(tab_id) ..";true;false]"..
-		"list[detached:creative_".. player_name ..";main;0,0;8,3;".. tostring(start_i) .."]"..
-		"table[6.05,3.35;1.15,0.5;pagenum;#FFFF00,".. tostring(pagenum) ..",#FFFFFF,/ ".. tostring(pagemax) .."]"..
-		default.get_hotbar_bg(0,4.7)..
+		"field[0.3,3.5;2.2,1;creative_filter;;" .. inv.filter .. "]" ..
+		"listring[detached:creative_" .. player_name .. ";main]" ..
+		"tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;" .. tostring(inv.tab_id) .. ";true;false]" ..
+		"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
+		"table[6.05,3.35;1.15,0.5;pagenum;#FFFF00," .. tostring(pagenum) .. ",#FFFFFF,/ " .. tostring(pagemax) .. "]" ..
+		default.get_hotbar_bg(0,4.7) ..
 		default.gui_bg .. default.gui_bg_img .. default.gui_slots
 	)
 end
@@ -143,7 +145,7 @@ creative.set_crafting_formspec = function(player)
 		listring[current_player;main]
 		listring[current_player;craft]
 		]] ..
-		default.get_hotbar_bg(0,4.7)..
+		default.get_hotbar_bg(0,4.7) ..
 		default.gui_bg .. default.gui_bg_img .. default.gui_slots
 	)
 end
@@ -154,7 +156,7 @@ minetest.register_on_joinplayer(function(player)
 		return
 	end
 	creative.init_creative_inventory(player)
-	creative.set_creative_formspec(player, 0, 1, 2)
+	creative.set_creative_formspec(player, 0)
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -163,70 +165,72 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	local player_name = player:get_player_name()
-	local formspec = player:get_inventory_formspec()
-	local filter = formspec:match("creative_filter;;([%w_:]+)") or ""
-	local start_i = formspec:match("list%[.-".. player_name ..";.-;(%d+)%]")
-	local tab_id = tonumber(formspec:match("tabheader%[.-;(%d+)%;"))
-	local inv_size = player_inventory[player_name].size
-	start_i = tonumber(start_i) or 0
+	local inv = player_inventory[player_name]
 
 	if fields.quit then
-		if tab_id == 1 then
+		if inv.tab_id == 1 then
 			creative.set_crafting_formspec(player)
 		end
 	elseif fields.creative_tabs then
 		local tab = tonumber(fields.creative_tabs)
+		inv.tab_id = tab
+
 		if tab == 1 then
 			creative.set_crafting_formspec(player)
 		else
-			creative.update_creative_inventory(player_name, filter, tab)
-			creative.set_creative_formspec(player, 0, 1, tab)
+			creative.update_creative_inventory(player_name)
+			creative.set_creative_formspec(player, 0)
 		end
 	elseif fields.creative_clear then
-		player_inventory[player_name].filter = ""
-		creative.update_creative_inventory(player_name, nil, tab_id)
-		creative.set_creative_formspec(player, 0, 1, tab_id)
+		inv.filter = ""
+		creative.update_creative_inventory(player_name)
+		creative.set_creative_formspec(player, 0)
 	elseif fields.creative_search then
-		local lowstr = fields.creative_filter:lower()
-		player_inventory[player_name].filter = lowstr
-		creative.update_creative_inventory(player_name, lowstr, tab_id)
-		creative.set_creative_formspec(player, 0, 1, tab_id)
+		inv.filter = fields.creative_filter:lower()
+		creative.update_creative_inventory(player_name)
+		creative.set_creative_formspec(player, 0)
 	else
+		local formspec = player:get_inventory_formspec()
+		local start_i = formspec:match("list%[.-" .. player_name .. ";.-;(%d+)%]")
+		start_i = tonumber(start_i) or 0
+
 		if fields.creative_prev then
 			start_i = start_i - 3*8
 			if start_i < 0 then
-				start_i = inv_size - (inv_size % (3*8))
-				if inv_size == start_i then
-					start_i = math.max(0, inv_size - (3*8))
+				start_i = inv.size - (inv.size % (3*8))
+				if inv.size == start_i then
+					start_i = math.max(0, inv.size - (3*8))
 				end
 			end
 		elseif fields.creative_next then
 			start_i = start_i + 3*8
-			if start_i >= inv_size then
+			if start_i >= inv.size then
 				start_i = 0
 			end
 		end
 
-		creative.set_creative_formspec(player, start_i, start_i / (3*8) + 1, tab_id)
+		creative.set_creative_formspec(player, start_i)
 	end
 end)
 
 if minetest.setting_getbool("creative_mode") then
 	local digtime = 0.5
+	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 3}
+
 	minetest.register_item(":", {
 		type = "none",
 		wield_image = "wieldhand.png",
-		wield_scale = {x=1, y=1, z=2.5},
+		wield_scale = {x = 1, y = 1, z = 2.5},
 		range = 10,
 		tool_capabilities = {
 			full_punch_interval = 0.5,
 			max_drop_level = 3,
 			groupcaps = {
-				crumbly = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				cracky = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				snappy = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				choppy = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				oddly_breakable_by_hand = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
+				crumbly = caps,
+				cracky  = caps,
+				snappy  = caps,
+				choppy  = caps,
+				oddly_breakable_by_hand = caps,
 			},
 			damage_groups = {fleshy = 10},
 		}
