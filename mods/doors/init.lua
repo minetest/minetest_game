@@ -287,6 +287,9 @@ function doors.register(name, def)
 		if not def.protected then
 			return true
 		end
+		if minetest.check_player_privs(digger, "protection_bypass") then
+			return true
+		end
 		local meta = minetest.get_meta(pos)
 		local name = ""
 		if digger then
