@@ -421,7 +421,7 @@ Creates panes that automatically connect to each other
 ### Pane definition
 
 	{
-		textures = {"texture_Bottom_top", "texture_left_right", "texture_front_back"}, -- More tiles aren't supported
+		textures = {"texture for sides", (unused), "texture for top and bottom"}, -- More tiles aren't supported
 		groups = {group = rating}, -- Uses the known node groups, see [Known damage and digging time defining groups]
 		sounds = SoundSpec,        -- See [#Default sounds]
 		recipe = {{"","","","","","","","",""}}, -- Recipe field only
