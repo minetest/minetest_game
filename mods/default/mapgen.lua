@@ -1204,7 +1204,6 @@ function default.register_decorations()
 		y_max = 31000,
 		schematic = minetest.get_modpath("default").."/schematics/aspen_tree.mts",
 		flags = "place_center_x, place_center_z",
-		rotation = "random",
 	})
 
 	minetest.register_decoration({

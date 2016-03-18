@@ -14,7 +14,7 @@ language (for example pinewood and pine wood) the underscore form should be used
 
 Stone
 -----
-(1. Material 2. Cobble variant 3. Brick variant [4. Modified forms])
+(1. Material 2. Cobble variant 3. Brick variant 4. Modified forms)
 
 default:stone
 default:cobble
@@ -33,7 +33,7 @@ default:obsidianbrick
 
 Soft / Non-Stone
 ----------------
-(1. Material [2. Modified forms])
+(1. Material 2. Modified forms)
 
 default:dirt
 default:dirt_with_grass
@@ -55,7 +55,7 @@ default:ice
 
 Trees
 -----
-(1. Trunk 2. Fabricated trunk 3. Leaves 4. Sapling [5. Fruits])
+(1. Trunk 2. Branch 3. Fabricated trunk 4. Leaves 5. Sapling 6. Fruits)
 
 default:tree
 default:wood
@@ -64,6 +64,7 @@ default:sapling
 default:apple
 
 default:jungletree
+default:jungletree_branch
 default:junglewood
 default:jungleleaves
 default:junglesapling
@@ -82,6 +83,7 @@ default:aspen_tree
 default:aspen_wood
 default:aspen_leaves
 default:aspen_sapling
+
 Ores
 ----
 (1. In stone 2. Block)
@@ -107,6 +109,7 @@ default:diamondblock
 
 Plantlife (non-cubic)
 ---------------------
+
 default:cactus
 default:papyrus
 default:dry_shrub
@@ -139,6 +142,7 @@ default:lava_flowing
 
 Tools / "Advanced" crafting / Non-"natural"
 -------------------------------------------
+
 default:torch
 
 default:chest
@@ -169,6 +173,7 @@ default:meselamp
 
 Misc
 ----
+
 default:cloud
 default:nyancat
 default:nyancat_rainbow
@@ -529,6 +534,16 @@ minetest.register_node("default:jungletree", {
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
+})
+
+minetest.register_node("default:jungletree_branch", {
+	description = "Jungle Tree Branch",
+	tiles = {"default_jungletree.png"},
+	paramtype2 = "facedir",
+	is_ground_content = false,
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	drop = "default:jungletree",
+	sounds = default.node_sound_wood_defaults(),
 })
 
 minetest.register_node("default:junglewood", {
