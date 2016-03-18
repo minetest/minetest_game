@@ -651,59 +651,101 @@ minetest.register_craft({
 
 ----fence gate----
 
-local fence = {
-	description = "Fence Gate",
-	drawtype = "mesh",
-	tiles = {"default_wood.png"},
-	paramtype = "light",
-	paramtype2 = "facedir",
-	sunlight_propagates = true,
-	is_ground_content = false,
-	drop = "doors:gate_closed",
-	connect_sides = { "left", "right" },
-	groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2,
-		flammable = 2, fence = 1},
-	on_rightclick = function(pos, clicker)
-		local node = minetest.get_node(pos)
-		local def = minetest.registered_nodes[node.name]
-		minetest.swap_node(pos, {name = def.gate, param2 = node.param2})
-		minetest.sound_play(def.sound, {pos = pos, gain = 0.3,
-			max_hear_distance = 8})
-	end,
-	selection_box = {
+function doors.register_fencegate(name, def)
+	local fence = {
+		description = def.description,
+		drawtype = "mesh",
+		tiles = { def.texture },
+		paramtype = "light",
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+		is_ground_content = false,
+		drop = name .. "_closed",
+		connect_sides = { "left", "right" },
+		groups = def.groups,
+		sounds = def.sounds,
+		on_rightclick = function(pos, clicker)
+			local node = minetest.get_node(pos)
+			local node_def = minetest.registered_nodes[node.name]
+			minetest.swap_node(pos, {name = node_def.gate, param2 = node.param2})
+			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.3,
+				max_hear_distance = 8})
+		end,
+		selection_box = {
+			type = "fixed",
+			fixed = {-1/2, -1/2, -1/4, 1/2, 1/2, 1/4},
+		},
+	}
+
+	if not fence.sounds then
+		fence.sounds = default.node_sound_wood_defaults()
+	end
+
+	fence.groups.fence = 1
+
+	local fence_closed = table.copy(fence)
+	fence_closed.mesh = "doors_fencegate_closed.obj"
+	fence_closed.gate = name .. "_open"
+	fence_closed.sound = "doors_fencegate_open"
+	fence_closed.collision_box = {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/4, 1/2, 1/2, 1/4},
-	},
-}
+	}
 
-local fence_closed = table.copy(fence)
-fence_closed.mesh = "doors_fencegate_closed.obj"
-fence_closed.gate = "doors:gate_open"
-fence_closed.sound = "doors_fencegate_open"
-fence_closed.collision_box = {
-	type = "fixed",
-	fixed = {-1/2, -1/2, -1/4, 1/2, 1/2, 1/4},
-}
+	local fence_open = table.copy(fence)
+	fence_open.mesh = "doors_fencegate_open.obj"
+	fence_open.gate = name .. "_closed"
+	fence_open.sound = "doors_fencegate_close"
+	fence_open.groups.not_in_creative_inventory = 1
+	fence_open.collision_box = {
+		type = "fixed",
+		fixed = {{-1/2, -1/2, -1/4, -3/8, 1/2, 1/4},
+			{-5/8, -3/8, -14/16, -3/8, 3/8, 0}},
+	}
 
-local fence_open = table.copy(fence)
-fence_open.mesh = "doors_fencegate_open.obj"
-fence_open.gate = "doors:gate_closed"
-fence_open.sound = "doors_fencegate_close"
-fence_open.groups.not_in_creative_inventory = 1
-fence_open.collision_box = {
-	type = "fixed",
-	fixed = {{-1/2, -1/2, -1/4, -3/8, 1/2, 1/4},
-		{-5/8, -3/8, -14/16, -3/8, 3/8, 0}},
-}
+	minetest.register_node(":" .. name .. "_closed", fence_closed)
+	minetest.register_node(":" .. name .. "_open", fence_open)
 
-minetest.register_node("doors:gate_closed", fence_closed)
-minetest.register_node("doors:gate_open", fence_open)
+	minetest.register_craft({
+		output = name .. "_closed",
+		recipe = {
+			{"default:stick", def.material, "default:stick"},
+			{"default:stick", def.material, "default:stick"}
+		}
+	})
+end
 
-minetest.register_craft({
-	output = "doors:gate_closed",
-	recipe = {
-		{"default:stick", "group:wood", "default:stick"},
-		{"default:stick", "group:wood", "default:stick"},
-	},
+doors.register_fencegate("doors:gate_wood", {
+	description = "Wooden Fence Gate",
+	texture = "default_wood.png",
+	material = "default:wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
 })
 
+doors.register_fencegate("doors:gate_acacia_wood", {
+	description = "Acacia Fence Gate",
+	texture = "default_acacia_wood.png",
+	material = "default:acacia_wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
+})
+
+doors.register_fencegate("doors:gate_junglewood", {
+	description = "Junglewood Fence Gate",
+	texture = "default_junglewood.png",
+	material = "default:junglewood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
+})
+
+doors.register_fencegate("doors:gate_pine_wood", {
+	description = "Pine Fence Gate",
+	texture = "default_pine_wood.png",
+	material = "default:pine_wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
+})
+
+doors.register_fencegate("doors:gate_aspen_wood", {
+	description = "Aspen Fence Gate",
+	texture = "default_aspen_wood.png",
+	material = "default:aspen_wood",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
+})
