@@ -138,7 +138,7 @@ local function entity_physics(pos, radius)
 	end
 end
 
-local function add_effects(pos, radius)
+local function add_effects(pos, radius, drops)
 	minetest.add_particlespawner({
 		amount = 128,
 		time = 1,
@@ -158,14 +158,12 @@ local function add_effects(pos, radius)
 	-- we just dropped some items. Look at the items entities and pick
 	-- one of them to use as texture
 	local texture = "tnt_blast.png" --fallback texture
-	local objs = minetest.get_objects_inside_radius(pos, 2)
-	for _, obj in pairs(objs) do
-		if obj and obj:get_luaentity() then
-			local def = ItemStack(obj:get_luaentity().itemstring):get_definition()
-			if def.tiles then
-				texture = def.tiles[1]
-				break
-			end
+	local most = 0
+	for name, stack in pairs(drops) do
+		local count = stack:get_count()
+		if count > most then
+			most = count
+			texture = minetest.registered_nodes[name].tiles[1]
 		end
 	end
 
@@ -265,7 +263,7 @@ function tnt.boom(pos, def)
 	if not def.disable_drops then
 		eject_drops(drops, pos, def.radius)
 	end
-	add_effects(pos, def.radius)
+	add_effects(pos, def.radius, drops)
 end
 
 minetest.register_node("tnt:boom", {
