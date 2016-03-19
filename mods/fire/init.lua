@@ -231,7 +231,7 @@ else
 		nodenames = {"group:flammable"},
 		neighbors = {"group:igniter"},
 		interval = 7,
-		chance = 16,
+		chance = 12,
 		catch_up = false,
 		action = function(p0, node, _, _)
 			-- If there is water or stuff like that around node, don't ignite
@@ -250,7 +250,7 @@ else
 	minetest.register_abm({
 		nodenames = {"fire:basic_flame"},
 		interval = 5,
-		chance = 16,
+		chance = 6,
 		catch_up = false,
 		action = function(p0, node, _, _)
 			-- If there are no flammable nodes around flame, remove flame
