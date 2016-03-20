@@ -156,14 +156,14 @@ local function may_replace(pos, player)
 	return node_definition.buildable_to and not minetest.is_protected(pos, player:get_player_name())
 end
 
-if minetest.setting_getbool("creative_mode") == true then
+if minetest.setting_getbool("creative_mode") then
 	return
 end
 
 minetest.register_on_dieplayer(function(player)
 
 	-- are bones enabled?
-	if bones.enable ~= true then
+	if not bones.enable then
 		return
 	end
 
@@ -173,10 +173,7 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 
-	local pos = player:getpos()
-	pos.x = math.floor(pos.x + 0.5)
-	pos.y = math.floor(pos.y + 0.5)
-	pos.z = math.floor(pos.z + 0.5)
+	local pos = vector.round(player:getpos())
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	local player_name = player:get_player_name()
 	local player_inv = player:get_inventory()
