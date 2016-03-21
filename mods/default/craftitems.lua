@@ -41,12 +41,12 @@ local function book_on_use(itemstack, user)
 			"label[0.5,0.5;by " .. owner .. "]" ..
 			"tablecolumns[color;text]" ..
 			"tableoptions[background=#00000000;highlight=#00000000;border=false]" ..
-			"table[0.4,0;4,0.5;title;#FFFF00," .. minetest.formspec_escape(title) .. "]"..
+			"table[0.4,0;7,0.5;title;#FFFF00," .. minetest.formspec_escape(title) .. "]"..
 			"textarea[0.5,1.5;7.5,7;;".. minetest.formspec_escape(text:sub(
 				(cpp * page) - cpp, cpp * page)) .. ";]" ..
-			"button[4.6,0.2;0.8,0.8;book_prev;<]" ..
-			"label[5.35,0.3;Page " .. page .. " of " .. page_max .. "]"..
-			"button[7,0.2;0.8,0.8;book_next;>]"
+			"button[2.4,7.6;0.8,0.8;book_prev;<]" ..
+			"label[3.2,7.7;Page " .. page .. " of " .. page_max .. "]"..
+			"button[4.9,7.6;0.8,0.8;book_next;>]"
 	end
 
 	minetest.show_formspec(player_name, "default:book", formspec)
