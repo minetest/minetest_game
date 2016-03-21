@@ -403,7 +403,7 @@ function default.grow_new_jungle_tree(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/jungle_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
-		path, "0", nil, false)
+		path, "random", nil, false)
 end
 
 
