@@ -31,7 +31,6 @@ minetest.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_whi
 local function add_simple_flower(name, desc, box, f_groups)
 	-- Common flowers' groups
 	f_groups.snappy = 3
-	f_groups.flammable = 2
 	f_groups.flower = 1
 	f_groups.flora = 1
 	f_groups.attached_node = 1
@@ -134,7 +133,7 @@ minetest.register_node("flowers:mushroom_red", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flammable = 3, attached_node = 1},
+	groups = {snappy = 3, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	on_use = minetest.item_eat(-5),
 	selection_box = {
@@ -153,7 +152,7 @@ minetest.register_node("flowers:mushroom_brown", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flammable = 3, attached_node = 1},
+	groups = {snappy = 3, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	on_use = minetest.item_eat(1),
 	selection_box = {
