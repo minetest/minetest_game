@@ -17,7 +17,11 @@ local function update_pane(pos, name)
 	end
 	local sum = 0
 	for i, dir in pairs(directions) do
-		local node = minetest.get_node(vector.add(pos, dir))
+		local node = minetest.get_node({
+			x = pos.x + dir.x,
+			y = pos.y + dir.y,
+			z = pos.z + dir.z
+		})
 		local def = minetest.registered_nodes[node.name]
 		local pane_num = def and def.groups.pane or 0
 		if pane_num > 0 or not def or (def.walkable ~= false and
@@ -46,12 +50,13 @@ local function update_nearby(pos, node)
 		name = name:sub(8, underscore_pos - 1)
 	end
 	for i, dir in pairs(directions) do
-		update_pane(vector.add(pos, dir), name)
+		update_pane({
+			x = pos.x + dir.x,
+			y = pos.y + dir.y,
+			z = pos.z + dir.z
+		}, name)
 	end
 end
-
-minetest.register_on_placenode(update_nearby)
-minetest.register_on_dignode(update_nearby)
 
 local half_boxes = {
 	{0,     -0.5, -1/32, 0.5,  0.5, 1/32},
@@ -75,18 +80,6 @@ local sb_half_boxes = {
 local sb_full_boxes = {
 	{-0.5,  -0.5, -0.06, 0.5,  0.5, 0.06},
 	{-0.06, -0.5, -0.5,  0.06, 0.5, 0.5}
-}
-
-local pane_def_fields = {
-	drawtype = "airlike",
-	paramtype = "light",
-	is_ground_content = false,
-	sunlight_propagates = true,
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	air_equivalent = true,
 }
 
 function xpanes.register_pane(name, def)
@@ -139,10 +132,6 @@ function xpanes.register_pane(name, def)
 		})
 	end
 
-	for k, v in pairs(pane_def_fields) do
-		def[k] = def[k] or v
-	end
-
 	def.on_construct = function(pos)
 		update_pane(pos, name)
 	end
@@ -155,29 +144,74 @@ function xpanes.register_pane(name, def)
 	})
 end
 
+minetest.register_on_placenode(update_nearby)
+minetest.register_on_dignode(update_nearby)
+
 xpanes.register_pane("pane", {
 	description = "Glass Pane",
+	tiles = {"xpanes_space.png"},
+	drawtype = "airlike",
+	paramtype = "light",
+	is_ground_content = false,
+	sunlight_propagates = true,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	air_equivalent = true,
 	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_white.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
 	sounds = default.node_sound_glass_defaults(),
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3, pane=1},
 	recipe = {
-		{"default:glass", "default:glass", "default:glass"},
-		{"default:glass", "default:glass", "default:glass"}
+		{'default:glass', 'default:glass', 'default:glass'},
+		{'default:glass', 'default:glass', 'default:glass'}
+	}
+})
+
+xpanes.register_pane("obsidian_pane", {
+	description = "Obsidian Glass Pane",
+	tiles = {"xpanes_space.png"},
+	drawtype = "airlike",
+	paramtype = "light",
+	is_ground_content = false,
+	sunlight_propagates = true,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	air_equivalent = true,
+	textures = {"default_obsidian_glass.png","xpanes_pane_half_black.png","xpanes_black.png"},
+	inventory_image = "default_obsidian_glass.png",
+	wield_image = "default_obsidian_glass.png",
+	sounds = default.node_sound_glass_defaults(),
+	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3, pane=1},
+	recipe = {
+		{'default:obsidian_glass', 'default:obsidian_glass', 'default:obsidian_glass'},
+		{'default:obsidian_glass', 'default:obsidian_glass', 'default:obsidian_glass'}
 	}
 })
 
 xpanes.register_pane("bar", {
 	description = "Iron bar",
+	tiles = {"xpanes_space.png"},
+	drawtype = "airlike",
+	paramtype = "light",
+	is_ground_content = false,
+	sunlight_propagates = true,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	air_equivalent = true,
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_space.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3, pane=1},
 	sounds = default.node_sound_stone_defaults(),
 	recipe = {
-		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"}
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'}
 	}
 })
-
