@@ -504,7 +504,7 @@ doors.register("door_glass", {
 
 doors.register("door_obsidian_glass", {
 		tiles = { "doors_door_obsidian_glass.png" },
-		description = "Glass Door",
+		description = "Obsidian Glass Door",
 		inventory_image = "doors_item_obsidian_glass.png",
 		groups = { snappy=1, cracky=1, oddly_breakable_by_hand=3 },
 		sounds = default.node_sound_glass_defaults(),
