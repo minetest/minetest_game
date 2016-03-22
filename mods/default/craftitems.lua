@@ -14,17 +14,15 @@ minetest.register_craftitem("default:paper", {
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
-	local formspec, title, text, text_len, page, page_max, cpp, owner =
-		"", "", "", 1, 1, 1, 1, player_name
+	local formspec, title, text, owner = "", "", "", player_name
 
 	if data then
 		title = data.title
 		text = data.text
 		owner = data.owner
-		text_len = data.text_len
-		page = data.page
-		page_max = data.page_max
-		cpp = data.chars_per_page
+		page = data.page or 1
+		page_max = data.page_max or 1
+		cpp = data.chars_per_page or 650
 	end
 
 	if owner == player_name then
@@ -96,6 +94,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	elseif fields.book_next or fields.book_prev then
 		local data = minetest.deserialize(stack:get_metadata())
+		if not data.page then return end
+
 		if fields.book_next then
 			data.page = data.page + 1
 			if data.page > data.page_max then
