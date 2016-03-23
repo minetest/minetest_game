@@ -14,17 +14,19 @@ minetest.register_craftitem("default:paper", {
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
-	local formspec, title, text, text_len, page, page_max, cpp, owner =
-		"", "", "", 1, 1, 1, 1, player_name
+	local formspec, title, text, owner = "", "", "", player_name
+	local page, page_max, cpp = 1, 1, 650
 
 	if data then
 		title = data.title
 		text = data.text
 		owner = data.owner
-		text_len = data.text_len
-		page = data.page
-		page_max = data.page_max
-		cpp = data.chars_per_page
+
+		if data.page then
+			page = data.page
+			page_max = data.page_max
+			cpp = data.chars_per_page
+		end
 	end
 
 	if owner == player_name then
@@ -41,11 +43,11 @@ local function book_on_use(itemstack, user)
 			"label[0.5,0.5;by " .. owner .. "]" ..
 			"tablecolumns[color;text]" ..
 			"tableoptions[background=#00000000;highlight=#00000000;border=false]" ..
-			"table[0.4,0;7,0.5;title;#FFFF00," .. minetest.formspec_escape(title) .. "]"..
-			"textarea[0.5,1.5;7.5,7;;".. minetest.formspec_escape(text:sub(
+			"table[0.4,0;7,0.5;title;#FFFF00," .. minetest.formspec_escape(title) .. "]" ..
+			"textarea[0.5,1.5;7.5,7;;" .. minetest.formspec_escape(text:sub(
 				(cpp * page) - cpp, cpp * page)) .. ";]" ..
 			"button[2.4,7.6;0.8,0.8;book_prev;<]" ..
-			"label[3.2,7.7;Page " .. page .. " of " .. page_max .. "]"..
+			"label[3.2,7.7;Page " .. page .. " of " .. page_max .. "]" ..
 			"button[4.9,7.6;0.8,0.8;book_next;>]"
 	end
 
@@ -96,6 +98,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	elseif fields.book_next or fields.book_prev then
 		local data = minetest.deserialize(stack:get_metadata())
+		if not data.page then return end
+
 		if fields.book_next then
 			data.page = data.page + 1
 			if data.page > data.page_max then
