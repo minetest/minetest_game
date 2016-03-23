@@ -1574,43 +1574,16 @@ minetest.register_node("default:bookshelf", {
 		inv:set_size("books", 8 * 2)
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
-		local inv = meta:get_inventory()
+		local inv = minetest.get_meta(pos):get_inventory()
 		return inv:is_empty("books")
 	end,
-
-	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
-		local inv = meta:get_inventory()
-		local to_stack = inv:get_stack(listname, index)
-		if listname == "books" then
-			if minetest.get_item_group(stack:get_name(), "book") ~= 0
-					and to_stack:is_empty() then
-				return 1
-			else
-				return 0
-			end
+	allow_metadata_inventory_put = function(pos, listname, index, stack)
+		if minetest.get_item_group(stack:get_name(), "book") ~= 0 then
+			return stack:get_count()
 		end
+		return 0
 	end,
-
-	allow_metadata_inventory_move = function(pos, from_list, from_index,
-			to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
-		local inv = meta:get_inventory()
-		local stack = inv:get_stack(from_list, from_index)
-		local to_stack = inv:get_stack(to_list, to_index)
-		if to_list == "books" then
-			if minetest.get_item_group(stack:get_name(), "book") ~= 0
-					and to_stack:is_empty() then
-				return 1
-			else
-				return 0
-			end
-		end
-	end,
-
-	on_metadata_inventory_move = function(pos, from_list, from_index,
-			to_list, to_index, count, player)
+	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name() ..
 			" moves stuff in bookshelf at " .. minetest.pos_to_string(pos))
 	end,
