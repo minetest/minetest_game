@@ -219,8 +219,8 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	for y = -radius, radius do
 	local vi = a:index(pos.x + (-radius), pos.y + y, pos.z + z)
 	for x = -radius, radius do
-		if (x * x) + (y * y) + (z * z) <=
-				(radius * radius) + pr:next(-radius, radius) then
+		local r = vector.length(vector.new(x, y, z))
+		if (radius * radius) / (r * r) >= (pr:next(80, 125) / 100) then
 			local cid = data[vi]
 			local p = {x = pos.x + x, y = pos.y + y, z = pos.z + z}
 			if cid ~= c_air then
@@ -228,7 +228,6 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 					on_blast_queue, ignore_protection,
 					ignore_on_blast)
 			end
-
 		end
 		vi = vi + 1
 	end
@@ -242,7 +241,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 
 	for _, data in ipairs(on_blast_queue) do
 		local dist = math.max(1, vector.distance(data.pos, pos))
-		local intensity = 1 / (dist * dist)
+		local intensity = (radius * radius) / (dist * dist)
 		local node_drops = data.on_blast(data.pos, intensity)
 		if node_drops then
 			for _, item in ipairs(node_drops) do
