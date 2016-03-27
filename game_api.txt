@@ -230,18 +230,14 @@ tnt.register_tnt(definition)
   * `bottom` Bottom tile. By default the name of the tnt with a suffix of `_bottom.png`.
   * `burning` Top tile when lit. By default the name of the tnt with a suffix of `_top_burning_animated.png".
 
-`tnt.boom(position, radius, damage_radius, disable_drops) `
+`tnt.boom(position, definition)`
 
 ^ Create an explosion.
 
 * `position` The center of explosion.
-* `radius` The radius within which nodes can be destroyed.
-* `damage_radius` The distance from the center that players and mobs can get damaged in.
-* `disable_drops` Disable drops.
-* `ignore_protection` Don't check `minetest.is_protected` before removing a node.
-* `ignore_on_blast` Don't call `on_blast` even if a node has one.
+* `definition` The TNT definion as passed to `tnt.register`
 
-`tnt.burn(pos)`
+`tnt.burn(position)`
 
 ^ Ignite TNT at position
 
