@@ -41,10 +41,12 @@ function beds.save_spawns()
 	if not beds.spawn then
 		return
 	end
+	local data = {}
 	local output = io.open(org_file, "w")
-	for i, v in pairs(beds.spawn) do
-		output:write(v.x .. " " .. v.y .. " " .. v.z .. " " .. i .. "\n")
+	for k, v in pairs(beds.spawn) do
+		table.insert(data, string.format("%.1f %.1f %.1f %s\n", v.x, v.y, v.z, k))
 	end
+	output:write(table.concat(data))
 	io.close(output)
 end
 
