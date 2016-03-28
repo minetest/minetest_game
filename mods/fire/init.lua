@@ -77,18 +77,21 @@ minetest.register_tool("fire:flint_and_steel", {
 		local player_name = user:get_player_name()
 		local pt = pointed_thing
 
-		if pt.type == "node" and minetest.get_node(pt.under).name == "tnt:gunpowder" then
-			if not minetest.is_protected(pt.under, player_name) then
-				minetest.set_node(pt.under, {name="tnt:gunpowder_burning"})
-				minetest.get_node_timer(pt.under):start(1)
-			else
-				minetest.chat_send_player(player_name, "This area is protected")
-			end
-		elseif pt.type == "node" and minetest.get_node(pt.above).name == "air" then
-			if not minetest.is_protected(pt.above, player_name) then
-				minetest.set_node(pt.above, {name="fire:basic_flame"})
-			else
-				minetest.chat_send_player(player_name, "This area is protected")
+		if pt.type == "node" then
+			local node_under = minetest.get_node(pt.under).name
+			if node_under == "tnt:gunpowder" or node_under == "tnt:tnt" then
+				if not minetest.is_protected(pt.under, player_name) then
+					minetest.set_node(pt.under, {name=node_under.. "_burning"})
+					minetest.get_node_timer(pt.under):start(1)
+				else
+					minetest.chat_send_player(player_name, "This area is protected")
+				end
+			elseif minetest.get_node(pt.above).name == "air" then
+				if not minetest.is_protected(pt.above, player_name) then
+					minetest.set_node(pt.above, {name="fire:basic_flame"})
+				else
+					minetest.chat_send_player(player_name, "This area is protected")
+				end
 			end
 		end
 		
