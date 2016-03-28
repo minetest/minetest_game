@@ -4,7 +4,7 @@ local singleplayer = minetest.is_singleplayer()
 local setting = minetest.setting_getbool("enable_tnt")
 if (not singleplayer and setting ~= true) or
 		(singleplayer and setting == false) then
-	return
+	setting = nil -- disabled tnt:tnt and craft recipe further on
 end
 
 -- loss probabilities array (one in X will be lost)
@@ -224,23 +224,35 @@ local function boom(pos)
 	add_effects(pos, radius)
 end
 
-minetest.register_node("tnt:tnt", {
-	description = "TNT",
-	tiles = {"tnt_top.png", "tnt_bottom.png", "tnt_side.png"},
-	is_ground_content = false,
-	groups = {dig_immediate=2, mesecon=2},
-	sounds = default.node_sound_wood_defaults(),
-	on_punch = function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == "default:torch" then
-			minetest.sound_play("tnt_ignite", {pos=pos})
-			minetest.set_node(pos, {name="tnt:tnt_burning"})
-		end
-	end,
-	on_blast = function(pos, intensity)
-		burn(pos)
-	end,
-	mesecons = {effector = {action_on = boom}},
-})
+-- if nil then tnt:tnt and crafting recipe disabled
+if setting then
+	minetest.register_node("tnt:tnt", {
+		description = "TNT",
+		tiles = {"tnt_top.png", "tnt_bottom.png", "tnt_side.png"},
+		is_ground_content = false,
+		groups = {dig_immediate=2, mesecon=2},
+		sounds = default.node_sound_wood_defaults(),
+		on_punch = function(pos, node, puncher)
+			if puncher:get_wielded_item():get_name() == "default:torch" then
+				minetest.sound_play("tnt_ignite", {pos=pos})
+				minetest.set_node(pos, {name="tnt:tnt_burning"})
+			end
+		end,
+		on_blast = function(pos, intensity)
+			burn(pos)
+		end,
+		mesecons = {effector = {action_on = boom}},
+	})
+
+	minetest.register_craft({
+		output = "tnt:tnt",
+		recipe = {
+			{"",           "group:wood",    ""},
+			{"group:wood", "tnt:gunpowder", "group:wood"},
+			{"",           "group:wood",    ""}
+		}
+	})
+end
 
 minetest.register_node("tnt:tnt_burning", {
 	tiles = {
@@ -256,6 +268,7 @@ minetest.register_node("tnt:tnt_burning", {
 		"tnt_bottom.png", "tnt_side.png"},
 	light_source = 5,
 	drop = "",
+	groups = {not_in_crafting_guide = 1},
 	sounds = default.node_sound_wood_defaults(),
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(4)
@@ -271,7 +284,7 @@ minetest.register_node("tnt:boom", {
 	light_source = default.LIGHT_MAX,
 	walkable = false,
 	drop = "",
-	groups = {dig_immediate=3},
+	groups = {dig_immediate = 3, not_in_crafting_guide = 1},
 	on_timer = function(pos, elapsed)
 		minetest.remove_node(pos)
 	end,
@@ -387,13 +400,4 @@ minetest.register_craft({
 	output = "tnt:gunpowder",
 	type = "shapeless",
 	recipe = {"default:coal_lump", "default:gravel"}
-})
-
-minetest.register_craft({
-	output = "tnt:tnt",
-	recipe = {
-		{"",           "group:wood",    ""},
-		{"group:wood", "tnt:gunpowder", "group:wood"},
-		{"",           "group:wood",    ""}
-	}
 })
