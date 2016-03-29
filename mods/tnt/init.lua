@@ -51,9 +51,9 @@ local function eject_drops(drops, pos, radius)
 		local count = item:get_count()
 		local take_est = math.log(count * count) + math.random(0,4) - 2
 		while count > 0 do
-			local take = math.min(take_est,
+			local take = math.max(1,math.min(take_est,
 					item:get_count(),
-					item:get_stack_max())
+					item:get_stack_max()))
 			rand_pos(pos, drop_pos, radius)
 			local obj = minetest.add_item(drop_pos, item:get_name() .. " " .. take)
 			if obj then
@@ -165,7 +165,10 @@ local function add_effects(pos, radius, drops)
 		local count = stack:get_count()
 		if count > most then
 			most = count
-			texture = minetest.registered_nodes[name].tiles[1]
+			local def = minetest.registered_nodes[name]
+			if def and def.tiles and def.tiles[1] then
+				texture = def.tiles[1]
+			end
 		end
 	end
 
