@@ -198,9 +198,7 @@ function tnt.burn(pos)
 		minetest.set_node(pos, {name = name .. "_burning"})
 		minetest.get_node_timer(pos):start(1)
 	elseif name == "tnt:gunpowder" then
-		minetest.sound_play("tnt_gunpowder_burning", {pos = pos, gain = 2})
 		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
-		minetest.get_node_timer(pos):start(1)
 	end
 end
 
@@ -378,6 +376,10 @@ minetest.register_node("tnt:gunpowder_burning", {
 	end,
 	-- unaffected by explosions
 	on_blast = function() end,
+	on_construct = function(pos)
+		minetest.sound_play("tnt_gunpowder_burning", {pos = pos, gain = 2})
+		minetest.get_node_timer(pos):start(1)
+	end,
 })
 
 minetest.register_abm({
@@ -426,9 +428,7 @@ function tnt.register_tnt(def)
 		sounds = default.node_sound_wood_defaults(),
 		on_punch = function(pos, node, puncher)
 			if puncher:get_wielded_item():get_name() == "default:torch" then
-				minetest.sound_play("tnt_ignite", {pos = pos})
 				minetest.set_node(pos, {name = name .. "_burning"})
-				minetest.get_node_timer(pos):start(4)
 			end
 		end,
 		on_blast = function(pos, intensity)
@@ -466,6 +466,10 @@ function tnt.register_tnt(def)
 		end,
 		-- unaffected by explosions
 		on_blast = function() end,
+		on_construct = function(pos)
+			minetest.sound_play("tnt_ignite", {pos = pos})
+			minetest.get_node_timer(pos):start(4)
+		end,
 	})
 end
 
