@@ -94,8 +94,7 @@ local function register_flower(seed, name)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"stone_grassland", "sandstone_grassland",
-			"deciduous_forest", "coniferous_forest"},
+		biomes = {"grassland", "deciduous_forest", "coniferous_forest"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "flowers:"..name,
