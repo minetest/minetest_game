@@ -428,7 +428,7 @@ function default.register_biomes()
 		--node_water = "",
 		--node_river_water = "",
 		y_min = 2,
-		y_max = 31000,
+		y_max = 144,
 		heat_point = 15,
 		humidity_point = 65,
 	})
@@ -521,7 +521,7 @@ function default.register_biomes()
 		--node_water = "",
 		--node_river_water = "",
 		y_min = 6,
-		y_max = 31000,
+		y_max = 144,
 		heat_point = 40,
 		humidity_point = 65,
 	})
@@ -631,7 +631,7 @@ function default.register_biomes()
 		--node_water = "",
 		--node_river_water = "",
 		y_min = 1,
-		y_max = 31000,
+		y_max = 112,
 		heat_point = 60,
 		humidity_point = 65,
 	})
@@ -779,7 +779,7 @@ function default.register_biomes()
 		--node_water = "",
 		--node_river_water = "",
 		y_min = 1,
-		y_max = 31000,
+		y_max = 80,
 		heat_point = 85,
 		humidity_point = 80,
 	})
@@ -1149,7 +1149,7 @@ function default.register_decorations()
 		},
 		biomes = {"savanna"},
 		y_min = 1,
-		y_max = 31000,
+		y_max = 112,
 		schematic = minetest.get_modpath("default").."/schematics/acacia_tree.mts",
 		flags = "place_center_x, place_center_z",
 		rotation = "random",
@@ -1169,7 +1169,7 @@ function default.register_decorations()
 		},
 		biomes = {"savanna"},
 		y_min = 1,
-		y_max = 31000,
+		y_max = 112,
 		schematic = {
 			size = {x = 3, y = 2, z = 1},
 			data = {
@@ -1238,6 +1238,7 @@ function default.register_decorations()
 		flags = "place_center_x",
 		rotation = "random",
 	})
+
 	-- Large cactus
 
 	minetest.register_decoration({
