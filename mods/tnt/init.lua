@@ -120,6 +120,12 @@ local function calc_velocity(pos1, pos2, old_vel, power)
 
 	-- Add old velocity
 	vel = vector.add(vel, old_vel)
+
+	-- Limit to terminal velocity
+	dist = vector.length(vel)
+	if dist > 250 then
+		vel = vector.divide(vel, dist / 250)
+	end
 	return vel
 end
 
