@@ -247,6 +247,19 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	vm:update_map()
 	vm:update_liquids()
 
+	-- call nodeupdate for everything within 1.5x blast radius
+	for z = -radius * 1.5, radius * 1.5 do
+	for x = -radius * 1.5, radius * 1.5 do
+	for y = -radius * 1.5, radius * 1.5 do
+		local s = vector.add(pos, {x = x, y = y, z = z})
+		local r = vector.distance(pos, s)
+		if r / radius < 1.4 then
+			nodeupdate(s)
+		end
+	end
+	end
+	end
+
 	for _, data in ipairs(on_blast_queue) do
 		local dist = math.max(1, vector.distance(data.pos, pos))
 		local intensity = (radius * radius) / (dist * dist)
