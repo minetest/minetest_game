@@ -59,6 +59,11 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
+			local def = minetest.registered_nodes[minetest.get_node(pos).name]
+			if not def or not def.buildable_to then
+				return itemstack
+			end
+
 			local dir = minetest.dir_to_facedir(placer:get_look_dir())
 			local botpos = vector.add(pos, minetest.facedir_to_dir(dir))
 
@@ -68,7 +73,8 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			if not minetest.registered_nodes[minetest.get_node(botpos).name].buildable_to then
+			local botdef = minetest.registered_nodes[minetest.get_node(botpos).name]
+			if not botdef or not botdef.buildable_to then
 				return itemstack
 			end
 
