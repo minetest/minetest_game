@@ -59,3 +59,5 @@ walls.register("walls:mossycobble", "Mossy Cobblestone Wall", "default_mossycobb
 walls.register("walls:desertcobble", "Desert Cobblestone Wall", "default_desert_cobble.png",
 		"default:desert_cobble", default.node_sound_stone_defaults())
 
+walls.register("walls:sandstone", "Sandstone Wall", "default_sandstone.png",
+		"default:sandstone", default.node_sound_stone_defaults())
