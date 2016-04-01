@@ -353,31 +353,68 @@ minetest.register_abm({
 
 
 --
--- Grass growing on well-lit dirt
+-- Convert dirt to something that fits the environment
 --
 
 minetest.register_abm({
 	nodenames = {"default:dirt"},
-	neighbors = {"air"},
+	neighbors = {
+		"default:dirt_with_grass",
+		"default:dirt_with_dry_grass",
+		"default:dirt_with_snow",
+		"default:grass_1",
+		"default:grass_2",
+		"default:grass_3",
+		"default:grass_4",
+		"default:grass_5",
+		"default:dry_grass_1",
+		"default:dry_grass_2",
+		"default:dry_grass_3",
+		"default:dry_grass_4",
+		"default:dry_grass_5",
+		"default:snow",
+	},
 	interval = 6,
 	chance = 67,
 	catch_up = false,
 	action = function(pos, node)
+		-- Most likely case, half the time it's too dark for this.
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-		local name = minetest.get_node(above).name
-		local nodedef = minetest.registered_nodes[name]
-		if nodedef and (nodedef.sunlight_propagates or nodedef.paramtype == "light") and
-				nodedef.liquidtype == "none" and
-				(minetest.get_node_light(above) or 0) >= 13 then
-			if name == "default:snow" or name == "default:snowblock" then
-				minetest.set_node(pos, {name = "default:dirt_with_snow"})
-			else
-				minetest.set_node(pos, {name = "default:dirt_with_grass"})
+		if (minetest.get_node_light(above) or 0) < 13 then
+			return
+		end
+
+		-- Look for likely neighbors.
+		local p2 = minetest.find_node_near(pos, 1, {"default:dirt_with_grass",
+				"default:dirt_with_dry_grass", "default:dirt_with_snow"})
+		if p2 then
+			-- But the node needs to be under air in this case.
+			local n2 = minetest.get_node(above)
+			if n2 and n2.name == "air" then
+				local n3 = minetest.get_node(p2)
+				minetest.set_node(pos, {name = n3.name})
+				return
 			end
+		end
+
+		-- Anything on top?
+		local n2 = minetest.get_node(above)
+		if not n2 then
+			return
+		end
+
+		local name = n2.name
+		-- Snow check is cheapest, so comes first.
+		if name == "default:snow" then
+			minetest.set_node(pos, {name = "default:dirt_with_snow"})
+		-- Most likely case first.
+		elseif name:sub(1, 13) == "default:grass" then
+			minetest.set_node(pos, {name = "default:dirt_with_grass"})
+		elseif name:sub(1, 17) == "default:dry_grass" then
+			minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
 		end
 	end
 })
-
 
 --
 -- Grass and dry grass removed in darkness
