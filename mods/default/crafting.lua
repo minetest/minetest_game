@@ -659,6 +659,21 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'default:dirt_with_grass',
+	recipe = {
+		{'default:grass_1'},
+		{'default:dirt'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:dirt_with_dry_grass',
+	recipe = {
+		{'default:dry_grass_1'},
+		{'default:dirt'},
+	}
+})
 --
 -- Crafting (tool repair)
 --
