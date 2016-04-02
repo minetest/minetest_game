@@ -382,6 +382,7 @@ minetest.register_node("default:snow", {
 	wield_image = "default_snowball.png",
 	paramtype = "light",
 	buildable_to = true,
+	floodable = true,
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",
