@@ -83,6 +83,7 @@ minetest.register_abm({
 		pos.y = pos.y + 1
 		if under.name == "default:desert_sand" then
 			minetest.set_node(pos, {name = "default:dry_shrub"})
+			return
 		elseif under.name ~= "default:dirt_with_grass" then
 			return
 		end
@@ -92,18 +93,14 @@ minetest.register_abm({
 			return
 		end
 
-		local pos0 = {x = pos.x - 4, y = pos.y - 4, z = pos.z - 4}
-		local pos1 = {x = pos.x + 4, y = pos.y + 4, z = pos.z + 4}
-		if #minetest.find_nodes_in_area(pos0, pos1, "group:flora_block") > 0 then
+		local pos0 = vector.subtract(pos, 4)
+		local pos1 = vector.add(pos, 4)
+		if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 3 or
+				#minetest.find_nodes_in_area(pos0, pos1, "group:flora_block") > 0 then
 			return
 		end
 
-		local flowers = minetest.find_nodes_in_area(pos0, pos1, "group:flora")
-		if #flowers > 3 then
-			return
-		end
-
-		local seedling = minetest.find_nodes_in_area(pos0, pos1, "default:dirt_with_grass")
+		local seedling = minetest.find_nodes_in_area_under_air(pos0, pos1, "default:dirt_with_grass")
 		if #seedling > 0 then
 			seedling = seedling[math.random(#seedling)]
 			seedling.y = seedling.y + 1
@@ -111,9 +108,7 @@ minetest.register_abm({
 			if not light or light < 13 then
 				return
 			end
-			if minetest.get_node(seedling).name == "air" then
-				minetest.set_node(seedling, {name = node.name})
-			end
+			minetest.set_node(seedling, {name = node.name})
 		end
 	end,
 })
@@ -169,17 +164,15 @@ minetest.register_abm({
 	action = function(pos, node)
 		if minetest.get_node_light(pos, nil) == 15 then
 			minetest.remove_node(pos)
-		end
-		local random = {
-			x = pos.x + math.random(-2,2),
-			y = pos.y + math.random(-1,1),
-			z = pos.z + math.random(-2,2)
-		}
-		local random_node = minetest.get_node_or_nil(random)
-		if not random_node then
 			return
 		end
-		if random_node.name ~= "air" then
+		local random = {
+			x = pos.x + math.random(-2, 2),
+			y = pos.y + math.random(-1, 1),
+			z = pos.z + math.random(-2, 2)
+		}
+		local random_node = minetest.get_node_or_nil(random)
+		if not random_node or random_node.name ~= "air" then
 			return
 		end
 		local node_under = minetest.get_node_or_nil({x = random.x,
@@ -187,9 +180,11 @@ minetest.register_abm({
 		if not node_under then
 			return
 		end
-		if minetest.get_item_group(node_under.name, "soil") ~= 0 and
-				minetest.get_node_light(pos, nil) <= 9 and
-				minetest.get_node_light(random, nil) <= 9 then
+
+		if (minetest.get_item_group(node_under.name, "soil") ~= 0 or
+				minetest.get_item_group(node_under.name, "tree") ~= 0) and
+				minetest.get_node_light(pos, 0.5) <= 3 and
+				minetest.get_node_light(random, 0.5) <= 3 then
 			minetest.set_node(random, {name = node.name})
 		end
 	end
