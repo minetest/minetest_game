@@ -891,6 +891,15 @@ minetest.register_node("default:cactus", {
 	groups = {snappy = 1, choppy = 3},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
+	damage_per_second = 1,
+	collision_box = {
+		type = "fixed",
+		-- Adjust collision box so it damages players that are too
+		-- close. We need to allow them to "enter" into the node a
+		-- little bit for this to actually happen. The top is low
+		-- enough that feet damage occurs if standing on it.
+		fixed = {-5/16,-1/2,-5/16,5/16,0.39,5/16},
+	},
 })
 
 minetest.register_node("default:papyrus", {
