@@ -384,7 +384,11 @@ minetest.register_abm({
 --
 
 minetest.register_abm({
-	nodenames = {"default:dirt_with_grass", "default:dirt_with_dry_grass"},
+	nodenames = {
+		"default:dirt_with_grass",
+		"default:dirt_with_dry_grass",
+		"default:dirt_with_snow",
+	},
 	interval = 8,
 	chance = 50,
 	catch_up = false,
