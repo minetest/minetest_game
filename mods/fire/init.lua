@@ -263,7 +263,7 @@ else
 				minetest.remove_node(p0)
 				return
 			end
-			if math.random(1, 4) == 1 then
+			if math.random(1, 3) == 1 then
 				-- remove flammable nodes around flame
 				local node = minetest.get_node(p)
 				local def = minetest.registered_nodes[node.name]
