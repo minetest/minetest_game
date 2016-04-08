@@ -229,12 +229,16 @@ minetest.register_node("flowers:waterlily", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5}
 	},
 
-	on_place = function(_, _, pointed_thing)
+	on_place = function(itemstack, _, pointed_thing)
 		local pos = pointed_thing.above
 		local node = minetest.get_node(pointed_thing.under).name
 		local def = minetest.registered_nodes[node]
 		if def and def.liquidtype == "source" and minetest.get_item_group(node, "water") > 0 then
 			minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+			if not minetest.setting_getbool("creative_mode") then
+				itemstack:take_item()
+				return itemstack
+			end
 		end
 	end
 })
