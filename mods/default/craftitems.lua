@@ -11,21 +11,30 @@ minetest.register_craftitem("default:paper", {
 	inventory_image = "default_paper.png",
 })
 
+local lpp = 14 -- Lines per book's page
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
 	local formspec, title, text, owner = "", "", "", player_name
-	local page, page_max, cpp = 1, 1, 650
+	local page, page_max, lines, string = 1, 1, {}, ""
 
 	if data then
 		title = data.title
 		text = data.text
 		owner = data.owner
 
+		for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
+			lines[#lines+1] = str
+		end
+
 		if data.page then
 			page = data.page
 			page_max = data.page_max
-			cpp = data.chars_per_page
+
+			for i = ((lpp * page) - lpp) + 1, lpp * page do
+				if not lines[i] then break end
+				string = string .. lines[i] .. "\n"
+			end
 		end
 	end
 
@@ -44,8 +53,8 @@ local function book_on_use(itemstack, user)
 			"tablecolumns[color;text]" ..
 			"tableoptions[background=#00000000;highlight=#00000000;border=false]" ..
 			"table[0.4,0;7,0.5;title;#FFFF00," .. minetest.formspec_escape(title) .. "]" ..
-			"textarea[0.5,1.5;7.5,7;;" .. minetest.formspec_escape(text:sub(
-				(cpp * page) - cpp, cpp * page)) .. ";]" ..
+			"textarea[0.5,1.5;7.5,7;;" ..
+				minetest.formspec_escape(string ~= "" and string or text) .. ";]" ..
 			"button[2.4,7.6;0.8,0.8;book_prev;<]" ..
 			"label[3.2,7.7;Page " .. page .. " of " .. page_max .. "]" ..
 			"button[4.9,7.6;0.8,0.8;book_next;>]"
@@ -76,10 +85,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if not data then data = {} end
 		data.title = fields.title
 		data.text = fields.text
-		data.text_len = fields.text:len()
+		data.text_len = #data.text
 		data.page = 1
-		data.chars_per_page = 650
-		data.page_max = math.ceil(data.text_len / data.chars_per_page)
+		data.page_max = math.ceil((#data.text:gsub("[^\n]", "") + 1) / lpp)
 		data.owner = player:get_player_name()
 		local data_str = minetest.serialize(data)
 
@@ -93,8 +101,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		else
 			stack:set_metadata(data_str)
 		end
-
-		player:set_wielded_item(stack)
 
 	elseif fields.book_next or fields.book_prev then
 		local data = minetest.deserialize(stack:get_metadata())
@@ -116,6 +122,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		stack:set_metadata(data_str)
 		book_on_use(stack, player)
 	end
+
+	player:set_wielded_item(stack)
 end)
 
 minetest.register_craftitem("default:book", {
