@@ -1,4 +1,5 @@
-=== TNT mod for Minetest ===
+Minetest Game mod: tnt
+======================
 by PilzAdam and ShadowNinja
 
 Introduction:

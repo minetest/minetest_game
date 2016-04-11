@@ -9,7 +9,7 @@ local wool = {}
 -- colors, and then some recipes using more specific colors for a few non-base
 -- colors available. When crafting, the last recipes will be checked first.
 wool.dyes = {
-	{"white",      "White",      nil},
+	{"white",      "White",      "basecolor_white"},
 	{"grey",       "Grey",       "basecolor_grey"},
 	{"black",      "Black",      "basecolor_black"},
 	{"red",        "Red",        "basecolor_red"},

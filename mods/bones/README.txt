@@ -1,5 +1,5 @@
-Minetest 0.4 mod: bones
-=======================
+Minetest Game mod: bones
+========================
 
 License of source code:
 -----------------------

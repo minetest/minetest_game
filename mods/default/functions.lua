@@ -40,9 +40,9 @@ end
 function default.node_sound_sand_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_sand_footstep", gain = 0.2}
+			{name = "default_sand_footstep", gain = 0.12}
 	table.dug = table.dug or
-			{name = "default_sand_footstep", gain = 0.4}
+			{name = "default_sand_footstep", gain = 0.24}
 	table.place = table.place or
 			{name = "default_place_node", gain = 1.0}
 	default.node_sound_defaults(table)
@@ -88,35 +88,24 @@ end
 -- Lavacooling
 --
 
-default.cool_lava_source = function(pos)
-	minetest.set_node(pos, {name = "default:obsidian"})
-	minetest.sound_play("default_cool_lava",
-		{pos = pos, max_hear_distance = 16, gain = 0.25})
-end
-
-default.cool_lava_flowing = function(pos)
-	minetest.set_node(pos, {name = "default:stone"})
+default.cool_lava = function(pos, node)
+	if node.name == "default:lava_source" then
+		minetest.set_node(pos, {name = "default:obsidian"})
+	else -- Lava flowing
+		minetest.set_node(pos, {name = "default:stone"})
+	end
 	minetest.sound_play("default_cool_lava",
 		{pos = pos, max_hear_distance = 16, gain = 0.25})
 end
 
 minetest.register_abm({
-	nodenames = {"default:lava_flowing"},
+	nodenames = {"default:lava_source", "default:lava_flowing"},
 	neighbors = {"group:water"},
 	interval = 1,
-	chance = 2,
+	chance = 1,
+	catch_up = false,
 	action = function(...)
-		default.cool_lava_flowing(...)
-	end,
-})
-
-minetest.register_abm({
-	nodenames = {"default:lava_source"},
-	neighbors = {"group:water"},
-	interval = 1,
-	chance = 2,
-	action = function(...)
-		default.cool_lava_source(...)
+		default.cool_lava(...)
 	end,
 })
 
@@ -175,8 +164,8 @@ end
 minetest.register_abm({
 	nodenames = {"default:cactus"},
 	neighbors = {"group:sand"},
-	interval = 50,
-	chance = 20,
+	interval = 12,
+	chance = 83,
 	action = function(...)
 		default.grow_cactus(...)
 	end
@@ -185,8 +174,8 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = {"default:papyrus"},
 	neighbors = {"default:dirt", "default:dirt_with_grass"},
-	interval = 50,
-	chance = 20,
+	interval = 14,
+	chance = 71,
 	action = function(...)
 		default.grow_papyrus(...)
 	end
@@ -208,6 +197,62 @@ end
 
 
 --
+-- Fence registration helper
+--
+function default.register_fence(name, def)
+	minetest.register_craft({
+		output = name .. " 4",
+		recipe = {
+			{ def.material, 'group:stick', def.material },
+			{ def.material, 'group:stick', def.material },
+		}
+	})
+
+	local fence_texture = "default_fence_overlay.png^" .. def.texture ..
+			"^default_fence_overlay.png^[makealpha:255,126,126"
+	-- Allow almost everything to be overridden
+	local default_fields = {
+		paramtype = "light",
+		drawtype = "nodebox",
+		node_box = {
+			type = "connected",
+			fixed = {{-1/8, -1/2, -1/8, 1/8, 1/2, 1/8}},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {{-1/16,3/16,-1/2,1/16,5/16,-1/8},
+				{-1/16,-5/16,-1/2,1/16,-3/16,-1/8}},
+			connect_left = {{-1/2,3/16,-1/16,-1/8,5/16,1/16},
+				{-1/2,-5/16,-1/16,-1/8,-3/16,1/16}},
+			connect_back = {{-1/16,3/16,1/8,1/16,5/16,1/2},
+				{-1/16,-5/16,1/8,1/16,-3/16,1/2}},
+			connect_right = {{1/8,3/16,-1/16,1/2,5/16,1/16},
+				{1/8,-5/16,-1/16,1/2,-3/16,1/16}},
+		},
+		connects_to = {"group:fence", "group:wood", "group:tree"},
+		inventory_image = fence_texture,
+		wield_image = fence_texture,
+		tiles = {def.texture},
+		sunlight_propagates = true,
+		is_ground_content = false,
+		groups = {},
+	}
+	for k, v in pairs(default_fields) do
+		if not def[k] then
+			def[k] = v
+		end
+	end
+
+	-- Always add to the fence group, even if no group provided
+	def.groups.fence = 1
+
+	def.texture = nil
+	def.material = nil
+
+	minetest.register_node(name, def)
+end
+
+
+--
 -- Leafdecay
 --
 
@@ -223,9 +268,11 @@ minetest.register_globalstep(function(dtime)
 end)
 
 default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
-	local node = minetest.get_node(pos)
-	node.param2 = 1
-	minetest.set_node(pos, node)
+	if placer and not placer:get_player_control().sneak then
+		local node = minetest.get_node(pos)
+		node.param2 = 1
+		minetest.set_node(pos, node)
+	end
 end
 
 minetest.register_abm({
@@ -306,13 +353,15 @@ minetest.register_abm({
 
 
 --
--- Grass growing
+-- Grass growing on well-lit dirt
 --
 
 minetest.register_abm({
 	nodenames = {"default:dirt"},
-	interval = 2,
-	chance = 200,
+	neighbors = {"air"},
+	interval = 6,
+	chance = 67,
+	catch_up = false,
 	action = function(pos, node)
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		local name = minetest.get_node(above).name
@@ -329,10 +378,16 @@ minetest.register_abm({
 	end
 })
 
+
+--
+-- Grass and dry grass removed in darkness
+--
+
 minetest.register_abm({
 	nodenames = {"default:dirt_with_grass", "default:dirt_with_dry_grass"},
-	interval = 2,
-	chance = 20,
+	interval = 8,
+	chance = 50,
+	catch_up = false,
 	action = function(pos, node)
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		local name = minetest.get_node(above).name
@@ -345,3 +400,18 @@ minetest.register_abm({
 	end
 })
 
+
+--
+-- Moss growth on cobble near water
+--
+
+minetest.register_abm({
+	nodenames = {"default:cobble"},
+	neighbors = {"group:water"},
+	interval = 16,
+	chance = 200,
+	catch_up = false,
+	action = function(pos, node)
+		minetest.set_node(pos, {name = "default:mossycobble"})
+	end
+})

@@ -1,5 +1,5 @@
-Minetest 0.4 mod: creative
-==========================
+Minetest Game mod: creative
+===========================
 
 Implements creative mode.
 
@@ -13,6 +13,7 @@ are added to the creative inventory.
 License of source code and media files:
 ---------------------------------------
 Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com>
+Copyright (C) 2016 Jean-Patrick G. (kilbith) <jeanpatrick.guerrero@gmail.com>
 
 This program is free software. It comes without any warranty, to
 the extent permitted by applicable law. You can redistribute it

@@ -1,6 +1,6 @@
-Minetest 0.4 mod: boats
-=======================
-by PilzAdam, slightly modified for NeXt
+Minetest Game mod: boats
+========================
+by PilzAdam
 
 License of source code:
 -----------------------

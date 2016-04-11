@@ -22,6 +22,7 @@ local replace = minetest.setting_getbool("enable_stairs_replace_abm")
 -- Node will be called stairs:stair_<subname>
 
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
+	groups.stair = 1
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
 		drawtype = "mesh",
@@ -111,6 +112,7 @@ end
 -- Node will be called stairs:slab_<subname>
 
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
+	groups.slab = 1
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -231,7 +233,7 @@ end
 if replace then
 	minetest.register_abm({
 		nodenames = {"group:slabs_replace"},
-		interval = 8,
+		interval = 16,
 		chance = 1,
 		action = function(pos, node)
 			node.name = minetest.registered_nodes[node.name].replace_name
@@ -285,6 +287,13 @@ stairs.register_stair_and_slab("acacia_wood", "default:acacia_wood",
 		{"default_acacia_wood.png"},
 		"Acacia Wood Stair",
 		"Acacia Wood Slab",
+		default.node_sound_wood_defaults())
+
+stairs.register_stair_and_slab("aspen_wood", "default:aspen_wood",
+		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+		{"default_aspen_wood.png"},
+		"Aspen Wood Stair",
+		"Aspen Wood Slab",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("stone", "default:stone",

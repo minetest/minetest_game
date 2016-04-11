@@ -1,13 +1,20 @@
 -- minetest/creative/init.lua
 
-creative_inventory = {}
-creative_inventory.creative_inventory_size = 0
+creative = {}
+local player_inventory = {}
 
 -- Create detached creative inventory after loading all mods
-minetest.after(0, function()
-	local inv = minetest.create_detached_inventory("creative", {
+creative.init_creative_inventory = function(player)
+	local player_name = player:get_player_name()
+	player_inventory[player_name] = {}
+	player_inventory[player_name].size = 0
+	player_inventory[player_name].filter = ""
+	player_inventory[player_name].start_i = 1
+	player_inventory[player_name].tab_id = 2
+
+	minetest.create_detached_inventory("creative_" .. player_name, {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			if minetest.setting_getbool("creative_mode") then
+			if minetest.setting_getbool("creative_mode") and not to_list == "main" then
 				return count
 			else
 				return 0
@@ -28,28 +35,51 @@ minetest.after(0, function()
 		on_put = function(inv, listname, index, stack, player)
 		end,
 		on_take = function(inv, listname, index, stack, player)
-			--print(player:get_player_name().." takes item from creative inventory; listname="..dump(listname)..", index="..dump(index)..", stack="..dump(stack))
+			local player_name, stack_name = player:get_player_name(), stack:get_name()
+			--print(player_name .. " takes item from creative inventory; listname = " .. listname .. ", index = " .. index .. ", stack = " .. dump(stack:to_table()))
 			if stack then
-				minetest.log("action", player:get_player_name().." takes "..dump(stack:get_name()).." from creative inventory")
-				--print("stack:get_name()="..dump(stack:get_name())..", stack:get_count()="..dump(stack:get_count()))
+				minetest.log("action", player_name .. " takes " .. stack_name .. " from creative inventory")
+				--print("Stack name: " .. stack_name .. ", Stack count: " .. stack:get_count())
 			end
 		end,
 	})
+
+	creative.update_creative_inventory(player_name)
+	--print("creative inventory size: " .. player_inventory[player_name].size)
+end
+
+local function tab_category(tab_id)
+	local id_category = {
+		nil, -- Reserved for crafting tab.
+		minetest.registered_items,
+		minetest.registered_nodes,
+		minetest.registered_tools,
+		minetest.registered_craftitems
+	}
+
+	-- If index out of range, show default ("All") page.
+	return id_category[tab_id] or id_category[2]
+end
+
+function creative.update_creative_inventory(player_name)
 	local creative_list = {}
-	for name,def in pairs(minetest.registered_items) do
-		if (not def.groups.not_in_creative_inventory or def.groups.not_in_creative_inventory == 0)
-				and def.description and def.description ~= "" then
-			table.insert(creative_list, name)
+	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
+	local inv = player_inventory[player_name]
+
+	for name, def in pairs(tab_category(inv.tab_id)) do
+		if not (def.groups.not_in_creative_inventory == 1) and
+				def.description and def.description ~= "" and
+				(def.name:find(inv.filter, 1, true) or
+					def.description:lower():find(inv.filter, 1, true)) then
+			creative_list[#creative_list+1] = name
 		end
 	end
+
 	table.sort(creative_list)
-	inv:set_size("main", #creative_list)
-	for _,itemstring in ipairs(creative_list) do
-		inv:add_item("main", ItemStack(itemstring))
-	end
-	creative_inventory.creative_inventory_size = #creative_list
-	--print("creative inventory size: "..dump(creative_inventory.creative_inventory_size))
-end)
+	player_inv:set_size("main", #creative_list)
+	player_inv:set_list("main", creative_list)
+	inv.size = #creative_list
+end
 
 -- Create the trash field
 local trash = minetest.create_detached_inventory("creative_trash", {
@@ -62,110 +92,161 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 			return 0
 		end
 	end,
-	on_put = function(inv, listname, index, stack, player)
-		inv:set_stack(listname, index, "")
+	on_put = function(inv, listname)
+		inv:set_list(listname, {})
 	end,
 })
 trash:set_size("main", 1)
 
+creative.set_creative_formspec = function(player, start_i)
+	local player_name = player:get_player_name()
+	local inv = player_inventory[player_name]
+	local pagenum = math.floor(start_i / (3*8) + 1)
+	local pagemax = math.ceil(inv.size / (3*8))
 
-creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
-	pagenum = math.floor(pagenum)
-	local pagemax = math.floor((creative_inventory.creative_inventory_size-1) / (6*4) + 1)
-	player:set_inventory_formspec(
-			"size[13,7.5]"..
-			--"image[6,0.6;1,2;player.png]"..
-			default.gui_bg..
-			default.gui_bg_img..
-			default.gui_slots..
-			"list[current_player;main;5,3.5;8,1;]"..
-			"list[current_player;main;5,4.75;8,3;8]"..
-			"list[current_player;craft;8,0;3,3;]"..
-			"list[current_player;craftpreview;12,1;1,1;]"..
-			"image[11,1;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
-			"list[detached:creative;main;0.3,0.5;4,6;"..tostring(start_i).."]"..
-			"label[2.0,6.55;"..tostring(pagenum).."/"..tostring(pagemax).."]"..
-			"button[0.3,6.5;1.6,1;creative_prev;<<]"..
-			"button[2.7,6.5;1.6,1;creative_next;>>]"..
-			"listring[current_player;main]"..
-			"listring[current_player;craft]"..
-			"listring[current_player;main]"..
-			"listring[detached:creative;main]"..
-			"label[5,1.5;Trash:]"..
-			"list[detached:creative_trash;main;5,2;1,1;]"..
-			default.get_hotbar_bg(5,3.5)
+	player:set_inventory_formspec([[
+		size[8,8.6]
+		image[4.06,3.4;0.8,0.8;creative_trash_icon.png]
+		list[current_player;main;0,4.7;8,1;]
+		list[current_player;main;0,5.85;8,3;8]
+		list[detached:creative_trash;main;4,3.3;1,1;]
+		listring[]
+		tablecolumns[color;text;color;text]
+		tableoptions[background=#00000000;highlight=#00000000;border=false]
+		button[5.4,3.2;0.8,0.9;creative_prev;<]
+		button[7.25,3.2;0.8,0.9;creative_next;>]
+		button[2.1,3.4;0.8,0.5;creative_search;?]
+		button[2.75,3.4;0.8,0.5;creative_clear;X]
+		tooltip[creative_search;Search]
+		tooltip[creative_clear;Reset]
+		listring[current_player;main]
+		]] ..
+		"field[0.3,3.5;2.2,1;creative_filter;;" .. inv.filter .. "]" ..
+		"listring[detached:creative_" .. player_name .. ";main]" ..
+		"tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;" .. tostring(inv.tab_id) .. ";true;false]" ..
+		"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
+		"table[6.05,3.35;1.15,0.5;pagenum;#FFFF00," .. tostring(pagenum) .. ",#FFFFFF,/ " .. tostring(pagemax) .. "]" ..
+		default.get_hotbar_bg(0,4.7) ..
+		default.gui_bg .. default.gui_bg_img .. default.gui_slots
 	)
 end
+
+creative.set_crafting_formspec = function(player)
+	player:set_inventory_formspec([[
+		size[8,8.6]
+		list[current_player;craft;2,0.75;3,3;]
+		list[current_player;craftpreview;6,1.75;1,1;]
+		list[current_player;main;0,4.7;8,1;]
+		list[current_player;main;0,5.85;8,3;8]
+		list[detached:creative_trash;main;0,2.75;1,1;]
+		image[0.06,2.85;0.8,0.8;creative_trash_icon.png]
+		image[5,1.75;1,1;gui_furnace_arrow_bg.png^[transformR270]
+		tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;1;true;false]
+		listring[current_player;main]
+		listring[current_player;craft]
+		]] ..
+		default.get_hotbar_bg(0,4.7) ..
+		default.gui_bg .. default.gui_bg_img .. default.gui_slots
+	)
+end
+
 minetest.register_on_joinplayer(function(player)
 	-- If in creative mode, modify player's inventory forms
 	if not minetest.setting_getbool("creative_mode") then
 		return
 	end
-	creative_inventory.set_creative_formspec(player, 0, 1)
+	creative.init_creative_inventory(player)
+	creative.set_creative_formspec(player, 0)
 end)
+
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if not minetest.setting_getbool("creative_mode") then
+	if formname ~= "" or not minetest.setting_getbool("creative_mode") then
 		return
 	end
-	-- Figure out current page from formspec
-	local current_page = 0
-	local formspec = player:get_inventory_formspec()
-	local start_i = string.match(formspec, "list%[detached:creative;main;[%d.]+,[%d.]+;[%d.]+,[%d.]+;(%d+)%]")
-	start_i = tonumber(start_i) or 0
 
-	if fields.creative_prev then
-		start_i = start_i - 4*6
-	end
-	if fields.creative_next then
-		start_i = start_i + 4*6
-	end
+	local player_name = player:get_player_name()
+	local inv = player_inventory[player_name]
 
-	if start_i < 0 then
-		start_i = start_i + 4*6
-	end
-	if start_i >= creative_inventory.creative_inventory_size then
-		start_i = start_i - 4*6
-	end
-		
-	if start_i < 0 or start_i >= creative_inventory.creative_inventory_size then
-		start_i = 0
-	end
+	if fields.quit then
+		if inv.tab_id == 1 then
+			creative.set_crafting_formspec(player)
+		end
+	elseif fields.creative_tabs then
+		local tab = tonumber(fields.creative_tabs)
+		inv.tab_id = tab
 
-	creative_inventory.set_creative_formspec(player, start_i, start_i / (6*4) + 1)
+		if tab == 1 then
+			creative.set_crafting_formspec(player)
+		else
+			creative.update_creative_inventory(player_name)
+			creative.set_creative_formspec(player, 0)
+		end
+	elseif fields.creative_clear then
+		inv.filter = ""
+		creative.update_creative_inventory(player_name)
+		creative.set_creative_formspec(player, 0)
+	elseif fields.creative_search then
+		inv.filter = fields.creative_filter:lower()
+		creative.update_creative_inventory(player_name)
+		creative.set_creative_formspec(player, 0)
+	else
+		local formspec = player:get_inventory_formspec()
+		local start_i = formspec:match("list%[.-" .. player_name .. ";.-;(%d+)%]")
+		start_i = tonumber(start_i) or 0
+
+		if fields.creative_prev then
+			start_i = start_i - 3*8
+			if start_i < 0 then
+				start_i = inv.size - (inv.size % (3*8))
+				if inv.size == start_i then
+					start_i = math.max(0, inv.size - (3*8))
+				end
+			end
+		elseif fields.creative_next then
+			start_i = start_i + 3*8
+			if start_i >= inv.size then
+				start_i = 0
+			end
+		end
+
+		creative.set_creative_formspec(player, start_i)
+	end
 end)
 
 if minetest.setting_getbool("creative_mode") then
 	local digtime = 0.5
+	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 3}
+
 	minetest.register_item(":", {
 		type = "none",
 		wield_image = "wieldhand.png",
-		wield_scale = {x=1,y=1,z=2.5},
+		wield_scale = {x = 1, y = 1, z = 2.5},
 		range = 10,
 		tool_capabilities = {
 			full_punch_interval = 0.5,
 			max_drop_level = 3,
 			groupcaps = {
-				crumbly = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				cracky = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				snappy = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				choppy = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
-				oddly_breakable_by_hand = {times={[1]=digtime, [2]=digtime, [3]=digtime}, uses=0, maxlevel=3},
+				crumbly = caps,
+				cracky  = caps,
+				snappy  = caps,
+				choppy  = caps,
+				oddly_breakable_by_hand = caps,
 			},
 			damage_groups = {fleshy = 10},
 		}
 	})
-	
+
 	minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
 		return true
 	end)
-	
+
 	function minetest.handle_node_drops(pos, drops, digger)
 		if not digger or not digger:is_player() then
 			return
 		end
 		local inv = digger:get_inventory()
 		if inv then
-			for _,item in ipairs(drops) do
+			for _, item in ipairs(drops) do
 				item = ItemStack(item):get_name()
 				if not inv:contains_item("main", item) then
 					inv:add_item("main", item)
@@ -173,5 +254,4 @@ if minetest.setting_getbool("creative_mode") then
 			end
 		end
 	end
-	
 end

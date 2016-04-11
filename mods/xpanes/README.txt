@@ -1,5 +1,5 @@
-Minetest 0.4.x mod: xpanes
-==========================
+Minetest Game mod: xpanes
+=========================
 
 License:
 --------

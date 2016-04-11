@@ -1,5 +1,5 @@
-Minetest 0.4 mod: flowers
-=========================
+Minetest Game mod: flowers
+==========================
 
 License of source code:
 -----------------------
@@ -16,7 +16,8 @@ License of media (textures and sounds)
 WTFPL
 
 Gambit (WTFPL):
-  flowers_mushroom_*.png
+    flowers_mushroom_*.png
+    flowers_waterlily.png
 
 DanDuncombe (WTFPL):
-  flowers_spores_*.png
+    flowers_spores_*.png

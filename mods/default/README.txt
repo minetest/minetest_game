@@ -1,4 +1,4 @@
-Minetest 0.4 mod: default
+Minetest Game mod: default
 ==========================
 
 License of source code:
@@ -27,7 +27,6 @@ Cisoun's WTFPL texture pack:
   default_lava.png
   default_leaves.png
   default_sapling.png
-  default_sign_wall.png
   default_stone.png
   default_tree.png
   default_tree_top.png
@@ -59,7 +58,6 @@ VanessaE (WTFPL):
   default_desert_sand.png
   default_desert_stone.png
   default_sand.png
-  default_jungletree_top.png
 
 Calinou (CC BY-SA):
   default_brick.png
@@ -100,28 +98,29 @@ Zeg9 (CC BY-SA 3.0):
   default_gold_block.png
 
 paramat (CC BY-SA 3.0):
-  wieldhand.png, derived from character.png by Jordach (CC BY-SA 3.0)
+  wieldhand.png copied from character.png by Jordach (CC BY-SA 3.0)
   default_pinetree.png
   default_pinetree_top.png
   default_pinewood.png
-  default_sandstone_brick.png
-  default_obsidian_brick.png
-  default_river_water.png
-  default_river_water_source_animated.png
-  default_river_water_flowing_animated.png
   default_acacia_leaves.png
   default_acacia_sapling.png
   default_acacia_tree.png
   default_acacia_tree_top.png
   default_acacia_wood.png
+  default_junglewood.png
+  default_jungletree_top.png
+  default_sandstone_brick.png
+  default_obsidian_brick.png
+  default_stone_brick.png
+  default_desert_stone_brick.png
+  default_river_water.png
+  default_river_water_source_animated.png
+  default_river_water_flowing_animated.png
   default_dry_grass.png
   default_dry_grass_side.png
   default_dry_grass_*.png
-  default_junglewood.png, derived from a texture by BlockMen (CC BY-SA 3.0)
-  default_grass.png, derived from a texture by Philipbenr (CC BY-SA 3.0)
-  default_grass_side.png, derived from a texture by Philipbenr (CC BY-SA 3.0)
-  default_stone_brick.png, derived from a texture by Cisoun (WTFPL)
-  default_desert_stone_brick.png, derived from a texture by VanessaE (WTFPL)
+  default_grass.png
+  default_grass_side.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
@@ -148,6 +147,17 @@ BlockMen (CC BY-SA 3.0):
   heart.png
   gui_*.png
 
+sofar (CC BY-SA 3.0):
+  default_book_written.png, based on default_book.png
+  default_aspen_sapling
+  default_aspen_leaves
+  default_aspen_tree
+  default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
+  default_aspen_wood, derived from default_pine_wood (by paramat)
+
+sofar (WTFPL):
+  default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
+
 Neuromancer (CC BY-SA 2.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
@@ -166,6 +176,9 @@ Gambit (WTFPL):
   default_grass_*.png
   default_paper.png
   default_diamond_block.png
+  default_ladder_steel.png
+  default_sign_wall_wood.png
+  default_flint.png
 
 asl97 (WTFPL):
   default_ice.png

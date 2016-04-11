@@ -18,8 +18,8 @@ function beds.read_spawns()
 		repeat
 			local x = input:read("*n")
 			if x == nil then
-            			break
-            		end
+				break
+			end
 			local y = input:read("*n")
 			local z = input:read("*n")
 			local name = input:read("*l")
@@ -43,7 +43,7 @@ function beds.save_spawns()
 	end
 	local output = io.open(org_file, "w")
 	for i, v in pairs(beds.spawn) do
-		output:write(v.x.." "..v.y.." "..v.z.." "..i.."\n")
+		output:write(v.x .. " " .. v.y .. " " .. v.z .. " " .. i .. "\n")
 	end
 	io.close(output)
 end
@@ -52,7 +52,10 @@ function beds.set_spawns()
 	for name,_ in pairs(beds.player) do
 		local player = minetest.get_player_by_name(name)
 		local p = player:getpos()
-		beds.spawn[name] = p
+		-- but don't change spawn location if borrowing a bed
+		if not minetest.is_protected(p, name) then
+			beds.spawn[name] = p
+		end
 	end
 	beds.save_spawns()
 end

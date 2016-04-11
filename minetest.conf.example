@@ -1,6 +1,4 @@
-# This file contains settings of minetest_game that can be changed in
-# minetest.conf
-#
+# This file contains settings of Minetest Game that can be changed in minetest.conf
 # By default, all the settings are commented and not functional.
 # Uncomment settings by removing the preceding #.
 
@@ -11,7 +9,13 @@
 # 0 to disable
 #share_bones_time = 1200
 
-# Whether fire should be disabled (all fire nodes will instantly disappear)
+# How much earlier the bones of a dead player can be looted by
+# everyone if the player dies in a protected area they don't own.
+# 0 to disable. By default it is "share_bones_time" divide by four.
+#share_bones_time_early = 300
+
+# Whether standard fire should be disabled ('basic flame' nodes will disappear)
+# 'permanent flame' nodes will remain with either setting
 #disable_fire = false
 
 # Whether steel tools, torches and cobblestone should be given to new players
@@ -26,3 +30,11 @@
 # Enable the stairs mod ABM that replaces the old 'upside down'
 # stair and slab nodes in old maps with the new param2 versions.
 #enable_stairs_replace_abm = false
+
+# Whether you allow respawning in beds
+# Default value is true
+#enable_bed_respawn = true
+
+# Whether players can skip night by sleeping
+# Default value is true
+#enable_bed_night_skip = true
