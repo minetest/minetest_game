@@ -144,7 +144,6 @@ BlockMen (CC BY-SA 3.0):
   default_mineral_mese.png
   default_meselamp.png
   bubble.png
-  heart.png
   gui_*.png
 
 sofar (CC BY-SA 3.0):
@@ -222,3 +221,6 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
+
+KevDoy (CC BY-SA 3.0)
+  heart.png
