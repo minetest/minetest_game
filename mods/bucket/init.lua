@@ -162,7 +162,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 						user,
 						pointed_thing)
 			end
-		end,
+		end
 	end,
 })
 
