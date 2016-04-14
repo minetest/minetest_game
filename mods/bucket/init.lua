@@ -119,7 +119,6 @@ minetest.register_craftitem("bucket:bucket_empty", {
 		local node = minetest.get_node(pointed_thing.under)
 		local liquiddef = bucket.liquids[node.name]
 		local item_count = user:get_wielded_item():get_count()
-		local node_def = minetest.registered_nodes[node.name]
 
 		if liquiddef ~= nil
 		and liquiddef.itemname ~= nil
@@ -154,14 +153,17 @@ minetest.register_craftitem("bucket:bucket_empty", {
 			minetest.add_node(pointed_thing.under, {name="air"})
 
 			return ItemStack(giving_back)
-		elseif node_def then
-			-- Buckets will run a node's on_punch function if it is not liquid.
-			if node_def.on_punch then
-				node_def.on_punch(
-						pointed_thing.under,
-						minetest.get_node(pointed_thing.under),
-						user,
-						pointed_thing)
+		else
+			local node_def = minetest.registered_nodes[node.name]
+			if node_def then
+				-- Buckets will run a node's on_punch function if it is not liquid.
+				if node_def.on_punch then
+					node_def.on_punch(
+							pointed_thing.under,
+							minetest.get_node(pointed_thing.under),
+							user,
+							pointed_thing)
+				end
 			end
 		end
 	end,
