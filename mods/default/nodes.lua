@@ -1463,16 +1463,17 @@ minetest.register_node("default:chest", {
 		minetest.log("action", player:get_player_name() ..
 			" moves stuff in chest at " .. minetest.pos_to_string(pos))
 	end,
-    on_metadata_inventory_put = function(pos, listname, index, stack, player)
+	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" moves " .. stack:get_name() ..
 			" to chest at " .. minetest.pos_to_string(pos))
 	end,
-    on_metadata_inventory_take = function(pos, listname, index, stack, player)
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" takes " .. stack:get_name() ..
 			" from chest at " .. minetest.pos_to_string(pos))
 	end,
+	on_blast = function() end,
 })
 
 minetest.register_node("default:chest_locked", {
@@ -1511,26 +1512,26 @@ minetest.register_node("default:chest_locked", {
 		end
 		return count
 	end,
-    allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if not has_locked_chest_privilege(meta, player) then
 			return 0
 		end
 		return stack:get_count()
 	end,
-    allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if not has_locked_chest_privilege(meta, player) then
 			return 0
 		end
 		return stack:get_count()
 	end,
-    on_metadata_inventory_put = function(pos, listname, index, stack, player)
+	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" moves " .. stack:get_name() ..
 			" to locked chest at " .. minetest.pos_to_string(pos))
 	end,
-    on_metadata_inventory_take = function(pos, listname, index, stack, player)
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" takes " .. stack:get_name()  ..
 			" from locked chest at " .. minetest.pos_to_string(pos))
