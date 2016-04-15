@@ -1474,19 +1474,21 @@ minetest.register_node("default:chest", {
 			" from chest at " .. minetest.pos_to_string(pos))
 	end,
 	on_blast = function(pos)
-		local inv  = minetest.get_meta(pos):get_inventory()
-		for i = 1, inv:get_size("main") do
-			local m_stack = inv:get_stack("main", i)
-			local obj = minetest.add_item(pos, m_stack)
-			if obj then
-				obj:setvelocity({
-					x = math.random(-10, 10) / 9,
-					y = 3,
-					z = math.random(-10, 10) / 9
-				})
+		minetest.after(0.1, function()
+			local inv  = minetest.get_meta(pos):get_inventory()
+			for i = 1, inv:get_size("main") do
+				local m_stack = inv:get_stack("main", i)
+				local obj = minetest.add_item(pos, m_stack)
+				if obj then
+					obj:setvelocity({
+						x = math.random(-10, 10) / 9,
+						y = 3,
+						z = math.random(-10, 10) / 9
+					})
+				end
 			end
-		end
-		minetest.remove_node(pos)
+			minetest.remove_node(pos)
+		end)
 	end,
 })
 
