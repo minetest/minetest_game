@@ -135,16 +135,29 @@ local function entity_physics(pos, radius)
 	local objs = minetest.get_objects_inside_radius(pos, radius)
 	for _, obj in pairs(objs) do
 		local obj_pos = obj:getpos()
-		local obj_vel = obj:getvelocity()
 		local dist = math.max(1, vector.distance(pos, obj_pos))
 
-		if obj_vel ~= nil then
+		local damage = (4 / dist) * radius
+		if obj:is_player() then
+			-- currently the engine has no method to set
+			-- player velocity. See #2960
+			-- instead, we knock the player back 1.0 node, and slightly upwards
+			local dir = vector.normalize(vector.subtract(obj_pos, pos))
+			local moveoff = vector.multiply(dir, dist + 1.0)
+			local newpos = vector.add(pos, moveoff)
+			local newpos = vector.add(newpos, {x = 0, y = 0.2, z = 0})
+			obj:setpos(newpos)
+
+			obj:set_hp(obj:get_hp() - damage)
+		else
+			local obj_vel = obj:getvelocity()
 			obj:setvelocity(calc_velocity(pos, obj_pos,
 					obj_vel, radius * 10))
+			obj:punch(obj, 1.0, {
+				full_punch_interval = 1.0,
+				damage_groups = {fleshy = damage},
+			}, nil)
 		end
-
-		local damage = (4 / dist) * radius
-		obj:set_hp(obj:get_hp() - damage)
 	end
 end
 
