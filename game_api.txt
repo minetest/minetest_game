@@ -241,6 +241,23 @@ tnt.register_tnt(definition)
 
 ^ Ignite TNT at position
 
+
+To make dropping items from node inventories easier, you can use the
+following helper function from 'default':
+
+default.get_inventory_drops(pos, inventory, drops)
+
+^ Return drops from node inventory "inventory" in drops.
+
+* `pos` - the node position
+* `inventory` - the name of the inventory (string)
+* `drops` - an initialized list
+
+The function returns no values. The drops are returned in the `drops`
+parameter, and drops is not reinitialized so you can call it several
+times in a row to add more inventory items to it.
+
+
 Screwdriver API
 ---------------
 

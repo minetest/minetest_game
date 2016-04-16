@@ -48,6 +48,13 @@ minetest.register_node("vessels:shelf", {
 		minetest.log("action", player:get_player_name() ..
 			   " takes stuff from vessels shelf at ".. minetest.pos_to_string(pos))
 	end,
+	on_blast = function(pos)
+		local drops = {}
+		default.get_inventory_drops(pos, "vessels", drops)
+		drops[#drops+1] = "vessels:shelf"
+		minetest.remove_node(pos)
+		return drops
+	end,
 })
 
 minetest.register_craft({

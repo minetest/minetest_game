@@ -260,6 +260,15 @@ minetest.register_node("default:furnace", {
 		local timer = minetest.get_node_timer(pos)
 		timer:start(1.0)
 	end,
+	on_blast = function(pos)
+		local drops = {}
+		default.get_inventory_drops(pos, "src", drops)
+		default.get_inventory_drops(pos, "fuel", drops)
+		default.get_inventory_drops(pos, "dst", drops)
+		drops[#drops+1] = "default:furnace"
+		minetest.remove_node(pos)
+		return drops
+	end,
 
 	allow_metadata_inventory_put = allow_metadata_inventory_put,
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
