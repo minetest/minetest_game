@@ -203,11 +203,10 @@ function doors.register(name, def)
 	end
 
 	-- replace old doors of this type automatically
-	minetest.register_abm({
+	minetest.register_lbm({
+		name = ":doors:replace_" .. name:gsub(":", "_"),
 		nodenames = {name.."_b_1", name.."_b_2"},
-		interval = 7.0,
-		chance = 1,
-		action = function(pos, node, active_object_count, active_object_count_wider)
+		action = function(pos, node)
 			local l = tonumber(node.name:sub(-1))
 			local meta = minetest.get_meta(pos)
 			local h = meta:get_int("right") + 1
