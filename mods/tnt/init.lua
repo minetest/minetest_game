@@ -90,7 +90,7 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 	if not ignore_protection and minetest.is_protected(npos, "") then
 		return cid
 	end
-	
+
 	local def = cid_data[cid]
 
 	if not def then
@@ -319,7 +319,7 @@ minetest.register_node("tnt:gunpowder", {
 	},
 	groups = {dig_immediate = 2, attached_node = 1, connect_to_raillike = minetest.raillike_group("gunpowder")},
 	sounds = default.node_sound_leaves_defaults(),
-	
+
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			tnt.burn(pos)
@@ -440,7 +440,7 @@ function tnt.register_tnt(def)
 	local tnt_side = def.tiles.side or def.name .. "_side.png"
 	local tnt_burning = def.tiles.burning or def.name .. "_top_burning_animated.png"
 	if not def.damage_radius then def.damage_radius = def.radius * 2 end
-	
+
 	minetest.register_node(":" .. name, {
 		description = def.description,
 		tiles = {tnt_top, tnt_bottom, tnt_side},
@@ -457,15 +457,15 @@ function tnt.register_tnt(def)
 				tnt.boom(pos, def)
 			end)
 		end,
-		mesecons = {effector = 
-			{action_on = 
+		mesecons = {effector =
+			{action_on =
 				function(pos)
 					tnt.boom(pos, def)
 				end
 			}
 		},
 	})
-	
+
 	minetest.register_node(":" .. name .. "_burning", {
 		tiles = {
 			{
