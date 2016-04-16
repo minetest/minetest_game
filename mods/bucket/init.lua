@@ -158,11 +158,15 @@ minetest.register_craftitem("bucket:bucket_empty", {
 			if node_def then
 				-- Buckets will run a node's on_punch function if it is not liquid.
 				if node_def.on_punch then
-					node_def.on_punch(
+					giving_back = node_def.on_punch(
 							pointed_thing.under,
 							minetest.get_node(pointed_thing.under),
 							user,
 							pointed_thing)
+					
+					if giving_back ~= nil then
+						return ItemStack(giving_back)
+					end
 				end
 			end
 		end
