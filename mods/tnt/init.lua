@@ -123,6 +123,13 @@ local function calc_velocity(pos1, pos2, old_vel, power)
 	-- Add old velocity
 	vel = vector.add(vel, old_vel)
 
+	-- randomize it a bit
+	vel = vector.add(vel, {
+		x = math.random() - 0.5,
+		y = math.random() - 0.5,
+		z = math.random() - 0.5,
+	})
+
 	-- Limit to terminal velocity
 	dist = vector.length(vel)
 	if dist > 250 then
