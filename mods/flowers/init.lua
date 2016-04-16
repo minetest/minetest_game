@@ -71,45 +71,52 @@ end
 
 
 -- Flower spread
+-- Public function to enable override by mods
 
-minetest.register_abm({
-	nodenames = {"group:flora"},
-	neighbors = {"default:dirt_with_grass", "default:desert_sand"},
-	interval = 13,
-	chance = 96,
-	action = function(pos, node)
-		pos.y = pos.y - 1
-		local under = minetest.get_node(pos)
-		pos.y = pos.y + 1
-		if under.name == "default:desert_sand" then
-			minetest.set_node(pos, {name = "default:dry_shrub"})
-			return
-		elseif under.name ~= "default:dirt_with_grass" then
-			return
-		end
+function flowers.flower_spread(pos, node)
+	pos.y = pos.y - 1
+	local under = minetest.get_node(pos)
+	pos.y = pos.y + 1
+	if under.name == "default:desert_sand" then
+		minetest.set_node(pos, {name = "default:dry_shrub"})
+		return
+	elseif under.name ~= "default:dirt_with_grass" and
+			under.name ~= "default:dirt_with_dry_grass" then
+		return
+	end
 
-		local light = minetest.get_node_light(pos)
+	local light = minetest.get_node_light(pos)
+	if not light or light < 13 then
+		return
+	end
+
+	local pos0 = vector.subtract(pos, 4)
+	local pos1 = vector.add(pos, 4)
+	if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 3 then
+		return
+	end
+
+	local seedling = minetest.find_nodes_in_area_under_air(pos0, pos1,
+		{"default:dirt_with_grass", "default:dirt_with_dry_grass"})
+	if #seedling > 0 then
+		seedling = seedling[math.random(#seedling)]
+		seedling.y = seedling.y + 1
+		light = minetest.get_node_light(seedling)
 		if not light or light < 13 then
 			return
 		end
+		minetest.set_node(seedling, {name = node.name})
+	end
+end
 
-		local pos0 = vector.subtract(pos, 4)
-		local pos1 = vector.add(pos, 4)
-		if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 3 or
-				#minetest.find_nodes_in_area(pos0, pos1, "group:flora_block") > 0 then
-			return
-		end
-
-		local seedling = minetest.find_nodes_in_area_under_air(pos0, pos1, "default:dirt_with_grass")
-		if #seedling > 0 then
-			seedling = seedling[math.random(#seedling)]
-			seedling.y = seedling.y + 1
-			light = minetest.get_node_light(seedling)
-			if not light or light < 13 then
-				return
-			end
-			minetest.set_node(seedling, {name = node.name})
-		end
+minetest.register_abm({
+	nodenames = {"group:flora"},
+	neighbors = {"default:dirt_with_grass", "default:dirt_with_dry_grass",
+		"default:desert_sand"},
+	interval = 13,
+	chance = 96,
+	action = function(...)
+		flowers.flower_spread(...)
 	end,
 })
 
@@ -156,7 +163,9 @@ minetest.register_node("flowers:mushroom_brown", {
 	}
 })
 
--- mushroom spread and death
+
+-- Mushroom spread and death
+
 minetest.register_abm({
 	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
 	interval = 11,
@@ -190,7 +199,9 @@ minetest.register_abm({
 	end
 })
 
--- these old mushroom related nodes can be simplified now
+
+-- These old mushroom related nodes can be simplified now
+
 minetest.register_alias("flowers:mushroom_spores_brown", "flowers:mushroom_brown")
 minetest.register_alias("flowers:mushroom_spores_red", "flowers:mushroom_red")
 minetest.register_alias("flowers:mushroom_fertile_brown", "flowers:mushroom_brown")
