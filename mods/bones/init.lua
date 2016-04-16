@@ -123,6 +123,8 @@ minetest.register_node("bones:bones", {
 			return true
 		end
 	end,
+	on_blast = function(pos)
+	end,
 })
 
 local function may_replace(pos, player)

@@ -1474,6 +1474,13 @@ minetest.register_node("default:chest", {
 			" takes " .. stack:get_name() ..
 			" from chest at " .. minetest.pos_to_string(pos))
 	end,
+	on_blast = function(pos)
+		local drops = {}
+		default.get_inventory_drops(pos, "main", drops)
+		drops[#drops+1] = "default:chest"
+		minetest.remove_node(pos)
+		return drops
+	end,
 })
 
 minetest.register_node("default:chest_locked", {
@@ -1596,6 +1603,13 @@ minetest.register_node("default:bookshelf", {
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" takes stuff from bookshelf at " .. minetest.pos_to_string(pos))
+	end,
+	on_blast = function(pos)
+		local drops = {}
+		default.get_inventory_drops(pos, "books", drops)
+		drops[#drops+1] = "default:bookshelf"
+		minetest.remove_node(pos)
+		return drops
 	end,
 })
 

@@ -55,7 +55,9 @@ local function eject_drops(drops, pos, radius)
 					item:get_count(),
 					item:get_stack_max()))
 			rand_pos(pos, drop_pos, radius)
-			local obj = minetest.add_item(drop_pos, item:get_name() .. " " .. take)
+			local dropitem = ItemStack(item)
+			dropitem:set_count(take)
+			local obj = minetest.add_item(drop_pos, dropitem)
 			if obj then
 				obj:get_luaentity().collect = true
 				obj:setacceleration({x = 0, y = -10, z = 0})
