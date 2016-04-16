@@ -362,16 +362,8 @@ minetest.register_abm({
 		"default:dirt_with_grass",
 		"default:dirt_with_dry_grass",
 		"default:dirt_with_snow",
-		"default:grass_1",
-		"default:grass_2",
-		"default:grass_3",
-		"default:grass_4",
-		"default:grass_5",
-		"default:dry_grass_1",
-		"default:dry_grass_2",
-		"default:dry_grass_3",
-		"default:dry_grass_4",
-		"default:dry_grass_5",
+		"group:grass",
+		"group:dry_grass",
 		"default:snow",
 	},
 	interval = 6,
@@ -408,9 +400,9 @@ minetest.register_abm({
 		if name == "default:snow" then
 			minetest.set_node(pos, {name = "default:dirt_with_snow"})
 		-- Most likely case first.
-		elseif name:sub(1, 13) == "default:grass" then
+		elseif minetest.get_item_group(name, "grass") ~= 0 then
 			minetest.set_node(pos, {name = "default:dirt_with_grass"})
-		elseif name:sub(1, 17) == "default:dry_grass" then
+		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
 			minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
 		end
 	end
