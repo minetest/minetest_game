@@ -299,7 +299,6 @@ end
 function tnt.boom(pos, def)
 	minetest.sound_play("tnt_explode", {pos = pos, gain = 1.5, max_hear_distance = 2*64})
 	minetest.set_node(pos, {name = "tnt:boom"})
-	minetest.get_node_timer(pos):start(0.5)
 	local drops = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast)
 	entity_physics(pos, def.damage_radius)
@@ -316,6 +315,9 @@ minetest.register_node("tnt:boom", {
 	walkable = false,
 	drop = "",
 	groups = {dig_immediate = 3},
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(0.5)
+	end,
 	on_timer = function(pos, elapsed)
 		minetest.remove_node(pos)
 	end,
