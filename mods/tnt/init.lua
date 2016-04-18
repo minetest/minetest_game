@@ -502,6 +502,7 @@ function tnt.register_tnt(def)
 		light_source = 5,
 		drop = "",
 		sounds = default.node_sound_wood_defaults(),
+		groups = {falling_node = 1},
 		on_timer = function(pos, elapsed)
 			tnt.boom(pos, def)
 		end,
@@ -510,6 +511,7 @@ function tnt.register_tnt(def)
 		on_construct = function(pos)
 			minetest.sound_play("tnt_ignite", {pos = pos})
 			minetest.get_node_timer(pos):start(4)
+			nodeupdate(pos)
 		end,
 	})
 end
