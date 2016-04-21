@@ -98,6 +98,8 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 })
 trash:set_size("main", 1)
 
+creative.additional_formspec = ""
+
 creative.set_creative_formspec = function(player, start_i)
 	local player_name = player:get_player_name()
 	local inv = player_inventory[player_name]
@@ -128,6 +130,7 @@ creative.set_creative_formspec = function(player, start_i)
 		"table[6.05,3.35;1.15,0.5;pagenum;#FFFF00," .. tostring(pagenum) .. ",#FFFFFF,/ " .. tostring(pagemax) .. "]" ..
 		default.get_hotbar_bg(0,4.7) ..
 		default.gui_bg .. default.gui_bg_img .. default.gui_slots
+		.. creative.additional_formspec
 	)
 end
 
