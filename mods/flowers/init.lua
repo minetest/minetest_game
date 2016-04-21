@@ -226,6 +226,7 @@ minetest.register_node("flowers:waterlily", {
 	sunlight_propagates = true,
 	groups = {snappy = 3, flower = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	node_placement_prediction = "",
 	node_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.46875, 0.5}
@@ -235,12 +236,18 @@ minetest.register_node("flowers:waterlily", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5}
 	},
 
-	on_place = function(itemstack, _, pointed_thing)
+	on_place = function(itemstack, placer, pointed_thing)
 		local pos = pointed_thing.above
 		local node = minetest.get_node(pointed_thing.under).name
 		local def = minetest.registered_nodes[node]
+		local player_name = placer:get_player_name()
+
 		if def and def.liquidtype == "source" and minetest.get_item_group(node, "water") > 0 then
-			minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+			if not minetest.is_protected(pos, player_name) then
+				minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+			else
+				minetest.chat_send_player(player_name, "This area is protected")
+			end
 			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
 				return itemstack
