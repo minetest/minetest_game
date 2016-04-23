@@ -170,16 +170,16 @@ end
 
 local function add_effects(pos, radius, drops)
 	minetest.add_particlespawner({
-		amount = 128,
-		time = 1,
+		amount = 64,
+		time = 0.5,
 		minpos = vector.subtract(pos, radius / 2),
 		maxpos = vector.add(pos, radius / 2),
-		minvel = {x = -20, y = -20, z = -20},
-		maxvel = {x = 20, y = 20, z = 20},
+		minvel = {x = -10, y = -10, z = -10},
+		maxvel = {x = 10, y = 10, z = 10},
 		minacc = vector.new(),
 		maxacc = vector.new(),
 		minexptime = 1,
-		maxexptime = 3,
+		maxexptime = 2.5,
 		minsize = 8,
 		maxsize = 16,
 		texture = "tnt_smoke.png",
