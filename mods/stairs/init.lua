@@ -401,6 +401,13 @@ stairs.register_stair_and_slab("bronzeblock", "default:bronzeblock",
 		"Bronze Block Slab",
 		default.node_sound_stone_defaults())
 
+stairs.register_stair_and_slab("copperpatina", "default:copperpatina",
+		{cracky = 1, level = 2},
+		{"default_copper_patina.png"},
+		"Copper Patina Stair",
+		"Copper Patina Slab",
+		default.node_sound_stone_defaults())
+
 stairs.register_stair_and_slab("goldblock", "default:goldblock",
 		{cracky = 1},
 		{"default_gold_block.png"},

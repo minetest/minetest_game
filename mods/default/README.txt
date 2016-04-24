@@ -224,3 +224,6 @@ Mito551 (sounds) (CC BY-SA):
 
 KevDoy (CC BY-SA 3.0)
   heart.png
+
+pithydon (WTFPL)
+  default_copper_patina.png

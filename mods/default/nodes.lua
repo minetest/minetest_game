@@ -96,6 +96,7 @@ default:steelblock
 default:stone_with_copper
 default:copperblock
 default:bronzeblock
+default:copperpatina
 
 default:stone_with_gold
 default:goldblock
@@ -825,6 +826,14 @@ minetest.register_node("default:bronzeblock", {
 	tiles = {"default_bronze_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:copperpatina", {
+	description = "Copper Patina Block",
+	tiles = {"default_copper_patina.png"},
+	is_ground_content = false,
+	groups = {cracky=1,level=2},
 	sounds = default.node_sound_stone_defaults(),
 })
 

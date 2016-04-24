@@ -429,6 +429,22 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "shapeless",
+	output = "default:copperpatina",
+	recipe = {"bucket:bucket_water", "default:copperblock"},
+	replacements = {
+		{"bucket:bucket_water", "bucket:bucket_empty"}
+	}
+})
+
+minetest.register_craft({
+	output = "default:copper_ingot 9",
+	recipe = {
+		{"default:copperpatina"},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:bronzeblock',
 	recipe = {
 		{'default:bronze_ingot', 'default:bronze_ingot', 'default:bronze_ingot'},
