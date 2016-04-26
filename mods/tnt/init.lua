@@ -309,14 +309,24 @@ function tnt.boom(pos, def)
 end
 
 minetest.register_node("tnt:boom", {
-	drawtype = "plantlike",
-	tiles = {"tnt_boom.png"},
+	drawtype = "airlike",
 	light_source = default.LIGHT_MAX,
 	walkable = false,
 	drop = "",
 	groups = {dig_immediate = 3},
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(0.5)
+		minetest.add_particle({
+			pos = pos,
+			velocity = vector.new(),
+			acceleration = vector.new(),
+			expirationtime = 0.4,
+			size = 30,
+			collisiondetection = false,
+			vertical = false,
+			texture = "tnt_boom.png",
+			playername = nil,
+		})
+		minetest.get_node_timer(pos):start(0.4)
 	end,
 	on_timer = function(pos, elapsed)
 		minetest.remove_node(pos)
