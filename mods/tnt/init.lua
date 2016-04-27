@@ -160,10 +160,12 @@ local function entity_physics(pos, radius)
 			local obj_vel = obj:getvelocity()
 			obj:setvelocity(calc_velocity(pos, obj_pos,
 					obj_vel, radius * 10))
-			obj:punch(obj, 1.0, {
-				full_punch_interval = 1.0,
-				damage_groups = {fleshy = damage},
-			}, nil)
+			if not obj:get_armor_groups().immortal then
+				obj:punch(obj, 1.0, {
+					full_punch_interval = 1.0,
+					damage_groups = {fleshy = damage},
+				}, nil)
+			end
 		end
 	end
 end
