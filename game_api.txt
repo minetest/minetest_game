@@ -258,6 +258,28 @@ parameter, and drops is not reinitialized so you can call it several
 times in a row to add more inventory items to it.
 
 
+`on_blast` callbacks:
+
+Both nodedefs and entitydefs can provide an `on_blast()` callback
+
+`nodedef.on_blast(pos, intensity)`
+^ Allow drop and node removal overriding
+* `pos` - node position
+* `intensity` - TNT explosion measure. larger or equal to 1.0
+^ Should return a list of drops (e.g. {"default:stone"})
+^ Should perform node removal itself. If callback exists in the nodedef
+^ then the TNT code will not destroy this node.
+
+`entitydef.on_blast(luaobj, damage)`
+^ Allow TNT effects on entities to be overridden
+* `luaobj` - LuaEntityRef of the entity
+* `damage` - suggested HP damage value
+^ Should return a list of (bool do_damage, bool do_knockback, table drops)
+* `do_damage` - if true then TNT mod wil damage the entity
+* `do_knockback` - if true then TNT mod will knock the entity away
+* `drops` - a list of drops, e.g. {"wool:red"}
+
+
 Screwdriver API
 ---------------
 

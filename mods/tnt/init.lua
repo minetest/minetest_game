@@ -138,7 +138,7 @@ local function calc_velocity(pos1, pos2, old_vel, power)
 	return vel
 end
 
-local function entity_physics(pos, radius)
+local function entity_physics(pos, radius, drops)
 	local objs = minetest.get_objects_inside_radius(pos, radius)
 	for _, obj in pairs(objs) do
 		local obj_pos = obj:getpos()
@@ -157,14 +157,31 @@ local function entity_physics(pos, radius)
 
 			obj:set_hp(obj:get_hp() - damage)
 		else
-			local obj_vel = obj:getvelocity()
-			obj:setvelocity(calc_velocity(pos, obj_pos,
-					obj_vel, radius * 10))
-			if not obj:get_armor_groups().immortal then
-				obj:punch(obj, 1.0, {
-					full_punch_interval = 1.0,
-					damage_groups = {fleshy = damage},
-				}, nil)
+			local do_damage = true
+			local do_knockback = true
+			local entity_drops = {}
+			local luaobj = obj:get_luaentity()
+			local objdef = minetest.registered_entities[luaobj.name]
+
+			if objdef and objdef.on_blast then
+				do_damage, do_knockback, entity_drops = objdef.on_blast(luaobj, damage)
+			end
+
+			if do_knockback then
+				local obj_vel = obj:getvelocity()
+				obj:setvelocity(calc_velocity(pos, obj_pos,
+						obj_vel, radius * 10))
+			end
+			if do_damage then
+				if not obj:get_armor_groups().immortal then
+					obj:punch(obj, 1.0, {
+						full_punch_interval = 1.0,
+						damage_groups = {fleshy = damage},
+					}, nil)
+				end
+			end
+			for _, item in ipairs(entity_drops) do
+				add_drop(drops, item)
 			end
 		end
 	end
@@ -303,7 +320,9 @@ function tnt.boom(pos, def)
 	minetest.set_node(pos, {name = "tnt:boom"})
 	local drops = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast)
-	entity_physics(pos, def.damage_radius)
+	-- append entity drops
+	entity_physics(pos, def.damage_radius, drops)
+
 	if not def.disable_drops then
 		eject_drops(drops, pos, def.radius)
 	end
