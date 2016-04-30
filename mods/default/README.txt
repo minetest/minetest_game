@@ -87,7 +87,6 @@ InfinityProject (WTFPL):
 
 Splizard (CC BY-SA 3.0):
   default_snow.png
-  default_snow_side.png
   default_pine_sapling.png
 
 Zeg9 (CC BY-SA 3.0):
@@ -98,7 +97,7 @@ Zeg9 (CC BY-SA 3.0):
   default_gold_block.png
 
 paramat (CC BY-SA 3.0):
-  wieldhand.png copied from character.png by Jordach (CC BY-SA 3.0)
+  wieldhand.png -- Copied from character.png by Jordach (CC BY-SA 3.0)
   default_pinetree.png
   default_pinetree_top.png
   default_pinewood.png
@@ -121,6 +120,7 @@ paramat (CC BY-SA 3.0):
   default_dry_grass_*.png
   default_grass.png
   default_grass_side.png
+  default_snow_side.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
@@ -182,6 +182,9 @@ Gambit (WTFPL):
 asl97 (WTFPL):
   default_ice.png
 
+KevDoy (CC BY-SA 3.0)
+  heart.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
@@ -221,6 +224,3 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
-
-KevDoy (CC BY-SA 3.0)
-  heart.png
