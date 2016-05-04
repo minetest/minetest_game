@@ -80,26 +80,51 @@ minetest.register_node("fire:permanent_flame", {
 	end,
 })
 
+
+-- Flint and steel
+
 minetest.register_tool("fire:flint_and_steel", {
 	description = "Flint and Steel",
 	inventory_image = "fire_flint_steel.png",
 	on_use = function(itemstack, user, pointed_thing)
-		local player_name = user:get_player_name()
+		itemstack:add_wear(1000)
 		local pt = pointed_thing
-
-		if pt.type == "node" and minetest.get_node(pt.above).name == "air" then
-			itemstack:add_wear(1000)
+		if pt.type == "node" then
 			local node_under = minetest.get_node(pt.under).name
-
-			if minetest.get_item_group(node_under, "flammable") >= 1 then
-				if not minetest.is_protected(pt.above, player_name) then
-					minetest.set_node(pt.above, {name = "fire:basic_flame"})
-				else
-					minetest.chat_send_player(player_name, "This area is protected")
+			local is_coalblock = node_under == "default:coalblock"
+			local is_tnt = node_under == "tnt:tnt"
+			local is_gunpowder = node_under == "tnt:gunpowder"
+			if minetest.get_item_group(node_under, "flammable") >= 1 or
+					is_coalblock or is_tnt or is_gunpowder then
+				local flame_pos = pt.above
+				if is_coalblock then
+					flame_pos = {x = pt.under.x, y = pt.under.y + 1, z = pt.under.z}
+				elseif is_tnt or is_gunpowder then
+					flame_pos = pt.under
+				end
+				if minetest.get_node(flame_pos).name == "air" or
+						is_tnt or is_gunpowder then
+					local player_name = user:get_player_name()
+					if not minetest.is_protected(flame_pos, player_name) then
+						if is_coalblock then
+							minetest.set_node(flame_pos,
+								{name = "fire:permanent_flame"})
+						elseif is_tnt then
+							minetest.set_node(flame_pos,
+								{name = "tnt:tnt_burning"})
+						elseif is_gunpowder then
+							minetest.set_node(flame_pos,
+								{name = "tnt:gunpowder_burning"})
+						else
+							minetest.set_node(flame_pos,
+								{name = "fire:basic_flame"})
+						end
+					else
+						minetest.chat_send_player(player_name, "This area is protected")
+					end
 				end
 			end
 		end
-
 		if not minetest.setting_getbool("creative_mode") then
 			return itemstack
 		end
@@ -112,6 +137,20 @@ minetest.register_craft({
 		{"default:flint", "default:steel_ingot"}
 	}
 })
+
+
+-- Override coalblock to enable permanent flame above
+-- Coalblock is non-flammable to avoid unwanted basic_flame nodes
+
+minetest.override_item("default:coalblock", {
+	after_destruct = function(pos, oldnode)
+		pos.y = pos.y + 1
+		if minetest.get_node(pos).name == "fire:permanent_flame" then
+			minetest.remove_node(pos)
+		end
+	end,
+})
+
 
 -- Get sound area of position
 
