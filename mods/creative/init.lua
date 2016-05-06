@@ -194,8 +194,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		creative.set_creative_formspec(player, 0)
 	else
 		local formspec = player:get_inventory_formspec()
-		local start_i = formspec:match("list%[.-" .. player_name .. ";.-;(%d+)%]")
-		start_i = tonumber(start_i) or 0
+		local start_i = player_inventory[player_name].start_i or 0
 
 		if fields.creative_prev then
 			start_i = start_i - 3*8
@@ -212,6 +211,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 
+		player_inventory[player_name].start_i = start_i
 		creative.set_creative_formspec(player, start_i)
 	end
 end)
