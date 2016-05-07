@@ -2,7 +2,7 @@
 
 creative = {}
 local player_inventory = {}
-local creative_mode = minetest.setting_getbool("creative_mode") == true
+local creative_mode = minetest.setting_getbool("creative_mode")
 
 -- Create detached creative inventory after loading all mods
 creative.init_creative_inventory = function(player)
