@@ -2,6 +2,7 @@
 
 creative = {}
 local player_inventory = {}
+local creative_mode = minetest.setting_getbool("creative_mode")
 
 -- Create detached creative inventory after loading all mods
 creative.init_creative_inventory = function(player)
@@ -14,7 +15,7 @@ creative.init_creative_inventory = function(player)
 
 	minetest.create_detached_inventory("creative_" .. player_name, {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			if minetest.setting_getbool("creative_mode") and not to_list == "main" then
+			if creative_mode and not to_list == "main" then
 				return count
 			else
 				return 0
@@ -24,7 +25,7 @@ creative.init_creative_inventory = function(player)
 			return 0
 		end,
 		allow_take = function(inv, listname, index, stack, player)
-			if minetest.setting_getbool("creative_mode") then
+			if creative_mode then
 				return -1
 			else
 				return 0
@@ -86,7 +87,7 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 	-- Allow the stack to be placed and remove it in on_put()
 	-- This allows the creative inventory to restore the stack
 	allow_put = function(inv, listname, index, stack, player)
-		if minetest.setting_getbool("creative_mode") then
+		if creative_mode then
 			return stack:get_count()
 		else
 			return 0
@@ -155,7 +156,7 @@ end
 
 minetest.register_on_joinplayer(function(player)
 	-- If in creative mode, modify player's inventory forms
-	if not minetest.setting_getbool("creative_mode") then
+	if not creative_mode then
 		return
 	end
 	creative.init_creative_inventory(player)
@@ -163,7 +164,7 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "" or not minetest.setting_getbool("creative_mode") then
+	if formname ~= "" or not creative_mode then
 		return
 	end
 
@@ -216,7 +217,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-if minetest.setting_getbool("creative_mode") then
+if creative_mode then
 	local digtime = 0.5
 	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 3}
 
