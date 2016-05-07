@@ -1,5 +1,7 @@
 -- Wear out hoes, place soil
 -- TODO Ignore group:flower
+farming.registered_plants = {}
+
 farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	local pt = pointed_thing
 	-- check if pointing at a node
@@ -198,6 +200,8 @@ farming.register_plant = function(name, def)
 	if not def.fertility then
 		def.fertility = {}
 	end
+
+	farming.registered_plants[#farming.registered_plants+1] = def
 
 	-- Register seed
 	local g = {seed = 1, snappy = 3, attached_node = 1}
