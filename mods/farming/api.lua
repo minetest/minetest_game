@@ -201,7 +201,7 @@ farming.register_plant = function(name, def)
 		def.fertility = {}
 	end
 
-	farming.registered_plants[#farming.registered_plants+1] = def
+	farming.registered_plants[pname] = def
 
 	-- Register seed
 	local g = {seed = 1, snappy = 3, attached_node = 1}
