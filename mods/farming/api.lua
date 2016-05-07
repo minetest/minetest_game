@@ -1,6 +1,8 @@
 
 -- Wear out hoes, place soil
 -- TODO Ignore group:flower
+farming.registered_plants = {}
+
 farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	local pt = pointed_thing
 	-- check if pointing at a node
@@ -262,6 +264,8 @@ farming.register_plant = function(name, def)
 	if not def.fertility then
 		def.fertility = {}
 	end
+
+	farming.registered_plants[pname] = def
 
 	-- Register seed
 	local lbm_nodes = {mname .. ":seed_" .. pname}

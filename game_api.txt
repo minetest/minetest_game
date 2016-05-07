@@ -183,6 +183,9 @@ The farming API allows you to easily register plants and hoes.
 `farming.register_plant(name, Plant definition)`
  * Register a new growing plant, see [#Plant definition]
 
+`farming.registered_plants[name] = definition`
+ * Table of registered plants, indexed by plant name
+
 ### Hoe Definition
 
 
