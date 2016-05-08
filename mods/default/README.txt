@@ -185,6 +185,9 @@ asl97 (WTFPL):
 KevDoy (CC BY-SA 3.0)
   heart.png
 
+Ekdohibs (CC0):
+  default_mese_block.png -- Derived from original texture by Thomas--S
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
