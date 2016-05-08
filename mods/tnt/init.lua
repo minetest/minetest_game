@@ -28,6 +28,10 @@ minetest.after(0, function()
 	end
 end)
 
+local function isnan(x)
+	return x ~= x
+end
+
 local function rand_pos(center, pos, radius)
 	local def
 	local reg_nodes = minetest.registered_nodes
@@ -133,6 +137,9 @@ local function calc_velocity(pos1, pos2, old_vel, power)
 	dist = vector.length(vel)
 	if dist > 250 then
 		vel = vector.divide(vel, dist / 250)
+	end
+	if isnan(vel.x) or isnan(vel.y) or isnan(vel.z) then
+		vel = vector.new(10,10,10)
 	end
 	return vel
 end
