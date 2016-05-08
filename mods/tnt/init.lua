@@ -110,6 +110,11 @@ end
 
 
 local function calc_velocity(pos1, pos2, old_vel, power)
+	-- Avoid errors caused by a vector of zero length
+	if vector.equals(pos1, pos2) then
+		return old_vel
+	end
+
 	local vel = vector.direction(pos1, pos2)
 	vel = vector.normalize(vel)
 	vel = vector.multiply(vel, power)
