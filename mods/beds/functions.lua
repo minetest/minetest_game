@@ -104,10 +104,10 @@ local function update_formspecs(finished)
 	local is_majority = (ges / 2) < player_in_bed
 
 	if finished then
-		form_n = beds.formspec .. "label[2.7,11; Good morning.]"
+		form_n = beds.formspec .. "label[2.7,11; Buon giorno.]"
 	else
 		form_n = beds.formspec .. "label[2.2,11;" .. tostring(player_in_bed) ..
-			" of " .. tostring(ges) .. " players are in bed]"
+			" di " .. tostring(ges) .. " giocatori sono nel letto]"
 		if is_majority and is_night_skip_enabled() then
 			form_n = form_n .. "button_exit[2,8;4,0.75;force;Force night skip]"
 		end
@@ -142,7 +142,7 @@ function beds.on_rightclick(pos, player)
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
 		end
-		minetest.chat_send_player(name, "You can only sleep at night.")
+		minetest.chat_send_player(name, "Potete dormire solo di notte.")
 		return
 	end
 
