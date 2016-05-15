@@ -41,11 +41,11 @@ local function book_on_use(itemstack, user)
 	if owner == player_name then
 		formspec = "size[8,8]" .. default.gui_bg ..
 			default.gui_bg_img ..
-			"field[0.5,1;7.5,0;title;Title:;" ..
+			"field[0.5,1;7.5,0;title;Titolo:;" ..
 				minetest.formspec_escape(title) .. "]" ..
-			"textarea[0.5,1.5;7.5,7;text;Contents:;" ..
+			"textarea[0.5,1.5;7.5,7;text;Contenuti:;" ..
 				minetest.formspec_escape(text) .. "]" ..
-			"button_exit[2.5,7.5;3,1;save;Save]"
+			"button_exit[2.5,7.5;3,1;save;Salvare]"
 	else
 		formspec = "size[8,8]" .. default.gui_bg ..
 			default.gui_bg_img ..
@@ -56,7 +56,7 @@ local function book_on_use(itemstack, user)
 			"textarea[0.5,1.5;7.5,7;;" ..
 				minetest.formspec_escape(string ~= "" and string or text) .. ";]" ..
 			"button[2.4,7.6;0.8,0.8;book_prev;<]" ..
-			"label[3.2,7.7;Page " .. page .. " of " .. page_max .. "]" ..
+			"label[3.2,7.7;Pagina " .. page .. " di " .. page_max .. "]" ..
 			"button[4.9,7.6;0.8,0.8;book_next;>]"
 	end
 
@@ -127,14 +127,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.register_craftitem("default:book", {
-	description = "Book",
+	description = "Libro",
 	inventory_image = "default_book.png",
 	groups = {book = 1},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("default:book_written", {
-	description = "Book With Text",
+	description = "Libro con testo",
 	inventory_image = "default_book_written.png",
 	groups = {book = 1, not_in_creative_inventory = 1},
 	stack_max = 1,
@@ -172,78 +172,78 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 minetest.register_craftitem("default:coal_lump", {
-	description = "Coal Lump",
+	description = "Grumo di carbone",
 	inventory_image = "default_coal_lump.png",
 	groups = {coal = 1}
 })
 
 minetest.register_craftitem("default:iron_lump", {
-	description = "Iron Lump",
+	description = "Grumo di ferro",
 	inventory_image = "default_iron_lump.png",
 })
 
 minetest.register_craftitem("default:copper_lump", {
-	description = "Copper Lump",
+	description = "Grumo di rame",
 	inventory_image = "default_copper_lump.png",
 })
 
 minetest.register_craftitem("default:mese_crystal", {
-	description = "Mese Crystal",
+	description = "Cristallo di mese",
 	inventory_image = "default_mese_crystal.png",
 })
 
 minetest.register_craftitem("default:gold_lump", {
-	description = "Gold Lump",
+	description = "Grumo di oro",
 	inventory_image = "default_gold_lump.png",
 })
 
 minetest.register_craftitem("default:diamond", {
-	description = "Diamond",
+	description = "Diamante",
 	inventory_image = "default_diamond.png",
 })
 
 minetest.register_craftitem("default:clay_lump", {
-	description = "Clay Lump",
+	description = "Grumo di argilla",
 	inventory_image = "default_clay_lump.png",
 })
 
 minetest.register_craftitem("default:steel_ingot", {
-	description = "Steel Ingot",
+	description = "Lingotto di acciaio",
 	inventory_image = "default_steel_ingot.png",
 })
 
 minetest.register_craftitem("default:copper_ingot", {
-	description = "Copper Ingot",
+	description = "Lingotto di rame",
 	inventory_image = "default_copper_ingot.png",
 })
 
 minetest.register_craftitem("default:bronze_ingot", {
-	description = "Bronze Ingot",
+	description = "Lingotto di bronzo",
 	inventory_image = "default_bronze_ingot.png",
 })
 
 minetest.register_craftitem("default:gold_ingot", {
-	description = "Gold Ingot",
+	description = "Lingotto di oro",
 	inventory_image = "default_gold_ingot.png"
 })
 
 minetest.register_craftitem("default:mese_crystal_fragment", {
-	description = "Mese Crystal Fragment",
+	description = "Frammento di cristallo di mese",
 	inventory_image = "default_mese_crystal_fragment.png",
 })
 
 minetest.register_craftitem("default:clay_brick", {
-	description = "Clay Brick",
+	description = "Mattone di argilla",
 	inventory_image = "default_clay_brick.png",
 })
 
 minetest.register_craftitem("default:obsidian_shard", {
-	description = "Obsidian Shard",
+	description = "Scheggia di ossidiana",
 	inventory_image = "default_obsidian_shard.png",
 })
 
 minetest.register_craftitem("default:flint", {
-	description = "Flint",
+	description = "Selce",
 	inventory_image = "default_flint.png"
 })
 
