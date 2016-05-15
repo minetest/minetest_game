@@ -27,7 +27,7 @@ local share_bones_time = tonumber(minetest.setting_get("share_bones_time")) or 1
 local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early")) or share_bones_time / 4
 
 minetest.register_node("bones:bones", {
-	description = "Bones",
+	description = "Ossa",
 	tiles = {
 		"bones_top.png",
 		"bones_bottom.png",
