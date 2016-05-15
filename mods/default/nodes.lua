@@ -246,7 +246,7 @@ minetest.register_node("default:desert_stonebrick", {
 minetest.register_node("default:sandstone", {
 	description = "Sandstone",
 	tiles = {"default_sandstone.png"},
-	groups = {crumbly = 1, cracky = 3},
+	groups = {crumbly = 2, cracky = 3},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1389,6 +1389,7 @@ minetest.register_node("default:torch", {
 	groups = {choppy = 2, dig_immediate = 3, flammable = 1, attached_node = 1},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
+	floodable = true,
 })
 
 
