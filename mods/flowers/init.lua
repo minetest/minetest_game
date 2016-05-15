@@ -57,12 +57,12 @@ local function add_simple_flower(name, desc, box, f_groups)
 end
 
 flowers.datas = {
-	{"rose", "Rose", {-0.15, -0.5, -0.15, 0.15, 0.3, 0.15}, {color_red = 1}},
-	{"tulip", "Orange Tulip", {-0.15, -0.5, -0.15, 0.15, 0.2, 0.15}, {color_orange = 1}},
-	{"dandelion_yellow", "Yellow Dandelion", {-0.15, -0.5, -0.15, 0.15, 0.2, 0.15}, {color_yellow = 1}},
-	{"geranium", "Blue Geranium", {-0.15, -0.5, -0.15, 0.15, 0.2, 0.15}, {color_blue = 1}},
+	{"rose", "Rosa", {-0.15, -0.5, -0.15, 0.15, 0.3, 0.15}, {color_red = 1}},
+	{"tulip", "Tulipano arancione", {-0.15, -0.5, -0.15, 0.15, 0.2, 0.15}, {color_orange = 1}},
+	{"dandelion_yellow", "Dente di leone giallo", {-0.15, -0.5, -0.15, 0.15, 0.2, 0.15}, {color_yellow = 1}},
+	{"geranium", "Geranio blu", {-0.15, -0.5, -0.15, 0.15, 0.2, 0.15}, {color_blue = 1}},
 	{"viola", "Viola", {-0.5, -0.5, -0.5, 0.5, -0.2, 0.5}, {color_violet = 1}},
-	{"dandelion_white", "White dandelion", {-0.5, -0.5, -0.5, 0.5, -0.2, 0.5}, {color_white = 1}}
+	{"dandelion_white", "Dente di leone bianco", {-0.5, -0.5, -0.5, 0.5, -0.2, 0.5}, {color_white = 1}}
 }
 
 for _,item in pairs(flowers.datas) do
@@ -126,7 +126,7 @@ minetest.register_abm({
 --
 
 minetest.register_node("flowers:mushroom_red", {
-	description = "Red Mushroom",
+	description = "Fungo rosso",
 	tiles = {"flowers_mushroom_red.png"},
 	inventory_image = "flowers_mushroom_red.png",
 	wield_image = "flowers_mushroom_red.png",
@@ -145,7 +145,7 @@ minetest.register_node("flowers:mushroom_red", {
 })
 
 minetest.register_node("flowers:mushroom_brown", {
-	description = "Brown Mushroom",
+	description = "Fungo marrone",
 	tiles = {"flowers_mushroom_brown.png"},
 	inventory_image = "flowers_mushroom_brown.png",
 	wield_image = "flowers_mushroom_brown.png",
@@ -213,7 +213,7 @@ minetest.register_alias("flowers:mushroom_fertile_red", "flowers:mushroom_red")
 --
 
 minetest.register_node("flowers:waterlily", {
-	description = "Waterlily",
+	description = "Ninfea",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
