@@ -246,7 +246,7 @@ minetest.register_node("flowers:waterlily", {
 			if not minetest.is_protected(pos, player_name) then
 				minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
 			else
-				minetest.chat_send_player(player_name, "This area is protected")
+				minetest.chat_send_player(player_name, "Questa area è protetta!")
 			end
 			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
