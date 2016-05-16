@@ -89,7 +89,7 @@ end
 
 -- Screwdriver
 minetest.register_tool("screwdriver:screwdriver", {
-	description = "Screwdriver (left-click rotates face, right-click rotates axis)",
+	description = "Cacciavite (click sin. ruota la faccia, click des. ruota l'asse)",
 	inventory_image = "screwdriver.png",
 	on_use = function(itemstack, user, pointed_thing)
 		screwdriver.handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE, 200)
