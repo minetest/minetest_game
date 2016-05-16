@@ -22,12 +22,12 @@ end
 
 loadhomes()
 
-minetest.register_privilege("home", "Can use /sethome and /home")
+minetest.register_privilege("home", "Può usare /sethome e /home")
 
 local changed = false
 
 minetest.register_chatcommand("home", {
-    description = "Teleport you to your home point",
+    description = "Vi teletrasporta al vostro punto di casa",
     privs = {home=true},
     func = function(name)
         local player = minetest.get_player_by_name(name)
@@ -37,21 +37,21 @@ minetest.register_chatcommand("home", {
         end
         if homepos[player:get_player_name()] then
             player:setpos(homepos[player:get_player_name()])
-            minetest.chat_send_player(name, "Teleported to home!")
+            minetest.chat_send_player(name, "Teletrasportati a casa!")
         else
-            minetest.chat_send_player(name, "Set a home using /sethome")
+            minetest.chat_send_player(name, "Imposta una casa usando /sethome")
         end
     end,
 })
 
 minetest.register_chatcommand("sethome", {
-    description = "Set your home point",
+    description = "Imposta il vostro punto di casa",
     privs = {home=true},
     func = function(name)
         local player = minetest.get_player_by_name(name)
         local pos = player:getpos()
         homepos[player:get_player_name()] = pos
-        minetest.chat_send_player(name, "Home set!")
+        minetest.chat_send_player(name, "Casa impostata!")
         changed = true
         if changed then
         	local output = io.open(homes_file, "w")
