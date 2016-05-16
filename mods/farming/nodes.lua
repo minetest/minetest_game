@@ -26,7 +26,7 @@ minetest.override_item("default:dirt_with_dry_grass", {
 })
 
 minetest.register_node("farming:soil", {
-	description = "Soil",
+	description = "Suolo fertile",
 	tiles = {"default_dirt.png^farming_soil.png", "default_dirt.png"},
 	drop = "default:dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=2, grassland = 1, field = 1},
@@ -39,7 +39,7 @@ minetest.register_node("farming:soil", {
 })
 
 minetest.register_node("farming:soil_wet", {
-	description = "Wet Soil",
+	description = "Suolo bagnato",
 	tiles = {"default_dirt.png^farming_soil_wet.png", "default_dirt.png^farming_soil_wet_side.png"},
 	drop = "default:dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=3, wet = 1, grassland = 1, field = 1},
@@ -60,7 +60,7 @@ minetest.override_item("default:desert_sand", {
 	}
 })
 minetest.register_node("farming:desert_sand_soil", {
-	description = "Desert Sand Soil",
+	description = "Suolo fertile di sabbia del deserto",
 	drop = "default:desert_sand",
 	tiles = {"farming_desert_sand_soil.png", "default_desert_sand.png"},
 	groups = {crumbly=3, not_in_creative_inventory = 1, falling_node=1, sand=1, soil = 2, desert = 1, field = 1},
@@ -73,7 +73,7 @@ minetest.register_node("farming:desert_sand_soil", {
 })
 
 minetest.register_node("farming:desert_sand_soil_wet", {
-	description = "Wet Desert Sand Soil",
+	description = "Suolo bagnato di sabbia del deserto",
 	drop = "default:desert_sand",
 	tiles = {"farming_desert_sand_soil_wet.png", "farming_desert_sand_soil_wet_side.png"},
 	groups = {crumbly=3, falling_node=1, sand=1, not_in_creative_inventory=1, soil=3, wet = 1, desert = 1, field = 1},
@@ -86,7 +86,7 @@ minetest.register_node("farming:desert_sand_soil_wet", {
 })
 
 minetest.register_node("farming:straw", {
-	description = "Straw",
+	description = "Paglia",
 	tiles = {"farming_straw.png"},
 	is_ground_content = false,
 	groups = {snappy=3, flammable=4},
