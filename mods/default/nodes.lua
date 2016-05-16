@@ -1463,7 +1463,7 @@ minetest.register_node("default:chest", {
 	end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
-			" sposta " .. stack:get_name() ..
+			" mette " .. stack:get_name() ..
 			" nella cassa a " .. minetest.pos_to_string(pos))
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
@@ -1532,8 +1532,8 @@ minetest.register_node("default:chest_locked", {
 	end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
-			" sposta " .. stack:get_name() ..
-			" alla cassa con lucchetto a " .. minetest.pos_to_string(pos))
+			" mette " .. stack:get_name() ..
+			" nella cassa con lucchetto a " .. minetest.pos_to_string(pos))
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
