@@ -186,11 +186,11 @@ local function furnace_node_timer(pos, elapsed)
 	end
 
 	local fuel_state = "Vuoto"
-	local active = "inattivo "
+	local active = "inattiva "
 	local result = false
 
 	if fuel_time <= fuel_totaltime and fuel_totaltime ~= 0 then
-		active = "attivo "
+		active = "attiva "
 		local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = fuel_percent .. "%"
 		formspec = active_formspec(fuel_percent, item_percent)
