@@ -39,7 +39,7 @@ creative.init_creative_inventory = function(player)
 			local player_name, stack_name = player:get_player_name(), stack:get_name()
 			--print(player_name .. " takes item from creative inventory; listname = " .. listname .. ", index = " .. index .. ", stack = " .. dump(stack:to_table()))
 			if stack then
-				minetest.log("action", player_name .. " takes " .. stack_name .. " from creative inventory")
+				minetest.log("action", player_name .. " prende " .. stack_name .. " dall'inventario creativo")
 				--print("Stack name: " .. stack_name .. ", Stack count: " .. stack:get_count())
 			end
 		end,

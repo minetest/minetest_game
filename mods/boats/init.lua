@@ -214,7 +214,7 @@ minetest.register_entity("boats:boat", boat)
 
 
 minetest.register_craftitem("boats:boat", {
-	description = "Boat",
+	description = "Barca",
 	inventory_image = "boats_inventory.png",
 	wield_image = "boats_wield.png",
 	wield_scale = {x = 2, y = 2, z = 1},

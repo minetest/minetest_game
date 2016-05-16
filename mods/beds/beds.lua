@@ -1,7 +1,7 @@
 -- Fancy shaped bed
 
 beds.register_bed("beds:fancy_bed", {
-	description = "Fancy Bed",
+	description = "Letto decorativo",
 	inventory_image = "beds_bed_fancy.png",
 	wield_image = "beds_bed_fancy.png",
 	tiles = {
@@ -52,7 +52,7 @@ beds.register_bed("beds:fancy_bed", {
 -- Simple shaped bed
 
 beds.register_bed("beds:bed", {
-	description = "Simple Bed",
+	description = "Letto semplice",
 	inventory_image = "beds_bed.png",
 	wield_image = "beds_bed.png",
 	tiles = {

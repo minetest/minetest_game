@@ -18,11 +18,11 @@ bucket.liquids = {}
 
 local function check_protection(pos, name, text)
 	if minetest.is_protected(pos, name) then
-		minetest.log("action", (name ~= "" and name or "A mod")
-			.. " tried to " .. text
-			.. " at protected position "
+		minetest.log("action", (name ~= "" and name or "Un mod")
+			.. " ha tentato di " .. text
+			.. " alla posizione protetta "
 			.. minetest.pos_to_string(pos)
-			.. " with a bucket")
+			.. " con un secchio")
 		minetest.record_protection_violation(pos, name)
 		return true
 	end
@@ -106,7 +106,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 end
 
 minetest.register_craftitem("bucket:bucket_empty", {
-	description = "Empty Bucket",
+	description = "Secchio vuoto",
 	inventory_image = "bucket.png",
 	stack_max = 99,
 	liquids_pointable = true,
@@ -125,7 +125,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 		and node.name == liquiddef.source then
 			if check_protection(pointed_thing.under,
 					user:get_player_name(),
-					"take ".. node.name) then
+					"prende ".. node.name) then
 				return
 			end
 
@@ -162,7 +162,7 @@ bucket.register_liquid(
 	"default:water_flowing",
 	"bucket:bucket_water",
 	"bucket_water.png",
-	"Water Bucket",
+	"Secchio di acqua",
 	{water_bucket = 1}
 )
 
@@ -171,7 +171,7 @@ bucket.register_liquid(
 	"default:river_water_flowing",
 	"bucket:bucket_river_water",
 	"bucket_river_water.png",
-	"River Water Bucket",
+	"Secchio di acqua difiume",
 	{water_bucket = 1}
 )
 
@@ -180,7 +180,7 @@ bucket.register_liquid(
 	"default:lava_flowing",
 	"bucket:bucket_lava",
 	"bucket_lava.png",
-	"Lava Bucket"
+	"Secchio di lava"
 )
 
 minetest.register_craft({

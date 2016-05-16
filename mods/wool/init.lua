@@ -9,21 +9,21 @@ local wool = {}
 -- colors, and then some recipes using more specific colors for a few non-base
 -- colors available. When crafting, the last recipes will be checked first.
 wool.dyes = {
-	{"white",      "White",      "basecolor_white"},
-	{"grey",       "Grey",       "basecolor_grey"},
-	{"black",      "Black",      "basecolor_black"},
-	{"red",        "Red",        "basecolor_red"},
-	{"yellow",     "Yellow",     "basecolor_yellow"},
-	{"green",      "Green",      "basecolor_green"},
-	{"cyan",       "Cyan",       "basecolor_cyan"},
-	{"blue",       "Blue",       "basecolor_blue"},
-	{"magenta",    "Magenta",    "basecolor_magenta"},
-	{"orange",     "Orange",     "excolor_orange"},
-	{"violet",     "Violet",     "excolor_violet"},
-	{"brown",      "Brown",      "unicolor_dark_orange"},
-	{"pink",       "Pink",       "unicolor_light_red"},
-	{"dark_grey",  "Dark Grey",  "unicolor_darkgrey"},
-	{"dark_green", "Dark Green", "unicolor_dark_green"},
+	{"white",      "bianca",      "basecolor_white"},
+	{"grey",       "grigia",       "basecolor_grey"},
+	{"black",      "nera",      "basecolor_black"},
+	{"red",        "rossa",        "basecolor_red"},
+	{"yellow",     "gialla",     "basecolor_yellow"},
+	{"green",      "verde",      "basecolor_green"},
+	{"cyan",       "ciano",       "basecolor_cyan"},
+	{"blue",       "blu",       "basecolor_blue"},
+	{"magenta",    "magenta",    "basecolor_magenta"},
+	{"orange",     "arancione",     "excolor_orange"},
+	{"violet",     "viola",     "excolor_violet"},
+	{"brown",      "marrone",      "unicolor_dark_orange"},
+	{"pink",       "rosa",       "unicolor_light_red"},
+	{"dark_grey",  "girigia scura",  "unicolor_darkgrey"},
+	{"dark_green", "verde scura", "unicolor_dark_green"},
 }
 
 for _, row in ipairs(wool.dyes) do
@@ -32,7 +32,7 @@ for _, row in ipairs(wool.dyes) do
 	local craft_color_group = row[3]
 	-- Node Definition
 	minetest.register_node("wool:"..name, {
-		description = desc.." Wool",
+		description = "Lana " .. desc,
 		tiles = {"wool_"..name..".png"},
 		is_ground_content = false,
 		groups = {snappy=2,choppy=2,oddly_breakable_by_hand=3,flammable=3,wool=1},

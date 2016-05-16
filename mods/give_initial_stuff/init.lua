@@ -8,7 +8,7 @@ give_initial_stuff = {
 
 function give_initial_stuff.give(player)
 	minetest.log("action",
-			"Giving initial stuff to player " .. player:get_player_name())
+			"Consegna degli oggetti iniziali al giocatore " .. player:get_player_name())
 	local inv = player:get_inventory()
 	for _, stack in ipairs(give_initial_stuff.items) do
 		inv:add_item("main", stack)

@@ -63,7 +63,7 @@ local function allow_metadata_inventory_put(pos, listname, index, stack, player)
 	if listname == "fuel" then
 		if minetest.get_craft_result({method="fuel", width=1, items={stack}}).time ~= 0 then
 			if inv:is_empty("src") then
-				meta:set_string("infotext", "Furnace is empty")
+				meta:set_string("infotext", "La fornace è vuota")
 			end
 			return stack:get_count()
 		else
@@ -179,18 +179,18 @@ local function furnace_node_timer(pos, elapsed)
 		item_state = item_percent .. "%"
 	else
 		if srclist[1]:is_empty() then
-			item_state = "Empty"
+			item_state = "Vuoto"
 		else
-			item_state = "Not cookable"
+			item_state = "Non cucinabile"
 		end
 	end
 
-	local fuel_state = "Empty"
-	local active = "inactive "
+	local fuel_state = "Vuoto"
+	local active = "inattiva "
 	local result = false
 
 	if fuel_time <= fuel_totaltime and fuel_totaltime ~= 0 then
-		active = "active "
+		active = "attiva "
 		local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = fuel_percent .. "%"
 		formspec = active_formspec(fuel_percent, item_percent)
@@ -207,7 +207,7 @@ local function furnace_node_timer(pos, elapsed)
 		timer:stop()
 	end
 
-	local infotext = "Furnace " .. active .. "(Item: " .. item_state .. "; Fuel: " .. fuel_state .. ")"
+	local infotext = "Fornace " .. active .. "(Oggetto: " .. item_state .. "; Combustibile: " .. fuel_state .. ")"
 
 	--
 	-- Set meta values
@@ -226,7 +226,7 @@ end
 --
 
 minetest.register_node("default:furnace", {
-	description = "Furnace",
+	description = "Fornace",
 	tiles = {
 		"default_furnace_top.png", "default_furnace_bottom.png",
 		"default_furnace_side.png", "default_furnace_side.png",
@@ -276,7 +276,7 @@ minetest.register_node("default:furnace", {
 })
 
 minetest.register_node("default:furnace_active", {
-	description = "Furnace",
+	description = "Fornace",
 	tiles = {
 		"default_furnace_top.png", "default_furnace_bottom.png",
 		"default_furnace_side.png", "default_furnace_side.png",

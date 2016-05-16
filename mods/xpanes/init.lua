@@ -156,7 +156,7 @@ function xpanes.register_pane(name, def)
 end
 
 xpanes.register_pane("pane", {
-	description = "Glass Pane",
+	description = "Lastra di vetro",
 	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_white.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
@@ -169,7 +169,7 @@ xpanes.register_pane("pane", {
 })
 
 xpanes.register_pane("bar", {
-	description = "Iron bar",
+	description = "Barra di ferro",
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_space.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",

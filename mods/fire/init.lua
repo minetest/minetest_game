@@ -43,7 +43,7 @@ minetest.register_node("fire:basic_flame", {
 })
 
 minetest.register_node("fire:permanent_flame", {
-	description = "Permanent Flame",
+	description = "Fiamma permanente",
 	drawtype = "firelike",
 	tiles = {
 		{
@@ -71,7 +71,7 @@ minetest.register_node("fire:permanent_flame", {
 })
 
 minetest.register_tool("fire:flint_and_steel", {
-	description = "Flint and Steel",
+	description = "Selce e acciaio",
 	inventory_image = "fire_flint_steel.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local player_name = user:get_player_name()
@@ -85,7 +85,7 @@ minetest.register_tool("fire:flint_and_steel", {
 				if not minetest.is_protected(pt.above, player_name) then
 					minetest.set_node(pt.above, {name = "fire:basic_flame"})
 				else
-					minetest.chat_send_player(player_name, "This area is protected")
+					minetest.chat_send_player(player_name, "Questa area è protetta")
 				end
 			end
 		end

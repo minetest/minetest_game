@@ -72,7 +72,7 @@ minetest.register_abm({
 
 		local mapgen = minetest.get_mapgen_params().mgname
 		if node.name == "default:sapling" then
-			minetest.log("action", "A sapling grows into a tree at "..
+			minetest.log("action", "Un alberello diventa un albero a "..
 				minetest.pos_to_string(pos))
 			if mapgen == "v6" then
 				default.grow_tree(pos, random(1, 4) == 1)
@@ -80,7 +80,7 @@ minetest.register_abm({
 				default.grow_new_apple_tree(pos)
 			end
 		elseif node.name == "default:junglesapling" then
-			minetest.log("action", "A jungle sapling grows into a tree at "..
+			minetest.log("action", "Un alberello della giungla diventa un albero a "..
 				minetest.pos_to_string(pos))
 			if mapgen == "v6" then
 				default.grow_jungle_tree(pos)
@@ -88,7 +88,7 @@ minetest.register_abm({
 				default.grow_new_jungle_tree(pos)
 			end
 		elseif node.name == "default:pine_sapling" then
-			minetest.log("action", "A pine sapling grows into a tree at "..
+			minetest.log("action", "Un alberello di pino diventa un albero a "..
 				minetest.pos_to_string(pos))
 			local snow = is_snow_nearby(pos)
 			if mapgen == "v6" then
@@ -99,11 +99,11 @@ minetest.register_abm({
 				default.grow_new_pine_tree(pos)
 			end
 		elseif node.name == "default:acacia_sapling" then
-			minetest.log("action", "An acacia sapling grows into a tree at "..
+			minetest.log("action", "Un alberello di acacia diventa un albero a "..
 				minetest.pos_to_string(pos))
 			default.grow_new_acacia_tree(pos)
 		elseif node.name == "default:aspen_sapling" then
-			minetest.log("action", "An aspen sapling grows into a tree at "..
+			minetest.log("action", "Un alberello di pioppo diventa un albero a "..
 				minetest.pos_to_string(pos))
 			default.grow_new_aspen_tree(pos)
 		end

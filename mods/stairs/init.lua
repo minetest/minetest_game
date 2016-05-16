@@ -264,146 +264,146 @@ end
 stairs.register_stair_and_slab("wood", "default:wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 		{"default_wood.png"},
-		"Wooden Stair",
-		"Wooden Slab",
+		"Scala in legno",
+		"Lastra in legno",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("junglewood", "default:junglewood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 		{"default_junglewood.png"},
-		"Junglewood Stair",
-		"Junglewood Slab",
+		"Scala in legno della giungla",
+		"Lastra in legno della giungla",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("pine_wood", "default:pine_wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 		{"default_pine_wood.png"},
-		"Pine Wood Stair",
-		"Pine Wood Slab",
+		"Scala in legno di pino",
+		"Lastra in legno di pino",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("acacia_wood", "default:acacia_wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 		{"default_acacia_wood.png"},
-		"Acacia Wood Stair",
-		"Acacia Wood Slab",
+		"Scala in legno di acacia",
+		"Lastra in legno di acacia",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("aspen_wood", "default:aspen_wood",
 		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 		{"default_aspen_wood.png"},
-		"Aspen Wood Stair",
-		"Aspen Wood Slab",
+		"Scala in legno di pioppo",
+		"Lastra in legno di pioppo",
 		default.node_sound_wood_defaults())
 
 stairs.register_stair_and_slab("stone", "default:stone",
 		{cracky = 3},
 		{"default_stone.png"},
-		"Stone Stair",
-		"Stone Slab",
+		"Scala in pietra",
+		"Lastra in pietra",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("cobble", "default:cobble",
 		{cracky = 3},
 		{"default_cobble.png"},
-		"Cobblestone Stair",
-		"Cobblestone Slab",
+		"Scala in ciottoli",
+		"Lastra in ciottoli",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("stonebrick", "default:stonebrick",
 		{cracky = 3},
 		{"default_stone_brick.png"},
-		"Stone Brick Stair",
-		"Stone Brick Slab",
+		"Scala in mattoni di pietra",
+		"Lastra in mattoni di pietra",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("desert_stone", "default:desert_stone",
 		{cracky = 3},
 		{"default_desert_stone.png"},
-		"Desertstone Stair",
-		"Desertstone Slab",
+		"Scala in pietra del deserto",
+		"Lastra in pietra del deserto",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("desert_cobble", "default:desert_cobble",
 		{cracky = 3},
 		{"default_desert_cobble.png"},
-		"Desert Cobblestone Stair",
-		"Desert Cobblestone Slab",
+		"Scala in ciottoli del deserto",
+		"Lastra in ciottoli del deserto",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("desert_stonebrick", "default:desert_stonebrick",
 		{cracky = 3},
 		{"default_desert_stone_brick.png"},
-		"Desert Stone Brick Stair",
-		"Desert Stone Brick Slab",
+		"Scala in mattoni di pietra del deserto",
+		"Lastra in mattoni di pietra del deserto",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("sandstone", "default:sandstone",
 		{crumbly = 1, cracky = 3},
 		{"default_sandstone.png"},
-		"Sandstone Stair",
-		"Sandstone Slab",
+		"Scala in arenaria",
+		"Lastra in arenaria",
 		default.node_sound_stone_defaults())
 		
 stairs.register_stair_and_slab("sandstonebrick", "default:sandstonebrick",
 		{cracky = 2},
 		{"default_sandstone_brick.png"},
-		"Sandstone Brick Stair",
-		"Sandstone Brick Slab",
+		"Scala in mattoni di arenaria",
+		"Lastra in mattoni di arenaria",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("obsidian", "default:obsidian",
 		{cracky = 1, level = 2},
 		{"default_obsidian.png"},
-		"Obsidian Stair",
-		"Obsidian Slab",
+		"Scala in ossidiana",
+		"Lastra in ossidiana",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("obsidianbrick", "default:obsidianbrick",
 		{cracky = 1, level = 2},
 		{"default_obsidian_brick.png"},
-		"Obsidian Brick Stair",
-		"Obsidian Brick Slab",
+		"Scala in mattoni di ossidiana",
+		"Lastra in mattoni di ossidiana",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("brick", "default:brick",
 		{cracky = 3},
 		{"default_brick.png"},
-		"Brick Stair",
-		"Brick Slab",
+		"Scala di mattoni",
+		"Lastra di mattoni",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("straw", "farming:straw",
 		{snappy = 3, flammable = 4},
 		{"farming_straw.png"},
-		"Straw Stair",
-		"Straw Slab",
+		"Scala di paglia",
+		"Lastra di paglia",
 		default.node_sound_leaves_defaults())
 
 stairs.register_stair_and_slab("steelblock", "default:steelblock",
 		{cracky = 1, level = 2},
 		{"default_steel_block.png"},
-		"Steel Block Stair",
-		"Steel Block Slab",
+		"Scala di blocco di acciaio",
+		"Lastra di blocco di acciaio",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("copperblock", "default:copperblock",
 		{cracky = 1, level = 2},
 		{"default_copper_block.png"},
-		"Copper Block Stair",
-		"Copper Block Slab",
+		"Scala di blocco di rame",
+		"Lastra di blocco di rame",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("bronzeblock", "default:bronzeblock",
 		{cracky = 1, level = 2},
 		{"default_bronze_block.png"},
-		"Bronze Block Stair",
-		"Bronze Block Slab",
+		"Scala di blocco di bronzo",
+		"Lastra di blocco di bronzo",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("goldblock", "default:goldblock",
 		{cracky = 1},
 		{"default_gold_block.png"},
-		"Gold Block Stair",
-		"Gold Block Slab",
+		"Scala di blocco di oro",
+		"Lastra di blocco di oro",
 		default.node_sound_stone_defaults())

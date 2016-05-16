@@ -22,7 +22,7 @@ minetest.register_item(":", {
 --
 
 minetest.register_tool("default:pick_wood", {
-	description = "Wooden Pickaxe",
+	description = "Piccone di legno",
 	inventory_image = "default_tool_woodpick.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -34,7 +34,7 @@ minetest.register_tool("default:pick_wood", {
 	},
 })
 minetest.register_tool("default:pick_stone", {
-	description = "Stone Pickaxe",
+	description = "Piccone di pietra",
 	inventory_image = "default_tool_stonepick.png",
 	tool_capabilities = {
 		full_punch_interval = 1.3,
@@ -46,7 +46,7 @@ minetest.register_tool("default:pick_stone", {
 	},
 })
 minetest.register_tool("default:pick_steel", {
-	description = "Steel Pickaxe",
+	description = "Piccone di acciaio",
 	inventory_image = "default_tool_steelpick.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -58,7 +58,7 @@ minetest.register_tool("default:pick_steel", {
 	},
 })
 minetest.register_tool("default:pick_bronze", {
-	description = "Bronze Pickaxe",
+	description = "Piccone di bronzo",
 	inventory_image = "default_tool_bronzepick.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -70,7 +70,7 @@ minetest.register_tool("default:pick_bronze", {
 	},
 })
 minetest.register_tool("default:pick_mese", {
-	description = "Mese Pickaxe",
+	description = "Piccone di mese",
 	inventory_image = "default_tool_mesepick.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
@@ -82,7 +82,7 @@ minetest.register_tool("default:pick_mese", {
 	},
 })
 minetest.register_tool("default:pick_diamond", {
-	description = "Diamond Pickaxe",
+	description = "Piccone di diamante",
 	inventory_image = "default_tool_diamondpick.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
@@ -99,7 +99,7 @@ minetest.register_tool("default:pick_diamond", {
 --
 
 minetest.register_tool("default:shovel_wood", {
-	description = "Wooden Shovel",
+	description = "Vanga di legno",
 	inventory_image = "default_tool_woodshovel.png",
 	wield_image = "default_tool_woodshovel.png^[transformR90",
 	tool_capabilities = {
@@ -112,7 +112,7 @@ minetest.register_tool("default:shovel_wood", {
 	},
 })
 minetest.register_tool("default:shovel_stone", {
-	description = "Stone Shovel",
+	description = "Vanga di pietra",
 	inventory_image = "default_tool_stoneshovel.png",
 	wield_image = "default_tool_stoneshovel.png^[transformR90",
 	tool_capabilities = {
@@ -125,7 +125,7 @@ minetest.register_tool("default:shovel_stone", {
 	},
 })
 minetest.register_tool("default:shovel_steel", {
-	description = "Steel Shovel",
+	description = "Vanga di acciaio",
 	inventory_image = "default_tool_steelshovel.png",
 	wield_image = "default_tool_steelshovel.png^[transformR90",
 	tool_capabilities = {
@@ -138,7 +138,7 @@ minetest.register_tool("default:shovel_steel", {
 	},
 })
 minetest.register_tool("default:shovel_bronze", {
-	description = "Bronze Shovel",
+	description = "Vanga di bronzo",
 	inventory_image = "default_tool_bronzeshovel.png",
 	wield_image = "default_tool_bronzeshovel.png^[transformR90",
 	tool_capabilities = {
@@ -151,7 +151,7 @@ minetest.register_tool("default:shovel_bronze", {
 	},
 })
 minetest.register_tool("default:shovel_mese", {
-	description = "Mese Shovel",
+	description = "Vanga di mese",
 	inventory_image = "default_tool_meseshovel.png",
 	wield_image = "default_tool_meseshovel.png^[transformR90",
 	tool_capabilities = {
@@ -164,7 +164,7 @@ minetest.register_tool("default:shovel_mese", {
 	},
 })
 minetest.register_tool("default:shovel_diamond", {
-	description = "Diamond Shovel",
+	description = "Vanga di diamante",
 	inventory_image = "default_tool_diamondshovel.png",
 	wield_image = "default_tool_diamondshovel.png^[transformR90",
 	tool_capabilities = {
@@ -182,7 +182,7 @@ minetest.register_tool("default:shovel_diamond", {
 --
 
 minetest.register_tool("default:axe_wood", {
-	description = "Wooden Axe",
+	description = "Ascia di legno",
 	inventory_image = "default_tool_woodaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -194,7 +194,7 @@ minetest.register_tool("default:axe_wood", {
 	},
 })
 minetest.register_tool("default:axe_stone", {
-	description = "Stone Axe",
+	description = "Ascia di pietra",
 	inventory_image = "default_tool_stoneaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -206,7 +206,7 @@ minetest.register_tool("default:axe_stone", {
 	},
 })
 minetest.register_tool("default:axe_steel", {
-	description = "Steel Axe",
+	description = "Ascia di acciaio",
 	inventory_image = "default_tool_steelaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -218,7 +218,7 @@ minetest.register_tool("default:axe_steel", {
 	},
 })
 minetest.register_tool("default:axe_bronze", {
-	description = "Bronze Axe",
+	description = "Ascia di bronzo",
 	inventory_image = "default_tool_bronzeaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -230,7 +230,7 @@ minetest.register_tool("default:axe_bronze", {
 	},
 })
 minetest.register_tool("default:axe_mese", {
-	description = "Mese Axe",
+	description = "Ascia di mese",
 	inventory_image = "default_tool_meseaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
@@ -242,7 +242,7 @@ minetest.register_tool("default:axe_mese", {
 	},
 })
 minetest.register_tool("default:axe_diamond", {
-	description = "Diamond Axe",
+	description = "Ascia di diamante",
 	inventory_image = "default_tool_diamondaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
@@ -259,7 +259,7 @@ minetest.register_tool("default:axe_diamond", {
 --
 
 minetest.register_tool("default:sword_wood", {
-	description = "Wooden Sword",
+	description = "Spada di legno",
 	inventory_image = "default_tool_woodsword.png",
 	tool_capabilities = {
 		full_punch_interval = 1,
@@ -271,7 +271,7 @@ minetest.register_tool("default:sword_wood", {
 	}
 })
 minetest.register_tool("default:sword_stone", {
-	description = "Stone Sword",
+	description = "Spada di pietra",
 	inventory_image = "default_tool_stonesword.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -283,7 +283,7 @@ minetest.register_tool("default:sword_stone", {
 	}
 })
 minetest.register_tool("default:sword_steel", {
-	description = "Steel Sword",
+	description = "Spada di acciaio",
 	inventory_image = "default_tool_steelsword.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,
@@ -295,7 +295,7 @@ minetest.register_tool("default:sword_steel", {
 	}
 })
 minetest.register_tool("default:sword_bronze", {
-	description = "Bronze Sword",
+	description = "Spada di bronzo",
 	inventory_image = "default_tool_bronzesword.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,
@@ -307,7 +307,7 @@ minetest.register_tool("default:sword_bronze", {
 	}
 })
 minetest.register_tool("default:sword_mese", {
-	description = "Mese Sword",
+	description = "Spada di mese",
 	inventory_image = "default_tool_mesesword.png",
 	tool_capabilities = {
 		full_punch_interval = 0.7,
@@ -319,7 +319,7 @@ minetest.register_tool("default:sword_mese", {
 	}
 })
 minetest.register_tool("default:sword_diamond", {
-	description = "Diamond Sword",
+	description = "Spada di diamante",
 	inventory_image = "default_tool_diamondsword.png",
 	tool_capabilities = {
 		full_punch_interval = 0.7,
