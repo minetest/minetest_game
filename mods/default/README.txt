@@ -58,6 +58,8 @@ VanessaE (WTFPL):
   default_desert_sand.png
   default_desert_stone.png
   default_sand.png
+  default_mese_crystal.png
+  default_mese_crystal_fragment.png
 
 Calinou (CC BY-SA):
   default_brick.png
@@ -184,6 +186,9 @@ asl97 (WTFPL):
 
 KevDoy (CC BY-SA 3.0)
   heart.png
+
+Everamzah (CC BY-SA 3.0)
+  default_mese_block.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
