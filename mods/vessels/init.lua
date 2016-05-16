@@ -14,7 +14,7 @@ local vessels_shelf_formspec =
 	default.get_hotbar_bg(0,2.85)
 
 minetest.register_node("vessels:shelf", {
-	description = "Vessels shelf",
+	description = "Scaffale di contenitori",
 	tiles = {"default_wood.png", "default_wood.png", "vessels_shelf.png"},
 	is_ground_content = false,
 	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3},
@@ -38,15 +38,15 @@ minetest.register_node("vessels:shelf", {
 	end,
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name() ..
-			   " moves stuff in vessels shelf at ".. minetest.pos_to_string(pos))
+			   " sposta delle cose nello scaffale di contenitori a ".. minetest.pos_to_string(pos))
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
-			   " moves stuff to vessels shelf at ".. minetest.pos_to_string(pos))
+			   " mette delle cose nello scaffale di contenitori a ".. minetest.pos_to_string(pos))
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
-			   " takes stuff from vessels shelf at ".. minetest.pos_to_string(pos))
+			   " prende delle cose dallo scaffale di contenitori a ".. minetest.pos_to_string(pos))
 	end,
 	on_blast = function(pos)
 		local drops = {}
@@ -67,7 +67,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("vessels:glass_bottle", {
-	description = "Glass Bottle (empty)",
+	description = "Bottiglia di vetro (vuota)",
 	drawtype = "plantlike",
 	tiles = {"vessels_glass_bottle.png"},
 	inventory_image = "vessels_glass_bottle_inv.png",
@@ -93,7 +93,7 @@ minetest.register_craft( {
 })
 
 minetest.register_node("vessels:drinking_glass", {
-	description = "Drinking Glass (empty)",
+	description = "Bicchiere (vuoto)",
 	drawtype = "plantlike",
 	tiles = {"vessels_drinking_glass.png"},
 	inventory_image = "vessels_drinking_glass_inv.png",
@@ -119,7 +119,7 @@ minetest.register_craft( {
 })
 
 minetest.register_node("vessels:steel_bottle", {
-	description = "Heavy Steel Bottle (empty)",
+	description = "Bottiglia in acciaio pesante (vuota)",
 	drawtype = "plantlike",
 	tiles = {"vessels_steel_bottle.png"},
 	inventory_image = "vessels_steel_bottle_inv.png",
@@ -148,7 +148,7 @@ minetest.register_craft( {
 -- Make sure we can recycle them
 
 minetest.register_craftitem("vessels:glass_fragments", {
-	description = "Pile of Glass Fragments",
+	description = "Mucchio di frammenti di vetro",
 	inventory_image = "vessels_glass_fragments.png",
 })
 
