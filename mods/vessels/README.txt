@@ -43,3 +43,5 @@ Authors of media files
 Unless specifically noted,
 Copyright (C) 2012 Vanessa Ezekowitz
 
+Thomas-S (CC0), based on an image by Vanessa Ezekowitz (WTFPL):
+    vessels_drinking_glass.png
