@@ -101,9 +101,10 @@ minetest.register_node("vessels:drinking_glass", {
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
+	visual_scale = 0.9,
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.1, 0.25}
 	},
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
 	sounds = default.node_sound_glass_defaults(),
