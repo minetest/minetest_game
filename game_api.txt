@@ -61,6 +61,11 @@ Beds API
 		}
 	}
 
+Creative API
+------------
+
+A global string called `creative.formspec_add` was added which allows mods to add additional formspec elements onto the default creative inventory formspec to be drawn after each update.
+
 Doors API
 ---------
 
