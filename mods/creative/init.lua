@@ -178,6 +178,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	elseif fields.creative_tabs then
 		local tab = tonumber(fields.creative_tabs)
 		inv.tab_id = tab
+		player_inventory[player_name].start_i = 1
 
 		if tab == 1 then
 			creative.set_crafting_formspec(player)
@@ -186,10 +187,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			creative.set_creative_formspec(player, 0)
 		end
 	elseif fields.creative_clear then
+		player_inventory[player_name].start_i = 1
 		inv.filter = ""
 		creative.update_creative_inventory(player_name)
 		creative.set_creative_formspec(player, 0)
 	elseif fields.creative_search then
+		player_inventory[player_name].start_i = 1
 		inv.filter = fields.creative_filter:lower()
 		creative.update_creative_inventory(player_name)
 		creative.set_creative_formspec(player, 0)
