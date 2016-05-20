@@ -111,7 +111,9 @@ local function update_formspecs(finished)
 		if is_majority and is_night_skip_enabled() then
 			form_n = form_n .. "button_exit[2,8;4,0.75;force;Force night skip]"
 		end
-	end
+
+		beds.set_spawns() -- save respawn positions when entering bed
+end
 
 	for name,_ in pairs(beds.player) do
 		minetest.show_formspec(name, "beds_form", form_n)
@@ -130,7 +132,6 @@ end
 
 function beds.skip_night()
 	minetest.set_timeofday(0.23)
-	beds.set_spawns()
 end
 
 function beds.on_rightclick(pos, player)
@@ -173,10 +174,6 @@ end
 
 
 -- Callbacks
-
-minetest.register_on_joinplayer(function(player)
-	beds.read_spawns()
-end)
 
 -- respawn player at bed if enabled and valid position is found
 minetest.register_on_respawnplayer(function(player)

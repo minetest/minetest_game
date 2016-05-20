@@ -37,6 +37,8 @@ function beds.read_spawns()
 	end
 end
 
+beds.read_spawns()
+
 function beds.save_spawns()
 	if not beds.spawn then
 		return
