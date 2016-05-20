@@ -130,7 +130,6 @@ end
 
 function beds.skip_night()
 	minetest.set_timeofday(0.23)
-	beds.set_spawns()
 end
 
 function beds.on_rightclick(pos, player)
@@ -149,6 +148,7 @@ function beds.on_rightclick(pos, player)
 	-- move to bed
 	if not beds.player[name] then
 		lay_down(player, ppos, pos)
+		beds.set_spawns() -- save respawn positions when entering bed
 	else
 		lay_down(player, nil, nil, false)
 	end
@@ -173,10 +173,6 @@ end
 
 
 -- Callbacks
-
-minetest.register_on_joinplayer(function(player)
-	beds.read_spawns()
-end)
 
 -- respawn player at bed if enabled and valid position is found
 minetest.register_on_respawnplayer(function(player)
