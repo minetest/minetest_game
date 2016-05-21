@@ -45,6 +45,7 @@ local function add_simple_flower(name, desc, box, f_groups)
 		sunlight_propagates = true,
 		paramtype = "light",
 		walkable = false,
+		floodable = true,
 		buildable_to = true,
 		stack_max = 99,
 		groups = f_groups,
