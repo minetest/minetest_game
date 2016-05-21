@@ -384,11 +384,9 @@ minetest.register_abm({
 --
 
 minetest.register_abm({
-	nodenames = {"default:dirt"},
+	nodenames = {"group:can_grow"},
 	neighbors = {
-		"default:dirt_with_grass",
-		"default:dirt_with_dry_grass",
-		"default:dirt_with_snow",
+		"group:grown",
 		"group:grass",
 		"group:dry_grass",
 		"default:snow",
@@ -404,14 +402,15 @@ minetest.register_abm({
 		end
 
 		-- Look for likely neighbors.
-		local p2 = minetest.find_node_near(pos, 1, {"default:dirt_with_grass",
-				"default:dirt_with_dry_grass", "default:dirt_with_snow"})
+		local p2 = minetest.find_node_near(pos, 1, {"group:grown"})
 		if p2 then
 			-- But the node needs to be under air in this case.
 			local n2 = minetest.get_node(above)
 			if n2 and n2.name == "air" then
 				local n3 = minetest.get_node(p2)
-				minetest.set_node(pos, {name = n3.name})
+				local n4 = n3.name:split('_with_')[2]
+				local n5 = minetest.get_node(pos)
+				minetest.set_node(pos, {name = n5.name.."_with_"..n4})
 				return
 			end
 		end
