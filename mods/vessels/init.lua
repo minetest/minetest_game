@@ -15,7 +15,9 @@ local vessels_shelf_formspec =
 
 minetest.register_node("vessels:shelf", {
 	description = "Vessels shelf",
-	tiles = {"default_wood.png", "default_wood.png", "vessels_shelf.png"},
+	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
+		"default_wood.png", "vessels_shelf.png", "vessels_shelf.png"},
+	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3},
 	sounds = default.node_sound_wood_defaults(),
