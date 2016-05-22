@@ -112,11 +112,6 @@ local function update_formspecs(finished)
 			form_n = form_n .. "button_exit[2,8;4,0.75;force;Force night skip]"
 		end
 
-		if not is_sp then
-			minetest.chat_send_all(">> (" .. player_in_bed .. " / "
-				.. ges .. ") players are sleeping!")
-		end
-
 		beds.set_spawns() -- save respawn positions when entering bed
 end
 
