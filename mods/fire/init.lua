@@ -87,6 +87,13 @@ minetest.register_tool("fire:flint_and_steel", {
 				else
 					minetest.chat_send_player(player_name, "This area is protected")
 				end
+			elseif node_under == "tnt:gunpowder" or node_under == "tnt:tnt" then
+				if not minetest.is_protected(pt.under, player_name) then
+					minetest.set_node(pt.under, {name=node_under.. "_burning"})
+					minetest.get_node_timer(pt.under):start(1)
+				else
+					minetest.chat_send_player(player_name, "This area is protected")
+				end
 			end
 		end
 
