@@ -384,12 +384,11 @@ minetest.register_abm({
 --
 
 minetest.register_abm({
-	nodenames = {"group:can_grow"},
+	nodenames = {"group:dirt"},
 	neighbors = {
-		"group:grown",
 		"group:grass",
 		"group:dry_grass",
-		"default:snow",
+		"group:snow",
 	},
 	interval = 6,
 	chance = 67,
@@ -401,16 +400,24 @@ minetest.register_abm({
 			return
 		end
 
+		-- Define node_def
+		local node_def = minetest.registered_nodes[node.name]
+
 		-- Look for likely neighbors.
-		local p2 = minetest.find_node_near(pos, 1, {"group:grown"})
+		local p2 = minetest.find_node_near(pos, 1, {"group:grass", "group:dry_grass", "group:snow"})
 		if p2 then
 			-- But the node needs to be under air in this case.
 			local n2 = minetest.get_node(above)
 			if n2 and n2.name == "air" then
 				local n3 = minetest.get_node(p2)
-				local n4 = n3.name:split('_with_')[2]
-				local n5 = minetest.get_node(pos)
-				minetest.set_node(pos, {name = n5.name.."_with_"..n4})
+				local name = n3.name
+				if minetest.get_item_group(name, "grass") ~= 0 and node_def.with_grass then
+					minetest.set_node(pos, {name = node_def.with_grass})
+				elseif minetest.get_item_group(name, "dry_grass") ~= 0 and node_def.with_dry_grass then
+					minetest.set_node(pos, {name = node_def.with_dry_grass})
+				elseif minetest.get_item_group(name, "snow") ~= 0 and node_def.with_snow then
+					minetest.set_node(pos, {name = node_def.with_snow})
+				end
 				return
 			end
 		end
@@ -423,13 +430,13 @@ minetest.register_abm({
 
 		local name = n2.name
 		-- Snow check is cheapest, so comes first.
-		if name == "default:snow" then
-			minetest.set_node(pos, {name = "default:dirt_with_snow"})
+		if name == "default:snow" and node_def.with_snow then
+			minetest.set_node(pos, {name = node_def.with_snow})
 		-- Most likely case first.
-		elseif minetest.get_item_group(name, "grass") ~= 0 then
-			minetest.set_node(pos, {name = "default:dirt_with_grass"})
-		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
-			minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
+		elseif minetest.get_item_group(name, "grass") ~= 0 and node_def.with_grass then
+			minetest.set_node(pos, {name = node_def.with_grass})
+		elseif minetest.get_item_group(name, "dry_grass") ~= 0 and node_def.with_dry_grass then
+			minetest.set_node(pos, {name = node_def.with_dry_grass})
 		end
 	end
 })
