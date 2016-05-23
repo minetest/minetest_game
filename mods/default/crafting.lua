@@ -602,6 +602,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "default:mese_crystal",
+	recipe = {
+		{"default:mese_crystal_fragment", "default:mese_crystal_fragment", "default:mese_crystal_fragment"},
+		{"default:mese_crystal_fragment", "default:mese_crystal_fragment", "default:mese_crystal_fragment"},
+		{"default:mese_crystal_fragment", "default:mese_crystal_fragment", "default:mese_crystal_fragment"},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:meselamp 1',
 	recipe = {
 		{'', 'default:mese_crystal',''},
