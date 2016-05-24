@@ -1566,7 +1566,9 @@ local bookshelf_formspec =
 
 minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
-	tiles = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},
+	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
+		"default_wood.png", "default_bookshelf.png", "default_bookshelf.png"},
+	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
