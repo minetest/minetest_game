@@ -350,7 +350,7 @@ farming.register_plant = function(name, def)
 
 	-- replacement LBM for pre-nodetimer plants
 	minetest.register_lbm({
-		name = "farming:start_nodetimer_" .. mname .. "_" .. pname,
+		name = ":" .. mname .. ":start_nodetimer_" .. pname,
 		nodenames = lbm_nodes,
 		action = function(pos, node)
 			tick_again(pos)
