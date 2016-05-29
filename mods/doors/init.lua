@@ -254,7 +254,7 @@ function doors.register(name, def)
 			local pdef = minetest.registered_nodes[node.name]
 			if pdef and pdef.on_rightclick then
 				return pdef.on_rightclick(pointed_thing.under,
-						node, placer, itemstack)
+						node, placer, itemstack, pointed_thing)
 			end
 
 			if pdef and pdef.buildable_to then
