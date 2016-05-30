@@ -1,3 +1,4 @@
+
 -- Wear out hoes, place soil
 -- TODO Ignore group:flower
 farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
@@ -9,11 +10,11 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	if pt.type ~= "node" then
 		return
 	end
-	
+
 	local under = minetest.get_node(pt.under)
 	local p = {x=pt.under.x, y=pt.under.y+1, z=pt.under.z}
 	local above = minetest.get_node(p)
-	
+
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
 		return
@@ -21,23 +22,23 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	if not minetest.registered_nodes[above.name] then
 		return
 	end
-	
+
 	-- check if the node above the pointed thing is air
 	if above.name ~= "air" then
 		return
 	end
-	
+
 	-- check if pointing at soil
 	if minetest.get_item_group(under.name, "soil") ~= 1 then
 		return
 	end
-	
+
 	-- check if (wet) soil defined
 	local regN = minetest.registered_nodes
 	if regN[under.name].soil == nil or regN[under.name].soil.wet == nil or regN[under.name].soil.dry == nil then
 		return
 	end
-	
+
 	if minetest.is_protected(pt.under, user:get_player_name()) then
 		minetest.record_protection_violation(pt.under, user:get_player_name())
 		return
@@ -47,14 +48,13 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		return
 	end
 
-	
 	-- turn the node into soil, wear out item and play sound
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
 		gain = 0.5,
 	})
-	
+
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:add_wear(65535/(uses-1))
 	end
@@ -119,6 +119,15 @@ farming.register_hoe = function(name, def)
 	end
 end
 
+-- how often node timers for plants will tick, +/- some random value
+local function tick(pos)
+	minetest.get_node_timer(pos):start(math.random(166, 286))
+end
+-- how often a growth failure tick is retried (e.g. too dark)
+local function tick_again(pos)
+	minetest.get_node_timer(pos):start(math.random(40, 80))
+end
+
 -- Seed placement
 farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	local pt = pointed_thing
@@ -129,10 +138,10 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	if pt.type ~= "node" then
 		return
 	end
-	
+
 	local under = minetest.get_node(pt.under)
 	local above = minetest.get_node(pt.above)
-	
+
 	if minetest.is_protected(pt.under, placer:get_player_name()) then
 		minetest.record_protection_violation(pt.under, placer:get_player_name())
 		return
@@ -142,7 +151,6 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 		return
 	end
 
-	
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
 		return
@@ -150,28 +158,84 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	if not minetest.registered_nodes[above.name] then
 		return
 	end
-	
+
 	-- check if pointing at the top of the node
 	if pt.above.y ~= pt.under.y+1 then
 		return
 	end
-	
+
 	-- check if you can replace the node above the pointed node
 	if not minetest.registered_nodes[above.name].buildable_to then
 		return
 	end
-	
+
 	-- check if pointing at soil
 	if minetest.get_item_group(under.name, "soil") < 2 then
 		return
 	end
-	
+
 	-- add the node and remove 1 item from the itemstack
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
+	tick(pt.above)
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:take_item()
 	end
 	return itemstack
+end
+
+farming.grow_plant = function(pos, elapsed)
+	local node = minetest.get_node(pos)
+	local name = node.name
+	local def = minetest.registered_nodes[name]
+
+	if not def.next_plant then
+		-- disable timer for fully grown plant
+		return
+	end
+
+	-- grow seed
+	if minetest.get_item_group(node.name, "seed") and def.fertility then
+		local soil_node = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
+		if not soil_node then
+			tick_again(pos)
+			return
+		end
+		-- omitted is a check for light, we assume seeds can germinate in the dark.
+		for _, v in pairs(def.fertility) do
+			if minetest.get_item_group(soil_node.name, v) ~= 0 then
+				minetest.swap_node(pos, {name = def.next_plant})
+				if minetest.registered_nodes[def.next_plant].next_plant then
+					tick(pos)
+					return
+				end
+			end
+		end
+
+		return
+	end
+
+	-- check if on wet soil
+	local below = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
+	if minetest.get_item_group(below.name, "soil") < 3 then
+		tick_again(pos)
+		return
+	end
+
+	-- check light
+	local light = minetest.get_node_light(pos)
+	if not light or light < def.minlight or light > def.maxlight then
+		tick_again(pos)
+		return
+	end
+
+	-- grow
+	minetest.swap_node(pos, {name = def.next_plant})
+
+	-- new timer needed?
+	if minetest.registered_nodes[def.next_plant].next_plant then
+		tick(pos)
+	end
+	return
 end
 
 -- Register plants
@@ -200,6 +264,7 @@ farming.register_plant = function(name, def)
 	end
 
 	-- Register seed
+	local lbm_nodes = {mname .. ":seed_" .. pname}
 	local g = {seed = 1, snappy = 3, attached_node = 1}
 	for k, v in pairs(def.fertility) do
 		g[v] = 1
@@ -228,6 +293,10 @@ farming.register_plant = function(name, def)
 		on_place = function(itemstack, placer, pointed_thing)
 			return farming.place_seed(itemstack, placer, pointed_thing, mname .. ":seed_" .. pname)
 		end,
+		next_plant = mname .. ":" .. pname .. "_1",
+		on_timer = farming.grow_plant,
+		minlight = def.minlight,
+		maxlight = def.maxlight,
 	})
 
 	-- Register harvest
@@ -237,7 +306,7 @@ farming.register_plant = function(name, def)
 	})
 
 	-- Register growing steps
-	for i=1,def.steps do
+	for i = 1, def.steps do
 		local drop = {
 			items = {
 				{items = {mname .. ":" .. pname}, rarity = 9 - i},
@@ -248,6 +317,16 @@ farming.register_plant = function(name, def)
 		}
 		local nodegroups = {snappy = 3, flammable = 2, plant = 1, not_in_creative_inventory = 1, attached_node = 1}
 		nodegroups[pname] = i
+
+		local next_plant = nil
+		local on_timer = nil
+
+		if i < def.steps then
+			next_plant = mname .. ":" .. pname .. "_" .. (i + 1)
+			on_timer = farming.grow_plant
+			lbm_nodes[#lbm_nodes + 1] = mname .. ":" .. pname .. "_" .. i
+		end
+
 		minetest.register_node(mname .. ":" .. pname .. "_" .. i, {
 			drawtype = "plantlike",
 			waving = 1,
@@ -262,61 +341,20 @@ farming.register_plant = function(name, def)
 			},
 			groups = nodegroups,
 			sounds = default.node_sound_leaves_defaults(),
+			next_plant = next_plant,
+			on_timer = farming.grow_plant,
+			minlight = def.minlight,
+			maxlight = def.maxlight,
 		})
 	end
 
-	-- Growing ABM
-	minetest.register_abm({
-		nodenames = {"group:" .. pname, "group:seed"},
-		neighbors = {"group:soil"},
-		interval = 9,
-		chance = 20,
+	-- replacement LBM for pre-nodetimer plants
+	minetest.register_lbm({
+		name = "farming:start_nodetimer_" .. mname .. "_" .. pname,
+		nodenames = lbm_nodes,
 		action = function(pos, node)
-			local plant_height = minetest.get_item_group(node.name, pname)
-
-			-- return if already full grown
-			if plant_height == def.steps then
-				return
-			end
-
-			local node_def = minetest.registered_items[node.name] or nil
-
-			-- grow seed
-			if minetest.get_item_group(node.name, "seed") and node_def.fertility then
-				local can_grow = false
-				local soil_node = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
-				if not soil_node then
-					return
-				end
-				for _, v in pairs(node_def.fertility) do
-					if minetest.get_item_group(soil_node.name, v) ~= 0 then
-						can_grow = true
-					end
-				end
-				if can_grow then
-					minetest.set_node(pos, {name = node.name:gsub("seed_", "") .. "_1"})
-				end
-				return
-			end
-
-			-- check if on wet soil
-			pos.y = pos.y - 1
-			local n = minetest.get_node(pos)
-			if minetest.get_item_group(n.name, "soil") < 3 then
-				return
-			end
-			pos.y = pos.y + 1
-
-			-- check light
-			local ll = minetest.get_node_light(pos)
-
-			if not ll or ll < def.minlight or ll > def.maxlight then
-				return
-			end
-
-			-- grow
-			minetest.set_node(pos, {name = mname .. ":" .. pname .. "_" .. plant_height + 1})
-		end
+			tick_again(pos)
+		end,
 	})
 
 	-- Return

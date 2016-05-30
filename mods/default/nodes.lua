@@ -455,6 +455,10 @@ minetest.register_node("default:sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	on_timer = default.grow_sapling,
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(math.random(2400,4800))
+	end,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -573,6 +577,10 @@ minetest.register_node("default:junglesapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	on_timer = default.grow_sapling,
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(math.random(2400,4800))
+	end,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -634,6 +642,10 @@ minetest.register_node("default:pine_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	on_timer = default.grow_sapling,
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(math.random(2400,4800))
+	end,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -695,6 +707,10 @@ minetest.register_node("default:acacia_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	on_timer = default.grow_sapling,
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(math.random(2400,4800))
+	end,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -755,6 +771,10 @@ minetest.register_node("default:aspen_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	on_timer = default.grow_sapling,
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(math.random(2400,4800))
+	end,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
@@ -1447,7 +1467,6 @@ minetest.register_node("default:chest", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", chest_formspec)
-		meta:set_string("infotext", "Chest")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
 	end,
@@ -1498,7 +1517,6 @@ minetest.register_node("default:chest_locked", {
 	end,
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", "Locked Chest")
 		meta:set_string("owner", "")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8 * 4)
@@ -1568,7 +1586,9 @@ local bookshelf_formspec =
 
 minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
-	tiles = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},
+	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
+		"default_wood.png", "default_bookshelf.png", "default_bookshelf.png"},
+	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
@@ -1636,7 +1656,6 @@ local function register_sign(material, desc, def)
 			--local n = minetest.get_node(pos)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("formspec", "field[text;;${text}]")
-			meta:set_string("infotext", "\"\"")
 		end,
 		on_receive_fields = function(pos, formname, fields, sender)
 			--print("Sign at "..minetest.pos_to_string(pos).." got "..dump(fields))
