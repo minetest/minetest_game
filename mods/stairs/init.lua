@@ -87,24 +87,26 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		})
 	end
 
-	minetest.register_craft({
-		output = 'stairs:stair_' .. subname .. ' 6',
-		recipe = {
-			{recipeitem, "", ""},
-			{recipeitem, recipeitem, ""},
-			{recipeitem, recipeitem, recipeitem},
-		},
-	})
+	if recipeitem then
+		minetest.register_craft({
+			output = 'stairs:stair_' .. subname .. ' 6',
+			recipe = {
+				{recipeitem, "", ""},
+				{recipeitem, recipeitem, ""},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
 
-	-- Flipped recipe for the silly minecrafters
-	minetest.register_craft({
-		output = 'stairs:stair_' .. subname .. ' 6',
-		recipe = {
-			{"", "", recipeitem},
-			{"", recipeitem, recipeitem},
-			{recipeitem, recipeitem, recipeitem},
-		},
-	})
+		-- Flipped recipe for the silly minecrafters
+		minetest.register_craft({
+			output = 'stairs:stair_' .. subname .. ' 6',
+			recipe = {
+				{"", "", recipeitem},
+				{"", recipeitem, recipeitem},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
+	end
 end
 
 
@@ -218,12 +220,14 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		})
 	end
 
-	minetest.register_craft({
-		output = 'stairs:slab_' .. subname .. ' 6',
-		recipe = {
-			{recipeitem, recipeitem, recipeitem},
-		},
-	})
+	if recipeitem then
+		minetest.register_craft({
+			output = 'stairs:slab_' .. subname .. ' 6',
+			recipe = {
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
+	end
 end
 
 
@@ -308,6 +312,13 @@ stairs.register_stair_and_slab("cobble", "default:cobble",
 		{"default_cobble.png"},
 		"Cobblestone Stair",
 		"Cobblestone Slab",
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("mossycobble", nil,
+		{cracky = 3},
+		{"default_mossycobble.png"},
+		"Mossy Cobblestone Stair",
+		"Mossy Cobblestone Slab",
 		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("stonebrick", "default:stonebrick",
