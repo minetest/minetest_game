@@ -343,7 +343,7 @@ delivered with Minetest Game, to keep them compatible with other mods.
 
  * Registers a stair.
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
- * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble"
+ * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble", may be `nil`
  * `groups`: see [Known damage and digging time defining groups]
  * `images`: see [Tile definition]
  * `description`: used for the description field in the stair's definition
