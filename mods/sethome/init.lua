@@ -38,6 +38,8 @@ minetest.register_chatcommand("home", {
         if homepos[player:get_player_name()] then
             player:setpos(homepos[player:get_player_name()])
             minetest.chat_send_player(name, "Teleported to home!")
+            player:set_eye_offset({x=0,y=0,z=0}, {x=0,y=0,z=0})
+            default.player_set_animation(player, "stand" , 30)
         else
             minetest.chat_send_player(name, "Set a home using /sethome")
         end
