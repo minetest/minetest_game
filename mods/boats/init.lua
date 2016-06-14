@@ -34,7 +34,9 @@ end
 
 local boat = {
 	physical = true,
-	collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.15, 0.5},
+	-- Warning: Do not change the position of the collisionbox top surface,
+	-- lowering it causes the boat to fall through the world if underwater
+	collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
 	visual = "mesh",
 	mesh = "boats_boat.obj",
 	textures = {"default_wood.png"},
