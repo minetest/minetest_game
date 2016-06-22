@@ -27,6 +27,7 @@ default:desert_stonebrick
 
 default:sandstone
 default:sandstonebrick
+default:sandstonebrick_cracked
 
 default:obsidian
 default:obsidianbrick
@@ -259,6 +260,16 @@ minetest.register_node("default:sandstonebrick", {
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_sandstone_brick.png"},
+	is_ground_content = false,
+	groups = {cracky = 2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:sandstonebrick_cracked", {
+	description = "Cracked Sandstone Brick",
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	tiles = {"default_sandstone_brick_cracked.png"},
 	is_ground_content = false,
 	groups = {cracky = 2},
 	sounds = default.node_sound_stone_defaults(),
