@@ -114,6 +114,10 @@ paramat (CC BY-SA 3.0):
   default_obsidian_brick.png
   default_stone_brick.png
   default_desert_stone_brick.png
+  default_sandstone_block.png
+  default_obsidian_block.png
+  default_stone_block.png
+  default_desert_stone_block.png
   default_river_water.png
   default_river_water_source_animated.png
   default_river_water_flowing_animated.png
