@@ -434,6 +434,7 @@ doors.register("door_steel", {
 		inventory_image = "doors_item_steel.png",
 		protected = true,
 		groups = { snappy = 1, bendy = 2, cracky = 1, melty = 2, level = 2 },
+		sounds = default.node_sound_stone_defaults(),
 		sound_open = "doors_steel_door_open",
 		sound_close = "doors_steel_door_close",
 		recipe = {
@@ -449,6 +450,8 @@ doors.register("door_glass", {
 		inventory_image = "doors_item_glass.png",
 		groups = { snappy=1, cracky=1, oddly_breakable_by_hand=3 },
 		sounds = default.node_sound_glass_defaults(),
+		sound_open = "doors_glass_door_open",
+		sound_close = "doors_glass_door_close",
 		recipe = {
 			{"default:glass", "default:glass"},
 			{"default:glass", "default:glass"},
@@ -462,6 +465,8 @@ doors.register("door_obsidian_glass", {
 		inventory_image = "doors_item_obsidian_glass.png",
 		groups = { snappy=1, cracky=1, oddly_breakable_by_hand=3 },
 		sounds = default.node_sound_glass_defaults(),
+		sound_open = "doors_glass_door_open",
+		sound_close = "doors_glass_door_close",
 		recipe = {
 			{"default:obsidian_glass", "default:obsidian_glass"},
 			{"default:obsidian_glass", "default:obsidian_glass"},
@@ -626,6 +631,7 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	tile_front = "doors_trapdoor_steel.png",
 	tile_side = "doors_trapdoor_steel_side.png",
 	protected = true,
+	sounds = default.node_sound_stone_defaults(),
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
 	groups = {snappy=1, bendy=2, cracky=1, melty=2, level=2, door=1},

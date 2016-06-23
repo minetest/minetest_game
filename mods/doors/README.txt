@@ -75,7 +75,9 @@ fencegate_open.ogg:
 fencegate_close.ogg:
   http://www.freesound.org/people/BarkersPinhead/sounds/274807/ - CC-BY-3.0
   http://www.freesound.org/people/rivernile7/sounds/249573/ - CC-BY-3.0
-Steel door sounds (open & close (CC-BY-3.0) by HazMatt
+Steel door sounds open & close (CC-BY-3.0) by HazMatt
   - http://www.freesound.org/people/HazMattt/sounds/187283/
   doors_steel_door_open.ogg
   doors_steel_door_close.ogg
+doors_glass_door_open.ogg, doors_glass_door_close.ogg:
+  https://www.freesound.org/people/SkeetMasterFunk69/sounds/235546/ (CC0 1.0)
