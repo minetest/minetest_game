@@ -192,6 +192,10 @@ asl97 (WTFPL):
 KevDoy (CC BY-SA 3.0)
   heart.png
 
+Pithydon (CC-BY-3.0)
+  default_coral_live.png
+  default_coral.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
@@ -231,3 +235,4 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
+
