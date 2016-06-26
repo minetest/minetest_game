@@ -319,11 +319,9 @@ farming.register_plant = function(name, def)
 		nodegroups[pname] = i
 
 		local next_plant = nil
-		local on_timer = nil
 
 		if i < def.steps then
 			next_plant = mname .. ":" .. pname .. "_" .. (i + 1)
-			on_timer = farming.grow_plant
 			lbm_nodes[#lbm_nodes + 1] = mname .. ":" .. pname .. "_" .. i
 		end
 

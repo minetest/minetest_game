@@ -176,8 +176,8 @@ function default.grow_tree(pos, is_apple_tree, bad)
 
 	local vm = minetest.get_voxel_manip()
 	local minp, maxp = vm:read_from_map(
-		{x = pos.x - 2, y = pos.y, z = pos.z - 2},
-		{x = pos.x + 2, y = pos.y + height + 1, z = pos.z + 2}
+		{x = x - 2, y = y, z = z - 2},
+		{x = x + 2, y = y + height + 1, z = z + 2}
 	)
 	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
 	local data = vm:get_data()
@@ -211,8 +211,8 @@ function default.grow_jungle_tree(pos, bad)
 
 	local vm = minetest.get_voxel_manip()
 	local minp, maxp = vm:read_from_map(
-		{x = pos.x - 3, y = pos.y - 1, z = pos.z - 3},
-		{x = pos.x + 3, y = pos.y + height + 1, z = pos.z + 3}
+		{x = x - 3, y = y - 1, z = z - 3},
+		{x = x + 3, y = y + height + 1, z = z + 3}
 	)
 	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
 	local data = vm:get_data()
@@ -331,7 +331,7 @@ function default.grow_pine_tree(pos, snow)
 		end
 	end
 
-	local dev = 2
+	dev = 2
 	for yy = my + 1, my + 2 do
 		for zz = z - dev, z + dev do
 			local vi = a:index(x - dev, yy, zz)

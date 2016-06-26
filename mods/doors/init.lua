@@ -156,7 +156,6 @@ function _doors.door_toggle(pos, node, clicker)
 		end
 	end
 
-	local old = state
 	-- until Lua-5.2 we have no bitwise operators :(
 	if state % 2 == 1 then
 		state = state - 1
@@ -186,7 +185,6 @@ end
 local function on_place_node(place_to, newnode,
 	placer, oldnode, itemstack, pointed_thing)
 	-- Run script hook
-	local _, callback
 	for _, callback in ipairs(core.registered_on_placenodes) do
 		-- Deepcopy pos, node and pointed_thing because callback can modify them
 		local place_to_copy = {x = place_to.x, y = place_to.y, z = place_to.z}
@@ -250,7 +248,7 @@ function doors.register(name, def)
 		inventory_image = def.inventory_image,
 
 		on_place = function(itemstack, placer, pointed_thing)
-			local pos = nil
+			local pos
 
 			if not pointed_thing.type == "node" then
 				return itemstack
@@ -314,7 +312,6 @@ function doors.register(name, def)
 			meta:set_int("state", state)
 
 			if def.protected then
-				local pn = placer:get_player_name()
 				meta:set_string("doors_owner", pn)
 				meta:set_string("infotext", "Owned by " .. pn)
 			end
@@ -347,7 +344,7 @@ function doors.register(name, def)
 			return true
 		end
 		local meta = minetest.get_meta(pos)
-		local name = ""
+		local name
 		if digger then
 			name = digger:get_player_name()
 		end

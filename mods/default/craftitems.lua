@@ -15,7 +15,7 @@ local lpp = 14 -- Lines per book's page
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
-	local formspec, title, text, owner = "", "", "", player_name
+	local title, text, owner = "", "", player_name
 	local page, page_max, lines, string = 1, 1, {}, ""
 
 	if data then
@@ -38,6 +38,7 @@ local function book_on_use(itemstack, user)
 		end
 	end
 
+	local formspec
 	if owner == player_name then
 		formspec = "size[8,8]" .. default.gui_bg ..
 			default.gui_bg_img ..
@@ -152,7 +153,6 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 		return
 	end
 
-	local copy = ItemStack("default:book_written")
 	local original
 	local index
 	for i = 1, player:get_inventory():get_size("craft") do

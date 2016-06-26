@@ -32,8 +32,6 @@ function beds.read_spawns()
 		beds.save_spawns()
 		os.rename(file, file .. ".backup")
 		file = org_file
-	else
-		spawns = {}
 	end
 end
 

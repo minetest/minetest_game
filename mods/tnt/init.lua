@@ -153,7 +153,7 @@ local function entity_physics(pos, radius, drops)
 			local dir = vector.normalize(vector.subtract(obj_pos, pos))
 			local moveoff = vector.multiply(dir, dist + 1.0)
 			local newpos = vector.add(pos, moveoff)
-			local newpos = vector.add(newpos, {x = 0, y = 0.2, z = 0})
+			newpos = vector.add(newpos, {x = 0, y = 0.2, z = 0})
 			obj:setpos(newpos)
 
 			obj:set_hp(obj:get_hp() - damage)
@@ -261,7 +261,7 @@ function tnt.burn(pos)
 end
 
 local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
-	local pos = vector.round(pos)
+	pos = vector.round(pos)
 	-- scan for adjacent TNT nodes first, and enlarge the explosion
 	local vm1 = VoxelManip()
 	local p1 = vector.subtract(pos, 2)
@@ -298,11 +298,11 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	-- perform the explosion
 	local vm = VoxelManip()
 	local pr = PseudoRandom(os.time())
-	local p1 = vector.subtract(pos, radius)
-	local p2 = vector.add(pos, radius)
-	local minp, maxp = vm:read_from_map(p1, p2)
-	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
-	local data = vm:get_data()
+	p1 = vector.subtract(pos, radius)
+	p2 = vector.add(pos, radius)
+	minp, maxp = vm:read_from_map(p1, p2)
+	a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
+	data = vm:get_data()
 
 	local drops = {}
 	local on_blast_queue = {}
@@ -515,7 +515,7 @@ if enable_tnt then
 end
 
 function tnt.register_tnt(def)
-	local name = ""
+	local name
 	if not def.name:find(':') then
 		name = "tnt:" .. def.name
 	else
