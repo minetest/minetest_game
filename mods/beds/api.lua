@@ -59,8 +59,8 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			local def = minetest.registered_nodes[minetest.get_node(pos).name]
-			if not def or not def.buildable_to then
+			local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+			if not node_def or not node_def.buildable_to then
 				return itemstack
 			end
 
@@ -113,8 +113,8 @@ function beds.register_bed(name, def)
 			end
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
 			local node3 = minetest.get_node_or_nil(newp)
-			local def = node3 and minetest.registered_nodes[node3.name]
-			if not def or not def.buildable_to then
+			local node_def = node3 and minetest.registered_nodes[node3.name]
+			if not node_def or not node_def.buildable_to then
 				return false
 			end
 			if minetest.is_protected(newp, user:get_player_name()) then

@@ -12,7 +12,7 @@ local loss_prob = {}
 loss_prob["default:cobble"] = 3
 loss_prob["default:dirt"] = 4
 
-local radius = tonumber(minetest.setting_get("tnt_radius") or 3)
+local tnt_radius = tonumber(minetest.setting_get("tnt_radius") or 3)
 
 -- Fill a list with data for content IDs, after all nodes are registered
 local cid_data = {}
@@ -345,10 +345,10 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	end
 	end
 
-	for _, data in ipairs(on_blast_queue) do
-		local dist = math.max(1, vector.distance(data.pos, pos))
+	for _, queued_data in ipairs(on_blast_queue) do
+		local dist = math.max(1, vector.distance(queued_data.pos, pos))
 		local intensity = (radius * radius) / (dist * dist)
-		local node_drops = data.on_blast(data.pos, intensity)
+		local node_drops = queued_data.on_blast(queued_data.pos, intensity)
 		if node_drops then
 			for _, item in ipairs(node_drops) do
 				add_drop(drops, item)
@@ -589,5 +589,5 @@ end
 tnt.register_tnt({
 	name = "tnt:tnt",
 	description = "TNT",
-	radius = radius,
+	radius = tnt_radius,
 })
