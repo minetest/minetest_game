@@ -80,8 +80,9 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				else
 					-- not buildable to; place the liquid above
 					-- check if the node above can be replaced
+
 					lpos = pointed_thing.above
-					local node = minetest.get_node_or_nil(lpos)
+					node = minetest.get_node_or_nil(lpos)
 					local above_ndef = node and minetest.registered_nodes[node.name]
 
 					if not above_ndef or not above_ndef.buildable_to then

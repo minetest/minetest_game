@@ -174,7 +174,6 @@ minetest.register_on_dieplayer(function(player)
 	pos.z = math.floor(pos.z+0.5)
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	local player_name = player:get_player_name()
-	local player_inv = player:get_inventory()
 
 	if (not may_replace(pos, player)) then
 		if (may_replace({x=pos.x, y=pos.y+1, z=pos.z}, player)) then

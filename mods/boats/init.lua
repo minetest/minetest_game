@@ -167,7 +167,7 @@ function boat.on_step(self, dtime)
 
 	local p = self.object:getpos()
 	p.y = p.y - 0.5
-	local new_velo = {x = 0, y = 0, z = 0}
+	local new_velo
 	local new_acce = {x = 0, y = 0, z = 0}
 	if not is_water(p) then
 		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
