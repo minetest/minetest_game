@@ -1,10 +1,8 @@
 tnt = {}
--- Default to enabled in singleplayer and disabled in multiplayer
-local singleplayer = minetest.is_singleplayer()
-local setting = minetest.setting_getbool("enable_tnt")
-if (not singleplayer and setting ~= true) or
-		(singleplayer and setting == false) then
-	return
+-- Default to enabled when in singleplayer
+local enable_tnt = minetest.setting_getbool("enable_tnt")
+if enable_tnt == nil
+	enable_tnt = minetest.is_singleplayer()
 end
 
 -- loss probabilities array (one in X will be lost)
@@ -492,28 +490,30 @@ minetest.register_node("tnt:gunpowder_burning", {
 	end,
 })
 
-minetest.register_abm({
-	nodenames = {"group:tnt", "tnt:gunpowder"},
-	neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
-	interval = 4,
-	chance = 1,
-	action = tnt.burn,
-})
-
 minetest.register_craft({
 	output = "tnt:gunpowder",
 	type = "shapeless",
 	recipe = {"default:coal_lump", "default:gravel"}
 })
 
-minetest.register_craft({
-	output = "tnt:tnt",
-	recipe = {
-		{"",           "group:wood",    ""},
-		{"group:wood", "tnt:gunpowder", "group:wood"},
-		{"",           "group:wood",    ""}
-	}
-})
+if enable_tnt then
+	minetest.register_craft({
+		output = "tnt:tnt",
+		recipe = {
+			{"",           "group:wood",    ""},
+			{"group:wood", "tnt:gunpowder", "group:wood"},
+			{"",           "group:wood",    ""}
+		}
+	})
+
+	minetest.register_abm({
+		nodenames = {"group:tnt", "tnt:gunpowder"},
+		neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
+		interval = 4,
+		chance = 1,
+		action = tnt.burn,
+	})
+end
 
 function tnt.register_tnt(def)
 	local name = ""
@@ -530,30 +530,32 @@ function tnt.register_tnt(def)
 	local tnt_burning = def.tiles.burning or def.name .. "_top_burning_animated.png"
 	if not def.damage_radius then def.damage_radius = def.radius * 2 end
 
-	minetest.register_node(":" .. name, {
-		description = def.description,
-		tiles = {tnt_top, tnt_bottom, tnt_side},
-		is_ground_content = false,
-		groups = {dig_immediate = 2, mesecon = 2, tnt = 1},
-		sounds = default.node_sound_wood_defaults(),
-		on_punch = function(pos, node, puncher)
-			if puncher:get_wielded_item():get_name() == "default:torch" then
-				minetest.set_node(pos, {name = name .. "_burning"})
-			end
-		end,
-		on_blast = function(pos, intensity)
-			minetest.after(0.1, function()
-				tnt.boom(pos, def)
-			end)
-		end,
-		mesecons = {effector =
-			{action_on =
-				function(pos)
-					tnt.boom(pos, def)
+	if enable_tnt then
+		minetest.register_node(":" .. name, {
+			description = def.description,
+			tiles = {tnt_top, tnt_bottom, tnt_side},
+			is_ground_content = false,
+			groups = {dig_immediate = 2, mesecon = 2, tnt = 1},
+			sounds = default.node_sound_wood_defaults(),
+			on_punch = function(pos, node, puncher)
+				if puncher:get_wielded_item():get_name() == "default:torch" then
+					minetest.set_node(pos, {name = name .. "_burning"})
 				end
-			}
-		},
-	})
+			end,
+			on_blast = function(pos, intensity)
+				minetest.after(0.1, function()
+					tnt.boom(pos, def)
+				end)
+			end,
+			mesecons = {effector =
+				{action_on =
+					function(pos)
+						tnt.boom(pos, def)
+					end
+				}
+			},
+		})
+	end
 
 	minetest.register_node(":" .. name .. "_burning", {
 		tiles = {
@@ -590,4 +592,3 @@ tnt.register_tnt({
 	description = "TNT",
 	radius = radius,
 })
-
