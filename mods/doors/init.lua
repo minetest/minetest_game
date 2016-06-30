@@ -399,7 +399,6 @@ function doors.register(name, def)
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
 	def.sunlight_propagates = true
-	def.use_texture_alpha = true
 	def.walkable = true
 	def.is_ground_content = false
 	def.buildable_to = false
