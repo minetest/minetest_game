@@ -224,6 +224,7 @@ minetest.register_node("flowers:waterlily", {
 	walkable = false,
 	buildable_to = true,
 	sunlight_propagates = true,
+	floodable = true,
 	groups = {snappy = 3, flower = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	node_placement_prediction = "",
