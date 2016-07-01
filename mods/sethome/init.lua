@@ -26,10 +26,8 @@ minetest.register_privilege("home", "Can use /sethome and /home")
 
 local changed = false
 
-minetest.register_chatcommand("home", {
-    description = "Teleport you to your home point",
-    privs = {home=true},
-    func = function(name)
+sethome = {}
+sethome.home = function(name)
         local player = minetest.get_player_by_name(name)
         if player == nil then
             -- just a check to prevent the server crashing
@@ -41,13 +39,15 @@ minetest.register_chatcommand("home", {
         else
             minetest.chat_send_player(name, "Set a home using /sethome")
         end
-    end,
+end
+
+minetest.register_chatcommand("home", {
+    description = "Teleport you to your home point",
+    privs = {home = true},
+    func = sethome.home,
 })
 
-minetest.register_chatcommand("sethome", {
-    description = "Set your home point",
-    privs = {home=true},
-    func = function(name)
+sethome.sethome = function(name)
         local player = minetest.get_player_by_name(name)
         local pos = player:getpos()
         homepos[player:get_player_name()] = pos
@@ -61,5 +61,9 @@ minetest.register_chatcommand("sethome", {
             io.close(output)
             changed = false
         end
-    end,
+end
+minetest.register_chatcommand("sethome", {
+    description = "Set your home point",
+    privs = {home = true},
+    func = sethome.sethome,
 })
