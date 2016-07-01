@@ -224,10 +224,10 @@ minetest.register_craftitem("boats:boat", {
 
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" then
-			return
+			return itemstack
 		end
 		if not is_water(pointed_thing.under) then
-			return
+			return itemstack
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
 		minetest.add_entity(pointed_thing.under, "boats:boat")

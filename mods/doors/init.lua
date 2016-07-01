@@ -373,8 +373,9 @@ function doors.register(name, def)
 		sounds = { def.sound_close, def.sound_open },
 	}
 
-	def.on_rightclick = function(pos, node, clicker)
+	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 		_doors.door_toggle(pos, clicker)
+		return itemstack
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
@@ -547,8 +548,9 @@ function doors.register_trapdoor(name, def)
 		return meta:get_string("doors_owner") == pn
 	end
 
-	def.on_rightclick = function(pos, node, clicker)
+	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 		_doors.trapdoor_toggle(pos, clicker)
+		return itemstack
 	end
 
 	-- Common trapdoor configuration
@@ -681,12 +683,13 @@ function doors.register_fencegate(name, def)
 		connect_sides = {"left", "right"},
 		groups = def.groups,
 		sounds = def.sounds,
-		on_rightclick = function(pos, clicker)
+		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 			local node = minetest.get_node(pos)
 			local node_def = minetest.registered_nodes[node.name]
 			minetest.swap_node(pos, {name = node_def.gate, param2 = node.param2})
 			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.3,
 				max_hear_distance = 8})
+			return itemstack
 		end,
 		selection_box = {
 			type = "fixed",
