@@ -91,8 +91,9 @@ function beds.register_bed(name, def)
 			destruct_bed(pos, 1)
 		end,
 
-		on_rightclick = function(pos, node, clicker)
+		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 			beds.on_rightclick(pos, clicker)
+			return itemstack
 		end,
 
 		on_rotate = function(pos, node, user, mode, new_param2)

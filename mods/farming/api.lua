@@ -133,10 +133,10 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	local pt = pointed_thing
 	-- check if pointing at a node
 	if not pt then
-		return
+		return itemstack
 	end
 	if pt.type ~= "node" then
-		return
+		return itemstack
 	end
 
 	local under = minetest.get_node(pt.under)
@@ -153,25 +153,25 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 
 	-- return if any of the nodes is not registered
 	if not minetest.registered_nodes[under.name] then
-		return
+		return itemstack
 	end
 	if not minetest.registered_nodes[above.name] then
-		return
+		return itemstack
 	end
 
 	-- check if pointing at the top of the node
 	if pt.above.y ~= pt.under.y+1 then
-		return
+		return itemstack
 	end
 
 	-- check if you can replace the node above the pointed node
 	if not minetest.registered_nodes[above.name].buildable_to then
-		return
+		return itemstack
 	end
 
 	-- check if pointing at soil
 	if minetest.get_item_group(under.name, "soil") < 2 then
-		return
+		return itemstack
 	end
 
 	-- add the node and remove 1 item from the itemstack

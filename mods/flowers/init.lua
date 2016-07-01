@@ -251,8 +251,8 @@ minetest.register_node("flowers:waterlily", {
 			end
 			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
-				return itemstack
 			end
 		end
+		return itemstack
 	end
 })
