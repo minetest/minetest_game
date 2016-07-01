@@ -52,54 +52,57 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 			stack_max = 1,
 			liquids_pointable = true,
 			groups = groups,
+
 			on_place = function(itemstack, user, pointed_thing)
 				-- Must be pointing to node
 				if pointed_thing.type ~= "node" then
 					return
 				end
-				
+
 				local node = minetest.get_node_or_nil(pointed_thing.under)
-				local ndef
-				if node then
-					ndef = minetest.registered_nodes[node.name]
+				if not node then
+					return
 				end
+				local ndef = minetest.registered_nodes[node.name]
+				if not ndef then
+					return
+				end
+
 				-- Call on_rightclick if the pointed node defines it
-				if ndef and ndef.on_rightclick and
+				if ndef.on_rightclick and
 				   user and not user:get_player_control().sneak then
 					return ndef.on_rightclick(
 						pointed_thing.under,
 						node, user,
-						itemstack) or itemstack
+						itemstack)
 				end
 
-				local place_liquid = function(pos, node, source, flowing)
-					if check_protection(pos,
-							user and user:get_player_name() or "",
-							"place "..source) then
-						return
-					end
-					minetest.add_node(pos, {name=source})
-				end
+				local lpos
 
 				-- Check if pointing to a buildable node
-				if ndef and ndef.buildable_to then
+				if ndef.buildable_to then
 					-- buildable; replace the node
-					place_liquid(pointed_thing.under, node,
-							source, flowing)
+					lpos = pointed_thing.under
 				else
 					-- not buildable to; place the liquid above
 					-- check if the node above can be replaced
-					local node = minetest.get_node_or_nil(pointed_thing.above)
-					if node and minetest.registered_nodes[node.name].buildable_to then
-						place_liquid(pointed_thing.above,
-								node, source,
-								flowing)
-					else
+					lpos = pointed_thing.above
+					local node = minetest.get_node_or_nil(lpos)
+					if not node
+					or not minetest.registered_nodes[node.name].buildable_to then
 						-- do not remove the bucket with the liquid
 						return
 					end
 				end
-				return {name="bucket:bucket_empty"}
+
+				if check_protection(lpos, user
+						and user:get_player_name()
+						or "", "place "..source) then
+					return
+				end
+
+				minetest.set_node(lpos, {name = source})
+				return ItemStack("bucket:bucket_empty")
 			end
 		})
 	end
