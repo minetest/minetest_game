@@ -42,10 +42,8 @@ minetest.register_alias("mapgen_stair_sandstonebrick", "stairs:stair_sandstonebr
 -- Register ores
 --
 
--- All mapgens except singlenode
--- Blob ore first to avoid other ores inside blobs
-
 function default.register_ores()
+	-- Blob ores first to avoid other ores inside blobs
 
 	-- Clay
 
@@ -95,7 +93,7 @@ function default.register_ores()
 	minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "default:dirt",
-		wherein         = {"default:stone", "default:sandstone"},
+		wherein         = {"default:stone"},
 		clust_scarcity  = 16 * 16 * 16,
 		clust_size      = 5,
 		y_min           = -31,
@@ -132,6 +130,8 @@ function default.register_ores()
 		},
 	})
 
+	-- Scatter ores
+
 	-- Coal
 
 	minetest.register_ore({
@@ -142,7 +142,7 @@ function default.register_ores()
 		clust_num_ores = 8,
 		clust_size     = 3,
 		y_min          = -31000,
-		y_max          = 64,
+		y_max          = 31000,
 	})
 
 	minetest.register_ore({
@@ -166,7 +166,7 @@ function default.register_ores()
 		clust_num_ores = 3,
 		clust_size     = 2,
 		y_min          = -15,
-		y_max          = 2,
+		y_max          = 31000,
 	})
 
 	minetest.register_ore({
@@ -202,7 +202,42 @@ function default.register_ores()
 		y_max          = -64,
 	})
 
-	--Mese
+	-- Copper
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_copper",
+		wherein        = "default:stone",
+		clust_scarcity = 12 * 12 * 12,
+		clust_num_ores = 4,
+		clust_size     = 3,
+		y_min          = -63,
+		y_max          = 31000,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_copper",
+		wherein        = "default:stone",
+		clust_scarcity = 9 * 9 * 9,
+		clust_num_ores = 5,
+		clust_size     = 3,
+		y_min          = -31000,
+		y_max          = -64,
+	})
+
+	-- Mese crystal
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_mese",
+		wherein        = "default:stone",
+		clust_scarcity = 18 * 18 * 18,
+		clust_num_ores = 3,
+		clust_size     = 2,
+		y_min          = 1024,
+		y_max          = 31000,
+	})
 
 	minetest.register_ore({
 		ore_type       = "scatter",
@@ -226,6 +261,19 @@ function default.register_ores()
 		y_max          = -256,
 	})
 
+	-- Mese block
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:mese",
+		wherein        = "default:stone",
+		clust_scarcity = 36 * 36 * 36,
+		clust_num_ores = 3,
+		clust_size     = 2,
+		y_min          = 1024,
+		y_max          = 31000,
+	})
+
 	minetest.register_ore({
 		ore_type       = "scatter",
 		ore            = "default:mese",
@@ -238,6 +286,17 @@ function default.register_ores()
 	})
 
 	-- Gold
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_gold",
+		wherein        = "default:stone",
+		clust_scarcity = 15 * 15 * 15,
+		clust_num_ores = 3,
+		clust_size     = 2,
+		y_min          = 1024,
+		y_max          = 31000,
+	})
 
 	minetest.register_ore({
 		ore_type       = "scatter",
@@ -270,6 +329,17 @@ function default.register_ores()
 		clust_scarcity = 17 * 17 * 17,
 		clust_num_ores = 4,
 		clust_size     = 3,
+		y_min          = 1024,
+		y_max          = 31000,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_diamond",
+		wherein        = "default:stone",
+		clust_scarcity = 17 * 17 * 17,
+		clust_num_ores = 4,
+		clust_size     = 3,
 		y_min          = -255,
 		y_max          = -128,
 	})
@@ -283,30 +353,6 @@ function default.register_ores()
 		clust_size     = 3,
 		y_min          = -31000,
 		y_max          = -256,
-	})
-
-	-- Copper
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_copper",
-		wherein        = "default:stone",
-		clust_scarcity = 12 * 12 * 12,
-		clust_num_ores = 4,
-		clust_size     = 3,
-		y_min          = -63,
-		y_max          = -16,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_copper",
-		wherein        = "default:stone",
-		clust_scarcity = 9 * 9 * 9,
-		clust_num_ores = 5,
-		clust_size     = 3,
-		y_min          = -31000,
-		y_max          = -64,
 	})
 end
 
