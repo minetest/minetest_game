@@ -102,7 +102,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				end
 
 				minetest.set_node(lpos, {name = source})
-				return ItemStack{name="bucket:bucket_empty"}
+				return ItemStack("bucket:bucket_empty")
 			end
 		})
 	end
