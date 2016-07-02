@@ -2,22 +2,16 @@ local homes_file = minetest.get_worldpath() .. "/homes"
 local homepos = {}
 
 local function loadhomes()
-    local input = io.open(homes_file, "r")
-    if input then
-		repeat
-            local x = input:read("*n")
-            if x == nil then
-            	break
-            end
-            local y = input:read("*n")
-            local z = input:read("*n")
-            local name = input:read("*l")
-            homepos[name:sub(2)] = {x = x, y = y, z = z}
-        until input:read(0) == nil
-        io.close(input)
-    else
-        homepos = {}
-    end
+	local input, err = io.open(homes_file, "r")
+	if not input then
+		return minetest.log("info", "Could not load player homes file: " .. err)
+	end
+
+	-- Iterate over all stored positions in the format "x y z player" each line
+	for pos, name in input:read("*a"):gmatch("(%S+ %S+ %S+)%s([%w_-]+)[\r\n]") do
+		homepos[name] = minetest.string_to_pos(pos)
+	end
+	input:close()
 end
 
 loadhomes()
