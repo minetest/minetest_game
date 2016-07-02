@@ -338,6 +338,32 @@ To use it, add the `on_screwdriver` function to the node definition.
  * use `on_rotate = screwdriver.disallow` to always disallow rotation
  * use `on_rotate = screwdriver.rotate_simple` to allow only face rotation
 
+Sethome's API
+--------------
+The Sethome API allows modders to use sethome's system in their own mods with the help of three functions :
+
+home.set(name, pos)
+ -> Sets the home position for player 'name' to the given position 'pos' or the player's
+    current position of pos is 'nil' or something other than a table, and only if that
+    player exists and is logged in when the function is used
+ -> name: String which is the name of the player whose home position will be changed
+ -> pos: Standard 'pos' table : {x = x, y = y, z = z}
+ -> Returns true when it has succeeded, false when it has failed, and a message meant to be send to
+    the player
+
+home.go(name)
+ -> Teleports the player 'name' to their home position. If no home position is known
+    for player 'name' then the function will return false
+ -> name: String which is the name of the player to teleport
+ -> Returns true when it has succeeded, false when it has failed, along with a message meant to be
+    sent to the player
+
+home.get(name)
+ -> Returns the home position of player 'name' within the form of a standard 'pos' table : 
+    {x = x, y = y, z = z}
+ -> If no position is know for the player then the function will return nil
+ -> name: String which is the name of the player whose home position will be returned
+
 Stairs API
 ----------
 
