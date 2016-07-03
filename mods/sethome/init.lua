@@ -26,7 +26,7 @@ sethome.set = function(name, pos)
 	end
 
 	local data = {}
-	local output = io.open(homes_file, "w")
+	local output, err = io.open(homes_file, "w")
 	if output then
 		homepos[name] = pos
 		for i, v in pairs(homepos) do
@@ -36,7 +36,7 @@ sethome.set = function(name, pos)
 		io.close(output)
 		return true
 	end
-	minetest.log("action", "[sethome] unable to write to homes file")
+	minetest.log("action", "Unable to write to player homes file: " .. err)
 	return false
 end
 
@@ -70,7 +70,7 @@ minetest.register_chatcommand("sethome", {
 	description = "Set your home point",
 	privs = {home = true},
 	func = function(name)
-		name = name or "" -- fallback to empty player name if nil
+		name = name or "" -- fallback to blank name if nil
 		local player = minetest.get_player_by_name(name)
 		if player and sethome.set(name, player:getpos()) then
 			return true, "Home set!"
