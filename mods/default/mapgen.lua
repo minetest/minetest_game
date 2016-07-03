@@ -186,33 +186,11 @@ function default.register_ores()
 		ore_type       = "scatter",
 		ore            = "default:stone_with_iron",
 		wherein        = "default:stone",
-		clust_scarcity = 12 * 12 * 12,
-		clust_num_ores = 3,
-		clust_size     = 2,
-		y_min          = -15,
-		y_max          = 0,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_iron",
-		wherein        = "default:stone",
-		clust_scarcity = 9 * 9 * 9,
-		clust_num_ores = 5,
-		clust_size     = 3,
-		y_min          = -63,
-		y_max          = -16,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_iron",
-		wherein        = "default:stone",
 		clust_scarcity = 7 * 7 * 7,
 		clust_num_ores = 5,
 		clust_size     = 3,
 		y_min          = -31000,
-		y_max          = -64,
+		y_max          = 0,
 	})
 
 	minetest.register_ore({
