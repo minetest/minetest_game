@@ -12,6 +12,7 @@ Please note:
 
  * [XYZ] refers to a section the Minetest API
  * [#ABC] refers to a section in this document
+ * [pos] refers to a position table `{x = -5, y = 0, z = 200}`
 
 Bucket API
 ----------
