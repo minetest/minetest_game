@@ -60,16 +60,10 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				end
 
 				local node = minetest.get_node_or_nil(pointed_thing.under)
-				if not node then
-					return
-				end
-				local ndef = minetest.registered_nodes[node.name]
-				if not ndef then
-					return
-				end
+				local ndef = node and minetest.registered_nodes[node.name]
 
 				-- Call on_rightclick if the pointed node defines it
-				if ndef.on_rightclick and
+				if ndef and ndef.on_rightclick and
 				   user and not user:get_player_control().sneak then
 					return ndef.on_rightclick(
 						pointed_thing.under,
@@ -80,7 +74,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				local lpos
 
 				-- Check if pointing to a buildable node
-				if ndef.buildable_to then
+				if ndef and ndef.buildable_to then
 					-- buildable; replace the node
 					lpos = pointed_thing.under
 				else
