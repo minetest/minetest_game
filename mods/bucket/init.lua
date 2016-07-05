@@ -88,10 +88,11 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 					-- check if the node above can be replaced
 					lpos = pointed_thing.above
 					local node = minetest.get_node_or_nil(lpos)
-					if not node
-					or not minetest.registered_nodes[node.name].buildable_to then
+					local above_ndef = node and minetest.registered_nodes[node.name]
+
+					if not above_ndef or not above_ndef.buildable_to then
 						-- do not remove the bucket with the liquid
-						return
+						return itemstack
 					end
 				end
 
