@@ -1523,12 +1523,12 @@ end
 -- Mods using singlenode mapgen can call these functions to enable
 -- the use of minetest.generate_ores or minetest.generate_decorations
 
-local mg_params = minetest.get_mapgen_params()
-if mg_params.mgname == "v6" then
+local mg_name = minetest.get_mapgen_setting("mg_name")
+if mg_name == "v6" then
 	default.register_ores()
 	default.register_mgv6_decorations()
 	minetest.register_on_generated(default.generate_nyancats)
-elseif mg_params.mgname ~= "singlenode" then
+elseif mg_name ~= "singlenode" then
 	default.register_biomes()
 	default.register_ores()
 	default.register_decorations()
