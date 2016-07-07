@@ -1,7 +1,8 @@
 tnt = {}
+
 -- Default to enabled when in singleplayer
 local enable_tnt = minetest.setting_getbool("enable_tnt")
-if enable_tnt == nil
+if enable_tnt == nil then
 	enable_tnt = minetest.is_singleplayer()
 end
 
@@ -82,7 +83,6 @@ local function add_drop(drops, item)
 	end
 end
 
-
 local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_protection, ignore_on_blast)
 	if not ignore_protection and minetest.is_protected(npos, "") then
 		return cid
@@ -105,7 +105,6 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 		return c_air
 	end
 end
-
 
 local function calc_velocity(pos1, pos2, old_vel, power)
 	-- Avoid errors caused by a vector of zero length
