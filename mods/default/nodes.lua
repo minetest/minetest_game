@@ -1360,7 +1360,7 @@ minetest.register_node("default:lava_source", {
 	liquid_renewable = false,
 	damage_per_second = 4 * 2,
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-	groups = {lava = 3, liquid = 2, hot = 3, igniter = 1},
+	groups = {lava = 3, liquid = 2, igniter = 1},
 })
 
 minetest.register_node("default:lava_flowing", {
@@ -1406,7 +1406,7 @@ minetest.register_node("default:lava_flowing", {
 	liquid_renewable = false,
 	damage_per_second = 4 * 2,
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-	groups = {lava = 3, liquid = 2, hot = 3, igniter = 1,
+	groups = {lava = 3, liquid = 2, igniter = 1,
 		not_in_creative_inventory = 1},
 })
 
@@ -1862,7 +1862,7 @@ minetest.register_node("default:rail", {
                 -- but how to specify the dimensions for curved and sideways rails?
                 fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
-	groups = {bendy = 2, dig_immediate = 2, attached_node = 1,
+	groups = {dig_immediate = 2, attached_node = 1,
 		connect_to_raillike = minetest.raillike_group("rail")},
 })
 
