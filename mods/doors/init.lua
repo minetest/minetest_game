@@ -543,8 +543,8 @@ function doors.register_trapdoor(name, def)
 			return true
 		end
 		local meta = minetest.get_meta(pos)
-		local pn = player:get_player_name()
-		return meta:get_string("doors_owner") == pn
+		local player_name = player and player:get_player_name()
+		return meta:get_string("doors_owner") == player_name
 	end
 
 	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
