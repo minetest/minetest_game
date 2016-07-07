@@ -432,7 +432,7 @@ doors.register("door_steel", {
 		description = "Steel Door",
 		inventory_image = "doors_item_steel.png",
 		protected = true,
-		groups = { snappy = 1, bendy = 2, cracky = 1, melty = 2, level = 2 },
+		groups = { snappy = 1, cracky = 1, level = 2 },
 		sounds = default.node_sound_stone_defaults(),
 		sound_open = "doors_steel_door_open",
 		sound_close = "doors_steel_door_close",
@@ -633,7 +633,7 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	sounds = default.node_sound_stone_defaults(),
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
-	groups = {snappy=1, bendy=2, cracky=1, melty=2, level=2, door=1},
+	groups = {snappy=1, cracky=1, level=2, door=1},
 })
 
 minetest.register_craft({
