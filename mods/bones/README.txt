@@ -14,4 +14,4 @@ http://creativecommons.org/licenses/by-sa/3.0/
 
 Authors of media files
 ----------------------
-Bad_Command_
+All textures: paramat
