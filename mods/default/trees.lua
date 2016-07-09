@@ -27,32 +27,12 @@ end
 -- 'is snow nearby' function
 
 local function is_snow_nearby(pos)
-	local x, y, z = pos.x, pos.y, pos.z
-	local c_snow = minetest.get_content_id("default:snow")
-	local c_snowblock = minetest.get_content_id("default:snowblock")
-	local c_dirtsnow = minetest.get_content_id("default:dirt_with_snow")
-
-	local vm = minetest.get_voxel_manip()
-	local minp, maxp = vm:read_from_map(
-		{x = x - 1, y = y - 1, z = z - 1},
-		{x = x + 1, y = y + 1, z = z + 1}
-	)
-	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
-	local data = vm:get_data()
-
-	for yy = y - 1, y + 1 do
-	for zz = z - 1, z + 1 do
-		local vi  = a:index(x - 1, yy, zz)
-		for xx = x - 1, x + 1 do
-			local nodid = data[vi]
-			if nodid == c_snow or nodid == c_snowblock or nodid == c_dirtsnow then
-				return true
-			end
-			vi  = vi + 1
-		end
+	if #minetest.find_nodes_in_area(
+		{x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
+		{x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
+		{"default:snow", "default:snowblock", "default:dirt_with_snow"}) > 0 then
+			return true
 	end
-	end
-
 	return false
 end
 
