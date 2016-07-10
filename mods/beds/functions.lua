@@ -113,7 +113,7 @@ local function update_formspecs(finished)
 		end
 
 		beds.set_spawns() -- save respawn positions when entering bed
-end
+	end
 
 	for name,_ in pairs(beds.player) do
 		minetest.show_formspec(name, "beds_form", form_n)
