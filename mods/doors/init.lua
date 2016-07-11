@@ -25,16 +25,16 @@ function doors.get(pos)
 				if self:state() then
 					return false
 				end
-				return _doors.door_toggle(self.pos, player)
+				return _doors.door_toggle(self.pos, nil, player)
 			end,
 			close = function(self, player)
 				if not self:state() then
 					return false
 				end
-				return _doors.door_toggle(self.pos, player)
+				return _doors.door_toggle(self.pos, nil, player)
 			end,
 			toggle = function(self, player)
-				return _doors.door_toggle(self.pos, player)
+				return _doors.door_toggle(self.pos, nil, player)
 			end,
 			state = function(self)
 				local state = minetest.get_meta(self.pos):get_int("state")
@@ -49,19 +49,19 @@ function doors.get(pos)
 				if self:state() then
 					return false
 				end
-				return _doors.trapdoor_toggle(self.pos, player)
+				return _doors.trapdoor_toggle(self.pos, nil, player)
 			end,
 			close = function(self, player)
 				if not self:state() then
 					return false
 				end
-				return _doors.trapdoor_toggle(self.pos, player)
+				return _doors.trapdoor_toggle(self.pos, nil, player)
 			end,
 			toggle = function(self, player)
-				return _doors.trapdoor_toggle(self.pos, player)
+				return _doors.trapdoor_toggle(self.pos, nil, player)
 			end,
 			state = function(self)
-				return node_name:sub(-5) == "_open"
+				return minetest.get_node(self.pos).name:sub(-5) == "_open"
 			end
 		}
 	else
@@ -131,6 +131,7 @@ local transform = {
 
 function _doors.door_toggle(pos, node, clicker)
 	local meta = minetest.get_meta(pos)
+	node = node or minetest.get_node(pos)
 	local def = minetest.registered_nodes[node.name]
 	local name = def.door.name
 
@@ -508,6 +509,7 @@ end
 ----trapdoor----
 
 function _doors.trapdoor_toggle(pos, node, clicker)
+	node = node or minetest.get_node(pos)
 	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
 		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("doors_owner")
