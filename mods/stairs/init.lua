@@ -113,6 +113,14 @@ end
 -- Register slabs.
 -- Node will be called stairs:slab_<subname>
 
+local function get_node_face(pointed_thing)
+	local ay = pointed_thing.above.y
+	local uy = pointed_thing.under.y
+
+	if     ay > uy then return 1	 -- Top face pointed.
+	elseif ay < uy then return 2 end -- Bottom face pointed.
+end
+
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
 	groups.slab = 1
 	minetest.register_node(":stairs:slab_" .. subname, {
@@ -128,87 +136,31 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			type = "fixed",
 			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
 		},
-		on_place = function(itemstack, placer, pointed_thing)
-			if pointed_thing.type ~= "node" then
-				return itemstack
+		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+			local wield_item = clicker:get_wielded_item():get_name()
+			local player_name = clicker:get_player_name()
+			local face = get_node_face(pointed_thing)
+
+			if minetest.is_protected(pos, player_name) then
+				minetest.record_protection_violation(pos, player_name)
+				return
 			end
 
-			-- If it's being placed on an another similar one, replace it with
-			-- a full block
-			local slabpos = nil
-			local slabnode = nil
-			local p0 = pointed_thing.under
-			local p1 = pointed_thing.above
-			local n0 = minetest.get_node(p0)
-			local n1 = minetest.get_node(p1)
-			local param2 = 0
-
-			local n0_is_upside_down = (n0.name == "stairs:slab_" .. subname and
-					n0.param2 >= 20)
-
-			if n0.name == "stairs:slab_" .. subname and not n0_is_upside_down and
-					p0.y + 1 == p1.y then
-				slabpos = p0
-				slabnode = n0
-			elseif n1.name == "stairs:slab_" .. subname then
-				slabpos = p1
-				slabnode = n1
-			end
-			if slabpos then
-				-- Remove the slab at slabpos
-				minetest.remove_node(slabpos)
-				-- Make a fake stack of a single item and try to place it
-				local fakestack = ItemStack(recipeitem)
-				fakestack:set_count(itemstack:get_count())
-
-				pointed_thing.above = slabpos
-				local success
-				fakestack, success = minetest.item_place(fakestack, placer,
-					pointed_thing)
-				-- If the item was taken from the fake stack, decrement original
-				if success then
-					itemstack:set_count(fakestack:get_count())
-				-- Else put old node back
+			if wield_item == "stairs:slab_" .. subname and node.param2 <= 3 and face then
+				if face == 1 then
+					minetest.set_node(pos, {name = recipeitem, param2 = node.param2})
 				else
-					minetest.set_node(slabpos, slabnode)
+					minetest.set_node(pointed_thing.above, {name = wield_item, param2 = 20})
 				end
-				return itemstack
-			end
-			
-			-- Upside down slabs
-			if p0.y - 1 == p1.y then
-				-- Turn into full block if pointing at a existing slab
-				if n0_is_upside_down  then
-					-- Remove the slab at the position of the slab
-					minetest.remove_node(p0)
-					-- Make a fake stack of a single item and try to place it
-					local fakestack = ItemStack(recipeitem)
-					fakestack:set_count(itemstack:get_count())
-
-					pointed_thing.above = p0
-					local success
-					fakestack, success = minetest.item_place(fakestack, placer,
-						pointed_thing)
-					-- If the item was taken from the fake stack, decrement original
-					if success then
-						itemstack:set_count(fakestack:get_count())
-					-- Else put old node back
-					else
-						minetest.set_node(p0, n0)
-					end
-					return itemstack
-				end
-
-				-- Place upside down slab
-				param2 = 20
+			else
+				minetest.item_place_node(ItemStack(wield_item), clicker, pointed_thing)
 			end
 
-			-- If pointing at the side of a upside down slab
-			if n0_is_upside_down and p0.y + 1 ~= p1.y then
-				param2 = 20
+			if not minetest.setting_getbool("creative_mode") then
+				itemstack:take_item()
 			end
 
-			return minetest.item_place(itemstack, placer, pointed_thing, param2)
+			return itemstack
 		end,
 	})
 
