@@ -250,6 +250,18 @@ Give Initial Stuff API
 ^ str is a comma separated list of initial stuff
 ^ Adds items to the list of items to be given
 
+Nyancat API
+-----------
+
+`nyancat.place(pos, facedir, length)`
+
+^ Place a cat at `pos` facing `facedir` with tail length `length`
+  Only accepts facedir 0-3, if facedir > 3 then it will be interpreted as facedir = 0
+
+`nyancat.generate(minp, maxp, seed)`
+
+^ Called by `minetest.register_on_generated`. To disable nyancat generation,
+  you can redefine nyancat.generate() to be an empty function
 
 TNT API
 ----------
