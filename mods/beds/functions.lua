@@ -173,19 +173,18 @@ end
 
 
 -- Callbacks
-
--- respawn player at bed if enabled and valid position is found
-minetest.register_on_respawnplayer(function(player)
-	if not enable_respawn then
-		return false
-	end
-	local name = player:get_player_name()
-	local pos = beds.spawn[name] or nil
-	if pos then
-		player:setpos(pos)
-		return true
-	end
-end)
+-- Only register respawn callback if respawn enabled
+if enable_respawn then 
+	-- respawn player at bed if enabled and valid position is found
+	minetest.register_on_respawnplayer(function(player)
+		local name = player:get_player_name()
+		local pos = beds.spawn[name]
+		if pos then
+			player:setpos(pos)
+			return true
+		end
+	end)
+end
 
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
