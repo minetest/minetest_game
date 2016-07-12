@@ -111,8 +111,6 @@ local function update_formspecs(finished)
 		if is_majority and is_night_skip_enabled() then
 			form_n = form_n .. "button_exit[2,8;4,0.75;force;Force night skip]"
 		end
-
-		beds.set_spawns() -- save respawn positions when entering bed
 	end
 
 	for name,_ in pairs(beds.player) do
@@ -157,6 +155,8 @@ function beds.on_rightclick(pos, player)
 	if not is_sp then
 		update_formspecs(false)
 	end
+
+	beds.set_spawns() -- save respawn positions when entering bed
 
 	-- skip the night and let all players stand up
 	if check_in_beds() then
