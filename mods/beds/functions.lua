@@ -148,6 +148,7 @@ function beds.on_rightclick(pos, player)
 	-- move to bed
 	if not beds.player[name] then
 		lay_down(player, ppos, pos)
+		beds.set_spawns() -- save respawn positions when entering bed
 	else
 		lay_down(player, nil, nil, false)
 	end
@@ -155,8 +156,6 @@ function beds.on_rightclick(pos, player)
 	if not is_sp then
 		update_formspecs(false)
 	end
-
-	beds.set_spawns() -- save respawn positions when entering bed
 
 	-- skip the night and let all players stand up
 	if check_in_beds() then
