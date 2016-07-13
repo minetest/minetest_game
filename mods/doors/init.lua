@@ -425,7 +425,7 @@ doors.register("door_wood", {
 		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
 		description = "Wooden Door",
 		inventory_image = "doors_item_wood.png",
-		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 		recipe = {
 			{"group:wood", "group:wood"},
 			{"group:wood", "group:wood"},
@@ -438,7 +438,7 @@ doors.register("door_steel", {
 		description = "Steel Door",
 		inventory_image = "doors_item_steel.png",
 		protected = true,
-		groups = {snappy = 1, cracky = 1, level = 2},
+		groups = {cracky = 1, level = 2},
 		sounds = default.node_sound_stone_defaults(),
 		sound_open = "doors_steel_door_open",
 		sound_close = "doors_steel_door_close",
@@ -453,7 +453,7 @@ doors.register("door_glass", {
 		tiles = {"doors_door_glass.png"},
 		description = "Glass Door",
 		inventory_image = "doors_item_glass.png",
-		groups = {snappy=1, cracky=1, oddly_breakable_by_hand=3},
+		groups = {cracky=3, oddly_breakable_by_hand=3},
 		sounds = default.node_sound_glass_defaults(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
@@ -468,7 +468,7 @@ doors.register("door_obsidian_glass", {
 		tiles = {"doors_door_obsidian_glass.png"},
 		description = "Obsidian Glass Door",
 		inventory_image = "doors_item_obsidian_glass.png",
-		groups = {snappy=1, cracky=1, oddly_breakable_by_hand=3},
+		groups = {cracky=3},
 		sounds = default.node_sound_glass_defaults(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
@@ -632,7 +632,7 @@ doors.register_trapdoor("doors:trapdoor", {
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
-	groups = {snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
 })
 
 doors.register_trapdoor("doors:trapdoor_steel", {
@@ -645,7 +645,7 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	sounds = default.node_sound_stone_defaults(),
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
-	groups = {snappy=1, cracky=1, level=2, door=1},
+	groups = {cracky = 1, level = 2, door = 1},
 })
 
 minetest.register_craft({
