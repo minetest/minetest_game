@@ -576,7 +576,6 @@ function doors.register_trapdoor(name, def)
 	else
 		def.on_blast = function(pos, intensity)
 			minetest.remove_node(pos)
-			minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
 			return {name}
 		end
 	end
