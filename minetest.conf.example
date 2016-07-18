@@ -5,6 +5,12 @@
 # Whether creative mode (fast digging of all blocks, unlimited resources) should be enabled
 #creative_mode = false
 
+# Sets drop mode for items when a player dies.  "bones" will store all items from player
+# inventory inside a bone block.  "drop" will drop all items on the ground.  "hybrid" is a
+# mix of the two, storing inside a bone block normally but dropping as items when inside of
+# a protected area, and "keep" disables all items from dropping on death.
+#bones_mode = "bones"
+
 # The time in seconds after which the bones of a dead player can be looted by everyone
 # 0 to disable
 #share_bones_time = 1200
