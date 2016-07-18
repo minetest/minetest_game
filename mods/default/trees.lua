@@ -43,12 +43,12 @@ function default.grow_sapling(pos)
 		return
 	end
 
-	local mapgen = minetest.get_mapgen_params().mgname
+	local mg_name = minetest.get_mapgen_setting("mg_name")
 	local node = minetest.get_node(pos)
 	if node.name == "default:sapling" then
 		minetest.log("action", "A sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
-		if mapgen == "v6" then
+		if mg_name == "v6" then
 			default.grow_tree(pos, random(1, 4) == 1)
 		else
 			default.grow_new_apple_tree(pos)
@@ -56,7 +56,7 @@ function default.grow_sapling(pos)
 	elseif node.name == "default:junglesapling" then
 		minetest.log("action", "A jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
-		if mapgen == "v6" then
+		if mg_name == "v6" then
 			default.grow_jungle_tree(pos)
 		else
 			default.grow_new_jungle_tree(pos)
@@ -65,7 +65,7 @@ function default.grow_sapling(pos)
 		minetest.log("action", "A pine sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		local snow = is_snow_nearby(pos)
-		if mapgen == "v6" then
+		if mg_name == "v6" then
 			default.grow_pine_tree(pos, snow)
 		elseif snow then
 			default.grow_new_snowy_pine_tree(pos)
