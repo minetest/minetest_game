@@ -23,7 +23,7 @@ Everything not listed in here:
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
 
 VanessaE (WTFPL):
-  default_nc_back.png
-  default_nc_front.png
-  default_nc_rb.png
-  default_nc_side.png
+  nyancat_front.png
+  nyancat_back.png
+  nyancat_side.png
+  nyancat_rainbow.png
