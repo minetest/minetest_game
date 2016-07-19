@@ -720,7 +720,7 @@ function doors.register_fencegate(name, def)
 	fence_open.collision_box = {
 		type = "fixed",
 		fixed = {{-1/2, -1/2, -1/4, -3/8, 1/2, 1/4},
-			{-5/8, -3/8, -14/16, -3/8, 3/8, 0}},
+			{-5/8, -3/8, -14/16, -3/8, 1/2, 0}},
 	}
 
 	minetest.register_node(":" .. name .. "_closed", fence_closed)
