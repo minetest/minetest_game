@@ -418,6 +418,7 @@ function default.grow_new_acacia_tree(pos)
 		path, "random", nil, false)
 end
 
+
 -- New aspen tree
 
 function default.grow_new_aspen_tree(pos)
@@ -425,4 +426,49 @@ function default.grow_new_aspen_tree(pos)
 		"/schematics/aspen_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 		path, "0", nil, false)
+end
+
+
+--
+-- Sapling 'on place' function to check protection of node and resulting tree volume
+--
+
+function default.sapling_on_place(itemstack, placer, pointed_thing,
+		sapling_name, minp_relative, maxp_relative, interval)
+	-- Position of sapling
+	local pos = pointed_thing.under
+	local node = minetest.get_node(pos)
+	local pdef = minetest.registered_nodes[node.name]
+	if not pdef or not pdef.buildable_to then
+		pos = pointed_thing.above
+		node = minetest.get_node(pos)
+		pdef = minetest.registered_nodes[node.name]
+		if not pdef or not pdef.buildable_to then
+			return itemstack
+		end
+	end
+
+	local player_name = placer:get_player_name()
+	-- Check sapling position for protection
+	if minetest.is_protected(pos, player_name) then
+		minetest.record_protection_violation(pos, player_name)
+		return itemstack
+	end
+	-- Check tree volume for protection
+	if not default.intersects_protection(
+			vector.add(pos, minp_relative),
+			vector.add(pos, maxp_relative),
+			player_name,
+			interval) then
+		minetest.set_node(pos, {name = sapling_name})
+		if not minetest.setting_getbool("creative_mode") then
+			itemstack:take_item()
+		end
+	else
+		minetest.record_protection_violation(pos, player_name)
+		-- Print extra information to explain
+		minetest.chat_send_player(player_name, "Tree will intersect protection")
+	end
+
+	return itemstack
 end
