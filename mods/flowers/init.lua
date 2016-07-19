@@ -243,16 +243,20 @@ minetest.register_node("flowers:waterlily", {
 		local def = minetest.registered_nodes[node]
 		local player_name = placer:get_player_name()
 
-		if def and def.liquidtype == "source" and minetest.get_item_group(node, "water") > 0 then
+		if def and def.liquidtype == "source" and
+				minetest.get_item_group(node, "water") > 0 then
 			if not minetest.is_protected(pos, player_name) then
-				minetest.set_node(pos, {name = "flowers:waterlily", param2 = math.random(0, 3)})
+				minetest.set_node(pos, {name = "flowers:waterlily",
+					param2 = math.random(0, 3)})
+				if not minetest.setting_getbool("creative_mode") then
+					itemstack:take_item()
+				end
 			else
-				minetest.chat_send_player(player_name, "This area is protected")
-			end
-			if not minetest.setting_getbool("creative_mode") then
-				itemstack:take_item()
+				minetest.chat_send_player(player_name, "Node is protected")
+				minetest.record_protection_violation(pos, player_name)
 			end
 		end
+
 		return itemstack
 	end
 })
