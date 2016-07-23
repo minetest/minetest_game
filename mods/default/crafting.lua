@@ -588,15 +588,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:mese',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
-
-minetest.register_craft({
 	output = 'default:mese_crystal 9',
 	recipe = {
 		{'default:mese'},
