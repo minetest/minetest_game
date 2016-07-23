@@ -481,3 +481,19 @@ minetest.register_abm({
 		end
 	end
 })
+
+
+--
+-- Coral die off
+--
+minetest.register_abm({
+	nodenames = {"default:coral_live"},
+	neighbors = {"air"},
+	interval = 17,
+	chance = 5,
+	catch_up = false,
+	action = function(pos, node)
+		minetest.set_node(pos, {name = "default:coral"})
+	end,
+})
+

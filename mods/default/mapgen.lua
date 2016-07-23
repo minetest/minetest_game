@@ -1413,6 +1413,29 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default").."/schematics/papyrus.mts",
 	})
 
+	-- Coral
+
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:sand"},
+		noise_params = {
+			offset = -0.25,
+			scale = 0.275,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 123,
+			octaves = 3,
+			persist = 0.05,
+		},
+		biomes = {
+			"desert_ocean",
+			"savanna_ocean",
+			"rainforest_ocean",
+		},
+		y_min = -10,
+		y_max = -5,
+		schematic = minetest.get_modpath("default").."/schematics/coral.mts",
+	})
+
 	-- Grasses
 
 	register_grass_decoration(-0.03,  0.09,  5)

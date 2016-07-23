@@ -52,6 +52,9 @@ default:gravel
 
 default:clay
 
+default:coral_live
+default:coral
+
 default:snow
 default:snowblock
 
@@ -413,6 +416,21 @@ minetest.register_node("default:clay", {
 	sounds = default.node_sound_dirt_defaults(),
 })
 
+minetest.register_node("default:coral_live", {
+	description = "Coral",
+	tiles = {"default_coral_live.png"},
+	groups = {cracky = 3},
+	drop = 'default:coral',
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:coral", {
+	description = "Coral",
+	tiles = {"default_coral.png"},
+	groups = {cracky = 3},
+	drop = 'default:coral',
+	sounds = default.node_sound_stone_defaults(),
+})
 
 minetest.register_node("default:snow", {
 	description = "Snow",
