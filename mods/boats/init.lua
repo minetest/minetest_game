@@ -79,7 +79,7 @@ function boat.on_rightclick(self, clicker)
 		minetest.after(0.2, function()
 			default.player_set_animation(clicker, "sit" , 30)
 		end)
-		self.object:setyaw(clicker:get_look_yaw() - math.pi / 2)
+		self.object:setyaw(clicker:get_look_horizontal() - math.pi / 2)
 	end
 end
 
