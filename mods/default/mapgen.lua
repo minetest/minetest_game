@@ -1349,6 +1349,7 @@ function default.register_decorations()
 		flags = "place_center_x",
 		rotation = "random",
 	})
+
 	-- Large cactus
 
 	minetest.register_decoration({
