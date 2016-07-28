@@ -208,7 +208,6 @@ minetest.register_abm({
 	end
 })
 
-
 --
 -- dig upwards
 --

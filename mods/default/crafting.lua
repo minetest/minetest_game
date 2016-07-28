@@ -544,30 +544,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = 'default:paper',
-	recipe = {
-		{'default:papyrus', 'default:papyrus', 'default:papyrus'},
-	}
-})
 
-minetest.register_craft({
-	output = 'default:book',
-	recipe = {
-		{'default:paper'},
-		{'default:paper'},
-		{'default:paper'},
-	}
-})
-
-minetest.register_craft({
-	output = 'default:bookshelf',
-	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'default:book', 'default:book', 'default:book'},
-		{'group:wood', 'group:wood', 'group:wood'},
-	}
-})
 
 minetest.register_craft({
 	output = 'default:ladder_wood 3',
@@ -808,12 +785,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:papyrus",
 	burntime = 1,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:bookshelf",
-	burntime = 30,
 })
 
 minetest.register_craft({

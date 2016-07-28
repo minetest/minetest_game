@@ -135,7 +135,6 @@ BlockMen (CC BY-SA 3.0):
   default_gold_ingot.png
   default_tool_steelsword.png
   default_diamond.png
-  default_book.png
   default_tool_*.png
   default_lava_source_animated.png
   default_lava_flowing_animated.png
@@ -150,7 +149,6 @@ BlockMen (CC BY-SA 3.0):
   gui_*.png
 
 sofar (CC BY-SA 3.0):
-  default_book_written.png, based on default_book.png
   default_aspen_sapling
   default_aspen_leaves
   default_aspen_tree
@@ -176,7 +174,6 @@ Gambit (WTFPL):
   default_clay_lump.png
   default_coal.png
   default_grass_*.png
-  default_paper.png
   default_diamond_block.png
   default_ladder_steel.png
   default_sign_wall_wood.png
