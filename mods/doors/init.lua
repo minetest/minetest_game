@@ -273,8 +273,10 @@ function doors.register(name, def)
 			end
 
 			local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-			if not minetest.registered_nodes[
-				minetest.get_node(above).name].buildable_to then
+			local top_node = minetest.get_node_or_nil(above)
+			local topdef = top_node and minetest.registered_nodes[top_node.name]
+
+			if not topdef or not topdef.buildable_to then
 				return itemstack
 			end
 
