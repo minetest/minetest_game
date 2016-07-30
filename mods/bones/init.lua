@@ -27,7 +27,7 @@ local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_e
 minetest.register_node("bones:bones", {
 	description = "Bones",
 	tiles = {
-		"bones_top.png",
+		"bones_top.png^[transform2",
 		"bones_bottom.png",
 		"bones_side.png",
 		"bones_side.png",
@@ -36,10 +36,7 @@ minetest.register_node("bones:bones", {
 	},
 	paramtype2 = "facedir",
 	groups = {dig_immediate = 2},
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_gravel_footstep", gain = 0.5},
-		dug = {name = "default_gravel_footstep", gain = 1.0},
-	}),
+	sounds = default.node_sound_gravel_defaults(),
 
 	can_dig = function(pos, player)
 		local inv = minetest.get_meta(pos):get_inventory()
