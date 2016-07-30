@@ -203,6 +203,14 @@ local function on_place_node(place_to, newnode,
 	end
 end
 
+local function can_dig_door(pos, digger)
+	local digger_name = digger and digger:get_player_name()
+	if digger_name and minetest.get_player_privs(digger_name).protection_bypass then
+		return true
+	end
+	return minetest.get_meta(pos):get_string("doors_owner") == digger_name
+end
+
 function doors.register(name, def)
 	if not name:find(":") then
 		name = "doors:" .. name
@@ -338,21 +346,6 @@ function doors.register(name, def)
 	end
 	def.recipe = nil
 
-	local can_dig = function(pos, digger)
-		if not def.protected then
-			return true
-		end
-		if minetest.check_player_privs(digger, "protection_bypass") then
-			return true
-		end
-		local meta = minetest.get_meta(pos)
-		local owner_name
-		if digger then
-			owner_name = digger:get_player_name()
-		end
-		return meta:get_string("doors_owner") == owner_name
-	end
-
 	if not def.sounds then
 		def.sounds = default.node_sound_wood_defaults()
 	end
@@ -381,14 +374,12 @@ function doors.register(name, def)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
 		nodeupdate({x = pos.x, y = pos.y + 1, z = pos.z})
 	end
-	def.can_dig = function(pos, player)
-		return can_dig(pos, player)
-	end
 	def.on_rotate = function(pos, node, user, mode, new_param2)
 		return false
 	end
 
 	if def.protected then
+		def.can_dig = can_dig_door
 		def.on_blast = function() end
 	else
 		def.on_blast = function(pos, intensity)
@@ -542,16 +533,6 @@ function doors.register_trapdoor(name, def)
 	local name_closed = name
 	local name_opened = name.."_open"
 
-	local function check_player_priv(pos, player)
-		if not def.protected or
-				minetest.check_player_privs(player, "protection_bypass") then
-			return true
-		end
-		local meta = minetest.get_meta(pos)
-		local player_name = player and player:get_player_name()
-		return meta:get_string("doors_owner") == player_name
-	end
-
 	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 		_doors.trapdoor_toggle(pos, node, clicker)
 		return itemstack
@@ -562,9 +543,9 @@ function doors.register_trapdoor(name, def)
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
 	def.is_ground_content = false
-	def.can_dig = check_player_priv
 
 	if def.protected then
+		def.can_dig = can_dig_door
 		def.after_place_node = function(pos, placer, itemstack, pointed_thing)
 			local pn = placer:get_player_name()
 			local meta = minetest.get_meta(pos)
