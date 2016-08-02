@@ -62,6 +62,15 @@ Beds API
 		}
 	}
 
+Bones API
+---------
+
+An ordered list of listnames (default: "main", "craft") of the player inventory,
+that will be placed into bones or dropped on player death can be looked up or changed
+in `bones.player_inventory_lists`.
+
+e.g. `table.insert(bones.player_inventory_lists, "backpack")`
+
 Creative API
 ------------
 
