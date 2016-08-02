@@ -374,9 +374,7 @@ function doors.register(name, def)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
 		nodeupdate({x = pos.x, y = pos.y + 1, z = pos.z})
 	end
-	def.on_rotate = function(pos, node, user, mode, new_param2)
-		return false
-	end
+	def.on_rotate = screwdriver and screwdriver.rotate_simple or false
 
 	if def.protected then
 		def.can_dig = can_dig_door
