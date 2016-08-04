@@ -47,7 +47,7 @@ end
 local function eject_drops(drops, pos, radius)
 	local drop_pos = vector.new(pos)
 	for _, item in pairs(drops) do
-		local count = math.min(item:get_count(), 99)
+		local count = math.min(item:get_count(), item:get_stack_max())
 		while count > 0 do
 			local take = math.max(1,math.min(radius * radius,
 					count,
