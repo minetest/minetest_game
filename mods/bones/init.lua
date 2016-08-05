@@ -149,7 +149,7 @@ local function may_replace(pos, player)
 end
 
 local drop = function(pos, itemstack)
-	local obj = core.add_item(pos, itemstack:take_item(itemstack:get_count()))
+	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
 	if obj then
 		obj:setvelocity({
 			x = math.random(-10, 10) / 9,

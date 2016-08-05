@@ -141,7 +141,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 				else
 					local pos = user:getpos()
 					pos.y = math.floor(pos.y + 0.5)
-					core.add_item(pos, liquiddef.itemname)
+					minetest.add_item(pos, liquiddef.itemname)
 				end
 
 				-- set to return empty buckets minus 1
