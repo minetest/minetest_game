@@ -348,7 +348,7 @@ To use it, add the `on_screwdriver` function to the node definition.
  * `new_param2` the new value of param2 that would have been set if on_rotate wasn't there
  * return value: false to disallow rotation, nil to keep default behaviour, true to allow
  	it but to indicate that changed have already been made (so the screwdriver will wear out)
- * use `on_rotate = screwdriver.disallow` to always disallow rotation
+ * use `on_rotate = false` to always disallow rotation
  * use `on_rotate = screwdriver.rotate_simple` to allow only face rotation
 
 
