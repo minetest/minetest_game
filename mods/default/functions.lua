@@ -309,7 +309,7 @@ minetest.register_abm({
 			return
 		end
 
-		if minetest.get_node(p0).param2 ~= 0 then
+		if node.param2 ~= 0 then
 			--print("param2 ~= 0")
 			return
 		end
