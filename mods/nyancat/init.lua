@@ -9,13 +9,28 @@ minetest.register_node("nyancat:nyancat", {
 	sounds = default.node_sound_defaults(),
 })
 
+local nt = {
+	"[combine:32x16:0,0=nyancat_rainbow.png^[transformFX^[combine:32x16:0,0=nyancat_rainbow.png^[transformR90",
+	"[combine:16x32:0,0=nyancat_rainbow.png^[transformFX^[combine:16x32:0,16=nyancat_rainbow.png"
+}
+
+for i = 1,2 do
+	nt[2*i-1] = {
+		name = nt[i],
+		animation = {
+			type = "vertical_frames",
+			aspect_w = 16,
+			aspect_h = 16,
+			length = 0.6,	-- 300ms (from nyan.cat)
+		}
+	}
+end
+
+nt[2] = nt[1]
+
 minetest.register_node("nyancat:nyancat_rainbow", {
 	description = "Nyan Cat Rainbow",
-	tiles = {
-		"nyancat_rainbow.png^[transformR90",
-		"nyancat_rainbow.png^[transformR90",
-		"nyancat_rainbow.png"
-	},
+	tiles = nt,
 	paramtype2 = "facedir",
 	groups = {cracky = 2},
 	is_ground_content = false,
