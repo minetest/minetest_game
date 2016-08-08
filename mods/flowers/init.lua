@@ -110,6 +110,7 @@ function flowers.flower_spread(pos, node)
 end
 
 minetest.register_abm({
+	label = "Flower spread",
 	nodenames = {"group:flora"},
 	neighbors = {"default:dirt_with_grass", "default:dirt_with_dry_grass",
 		"default:desert_sand"},
@@ -167,6 +168,7 @@ minetest.register_node("flowers:mushroom_brown", {
 -- Mushroom spread and death
 
 minetest.register_abm({
+	label = "Mushroom spread",
 	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
 	interval = 11,
 	chance = 50,
