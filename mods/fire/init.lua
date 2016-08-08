@@ -242,7 +242,7 @@ if minetest.setting_getbool("disable_fire") then
 	-- Remove basic flames only
 
 	minetest.register_abm({
-		label = "Remove flame",
+		label = "Remove disabled fire",
 		nodenames = {"fire:basic_flame"},
 		interval = 7,
 		chance = 1,
@@ -276,7 +276,7 @@ else
 	-- Remove flammable nodes
 
 	minetest.register_abm({
-		label = "Flame spread",
+		label = "Remove flammable nodes",
 		nodenames = {"fire:basic_flame"},
 		neighbors = "group:flammable",
 		interval = 5,
