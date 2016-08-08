@@ -94,6 +94,7 @@ minetest.register_node("farming:straw", {
 })
 
 minetest.register_abm({
+	label = "Farming soil",
 	nodenames = {"group:field"},
 	interval = 15,
 	chance = 4,

@@ -236,6 +236,7 @@ end
 
 if replace then
 	minetest.register_abm({
+		label = "Slab replace",
 		nodenames = {"group:slabs_replace"},
 		interval = 16,
 		chance = 1,
