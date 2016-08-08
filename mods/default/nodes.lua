@@ -422,6 +422,7 @@ minetest.register_node("default:snow", {
 	paramtype = "light",
 	buildable_to = true,
 	floodable = true,
+	walkable = true,
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",
