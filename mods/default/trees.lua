@@ -27,10 +27,8 @@ end
 -- 'is snow nearby' function
 
 local function is_snow_nearby(pos)
-	return #minetest.find_nodes_in_area(
-		{x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
-		{x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
-		{"default:snow", "default:snowblock", "default:dirt_with_snow"}) > 0
+	return minetest.find_node_near(pos, 1,
+		{"default:snow", "default:snowblock", "default:dirt_with_snow"})
 end
 
 
