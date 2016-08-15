@@ -20,9 +20,9 @@
 # 0 to disable. By default it is "share_bones_time" divide by four.
 #share_bones_time_early = 300
 
-# Whether standard fire should be disabled ('basic flame' nodes will disappear)
-# 'permanent flame' nodes will remain with either setting
-#disable_fire = false
+# Whether fire should be enabled. If disabled, 'basic flame' nodes will disappear.
+# 'permanent flame' nodes will remain with either setting.
+#enable_fire = true
 
 # Whether the stuff in initial_stuff should be given to new players
 #give_initial_stuff = false

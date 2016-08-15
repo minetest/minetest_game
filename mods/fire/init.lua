@@ -235,9 +235,16 @@ minetest.register_abm({
 })
 
 
--- Enable the following ABMs according to 'disable fire' setting
+-- Enable the following ABMs according to 'enable fire' setting
 
-if minetest.setting_getbool("disable_fire") then
+local fire_enabled = minetest.setting_getbool("enable_fire")
+if fire_enabled == nil then
+	-- New setting not specified, check for old setting.
+	-- If old setting is also not specified, 'not nil' is true.
+	fire_enabled = not minetest.setting_getbool("disable_fire")
+end
+
+if not fire_enabled then
 
 	-- Remove basic flames only
 
@@ -250,7 +257,7 @@ if minetest.setting_getbool("disable_fire") then
 		action = minetest.remove_node,
 	})
 
-else
+else -- Fire enabled
 
 	-- Ignite neighboring nodes, add basic flames
 
