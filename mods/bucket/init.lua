@@ -109,7 +109,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 	inventory_image = "bucket.png",
 	stack_max = 99,
 	liquids_pointable = true,
-	on_use = function(itemstack, user, pointed_thing)
+	on_place = function(itemstack, user, pointed_thing)
 		-- Must be pointing to node
 		if pointed_thing.type ~= "node" then
 			return
