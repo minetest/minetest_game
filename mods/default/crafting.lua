@@ -780,10 +780,41 @@ minetest.register_craft({
 -- Fuels
 --
 
+-- Fallback burn time for other trees
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:tree",
 	burntime = 30,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:tree",
+	burntime = 27,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:aspen_tree",
+	burntime = 29,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_tree",
+	burntime = 32,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_tree",
+	burntime = 25,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:jungletree",
+	burntime = 22,
 })
 
 minetest.register_craft({
@@ -831,13 +862,13 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_junglewood",
-	burntime = 15,
+	burntime = 14,
 })
 
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_pine_wood",
-	burntime = 15,
+	burntime = 16,
 })
 
 minetest.register_craft({
@@ -852,10 +883,41 @@ minetest.register_craft({
 	burntime = 5,
 })
 
+-- Fallback burn time for other woods
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:wood",
 	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:wood",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:aspen_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_wood",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_wood",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:junglewood",
+	burntime = 4,
 })
 
 minetest.register_craft({
@@ -888,10 +950,41 @@ minetest.register_craft({
 	burntime = 30,
 })
 
+-- Fallback burntime for other saplings
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:sapling",
+	burntime = 9,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:sapling",
+	burntime = 9,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:aspen_sapling",
+	burntime = 9,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_sapling",
+	burntime = 8,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_sapling",
 	burntime = 10,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:junglesapling",
+	burntime = 7,
 })
 
 minetest.register_craft({
