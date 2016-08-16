@@ -590,7 +590,7 @@ minetest.register_node("default:jungletree", {
 		"default_jungletree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
@@ -615,7 +615,7 @@ minetest.register_node("default:jungleleaves", {
 	special_tiles = {"default_jungleleaves_simple.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
+	groups = {snappy = 3, leafdecay = 3, flammable = 3, leaves = 1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -643,7 +643,7 @@ minetest.register_node("default:junglesapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+	groups = {snappy = 2, dig_immediate = 3, flammable = 3,
 		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 
@@ -672,7 +672,7 @@ minetest.register_node("default:pine_tree", {
 		"default_pine_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 1},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
@@ -684,7 +684,7 @@ minetest.register_node("default:pine_wood", {
 	place_param2 = 0,
 	tiles = {"default_pine_wood.png"},
 	is_ground_content = false,
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wood = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -696,7 +696,7 @@ minetest.register_node("default:pine_needles",{
 	waving = 1,
 	paramtype = "light",
 	is_ground_content = false,
-	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
+	groups = {snappy = 3, leafdecay = 3, flammable = 1, leaves = 1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -724,7 +724,7 @@ minetest.register_node("default:pine_sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+	groups = {snappy = 2, dig_immediate = 3, flammable = 1,
 		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 
@@ -753,7 +753,7 @@ minetest.register_node("default:acacia_tree", {
 		"default_acacia_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	groups = {tree = 1, choppy = 1, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
@@ -777,7 +777,7 @@ minetest.register_node("default:acacia_leaves", {
 	waving = 1,
 	paramtype = "light",
 	is_ground_content = false,
-	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
+	groups = {snappy = 3, leafdecay = 3, flammable = 3, leaves = 1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -805,7 +805,7 @@ minetest.register_node("default:acacia_sapling", {
 		type = "fixed",
 		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
 	},
-	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+	groups = {snappy = 2, dig_immediate = 3, flammable = 3,
 		attached_node = 1, sapling = 1},
 	sounds = default.node_sound_leaves_defaults(),
 
@@ -833,7 +833,7 @@ minetest.register_node("default:aspen_tree", {
 		"default_aspen_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
@@ -845,7 +845,7 @@ minetest.register_node("default:aspen_wood", {
 	place_param2 = 0,
 	tiles = {"default_aspen_wood.png"},
 	is_ground_content = false,
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
+	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -1874,7 +1874,7 @@ default.register_fence("default:fence_junglewood", {
 	description = "Junglewood Fence",
 	texture = "default_fence_junglewood.png",
 	material = "default:junglewood",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = default.node_sound_wood_defaults()
 })
 
@@ -1890,7 +1890,7 @@ default.register_fence("default:fence_aspen_wood", {
 	description = "Aspen Fence",
 	texture = "default_fence_aspen_wood.png",
 	material = "default:aspen_wood",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults()
 })
 
