@@ -57,6 +57,9 @@ default:snowblock
 
 default:ice
 
+default:permafrost
+default:permafrost_with_moss
+
 Trees
 -----
 (1. Trunk 2. Fabricated trunk 3. Leaves 4. Sapling 5. Fruits)
@@ -463,6 +466,25 @@ minetest.register_node("default:ice", {
 	paramtype = "light",
 	groups = {cracky = 3, puts_out_fire = 1},
 	sounds = default.node_sound_glass_defaults(),
+})
+
+minetest.register_node("default:permafrost", {
+	description = "Permafrost",
+	tiles = {"default_permafrost.png"},
+	groups = {cracky = 3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:permafrost_with_moss", {
+	description = "Permafrost with Moss",
+	tiles = {"default_moss.png", "default_permafrost.png",
+		{name = "default_permafrost.png^default_moss_side.png",
+			tileable_vertical = false}},
+	groups = {cracky = 3},
+	drop = "default:permafrost",
+	sounds = default.node_sound_dirt_defaults({
+		footstep = {name = "default_grass_footstep", gain = 0.25},
+	}),
 })
 
 --

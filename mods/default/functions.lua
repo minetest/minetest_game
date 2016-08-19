@@ -346,7 +346,7 @@ minetest.register_abm({
 
 minetest.register_abm({
 	label = "Grass spread",
-	nodenames = {"default:dirt"},
+	nodenames = {"default:dirt", "default:permafrost"},
 	neighbors = {
 		"default:dirt_with_grass",
 		"default:dirt_with_dry_grass",
@@ -354,6 +354,7 @@ minetest.register_abm({
 		"group:grass",
 		"group:dry_grass",
 		"default:snow",
+		"default:permafrost_with_moss",
 	},
 	interval = 6,
 	chance = 67,
@@ -365,7 +366,20 @@ minetest.register_abm({
 			return
 		end
 
-		-- Look for likely neighbors.
+		-- Permafrost case.
+		if node.name == "default:permafrost" then
+			local p2 = minetest.find_node_near(pos, 1, {"default:permafrost_with_moss"})
+			if p2 then
+				-- But the node needs to be under air in this case.
+				local n2 = minetest.get_node(above)
+				if n2 and n2.name == "air" then
+					minetest.set_node(pos, {name = "default:permafrost_with_moss"})
+				end
+			end
+			return
+		end
+
+		-- Dirt case, look for likely neighbors.
 		local p2 = minetest.find_node_near(pos, 1, {"default:dirt_with_grass",
 				"default:dirt_with_dry_grass", "default:dirt_with_snow"})
 		if p2 then
@@ -408,6 +422,7 @@ minetest.register_abm({
 		"default:dirt_with_grass",
 		"default:dirt_with_dry_grass",
 		"default:dirt_with_snow",
+		"default:permafrost_with_moss",
 	},
 	interval = 8,
 	chance = 50,
@@ -419,7 +434,11 @@ minetest.register_abm({
 		if name ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
 				nodedef.paramtype == "light") and
 				nodedef.liquidtype == "none") then
-			minetest.set_node(pos, {name = "default:dirt"})
+			if node.name == "default:permafrost_with_moss" then
+				minetest.set_node(pos, {name = "default:permafrost"})
+			else
+				minetest.set_node(pos, {name = "default:dirt"})
+			end
 		end
 	end
 })
