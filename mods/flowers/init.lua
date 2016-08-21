@@ -208,6 +208,8 @@ minetest.register_alias("flowers:mushroom_spores_brown", "flowers:mushroom_brown
 minetest.register_alias("flowers:mushroom_spores_red", "flowers:mushroom_red")
 minetest.register_alias("flowers:mushroom_fertile_brown", "flowers:mushroom_brown")
 minetest.register_alias("flowers:mushroom_fertile_red", "flowers:mushroom_red")
+minetest.register_alias("mushroom:brown_natural", "flowers:mushroom_brown")
+minetest.register_alias("mushroom:red_natural", "flowers:mushroom_red")
 
 
 --
