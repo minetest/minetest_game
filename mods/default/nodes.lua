@@ -458,9 +458,11 @@ minetest.register_node("default:snowblock", {
 
 minetest.register_node("default:ice", {
 	description = "Ice",
+	drawtype = "glasslike",
 	tiles = {"default_ice.png"},
 	is_ground_content = false,
 	paramtype = "light",
+	use_texture_alpha = true,
 	groups = {cracky = 3, puts_out_fire = 1},
 	sounds = default.node_sound_glass_defaults(),
 })
