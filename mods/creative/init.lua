@@ -222,8 +222,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 if creative_mode then
-	local digtime = 0.5
-	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 3}
+	local digtime = 42
+	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
 
 	minetest.register_item(":", {
 		type = "none",
