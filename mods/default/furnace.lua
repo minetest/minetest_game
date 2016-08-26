@@ -175,7 +175,11 @@ local function furnace_node_timer(pos, elapsed)
 	local item_percent = 0
 	if cookable then
 		item_percent = math.floor(src_time / cooked.time * 100)
-		item_state = item_percent .. "%"
+		if item_percent > 100 then
+			item_state = "100% (output full)"
+		else
+			item_state = item_percent .. "%"
+		end
 	else
 		if srclist[1]:is_empty() then
 			item_state = "Empty"
