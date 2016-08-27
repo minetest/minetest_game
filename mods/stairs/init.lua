@@ -269,7 +269,7 @@ end
 stairs.register_stair_and_slab(
 	"wood",
 	"default:wood",
-	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"default_wood.png"},
 	"Wooden Stair",
 	"Wooden Slab",
@@ -279,7 +279,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"junglewood",
 	"default:junglewood",
-	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"default_junglewood.png"},
 	"Jungle Wood Stair",
 	"Jungle Wood Slab",
@@ -289,7 +289,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"pine_wood",
 	"default:pine_wood",
-	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+	{choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	{"default_pine_wood.png"},
 	"Pine Wood Stair",
 	"Pine Wood Slab",
@@ -299,7 +299,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"acacia_wood",
 	"default:acacia_wood",
-	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"default_acacia_wood.png"},
 	"Acacia Wood Stair",
 	"Acacia Wood Slab",
@@ -309,7 +309,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"aspen_wood",
 	"default:aspen_wood",
-	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+	{choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	{"default_aspen_wood.png"},
 	"Aspen Wood Stair",
 	"Aspen Wood Slab",
