@@ -737,7 +737,7 @@ doors.register_fencegate("doors:gate_junglewood", {
 	description = "Junglewood Fence Gate",
 	texture = "default_junglewood.png",
 	material = "default:junglewood",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3}
 })
 
 doors.register_fencegate("doors:gate_pine_wood", {
@@ -751,5 +751,5 @@ doors.register_fencegate("doors:gate_aspen_wood", {
 	description = "Aspen Fence Gate",
 	texture = "default_aspen_wood.png",
 	material = "default:aspen_wood",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2}
+	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 2}
 })
