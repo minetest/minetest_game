@@ -125,7 +125,7 @@ creative.set_creative_formspec = function(player, start_i)
 		tooltip[creative_clear;Reset]
 		listring[current_player;main]
 		]] ..
-		"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. "]" ..
+		"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. ";false]" ..
 		"listring[detached:creative_" .. player_name .. ";main]" ..
 		"tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;" .. tostring(inv.tab_id) .. ";true;false]" ..
 		"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
@@ -192,7 +192,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		inv.filter = ""
 		creative.update_creative_inventory(player_name)
 		creative.set_creative_formspec(player, 0)
-	elseif fields.creative_search then
+	elseif fields.creative_search or
+			fields.key_enter_field == "creative_filter" then
 		player_inventory[player_name].start_i = 1
 		inv.filter = fields.creative_filter:lower()
 		creative.update_creative_inventory(player_name)
