@@ -6,7 +6,7 @@
 -- Definitions made by this mod that other mods can use too
 default = {}
 
-default.path = minetest.get_modpath("default")
+local default_path = minetest.get_modpath("default")
 default.LIGHT_MAX = 14
 
 -- GUI related stuff
@@ -36,14 +36,14 @@ default.gui_survival_form = "size[8,8.5]"..
 			default.get_hotbar_bg(0,4.25)
 
 -- Load files
-dofile(default.path.."/functions.lua")
-dofile(default.path.."/trees.lua")
-dofile(default.path.."/nodes.lua")
-dofile(default.path.."/furnace.lua")
-dofile(default.path.."/tools.lua")
-dofile(default.path.."/craftitems.lua")
-dofile(default.path.."/crafting.lua")
-dofile(default.path.."/mapgen.lua")
-dofile(default.path.."/player.lua")
-dofile(default.path.."/aliases.lua")
-dofile(default.path.."/legacy.lua")
+dofile(default_path.."/functions.lua")
+dofile(default_path.."/trees.lua")
+dofile(default_path.."/nodes.lua")
+dofile(default_path.."/furnace.lua")
+dofile(default_path.."/tools.lua")
+dofile(default_path.."/craftitems.lua")
+dofile(default_path.."/crafting.lua")
+dofile(default_path.."/mapgen.lua")
+dofile(default_path.."/player.lua")
+dofile(default_path.."/aliases.lua")
+dofile(default_path.."/legacy.lua")
