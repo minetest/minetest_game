@@ -168,6 +168,19 @@ xpanes.register_pane("pane", {
 	}
 })
 
+xpanes.register_pane("obsidian_pane", {
+	description = "Obsidian Glass Pane",
+	textures = {"default_obsidian_glass.png","xpanes_pane_half_black.png","xpanes_black.png"},
+	inventory_image = "default_obsidian_glass.png",
+	wield_image = "default_obsidian_glass.png",
+	sounds = default.node_sound_glass_defaults(),
+	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3, pane=1},
+	recipe = {
+		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"},
+		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"}
+	}
+})
+
 xpanes.register_pane("bar", {
 	description = "Iron bar",
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_space.png"},
@@ -180,4 +193,3 @@ xpanes.register_pane("bar", {
 		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"}
 	}
 })
-
