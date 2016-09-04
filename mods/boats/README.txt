@@ -1,16 +1,12 @@
 Minetest Game mod: boats
 ========================
-by PilzAdam
+See license.txt for license information.
 
-License of source code:
------------------------
-WTFPL
+Authors of source code
+----------------------
+PilzAdam (MIT)
 
-License of media (textures and sounds):
----------------------------------------
-WTFPL
-
-Authors of media files:
------------------------
-textures: Zeg9
-model: thetoon and Zeg9, modified by PavelS(SokolovPavel)
+Authors of media (textures and model)
+-------------------------------------
+Textures: Zeg9 (MIT)
+Model: thetoon and Zeg9 (MIT), modified by PavelS(SokolovPavel) (MIT)
