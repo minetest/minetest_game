@@ -1,5 +1,6 @@
 Minetest Game mod: vessels
 ==========================
+See license.txt for license information.
 
 Crafts
 -------
@@ -34,17 +35,17 @@ the Free Software Foundation; either version 2.1 of the License, or
 
 http://www.gnu.org/licenses/lgpl-2.1.html
 
-License of media (textures and sounds)
---------------------------------------
-WTFPL
+License of media (textures)
+---------------------------
+MIT
 
 Authors of media files
 -----------------------
 Unless specifically noted,
 Copyright (C) 2012 Vanessa Ezekowitz
 
-The following textures were modified by Thomas-S (License is CC0):
-    vessels_drinking_glass.png
-    vessels_drinking_glass_inv.png (Paramat helped to improve this texture)
-    vessels_glass_bottle.png
-    vessels_steel_bottle.png
+The following textures were modified by Thomas-S (CC0 1.0):
+  vessels_drinking_glass.png
+  vessels_drinking_glass_inv.png (Paramat helped to improve this texture)
+  vessels_glass_bottle.png
+  vessels_steel_bottle.png
