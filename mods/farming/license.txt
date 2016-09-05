@@ -2,10 +2,10 @@ License of source code and media (textures)
 -------------------------------------------
 
 The MIT License (MIT)
-Copyright (C) 2012-2016 PilzAdam (source code, textures)
-Copyright (C) 2014-2016 webdesigner97 (source code)
-Copyright (C) 2015-2016 MasterGollum (textures)
-Copyright (C) 2015-2016 Gambit (textures)
+Copyright (C) 2012-2016 PilzAdam
+Copyright (C) 2014-2016 webdesigner97
+Copyright (C) 2015-2016 MasterGollum
+Copyright (C) 2015-2016 Gambit
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software

@@ -2,8 +2,8 @@ License of source code and media (textures and model)
 -----------------------------------------------------
 
 The MIT License (MIT)
-Copyright (C) 2012-2016 PilzAdam (source code)
-Copyright (C) 2012-2016 Zeg9, thetoon, PavelS(SokolovPavel) (media)
+Copyright (C) 2012-2016 PilzAdam
+Copyright (C) 2012-2016 Zeg9, thetoon, PavelS(SokolovPavel)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software
