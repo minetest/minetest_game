@@ -180,9 +180,12 @@ minetest.register_on_dieplayer(function(player)
 	local pos = vector.round(player:getpos())
 	local player_name = player:get_player_name()
 
-	-- check if it's possible to place bones, if not go 1 higher
+	-- check if it's possible to place bones, if not go find space near player
 	if bones_mode == "bones" and not may_replace(pos, player) then
-		pos.y = pos.y + 1
+		local air = minetest.find_node_near(pos, 1, {"air"})
+		if air then
+			pos = air
+		end
 	end
 
 	-- still cannot place bones? change mode to 'drop'
