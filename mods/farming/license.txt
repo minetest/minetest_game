@@ -1,11 +1,10 @@
-License of source code and media (textures)
--------------------------------------------
+License of source code
+----------------------
 
 The MIT License (MIT)
 Copyright (C) 2012-2016 PilzAdam
 Copyright (C) 2014-2016 webdesigner97
-Copyright (C) 2015-2016 MasterGollum
-Copyright (C) 2015-2016 Gambit
+Copyright (C) 2012-2016 Various Minetest developers and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software
@@ -31,7 +30,10 @@ License of media (textures)
 ---------------------------
 
 Attribution 3.0 Unported (CC BY 3.0)
+Copyright (C) 2012-2016 PilzAdam
 Copyright (C) 2014-2016 BlockMen
+Copyright (C) 2015-2016 MasterGollum
+Copyright (C) 2015-2016 Gambit
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.

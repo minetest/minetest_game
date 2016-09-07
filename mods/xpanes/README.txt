@@ -4,13 +4,14 @@ See license.txt for license information.
 
 Authors of source code
 ----------------------
-xyz (MIT)
-Modified by BlockMen (iron bars) (MIT)
+Originally by xyz (MIT)
+BlockMen (MIT)
+Various Minetest developers and contributors (MIT)
 
 Authors of media (textures)
 ---------------------------
-xyz (MIT):
-All textures not mentioned below.
+xyz (CC BY-SA 3.0):
+  All textures not mentioned below.
 
-Gambit (MIT):
-xpanes_bar.png
+Gambit (CC BY-SA 3.0):
+  xpanes_bar.png
