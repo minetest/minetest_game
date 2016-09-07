@@ -7,19 +7,20 @@ Authors of source code
 PilzAdam (MIT)
 ShadowNinja (MIT)
 sofar (sofar@foo-projects.org) (MIT)
+Various Minetest developers and contributors (MIT)
 
 Authors of media (textures)
 ---------------------------
-BlockMen (MIT):
+BlockMen (CC BY-SA 3.0):
 All textures not mentioned below.
 
-ShadowNinja (MIT):
+ShadowNinja (CC BY-SA 3.0):
 tnt_smoke.png
 
-Wuzzy (MIT):
+Wuzzy (CC BY-SA 3.0):
 All gunpowder textures except tnt_gunpowder_inventory.png.
 
-sofar (sofar@foo-projects.org) (MIT):
+sofar (sofar@foo-projects.org) (CC BY-SA 3.0):
 tnt_blast.png
 
 Introduction

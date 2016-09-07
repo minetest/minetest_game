@@ -14,6 +14,8 @@ Re-implemented most of the door algorithms, added meshes, UV wrapped texture.
 Added doors API to facilitate coding mods accessing and operating doors.
 Added Fence Gate model, code, and sounds.
 
+Various Minetest developers and contributors (MIT)
+
 
 Authors of media (textures)
 ---------------------------
@@ -24,7 +26,7 @@ Following textures created by Fernando Zapata (CC BY-SA 3.0):
   door_wood_b.png
   door_wood_b_r.png
 
-Following textures created by BlockMen (MIT):
+Following textures created by BlockMen (CC BY-SA 3.0):
   door_trapdoor.png
   door_obsidian_glass_side.png
 
@@ -41,13 +43,13 @@ Following textures created by sofar (CC-BY-SA-3.0):
   doors_trapdoor_steel_side.png
   door_trapdoor_side.png
 
-Obsidian door textures by red-001 based on textures by Pilzadam and BlockMen (MIT):
+Obsidian door textures by red-001 based on textures by Pilzadam and BlockMen (CC BY-SA 3.0):
   door_obsidian_glass.png
 
 Glass door textures by red-001 based on textures by celeron55 (CC BY-SA 3.0):
   door_glass.png
 
-All other textures (created by PilzAdam) (MIT):
+All other textures (created by PilzAdam) (CC BY-SA 3.0):
 
 Door textures were converted to the new texture map by sofar, paramat and
 red-001, under the same license as the originals.

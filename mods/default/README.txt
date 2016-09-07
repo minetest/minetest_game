@@ -4,7 +4,7 @@ See license.txt for license information.
 
 Authors of source code
 ----------------------
-celeron55, Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
+Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
 Various Minetest developers and contributors (LGPL 2.1)
 
 Authors of media (textures, models and sounds)
@@ -12,7 +12,7 @@ Authors of media (textures, models and sounds)
 Everything not listed in here:
 celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 
-Cisoun's texture pack (MIT):
+Cisoun's texture pack (CC BY-SA 3.0):
   default_jungletree.png
   default_lava.png
   default_leaves.png
@@ -22,7 +22,7 @@ Cisoun's texture pack (MIT):
   default_tree_top.png
   default_water.png
 
-Cisoun's conifers mod (MIT):
+Cisoun's conifers mod (CC BY-SA 3.0):
   default_pine_needles.png
 
 Originating from G4JC's Almost MC Texture Pack (CC BY-SA 3.0):
@@ -30,36 +30,36 @@ Originating from G4JC's Almost MC Texture Pack (CC BY-SA 3.0):
   default_torch_on_ceiling.png
   default_torch_on_floor.png
 
-VanessaE's animated torches (MIT):
+VanessaE's animated torches (CC BY-SA 3.0):
   default_torch_animated.png
   default_torch_on_ceiling_animated.png
   default_torch_on_floor_animated.png
   default_torch_on_floor.png
 
-RealBadAngel's animated water (MIT):
+RealBadAngel's animated water (CC BY-SA 3.0):
   default_water_source_animated.png
   default_water_flowing_animated.png
 
-VanessaE (MIT):
+VanessaE (CC BY-SA 3.0):
   default_desert_sand.png
   default_desert_stone.png
   default_sand.png
   default_mese_crystal.png
   default_mese_crystal_fragment.png
 
-Calinou (CC BY-SA):
+Calinou (CC BY-SA 3.0):
   default_brick.png
   default_papyrus.png
   default_mineral_copper.png
   default_glass_detail.png
 
-MirceaKitsune (MIT):
+MirceaKitsune (CC BY-SA 3.0):
   character.x
 
 Jordach (CC BY-SA 3.0):
   character.png
 
-PilzAdam (MIT):
+PilzAdam (CC BY-SA 3.0):
   default_jungleleaves.png
   default_junglesapling.png
   default_obsidian_glass.png
@@ -67,10 +67,10 @@ PilzAdam (MIT):
   default_mineral_gold.png
   default_snowball.png
 
-jojoa1997 (MIT):
+jojoa1997 (CC BY-SA 3.0):
   default_obsidian.png
 
-InfinityProject (MIT):
+InfinityProject (CC BY-SA 3.0):
   default_mineral_diamond.png
 
 Splizard (CC BY-SA 3.0):
@@ -146,18 +146,17 @@ sofar (CC BY-SA 3.0):
   default_aspen_tree
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
   default_aspen_wood, derived from default_pine_wood (by paramat)
-
-sofar (MIT):
   default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
 
 Neuromancer (CC BY-SA 2.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
+
 Neuromancer (CC BY-SA 3.0):
   default_dirt.png
   default_furnace_*.png
 
-Gambit (MIT):
+Gambit (CC BY-SA 3.0):
   default_bronze_ingot.png
   default_copper_ingot.png
   default_copper_lump.png
@@ -172,7 +171,7 @@ Gambit (MIT):
   default_sign_wall_wood.png
   default_flint.png
 
-asl97 (MIT):
+asl97 (CC BY-SA 3.0):
   default_ice.png
 
 KevDoy (CC BY-SA 3.0)
