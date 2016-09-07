@@ -1,11 +1,3 @@
---[[
-
-Copyright (C) 2012 PilzAdam
-  modified by BlockMen (added sounds, glassdoors[glass, obsidian glass], trapdoor)
-Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
-
---]]
-
 -- our API object
 doors = {}
 
