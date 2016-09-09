@@ -183,7 +183,7 @@ minetest.register_on_dieplayer(function(player)
 	-- check if it's possible to place bones, if not find space near player
 	if bones_mode == "bones" and not may_replace(pos, player) then
 		local air = minetest.find_node_near(pos, 1, {"air"})
-		if air and not minetest.is_protected(air, player:get_player_name()) then
+		if air and not minetest.is_protected(air, player_name) then
 			pos = air
 		else
 			bones_mode = "drop"
