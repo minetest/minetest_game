@@ -19,7 +19,6 @@ Bucket API
 
 The bucket API allows registering new types of buckets for non-default liquids.
 
-
 	bucket.register_liquid(
 		"default:lava_source",   -- name of the source node
 		"default:lava_flowing",  -- name of the flowing node
@@ -31,6 +30,9 @@ The bucket API allows registering new types of buckets for non-default liquids.
 		                         -- a source neighbour, even if defined as 'liquid_renewable = false'.
 		                         -- Needed to avoid creating holes in sloping rivers.
 	)
+
+The filled bucket item is returned to the player that uses an empty bucket pointing to the given liquid source.
+When punching with an empty bucket pointing to an entity or a non-liquid node, the on_punch of the entity or node will be triggered.
 
 Beds API
 --------

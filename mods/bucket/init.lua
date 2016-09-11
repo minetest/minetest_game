@@ -115,8 +115,11 @@ minetest.register_craftitem("bucket:bucket_empty", {
 	stack_max = 99,
 	liquids_pointable = true,
 	on_use = function(itemstack, user, pointed_thing)
-		-- Must be pointing to node
-		if pointed_thing.type ~= "node" then
+		if pointed_thing.type == "object" then
+			pointed_thing.ref:punch(user, 1.0, { full_punch_interval=1.0 }, nil)
+			return user:get_wielded_item()
+		elseif pointed_thing.type ~= "node" then
+			-- do nothing if it's neither object nor node
 			return
 		end
 		-- Check if pointing to a liquid source
@@ -165,6 +168,13 @@ minetest.register_craftitem("bucket:bucket_empty", {
 			end
 
 			return ItemStack(giving_back)
+		else
+			-- non-liquid nodes will have their on_punch triggered
+			local node_def = minetest.registered_nodes[node.name]
+			if node_def then
+				node_def.on_punch(pointed_thing.under, node, user, pointed_thing)
+			end
+			return user:get_wielded_item()
 		end
 	end,
 })
