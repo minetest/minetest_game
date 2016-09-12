@@ -372,10 +372,12 @@ minetest.register_abm({
 			return
 		end
 
-		local curr_max, curr_type, num  = 0, ""
-
+		local curr_max = 0
+		local curr_type = ""
+		local num
+	
 		-- find all grass types around dirt
-		local positions, grasses = minetest.find_nodes_in_area(
+		local _, grasses = minetest.find_nodes_in_area(
 			{x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
 			{x = pos.x + 1, y = pos.y + 2, z = pos.z + 1},
 			default.dirt_types)
