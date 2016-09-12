@@ -358,13 +358,13 @@ minetest.register_abm({
 	chance = 67,
 	catch_up = false,
 	action = function(pos, node)
-		-- not enough light
+		-- Check for enough light above
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if (minetest.get_node_light(above) or 0) < 13 then
 			return
 		end
 
-		-- water above grass
+		-- Is water above dirt?
 		local name = minetest.get_node(above).name
 		local def = minetest.registered_nodes[name]
 
@@ -376,13 +376,13 @@ minetest.register_abm({
 		local curr_type = ""
 		local num
 	
-		-- find all grass types around dirt
+		-- Find all grass types around dirt
 		local _, grasses = minetest.find_nodes_in_area(
 			{x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
 			{x = pos.x + 1, y = pos.y + 2, z = pos.z + 1},
 			default.dirt_types)
 
-		-- find most common grass
+		-- Select most common grass
 		for n = 1, #default.dirt_types do
 			num = grasses[ default.dirt_types[n] ] or 0
 			if num > curr_max then
@@ -391,7 +391,7 @@ minetest.register_abm({
 			end
 		end
 
-		-- no grass nearby, keep as dirt
+		-- No grass nearby? then keep as dirt
 		if curr_type == "" then
 			return
 		end
