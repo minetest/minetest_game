@@ -344,56 +344,57 @@ minetest.register_abm({
 -- Convert dirt to something that fits the environment
 --
 
+default.dirt_types = {
+	"default:dirt_with_grass",
+	"default:dirt_with_dry_grass",
+	"default:dirt_with_snow"
+}
+
 minetest.register_abm({
 	label = "Grass spread",
 	nodenames = {"default:dirt"},
-	neighbors = {
-		"default:dirt_with_grass",
-		"default:dirt_with_dry_grass",
-		"default:dirt_with_snow",
-		"group:grass",
-		"group:dry_grass",
-		"default:snow",
-	},
+	neighbors = {"air"},
 	interval = 6,
 	chance = 67,
 	catch_up = false,
 	action = function(pos, node)
-		-- Most likely case, half the time it's too dark for this.
+		-- not enough light
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if (minetest.get_node_light(above) or 0) < 13 then
 			return
 		end
 
-		-- Look for likely neighbors.
-		local p2 = minetest.find_node_near(pos, 1, {"default:dirt_with_grass",
-				"default:dirt_with_dry_grass", "default:dirt_with_snow"})
-		if p2 then
-			-- But the node needs to be under air in this case.
-			local n2 = minetest.get_node(above)
-			if n2 and n2.name == "air" then
-				local n3 = minetest.get_node(p2)
-				minetest.set_node(pos, {name = n3.name})
-				return
-			end
-		end
+		-- water above grass
+		local name = minetest.get_node(above).name
+		local def = minetest.registered_nodes[name]
 
-		-- Anything on top?
-		local n2 = minetest.get_node(above)
-		if not n2 then
+		if name == "ignore" or not def or def.liquidtype ~= "none" then
 			return
 		end
 
-		local name = n2.name
-		-- Snow check is cheapest, so comes first.
-		if name == "default:snow" then
-			minetest.set_node(pos, {name = "default:dirt_with_snow"})
-		-- Most likely case first.
-		elseif minetest.get_item_group(name, "grass") ~= 0 then
-			minetest.set_node(pos, {name = "default:dirt_with_grass"})
-		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
-			minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
+		local curr_max, curr_type, num  = 0, ""
+
+		-- find all grass types around dirt
+		local positions, grasses = minetest.find_nodes_in_area(
+			{x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
+			{x = pos.x + 1, y = pos.y + 2, z = pos.z + 1},
+			default.dirt_types)
+
+		-- find most common grass
+		for n = 1, #default.dirt_types do
+			num = grasses[ default.dirt_types[n] ] or 0
+			if num > curr_max then
+				curr_max = num
+				curr_type = default.dirt_types[n]
+			end
 		end
+
+		-- no grass nearby, keep as dirt
+		if curr_type == "" then
+			return
+		end
+
+		minetest.set_node(pos, {name = curr_type})
 	end
 })
 
