@@ -65,7 +65,6 @@ PilzAdam (CC BY-SA 3.0):
   default_obsidian_glass.png
   default_obsidian_shard.png
   default_mineral_gold.png
-  default_snowball.png
 
 jojoa1997 (CC BY-SA 3.0):
   default_obsidian.png
@@ -74,7 +73,6 @@ InfinityProject (CC BY-SA 3.0):
   default_mineral_diamond.png
 
 Splizard (CC BY-SA 3.0):
-  default_snow.png
   default_pine_sapling.png
 
 Zeg9 (CC BY-SA 3.0):
@@ -112,7 +110,6 @@ paramat (CC BY-SA 3.0):
   default_dry_grass_*.png
   default_grass.png
   default_grass_side.png
-  default_snow_side.png
   default_mese_block.png
 
 brunob.santos (CC BY-SA 4.0):
@@ -170,6 +167,9 @@ Gambit (CC BY-SA 3.0):
   default_ladder_steel.png
   default_sign_wall_wood.png
   default_flint.png
+  default_snow.png
+  default_snow_side.png
+  default_snowball.png
 
 asl97 (CC BY-SA 3.0):
   default_ice.png
