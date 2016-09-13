@@ -378,8 +378,8 @@ minetest.register_abm({
 	
 		-- Find all grass types around dirt
 		local _, grasses = minetest.find_nodes_in_area(
-			{x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
-			{x = pos.x + 1, y = pos.y + 2, z = pos.z + 1},
+			{x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
+			{x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
 			default.dirt_types)
 
 		-- Select most common grass
