@@ -174,9 +174,7 @@ local function furnace_node_timer(pos, elapsed)
 			fuel_time = 0
 		end
 
-		if elapsed ~= 0 then
-			elapsed = 0
-		end
+		elapsed = 0
 	end
 
 	--
