@@ -141,7 +141,15 @@ function _doors.door_toggle(pos, node, clicker)
 
 	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
 		local owner = meta:get_string("doors_owner")
-		if owner ~= "" then
+		local prot = meta:get_string("doors_protected")
+		if prot ~= "" then
+
+			if minetest.is_protected(pos, clicker:get_player_name()) then
+				return false
+			end
+
+		elseif owner ~= "" then
+
 			if clicker:get_player_name() ~= owner then
 				return false
 			end
@@ -641,6 +649,88 @@ minetest.register_craft({
 	recipe = {
 		{'default:steel_ingot', 'default:steel_ingot'},
 		{'default:steel_ingot', 'default:steel_ingot'},
+	}
+})
+
+
+-----key tool-----
+
+minetest.register_tool("doors:key", {
+	description = "Key Tool",
+	inventory_image = "doors_key.png",
+
+	on_use = function(itemstack, user, pointed_thing)
+
+		local pos = pointed_thing.under
+
+		if pointed_thing.type ~= "node"
+		or not doors.get(pos) then
+			return
+		end
+
+		local player_name = user:get_player_name()
+		local meta = minetest.get_meta(pos) ; if not meta then return end
+		local owner = meta:get_string("doors_owner")
+		local prot = meta:get_string("doors_protected")
+		local ok = 0
+		local infotext = ""
+
+		if prot == ""
+		and owner == "" then
+
+			-- flip normal to owned
+			if minetest.is_protected(pos, player_name) then
+				minetest.record_protection_violation(pos, player_name)
+			else
+				infotext = "Owned by " .. player_name
+				owner = player_name
+				prot = ""
+				ok = 1
+			end
+
+		elseif prot == ""
+		and owner ~= "" then
+
+			-- flip owned to protected
+			if player_name == owner then
+				infotext = "Protected by " .. player_name
+				owner = ""
+				prot = player_name
+				ok = 1
+			end
+
+		elseif prot ~= ""
+		and owner == "" then
+
+			-- flip protected to normal
+			if player_name == prot then
+				owner = ""
+				prot = ""
+				ok = 1
+			end
+		end
+
+		if ok == 1 then
+
+			meta:set_string("infotext", infotext)
+			meta:set_string("doors_owner", owner)
+			meta:set_string("doors_protected", prot)
+
+			if not minetest.setting_getbool("creative_mode") then
+				itemstack:add_wear(65535 / 50)
+			end
+		end
+
+		return itemstack
+	end,
+})
+
+minetest.register_craft({
+	output = "doors:key",
+	recipe = {
+		{"", "", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot", ""},
+		{"default:steel_ingot", "default:steel_ingot", ""},
 	}
 })
 
