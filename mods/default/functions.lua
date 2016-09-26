@@ -376,10 +376,15 @@ minetest.register_abm({
 		local curr_type = ""
 
 		-- Find all grass types around dirt
-		local _, grasses = minetest.find_nodes_in_area(
+		local positions, grasses = minetest.find_nodes_in_area(
 			{x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
 			{x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
 			default.dirt_types)
+
+		-- No grass nearby, keep as dirt
+		if #positions == 0 then
+			return
+		end
 
 		-- Select most common grass
 		for n = 1, #default.dirt_types do
@@ -388,11 +393,6 @@ minetest.register_abm({
 				curr_max = num
 				curr_type = default.dirt_types[n]
 			end
-		end
-
-		-- No grass nearby? then keep as dirt
-		if curr_type == "" then
-			return
 		end
 
 		minetest.set_node(pos, {name = curr_type})
