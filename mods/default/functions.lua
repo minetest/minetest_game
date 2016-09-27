@@ -344,16 +344,10 @@ minetest.register_abm({
 -- Convert dirt to something that fits the environment
 --
 
-default.dirt_types = {
-	"default:dirt_with_grass",
-	"default:dirt_with_dry_grass",
-	"default:dirt_with_snow"
-}
-
 minetest.register_abm({
 	label = "Grass spread",
 	nodenames = {"default:dirt"},
-	neighbors = {"air"},
+	neighbors = {"group:grassy_dirt"},
 	interval = 6,
 	chance = 67,
 	catch_up = false,
@@ -379,7 +373,7 @@ minetest.register_abm({
 		local positions, grasses = minetest.find_nodes_in_area(
 			{x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
 			{x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
-			default.dirt_types)
+			{"group:grassy_dirt"})
 
 		-- No grass nearby, keep as dirt
 		if #positions == 0 then
@@ -387,11 +381,10 @@ minetest.register_abm({
 		end
 
 		-- Select most common grass
-		for n = 1, #default.dirt_types do
-			local num = grasses[ default.dirt_types[n] ] or 0
-			if num > curr_max then
-				curr_max = num
-				curr_type = default.dirt_types[n]
+		for n, c in pairs(grasses) do
+			if c and c > curr_max then
+				curr_max = c
+				curr_type = n
 			end
 		end
 
