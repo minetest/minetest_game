@@ -347,7 +347,7 @@ minetest.register_abm({
 minetest.register_abm({
 	label = "Grass spread",
 	nodenames = {"default:dirt"},
-	neighbors = {"group:grassy_dirt"},
+	neighbors = {"air"},
 	interval = 6,
 	chance = 67,
 	catch_up = false,
