@@ -25,7 +25,6 @@ default.player_register_model("character.b3d", {
 		walk      = { x=168, y=187, },
 		mine      = { x=189, y=198, },
 		walk_mine = { x=200, y=219, },
-		-- Extra animations (currently used by boat mod).
 		sit       = { x= 81, y=160, },
 	},
 })
