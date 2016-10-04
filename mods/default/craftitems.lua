@@ -105,7 +105,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	elseif fields.book_next or fields.book_prev then
 		local data = minetest.deserialize(stack:get_metadata())
-		if not data.page then return end
+		if not data or not data.page then
+			return
+		end
 
 		if fields.book_next then
 			data.page = data.page + 1
