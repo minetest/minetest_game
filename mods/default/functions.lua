@@ -354,7 +354,7 @@ minetest.register_abm({
 		"default:snow",
 	},
 	interval = 6,
-	chance = 67,
+	chance = 50,
 	catch_up = false,
 	action = function(pos, node)
 		-- Check for darkness: night, shadow or under a light-blocking node
