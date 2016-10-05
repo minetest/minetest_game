@@ -99,7 +99,7 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 		return c_fire
 	else
 		local node_drops = minetest.get_node_drops(def.name, "")
-		for _, item in ipairs(node_drops) do
+		for _, item in pairs(node_drops) do
 			add_drop(drops, item)
 		end
 		return c_air
@@ -181,7 +181,7 @@ local function entity_physics(pos, radius, drops)
 					}, nil)
 				end
 			end
-			for _, item in ipairs(entity_drops) do
+			for _, item in pairs(entity_drops) do
 				add_drop(drops, item)
 			end
 		end
@@ -345,12 +345,12 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	end
 	end
 
-	for _, queued_data in ipairs(on_blast_queue) do
+	for _, queued_data in pairs(on_blast_queue) do
 		local dist = math.max(1, vector.distance(queued_data.pos, pos))
 		local intensity = (radius * radius) / (dist * dist)
 		local node_drops = queued_data.on_blast(queued_data.pos, intensity)
 		if node_drops then
-			for _, item in ipairs(node_drops) do
+			for _, item in pairs(node_drops) do
 				add_drop(drops, item)
 			end
 		end
