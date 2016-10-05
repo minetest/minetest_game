@@ -99,7 +99,7 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 		return c_fire
 	else
 		local node_drops = minetest.get_node_drops(def.name, "")
-		for _, item in ipairs(node_drops) do
+		for _, item in pairs(node_drops) do
 			add_drop(drops, item)
 		end
 		return c_air
@@ -181,7 +181,7 @@ local function entity_physics(pos, radius, drops)
 					}, nil)
 				end
 			end
-			for _, item in ipairs(entity_drops) do
+			for _, item in pairs(entity_drops) do
 				add_drop(drops, item)
 			end
 		end
@@ -248,8 +248,8 @@ local function add_effects(pos, radius, drops)
 	})
 end
 
-function tnt.burn(pos)
-	local name = minetest.get_node(pos).name
+function tnt.burn(pos, nodename)
+	local name = nodename or minetest.get_node(pos).name
 	local group = minetest.get_item_group(name, "tnt")
 	if group > 0 then
 		minetest.sound_play("tnt_ignite", {pos = pos})
@@ -333,9 +333,9 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	vm:update_liquids()
 
 	-- call nodeupdate for everything within 1.5x blast radius
-	for z = -radius * 1.5, radius * 1.5 do
-	for x = -radius * 1.5, radius * 1.5 do
-	for y = -radius * 1.5, radius * 1.5 do
+	for z = -radius * 1.5, radius * 1.5, 3 do
+	for x = -radius * 1.5, radius * 1.5, 3 do
+	for y = -radius * 1.5, radius * 1.5, 3 do
 		local s = vector.add(pos, {x = x, y = y, z = z})
 		local r = vector.distance(pos, s)
 		if r / radius < 1.4 then
@@ -345,12 +345,12 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	end
 	end
 
-	for _, queued_data in ipairs(on_blast_queue) do
+	for _, queued_data in pairs(on_blast_queue) do
 		local dist = math.max(1, vector.distance(queued_data.pos, pos))
 		local intensity = (radius * radius) / (dist * dist)
 		local node_drops = queued_data.on_blast(queued_data.pos, intensity)
 		if node_drops then
-			for _, item in ipairs(node_drops) do
+			for _, item in pairs(node_drops) do
 				add_drop(drops, item)
 			end
 		end
@@ -408,11 +408,11 @@ minetest.register_node("tnt:gunpowder", {
 
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
-			tnt.burn(pos)
+			tnt.burn(pos, node.name)
 		end
 	end,
 	on_blast = function(pos, intensity)
-		tnt.burn(pos)
+		tnt.burn(pos, "tnt:gunpowder")
 	end,
 })
 
@@ -511,7 +511,9 @@ if enable_tnt then
 		neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
 		interval = 4,
 		chance = 1,
-		action = tnt.burn,
+		action = function(pos, node)
+			tnt.burn(pos, node.name)
+		end,
 	})
 end
 
