@@ -290,9 +290,9 @@ TNT API
 * `position` The center of explosion.
 * `definition` The TNT definion as passed to `tnt.register`
 
-`tnt.burn(position)`
+`tnt.burn(position, nodename)`
 
-^ Ignite TNT at position
+^ Ignite TNT at position, nodename isn't required unless already known.
 
 
 To make dropping items from node inventories easier, you can use the
