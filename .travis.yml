@@ -5,6 +5,6 @@ addons:
     packages:
     - luarocks
 before_install:
-  - luarocks install luacheck
+  - luarocks install --local luacheck
 script: 
 - $HOME/.luarocks/bin/luacheck --no-color ./mods
