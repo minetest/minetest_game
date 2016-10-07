@@ -75,3 +75,9 @@ minetest.register_alias("default:pinewood", "default:pine_wood")
 
 minetest.register_alias("default:ladder", "default:ladder_wood")
 minetest.register_alias("default:sign_wall", "default:sign_wall_wood")
+
+-- Aliases to allow jungle plants to be accessed using the new node naming convention
+minetest.register_alias("default:jungle_tree", "default:jungletree")
+minetest.register_alias("default:jungle_wood", "default:junglewood")
+minetest.register_alias("default:jungle_leaves", "default:jungleleaves")
+minetest.register_alias("default:jungle_sapling", "default:junglesapling")
