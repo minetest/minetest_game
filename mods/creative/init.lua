@@ -125,7 +125,8 @@ creative.set_creative_formspec = function(player, start_i)
 		tooltip[creative_clear;Reset]
 		listring[current_player;main]
 		]] ..
-		"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. ";false]" ..
+		"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. "]" ..
+		"field_close_on_enter[creative_filter;false]" ..
 		"listring[detached:creative_" .. player_name .. ";main]" ..
 		"tabheader[0,0;creative_tabs;Crafting,All,Nodes,Tools,Items;" .. tostring(inv.tab_id) .. ";true;false]" ..
 		"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
