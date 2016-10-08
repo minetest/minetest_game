@@ -650,3 +650,25 @@ Trees
 
  * `default.grow_new_snowy_pine_tree(pos)`
   * Grows a new design snowy pine tree at pos
+
+Carts
+-----
+
+	carts.register_rail(
+		"mycarts:myrail", -- Rail name
+		nodedef,          -- standard nodedef
+		railparams        -- rail parameter struct (optional)
+	)
+
+	railparams = {
+		on_step(obj, dtime), -- Event handler called when
+		                     -- cart is on rail
+		acceleration, -- integer acceleration factor (negative
+		              -- values to brake)
+	}
+
+	The event handler is called after all default calculations
+	are made, so the custom on_step handler can override things
+	like speed, acceleration, player attachment. The handler will
+	likely be called many times per second, so the function needs
+	to make sure that the event is handled properly.

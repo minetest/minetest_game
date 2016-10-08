@@ -353,15 +353,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:rail 24',
-	recipe = {
-		{'default:steel_ingot', '', 'default:steel_ingot'},
-		{'default:steel_ingot', 'group:stick', 'default:steel_ingot'},
-		{'default:steel_ingot', '', 'default:steel_ingot'},
-	}
-})
-
-minetest.register_craft({
 	output = 'default:chest',
 	recipe = {
 		{'group:wood', 'group:wood', 'group:wood'},
