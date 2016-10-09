@@ -36,12 +36,17 @@ end
 --    inventory_image = texture of the new bucket item (ignored if itemname == nil)
 --    name = text description of the bucket item
 --    groups = (optional) groups of the bucket item, for example {water_bucket = 1}
+--    force_renew = (optional) bool. Force the liquid source to renew if it has a
+--                  source neighbour, even if defined as 'liquid_renewable = false'.
+--                  Needed to avoid creating holes in sloping rivers.
 -- This function can be called from any mod (that depends on bucket).
-function bucket.register_liquid(source, flowing, itemname, inventory_image, name, groups)
+function bucket.register_liquid(source, flowing, itemname, inventory_image, name,
+		groups, force_renew)
 	bucket.liquids[source] = {
 		source = source,
 		flowing = flowing,
 		itemname = itemname,
+		force_renew = force_renew,
 	}
 	bucket.liquids[flowing] = bucket.liquids[source]
 
@@ -149,7 +154,15 @@ minetest.register_craftitem("bucket:bucket_empty", {
 
 			end
 
-			minetest.add_node(pointed_thing.under, {name="air"})
+			-- force_renew requires a source neighbour
+			local source_neighbor = false
+			if liquiddef.force_renew then
+				source_neighbor =
+					minetest.find_node_near(pointed_thing.under, 1, liquiddef.source)
+			end
+			if not (source_neighbor and liquiddef.force_renew) then
+				minetest.add_node(pointed_thing.under, {name = "air"})
+			end
 
 			return ItemStack(giving_back)
 		end
@@ -171,7 +184,8 @@ bucket.register_liquid(
 	"bucket:bucket_river_water",
 	"bucket_river_water.png",
 	"River Water Bucket",
-	{water_bucket = 1}
+	{water_bucket = 1},
+	true
 )
 
 bucket.register_liquid(

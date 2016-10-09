@@ -26,7 +26,10 @@ The bucket API allows registering new types of buckets for non-default liquids.
 		"bucket:bucket_lava",    -- name of the new bucket item (or nil if liquid is not takeable)
 		"bucket_lava.png",       -- texture of the new bucket item (ignored if itemname == nil)
 		"Lava Bucket",           -- text description of the bucket item
-		{lava_bucket = 1}        -- groups of the bucket item, OPTIONAL
+		{lava_bucket = 1},       -- groups of the bucket item, OPTIONAL
+		false                    -- force-renew, OPTIONAL. Force the liquid source to renew if it has
+		                         -- a source neighbour, even if defined as 'liquid_renewable = false'.
+		                         -- Needed to avoid creating holes in sloping rivers.
 	)
 
 Beds API
