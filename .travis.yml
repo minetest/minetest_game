@@ -8,3 +8,5 @@ before_install:
   - luarocks install --local luacheck
 script: 
 - $HOME/.luarocks/bin/luacheck --no-color ./mods
+notifications:
+  email: false
