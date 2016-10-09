@@ -337,7 +337,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	for z = -radius * 1.5, radius * 1.5 do
 	for x = -radius * 1.5, radius * 1.5 do
 		local s = vector.add(pos, {x = x, y = y, z = z})
-		local r = vector.distance(pos, s)
+		local r = vector.length({x = x, y = y, z = z})
 		if r / radius < 1.4 then
 			nodeupdate_single(s)
 		end
