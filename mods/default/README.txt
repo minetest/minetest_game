@@ -178,6 +178,11 @@ asl97 (CC BY-SA 3.0):
 KevDoy (CC BY-SA 3.0)
   heart.png
 
+Pithydon (CC BY-SA 3.0)
+  default_coral_brown.png
+  default_coral_orange.png
+  default_coral_skeleton.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/

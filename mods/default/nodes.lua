@@ -111,8 +111,8 @@ default:mese
 default:stone_with_diamond
 default:diamondblock
 
-Plantlife (non-cubic)
----------------------
+Plantlife
+---------
 
 default:cactus
 default:papyrus
@@ -130,6 +130,13 @@ default:dry_grass_2
 default:dry_grass_3
 default:dry_grass_4
 default:dry_grass_5
+
+Corals
+------
+
+default:coral_brown
+default:coral_orange
+default:coral_skeleton
 
 Liquids
 -------
@@ -1207,6 +1214,35 @@ for i = 2, 5 do
 		},
 	})
 end
+
+
+--
+-- Corals
+--
+
+minetest.register_node("default:coral_brown", {
+	description = "Brown Coral",
+	tiles = {"default_coral_brown.png"},
+	groups = {cracky = 3},
+	drop = "default:coral_skeleton",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:coral_orange", {
+	description = "Orange Coral",
+	tiles = {"default_coral_orange.png"},
+	groups = {cracky = 3},
+	drop = "default:coral_skeleton",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:coral_skeleton", {
+	description = "Coral Skeleton",
+	tiles = {"default_coral_skeleton.png"},
+	groups = {cracky = 3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 
 --
 -- Liquids
