@@ -92,6 +92,8 @@ paramat (CC BY-SA 3.0):
   default_acacia_tree.png
   default_acacia_tree_top.png
   default_acacia_wood.png
+  default_acacia_bush_stem.png
+  default_bush_stem.png
   default_junglewood.png
   default_jungletree_top.png
   default_sandstone_brick.png
