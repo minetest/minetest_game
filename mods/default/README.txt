@@ -31,10 +31,12 @@ Originating from G4JC's Almost MC Texture Pack (CC BY-SA 3.0):
   default_torch_on_floor.png
 
 VanessaE's animated torches (CC BY-SA 3.0):
-  default_torch_animated.png
-  default_torch_on_ceiling_animated.png
   default_torch_on_floor_animated.png
   default_torch_on_floor.png
+
+BlockMen's 3D torches (CC-BY 3.0):
+  torch_floor.obj
+  torch_wall.obj
 
 RealBadAngel's animated water (CC BY-SA 3.0):
   default_water_source_animated.png
