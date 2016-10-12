@@ -471,3 +471,19 @@ function default.intersects_protection(minp, maxp, player_name, interval)
 
 	return false
 end
+
+
+--
+-- Coral death near air
+--
+
+minetest.register_abm({
+	nodenames = {"default:coral_brown", "default:coral_orange"},
+	neighbors = {"air"},
+	interval = 17,
+	chance = 5,
+	catch_up = false,
+	action = function(pos, node)
+		minetest.set_node(pos, {name = "default:coral_skeleton"})
+	end,
+})
