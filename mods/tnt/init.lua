@@ -533,32 +533,30 @@ function tnt.register_tnt(def)
 	local tnt_burning = def.tiles.burning or def.name .. "_top_burning_animated.png"
 	if not def.damage_radius then def.damage_radius = def.radius * 2 end
 
-	if enable_tnt then
-		minetest.register_node(":" .. name, {
-			description = def.description,
-			tiles = {tnt_top, tnt_bottom, tnt_side},
-			is_ground_content = false,
-			groups = {dig_immediate = 2, mesecon = 2, tnt = 1},
-			sounds = default.node_sound_wood_defaults(),
-			on_punch = function(pos, node, puncher)
-				if puncher:get_wielded_item():get_name() == "default:torch" then
-					minetest.set_node(pos, {name = name .. "_burning"})
-				end
-			end,
-			on_blast = function(pos, intensity)
-				minetest.after(0.1, function()
+	minetest.register_node(":" .. name, {
+		description = def.description,
+		tiles = {tnt_top, tnt_bottom, tnt_side},
+		is_ground_content = false,
+		groups = {dig_immediate = 2, mesecon = 2, tnt = 1},
+		sounds = default.node_sound_wood_defaults(),
+		on_punch = function(pos, node, puncher)
+			if puncher:get_wielded_item():get_name() == "default:torch" then
+				minetest.set_node(pos, {name = name .. "_burning"})
+			end
+		end,
+		on_blast = function(pos, intensity)
+			minetest.after(0.1, function()
+				tnt.boom(pos, def)
+			end)
+		end,
+		mesecons = {effector =
+			{action_on =
+				function(pos)
 					tnt.boom(pos, def)
-				end)
-			end,
-			mesecons = {effector =
-				{action_on =
-					function(pos)
-						tnt.boom(pos, def)
-					end
-				}
-			},
-		})
-	end
+				end
+			}
+		},
+	})
 
 	minetest.register_node(":" .. name .. "_burning", {
 		tiles = {
@@ -595,3 +593,7 @@ tnt.register_tnt({
 	description = "TNT",
 	radius = tnt_radius,
 })
+
+if not enable_tnt then
+	minetest.unregister_item("tnt:tnt")
+end
