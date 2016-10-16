@@ -70,13 +70,15 @@ minetest.register_craft({
 
 minetest.register_node("vessels:glass_bottle", {
 	description = "Glass Bottle (empty)",
-	drawtype = "plantlike",
-	tiles = {"vessels_glass_bottle.png"},
-	inventory_image = "vessels_glass_bottle.png",
-	wield_image = "vessels_glass_bottle.png",
+	drawtype = "mesh",
+	tiles = {"vessels_glass.png"},
+	inventory_image = "vessels_glass_bottle_inv.png",
+	wield_image = "vessels_glass_bottle_inv.png",
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
+	mesh = "bottle.obj",
+	use_texture_alpha = true,
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
@@ -96,16 +98,18 @@ minetest.register_craft( {
 
 minetest.register_node("vessels:drinking_glass", {
 	description = "Drinking Glass (empty)",
-	drawtype = "plantlike",
-	tiles = {"vessels_drinking_glass.png"},
+	drawtype = "mesh",
+	mesh = "vessels_drinking_glass.obj",
+	tiles = {"vessels_glass.png"},
 	inventory_image = "vessels_drinking_glass_inv.png",
-	wield_image = "vessels_drinking_glass.png",
+	wield_image = "vessels_drinking_glass_inv.png",
+	use_texture_alpha = true,
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
+		fixed = { -0.15, -0.5, -0.15, 0.15, -0.1, 0.15 }
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
 	sounds = default.node_sound_glass_defaults(),
@@ -122,13 +126,14 @@ minetest.register_craft( {
 
 minetest.register_node("vessels:steel_bottle", {
 	description = "Heavy Steel Bottle (empty)",
-	drawtype = "plantlike",
-	tiles = {"vessels_steel_bottle.png"},
-	inventory_image = "vessels_steel_bottle.png",
-	wield_image = "vessels_steel_bottle.png",
+	drawtype = "mesh",
+	tiles = {"bottle_metal_bright.png"},
+	inventory_image = "vessels_steel_bottle_inv.png",
+	wield_image = "vessels_steel_bottle_inv.png",
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
+	mesh = "bottle_steel.obj",
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
