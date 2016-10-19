@@ -95,6 +95,19 @@ function default.node_sound_glass_defaults(table)
 	return table
 end
 
+function default.node_sound_metal_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "default_metal_footstep", gain = 0.5}
+	table.dig = table.dig or
+			{name = "default_dig_metal", gain = 0.5}
+	table.dug = table.dug or
+			{name = "default_dug_metal", gain = 0.5}
+	table.place = table.place or
+			{name = "default_place_node_metal", gain = 0.5}
+	default.node_sound_defaults(table)
+	return table
+end
 
 --
 -- Lavacooling
