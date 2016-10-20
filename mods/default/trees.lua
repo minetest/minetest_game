@@ -87,7 +87,7 @@ minetest.register_lbm({
 			"default:pine_sapling", "default:acacia_sapling",
 			"default:aspen_sapling"},
 	action = function(pos)
-		if minetest.get_node_timer(pos):is_started() == false then
+		if not minetest.get_node_timer(pos):is_started() then
 		        minetest.get_node_timer(pos):start(math.random(1200, 2400))
 		end
 	end
