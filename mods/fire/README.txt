@@ -23,3 +23,6 @@ fire_small.ogg sampled from:
 
 fire_large.ogg sampled from:
   http://www.freesound.org/people/Dynamicell/sounds/17548/ (CC BY 3.0)
+
+fire_flint_and_steel.ogg
+  https://www.freesound.org/people/Benboncan/sounds/66457/ (CC BY 3.0)

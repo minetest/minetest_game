@@ -15,8 +15,8 @@ See the GNU Lesser General Public License for more details:
 https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
 
 
-Licenses of media (textures)
-----------------------------
+Licenses of media (textures and sounds)
+---------------------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Copyright (C) 2012-2016 Perttu Ahola (celeron55) <celeron55@gmail.com>
@@ -56,6 +56,7 @@ http://creativecommons.org/licenses/by-sa/3.0/
 Attribution 3.0 Unported (CC BY 3.0)
 Copyright (C) 2005 dobroide
 Copyright (C) 2006 Dynamicell
+Copyright (C) 2009 Benboncan
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
