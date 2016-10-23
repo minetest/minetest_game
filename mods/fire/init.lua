@@ -87,8 +87,12 @@ minetest.register_tool("fire:flint_and_steel", {
 	description = "Flint and Steel",
 	inventory_image = "fire_flint_steel.png",
 	on_use = function(itemstack, user, pointed_thing)
-		itemstack:add_wear(1000)
 		local pt = pointed_thing
+		minetest.sound_play(
+			"fire_flint_and_steel",
+			{pos = pt.above, gain = 0.8, max_hear_distance = 8}
+		)
+		itemstack:add_wear(1000)
 		if pt.type == "node" then
 			local node_under = minetest.get_node(pt.under).name
 			local is_coalblock = node_under == "default:coalblock"
