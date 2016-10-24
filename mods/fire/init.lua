@@ -95,38 +95,20 @@ minetest.register_tool("fire:flint_and_steel", {
 		itemstack:add_wear(1000)
 		if pt.type == "node" then
 			local node_under = minetest.get_node(pt.under).name
-			local is_coalblock = node_under == "default:coalblock"
-			local is_tnt = node_under == "tnt:tnt"
-			local is_gunpowder = node_under == "tnt:gunpowder"
-			if minetest.get_item_group(node_under, "flammable") >= 1 or
-					is_coalblock or is_tnt or is_gunpowder then
-				local flame_pos = pt.above
-				if is_coalblock then
-					flame_pos = {x = pt.under.x, y = pt.under.y + 1, z = pt.under.z}
-				elseif is_tnt or is_gunpowder then
-					flame_pos = pt.under
-				end
-				if minetest.get_node(flame_pos).name == "air" or
-						is_tnt or is_gunpowder then
-					local player_name = user:get_player_name()
-					if not minetest.is_protected(flame_pos, player_name) then
-						if is_coalblock then
-							minetest.set_node(flame_pos,
-								{name = "fire:permanent_flame"})
-						elseif is_tnt then
-							minetest.set_node(flame_pos,
-								{name = "tnt:tnt_burning"})
-						elseif is_gunpowder then
-							minetest.set_node(flame_pos,
-								{name = "tnt:gunpowder_burning"})
-						else
-							minetest.set_node(flame_pos,
-								{name = "fire:basic_flame"})
-						end
-					else
-						minetest.chat_send_player(player_name, "This area is protected")
-					end
-				end
+			local nodedef = minetest.registered_nodes[node_under]
+			if not nodedef then
+				return
+			end
+			local player_name = user:get_player_name()
+			if minetest.is_protected(pt.under, player_name) then
+				minetest.chat_send_player(player_name, "This area is protected")
+				return
+			end
+			if nodedef.on_ignite then
+				nodedef.on_ignite(pt.under, user)
+			elseif minetest.get_item_group(node_under, "flammable") >= 1
+					and minetest.get_node(pt.above).name == "air" then
+				minetest.set_node(pt.above, {name = "fire:basic_flame"})
 			end
 		end
 		if not minetest.setting_getbool("creative_mode") then
@@ -153,8 +135,13 @@ minetest.override_item("default:coalblock", {
 			minetest.remove_node(pos)
 		end
 	end,
+	on_ignite = function(pos, igniter)
+		local flame_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+		if minetest.get_node(flame_pos).name == "air" then
+			minetest.set_node(flame_pos, {name = "fire:permanent_flame"})
+		end
+	end,
 })
-
 
 -- Get sound area of position
 
