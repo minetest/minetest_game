@@ -221,6 +221,7 @@ minetest.register_craftitem("boats:boat", {
 	wield_image = "boats_wield.png",
 	wield_scale = {x = 2, y = 2, z = 1},
 	liquids_pointable = true,
+	groups = {flammable = 2},
 
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" then
