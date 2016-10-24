@@ -14,17 +14,20 @@ farming.register_plant("farming:wheat", {
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland"}
+	fertility = {"grassland"},
+	groups = {flammable = 4},
 })
 minetest.register_craftitem("farming:flour", {
 	description = "Flour",
 	inventory_image = "farming_flour.png",
+	groups = {flammable = 1},
 })
 
 minetest.register_craftitem("farming:bread", {
 	description = "Bread",
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
+	groups = {flammable = 2},
 })
 
 minetest.register_craft({
@@ -47,7 +50,8 @@ farming.register_plant("farming:cotton", {
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland", "desert"}
+	fertility = {"grassland", "desert"},
+	groups = {flammable = 4},
 })
 
 minetest.register_alias("farming:string", "farming:cotton")

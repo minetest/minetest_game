@@ -3,12 +3,13 @@
 minetest.register_craftitem("default:stick", {
 	description = "Stick",
 	inventory_image = "default_stick.png",
-	groups = {stick = 1},
+	groups = {stick = 1, flammable = 2},
 })
 
 minetest.register_craftitem("default:paper", {
 	description = "Paper",
 	inventory_image = "default_paper.png",
+	groups = {flammable = 3},
 })
 
 local lpp = 14 -- Lines per book's page
@@ -132,14 +133,14 @@ end)
 minetest.register_craftitem("default:book", {
 	description = "Book",
 	inventory_image = "default_book.png",
-	groups = {book = 1},
+	groups = {book = 1, flammable = 3},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("default:book_written", {
 	description = "Book With Text",
 	inventory_image = "default_book_written.png",
-	groups = {book = 1, not_in_creative_inventory = 1},
+	groups = {book = 1, not_in_creative_inventory = 1, flammable = 3},
 	stack_max = 1,
 	on_use = book_on_use,
 })
@@ -176,7 +177,7 @@ end)
 minetest.register_craftitem("default:coal_lump", {
 	description = "Coal Lump",
 	inventory_image = "default_coal_lump.png",
-	groups = {coal = 1}
+	groups = {coal = 1, flammable = 1}
 })
 
 minetest.register_craftitem("default:iron_lump", {
