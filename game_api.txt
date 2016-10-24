@@ -227,6 +227,14 @@ New node def property:
  * Called when fire attempts to remove a burning node.
  * `pos` Position of the burning node.
 
+ `on_ignite(pos, igniter)`
+
+  * Called when Flint and steel (or a mod defined ignitor) is used on a node.
+    Defining it may prevent the default action (spawning flames) from triggering.
+  * `pos` Position of the ignited node.
+  * `igniter` Player that used the tool, when available.
+
+
 Give Initial Stuff API
 ----------------------
 

@@ -418,7 +418,10 @@ minetest.register_node("tnt:gunpowder", {
 	end,
 	on_burn = function(pos)
 		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
-	end
+	end,
+	on_ignite = function(pos, igniter)
+		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
+	end,
 })
 
 minetest.register_node("tnt:gunpowder_burning", {
@@ -563,7 +566,10 @@ function tnt.register_tnt(def)
 			},
 			on_burn = function(pos)
 				minetest.set_node(pos, {name = name .. "_burning"})
-			end
+			end,
+			on_ignite = function(pos, igniter)
+				minetest.set_node(pos, {name = name .. "_burning"})
+			end,
 		})
 	end
 
