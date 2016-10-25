@@ -90,7 +90,7 @@ minetest.register_tool("fire:flint_and_steel", {
 		local pt = pointed_thing
 		minetest.sound_play(
 			"fire_flint_and_steel",
-			{pos = pt.above, gain = 0.8, max_hear_distance = 8}
+			{pos = pt.above, gain = 0.6, max_hear_distance = 8}
 		)
 		itemstack:add_wear(1000)
 		if pt.type == "node" then
