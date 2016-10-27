@@ -139,6 +139,9 @@ BlockMen (CC BY-SA 3.0):
   bubble.png
   gui_*.png
 
+Wuzzy (CC BY-SA 3.0):
+  default_book_slot.png (based on default_book.png)
+
 sofar (CC BY-SA 3.0):
   default_book_written.png, based on default_book.png
   default_aspen_sapling

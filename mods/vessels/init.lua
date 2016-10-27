@@ -13,6 +13,18 @@ local vessels_shelf_formspec =
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0, 2.85)
 
+-- Inventory slots overlay
+local vx, vy = 0, 0.3
+for i = 1,16 do
+	if i == 9 then
+		vx = 0
+		vy = vy + 1
+	end
+	vessels_shelf_formspec = vessels_shelf_formspec ..
+		"image["..vx..","..vy..";1,1;vessels_glass_bottle_slot.png]"
+	vx = vx + 1
+end
+
 minetest.register_node("vessels:shelf", {
 	description = "Vessels Shelf",
 	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
