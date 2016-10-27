@@ -404,17 +404,21 @@ minetest.register_node("tnt:gunpowder", {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
-	groups = {dig_immediate = 2, attached_node = 1, connect_to_raillike = minetest.raillike_group("gunpowder")},
+	groups = {dig_immediate = 2, attached_node = 1, flammable = 5,
+		connect_to_raillike = minetest.raillike_group("gunpowder")},
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
-			tnt.burn(pos, node.name)
+			minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 		end
 	end,
 	on_blast = function(pos, intensity)
-		tnt.burn(pos, "tnt:gunpowder")
+		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 	end,
+	on_burn = function(pos)
+		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
+	end
 })
 
 minetest.register_node("tnt:gunpowder_burning", {
@@ -538,7 +542,7 @@ function tnt.register_tnt(def)
 			description = def.description,
 			tiles = {tnt_top, tnt_bottom, tnt_side},
 			is_ground_content = false,
-			groups = {dig_immediate = 2, mesecon = 2, tnt = 1},
+			groups = {dig_immediate = 2, mesecon = 2, tnt = 1, flammable = 5},
 			sounds = default.node_sound_wood_defaults(),
 			on_punch = function(pos, node, puncher)
 				if puncher:get_wielded_item():get_name() == "default:torch" then
@@ -557,6 +561,9 @@ function tnt.register_tnt(def)
 					end
 				}
 			},
+			on_burn = function(pos)
+				minetest.set_node(pos, {name = name .. "_burning"})
+			end
 		})
 	end
 
