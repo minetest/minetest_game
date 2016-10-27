@@ -1809,8 +1809,9 @@ local bookshelf_formspec =
 
 -- Inventory slots overlay
 local bx, by = 0, 0.3
-for i=1,16 do
-	if i==9 then bx = 0
+for i = 1, 16 do
+	if i == 9 then
+		bx = 0
 		by = by + 1
 	end
 	bookshelf_formspec = bookshelf_formspec ..
