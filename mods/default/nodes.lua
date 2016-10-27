@@ -1807,6 +1807,17 @@ local bookshelf_formspec =
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0,2.85)
 
+-- Inventory slots overlay
+local bx, by = 0, 0.3
+for i=1,16 do
+	if i==9 then bx = 0
+		by = by + 1
+	end
+	bookshelf_formspec = bookshelf_formspec ..
+	"image["..bx..","..by..";1,1;default_book_slot.png]"
+	bx = bx + 1
+end
+
 minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
 	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
