@@ -22,6 +22,8 @@ local function active_formspec(fuel_percent, item_percent)
 		"listring[current_player;main]"..
 		"listring[current_name;src]"..
 		"listring[current_player;main]"..
+		"listring[current_name;fuel]"..
+		"listring[current_player;main]"..
 		default.get_hotbar_bg(0, 4.25)
 	return formspec
 end
@@ -41,6 +43,8 @@ local inactive_formspec =
 	"listring[current_name;dst]"..
 	"listring[current_player;main]"..
 	"listring[current_name;src]"..
+	"listring[current_player;main]"..
+	"listring[current_name;fuel]"..
 	"listring[current_player;main]"..
 	default.get_hotbar_bg(0, 4.25)
 
