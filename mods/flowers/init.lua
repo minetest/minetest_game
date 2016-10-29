@@ -166,39 +166,53 @@ minetest.register_node("flowers:mushroom_brown", {
 
 
 -- Mushroom spread and death
+-- Public function to enable override by mods
+
+function flowers.mushroom_spread(pos, node)
+	--- direct sunlight kills mushroom
+	if minetest.get_node_light(pos) == 15 then
+		minetest.remove_node(pos)
+		return
+	end
+	-- find empty area with soil/tree beneath around mushroom (step 1)
+	local positions = minetest.find_nodes_in_area_under_air(
+		{x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
+		{x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
+		{"group:soil", "group:tree"})
+	-- none found
+	if #positions == 0 then
+		return
+	end
+	-- select random position
+	local pos2 = positions[ math.random(#positions) ]
+	pos2.y = pos2.y + 1
+	-- find empty area with soil/tree beneath around mushroom (step 2)
+	positions = minetest.find_nodes_in_area_under_air(
+		{x = pos2.x - 1, y = pos2.y - 2, z = pos2.z - 1},
+		{x = pos2.x + 1, y = pos2.y + 1, z = pos2.z + 1},
+		{"group:soil", "group:tree"})
+	-- none found
+	if #positions == 0 then
+		return
+	end
+	-- select random position
+	pos2 = positions[ math.random(#positions) ]
+	pos2.y = pos2.y + 1
+	-- if dark enough spread mushroom
+	if minetest.get_node_light(pos, 0.5) < 4 and
+			and minetest.get_node_light(pos2, 0.5) < 4 then
+		minetest.set_node(pos2, {name = node.name})
+	end
+end
 
 minetest.register_abm({
 	label = "Mushroom spread",
 	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
 	interval = 11,
 	chance = 50,
-	action = function(pos, node)
-		if minetest.get_node_light(pos, nil) == 15 then
-			minetest.remove_node(pos)
-			return
-		end
-		local random = {
-			x = pos.x + math.random(-2, 2),
-			y = pos.y + math.random(-1, 1),
-			z = pos.z + math.random(-2, 2)
-		}
-		local random_node = minetest.get_node_or_nil(random)
-		if not random_node or random_node.name ~= "air" then
-			return
-		end
-		local node_under = minetest.get_node_or_nil({x = random.x,
-			y = random.y - 1, z = random.z})
-		if not node_under then
-			return
-		end
-
-		if (minetest.get_item_group(node_under.name, "soil") ~= 0 or
-				minetest.get_item_group(node_under.name, "tree") ~= 0) and
-				minetest.get_node_light(pos, 0.5) <= 3 and
-				minetest.get_node_light(random, 0.5) <= 3 then
-			minetest.set_node(random, {name = node.name})
-		end
-	end
+	action = function(...)
+		flowers.mushroom_spread(...)
+	end,
 })
 
 
