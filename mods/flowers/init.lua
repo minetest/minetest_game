@@ -200,7 +200,7 @@ function flowers.mushroom_spread(pos, node)
 	pos2.y = pos2.y + 1
 	-- if dark enough spread mushroom
 	if minetest.get_node_light(pos, 0.5) < 4 and
-			and minetest.get_node_light(pos2, 0.5) < 4 then
+			minetest.get_node_light(pos2, 0.5) < 4 then
 		minetest.set_node(pos2, {name = node.name})
 	end
 end
