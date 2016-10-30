@@ -248,3 +248,9 @@ minetest.register_craft({
 		{"group:wood", "group:wood", "group:wood"},
 	},
 })
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "boats:boat",
+	burntime = 20,
+})
