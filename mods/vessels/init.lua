@@ -195,3 +195,9 @@ minetest.register_craft( {
 	output = "default:steel_ingot",
 	recipe = "vessels:steel_bottle",
 })
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "vessels:shelf",
+	burntime = 30,
+})

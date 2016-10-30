@@ -915,31 +915,31 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_aspen_wood",
-	burntime = 11,
+	burntime = 5,
 })
 
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_pine_wood",
-	burntime = 13,
+	burntime = 6,
 })
 
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_wood",
-	burntime = 15,
+	burntime = 7,
 })
 
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_acacia_wood",
-	burntime = 17,
+	burntime = 8,
 })
 
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_junglewood",
-	burntime = 19,
+	burntime = 9,
 })
 
 
@@ -988,7 +988,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:ladder_wood",
-	burntime = 5,
+	burntime = 2,
 })
 
 minetest.register_craft({
@@ -1049,4 +1049,53 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:dry_grass_1",
 	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:paper",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:book",
+	burntime = 3,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:dry_shrub",
+	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:stick",
+	burntime = 1,
+})
+
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pick_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:shovel_wood",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:axe_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:sword_wood",
+	burntime = 5,
 })

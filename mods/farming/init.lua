@@ -80,3 +80,28 @@ minetest.register_craft({
 		{"farming:straw"},
 	}
 })
+
+-- Fuels
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:straw",
+	burntime = 3,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:wheat",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:cotton",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:hoe_wood",
+	burntime = 5,
+})
