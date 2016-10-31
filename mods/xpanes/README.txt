@@ -16,3 +16,6 @@ xyz (CC BY-SA 3.0):
 
 Gambit (CC BY-SA 3.0):
   xpanes_bar.png
+
+paramat (CC BY-SA 3.0):
+  xpanes_bar_top.png
