@@ -88,6 +88,7 @@ paramat (CC BY-SA 3.0):
   default_pinetree_top.png
   default_pinewood.png
   default_acacia_leaves.png
+  default_acacia_leaves_simple.png
   default_acacia_sapling.png
   default_acacia_tree.png
   default_acacia_tree_top.png
