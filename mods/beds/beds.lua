@@ -88,3 +88,17 @@ beds.register_bed("beds:bed", {
 
 minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
 minetest.register_alias("beds:bed_top_red", "beds:bed_top")
+
+-- Fuel 
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "beds:fancy_bed_bottom",
+	burntime = 13,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "beds:bed_bottom",
+	burntime = 12,
+})
