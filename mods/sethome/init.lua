@@ -41,7 +41,12 @@ sethome.set = function(name, pos)
 end
 
 sethome.get = function(name)
-	return homepos[name]
+	local pos = homepos[name]
+	if pos then
+	 	return vector.new(pos)
+	else
+	 	return nil
+	end
 end
 
 sethome.go = function(name)
