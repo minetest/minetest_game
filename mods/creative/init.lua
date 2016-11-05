@@ -173,6 +173,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local player_name = player:get_player_name()
 	local inv = player_inventory[player_name]
 
+	-- If creative is turned on mid game
+	if not inv then
+		creative.init_creative_inventory(player)
+		creative.set_creative_formspec(player, 0)
+		return
+	end
+
 	if fields.quit then
 		if inv.tab_id == 1 then
 			creative.set_crafting_formspec(player)
