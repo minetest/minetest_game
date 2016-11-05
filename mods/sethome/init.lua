@@ -58,7 +58,10 @@ sethome.go = function(name)
 	return false
 end
 
-minetest.register_privilege("home", "Can use /sethome and /home")
+minetest.register_privilege("home", {
+	description = "Can use /sethome and /home",
+	give_to_singleplayer = false
+})
 
 minetest.register_chatcommand("home", {
 	description = "Teleport you to your home point",
