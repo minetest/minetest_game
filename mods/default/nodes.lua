@@ -1809,16 +1809,23 @@ local bookshelf_formspec =
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0,2.85)
 
--- Inventory slots overlay
-local bx, by = 0, 0.3
-for i = 1, 16 do
-	if i == 9 then
-		bx = 0
-		by = by + 1
+local function get_bookshelf_formspec(inv)
+	local formspec = bookshelf_formspec
+	local invlist = inv and inv:get_list("books")
+	-- Inventory slots overlay
+	local bx, by = 0, 0.3
+	for i = 1, 16 do
+		if i == 9 then
+			bx = 0
+			by = by + 1
+		end
+		if not invlist or invlist[i]:is_empty() then
+			formspec = formspec ..
+				"image[" .. bx .. "," .. by .. ";1,1;default_bookshelf_slot.png]"
+		end
+		bx = bx + 1
 	end
-	bookshelf_formspec = bookshelf_formspec ..
-		"image[" .. bx .. "," .. by .. ";1,1;default_bookshelf_slot.png]"
-	bx = bx + 1
+	return formspec
 end
 
 minetest.register_node("default:bookshelf", {
@@ -1832,7 +1839,7 @@ minetest.register_node("default:bookshelf", {
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", bookshelf_formspec)
+		meta:set_string("formspec", get_bookshelf_formspec(nil))
 		local inv = meta:get_inventory()
 		inv:set_size("books", 8 * 2)
 	end,
@@ -1849,14 +1856,20 @@ minetest.register_node("default:bookshelf", {
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name() ..
 			" moves stuff in bookshelf at " .. minetest.pos_to_string(pos))
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", get_bookshelf_formspec(meta:get_inventory()))
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" moves stuff to bookshelf at " .. minetest.pos_to_string(pos))
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", get_bookshelf_formspec(meta:get_inventory()))
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			" takes stuff from bookshelf at " .. minetest.pos_to_string(pos))
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", get_bookshelf_formspec(meta:get_inventory()))
 	end,
 	on_blast = function(pos)
 		local drops = {}
