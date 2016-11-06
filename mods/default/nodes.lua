@@ -1817,7 +1817,7 @@ for i = 1, 16 do
 		by = by + 1
 	end
 	bookshelf_formspec = bookshelf_formspec ..
-		"image["..bx..","..by..";1,1;default_book_slot.png]"
+		"image[" .. bx .. "," .. by .. ";1,1;default_bookshelf_slot.png]"
 	bx = bx + 1
 end
 

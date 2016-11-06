@@ -15,13 +15,13 @@ local vessels_shelf_formspec =
 
 -- Inventory slots overlay
 local vx, vy = 0, 0.3
-for i = 1,16 do
+for i = 1, 16 do
 	if i == 9 then
 		vx = 0
 		vy = vy + 1
 	end
 	vessels_shelf_formspec = vessels_shelf_formspec ..
-		"image["..vx..","..vy..";1,1;vessels_glass_bottle_slot.png]"
+		"image[" .. vx .. "," .. vy .. ";1,1;vessels_shelf_slot.png]"
 	vx = vx + 1
 end
 
