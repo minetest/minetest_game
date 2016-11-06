@@ -228,7 +228,7 @@ if creative_mode then
 
 	minetest.register_item(":", {
 		type = "none",
-		wield_image = "wieldhand.png",
+		wield_image = "creative_wieldhand.png",
 		wield_scale = {x = 1, y = 1, z = 2.5},
 		range = 10,
 		tool_capabilities = {
