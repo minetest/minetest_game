@@ -474,6 +474,13 @@ minetest.register_node("default:snowblock", {
 		dug = {name = "default_snow_footstep", gain = 0.2},
 		dig = {name = "default_snow_footstep", gain = 0.2}
 	}),
+
+	on_construct = function(pos)
+		pos.y = pos.y - 1
+		if minetest.get_node(pos).name == "default:dirt_with_grass" then
+			minetest.set_node(pos, {name = "default:dirt_with_snow"})
+		end
+	end,
 })
 
 minetest.register_node("default:ice", {
