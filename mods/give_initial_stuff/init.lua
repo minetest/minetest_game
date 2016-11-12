@@ -35,7 +35,11 @@ function give_initial_stuff.set_list(list)
 end
 
 function give_initial_stuff.get_list()
-	return items
+	local copied = {}
+	for _, stack in ipairs(items) do
+		copied[#copied + 1] = ItemStack(stack)
+	end
+	return copied
 end
 
 give_initial_stuff.add_from_csv(stuff_string)
