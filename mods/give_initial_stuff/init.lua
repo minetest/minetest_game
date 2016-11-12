@@ -31,7 +31,10 @@ function give_initial_stuff.add_from_csv(str)
 end
 
 function give_initial_stuff.set_list(list)
-	items = list
+	give_initial_stuff.clear()
+	for _, stack in ipairs(list) do
+		give_initial_stuff.add(stack)
+	end
 end
 
 function give_initial_stuff.get_list()
