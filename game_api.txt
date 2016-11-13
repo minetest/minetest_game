@@ -308,8 +308,10 @@ TNT API
 
 `tnt.burn(position, [nodename])`
 
-^ Ignite TNT at position, nodename isn't required unless already known.
-
+^ Ignite node at position, triggering its `on_ignite` callback (see fire mod).
+If no such callback exists, fallback to turn tnt group nodes to their
+"_burning" variant.
+  nodename isn't required unless already known.
 
 To make dropping items from node inventories easier, you can use the
 following helper function from 'default':
