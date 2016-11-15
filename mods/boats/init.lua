@@ -79,7 +79,7 @@ function boat.on_rightclick(self, clicker)
 		minetest.after(0.2, function()
 			default.player_set_animation(clicker, "sit" , 30)
 		end)
-		self.object:setyaw(clicker:get_look_horizontal() - math.pi / 2)
+		clicker:set_look_horizontal(self.object:getyaw())
 	end
 end
 
@@ -231,7 +231,8 @@ minetest.register_craftitem("boats:boat", {
 			return itemstack
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
-		minetest.add_entity(pointed_thing.under, "boats:boat")
+		boat = minetest.add_entity(pointed_thing.under, "boats:boat")
+		boat:setyaw(placer:get_look_horizontal())
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
