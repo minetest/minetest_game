@@ -109,6 +109,14 @@ function default.node_sound_metal_defaults(table)
 	return table
 end
 
+function default.node_sound_water_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "default_water_footstep", gain = 0.2}
+	default.node_sound_defaults(table)
+	return table
+end
+
 --
 -- Lavacooling
 --
