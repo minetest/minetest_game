@@ -43,9 +43,9 @@ end
 sethome.get = function(name)
 	local pos = homepos[name]
 	if pos then
-	 	return vector.new(pos)
+		return vector.new(pos)
 	else
-	 	return nil
+		return nil
 	end
 end
 

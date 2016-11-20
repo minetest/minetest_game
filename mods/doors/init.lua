@@ -519,7 +519,7 @@ function doors.register_trapdoor(name, def)
 	if not name:find(":") then
 		name = "doors:" .. name
 	end
-	
+
 	local name_closed = name
 	local name_opened = name.."_open"
 

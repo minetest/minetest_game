@@ -4,7 +4,7 @@
 --
 
 local function active_formspec(fuel_percent, item_percent)
-	local formspec = 
+	local formspec =
 		"size[8,8.5]"..
 		default.gui_bg..
 		default.gui_bg_img..
