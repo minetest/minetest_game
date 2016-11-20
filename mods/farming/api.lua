@@ -331,7 +331,7 @@ farming.register_plant = function(name, def)
 			lbm_nodes[#lbm_nodes + 1] = mname .. ":" .. pname .. "_" .. i
 		end
 
-		minetest.register_node(mname .. ":" .. pname .. "_" .. i, {
+		minetest.register_node(":" .. mname .. ":" .. pname .. "_" .. i, {
 			drawtype = "plantlike",
 			waving = 1,
 			tiles = {mname .. "_" .. pname .. "_" .. i .. ".png"},
