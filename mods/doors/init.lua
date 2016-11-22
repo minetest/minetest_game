@@ -364,7 +364,7 @@ function doors.register(name, def)
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
-		nodeupdate({x = pos.x, y = pos.y + 1, z = pos.z})
+		minetest.check_for_falling({x = pos.x, y = pos.y + 1, z = pos.z})
 	end
 	def.on_rotate = false
 

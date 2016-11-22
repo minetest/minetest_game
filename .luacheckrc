@@ -5,7 +5,7 @@ read_globals = {
 	"DIR_DELIM",
 	"minetest", "core",
 	"dump",
-	"vector", "nodeupdate", "nodeupdate_single",
+	"vector",
 	"VoxelManip", "VoxelArea",
 	"PseudoRandom", "ItemStack",
 }

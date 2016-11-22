@@ -290,7 +290,7 @@ else -- Fire enabled
 					def.on_burn(p)
 				else
 					minetest.remove_node(p)
-					nodeupdate(p)
+					minetest.check_for_falling(p)
 				end
 			end
 		end,

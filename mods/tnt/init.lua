@@ -332,7 +332,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 	vm:update_map()
 	vm:update_liquids()
 
-	-- call nodeupdate for everything within 1.5x blast radius
+	-- call check_single_for_falling for everything within 1.5x blast radius
 	for y = -radius * 1.5, radius * 1.5 do
 	for z = -radius * 1.5, radius * 1.5 do
 	for x = -radius * 1.5, radius * 1.5 do
@@ -340,7 +340,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 		local s = vector.add(pos, rad)
 		local r = vector.length(rad)
 		if r / radius < 1.4 then
-			nodeupdate_single(s)
+			minetest.check_single_for_falling(s)
 		end
 	end
 	end
@@ -598,7 +598,7 @@ function tnt.register_tnt(def)
 		on_construct = function(pos)
 			minetest.sound_play("tnt_ignite", {pos = pos})
 			minetest.get_node_timer(pos):start(4)
-			nodeupdate(pos)
+			minetest.check_for_falling(pos)
 		end,
 	})
 end
