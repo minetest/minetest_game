@@ -16,7 +16,7 @@ local function destruct_bed(pos, n)
 	if reverse then
 		reverse = not reverse
 		minetest.remove_node(other)
-		nodeupdate(other)
+		minetest.check_for_falling(other)
 	else
 		reverse = not reverse
 	end
