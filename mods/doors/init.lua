@@ -140,8 +140,17 @@ function _doors.door_toggle(pos, node, clicker)
 	end
 
 	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
+		-- is player wielding the right key?
+		local item = clicker:get_wielded_item()
 		local owner = meta:get_string("doors_owner")
-		if owner ~= "" then
+		if item:get_name() == "default:key" then
+			local key_meta = minetest.parse_json(item:get_metadata())
+			local secret = meta:get_string("key_lock_secret")
+			if secret ~= key_meta.secret then
+				return false
+			end
+
+		elseif owner ~= "" then
 			if clicker:get_player_name() ~= owner then
 				return false
 			end
@@ -371,6 +380,30 @@ function doors.register(name, def)
 	if def.protected then
 		def.can_dig = can_dig_door
 		def.on_blast = function() end
+		def.on_key_use = function(pos, player)
+			local door = doors.get(pos)
+			door:toggle(player)
+		end
+		def.on_skeleton_key_use = function(pos, player, newsecret)
+			local meta = minetest.get_meta(pos)
+			local owner = meta:get_string("doors_owner")
+			local pname = player:get_player_name()
+
+			-- verify placer is owner of lockable door
+			if owner ~= pname then
+				minetest.record_protection_violation(pos, pname)
+				minetest.chat_send_player(pname, "You do not own this locked door.")
+				return nil
+			end
+
+			local secret = meta:get_string("key_lock_secret")
+			if secret == "" then
+				secret = newsecret
+				meta:set_string("key_lock_secret", secret)
+			end
+
+			return secret, "a locked door", owner
+		end
 	else
 		def.on_blast = function(pos, intensity)
 			minetest.remove_node(pos)
@@ -491,9 +524,18 @@ end
 function _doors.trapdoor_toggle(pos, node, clicker)
 	node = node or minetest.get_node(pos)
 	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
+		-- is player wielding the right key?
+		local item = clicker:get_wielded_item()
 		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("doors_owner")
-		if owner ~= "" then
+		if item:get_name() == "default:key" then
+			local key_meta = minetest.parse_json(item:get_metadata())
+			local secret = meta:get_string("key_lock_secret")
+			if secret ~= key_meta.secret then
+				return false
+			end
+
+		elseif owner ~= "" then
 			if clicker:get_player_name() ~= owner then
 				return false
 			end
@@ -546,6 +588,30 @@ function doors.register_trapdoor(name, def)
 		end
 
 		def.on_blast = function() end
+		def.on_key_use = function(pos, player)
+			local door = doors.get(pos)
+			door:toggle(player)
+		end
+		def.on_skeleton_key_use = function(pos, player, newsecret)
+			local meta = minetest.get_meta(pos)
+			local owner = meta:get_string("doors_owner")
+			local pname = player:get_player_name()
+
+			-- verify placer is owner of lockable door
+			if owner ~= pname then
+				minetest.record_protection_violation(pos, pname)
+				minetest.chat_send_player(pname, "You do not own this trapdoor.")
+				return nil
+			end
+
+			local secret = meta:get_string("key_lock_secret")
+			if secret == "" then
+				secret = newsecret
+				meta:set_string("key_lock_secret", secret)
+			end
+
+			return secret, "a locked trapdoor", owner
+		end
 	else
 		def.on_blast = function(pos, intensity)
 			minetest.remove_node(pos)
