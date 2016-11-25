@@ -86,13 +86,14 @@ minetest.register_node("fire:permanent_flame", {
 minetest.register_tool("fire:flint_and_steel", {
 	description = "Flint and Steel",
 	inventory_image = "fire_flint_steel.png",
+	sound = {breaks = "default_tool_breaks"},
+
 	on_use = function(itemstack, user, pointed_thing)
 		local pt = pointed_thing
 		minetest.sound_play(
 			"fire_flint_and_steel",
-			{pos = pt.above, gain = 0.6, max_hear_distance = 8}
+			{pos = pt.above, gain = 0.5, max_hear_distance = 8}
 		)
-		itemstack:add_wear(1000)
 		if pt.type == "node" then
 			local node_under = minetest.get_node(pt.under).name
 			local nodedef = minetest.registered_nodes[node_under]
@@ -112,6 +113,13 @@ minetest.register_tool("fire:flint_and_steel", {
 			end
 		end
 		if not minetest.setting_getbool("creative_mode") then
+			-- wear tool
+			local wdef = itemstack:get_definition()
+			itemstack:add_wear(1000)
+			-- tool break sound
+			if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then
+				minetest.sound_play(wdef.sound.breaks, {pos = pt.above, gain = 0.5})
+			end
 			return itemstack
 		end
 	end

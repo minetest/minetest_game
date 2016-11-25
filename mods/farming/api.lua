@@ -50,7 +50,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		return
 	end
 
-	-- turn the node into soil, wear out item and play sound
+	-- turn the node into soil and play sound
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
@@ -58,7 +58,13 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	})
 
 	if not minetest.setting_getbool("creative_mode") then
+		-- wear tool
+		local wdef = itemstack:get_definition()
 		itemstack:add_wear(65535/(uses-1))
+		-- tool break sound
+		if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then
+			minetest.sound_play(wdef.sound.breaks, {pos = pt.above, gain = 0.5})
+		end
 	end
 	return itemstack
 end
@@ -94,6 +100,7 @@ farming.register_hoe = function(name, def)
 			return farming.hoe_on_use(itemstack, user, pointed_thing, def.max_uses)
 		end,
 		groups = def.groups,
+		sound = {breaks = "default_tool_breaks"},
 	})
 	-- Register its recipe
 	if def.material == nil then
