@@ -1,15 +1,17 @@
 Carts (formerly boost_cart)
 ==========================
 
-Cleaned up for merge based almost entirely on SmallJoker's boost_cart
-mod (github.com/smalljoker/boost_cart).
+Carts, based almost entirely on the mod boost_cart [1], which
+itself is based on (and fully compatible with) the carts mod [2].
 
-That in turn was based on (and fully compatible with) the mod "carts"
-by PilzAdam
+The model was originally designed by stujones11 [3] (CC-0).
 
-The model was redone, but based on github.com/stujones11/railcart, CC-0
+Cart textures are based on original work from PixelBOX (WTFPL).
 
-Cart Textures are based on original work from PixelBOX (WTFPL).
+
+[1] https://github.com/SmallJoker/boost_cart/
+[2] https://github.com/PilzAdam/carts/
+[3] https://github.com/stujones11/railcart/
 
 
 Features
