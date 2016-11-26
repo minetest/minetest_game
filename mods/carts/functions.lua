@@ -158,9 +158,9 @@ function carts:get_rail_direction(pos_, dir, ctrl, old_switch, railtype)
 	return {x=0, y=0, z=0}
 end
 
-function carts:pathfinder(pos_, expected_pos, old_dir, ctrl, pf_switch, railtype)
+function carts:pathfinder(pos_, old_pos, old_dir, ctrl, pf_switch, railtype)
 	local pos = vector.round(pos_)
-	local pf_pos = vector.round(expected_pos)
+	local pf_pos = vector.round(old_pos)
 	local pf_dir = vector.new(old_dir)
 
 	for i = 1, 3 do
