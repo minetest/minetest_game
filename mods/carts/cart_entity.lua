@@ -158,13 +158,13 @@ local function rail_sound(self, dtime)
 	end
 end
 
-local function rail_on_step(self, dtime)
-	local pos = self.object:getpos()
+local function get_railparams(pos)
 	local node = minetest.get_node(pos)
-	local railparams = carts.railparams[node.name] or {}
+	return carts.railparams[node.name] or {}
+end
 
+local function rail_on_step(self, dtime)
 	local vel = self.object:getvelocity()
-	local update = {}
 	if self.punched then
 		vel = vector.add(vel, self.velocity)
 		self.object:setvelocity(vel)
@@ -173,17 +173,17 @@ local function rail_on_step(self, dtime)
 		return
 	end
 
+	local pos = self.object:getpos()
+	local update = {}
+
 	-- stop cart if velocity vector flips
-	if self.old_vel and (((self.old_vel.x * vel.x) < 0) or
-			((self.old_vel.z * vel.z) < 0)) and
-			(self.old_vel.y == 0) then
-		self.old_dir = {x = 0, y = 0, z = 0}
+	if self.old_vel and self.old_vel.y == 0 and
+			(self.old_vel.x * vel.x < 0 or self.old_vel.z * vel.z < 0) then
 		self.old_vel = {x = 0, y = 0, z = 0}
-		self.velocity = {x = 0, y = 0, z = 0}
 		self.old_pos = pos
 		self.object:setvelocity(vector.new())
 		self.object:setacceleration(vector.new())
-		rail_on_step_event(railparams.on_step, self, dtime)
+		rail_on_step_event(get_railparams(pos).on_step, self, dtime)
 		return
 	end
 	self.old_vel = vector.new(vel)
@@ -193,7 +193,6 @@ local function rail_on_step(self, dtime)
 		local flo_old = vector.round(self.old_pos)
 		if vector.equals(flo_pos, flo_old) then
 			-- Do not check one node multiple times
-			rail_on_step_event(railparams.on_step, self, dtime)
 			return
 		end
 	end
@@ -210,9 +209,8 @@ local function rail_on_step(self, dtime)
 
 	if self.old_pos then
 		-- Detection for "skipping" nodes
-		local expected_pos = vector.add(self.old_pos, self.old_dir)
 		local found_path = carts:pathfinder(
-			pos, expected_pos, self.old_dir, ctrl, self.old_switch, self.railtype
+			pos, self.old_pos, self.old_dir, ctrl, self.old_switch, self.railtype
 		)
 
 		if not found_path then
@@ -223,6 +221,7 @@ local function rail_on_step(self, dtime)
 	end
 
 	local cart_dir = carts:velocity_to_dir(vel)
+	local railparams
 
 	-- dir:         New moving direction of the cart
 	-- switch_keys: Currently pressed L/R key, used to ignore the key on the next rail node
@@ -232,33 +231,35 @@ local function rail_on_step(self, dtime)
 
 	local new_acc = {x=0, y=0, z=0}
 	if vector.equals(dir, {x=0, y=0, z=0}) then
-		vel = {x=0, y=0, z=0}
+		vel = {x = 0, y = 0, z = 0}
 		pos = vector.round(pos)
 		update.pos = true
 		update.vel = true
 	else
-		-- If the direction changed
-		if dir.x ~= 0 and self.old_dir.z ~= 0 then
-			vel.x = dir.x * math.abs(vel.z)
-			vel.z = 0
-			pos.z = math.floor(pos.z + 0.5)
-			update.pos = true
+		-- Direction change detected
+		if not vector.equals(dir, self.old_dir) then
+			vel = vector.multiply(dir, math.abs(vel.x + vel.z))
+			update.vel = true
+			if dir.y ~= self.old_dir.y then
+				pos = vector.round(pos)
+				update.pos = true
+			end
 		end
-		if dir.z ~= 0 and self.old_dir.x ~= 0 then
-			vel.z = dir.z * math.abs(vel.x)
-			vel.x = 0
+		-- Center on the rail
+		if dir.z ~= 0 and math.floor(pos.x + 0.5) ~= pos.x then
 			pos.x = math.floor(pos.x + 0.5)
 			update.pos = true
 		end
-		-- Up, down?
-		if dir.y ~= self.old_dir.y then
-			vel.y = dir.y * math.abs(vel.x + vel.z)
-			pos = vector.round(pos)
+		if dir.x ~= 0 and math.floor(pos.z + 0.5) ~= pos.z then
+			pos.z = math.floor(pos.z + 0.5)
 			update.pos = true
 		end
 
 		-- Slow down or speed up..
 		local acc = dir.y * -4.0
+
+		-- Get rail for corrected position
+		railparams = get_railparams(pos)
 
 		-- no need to check for railparams == nil since we always make it exist.
 		local speed_mod = railparams.acceleration
@@ -279,7 +280,7 @@ local function rail_on_step(self, dtime)
 
 	-- Limits
 	local max_vel = carts.speed_max
-	for _,v in ipairs({"x","y","z"}) do
+	for _, v in pairs({"x","y","z"}) do
 		if math.abs(vel[v]) > max_vel then
 			vel[v] = carts:get_sign(vel[v]) * max_vel
 			new_acc[v] = 0
@@ -296,7 +297,7 @@ local function rail_on_step(self, dtime)
 
 	if self.punched then
 		-- Collect dropped items
-		for _,obj_ in ipairs(minetest.get_objects_inside_radius(pos, 1)) do
+		for _, obj_ in pairs(minetest.get_objects_inside_radius(pos, 1)) do
 			if not obj_:is_player() and
 					obj_:get_luaentity() and
 					not obj_:get_luaentity().physical_state and
@@ -309,6 +310,8 @@ local function rail_on_step(self, dtime)
 		self.punched = false
 		update.vel = true
 	end
+
+	railparams = railparams or get_railparams(pos)
 
 	if not (update.vel or update.pos) then
 		rail_on_step_event(railparams.on_step, self, dtime)
