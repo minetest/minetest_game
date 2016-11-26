@@ -279,7 +279,14 @@ local function rail_on_step(self, dtime)
 	end
 
 	-- Limits
-	local max_vel = carts.speed_max
+	local max_vel
+	if vel.y > 0 then
+		max_vel = carts.speed_max_uphill
+	elseif vel.y < 0 then
+		max_vel = carts.speed_max_downhill
+	else
+		max_vel = carts.speed_max
+	end
 	for _, v in pairs({"x","y","z"}) do
 		if math.abs(vel[v]) > max_vel then
 			vel[v] = carts:get_sign(vel[v]) * max_vel
