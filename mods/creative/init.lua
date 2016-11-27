@@ -1,8 +1,14 @@
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
 
 if minetest.setting_getbool("creative_mode") then
-	local digtime = 0.5
-	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 3}
+	-- Dig time is modified according to difference (leveldiff) between tool
+	-- 'maxlevel' and node 'level'. Digtime is divided by the larger of
+	-- leveldiff and 1.
+	-- To speed up digging in creative, hand 'maxlevel' and 'digtime' have been
+	-- increased such that nodes of differing levels have an insignificant
+	-- effect on digtime.
+	local digtime = 42
+	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
 
 	minetest.register_item(":", {
 		type = "none",
