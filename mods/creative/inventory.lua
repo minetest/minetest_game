@@ -32,7 +32,7 @@ function creative.init_creative_inventory(player)
 				minetest.log("action", player_name .. " takes " .. stack:get_name().. " from creative inventory")
 			end
 		end,
-	})
+	}, player_name)
 
 	creative.update_creative_inventory(player_name, minetest.registered_items)
 end
