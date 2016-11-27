@@ -1630,7 +1630,7 @@ local function has_locked_chest_privilege(meta, player)
 	-- is player wielding the right key?
 	local item = player:get_wielded_item()
 	if item:get_name() == "default:key" then
-		local key_meta = minetest.parse_json(item.get_metadata())
+		local key_meta = minetest.parse_json(item:get_metadata())
 		local secret = meta:get_string("key_lock_secret")
 		if secret ~= key_meta.secret then
 			return false
