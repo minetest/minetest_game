@@ -91,9 +91,13 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 			end
 		end
 
-		local leftover = puncher:get_inventory():add_item("main", "carts:cart")
-		if not leftover:is_empty() then
-			minetest.add_item(self.object:getpos(), leftover)
+		local inv = puncher:get_inventory()
+		if not minetest.setting_getbool("creative_mode")
+				or not inv:contains_item("main", "carts:cart") then
+			local leftover = inv:add_item("main", "carts:cart")
+			if not leftover:is_empty() then
+				minetest.add_item(self.object:getpos(), leftover)
+			end
 		end
 		self.object:remove()
 		return
