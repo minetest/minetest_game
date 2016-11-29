@@ -62,22 +62,22 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		local node = minetest.get_node(pos).name
 		self.railtype = minetest.get_item_group(node, "connect_to_raillike")
 	end
-
+	-- Punched by non-player
 	if not puncher or not puncher:is_player() then
 		local cart_dir = carts:get_rail_direction(pos, self.old_dir, nil, nil, self.railtype)
 		if vector.equals(cart_dir, {x=0, y=0, z=0}) then
 			return
 		end
-		self.velocity = vector.multiply(cart_dir, 3)
+		self.velocity = vector.multiply(cart_dir, 2)
 		self.punched = true
 		return
 	end
-
+	-- Player digs cart by sneak-punch
 	if puncher:get_player_control().sneak then
 		if self.sound_handle then
 			minetest.sound_stop(self.sound_handle)
 		end
-		-- Pick up cart: Drop all attachments
+		-- Detach driver and items
 		if self.driver then
 			if self.old_pos then
 				self.object:setpos(self.old_pos)
@@ -90,11 +90,12 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 				obj_:set_detach()
 			end
 		end
-
+		-- Pick up cart
 		local inv = puncher:get_inventory()
 		if not minetest.setting_getbool("creative_mode")
 				or not inv:contains_item("main", "carts:cart") then
 			local leftover = inv:add_item("main", "carts:cart")
+			-- If no room in inventory add a replacement cart to the world
 			if not leftover:is_empty() then
 				minetest.add_item(self.object:getpos(), leftover)
 			end
@@ -102,7 +103,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		self.object:remove()
 		return
 	end
-
+	-- Player punches cart to alter velocity
 	local vel = self.object:getvelocity()
 	if puncher:get_player_name() == self.driver then
 		if math.abs(vel.x + vel.z) > carts.punch_speed_max then
