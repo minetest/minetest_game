@@ -411,6 +411,7 @@ Sfinv API
             If context is nil, it is either found or created.
 * sfinv.get_formspec(player, context) - builds current page's formspec
 * sfinv.get_nav_fs(player, context, nav, current_idx) - see above
+* sfinv.get_homepage_name(player) - get the page name of the first page to show to a player
 * sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
     * show_inv, defaults to false. Whether to show the player's main inventory
     * size, defaults to `size[8,8.6]` if not specified
@@ -422,7 +423,6 @@ Sfinv API
 
 * pages - table of pages[pagename] = def
 * pages_unordered - array table of pages in order of addition (used to build navigation tabs).
-* homepage_name - name of default page
 * contexts - contexts[playername] = player_context
 * enabled - set to false to disable. Good for inventory rehaul mods like unified inventory
 

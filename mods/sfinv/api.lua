@@ -1,7 +1,6 @@
 sfinv = {
 	pages = {},
 	pages_unordered = {},
-	homepage_name = "sfinv:crafting",
 	contexts = {},
 	enabled = true
 }
@@ -57,6 +56,10 @@ function sfinv.make_formspec(player, context, content, show_inv, size)
 	return table.concat(tmp, "")
 end
 
+function sfinv.get_homepage_name(player)
+	return "sfinv:crafting"
+end
+
 function sfinv.get_formspec(player, context)
 	-- Generate navigation tabs
 	local nav = {}
@@ -81,7 +84,7 @@ function sfinv.get_formspec(player, context)
 		return page:get(player, context)
 	else
 		local old_page = context.page
-		context.page = sfinv.homepage_name
+		context.page = sfinv.get_homepage_name(player)
 		assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
 		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
 		return sfinv.get_formspec(player, context)
@@ -94,7 +97,7 @@ function sfinv.set_player_inventory_formspec(player, context)
 		context = sfinv.contexts[name]
 		if not context then
 			context = {
-				page = sfinv.homepage_name
+				page = sfinv.get_homepage_name(player)
 			}
 			sfinv.contexts[name] = context
 		end
