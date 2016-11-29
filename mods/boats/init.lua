@@ -109,18 +109,19 @@ function boat.on_punch(self, puncher)
 	end
 	if not self.driver then
 		self.removed = true
+		local inv = puncher:get_inventory()
+		if not minetest.setting_getbool("creative_mode")
+				or not inv:contains_item("main", "boats:boat") then
+			local leftover = inv:add_item("main", "boats:boat")
+			-- if no room in inventory add a replacement boat to the world
+			if not leftover:is_empty() then
+				minetest.add_item(self.object:getpos(), leftover)
+			end
+		end
 		-- delay remove to ensure player is detached
 		minetest.after(0.1, function()
 			self.object:remove()
 		end)
-		if not minetest.setting_getbool("creative_mode") then
-			local inv = puncher:get_inventory()
-			if inv:room_for_item("main", "boats:boat") then
-				inv:add_item("main", "boats:boat")
-			else
-				minetest.add_item(self.object:getpos(), "boats:boat")
-			end
-		end
 	end
 end
 
