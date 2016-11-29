@@ -118,6 +118,20 @@ function default.node_sound_water_defaults(table)
 end
 
 --
+-- Snow Behavior
+--
+
+--turn dirt_with_snow into dirt_with_grass when snow digged
+minetest.register_on_dignode(function(pos, oldnode, digger)
+	if oldnode.name == "default:snow" then
+		pos.y = pos.y-1
+		if minetest.env:get_node(pos).name == "default:dirt_with_snow" then
+			minetest.env:set_node(pos, {name="default:dirt_with_grass"})
+		end
+	end
+end)
+
+--
 -- Lavacooling
 --
 
