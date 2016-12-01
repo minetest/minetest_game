@@ -1095,7 +1095,7 @@ end
 function default.register_decorations()
 	minetest.clear_registered_decorations()
 
-	-- Apple tree and log
+	-- Apple tree and log and bush
 
 	minetest.register_decoration({
 		deco_type = "schematic",
@@ -1149,6 +1149,37 @@ function default.register_decorations()
 		rotation = "random",
 	})
 
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_grass"},
+		sidelen = 80,
+		fill_ratio = 0.02,
+		biomes = {"rainforest"},
+		y_min = 1,
+		y_max = 31000,
+		schematic = minetest.get_modpath("default").."/schematics/apple_bush.mts",
+		flags = "place_center_x, place_center_z",
+	})
+
+	-- noise-based bushes in sandstone grassland
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_grass"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.05,
+			scale = 0.1,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 2,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {"stone_grassland", "sandstone_grassland"},
+		y_min = 1,
+		y_max = 31000,
+		schematic = minetest.get_modpath("default").."/schematics/apple_bush.mts",
+		flags = "place_center_x, place_center_z",
+	})
 	-- Jungle tree and log
 
 	minetest.register_decoration({
@@ -1244,7 +1275,7 @@ function default.register_decorations()
 		rotation = "random",
 	})
 
-	-- Acacia tree and log
+	-- Acacia tree and log and bush
 
 	minetest.register_decoration({
 		deco_type = "schematic",
@@ -1296,6 +1327,25 @@ function default.register_decorations()
 		rotation = "random",
 	})
 
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_dry_grass"},
+		sidelen = 16,
+		noise_params = {
+			offset = 0,
+			scale = 0.002,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 2,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {"savanna"},
+		y_min = 1,
+		y_max = 31000,
+		schematic = minetest.get_modpath("default").."/schematics/acacia_bush.mts",
+		flags = "place_center_x, place_center_z",
+		rotation = "random",
+	})
 	-- Aspen tree and log
 
 	minetest.register_decoration({
