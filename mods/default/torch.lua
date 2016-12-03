@@ -55,7 +55,7 @@ minetest.register_node("default:torch", {
 	drop = "default:torch",
 	selection_box = {
 		type = "wallmounted",
-		wall_bottom = {-1/16, -0.5, -1/16, 1/16, 2/16, 1/16},
+		wall_bottom = {-1/8, -1/2, -1/8, 1/8, 2/16, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = function(itemstack, placer, pointed_thing)
@@ -102,7 +102,7 @@ minetest.register_node("default:torch_wall", {
 	drop = "default:torch",
 	selection_box = {
 		type = "wallmounted",
-		wall_side = {-0.5, -0.3, -0.1, -0.2, 0.3, 0.1},
+		wall_side = {-1/2, -1/2, -1/8, -1/8, 1/8, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -123,7 +123,7 @@ minetest.register_node("default:torch_ceiling", {
 	drop = "default:torch",
 	selection_box = {
 		type = "wallmounted",
-		wall_top = {-0.1, -0.1, -0.25, 0.1, 0.5, 0.1},
+		wall_top = {-1/8, -1/16, -5/16, 1/8, 1/2, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
 })
