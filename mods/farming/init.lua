@@ -10,12 +10,14 @@ dofile(farming.path .. "/hoes.lua")
 -- WHEAT
 farming.register_plant("farming:wheat", {
 	description = "Wheat seed",
+	paramtype2 = "meshoptions",
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland"},
 	groups = {flammable = 4},
+	place_param2 = 3,
 })
 minetest.register_craftitem("farming:flour", {
 	description = "Flour",
