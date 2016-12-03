@@ -13,6 +13,9 @@ creative_mode (Creative mode) bool false
 #    'permanent_flame' nodes are unaffected.
 enable_fire (Fire) bool true
 
+#    Enable flame sound.
+flame_sound (Flame sound) bool true
+
 #    If enabled, steel tools, torches and cobblestone will be given to new
 #    players.
 give_initial_stuff (Give initial items) bool false

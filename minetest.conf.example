@@ -24,6 +24,9 @@
 # 'permanent flame' nodes will remain with either setting.
 #enable_fire = true
 
+# Enable flame sound.
+#flame_sound = true
+
 # Whether the stuff in initial_stuff should be given to new players
 #give_initial_stuff = false
 #initial_stuff = default:pick_steel,default:axe_steel,default:shovel_steel,default:torch 99,default:cobble 99
