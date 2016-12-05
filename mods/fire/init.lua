@@ -34,6 +34,7 @@ minetest.register_node("fire:basic_flame", {
 			minetest.remove_node(pos)
 			return
 		end
+		minetest.sound_play("fire_small", {pos = pos, gain = 0.2})
 		-- restart timer
 		return true
 	end,
@@ -41,11 +42,7 @@ minetest.register_node("fire:basic_flame", {
 
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(math.random(30, 60))
-		minetest.after(0, fire.update_sounds_around, pos)
-	end,
-
-	on_destruct = function(pos)
-		minetest.after(0, fire.update_sounds_around, pos)
+		minetest.after(0, minetest.sound_play, "fire_small", {pos = pos, gain = 0.2})
 	end,
 
 	on_blast = function()
@@ -75,6 +72,10 @@ minetest.register_node("fire:permanent_flame", {
 	damage_per_second = 4,
 	groups = {igniter = 2, dig_immediate = 3},
 	drop = "",
+
+	on_construct = function(pos)
+		minetest.after(0, minetest.sound_play, "fire_large", {pos = pos, gain = 0.4})
+	end,
 
 	on_blast = function()
 	end,
@@ -151,71 +152,9 @@ minetest.override_item("default:coalblock", {
 	end,
 })
 
--- Get sound area of position
-
-fire.D = 6 -- size of sound areas
-
-function fire.get_area_p0p1(pos)
-	local p0 = {
-		x = math.floor(pos.x / fire.D) * fire.D,
-		y = math.floor(pos.y / fire.D) * fire.D,
-		z = math.floor(pos.z / fire.D) * fire.D,
-	}
-	local p1 = {
-		x = p0.x + fire.D - 1,
-		y = p0.y + fire.D - 1,
-		z = p0.z + fire.D - 1
-	}
-	return p0, p1
-end
-
-
--- Fire sounds table
--- key: position hash of low corner of area
--- value: {handle=sound handle, name=sound name}
-fire.sounds = {}
-
-
--- Update fire sounds in sound area of position
-
+-- Deprecated. Change this into a warning later.
 function fire.update_sounds_around(pos)
-	local p0, p1 = fire.get_area_p0p1(pos)
-	local cp = {x = (p0.x + p1.x) / 2, y = (p0.y + p1.y) / 2, z = (p0.z + p1.z) / 2}
-	local flames_p = minetest.find_nodes_in_area(p0, p1, {"fire:basic_flame"})
-	--print("number of flames at "..minetest.pos_to_string(p0).."/"
-	--		..minetest.pos_to_string(p1)..": "..#flames_p)
-	local should_have_sound = (#flames_p > 0)
-	local wanted_sound = nil
-	if #flames_p >= 9 then
-		wanted_sound = {name = "fire_large", gain = 0.7}
-	elseif #flames_p > 0 then
-		wanted_sound = {name = "fire_small", gain = 0.9}
-	end
-	local p0_hash = minetest.hash_node_position(p0)
-	local sound = fire.sounds[p0_hash]
-	if not sound then
-		if should_have_sound then
-			fire.sounds[p0_hash] = {
-				handle = minetest.sound_play(wanted_sound,
-					{pos = cp, max_hear_distance = 16, loop = true}),
-				name = wanted_sound.name,
-			}
-		end
-	else
-		if not wanted_sound then
-			minetest.sound_stop(sound.handle)
-			fire.sounds[p0_hash] = nil
-		elseif sound.name ~= wanted_sound.name then
-			minetest.sound_stop(sound.handle)
-			fire.sounds[p0_hash] = {
-				handle = minetest.sound_play(wanted_sound,
-					{pos = cp, max_hear_distance = 16, loop = true}),
-				name = wanted_sound.name,
-			}
-		end
-	end
 end
-
 
 -- Extinguish all flames quickly with water, snow, ice
 
@@ -272,6 +211,7 @@ else -- Fire enabled
 			if minetest.find_node_near(pos, 1, {"group:puts_out_fire"}) then
 				return
 			end
+			minetest.sound_play("fire_small", {pos = pos, gain = 0.2})
 			local p = minetest.find_node_near(pos, 1, {"air"})
 			if p then
 				minetest.set_node(p, {name = "fire:basic_flame"})
