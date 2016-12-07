@@ -272,9 +272,9 @@ local function rail_on_step(self, dtime)
 			-- Try to make it similar to the original carts mod
 			acc = acc + speed_mod
 		else
-			-- Handbrake
+			-- Handbrake or coast
 			if ctrl and ctrl.down then
-				acc = acc - 1.6
+				acc = acc - 3
 			else
 				acc = acc - 0.4
 			end
