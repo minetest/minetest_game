@@ -307,6 +307,7 @@ farming.register_plant = function(name, def)
 		},
 		fertility = def.fertility,
 		sounds = default.node_sound_dirt_defaults({
+			dig = {name = "", gain = 0},
 			dug = {name = "default_grass_footstep", gain = 0.2},
 			place = {name = "default_place_node", gain = 0.25},
 		}),
