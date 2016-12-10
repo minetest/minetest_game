@@ -252,10 +252,13 @@ Metal sounds:
 Tool breaking sounds added by sofar: CC-BY-3.0
   default_tool_breaks.* - http://www.freesound.org/people/HerbertBoland/sounds/33206/
 
-AGFX
-https://www.freesound.org/people/AGFX/
-(CC BY 3.0):
+AGFX (CC BY 3.0)
+https://www.freesound.org/people/AGFX/packs/1253/
   default_water_footstep.1.ogg
   default_water_footstep.2.ogg
   default_water_footstep.3.ogg
 (default_water_footstep.4.ogg is silent)
+
+blukotek (CC0 1.0)
+https://www.freesound.org/people/blukotek/sounds/251660/
+  default_dig_snappy.ogg
