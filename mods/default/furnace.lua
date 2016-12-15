@@ -116,6 +116,7 @@ local function furnace_node_timer(pos, elapsed)
 	local srclist, fuellist
 
 	local cookable, cooked
+	local fuel
 
 	local update = true
 	while update do
@@ -154,7 +155,8 @@ local function furnace_node_timer(pos, elapsed)
 			-- Furnace ran out of fuel
 			if cookable then
 				-- We need to get new fuel
-				local fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+				local afterfuel
+				fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
 
 				if fuel.time == 0 then
 					-- No valid fuel in fuel list
@@ -164,7 +166,6 @@ local function furnace_node_timer(pos, elapsed)
 					-- Take fuel from fuel list
 					inv:set_stack("fuel", 1, afterfuel.items[1])
 					update = true
-
 					fuel_totaltime = fuel.time + (fuel_time - fuel_totaltime)
 					src_time = src_time + elapsed
 				end
@@ -177,6 +178,13 @@ local function furnace_node_timer(pos, elapsed)
 		end
 
 		elapsed = 0
+	end
+
+	if fuel and fuel_totaltime > fuel.time then
+		fuel_totaltime = fuel.time
+	end
+	if srclist[1]:is_empty() then
+		src_time = 0
 	end
 
 	--
