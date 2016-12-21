@@ -233,9 +233,11 @@ minetest.register_craftitem("boats:boat", {
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
 		boat = minetest.add_entity(pointed_thing.under, "boats:boat")
-		boat:setyaw(placer:get_look_horizontal())
-		if not minetest.setting_getbool("creative_mode") then
-			itemstack:take_item()
+		if boat then
+			boat:setyaw(placer:get_look_horizontal())
+			if not minetest.setting_getbool("creative_mode") then
+				itemstack:take_item()
+			end
 		end
 		return itemstack
 	end,
