@@ -2,27 +2,48 @@
 -- See README.txt for licensing and other information.
 
 local vessels_shelf_formspec =
-	"size[8,7;]"..
-	default.gui_bg..
-	default.gui_bg_img..
-	default.gui_slots..
-	"list[context;vessels;0,0.3;8,2;]"..
-	"list[current_player;main;0,2.85;8,1;]"..
-	"list[current_player;main;0,4.08;8,3;8]"..
-	"listring[context;vessels]"..
-	"listring[current_player;main]"..
-	default.get_hotbar_bg(0,2.85)
+	"size[8,7;]" ..
+	default.gui_bg ..
+	default.gui_bg_img ..
+	default.gui_slots ..
+	"list[context;vessels;0,0.3;8,2;]" ..
+	"list[current_player;main;0,2.85;8,1;]" ..
+	"list[current_player;main;0,4.08;8,3;8]" ..
+	"listring[context;vessels]" ..
+	"listring[current_player;main]" ..
+	default.get_hotbar_bg(0, 2.85)
+
+local function get_vessels_shelf_formspec(inv)
+	local formspec = vessels_shelf_formspec
+	local invlist = inv and inv:get_list("vessels")
+	-- Inventory slots overlay
+	local vx, vy = 0, 0.3
+	for i = 1, 16 do
+		if i == 9 then
+			vx = 0
+			vy = vy + 1
+		end
+		if not invlist or invlist[i]:is_empty() then
+			formspec = formspec ..
+				"image[" .. vx .. "," .. vy .. ";1,1;vessels_shelf_slot.png]"
+		end
+		vx = vx + 1
+	end
+	return formspec
+end
 
 minetest.register_node("vessels:shelf", {
-	description = "Vessels shelf",
-	tiles = {"default_wood.png", "default_wood.png", "vessels_shelf.png"},
+	description = "Vessels Shelf",
+	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
+		"default_wood.png", "vessels_shelf.png", "vessels_shelf.png"},
+	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3},
+	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", vessels_shelf_formspec)
+		meta:set_string("formspec", get_vessels_shelf_formspec(nil))
 		local inv = meta:get_inventory()
 		inv:set_size("vessels", 8 * 2)
 	end,
@@ -39,30 +60,36 @@ minetest.register_node("vessels:shelf", {
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name() ..
 			   " moves stuff in vessels shelf at ".. minetest.pos_to_string(pos))
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", get_vessels_shelf_formspec(meta:get_inventory()))
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			   " moves stuff to vessels shelf at ".. minetest.pos_to_string(pos))
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", get_vessels_shelf_formspec(meta:get_inventory()))
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			   " takes stuff from vessels shelf at ".. minetest.pos_to_string(pos))
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", get_vessels_shelf_formspec(meta:get_inventory()))
 	end,
 	on_blast = function(pos)
 		local drops = {}
 		default.get_inventory_drops(pos, "vessels", drops)
-		drops[#drops+1] = "vessels:shelf"
+		drops[#drops + 1] = "vessels:shelf"
 		minetest.remove_node(pos)
 		return drops
 	end,
 })
 
 minetest.register_craft({
-	output = 'vessels:shelf',
+	output = "vessels:shelf",
 	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:vessel', 'group:vessel', 'group:vessel'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{"group:wood", "group:wood", "group:wood"},
+		{"group:vessel", "group:vessel", "group:vessel"},
+		{"group:wood", "group:wood", "group:wood"},
 	}
 })
 
@@ -70,25 +97,25 @@ minetest.register_node("vessels:glass_bottle", {
 	description = "Glass Bottle (empty)",
 	drawtype = "plantlike",
 	tiles = {"vessels_glass_bottle.png"},
-	inventory_image = "vessels_glass_bottle_inv.png",
+	inventory_image = "vessels_glass_bottle.png",
 	wield_image = "vessels_glass_bottle.png",
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
-	groups = {vessel=1,dig_immediate=3,attached_node=1},
+	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
 	sounds = default.node_sound_glass_defaults(),
 })
 
 minetest.register_craft( {
 	output = "vessels:glass_bottle 10",
 	recipe = {
-		{ "default:glass", "", "default:glass" },
-		{ "default:glass", "", "default:glass" },
-		{ "", "default:glass", "" }
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "", "default:glass"},
+		{"", "default:glass", ""}
 	}
 })
 
@@ -103,18 +130,18 @@ minetest.register_node("vessels:drinking_glass", {
 	walkable = false,
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
-	groups = {vessel=1,dig_immediate=3,attached_node=1},
+	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
 	sounds = default.node_sound_glass_defaults(),
 })
 
 minetest.register_craft( {
 	output = "vessels:drinking_glass 14",
 	recipe = {
-		{ "default:glass", "", "default:glass" },
-		{ "default:glass", "", "default:glass" },
-		{ "default:glass", "default:glass", "default:glass" }
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "default:glass", "default:glass"}
 	}
 })
 
@@ -122,30 +149,30 @@ minetest.register_node("vessels:steel_bottle", {
 	description = "Heavy Steel Bottle (empty)",
 	drawtype = "plantlike",
 	tiles = {"vessels_steel_bottle.png"},
-	inventory_image = "vessels_steel_bottle_inv.png",
+	inventory_image = "vessels_steel_bottle.png",
 	wield_image = "vessels_steel_bottle.png",
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
-	groups = {vessel=1,dig_immediate=3,attached_node=1},
+	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
 	sounds = default.node_sound_defaults(),
 })
 
 minetest.register_craft( {
 	output = "vessels:steel_bottle 5",
 	recipe = {
-		{ "default:steel_ingot", "", "default:steel_ingot" },
-		{ "default:steel_ingot", "", "default:steel_ingot" },
-		{ "", "default:steel_ingot", "" }
+		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"", "default:steel_ingot", ""}
 	}
 })
 
 
--- Make sure we can recycle them
+-- Glass and steel recycling
 
 minetest.register_craftitem("vessels:glass_fragments", {
 	description = "Pile of Glass Fragments",
@@ -182,3 +209,8 @@ minetest.register_craft( {
 	recipe = "vessels:steel_bottle",
 })
 
+minetest.register_craft({
+	type = "fuel",
+	recipe = "vessels:shelf",
+	burntime = 30,
+})

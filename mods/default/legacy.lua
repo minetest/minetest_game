@@ -1,6 +1,6 @@
 -- mods/default/legacy.lua
 
--- Horrible crap to support old code registering falling nodes
+-- Horrible stuff to support old code registering falling nodes
 -- Don't use this and never do what this does, it's completely wrong!
 -- (More specifically, the client and the C++ code doesn't get the group)
 function default.register_falling_node(nodename, texture)

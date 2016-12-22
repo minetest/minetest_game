@@ -12,12 +12,12 @@ Please note:
 
  * [XYZ] refers to a section the Minetest API
  * [#ABC] refers to a section in this document
+ * [pos] refers to a position table `{x = -5, y = 0, z = 200}`
 
 Bucket API
 ----------
 
 The bucket API allows registering new types of buckets for non-default liquids.
-
 
 	bucket.register_liquid(
 		"default:lava_source",   -- name of the source node
@@ -25,8 +25,14 @@ The bucket API allows registering new types of buckets for non-default liquids.
 		"bucket:bucket_lava",    -- name of the new bucket item (or nil if liquid is not takeable)
 		"bucket_lava.png",       -- texture of the new bucket item (ignored if itemname == nil)
 		"Lava Bucket",           -- text description of the bucket item
-		{lava_bucket = 1}        -- groups of the bucket item, OPTIONAL
+		{lava_bucket = 1},       -- groups of the bucket item, OPTIONAL
+		false                    -- force-renew, OPTIONAL. Force the liquid source to renew if it has
+		                         -- a source neighbour, even if defined as 'liquid_renewable = false'.
+		                         -- Needed to avoid creating holes in sloping rivers.
 	)
+
+The filled bucket item is returned to the player that uses an empty bucket pointing to the given liquid source.
+When punching with an empty bucket pointing to an entity or a non-liquid node, the on_punch of the entity or node will be triggered.
 
 Beds API
 --------
@@ -60,6 +66,21 @@ Beds API
 			{"group:wood", "group:wood", "group:wood"}
 		}
 	}
+
+Creative API
+------------
+
+Use `creative.register_tab(name, title, items)` to add a tab with filtered items.
+For example,
+
+	creative.register_tab("tools", "Tools", minetest.registered_tools)
+
+is used to show all tools. Name is used in the sfinv page name, title is the
+human readable title.
+
+The contents of `creative.formspec_add` is appended to every creative inventory
+page. Mods can use it to add additional formspec elements onto the default
+creative inventory formspec to be drawn after each update.
 
 Doors API
 ---------
@@ -177,6 +198,9 @@ The farming API allows you to easily register plants and hoes.
 `farming.register_plant(name, Plant definition)`
  * Register a new growing plant, see [#Plant definition]
 
+`farming.registered_plants[name] = definition`
+ * Table of registered plants, indexed by plant name
+
 ### Hoe Definition
 
 
@@ -213,6 +237,14 @@ New node def property:
  * Called when fire attempts to remove a burning node.
  * `pos` Position of the burning node.
 
+ `on_ignite(pos, igniter)`
+
+  * Called when Flint and steel (or a mod defined ignitor) is used on a node.
+    Defining it may prevent the default action (spawning flames) from triggering.
+  * `pos` Position of the ignited node.
+  * `igniter` Player that used the tool, when available.
+
+
 Give Initial Stuff API
 ----------------------
 
@@ -244,6 +276,18 @@ Give Initial Stuff API
 ^ str is a comma separated list of initial stuff
 ^ Adds items to the list of items to be given
 
+Nyancat API
+-----------
+
+`nyancat.place(pos, facedir, length)`
+
+^ Place a cat at `pos` facing `facedir` with tail length `length`
+  Only accepts facedir 0-3, if facedir > 3 then it will be interpreted as facedir = 0
+
+`nyancat.generate(minp, maxp, seed)`
+
+^ Called by `minetest.register_on_generated`. To disable nyancat generation,
+  you can redefine nyancat.generate() to be an empty function
 
 TNT API
 ----------
@@ -272,9 +316,9 @@ TNT API
 * `position` The center of explosion.
 * `definition` The TNT definion as passed to `tnt.register`
 
-`tnt.burn(position)`
+`tnt.burn(position, [nodename])`
 
-^ Ignite TNT at position
+^ Ignite TNT at position, nodename isn't required unless already known.
 
 
 To make dropping items from node inventories easier, you can use the
@@ -330,8 +374,126 @@ To use it, add the `on_screwdriver` function to the node definition.
  * `new_param2` the new value of param2 that would have been set if on_rotate wasn't there
  * return value: false to disallow rotation, nil to keep default behaviour, true to allow
  	it but to indicate that changed have already been made (so the screwdriver will wear out)
- * use `on_rotate = screwdriver.disallow` to always disallow rotation
+ * use `on_rotate = false` to always disallow rotation
  * use `on_rotate = screwdriver.rotate_simple` to allow only face rotation
+
+
+Sethome API
+-----------
+
+The sethome API adds three global functions to allow mods to read a players home position,
+set a players home position and teleport a player to home position.
+
+`sethome.get(name)`
+
+ * `name` Player who's home position you wish to get
+ * return value: false if no player home coords exist, position table if true
+
+`sethome.set(name, pos)`
+
+ * `name` Player who's home position you wish to set
+ * `pos` Position table containing coords of home position
+ * return value: false if unable to set and save new home position, otherwise true
+
+`sethome.go(name)`
+
+ * `name` Player you wish to teleport to their home position
+ * return value: false if player cannot be sent home, otherwise true
+
+
+Sfinv API
+---------
+
+### sfinv Methods
+
+* sfinv.set_player_inventory_formspec(player, context) - builds page formspec
+            and calls set_inventory_formspec().
+            If context is nil, it is either found or created.
+* sfinv.get_formspec(player, context) - builds current page's formspec
+* sfinv.get_nav_fs(player, context, nav, current_idx) - see above
+* sfinv.get_homepage_name(player) - get the page name of the first page to show to a player
+* sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
+    * show_inv, defaults to false. Whether to show the player's main inventory
+    * size, defaults to `size[8,8.6]` if not specified
+* sfinv.register_page(name, def) - register a page, see section below
+* sfinv.override_page(name, def) - overrides fields of an page registered with register_page.
+    * Note: Page must already be defined, (opt)depend on the mod defining it.
+
+### sfinv Members
+
+* pages - table of pages[pagename] = def
+* pages_unordered - array table of pages in order of addition (used to build navigation tabs).
+* contexts - contexts[playername] = player_context
+* enabled - set to false to disable. Good for inventory rehaul mods like unified inventory
+
+### Context
+
+A table with these keys:
+
+* page - current page name
+* nav - a list of page names
+* nav_titles - a list of page titles
+* nav_idx - current nav index (in nav and nav_titles)
+* any thing you want to store
+    * sfinv will clear the stored data on log out / log in
+
+### sfinv.register_page
+
+sfinv.register_page(name, def)
+
+def is a table containing:
+
+* `title` - human readable page name (required)
+* `get(self, player, context)` - returns a formspec string. See formspec variables. (required)
+* `is_in_nav(self, player, context)` - return true to show in the navigation (the tab header, by default)
+* `on_player_receive_fields(self, player, context, fields)` - on formspec submit.
+* `on_enter(self, player, context)` - called when the player changes pages, usually using the tabs.
+* `on_leave(self, player, context)` - when leaving this page to go to another, called before other's on_enter
+
+### get formspec
+
+Use sfinv.make_formspec to apply a layout:
+
+	return sfinv.make_formspec(player, context, [[
+		list[current_player;craft;1.75,0.5;3,3;]
+		list[current_player;craftpreview;5.75,1.5;1,1;]
+		image[4.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]
+		listring[current_player;main]
+		listring[current_player;craft]
+		image[0,4.25;1,1;gui_hb_bg.png]
+		image[1,4.25;1,1;gui_hb_bg.png]
+		image[2,4.25;1,1;gui_hb_bg.png]
+		image[3,4.25;1,1;gui_hb_bg.png]
+		image[4,4.25;1,1;gui_hb_bg.png]
+		image[5,4.25;1,1;gui_hb_bg.png]
+		image[6,4.25;1,1;gui_hb_bg.png]
+		image[7,4.25;1,1;gui_hb_bg.png]
+	]], true)
+
+See above (methods section) for more options.
+
+### Customising themes
+
+Simply override this function to change the navigation:
+
+	function sfinv.get_nav_fs(player, context, nav, current_idx)
+		return "navformspec"
+	end
+
+And override this function to change the layout:
+
+	function sfinv.make_formspec(player, context, content, show_inv, size)
+		local tmp = {
+			size or "size[8,8.6]",
+			theme_main,
+			sfinv.get_nav_fs(player, context, context.nav_titles, context.nav_idx),
+			content
+		}
+		if show_inv then
+			tmp[4] = theme_inv
+		end
+		return table.concat(tmp, "")
+	end
 
 Stairs API
 ----------
@@ -343,7 +505,7 @@ delivered with Minetest Game, to keep them compatible with other mods.
 
  * Registers a stair.
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
- * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble"
+ * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble", may be `nil`
  * `groups`: see [Known damage and digging time defining groups]
  * `images`: see [Tile definition]
  * `description`: used for the description field in the stair's definition
@@ -379,7 +541,7 @@ Creates panes that automatically connect to each other
 ### Pane definition
 
 	{
-		textures = {"texture_Bottom_top", "texture_left_right", "texture_front_back"}, -- More tiles aren't supported
+		textures = {"texture for sides", (unused), "texture for top and bottom"}, -- More tiles aren't supported
 		groups = {group = rating}, -- Uses the known node groups, see [Known damage and digging time defining groups]
 		sounds = SoundSpec,        -- See [#Default sounds]
 		recipe = {{"","","","","","","","",""}}, -- Recipe field only
@@ -416,6 +578,7 @@ Sounds inside the default table can be used within the sounds field of node defi
  * `default.node_sound_wood_defaults()`
  * `default.node_sound_leaves_defaults()`
  * `default.node_sound_glass_defaults()`
+ * `default.node_sound_metal_defaults()`
 
 Default constants
 -----------------
@@ -591,3 +754,83 @@ Trees
 
  * `default.grow_new_snowy_pine_tree(pos)`
   * Grows a new design snowy pine tree at pos
+
+Carts
+-----
+
+	carts.register_rail(
+		"mycarts:myrail", -- Rail name
+		nodedef,          -- standard nodedef
+		railparams        -- rail parameter struct (optional)
+	)
+
+	railparams = {
+		on_step(obj, dtime), -- Event handler called when
+		                     -- cart is on rail
+		acceleration, -- integer acceleration factor (negative
+		              -- values to brake)
+	}
+
+	The event handler is called after all default calculations
+	are made, so the custom on_step handler can override things
+	like speed, acceleration, player attachment. The handler will
+	likely be called many times per second, so the function needs
+	to make sure that the event is handled properly.
+
+Key API
+-------
+
+The key API allows mods to add key functionality to nodes that have
+ownership or specific permissions. Using the API will make it so
+that a node owner can use skeleton keys on their nodes to create keys
+for that node in that location, and give that key to other players,
+allowing them some sort of access that they otherwise would not have
+due to node protection.
+
+To make your new nodes work with the key API, you need to register
+two callback functions in each nodedef:
+
+
+`on_key_use(pos, player)`
+ * Is called when a player right-clicks (uses) a normal key on your
+ * node.
+ * `pos` - position of the node
+ * `player` - PlayerRef
+ * return value: none, ignored
+
+The `on_key_use` callback should validate that the player is wielding
+a key item with the right key meta secret. If needed the code should
+deny access to the node functionality.
+
+If formspecs are used, the formspec callbacks should duplicate these
+checks in the metadata callback functions.
+
+
+`on_skeleton_key_use(pos, player, newsecret)`
+
+ * Is called when a player right-clicks (uses) a skeleton key on your
+ * node.
+ * `pos` - position of the node
+ * `player` - PlayerRef
+ * `newsecret` - a secret value(string)
+ * return values:
+ * `secret` - `nil` or the secret value that unlocks the door
+ * `name` - a string description of the node ("a locked chest")
+ * `owner` - name of the node owner
+
+The `on_skeleton_key_use` function should validate that the player has
+the right permissions to make a new key for the item. The newsecret
+value is useful if the node has no secret value. The function should
+store this secret value somewhere so that in the future it may compare
+key secrets and match them to allow access. If a node already has a
+secret value, the function should return that secret value instead
+of the newsecret value. The secret value stored for the node should
+not be overwritten, as this would invalidate existing keys.
+
+Aside from the secret value, the function should retun a descriptive
+name for the node and the owner name. The return values are all
+encoded in the key that will be given to the player in replacement
+for the wielded skeleton key.
+
+if `nil` is returned, it is assumed that the wielder did not have
+permissions to create a key for this node, and no key is created.

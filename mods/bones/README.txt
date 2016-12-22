@@ -1,17 +1,12 @@
 Minetest Game mod: bones
 ========================
+See license.txt for license information.
 
-License of source code:
------------------------
-Copyright (C) 2012 PilzAdam
-
-WTFPL
-
-License of media (textures and sounds)
---------------------------------------
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-http://creativecommons.org/licenses/by-sa/3.0/
-
-Authors of media files
+Authors of source code
 ----------------------
-Bad_Command_
+Originally by PilzAdam (MIT)
+Various Minetest developers and contributors (MIT)
+
+Authors of media (textures)
+---------------------------
+All textures: paramat (CC BY-SA 3.0)

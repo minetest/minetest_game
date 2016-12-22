@@ -3,19 +3,20 @@
 minetest.register_craftitem("default:stick", {
 	description = "Stick",
 	inventory_image = "default_stick.png",
-	groups = {stick = 1},
+	groups = {stick = 1, flammable = 2},
 })
 
 minetest.register_craftitem("default:paper", {
 	description = "Paper",
 	inventory_image = "default_paper.png",
+	groups = {flammable = 3},
 })
 
 local lpp = 14 -- Lines per book's page
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
-	local formspec, title, text, owner = "", "", "", player_name
+	local title, text, owner = "", "", player_name
 	local page, page_max, lines, string = 1, 1, {}, ""
 
 	if data then
@@ -38,6 +39,7 @@ local function book_on_use(itemstack, user)
 		end
 	end
 
+	local formspec
 	if owner == player_name then
 		formspec = "size[8,8]" .. default.gui_bg ..
 			default.gui_bg_img ..
@@ -104,7 +106,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	elseif fields.book_next or fields.book_prev then
 		local data = minetest.deserialize(stack:get_metadata())
-		if not data.page then return end
+		if not data or not data.page then
+			return
+		end
 
 		if fields.book_next then
 			data.page = data.page + 1
@@ -129,14 +133,14 @@ end)
 minetest.register_craftitem("default:book", {
 	description = "Book",
 	inventory_image = "default_book.png",
-	groups = {book = 1},
+	groups = {book = 1, flammable = 3},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("default:book_written", {
 	description = "Book With Text",
 	inventory_image = "default_book_written.png",
-	groups = {book = 1, not_in_creative_inventory = 1},
+	groups = {book = 1, not_in_creative_inventory = 1, flammable = 3},
 	stack_max = 1,
 	on_use = book_on_use,
 })
@@ -152,7 +156,6 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 		return
 	end
 
-	local copy = ItemStack("default:book_written")
 	local original
 	local index
 	for i = 1, player:get_inventory():get_size("craft") do
@@ -174,7 +177,7 @@ end)
 minetest.register_craftitem("default:coal_lump", {
 	description = "Coal Lump",
 	inventory_image = "default_coal_lump.png",
-	groups = {coal = 1}
+	groups = {coal = 1, flammable = 1}
 })
 
 minetest.register_craftitem("default:iron_lump", {

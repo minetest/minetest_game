@@ -5,6 +5,12 @@
 # Whether creative mode (fast digging of all blocks, unlimited resources) should be enabled
 #creative_mode = false
 
+# Sets the behaviour of the inventory items when a player dies.
+#  "bones": Store all items inside a bone node but drop items if inside protected area
+#  "drop": Drop all items on the ground
+#  "keep": Player keeps all items
+#bones_mode = "bones"
+
 # The time in seconds after which the bones of a dead player can be looted by everyone
 # 0 to disable
 #share_bones_time = 1200
@@ -14,9 +20,12 @@
 # 0 to disable. By default it is "share_bones_time" divide by four.
 #share_bones_time_early = 300
 
-# Whether standard fire should be disabled ('basic flame' nodes will disappear)
-# 'permanent flame' nodes will remain with either setting
-#disable_fire = false
+# Whether fire should be enabled. If disabled, 'basic flame' nodes will disappear.
+# 'permanent flame' nodes will remain with either setting.
+#enable_fire = true
+
+# Enable flame sound.
+#flame_sound = true
 
 # Whether the stuff in initial_stuff should be given to new players
 #give_initial_stuff = false

@@ -16,7 +16,7 @@ local function destruct_bed(pos, n)
 	if reverse then
 		reverse = not reverse
 		minetest.remove_node(other)
-		nodeupdate(other)
+		minetest.check_for_falling(other)
 	else
 		reverse = not reverse
 	end
@@ -33,7 +33,7 @@ function beds.register_bed(name, def)
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		stack_max = 1,
-		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 1},
+		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 1},
 		sounds = default.node_sound_wood_defaults(),
 		node_box = {
 			type = "fixed",
@@ -59,8 +59,8 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			local def = minetest.registered_nodes[minetest.get_node(pos).name]
-			if not def or not def.buildable_to then
+			local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+			if not node_def or not node_def.buildable_to then
 				return itemstack
 			end
 
@@ -91,8 +91,9 @@ function beds.register_bed(name, def)
 			destruct_bed(pos, 1)
 		end,
 
-		on_rightclick = function(pos, node, clicker)
+		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 			beds.on_rightclick(pos, clicker)
+			return itemstack
 		end,
 
 		on_rotate = function(pos, node, user, mode, new_param2)
@@ -112,8 +113,8 @@ function beds.register_bed(name, def)
 			end
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
 			local node3 = minetest.get_node_or_nil(newp)
-			local def = node3 and minetest.registered_nodes[node3.name]
-			if not def or not def.buildable_to then
+			local node_def = node3 and minetest.registered_nodes[node3.name]
+			if not node_def or not node_def.buildable_to then
 				return false
 			end
 			if minetest.is_protected(newp, user:get_player_name()) then
@@ -136,7 +137,7 @@ function beds.register_bed(name, def)
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		pointable = false,
-		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
+		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
 		sounds = default.node_sound_wood_defaults(),
 		drop = name .. "_bottom",
 		node_box = {

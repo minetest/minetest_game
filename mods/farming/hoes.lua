@@ -2,7 +2,8 @@ farming.register_hoe(":farming:hoe_wood", {
 	description = "Wooden Hoe",
 	inventory_image = "farming_tool_woodhoe.png",
 	max_uses = 30,
-	material = "group:wood"
+	material = "group:wood",
+	groups = {flammable = 2},
 })
 
 farming.register_hoe(":farming:hoe_stone", {

@@ -4,7 +4,7 @@
 --
 
 local function active_formspec(fuel_percent, item_percent)
-	local formspec = 
+	local formspec =
 		"size[8,8.5]"..
 		default.gui_bg..
 		default.gui_bg_img..
@@ -21,6 +21,8 @@ local function active_formspec(fuel_percent, item_percent)
 		"listring[current_name;dst]"..
 		"listring[current_player;main]"..
 		"listring[current_name;src]"..
+		"listring[current_player;main]"..
+		"listring[current_name;fuel]"..
 		"listring[current_player;main]"..
 		default.get_hotbar_bg(0, 4.25)
 	return formspec
@@ -41,6 +43,8 @@ local inactive_formspec =
 	"listring[current_name;dst]"..
 	"listring[current_player;main]"..
 	"listring[current_name;src]"..
+	"listring[current_player;main]"..
+	"listring[current_name;fuel]"..
 	"listring[current_player;main]"..
 	default.get_hotbar_bg(0, 4.25)
 
@@ -109,74 +113,93 @@ local function furnace_node_timer(pos, elapsed)
 	local fuel_totaltime = meta:get_float("fuel_totaltime") or 0
 
 	local inv = meta:get_inventory()
-	local srclist = inv:get_list("src")
-	local fuellist = inv:get_list("fuel")
-	local dstlist = inv:get_list("dst")
+	local srclist, fuellist
 
-	--
-	-- Cooking
-	--
+	local cookable, cooked
+	local fuel
 
-	-- Check if we have cookable content
-	local cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
-	local cookable = true
+	local update = true
+	while update do
+		update = false
 
-	if cooked.time == 0 then
-		cookable = false
-	end
+		srclist = inv:get_list("src")
+		fuellist = inv:get_list("fuel")
 
-	-- Check if we have enough fuel to burn
-	if fuel_time < fuel_totaltime then
-		-- The furnace is currently active and has enough fuel
-		fuel_time = fuel_time + 1
+		--
+		-- Cooking
+		--
 
-		-- If there is a cookable item then check if it is ready yet
-		if cookable then
-			src_time = src_time + 1
-			if src_time >= cooked.time then
-				-- Place result in dst list if possible
-				if inv:room_for_item("dst", cooked.item) then
-					inv:add_item("dst", cooked.item)
-					inv:set_stack("src", 1, aftercooked.items[1])
-					src_time = 0
+		-- Check if we have cookable content
+		local aftercooked
+		cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+		cookable = cooked.time ~= 0
+
+		-- Check if we have enough fuel to burn
+		if fuel_time < fuel_totaltime then
+			-- The furnace is currently active and has enough fuel
+			fuel_time = fuel_time + elapsed
+			-- If there is a cookable item then check if it is ready yet
+			if cookable then
+				src_time = src_time + elapsed
+				if src_time >= cooked.time then
+					-- Place result in dst list if possible
+					if inv:room_for_item("dst", cooked.item) then
+						inv:add_item("dst", cooked.item)
+						inv:set_stack("src", 1, aftercooked.items[1])
+						src_time = src_time - cooked.time
+						update = true
+					end
 				end
 			end
-		end
-	else
-		-- Furnace ran out of fuel
-		if cookable then
-			-- We need to get new fuel
-			local fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
-
-			if fuel.time == 0 then
-				-- No valid fuel in fuel list
-				fuel_totaltime = 0
-				fuel_time = 0
-				src_time = 0
-			else
-				-- Take fuel from fuel list
-				inv:set_stack("fuel", 1, afterfuel.items[1])
-
-				fuel_totaltime = fuel.time
-				fuel_time = 0
-			end
 		else
-			-- We don't need to get new fuel since there is no cookable item
-			fuel_totaltime = 0
+			-- Furnace ran out of fuel
+			if cookable then
+				-- We need to get new fuel
+				local afterfuel
+				fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+
+				if fuel.time == 0 then
+					-- No valid fuel in fuel list
+					fuel_totaltime = 0
+					src_time = 0
+				else
+					-- Take fuel from fuel list
+					inv:set_stack("fuel", 1, afterfuel.items[1])
+					update = true
+					fuel_totaltime = fuel.time + (fuel_time - fuel_totaltime)
+					src_time = src_time + elapsed
+				end
+			else
+				-- We don't need to get new fuel since there is no cookable item
+				fuel_totaltime = 0
+				src_time = 0
+			end
 			fuel_time = 0
-			src_time = 0
 		end
+
+		elapsed = 0
+	end
+
+	if fuel and fuel_totaltime > fuel.time then
+		fuel_totaltime = fuel.time
+	end
+	if srclist[1]:is_empty() then
+		src_time = 0
 	end
 
 	--
 	-- Update formspec, infotext and node
 	--
 	local formspec = inactive_formspec
-	local item_state = ""
+	local item_state
 	local item_percent = 0
 	if cookable then
 		item_percent = math.floor(src_time / cooked.time * 100)
-		item_state = item_percent .. "%"
+		if item_percent > 100 then
+			item_state = "100% (output full)"
+		else
+			item_state = item_percent .. "%"
+		end
 	else
 		if srclist[1]:is_empty() then
 			item_state = "Empty"
@@ -189,7 +212,7 @@ local function furnace_node_timer(pos, elapsed)
 	local active = "inactive "
 	local result = false
 
-	if fuel_time <= fuel_totaltime and fuel_totaltime ~= 0 then
+	if fuel_totaltime ~= 0 then
 		active = "active "
 		local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = fuel_percent .. "%"
@@ -203,8 +226,7 @@ local function furnace_node_timer(pos, elapsed)
 		end
 		swap_node(pos, "default:furnace")
 		-- stop timer on the inactive furnace
-		local timer = minetest.get_node_timer(pos)
-		timer:stop()
+		minetest.get_node_timer(pos):stop()
 	end
 
 	local infotext = "Furnace " .. active .. "(Item: " .. item_state .. "; Fuel: " .. fuel_state .. ")"
@@ -252,13 +274,11 @@ minetest.register_node("default:furnace", {
 	end,
 
 	on_metadata_inventory_move = function(pos)
-		local timer = minetest.get_node_timer(pos)
-		timer:start(1.0)
+		minetest.get_node_timer(pos):start(1.0)
 	end,
 	on_metadata_inventory_put = function(pos)
 		-- start timer function, it will sort out whether furnace can burn or not.
-		local timer = minetest.get_node_timer(pos)
-		timer:start(1.0)
+		minetest.get_node_timer(pos):start(1.0)
 	end,
 	on_blast = function(pos)
 		local drops = {}

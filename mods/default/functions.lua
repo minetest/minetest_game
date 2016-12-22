@@ -18,7 +18,7 @@ end
 function default.node_sound_stone_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_hard_footstep", gain = 0.5}
+			{name = "default_hard_footstep", gain = 0.3}
 	table.dug = table.dug or
 			{name = "default_hard_footstep", gain = 1.0}
 	default.node_sound_defaults(table)
@@ -28,9 +28,9 @@ end
 function default.node_sound_dirt_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_dirt_footstep", gain = 1.0}
+			{name = "default_dirt_footstep", gain = 0.4}
 	table.dug = table.dug or
-			{name = "default_dirt_footstep", gain = 1.5}
+			{name = "default_dirt_footstep", gain = 1.0}
 	table.place = table.place or
 			{name = "default_place_node", gain = 1.0}
 	default.node_sound_defaults(table)
@@ -52,7 +52,7 @@ end
 function default.node_sound_gravel_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_gravel_footstep", gain = 0.5}
+			{name = "default_gravel_footstep", gain = 0.4}
 	table.dug = table.dug or
 			{name = "default_gravel_footstep", gain = 1.0}
 	table.place = table.place or
@@ -64,7 +64,7 @@ end
 function default.node_sound_wood_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_wood_footstep", gain = 0.5}
+			{name = "default_wood_footstep", gain = 0.3}
 	table.dug = table.dug or
 			{name = "default_wood_footstep", gain = 1.0}
 	default.node_sound_defaults(table)
@@ -74,7 +74,7 @@ end
 function default.node_sound_leaves_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_grass_footstep", gain = 0.35}
+			{name = "default_grass_footstep", gain = 0.45}
 	table.dug = table.dug or
 			{name = "default_grass_footstep", gain = 0.7}
 	table.dig = table.dig or
@@ -88,6 +88,8 @@ end
 function default.node_sound_glass_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
+			{name = "default_glass_footstep", gain = 0.3}
+	table.dig = table.dig or
 			{name = "default_glass_footstep", gain = 0.5}
 	table.dug = table.dug or
 			{name = "default_break_glass", gain = 1.0}
@@ -95,6 +97,27 @@ function default.node_sound_glass_defaults(table)
 	return table
 end
 
+function default.node_sound_metal_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "default_metal_footstep", gain = 0.4}
+	table.dig = table.dig or
+			{name = "default_dig_metal", gain = 0.5}
+	table.dug = table.dug or
+			{name = "default_dug_metal", gain = 0.5}
+	table.place = table.place or
+			{name = "default_place_node_metal", gain = 0.5}
+	default.node_sound_defaults(table)
+	return table
+end
+
+function default.node_sound_water_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "default_water_footstep", gain = 0.2}
+	default.node_sound_defaults(table)
+	return table
+end
 
 --
 -- Lavacooling
@@ -111,8 +134,9 @@ default.cool_lava = function(pos, node)
 end
 
 minetest.register_abm({
+	label = "Lava cooling",
 	nodenames = {"default:lava_source", "default:lava_flowing"},
-	neighbors = {"group:water"},
+	neighbors = {"group:cools_lava", "group:water"},
 	interval = 1,
 	chance = 1,
 	catch_up = false,
@@ -125,6 +149,7 @@ minetest.register_abm({
 --
 -- optimized helper to put all items in an inventory into a drops list
 --
+
 function default.get_inventory_drops(pos, inventory, drops)
 	local inv = minetest.get_meta(pos):get_inventory()
 	local n = #drops
@@ -189,6 +214,7 @@ function default.grow_papyrus(pos, node)
 end
 
 minetest.register_abm({
+	label = "Grow cactus",
 	nodenames = {"default:cactus"},
 	neighbors = {"group:sand"},
 	interval = 12,
@@ -199,6 +225,7 @@ minetest.register_abm({
 })
 
 minetest.register_abm({
+	label = "Grow papyrus",
 	nodenames = {"default:papyrus"},
 	neighbors = {"default:dirt", "default:dirt_with_grass"},
 	interval = 14,
@@ -226,6 +253,7 @@ end
 --
 -- Fence registration helper
 --
+
 function default.register_fence(name, def)
 	minetest.register_craft({
 		output = name .. " 4",
@@ -283,16 +311,7 @@ end
 -- Leafdecay
 --
 
-default.leafdecay_trunk_cache = {}
-default.leafdecay_enable_cache = true
--- Spread the load of finding trunks
-default.leafdecay_trunk_find_allow_accumulator = 0
-
-minetest.register_globalstep(function(dtime)
-	local finds_per_second = 5000
-	default.leafdecay_trunk_find_allow_accumulator =
-			math.floor(dtime * finds_per_second)
-end)
+-- Prevent decay of placed leaves
 
 default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
 	if placer and not placer:get_player_control().sneak then
@@ -302,79 +321,44 @@ default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
 	end
 end
 
-minetest.register_abm({
-	nodenames = {"group:leafdecay"},
-	neighbors = {"air", "group:liquid"},
-	-- A low interval and a high inverse chance spreads the load
-	interval = 2,
-	chance = 5,
+-- Leafdecay ABM
 
-	action = function(p0, node, _, _)
-		--print("leafdecay ABM at "..p0.x..", "..p0.y..", "..p0.z..")")
-		local do_preserve = false
-		local d = minetest.registered_nodes[node.name].groups.leafdecay
-		if not d or d == 0 then
-			--print("not groups.leafdecay")
+minetest.register_abm({
+	label = "Leaf decay",
+	nodenames = {"group:leafdecay"},
+	neighbors = {"air"},
+	interval = 2,
+	chance = 10,
+	catch_up = false,
+
+	action = function(pos, node, _, _)
+		-- Check if leaf is placed
+		if node.param2 ~= 0 then
 			return
 		end
-		local n0 = minetest.get_node(p0)
-		if n0.param2 ~= 0 then
-			--print("param2 ~= 0")
+
+		local rad = minetest.registered_nodes[node.name].groups.leafdecay
+		-- Assume ignore is a trunk, to make this
+		-- work at the border of a loaded area
+		if minetest.find_node_near(pos, rad, {"ignore", "group:tree"}) then
 			return
 		end
-		local p0_hash = nil
-		if default.leafdecay_enable_cache then
-			p0_hash = minetest.hash_node_position(p0)
-			local trunkp = default.leafdecay_trunk_cache[p0_hash]
-			if trunkp then
-				local n = minetest.get_node(trunkp)
-				local reg = minetest.registered_nodes[n.name]
-				-- Assume ignore is a trunk, to make the thing
-				-- work at the border of the active area
-				if n.name == "ignore" or (reg and reg.groups.tree and
-						reg.groups.tree ~= 0) then
-					--print("cached trunk still exists")
-					return
-				end
-				--print("cached trunk is invalid")
-				-- Cache is invalid
-				table.remove(default.leafdecay_trunk_cache, p0_hash)
+		-- Drop stuff
+		local itemstacks = minetest.get_node_drops(node.name)
+		for _, itemname in ipairs(itemstacks) do
+			if itemname ~= node.name or
+					minetest.get_item_group(node.name, "leafdecay_drop") ~= 0 then
+				local p_drop = {
+					x = pos.x - 0.5 + math.random(),
+					y = pos.y - 0.5 + math.random(),
+					z = pos.z - 0.5 + math.random(),
+				}
+				minetest.add_item(p_drop, itemname)
 			end
 		end
-		if default.leafdecay_trunk_find_allow_accumulator <= 0 then
-			return
-		end
-		default.leafdecay_trunk_find_allow_accumulator =
-				default.leafdecay_trunk_find_allow_accumulator - 1
-		-- Assume ignore is a trunk, to make the thing
-		-- work at the border of the active area
-		local p1 = minetest.find_node_near(p0, d, {"ignore", "group:tree"})
-		if p1 then
-			do_preserve = true
-			if default.leafdecay_enable_cache then
-				--print("caching trunk")
-				-- Cache the trunk
-				default.leafdecay_trunk_cache[p0_hash] = p1
-			end
-		end
-		if not do_preserve then
-			-- Drop stuff other than the node itself
-			local itemstacks = minetest.get_node_drops(n0.name)
-			for _, itemname in ipairs(itemstacks) do
-				if minetest.get_item_group(n0.name, "leafdecay_drop") ~= 0 or
-						itemname ~= n0.name then
-					local p_drop = {
-						x = p0.x - 0.5 + math.random(),
-						y = p0.y - 0.5 + math.random(),
-						z = p0.z - 0.5 + math.random(),
-					}
-					minetest.add_item(p_drop, itemname)
-				end
-			end
-			-- Remove node
-			minetest.remove_node(p0)
-			nodeupdate(p0)
-		end
+		-- Remove node
+		minetest.remove_node(pos)
+		minetest.check_for_falling(pos)
 	end
 })
 
@@ -384,49 +368,39 @@ minetest.register_abm({
 --
 
 minetest.register_abm({
+	label = "Grass spread",
 	nodenames = {"default:dirt"},
 	neighbors = {
-		"default:dirt_with_grass",
-		"default:dirt_with_dry_grass",
-		"default:dirt_with_snow",
+		"air",
 		"group:grass",
 		"group:dry_grass",
 		"default:snow",
 	},
 	interval = 6,
-	chance = 67,
+	chance = 50,
 	catch_up = false,
 	action = function(pos, node)
-		-- Most likely case, half the time it's too dark for this.
+		-- Check for darkness: night, shadow or under a light-blocking node
+		-- Returns if ignore above
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if (minetest.get_node_light(above) or 0) < 13 then
 			return
 		end
 
-		-- Look for likely neighbors.
-		local p2 = minetest.find_node_near(pos, 1, {"default:dirt_with_grass",
-				"default:dirt_with_dry_grass", "default:dirt_with_snow"})
+		-- Look for spreading dirt-type neighbours
+		local p2 = minetest.find_node_near(pos, 1, "group:spreading_dirt_type")
 		if p2 then
-			-- But the node needs to be under air in this case.
-			local n2 = minetest.get_node(above)
-			if n2 and n2.name == "air" then
-				local n3 = minetest.get_node(p2)
-				minetest.set_node(pos, {name = n3.name})
-				return
-			end
-		end
-
-		-- Anything on top?
-		local n2 = minetest.get_node(above)
-		if not n2 then
+			local n3 = minetest.get_node(p2)
+			minetest.set_node(pos, {name = n3.name})
 			return
 		end
 
-		local name = n2.name
-		-- Snow check is cheapest, so comes first.
+		-- Else, any seeding nodes on top?
+		local name = minetest.get_node(above).name
+		-- Snow check is cheapest, so comes first
 		if name == "default:snow" then
 			minetest.set_node(pos, {name = "default:dirt_with_snow"})
-		-- Most likely case first.
+		-- Most likely case first
 		elseif minetest.get_item_group(name, "grass") ~= 0 then
 			minetest.set_node(pos, {name = "default:dirt_with_grass"})
 		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
@@ -435,16 +409,14 @@ minetest.register_abm({
 	end
 })
 
+
 --
 -- Grass and dry grass removed in darkness
 --
 
 minetest.register_abm({
-	nodenames = {
-		"default:dirt_with_grass",
-		"default:dirt_with_dry_grass",
-		"default:dirt_with_snow",
-	},
+	label = "Grass covered",
+	nodenames = {"group:spreading_dirt_type"},
 	interval = 8,
 	chance = 50,
 	catch_up = false,
@@ -466,12 +438,77 @@ minetest.register_abm({
 --
 
 minetest.register_abm({
-	nodenames = {"default:cobble"},
+	label = "Moss growth",
+	nodenames = {"default:cobble", "stairs:slab_cobble", "stairs:stair_cobble", "walls:cobble"},
 	neighbors = {"group:water"},
 	interval = 16,
 	chance = 200,
 	catch_up = false,
 	action = function(pos, node)
-		minetest.set_node(pos, {name = "default:mossycobble"})
+		if node.name == "default:cobble" then
+			minetest.set_node(pos, {name = "default:mossycobble"})
+		elseif node.name == "stairs:slab_cobble" then
+			minetest.set_node(pos, {name = "stairs:slab_mossycobble", param2 = node.param2})
+		elseif node.name == "stairs:stair_cobble" then
+			minetest.set_node(pos, {name = "stairs:stair_mossycobble", param2 = node.param2})
+		elseif node.name == "walls:cobble" then
+			minetest.set_node(pos, {name = "walls:mossycobble", param2 = node.param2})
+		end
 	end
+})
+
+
+--
+-- Checks if specified volume intersects a protected volume
+--
+
+function default.intersects_protection(minp, maxp, player_name, interval)
+	-- 'interval' is the largest allowed interval for the 3D lattice of checks
+
+	-- Compute the optimal float step 'd' for each axis so that all corners and
+	-- borders are checked. 'd' will be smaller or equal to 'interval'.
+	-- Subtracting 1e-4 ensures that the max co-ordinate will be reached by the
+	-- for loop (which might otherwise not be the case due to rounding errors).
+	local d = {}
+	for _, c in pairs({"x", "y", "z"}) do
+		if maxp[c] > minp[c] then
+			d[c] = (maxp[c] - minp[c]) / math.ceil((maxp[c] - minp[c]) / interval) - 1e-4
+		elseif maxp[c] == minp[c] then
+			d[c] = 1 -- Any value larger than 0 to avoid division by zero
+		else -- maxp[c] < minp[c], print error and treat as protection intersected
+			minetest.log("error", "maxp < minp in 'default.intersects_protection()'")
+			return true
+		end
+	end
+
+	for zf = minp.z, maxp.z, d.z do
+		local z = math.floor(zf + 0.5)
+		for yf = minp.y, maxp.y, d.y do
+			local y = math.floor(yf + 0.5)
+			for xf = minp.x, maxp.x, d.x do
+				local x = math.floor(xf + 0.5)
+				if minetest.is_protected({x = x, y = y, z = z}, player_name) then
+					return true
+				end
+			end
+		end
+	end
+
+	return false
+end
+
+
+--
+-- Coral death near air
+--
+
+minetest.register_abm({
+	nodenames = {"default:coral_brown", "default:coral_orange"},
+	neighbors = {"air"},
+	interval = 17,
+	chance = 5,
+	catch_up = false,
+	action = function(pos, node)
+		minetest.set_node(pos, {name = "default:coral_skeleton"})
+	end,
 })

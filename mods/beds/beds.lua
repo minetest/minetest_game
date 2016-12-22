@@ -66,7 +66,7 @@ beds.register_bed("beds:bed", {
 		},
 		top = {
 			"beds_bed_top_top.png^[transformR90",
-			"default_wood.png", 
+			"default_wood.png",
 			"beds_bed_side_top_r.png",
 			"beds_bed_side_top_r.png^[transformfx",
 			"beds_bed_side_top.png",
@@ -88,3 +88,17 @@ beds.register_bed("beds:bed", {
 
 minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
 minetest.register_alias("beds:bed_top_red", "beds:bed_top")
+
+-- Fuel
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "beds:fancy_bed_bottom",
+	burntime = 13,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "beds:bed_bottom",
+	burntime = 12,
+})

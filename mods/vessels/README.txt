@@ -1,45 +1,22 @@
 Minetest Game mod: vessels
 ==========================
+See license.txt for license information.
 
-Crafts
--------
-Glass bottle (yields 10)
+Authors of source code
+----------------------
+Originally by Vanessa Ezekowitz (LGPL 2.1)
+Modified by Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
+Various Minetest developers and contributors (LGPL 2.1)
 
-   G - G
-   G - G
-   - G -
+Authors of media (textures)
+---------------------------
+All not listed below, Vanessa Ezekowitz (CC BY-SA 3.0)
 
-Drinking Glass (yields 14)
+The following textures were modified by Thomas-S (CC BY-SA 3.0):
+  vessels_drinking_glass.png
+  vessels_drinking_glass_inv.png
+  vessels_glass_bottle.png
+  vessels_steel_bottle.png
 
-   G - G
-   G - G
-   G G G
-
-Heavy Steel Bottle (yields 5)
-
-   S - S
-   S - S
-   - S -
-
-License of source code:
------------------------
-Copyright (C) 2012 Vanessa Ezekowitz
-Version 2012-09-02
-Modifications by Perttu Ahola <celeron55@gmail.com>
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-http://www.gnu.org/licenses/lgpl-2.1.html
-
-License of media (textures and sounds)
---------------------------------------
-WTFPL
-
-Authors of media files
------------------------
-Unless specifically noted,
-Copyright (C) 2012 Vanessa Ezekowitz
-
+The following texture was created by Wuzzy (CC BY-SA 3.0):
+  vessels_shelf_slot.png (based on vessels_glass_bottle.png)

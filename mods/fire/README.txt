@@ -1,36 +1,35 @@
 Minetest Game mod: fire
 =======================
+See license.txt for license information.
 
-License of source code:
------------------------
-Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com>
+Authors of source code
+----------------------
+Originally by Perttu Ahola (celeron55) <celeron55@gmail.com> (LGPL 2.1)
+Various Minetest developers and contributors (LGPL 2.1)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-http://www.gnu.org/licenses/lgpl-2.1.html
-
-License of media (textures and sounds)
+Authors of media (textures and sounds)
 --------------------------------------
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)                                 
-http://creativecommons.org/licenses/by-sa/3.0/
-
-Authors of media files
------------------------
 Everything not listed in here:
-Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com>
+Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com> (CC BY-SA 3.0)
 
-fire_small.ogg sampled from:
-  http://www.freesound.org/people/dobroide/sounds/4211/
+Muadtralk (CC BY-SA 3.0)
+  fire_basic_flame_animated.png
 
-fire_large.ogg sampled from:
-  http://www.freesound.org/people/Dynamicell/sounds/17548/
+Gambit (CC BY-SA 3.0)
+  fire_flint_steel.png
 
-fire_basic_flame_animated.png:
-  Muadtralk
+dobroide (CC BY 3.0)
+http://www.freesound.org/people/dobroide/sounds/4211/
+  fire_small.ogg
 
-fire_flint_steel.png
-  Gambit (WTFPL)
+Dynamicell (CC BY 3.0)
+http://www.freesound.org/people/Dynamicell/sounds/17548/
+  fire_large.ogg
+  fire_fire.*.ogg
 
+fire_small.ogg and fire_large.ogg are unused but kept temporarily to not break
+other mods that may use them.
+
+Benboncan (CC BY 3.0)
+https://www.freesound.org/people/Benboncan/sounds/66457/
+  fire_flint_and_steel.ogg

@@ -70,7 +70,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
-		player:set_look_yaw(math.random(1, 180) / 100)
+		player:set_look_horizontal(math.random(1, 180) / 100)
 		default.player_attached[name] = false
 		player:set_physics_override(1, 1, 1)
 		hud_flags.wielditem = true
@@ -85,7 +85,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
 		local yaw, param2 = get_look_yaw(bed_pos)
-		player:set_look_yaw(yaw)
+		player:set_look_horizontal(yaw)
 		local dir = minetest.facedir_to_dir(param2)
 		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
 		player:set_physics_override(0, 0, 0)
@@ -100,7 +100,7 @@ end
 
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
-	local form_n = ""
+	local form_n
 	local is_majority = (ges / 2) < player_in_bed
 
 	if finished then
@@ -130,7 +130,6 @@ end
 
 function beds.skip_night()
 	minetest.set_timeofday(0.23)
-	beds.set_spawns()
 end
 
 function beds.on_rightclick(pos, player)
@@ -149,6 +148,7 @@ function beds.on_rightclick(pos, player)
 	-- move to bed
 	if not beds.player[name] then
 		lay_down(player, ppos, pos)
+		beds.set_spawns() -- save respawn positions when entering bed
 	else
 		lay_down(player, nil, nil, false)
 	end
@@ -173,23 +173,18 @@ end
 
 
 -- Callbacks
-
-minetest.register_on_joinplayer(function(player)
-	beds.read_spawns()
-end)
-
--- respawn player at bed if enabled and valid position is found
-minetest.register_on_respawnplayer(function(player)
-	if not enable_respawn then
-		return false
-	end
-	local name = player:get_player_name()
-	local pos = beds.spawn[name] or nil
-	if pos then
-		player:setpos(pos)
-		return true
-	end
-end)
+-- Only register respawn callback if respawn enabled
+if enable_respawn then
+	-- respawn player at bed if enabled and valid position is found
+	minetest.register_on_respawnplayer(function(player)
+		local name = player:get_player_name()
+		local pos = beds.spawn[name]
+		if pos then
+			player:setpos(pos)
+			return true
+		end
+	end)
+end
 
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()

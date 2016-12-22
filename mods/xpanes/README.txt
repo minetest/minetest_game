@@ -1,16 +1,21 @@
 Minetest Game mod: xpanes
 =========================
+See license.txt for license information.
 
-License:
---------
-Copyright (C) xyz
-modified by BlockMen (iron bars)
+Authors of source code
+----------------------
+Originally by xyz (MIT)
+BlockMen (MIT)
+sofar (MIT)
+Various Minetest developers and contributors (MIT)
 
-Gambit (WTFPL):
- xpanes_bar.png
+Authors of media (textures)
+---------------------------
+xyz (CC BY-SA 3.0):
+  All textures not mentioned below.
 
-This program is free software. It comes without any warranty, to
-the extent permitted by applicable law. You can redistribute it
-and/or modify it under the terms of the Do What The Fuck You Want
-To Public License, Version 2, as published by Sam Hocevar. See
-http://sam.zoy.org/wtfpl/COPYING for more details.
+Gambit (CC BY-SA 3.0):
+  xpanes_bar.png
+
+paramat (CC BY-SA 3.0):
+  xpanes_bar_top.png

@@ -10,21 +10,26 @@ dofile(farming.path .. "/hoes.lua")
 -- WHEAT
 farming.register_plant("farming:wheat", {
 	description = "Wheat seed",
+	paramtype2 = "meshoptions",
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland"}
+	fertility = {"grassland"},
+	groups = {flammable = 4},
+	place_param2 = 3,
 })
 minetest.register_craftitem("farming:flour", {
 	description = "Flour",
 	inventory_image = "farming_flour.png",
+	groups = {flammable = 1},
 })
 
 minetest.register_craftitem("farming:bread", {
 	description = "Bread",
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
+	groups = {flammable = 2},
 })
 
 minetest.register_craft({
@@ -47,7 +52,8 @@ farming.register_plant("farming:cotton", {
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland", "desert"}
+	fertility = {"grassland", "desert"},
+	groups = {flammable = 4},
 })
 
 minetest.register_alias("farming:string", "farming:cotton")
@@ -75,4 +81,29 @@ minetest.register_craft({
 	recipe = {
 		{"farming:straw"},
 	}
+})
+
+-- Fuels
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:straw",
+	burntime = 3,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:wheat",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:cotton",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:hoe_wood",
+	burntime = 5,
 })

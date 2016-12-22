@@ -34,6 +34,8 @@ end
 
 local boat = {
 	physical = true,
+	-- Warning: Do not change the position of the collisionbox top surface,
+	-- lowering it causes the boat to fall through the world if underwater
 	collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
 	visual = "mesh",
 	mesh = "boats_boat.obj",
@@ -77,7 +79,7 @@ function boat.on_rightclick(self, clicker)
 		minetest.after(0.2, function()
 			default.player_set_animation(clicker, "sit" , 30)
 		end)
-		self.object:setyaw(clicker:get_look_yaw() - math.pi / 2)
+		clicker:set_look_horizontal(self.object:getyaw())
 	end
 end
 
@@ -107,18 +109,19 @@ function boat.on_punch(self, puncher)
 	end
 	if not self.driver then
 		self.removed = true
+		local inv = puncher:get_inventory()
+		if not minetest.setting_getbool("creative_mode")
+				or not inv:contains_item("main", "boats:boat") then
+			local leftover = inv:add_item("main", "boats:boat")
+			-- if no room in inventory add a replacement boat to the world
+			if not leftover:is_empty() then
+				minetest.add_item(self.object:getpos(), leftover)
+			end
+		end
 		-- delay remove to ensure player is detached
 		minetest.after(0.1, function()
 			self.object:remove()
 		end)
-		if not minetest.setting_getbool("creative_mode") then
-			local inv = puncher:get_inventory()
-			if inv:room_for_item("main", "boats:boat") then
-				inv:add_item("main", "boats:boat")
-			else
-				minetest.add_item(self.object:getpos(), "boats:boat")
-			end
-		end
 	end
 end
 
@@ -165,7 +168,7 @@ function boat.on_step(self, dtime)
 
 	local p = self.object:getpos()
 	p.y = p.y - 0.5
-	local new_velo = {x = 0, y = 0, z = 0}
+	local new_velo
 	local new_acce = {x = 0, y = 0, z = 0}
 	if not is_water(p) then
 		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
@@ -219,18 +222,22 @@ minetest.register_craftitem("boats:boat", {
 	wield_image = "boats_wield.png",
 	wield_scale = {x = 2, y = 2, z = 1},
 	liquids_pointable = true,
+	groups = {flammable = 2},
 
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" then
-			return
+			return itemstack
 		end
 		if not is_water(pointed_thing.under) then
-			return
+			return itemstack
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
-		minetest.add_entity(pointed_thing.under, "boats:boat")
-		if not minetest.setting_getbool("creative_mode") then
-			itemstack:take_item()
+		boat = minetest.add_entity(pointed_thing.under, "boats:boat")
+		if boat then
+			boat:setyaw(placer:get_look_horizontal())
+			if not minetest.setting_getbool("creative_mode") then
+				itemstack:take_item()
+			end
 		end
 		return itemstack
 	end,
@@ -244,4 +251,10 @@ minetest.register_craft({
 		{"group:wood", "",           "group:wood"},
 		{"group:wood", "group:wood", "group:wood"},
 	},
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "boats:boat",
+	burntime = 20,
 })
