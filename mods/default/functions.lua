@@ -186,6 +186,9 @@ function default.grow_cactus(pos, node)
 	if height == 4 or node.name ~= "air" then
 		return
 	end
+	if minetest.get_node_light(pos) < 13 then
+		return
+	end
 	minetest.set_node(pos, {name = "default:cactus"})
 	return true
 end
@@ -207,6 +210,9 @@ function default.grow_papyrus(pos, node)
 		node = minetest.get_node(pos)
 	end
 	if height == 4 or node.name ~= "air" then
+		return
+	end
+	if minetest.get_node_light(pos) < 13 then
 		return
 	end
 	minetest.set_node(pos, {name = "default:papyrus"})
