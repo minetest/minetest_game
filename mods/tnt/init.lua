@@ -507,9 +507,9 @@ if enable_tnt then
 	minetest.register_craft({
 		output = "tnt:tnt",
 		recipe = {
-			{"tnt:gunpowder", "group:wood",    "tnt:gunpowder"},
 			{"group:wood",    "tnt:gunpowder", "group:wood"},
-			{"tnt:gunpowder", "group:wood",    "tnt:gunpowder"}
+			{"tnt:gunpowder", "tnt:gunpowder", "tnt:gunpowder"},
+			{"group:wood",    "tnt:gunpowder", "group:wood"}
 		}
 	})
 
