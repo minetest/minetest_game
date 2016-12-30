@@ -1,4 +1,3 @@
-creative = {}
 local player_inventory = {}
 
 function creative.init_creative_inventory(player)
@@ -79,7 +78,7 @@ function creative.register_tab(name, title, items)
 	sfinv.register_page("creative:" .. name, {
 		title = title,
 		is_in_nav = function(self, player, context)
-			return minetest.setting_getbool("creative_mode")
+			return creative.is_enabled_for(player:get_player_name())
 		end,
 		get = function(self, player, context)
 			local player_name = player:get_player_name()
@@ -172,7 +171,7 @@ creative.register_tab("craftitems", "Items", minetest.registered_craftitems)
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)
-	if minetest.setting_getbool("creative_mode") then
+	if creative.is_enabled_for(player:get_player_name()) then
 		return "creative:all"
 	else
 		return old_homepage_name(player)

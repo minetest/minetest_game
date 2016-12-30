@@ -78,6 +78,12 @@ For example,
 is used to show all tools. Name is used in the sfinv page name, title is the
 human readable title.
 
+`is_enabled_for` is used to check whether a player is in creative mode:
+
+    creative.is_enabled_for(name)
+
+Override this to allow per-player game modes.
+
 The contents of `creative.formspec_add` is appended to every creative inventory
 page. Mods can use it to add additional formspec elements onto the default
 creative inventory formspec to be drawn after each update.
