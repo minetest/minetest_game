@@ -640,6 +640,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "default:mese_post_light 3",
+	recipe = {
+		{"", "default:glass", ""},
+		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
+		{"", "group:wood", ""},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:obsidian_shard 9',
 	recipe = {
 		{'default:obsidian'}
