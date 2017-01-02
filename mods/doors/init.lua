@@ -265,7 +265,8 @@ function doors.register(name, def)
 
 			local node = minetest.get_node(pointed_thing.under)
 			local pdef = minetest.registered_nodes[node.name]
-			if pdef and pdef.on_rightclick then
+			if pdef and pdef.on_rightclick and
+					not placer:get_player_control().sneak then
 				return pdef.on_rightclick(pointed_thing.under,
 						node, placer, itemstack, pointed_thing)
 			end
