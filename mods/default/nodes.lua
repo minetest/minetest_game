@@ -1615,35 +1615,32 @@ local function get_locked_chest_formspec(pos)
 		"listring[nodemeta:" .. spos .. ";main]" ..
 		"listring[current_player;main]" ..
 		default.get_hotbar_bg(0,4.85)
- return formspec
+	return formspec
 end
 
-local function has_locked_chest_privilege(meta, player)
-	if player then
-		if minetest.check_player_privs(player, "protection_bypass") then
-			return true
-		end
-	else
+function default.can_use_locked_node(pos, player, meta)
+	if not player then
 		return false
 	end
 
-	-- is player wielding the right key?
+	if minetest.check_player_privs(player, "protection_bypass") then
+		return true
+	end
+
+	if player:get_player_name() == meta:get_string("owner") then
+		return true
+	end
+
 	local item = player:get_wielded_item()
 	if item:get_name() == "default:key" then
 		local key_meta = minetest.parse_json(item:get_metadata())
 		local secret = meta:get_string("key_lock_secret")
-		if secret ~= key_meta.secret then
-			return false
+		if secret == key_meta.secret then
+			return true
 		end
-
-		return true
 	end
 
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
-	end
-
-	return true
+	return false
 end
 
 minetest.register_node("default:chest", {
@@ -1714,28 +1711,28 @@ minetest.register_node("default:chest_locked", {
 		inv:set_size("main", 8 * 4)
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
-		return inv:is_empty("main") and has_locked_chest_privilege(meta, player)
+		return inv:is_empty("main") and default.can_use_locked_node(pos, player, meta)
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index,
 			to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.can_use_locked_node(pos, player, meta) then
 			return 0
 		end
 		return count
 	end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.can_use_locked_node(pos, player, meta) then
 			return 0
 		end
 		return stack:get_count()
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.can_use_locked_node(pos, player, meta) then
 			return 0
 		end
 		return stack:get_count()
@@ -1752,12 +1749,11 @@ minetest.register_node("default:chest_locked", {
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 		local meta = minetest.get_meta(pos)
-		if has_locked_chest_privilege(meta, clicker) then
+		if default.can_use_locked_node(pos, clicker, meta) then
 			minetest.show_formspec(
 				clicker:get_player_name(),
 				"default:chest_locked",
-				get_locked_chest_formspec(pos)
-			)
+				get_locked_chest_formspec(pos))
 		end
 		return itemstack
 	end,
