@@ -626,7 +626,7 @@ local harmless_explode = function(self, pos, radius)
 			max_hear_distance = 2*64
 	})
 	
-	local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, radius)
+	local objs = minetest.get_objects_inside_radius(pos, radius)
 	
 	--[[
 	We need to search again in a wider radius for
@@ -634,18 +634,17 @@ local harmless_explode = function(self, pos, radius)
 	]]--
 	
 	for k, obj in pairs(objs) do
-		if obj:get_luaentity() ~= nil then
-			if obj:get_luaentity().name ~= "tnt:thrown_stick" and 
-					obj:get_luaentity().name ~= "__builtin:item" then
-				obj:punch(self.object, 1.0, {
-						full_punch_interval=1.0,
-						damage_groups={fleshy=3},
-				}, nil)
-			end
+		if obj:get_luaentity() ~= nil and 
+				obj:get_luaentity().name ~= "tnt:thrown_stick" and 
+				obj:get_luaentity().name ~= "__builtin:item" then
+			obj:punch(self.object, 1.0, {
+				full_punch_interval=1.0,
+				damage_groups={fleshy=3},
+			}, nil)
 		else
 			obj:punch(self.object, 1.0, {
-					full_punch_interval=1.0,
-					damage_groups={fleshy=3},
+				full_punch_interval=1.0,
+				damage_groups={fleshy=3},
 			}, nil)
 		end
 	end
@@ -667,7 +666,7 @@ minetest.register_craftitem("tnt:stick", {
 			itemstack:take_item()
 		end
 		
-		obj:setvelocity({x=dir.x*19, y=dir.y*19, z=dir.z*19})
+		obj:setvelocity(vector.multiply(dir, 19))
 		obj:setacceleration({x=dir.x*-3, y=-10, z=dir.z*-3})
 		obj:setyaw(user:get_look_horizontal()+math.pi)
 		
@@ -690,25 +689,23 @@ minetest.register_entity("tnt:thrown_stick", {
 		local node = minetest.get_node(pos)
 	
 		if self.timer > 0.2 then
-			local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)
+			local objs = minetest.get_objects_inside_radius(pos, 1)
 			for k, obj in pairs(objs) do
-				if obj:get_luaentity() ~= nil then
-					if obj:get_luaentity().name ~= "tnt:thrown_stick" and 
-							obj:get_luaentity().name ~= "__builtin:item" then
-						harmless_explode(self, pos, 5)
-					end
-				else
+				if obj:get_luaentity() == nil or
+						obj:get_luaentity().name ~= "tnt:thrown_stick" and 
+						obj:get_luaentity().name ~= "__builtin:item" then
 					harmless_explode(self, pos, 5)
 				end
 			end
 		end
 	
 		if self.lastpos.x ~= nil then
-			if node.name ~= "air" then
+			if node.name ~= "air" and node.name ~= "ignore" then
+				print("Exploding a block")
 				harmless_explode(self, pos, 5)
 			end
 		end
-		self.lastpos={x=pos.x, y=pos.y, z=pos.z}
+		self.lastpos = pos
 	end
 })
 
