@@ -72,7 +72,7 @@ end
 minetest.register_craft({
 	type = "shapeless",
 	output = "dye:black 4",
-	recipe = {"default:coal_lump"},
+	recipe = {"group:coal"},
 })
 
 minetest.register_craft({
