@@ -147,6 +147,7 @@ Copyright (C) 2014 sonictechtonic
 Copyright (C) 2015 yadronoff
 Copyright (C) 2007 HerbertBoland
 Copyright (C) 2006 AGFX
+Copyright (C) 2014 Motion_S: "Water Wading.wav" at http://freesound.org/people/Motion_S/sounds/221764/
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
