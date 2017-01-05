@@ -78,7 +78,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "dye:brown 2",
-	recipe = {'dye:blue', 'dye:red', 'dye:yellow'},
+	recipe = {'dye:black', 'dye:red', 'dye:yellow'},
 })
 
 minetest.register_craft({
@@ -113,14 +113,8 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "dye:grey 2",
-	recipe = {'dye:dark_grey', 'dye:white'},
-})
-
-minetest.register_craft({
-	type = "shapeless",
 	output = "dye:magenta 2",
-	recipe = {'dye:red', 'dye:pink'},
+	recipe = {'dye:red', 'dye:blue'},
 })
 
 minetest.register_craft({
