@@ -172,3 +172,14 @@ rights may limit how you use the material.
 
 For more details:
 http://creativecommons.org/licenses/by/3.0/
+
+-----------------------
+
+CC0 1.0 Universal (CC0 1.0)
+
+Samples are taken from file: http://freesound.org/people/Islabonita/sounds/220951/
+default_dig_choppy.1.ogg
+default_dig_choppy.2.ogg
+default_dig_choppy.3.ogg
+default_dig_choppy.4.ogg
+default_dig_choppy.5.ogg
