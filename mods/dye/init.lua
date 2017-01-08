@@ -74,36 +74,40 @@ minetest.register_craft({
 })
 
 -- Mix recipes
--- Just mix everything to everything somehow sanely
-
-local mixbases = {"pink", "magenta", "red", "orange", "brown", "yellow", "green", "dark_green", "cyan", "blue", "violet", "black", "dark_grey", "grey", "white"}
-
-local mixes = {
-	--             pink,     magenta,  red,      orange,      brown,       yellow,      green,       dark_green,  cyan,   blue,    violet,  black,      dark_grey,  grey,  white
-	white      = {"pink",   "pink",   "pink",   "orange",    "orange",    "yellow",    "green",     "green",     "grey", "cyan",  "violet","grey",     "grey",     "grey","white"},
-	grey       = {"pink",   "pink",   "pink",   "orange",    "orange",    "yellow",    "green",     "green",     "grey", "cyan",  "violet","dark_grey","grey",     "grey"},
-	dark_grey  = {"brown",  "brown",  "brown",  "brown",     "brown",     "brown",     "dark_green","dark_green","blue", "blue",  "violet","black",    "dark_grey"},
-	black      = {"black",  "black",  "black",  "black",     "black",     "black",     "black",     "black",     "black","black", "black", "black"},
-	violet     = {"magenta","magenta","magenta","red",       "brown",     "red",       "cyan",      "brown",     "blue", "violet","violet"},
-	blue       = {"violet", "violet", "magenta","brown",     "brown",     "dark_green","cyan",      "cyan",      "cyan", "blue"},
-	cyan       = {"brown",  "blue",   "brown",  "dark_green","dark_grey", "green",     "cyan",      "dark_green","cyan"},
-	dark_green = {"brown",  "brown",  "brown",  "brown",     "brown",     "green",     "green",     "dark_green"},
-	green      = {"yellow", "brown",  "yellow", "yellow",    "dark_green","green",     "green"},
-	yellow     = {"orange", "red",    "orange", "yellow",    "orange",    "yellow"},
-	brown      = {"brown",  "brown",  "brown",  "orange",    "brown"},
-	orange     = {"orange", "red",    "orange", "orange"},
-	red        = {"pink",   "magenta","red"},
-	magenta    = {"magenta","magenta"},
-	pink       = {"pink"},
+local dye_recipes = {
+	-- src1, src2, dst
+	-- RYB mixes
+	{"red", "blue", "violet"}, -- "purple"
+	{"yellow", "red", "orange"},
+	{"yellow", "blue", "green"},
+	-- RYB complementary mixes
+	{"red", "green", "dark_grey"},
+	{"yellow", "violet", "dark_grey"},
+	{"blue", "orange", "dark_grey"},
+	-- CMY mixes - approximation
+	{"cyan", "yellow", "green"},
+	{"cyan", "magenta", "blue"},
+	{"yellow", "magenta", "red"},
+	-- other mixes that result in a color we have
+	{"red", "green", "brown"},
+	{"magenta", "blue", "violet"},
+	{"green", "blue", "cyan"},
+	{"pink", "violet", "magenta"},
+	-- mixes with black
+	{"white", "black", "grey"},
+	{"grey", "black", "dark_grey"},
+	{"green", "black", "dark_green"},
+	{"orange", "black", "brown"},
+	-- mixes with white
+	{"white", "red", "pink"},
+	{"white", "dark_grey", "grey"},
+	{"white", "dark_green", "green"},
 }
 
-for one, results in pairs(mixes) do
-	for i, result in ipairs(results) do
-		local another = mixbases[i]
-		minetest.register_craft({
-			type = "shapeless",
-			output = 'dye:' .. result .. ' 2',
-			recipe = {'dye:' .. one, 'dye:' .. another},
-		})
-	end
+for _, mix in pairs(dye_recipes) do
+	minetest.register_craft({
+		type = "shapeless",
+		output = 'dye:' .. mix[3] .. ' 2',
+		recipe = {'dye:' .. mix[1], 'dye:' .. mix[2]},
+	})
 end
