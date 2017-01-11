@@ -44,9 +44,6 @@ minetest.register_node("fire:basic_flame", {
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(math.random(30, 60))
 	end,
-
-	on_blast = function() -- Unaffected by explosions
-	end,
 })
 
 minetest.register_node("fire:permanent_flame", {
@@ -72,9 +69,6 @@ minetest.register_node("fire:permanent_flame", {
 	damage_per_second = 4,
 	groups = {igniter = 2, dig_immediate = 3},
 	drop = "",
-
-	on_blast = function() -- Unaffected by explosions
-	end,
 })
 
 
