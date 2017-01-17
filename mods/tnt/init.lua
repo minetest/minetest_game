@@ -372,6 +372,8 @@ function tnt.boom(pos, def)
 		eject_drops(drops, pos, radius)
 	end
 	add_effects(pos, radius, drops)
+	minetest.log("action", "A TNT explosion occurred at " .. minetest.pos_to_string(pos) ..
+		" with radius " .. radius)
 end
 
 minetest.register_node("tnt:boom", {
@@ -411,6 +413,9 @@ minetest.register_node("tnt:gunpowder", {
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
+			minetest.log("action", puncher:get_player_name() ..
+				" ignites tnt:gunpowder at " ..
+				minetest.pos_to_string(pos))
 		end
 	end,
 	on_blast = function(pos, intensity)
@@ -550,6 +555,9 @@ function tnt.register_tnt(def)
 			on_punch = function(pos, node, puncher)
 				if puncher:get_wielded_item():get_name() == "default:torch" then
 					minetest.set_node(pos, {name = name .. "_burning"})
+					minetest.log("action", puncher:get_player_name() ..
+						" ignites " .. node.name .. " at " ..
+						minetest.pos_to_string(pos))
 				end
 			end,
 			on_blast = function(pos, intensity)
