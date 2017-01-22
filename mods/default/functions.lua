@@ -77,8 +77,6 @@ function default.node_sound_leaves_defaults(table)
 			{name = "default_grass_footstep", gain = 0.45}
 	table.dug = table.dug or
 			{name = "default_grass_footstep", gain = 0.7}
-	table.dig = table.dig or
-			{name = "default_dig_crumbly", gain = 0.4}
 	table.place = table.place or
 			{name = "default_place_node", gain = 1.0}
 	default.node_sound_defaults(table)
