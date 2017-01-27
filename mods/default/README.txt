@@ -113,6 +113,7 @@ paramat (CC BY-SA 3.0):
   default_dry_grass_*.png
   default_grass.png
   default_grass_side.png
+  default_dirt.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
   default_mese_block.png
   default_silver_sand.png
 
@@ -157,7 +158,6 @@ Neuromancer (CC BY-SA 2.0):
   default_mossycobble.png, based on texture by Brane praefect
 
 Neuromancer (CC BY-SA 3.0):
-  default_dirt.png
   default_furnace_*.png
 
 Gambit (CC BY-SA 3.0):
