@@ -1,12 +1,19 @@
 creative = {}
+creative.mode = minetest.setting_getbool("creative_mode")
+
+minetest.register_privilege("creative", {"Allow player to use creative inventory",
+		give_to_singleplayer = false})
 
 function creative.is_enabled_for(name)
-	return minetest.setting_getbool("creative_mode")
+	if creative.mode or minetest.check_player_privs(name, {creative = true}) then
+		return true
+	end
+	return false
 end
 
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
 
-if minetest.setting_getbool("creative_mode") then
+if creative.mode then
 	-- Dig time is modified according to difference (leveldiff) between tool
 	-- 'maxlevel' and node 'level'. Digtime is divided by the larger of
 	-- leveldiff and 1.
@@ -52,7 +59,7 @@ function minetest.handle_node_drops(pos, drops, digger)
 	end
 	local inv = digger:get_inventory()
 	if inv then
-		for _, item in ipairs(drops) do
+		for _, item in pairs(drops) do
 			item = ItemStack(item):get_name()
 			if not inv:contains_item("main", item) then
 				inv:add_item("main", item)
