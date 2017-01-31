@@ -1,7 +1,9 @@
 creative = {}
 
+local creative_mode_cache = minetest.setting_getbool("creative_mode")
+
 function creative.is_enabled_for(name)
-	return minetest.setting_getbool("creative_mode")
+	return creative_mode_cache
 end
 
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
