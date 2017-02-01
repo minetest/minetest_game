@@ -45,11 +45,11 @@ minetest.register_alias("mapgen_stair_sandstonebrick", "stairs:stair_sandstonebr
 
 function default.register_ores()
 	minetest.clear_registered_ores()
+
 	-- Blob ores
 	-- These first to avoid other ores in blobs
 
 	-- Clay
-	-- This first to avoid clay in sand blobs
 
 	minetest.register_ore({
 		ore_type        = "blob",
@@ -70,17 +70,16 @@ function default.register_ores()
 		},
 	})
 
-	-- Sand
+	-- Silver sand
 
 	minetest.register_ore({
 		ore_type        = "blob",
-		ore             = "default:sand",
-		wherein         = {"default:stone", "default:sandstone",
-			"default:desert_stone"},
+		ore             = "default:silver_sand",
+		wherein         = {"default:stone"},
 		clust_scarcity  = 16 * 16 * 16,
 		clust_size      = 5,
-		y_min           = -31,
-		y_max           = 0,
+		y_min           = -31000,
+		y_max           = 31000,
 		noise_threshold = 0.0,
 		noise_params    = {
 			offset = 0.5,
@@ -90,6 +89,13 @@ function default.register_ores()
 			octaves = 1,
 			persist = 0.0
 		},
+		biomes = {"icesheet_ocean", "tundra", "tundra_beach", "tundra_ocean",
+			"taiga", "taiga_ocean", "snowy_grassland", "snowy_grassland_ocean",
+			"grassland", "grassland_dunes", "grassland_ocean", "coniferous_forest",
+			"coniferous_forest_dunes", "coniferous_forest_ocean", "deciduous_forest",
+			"deciduous_forest_shore", "deciduous_forest_ocean", "cold_desert",
+			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
+			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground"}
 	})
 
 	-- Dirt
@@ -112,7 +118,8 @@ function default.register_ores()
 			persist = 0.0
 		},
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-			"deciduous_forest", "savanna", "rainforest"}
+			"deciduous_forest", "deciduous_forest_shore", "savanna", "savanna_shore",
+			"rainforest", "rainforest_swamp"}
 	})
 
 	-- Gravel
@@ -134,6 +141,13 @@ function default.register_ores()
 			octaves = 1,
 			persist = 0.0
 		},
+		biomes = {"icesheet_ocean", "tundra", "tundra_beach", "tundra_ocean",
+			"taiga", "taiga_ocean", "snowy_grassland", "snowy_grassland_ocean",
+			"grassland", "grassland_dunes", "grassland_ocean", "coniferous_forest",
+			"coniferous_forest_dunes", "coniferous_forest_ocean", "deciduous_forest",
+			"deciduous_forest_shore", "deciduous_forest_ocean", "cold_desert",
+			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
+			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground"}
 	})
 
 	-- Scatter ores
