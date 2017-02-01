@@ -394,7 +394,7 @@ end
 
 -- All mapgens except mgv6 and singlenode
 
-function default.register_biomes()
+function default.register_biomes(upper_limit)
 	minetest.clear_registered_biomes()
 
 	-- Icesheet
@@ -414,7 +414,7 @@ function default.register_biomes()
 		node_riverbed = "default:gravel",
 		depth_riverbed = 2,
 		y_min = -8,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 0,
 		humidity_point = 73,
 	})
@@ -454,7 +454,7 @@ function default.register_biomes()
 		node_riverbed = "default:gravel",
 		depth_riverbed = 2,
 		y_min = 2,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 0,
 		humidity_point = 40,
 	})
@@ -516,7 +516,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 2,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 25,
 		humidity_point = 70,
 	})
@@ -558,7 +558,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 5,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 20,
 		humidity_point = 35,
 	})
@@ -600,7 +600,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 6,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 50,
 		humidity_point = 35,
 	})
@@ -662,7 +662,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 6,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 45,
 		humidity_point = 70,
 	})
@@ -724,7 +724,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 60,
 		humidity_point = 68,
 	})
@@ -786,7 +786,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 5,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 92,
 		humidity_point = 16,
 	})
@@ -828,7 +828,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 5,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 60,
 		humidity_point = 0,
 	})
@@ -870,7 +870,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 5,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 40,
 		humidity_point = 0,
 	})
@@ -912,7 +912,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 89,
 		humidity_point = 42,
 	})
@@ -974,7 +974,7 @@ function default.register_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = 86,
 		humidity_point = 65,
 	})
@@ -1037,6 +1037,297 @@ function default.register_biomes()
 		y_max = -113,
 		heat_point = 50,
 		humidity_point = 50,
+	})
+end
+
+-- Biomes for floatlands
+
+function default.register_mgv7_float_biomes(floatland_level, shadow_limit)
+
+	-- Floatland ocean / underground
+
+	minetest.register_biome({
+		name = "floatland_ocean",
+		--node_dust = "",
+		node_top = "default:sand",
+		depth_top = 1,
+		node_filler = "default:sand",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = shadow_limit,
+		y_max = floatland_level,
+		heat_point = 50,
+		humidity_point = 50,
+	})
+
+	-- Icesheet
+
+	minetest.register_biome({
+		name = "floatland_icesheet",
+		node_dust = "default:snowblock",
+		node_top = "default:snowblock",
+		depth_top = 1,
+		node_filler = "default:snowblock",
+		depth_filler = 3,
+		node_stone = "default:ice",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 0,
+		humidity_point = 73,
+	})
+
+	-- Tundra
+
+	minetest.register_biome({
+		name = "floatland_tundra",
+		node_dust = "default:snowblock",
+		--node_top = ,
+		--depth_top = ,
+		--node_filler = ,
+		--depth_filler = ,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 0,
+		humidity_point = 40,
+	})
+
+	-- Taiga
+
+	minetest.register_biome({
+		name = "floatland_taiga",
+		node_dust = "default:snow",
+		node_top = "default:dirt_with_snow",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 25,
+		humidity_point = 70,
+	})
+
+	-- Snowy grassland
+
+	minetest.register_biome({
+		name = "floatland_snowy_grassland",
+		node_dust = "default:snow",
+		node_top = "default:dirt_with_snow",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 1,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 20,
+		humidity_point = 35,
+	})
+
+	-- Grassland
+
+	minetest.register_biome({
+		name = "floatland_grassland",
+		--node_dust = "",
+		node_top = "default:dirt_with_grass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 1,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 50,
+		humidity_point = 35,
+	})
+
+	-- Coniferous forest
+
+	minetest.register_biome({
+		name = "floatland_coniferous_forest",
+		--node_dust = "",
+		node_top = "default:dirt_with_grass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 45,
+		humidity_point = 70,
+	})
+
+	-- Deciduous forest
+
+	minetest.register_biome({
+		name = "floatland_deciduous_forest",
+		--node_dust = "",
+		node_top = "default:dirt_with_grass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 60,
+		humidity_point = 68,
+	})
+
+	-- Desert
+
+	minetest.register_biome({
+		name = "floatland_desert",
+		--node_dust = "",
+		node_top = "default:desert_sand",
+		depth_top = 1,
+		node_filler = "default:desert_sand",
+		depth_filler = 1,
+		node_stone = "default:desert_stone",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 92,
+		humidity_point = 16,
+	})
+
+	-- Sandstone desert
+
+	minetest.register_biome({
+		name = "floatland_sandstone_desert",
+		--node_dust = "",
+		node_top = "default:sand",
+		depth_top = 1,
+		node_filler = "default:sand",
+		depth_filler = 0,
+		node_stone = "default:sandstone",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 60,
+		humidity_point = 0,
+	})
+
+	-- Cold desert
+
+	minetest.register_biome({
+		name = "floatland_cold_desert",
+		--node_dust = "",
+		node_top = "default:silver_sand",
+		depth_top = 1,
+		node_filler = "default:silver_sand",
+		depth_filler = 1,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 40,
+		humidity_point = 0,
+	})
+
+	-- Savanna
+
+	minetest.register_biome({
+		name = "floatland_savanna",
+		--node_dust = "",
+		node_top = "default:dirt_with_dry_grass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 1,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 89,
+		humidity_point = 42,
+	})
+
+	-- Rainforest
+
+	minetest.register_biome({
+		name = "floatland_rainforest",
+		--node_dust = "",
+		node_top = "default:dirt_with_grass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = floatland_level + 1,
+		y_max = 31000,
+		heat_point = 86,
+		humidity_point = 65,
 	})
 end
 
@@ -1560,15 +1851,31 @@ end
 
 
 --
--- Detect mapgen to select functions
+-- Detect mapgen, flags and parameters to select functions
 --
+
+-- Get setting or default
+local mgv7_spflags = minetest.get_mapgen_setting("mgv7_spflags") or
+	"mountains, ridges, nofloatlands"
+local captures_float = string.match(mgv7_spflags, "floatlands")
+local captures_nofloat = string.match(mgv7_spflags, "nofloatlands")
+
+local mgv7_floatland_level = minetest.get_mapgen_setting("mgv7_floatland_level") or 1280
+local mgv7_shadow_limit = minetest.get_mapgen_setting("mgv7_shadow_limit") or 1024
 
 local mg_name = minetest.get_mapgen_setting("mg_name")
 if mg_name == "v6" then
 	default.register_ores()
 	default.register_mgv6_decorations()
+elseif mg_name == "v7" and captures_float == "floatlands" and
+		captures_nofloat ~= "nofloatlands" then
+	-- Mgv7 with floatlands
+	default.register_biomes(mgv7_shadow_limit - 1)
+	default.register_mgv7_float_biomes(mgv7_floatland_level, mgv7_shadow_limit)
+	default.register_ores()
+	default.register_decorations()
 else
-	default.register_biomes()
+	default.register_biomes(31000)
 	default.register_ores()
 	default.register_decorations()
 end
