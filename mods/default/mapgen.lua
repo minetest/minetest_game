@@ -1,5 +1,5 @@
 --
--- Aliases for map generator outputs
+-- Aliases for map generators
 --
 
 minetest.register_alias("mapgen_stone", "default:stone")
@@ -43,11 +43,103 @@ minetest.register_alias("mapgen_stair_sandstonebrick", "stairs:stair_sandstonebr
 -- Register ores
 --
 
-function default.register_ores()
-	minetest.clear_registered_ores()
+-- Blob ores
+-- These first to avoid other ores in blobs
 
-	-- Blob ores
-	-- These first to avoid other ores in blobs
+-- Mgv6
+
+function default.register_mgv6_blob_ores()
+
+	-- Clay
+	-- This first to avoid clay in sand blobs
+
+	minetest.register_ore({
+		ore_type        = "blob",
+		ore             = "default:clay",
+		wherein         = {"default:sand"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -15,
+		y_max           = 0,
+		noise_threshold = 0.0,
+		noise_params    = {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = -316,
+			octaves = 1,
+			persist = 0.0
+		},
+	})
+
+	-- Sand
+
+	minetest.register_ore({
+		ore_type        = "blob",
+		ore             = "default:sand",
+		wherein         = {"default:stone", "default:desert_stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -31,
+		y_max           = 0,
+		noise_threshold = 0.0,
+		noise_params    = {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = 2316,
+			octaves = 1,
+			persist = 0.0
+		},
+	})
+
+	-- Dirt
+
+	minetest.register_ore({
+		ore_type        = "blob",
+		ore             = "default:dirt",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -31,
+		y_max           = 31000,
+		noise_threshold = 0.0,
+		noise_params    = {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = 17676,
+			octaves = 1,
+			persist = 0.0
+		},
+	})
+
+	-- Gravel
+
+	minetest.register_ore({
+		ore_type        = "blob",
+		ore             = "default:gravel",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_min           = -31000,
+		y_max           = 31000,
+		noise_threshold = 0.0,
+		noise_params    = {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = 766,
+			octaves = 1,
+			persist = 0.0
+		},
+	})
+end
+
+
+-- All mapgens except mgv6
+
+function default.register_blob_ores()
 
 	-- Clay
 
@@ -149,8 +241,13 @@ function default.register_ores()
 			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
 			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground"}
 	})
+end
 
-	-- Scatter ores
+
+-- Scatter ores
+-- All mapgens
+
+function default.register_ores()
 
 	-- Coal
 
@@ -392,10 +489,9 @@ end
 -- Register biomes
 --
 
--- All mapgens except mgv6 and singlenode
+-- All mapgens except mgv6
 
 function default.register_biomes()
-	minetest.clear_registered_biomes()
 
 	-- Icesheet
 
@@ -1048,7 +1144,6 @@ end
 -- Mgv6
 
 function default.register_mgv6_decorations()
-	minetest.clear_registered_decorations()
 
 	-- Papyrus
 
@@ -1181,7 +1276,6 @@ end
 
 
 function default.register_decorations()
-	minetest.clear_registered_decorations()
 
 	-- Apple tree and log
 
@@ -1563,12 +1657,18 @@ end
 -- Detect mapgen to select functions
 --
 
+minetest.clear_registered_biomes()
+minetest.clear_registered_ores()
+minetest.clear_registered_decorations()
+
 local mg_name = minetest.get_mapgen_setting("mg_name")
 if mg_name == "v6" then
+	default.register_mgv6_blob_ores()
 	default.register_ores()
 	default.register_mgv6_decorations()
 else
 	default.register_biomes()
+	default.register_blob_ores()
 	default.register_ores()
 	default.register_decorations()
 end
