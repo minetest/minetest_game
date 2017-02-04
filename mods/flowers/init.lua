@@ -37,7 +37,7 @@ local function add_simple_flower(name, desc, box, f_groups)
 
 	minetest.register_node("flowers:" .. name, {
 		description = desc,
-		drawtype = "plantlike",
+		drawtype = "3d_plantlike_optional",
 		waving = 1,
 		tiles = {"flowers_" .. name .. ".png"},
 		inventory_image = "flowers_" .. name .. ".png",
@@ -161,7 +161,7 @@ minetest.register_node("flowers:mushroom_red", {
 	tiles = {"flowers_mushroom_red.png"},
 	inventory_image = "flowers_mushroom_red.png",
 	wield_image = "flowers_mushroom_red.png",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -180,7 +180,7 @@ minetest.register_node("flowers:mushroom_brown", {
 	tiles = {"flowers_mushroom_brown.png"},
 	inventory_image = "flowers_mushroom_brown.png",
 	wield_image = "flowers_mushroom_brown.png",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,

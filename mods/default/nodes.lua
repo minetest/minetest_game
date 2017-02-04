@@ -514,7 +514,7 @@ minetest.register_node("default:wood", {
 
 minetest.register_node("default:sapling", {
 	description = "Sapling",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	visual_scale = 1.0,
 	tiles = {"default_sapling.png"},
 	inventory_image = "default_sapling.png",
@@ -580,7 +580,7 @@ minetest.register_node("default:leaves", {
 
 minetest.register_node("default:apple", {
 	description = "Apple",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	visual_scale = 1.0,
 	tiles = {"default_apple.png"},
 	inventory_image = "default_apple.png",
@@ -650,7 +650,7 @@ minetest.register_node("default:jungleleaves", {
 
 minetest.register_node("default:junglesapling", {
 	description = "Jungle Sapling",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	visual_scale = 1.0,
 	tiles = {"default_junglesapling.png"},
 	inventory_image = "default_junglesapling.png",
@@ -730,7 +730,7 @@ minetest.register_node("default:pine_needles",{
 
 minetest.register_node("default:pine_sapling", {
 	description = "Pine Sapling",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	visual_scale = 1.0,
 	tiles = {"default_pine_sapling.png"},
 	inventory_image = "default_pine_sapling.png",
@@ -811,7 +811,7 @@ minetest.register_node("default:acacia_leaves", {
 
 minetest.register_node("default:acacia_sapling", {
 	description = "Acacia Tree Sapling",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	visual_scale = 1.0,
 	tiles = {"default_acacia_sapling.png"},
 	inventory_image = "default_acacia_sapling.png",
@@ -1055,7 +1055,7 @@ minetest.register_node("default:cactus", {
 
 minetest.register_node("default:papyrus", {
 	description = "Papyrus",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	tiles = {"default_papyrus.png"},
 	inventory_image = "default_papyrus.png",
 	wield_image = "default_papyrus.png",
@@ -1076,7 +1076,7 @@ minetest.register_node("default:papyrus", {
 
 minetest.register_node("default:dry_shrub", {
 	description = "Dry Shrub",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	waving = 1,
 	visual_scale = 1.0,
 	tiles = {"default_dry_shrub.png"},
@@ -1096,7 +1096,7 @@ minetest.register_node("default:dry_shrub", {
 
 minetest.register_node("default:junglegrass", {
 	description = "Jungle Grass",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	waving = 1,
 	visual_scale = 1.3,
 	tiles = {"default_junglegrass.png"},
@@ -1117,7 +1117,7 @@ minetest.register_node("default:junglegrass", {
 
 minetest.register_node("default:grass_1", {
 	description = "Grass",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	waving = 1,
 	tiles = {"default_grass_1.png"},
 	-- Use texture of a taller grass stage in inventory
@@ -1146,7 +1146,7 @@ minetest.register_node("default:grass_1", {
 for i = 2, 5 do
 	minetest.register_node("default:grass_" .. i, {
 		description = "Grass",
-		drawtype = "plantlike",
+		drawtype = "3d_plantlike_optional",
 		waving = 1,
 		tiles = {"default_grass_" .. i .. ".png"},
 		inventory_image = "default_grass_" .. i .. ".png",
@@ -1169,7 +1169,7 @@ end
 
 minetest.register_node("default:dry_grass_1", {
 	description = "Dry Grass",
-	drawtype = "plantlike",
+	drawtype = "3d_plantlike_optional",
 	waving = 1,
 	tiles = {"default_dry_grass_1.png"},
 	inventory_image = "default_dry_grass_3.png",
@@ -1198,7 +1198,7 @@ minetest.register_node("default:dry_grass_1", {
 for i = 2, 5 do
 	minetest.register_node("default:dry_grass_" .. i, {
 		description = "Dry Grass",
-		drawtype = "plantlike",
+		drawtype = "3d_plantlike_optional",
 		waving = 1,
 		tiles = {"default_dry_grass_" .. i .. ".png"},
 		inventory_image = "default_dry_grass_" .. i .. ".png",
