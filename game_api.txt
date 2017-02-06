@@ -412,18 +412,28 @@ Sfinv API
 
 ### sfinv Methods
 
-* sfinv.set_player_inventory_formspec(player, context) - builds page formspec
-            and calls set_inventory_formspec().
-            If context is nil, it is either found or created.
-* sfinv.get_formspec(player, context) - builds current page's formspec
-* sfinv.get_nav_fs(player, context, nav, current_idx) - see above
+**Pages**
+
+* sfinv.set_page(player, pagename) - changes the page
 * sfinv.get_homepage_name(player) - get the page name of the first page to show to a player
-* sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
-    * show_inv, defaults to false. Whether to show the player's main inventory
-    * size, defaults to `size[8,8.6]` if not specified
 * sfinv.register_page(name, def) - register a page, see section below
 * sfinv.override_page(name, def) - overrides fields of an page registered with register_page.
     * Note: Page must already be defined, (opt)depend on the mod defining it.
+* sfinv.set_player_inventory_formspec(player) - (re)builds page formspec
+             and calls set_inventory_formspec().
+* sfinv.get_formspec(player, context) - builds current page's formspec
+
+**Contexts**
+
+* sfinv.get_or_create_context(player) - gets the player's context
+* sfinv.set_context(player, context)
+
+**Theming**
+
+* sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
+    * show_inv, defaults to false. Whether to show the player's main inventory
+    * size, defaults to `size[8,8.6]` if not specified
+* sfinv.get_nav_fs(player, context, nav, current_idx) - creates tabheader or ""
 
 ### sfinv Members
 
