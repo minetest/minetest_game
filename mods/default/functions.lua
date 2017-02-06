@@ -327,31 +327,26 @@ end
 
 -- Leafdecay ABM
 
-minetest.register_abm({
-	label = "Leaf decay",
-	nodenames = {"group:leafdecay"},
-	neighbors = {"air"},
-	interval = 2,
-	chance = 10,
-	catch_up = false,
 
-	action = function(pos, node, _, _)
-		-- Check if leaf is placed
-		if node.param2 ~= 0 then
-			return
+function default.search_leaves_for_decay(pos, radius, lradius, trunk_node, leave_node)
+print(pos, radius, lradius, trunk_node, leave_node)
+		local leaves_near, leaves_count = minetest.find_nodes_in_area(vector.subtract(
+				pos, radius), vector.add(pos, radius), leave_node)
+		for i = 1, #leaves_near do
+			local leaves_at_pos = leaves_near[i]
+			local trunks_near = minetest.find_node_near(leaves_at_pos, lradius, trunk_node)			
+			if not trunks_near then
+				minetest.get_node_timer(leaves_at_pos):start(math.random(10))
+			end 
 		end
+end
 
-		local rad = minetest.registered_nodes[node.name].groups.leafdecay
-		-- Assume ignore is a trunk, to make this
-		-- work at the border of a loaded area
-		if minetest.find_node_near(pos, rad, {"ignore", "group:tree"}) then
-			return
-		end
+function default.decay_leaves(pos, leave_node)
 		-- Drop stuff
-		local itemstacks = minetest.get_node_drops(node.name)
+		local itemstacks = minetest.get_node_drops(leave_node)
 		for _, itemname in ipairs(itemstacks) do
-			if itemname ~= node.name or
-					minetest.get_item_group(node.name, "leafdecay_drop") ~= 0 then
+			if itemname ~= leave_node or
+					minetest.get_item_group(leave_node, "leafdecay_drop") ~= 0 then
 				local p_drop = {
 					x = pos.x - 0.5 + math.random(),
 					y = pos.y - 0.5 + math.random(),
@@ -363,8 +358,46 @@ minetest.register_abm({
 		-- Remove node
 		minetest.remove_node(pos)
 		minetest.check_for_falling(pos)
-	end
-})
+end
+
+--~ minetest.register_abm({
+	--~ label = "Leaf decay",
+	--~ nodenames = {"group:leafdecay"},
+	--~ neighbors = {"air"},
+	--~ interval = 2,
+	--~ chance = 10,
+	--~ catch_up = false,
+
+	--~ action = function(pos, node, _, _)
+		--~ -- Check if leaf is placed
+		--~ if node.param2 ~= 0 then
+			--~ return
+		--~ end
+
+		--~ local rad = minetest.registered_nodes[node.name].groups.leafdecay
+		--~ -- Assume ignore is a trunk, to make this
+		--~ -- work at the border of a loaded area
+		--~ if minetest.find_node_near(pos, rad, {"ignore", "group:tree"}) then
+			--~ return
+		--~ end
+		--~ -- Drop stuff
+		--~ local itemstacks = minetest.get_node_drops(node.name)
+		--~ for _, itemname in ipairs(itemstacks) do
+			--~ if itemname ~= node.name or
+					--~ minetest.get_item_group(node.name, "leafdecay_drop") ~= 0 then
+				--~ local p_drop = {
+					--~ x = pos.x - 0.5 + math.random(),
+					--~ y = pos.y - 0.5 + math.random(),
+					--~ z = pos.z - 0.5 + math.random(),
+				--~ }
+				--~ minetest.add_item(p_drop, itemname)
+			--~ end
+		--~ end
+		--~ -- Remove node
+		--~ minetest.remove_node(pos)
+		--~ minetest.check_for_falling(pos)
+	--~ end
+--~ })
 
 
 --

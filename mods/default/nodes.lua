@@ -499,7 +499,11 @@ minetest.register_node("default:tree", {
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
-	on_place = minetest.rotate_node
+	on_place = minetest.rotate_node,
+
+	after_destruct = function(pos, oldnode)
+		default.search_leaves_for_decay(pos, 3, 2, "default:tree", "default:leaves")
+	end,
 })
 
 minetest.register_node("default:wood", {
@@ -574,6 +578,9 @@ minetest.register_node("default:leaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_timer = function(pos, elapsed)
+		default.decay_leaves(pos, "default:leaves")
+	end,
 
 	after_place_node = default.after_place_leaves,
 })
@@ -614,7 +621,12 @@ minetest.register_node("default:jungletree", {
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
-	on_place = minetest.rotate_node
+	on_place = minetest.rotate_node,
+
+	after_destruct = function(pos, oldnode)
+		default.search_leaves_for_decay(pos, 3, 2, "default:jungletree", "default:jungleleaves")
+	end,
+
 })
 
 minetest.register_node("default:junglewood", {
@@ -644,6 +656,9 @@ minetest.register_node("default:jungleleaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_timer = function(pos, elapsed)
+		default.decay_leaves(pos, "default:jungleleaves")
+	end,
 
 	after_place_node = default.after_place_leaves,
 })
@@ -695,7 +710,12 @@ minetest.register_node("default:pine_tree", {
 	groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 1, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
 
-	on_place = minetest.rotate_node
+	on_place = minetest.rotate_node,
+
+	after_destruct = function(pos, oldnode)
+		default.search_leaves_for_decay(pos, 3, 2, "default:pine_tree", "default:pine_needles")
+	end,
+
 })
 
 minetest.register_node("default:pine_wood", {
@@ -724,6 +744,10 @@ minetest.register_node("default:pine_needles",{
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_timer = function(pos, elapsed)
+		default.decay_leaves(pos, "default:pine_needles")
+	end,
+
 
 	after_place_node = default.after_place_leaves,
 })
@@ -775,7 +799,12 @@ minetest.register_node("default:acacia_tree", {
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
-	on_place = minetest.rotate_node
+	on_place = minetest.rotate_node,
+
+	after_destruct = function(pos, oldnode)
+		default.search_leaves_for_decay(pos, 3, 2, "default:acacia_tree", "default:acacia_leaves")
+	end,
+
 })
 
 minetest.register_node("default:acacia_wood", {
@@ -805,6 +834,10 @@ minetest.register_node("default:acacia_leaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_timer = function(pos, elapsed)
+		default.decay_leaves(pos, "default:acacia_leaves")
+	end,
+
 
 	after_place_node = default.after_place_leaves,
 })
@@ -855,7 +888,12 @@ minetest.register_node("default:aspen_tree", {
 	groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 1, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
 
-	on_place = minetest.rotate_node
+	on_place = minetest.rotate_node,
+
+	after_destruct = function(pos, oldnode)
+		default.search_leaves_for_decay(pos, 3, 2, "default:aspen_tree", "default:aspen_leaves")
+	end,
+
 })
 
 minetest.register_node("default:aspen_wood", {
@@ -884,6 +922,10 @@ minetest.register_node("default:aspen_leaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	on_timer = function(pos, elapsed)
+		default.decay_leaves(pos, "default:aspen_leaves")
+	end,
+
 
 	after_place_node = default.after_place_leaves,
 })
