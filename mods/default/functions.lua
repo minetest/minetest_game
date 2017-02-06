@@ -329,9 +329,8 @@ end
 
 
 function default.search_leaves_for_decay(pos, radius, lradius, trunk_node, leave_node)
-print(pos, radius, lradius, trunk_node, leave_node)
-		local leaves_near = minetest.find_nodes_in_area(vector.subtract(
-				pos, radius), vector.add(pos, radius), leave_node)
+		local leaves_near = minetest.find_nodes_in_area(vector.subtract(pos, radius),
+				vector.add(pos, radius), leave_node)
 		for i = 1, #leaves_near do
 			local leaves_at_pos = leaves_near[i]
 			local trunks_near = minetest.find_node_near(leaves_at_pos, lradius, trunk_node)
