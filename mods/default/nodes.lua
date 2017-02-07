@@ -190,6 +190,9 @@ default:cloud
 
 --]]
 
+local mg_name = minetest.get_mapgen_setting("mg_name")
+
+
 --
 -- Stone
 --
@@ -502,7 +505,7 @@ minetest.register_node("default:tree", {
 	on_place = minetest.rotate_node,
 
 	after_destruct = function(pos, oldnode)
-		default.search_leaves_for_decay(pos, 3, 2, "default:tree", "default:leaves")
+		default.search_leaves_for_decay(pos, 3, {"default:leaves", "default:apple"})
 	end,
 })
 
@@ -548,7 +551,6 @@ minetest.register_node("default:sapling", {
 			{x = 2, y = 6, z = 2},
 			-- maximum interval of interior volume check
 			4)
-
 		return itemstack
 	end,
 })
@@ -579,9 +581,8 @@ minetest.register_node("default:leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
-		default.decay_leaves(pos, "default:leaves")
+		default.decay_leaves(pos, 2, "default:tree", "default:leaves")
 	end,
-
 	after_place_node = default.after_place_leaves,
 })
 
@@ -609,6 +610,9 @@ minetest.register_node("default:apple", {
 			minetest.set_node(pos, {name = "default:apple", param2 = 1})
 		end
 	end,
+	on_timer = function(pos, elapsed)
+		default.decay_leaves(pos, 2, "default:tree", "default:apple")
+	end,
 })
 
 
@@ -624,7 +628,11 @@ minetest.register_node("default:jungletree", {
 	on_place = minetest.rotate_node,
 
 	after_destruct = function(pos, oldnode)
-		default.search_leaves_for_decay(pos, 3, 2, "default:jungletree", "default:jungleleaves")
+		if mg_name == "v6" then
+			default.search_leaves_for_decay(pos, 4, "default:jungleleaves")
+		else
+			default.search_leaves_for_decay(pos, 3, "default:jungleleaves")
+		end
 	end,
 
 })
@@ -657,7 +665,11 @@ minetest.register_node("default:jungleleaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
-		default.decay_leaves(pos, "default:jungleleaves")
+		if mg_name == "v6" then
+			default.decay_leaves(pos, 3, "default:jungletree", "default:jungleleaves")
+		else
+			default.decay_leaves(pos, 2, "default:jungletree", "default:jungleleaves")
+		end
 	end,
 
 	after_place_node = default.after_place_leaves,
@@ -695,7 +707,6 @@ minetest.register_node("default:junglesapling", {
 			{x = 2, y = 15, z = 2},
 			-- maximum interval of interior volume check
 			4)
-
 		return itemstack
 	end,
 })
@@ -713,7 +724,11 @@ minetest.register_node("default:pine_tree", {
 	on_place = minetest.rotate_node,
 
 	after_destruct = function(pos, oldnode)
-		default.search_leaves_for_decay(pos, 3, 2, "default:pine_tree", "default:pine_needles")
+		if mg_name == "v6" then
+			default.search_leaves_for_decay(pos, 4, "default:pine_needles")
+		else
+			default.search_leaves_for_decay(pos, 3, "default:pine_needles")
+		end
 	end,
 
 })
@@ -745,10 +760,12 @@ minetest.register_node("default:pine_needles",{
 	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
-		default.decay_leaves(pos, "default:pine_needles")
+		if mg_name == "v6" then
+			default.decay_leaves(pos, 3, "default:pine_tree", "default:pine_needles")
+		else
+			default.decay_leaves(pos, 2, "default:pine_tree", "default:pine_needles")
+		end
 	end,
-
-
 	after_place_node = default.after_place_leaves,
 })
 
@@ -798,11 +815,9 @@ minetest.register_node("default:acacia_tree", {
 	is_ground_content = false,
 	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
-
 	on_place = minetest.rotate_node,
-
 	after_destruct = function(pos, oldnode)
-		default.search_leaves_for_decay(pos, 3, 2, "default:acacia_tree", "default:acacia_leaves")
+		default.search_leaves_for_decay(pos, 3, "default:acacia_leaves")
 	end,
 
 })
@@ -835,10 +850,8 @@ minetest.register_node("default:acacia_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
-		default.decay_leaves(pos, "default:acacia_leaves")
+		default.decay_leaves(pos, 2, "default:acacia_tree", "default:acacia_leaves")
 	end,
-
-
 	after_place_node = default.after_place_leaves,
 })
 
@@ -874,7 +887,6 @@ minetest.register_node("default:acacia_sapling", {
 			{x = 4, y = 6, z = 4},
 			-- maximum interval of interior volume check
 			4)
-
 		return itemstack
 	end,
 })
@@ -887,11 +899,9 @@ minetest.register_node("default:aspen_tree", {
 	is_ground_content = false,
 	groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 1, flammable = 3},
 	sounds = default.node_sound_wood_defaults(),
-
 	on_place = minetest.rotate_node,
-
 	after_destruct = function(pos, oldnode)
-		default.search_leaves_for_decay(pos, 3, 2, "default:aspen_tree", "default:aspen_leaves")
+		default.search_leaves_for_decay(pos, 3, "default:aspen_leaves")
 	end,
 
 })
@@ -923,10 +933,8 @@ minetest.register_node("default:aspen_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
-		default.decay_leaves(pos, "default:aspen_leaves")
+		default.decay_leaves(pos, 2, "default:aspen_tree", "default:aspen_leaves")
 	end,
-
-
 	after_place_node = default.after_place_leaves,
 })
 
