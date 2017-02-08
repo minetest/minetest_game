@@ -658,20 +658,36 @@ default.player_get_animation(player)
 Leafdecay
 ---------
 
-To enable leaf decay for a node, add it to the `leafdecay` group.
+To enable leaf decay for leaves when a tree is cut down by a player,
+register the tree with the default.register_leafdecay(leafdecaydef)
+function.
 
-The rating of the group determines how far from a node in the group `tree`
-the node can be without decaying.
+If `param2` of any registered node is ~= 0, the node will always be
+preserved. Thus, if the player places a node of that kind, you will
+want to set `param2 = 1` or so.
 
-If `param2` of the node is ~= 0, the node will always be preserved. Thus, if
-the player places a node of that kind, you will want to set `param2 = 1` or so.
+The function `default.after_place_leaves` can be set as
+`after_place_node of a node` to set param2 to 1 if the player places
+the node (should not be used for nodes that use param2 otherwise
+(e.g. facedir)).
 
-The function `default.after_place_leaves` can be set as `after_place_node of a node`
-to set param2 to 1 if the player places the node (should not be used for nodes
-that use param2 otherwise (e.g. facedir)).
+If the node is in the `leafdecay_drop` group then it will always be
+dropped as an item.
 
-If the node is in the `leafdecay_drop` group then it will always be dropped as an
-item.
+`default.register_leafdecay(leafdecaydef)`
+
+`leafdecaydef` is a table, with following members:
+	{
+		trunks = {"default:tree"}, -- nodes considered trunks
+		leaves = {"default:leaves", "default:apple"},
+			-- nodes considered for removal
+		radius = 3, -- radius to consider for searching
+	}
+
+Note: all the listed nodes in `trunks` have their `on_after_destruct`
+callback overridden. All the nodes listed in `leaves` have their
+`on_timer` callback overridden.
+
 
 Dyes
 ----
