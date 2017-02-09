@@ -115,6 +115,9 @@ paramat (CC BY-SA 3.0):
   default_grass_side.png
   default_mese_block.png
   default_silver_sand.png
+  default_mese_post_light_side.png
+  default_mese_post_light_side_dark.png
+  default_mese_post_light_top.png
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
