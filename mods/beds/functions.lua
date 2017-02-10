@@ -1,8 +1,9 @@
 local pi = math.pi
 local player_in_bed = 0
-local is_sp = minetest.is_singleplayer()
+local _isSinglePlayer = minetest.is_singleplayer()
 local enable_respawn = minetest.setting_getbool("enable_bed_respawn")
 if enable_respawn == nil then
+	-- By default, player's will respawn at their bed.
 	enable_respawn = true
 end
 
@@ -137,6 +138,9 @@ function beds.on_rightclick(pos, player)
 	local ppos = player:getpos()
 	local tod = minetest.get_timeofday()
 
+	beds.set_spawn(name)
+	minetest.chat_send_player(name, "Spawn point set.")
+
 	if tod > 0.2 and tod < 0.805 then
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
@@ -153,14 +157,14 @@ function beds.on_rightclick(pos, player)
 		lay_down(player, nil, nil, false)
 	end
 
-	if not is_sp then
+	if not _isSinglePlayer then
 		update_formspecs(false)
 	end
 
 	-- skip the night and let all players stand up
 	if check_in_beds() then
 		minetest.after(2, function()
-			if not is_sp then
+			if not _isSinglePlayer then
 				update_formspecs(is_night_skip_enabled())
 			end
 			if is_night_skip_enabled() then
@@ -171,21 +175,26 @@ function beds.on_rightclick(pos, player)
 	end
 end
 
-
+----
 -- Callbacks
--- Only register respawn callback if respawn enabled
+----
+
+-- Only register respawn callback if respawn enabled.
 if enable_respawn then
-	-- respawn player at bed if enabled and valid position is found
+	-- Respawn player at bed if enabled and valid position is found.
 	minetest.register_on_respawnplayer(function(player)
 		local name = player:get_player_name()
-		local pos = beds.spawn[name]
-		if pos then
+		local pos = beds.spawn[name] -- Get the position of the player's bed.
+		if pos then -- Do this if the player has a bed.
 			player:setpos(pos)
 			return true
 		end
 	end)
 end
 
+-- Called when the player leaves the game.
+-- This seems to cause the player to return to their bed's position, plus remove the bed association, on exit.
+-- This may make it necessary to restore the spawn position upon re-entering the game each time.
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	lay_down(player, nil, nil, false, true)
@@ -201,6 +210,8 @@ minetest.register_on_leaveplayer(function(player)
 	end
 end)
 
+-- Called when a button is pressed in player's inventory form, newest functions are called first. If function returns true, remaining functions are not called.
+-- If a player uses ESC to exit a formspec, this will return {["quit"] = "true"}.
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "beds_form" then
 		return

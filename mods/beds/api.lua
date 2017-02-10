@@ -5,6 +5,8 @@ local function destruct_bed(pos, n)
 	local node = minetest.get_node(pos)
 	local other
 
+	-- TODO: Unregister the player from his bed.  Not sure if this is possible on destruct.
+
 	if n == 2 then
 		local dir = minetest.facedir_to_dir(node.param2)
 		other = vector.subtract(pos, dir)
@@ -122,7 +124,7 @@ function beds.register_bed(name, def)
 				return false
 			end
 			node.param2 = new_param2
-			-- do not remove_node here - it will trigger destroy_bed()
+			-- do not remove_node here - it will trigger destruct_bed()
 			minetest.set_node(p, {name = "air"})
 			minetest.set_node(pos, node)
 			minetest.set_node(newp, {name = name .. "_top", param2 = new_param2})
