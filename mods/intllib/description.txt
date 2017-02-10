@@ -1,0 +1,3 @@
+Internationalization library.
+This mod provides a way to internationalize/localize mods to other languages in an easy way.
+See the README file for details.
