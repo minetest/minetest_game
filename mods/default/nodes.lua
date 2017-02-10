@@ -1619,34 +1619,6 @@ local function get_locked_chest_formspec(pos)
  return formspec
 end
 
-local function has_locked_chest_privilege(meta, player)
-	if player then
-		if minetest.check_player_privs(player, "protection_bypass") then
-			return true
-		end
-	else
-		return false
-	end
-
-	-- is player wielding the right key?
-	local item = player:get_wielded_item()
-	if item:get_name() == "default:key" then
-		local key_meta = minetest.parse_json(item:get_metadata())
-		local secret = meta:get_string("key_lock_secret")
-		if secret ~= key_meta.secret then
-			return false
-		end
-
-		return true
-	end
-
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
-	end
-
-	return true
-end
-
 minetest.register_node("default:chest", {
 	description = "Chest",
 	tiles = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
@@ -1717,26 +1689,23 @@ minetest.register_node("default:chest_locked", {
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
-		return inv:is_empty("main") and has_locked_chest_privilege(meta, player)
+		return inv:is_empty("main") and default.can_interact_with_node(player, pos)
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index,
 			to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.can_interact_with_node(player, pos) then
 			return 0
 		end
 		return count
 	end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.can_interact_with_node(player, pos) then
 			return 0
 		end
 		return stack:get_count()
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.can_interact_with_node(player, pos) then
 			return 0
 		end
 		return stack:get_count()
@@ -1752,8 +1721,7 @@ minetest.register_node("default:chest_locked", {
 			" from locked chest at " .. minetest.pos_to_string(pos))
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		local meta = minetest.get_meta(pos)
-		if has_locked_chest_privilege(meta, clicker) then
+		if default.can_interact_with_node(clicker, pos) then
 			minetest.show_formspec(
 				clicker:get_player_name(),
 				"default:chest_locked",

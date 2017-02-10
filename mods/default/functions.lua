@@ -516,3 +516,39 @@ minetest.register_abm({
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
 	end,
 })
+
+
+--
+-- NOTICE: This method is not an official part of the API yet!
+-- This method may change in future.
+--
+
+function default.can_interact_with_node(player, pos)
+	if player then
+		if minetest.check_player_privs(player, "protection_bypass") then
+			return true
+		end
+	else
+		return false
+	end
+
+	local meta = minetest.get_meta(pos)
+
+	-- is player wielding the right key?
+	local item = player:get_wielded_item()
+	if item:get_name() == "default:key" then
+		local key_meta = minetest.parse_json(item:get_metadata())
+		local secret = meta:get_string("key_lock_secret")
+		if secret ~= key_meta.secret then
+			return false
+		end
+
+		return true
+	end
+
+	if player:get_player_name() ~= meta:get_string("owner") then
+		return false
+	end
+
+	return true
+end
