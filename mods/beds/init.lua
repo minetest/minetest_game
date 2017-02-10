@@ -1,3 +1,5 @@
+S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 beds = {}
 beds.player = {}
 beds.pos = {}

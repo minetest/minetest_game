@@ -480,7 +480,7 @@ function default.intersects_protection(minp, maxp, player_name, interval)
 		elseif maxp[c] == minp[c] then
 			d[c] = 1 -- Any value larger than 0 to avoid division by zero
 		else -- maxp[c] < minp[c], print error and treat as protection intersected
-			minetest.log("error", "maxp < minp in 'default.intersects_protection()'")
+			minetest.log("error", S("maxp < minp in 'default.intersects_protection()'"))
 			return true
 		end
 	end

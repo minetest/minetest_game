@@ -248,7 +248,7 @@ end
 --
 
 minetest.register_node("default:furnace", {
-	description = "Furnace",
+	description = S("Furnace"),
 	tiles = {
 		"default_furnace_top.png", "default_furnace_bottom.png",
 		"default_furnace_side.png", "default_furnace_side.png",
@@ -296,7 +296,7 @@ minetest.register_node("default:furnace", {
 })
 
 minetest.register_node("default:furnace_active", {
-	description = "Furnace",
+	description = S("Furnace"),
 	tiles = {
 		"default_furnace_top.png", "default_furnace_bottom.png",
 		"default_furnace_side.png", "default_furnace_side.png",
@@ -327,4 +327,3 @@ minetest.register_node("default:furnace_active", {
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
 })
-

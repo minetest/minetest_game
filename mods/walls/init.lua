@@ -1,3 +1,5 @@
+S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 walls = {}
 
 walls.register = function(wall_name, wall_desc, wall_texture, wall_mat, wall_sounds)
@@ -43,4 +45,3 @@ walls.register("walls:mossycobble", "Mossy Cobblestone Wall", "default_mossycobb
 
 walls.register("walls:desertcobble", "Desert Cobblestone Wall", "default_desert_cobble.png",
 		"default:desert_cobble", default.node_sound_stone_defaults())
-

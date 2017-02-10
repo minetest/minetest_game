@@ -1,3 +1,5 @@
+S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- Other mods can use these for looping through available colors
 
 dye = {}

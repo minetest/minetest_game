@@ -1,5 +1,7 @@
+S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 minetest.register_chatcommand("killme", {
-	description = "Kill yourself to respawn",
+	description = S("Kill yourself to respawn"),
 	func = function(name)
 		local player = minetest.get_player_by_name(name)
 		if player then
@@ -14,11 +16,11 @@ minetest.register_chatcommand("killme", {
 				end
 
 				-- There doesn't seem to be a way to get a default spawn pos from the lua API
-				return false, "No static_spawnpoint defined"
+				return false, S("No static_spawnpoint defined")
 			end
 		else
 			-- Show error message if used when not logged in, eg: from IRC mod
-			return false, "You need to be online to be killed!"
+			return false, S("You need to be online to be killed!")
 		end
 	end
 })
