@@ -103,7 +103,7 @@ minetest.register_tool("fire:flint_and_steel", {
 				minetest.set_node(pt.above, {name = "fire:basic_flame"})
 			end
 		end
-		if not minetest.setting_getbool("creative_mode") then
+		if not creative.is_enabled_for(player_name) then
 			-- Wear tool
 			local wdef = itemstack:get_definition()
 			itemstack:add_wear(1000)
