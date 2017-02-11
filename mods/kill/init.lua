@@ -21,20 +21,14 @@ function kill.kill(player)
 	end
 end
 
-local function aliases(name, from)
-	if minetest.chatcommands[from] then
-		minetest.register_chatcommand(name, minetest.chatcommands[from])
-	end
-end
-
-minetest.register_chatcommand("suicide", {
+minetest.register_chatcommand("killme", {
 	description = "Kill yourself to respawn",
 	func = function(name)
 		return kill.kill(minetest.get_player_by_name(name))
 	end
 })
 
-minetest.register_privilege("kill", {description = "Can kill the players", give_to_singleplayer = false})
+minetest.register_privilege("kill", {description = "Can use the kill command to kill other players", give_to_singleplayer = false})
 minetest.register_chatcommand("kill", {
 	params = "<name>",
 	description = "Kill a player",
@@ -44,4 +38,4 @@ minetest.register_chatcommand("kill", {
 	end
 })
 
-aliases("killme", "suicide")
+minetest.register_chatcommand("suicide", minetest.chatcommands["killme"])
