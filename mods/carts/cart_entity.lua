@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 local cart_entity = {
 	physical = false, -- otherwise going uphill breaks
 	collisionbox = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},

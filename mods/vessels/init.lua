@@ -1,4 +1,4 @@
-S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
 
 -- Minetest 0.4 mod: vessels
 -- See README.txt for licensing and other information.

@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 local pi = math.pi
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()

@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 
 -- Fallback functions for when `intllib` is not installed.
 -- Code released under Unlicense <http://unlicense.org>.

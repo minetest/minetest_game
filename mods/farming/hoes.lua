@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 farming.register_hoe(":farming:hoe_wood", {
 	description = S("Wooden Hoe"),
 	inventory_image = "farming_tool_woodhoe.png",

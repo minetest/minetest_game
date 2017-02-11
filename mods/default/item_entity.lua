@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- mods/default/item_entity.lua
 
 local builtin_item = minetest.registered_entities["__builtin:item"]

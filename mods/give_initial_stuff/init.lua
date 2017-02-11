@@ -1,4 +1,4 @@
-S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
 
 local stuff_string = minetest.setting_get("initial_stuff") or
 		"default:pick_steel,default:axe_steel,default:shovel_steel," ..

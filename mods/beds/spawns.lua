@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 local world_path = minetest.get_worldpath()
 local org_file = world_path .. "/beds_spawns"
 local file = world_path .. "/beds_spawns"

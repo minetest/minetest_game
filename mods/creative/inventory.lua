@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 local player_inventory = {}
 
 function creative.init_creative_inventory(player)
