@@ -95,6 +95,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 		if new_stack then
 			new_stack:set_metadata(data_str)
+			local meta = new_stack:get_meta()
+			meta:set_string("description", "\"" .. data.title .. "\"\nA book written by " .. data.owner)
 			if inv:room_for_item("main", new_stack) then
 				inv:add_item("main", new_stack)
 			else
@@ -102,6 +104,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		else
 			stack:set_metadata(data_str)
+			local meta = stack:get_meta()
+			meta:set_string("description", "\"" .. data.title .. "\"\nA book written by " .. data.owner)
 		end
 
 	elseif fields.book_next or fields.book_prev then
