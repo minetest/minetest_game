@@ -516,7 +516,6 @@ minetest.register_node("default:wood", {
 minetest.register_node("default:sapling", {
 	description = "Sapling",
 	drawtype = "plantlike",
-	visual_scale = 1.0,
 	tiles = {"default_sapling.png"},
 	inventory_image = "default_sapling.png",
 	wield_image = "default_sapling.png",
@@ -582,7 +581,6 @@ minetest.register_node("default:leaves", {
 minetest.register_node("default:apple", {
 	description = "Apple",
 	drawtype = "plantlike",
-	visual_scale = 1.0,
 	tiles = {"default_apple.png"},
 	inventory_image = "default_apple.png",
 	paramtype = "light",
@@ -652,7 +650,6 @@ minetest.register_node("default:jungleleaves", {
 minetest.register_node("default:junglesapling", {
 	description = "Jungle Sapling",
 	drawtype = "plantlike",
-	visual_scale = 1.0,
 	tiles = {"default_junglesapling.png"},
 	inventory_image = "default_junglesapling.png",
 	wield_image = "default_junglesapling.png",
@@ -732,7 +729,6 @@ minetest.register_node("default:pine_needles",{
 minetest.register_node("default:pine_sapling", {
 	description = "Pine Sapling",
 	drawtype = "plantlike",
-	visual_scale = 1.0,
 	tiles = {"default_pine_sapling.png"},
 	inventory_image = "default_pine_sapling.png",
 	wield_image = "default_pine_sapling.png",
@@ -813,7 +809,6 @@ minetest.register_node("default:acacia_leaves", {
 minetest.register_node("default:acacia_sapling", {
 	description = "Acacia Tree Sapling",
 	drawtype = "plantlike",
-	visual_scale = 1.0,
 	tiles = {"default_acacia_sapling.png"},
 	inventory_image = "default_acacia_sapling.png",
 	wield_image = "default_acacia_sapling.png",
@@ -892,7 +887,6 @@ minetest.register_node("default:aspen_leaves", {
 minetest.register_node("default:aspen_sapling", {
 	description = "Aspen Tree Sapling",
 	drawtype = "plantlike",
-	visual_scale = 1.0,
 	tiles = {"default_aspen_sapling.png"},
 	inventory_image = "default_aspen_sapling.png",
 	wield_image = "default_aspen_sapling.png",
@@ -1079,7 +1073,6 @@ minetest.register_node("default:dry_shrub", {
 	description = "Dry Shrub",
 	drawtype = "plantlike",
 	waving = 1,
-	visual_scale = 1.0,
 	tiles = {"default_dry_shrub.png"},
 	inventory_image = "default_dry_shrub.png",
 	wield_image = "default_dry_shrub.png",
@@ -1099,7 +1092,7 @@ minetest.register_node("default:junglegrass", {
 	description = "Jungle Grass",
 	drawtype = "plantlike",
 	waving = 1,
-	visual_scale = 1.3,
+	visual_scale = 1.69,
 	tiles = {"default_junglegrass.png"},
 	inventory_image = "default_junglegrass.png",
 	wield_image = "default_junglegrass.png",
@@ -1223,7 +1216,7 @@ end
 minetest.register_node("default:bush_stem", {
 	description = "Bush Stem",
 	drawtype = "plantlike",
-	visual_scale = 1.18,
+	visual_scale = 1.41,
 	tiles = {"default_bush_stem.png"},
 	inventory_image = "default_bush_stem.png",
 	wield_image = "default_bush_stem.png",
@@ -1250,7 +1243,7 @@ minetest.register_node("default:bush_leaves", {
 minetest.register_node("default:acacia_bush_stem", {
 	description = "Acacia Bush Stem",
 	drawtype = "plantlike",
-	visual_scale = 1.18,
+	visual_scale = 1.41,
 	tiles = {"default_acacia_bush_stem.png"},
 	inventory_image = "default_acacia_bush_stem.png",
 	wield_image = "default_acacia_bush_stem.png",
