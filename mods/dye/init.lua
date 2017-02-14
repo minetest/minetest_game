@@ -24,11 +24,14 @@ dye.dyes = {
 
 for key, value in pairs(dye.dyes) do
 	local item_name = "dye:"..key
+	local color_group_name = "color_"..key
+	local groups = {dye=1}
+	groups[color_group_name]=1
 
 	minetest.register_craftitem(item_name, {
 		inventory_image = "(dye_base.png^[colorize:"..value.html..")^dye_overlay.png",
 		description = value.name.." Dye",
-		groups = "color_"..key
+		groups = groups
 	})
 	minetest.register_craft({
 		type = "shapeless",
