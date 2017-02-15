@@ -139,22 +139,13 @@ function _doors.door_toggle(pos, node, clicker)
 		state = tonumber(state)
 	end
 
-	if clicker and not minetest.check_player_privs(clicker, "protection_bypass") then
-		-- is player wielding the right key?
-		local item = clicker:get_wielded_item()
-		local owner = meta:get_string("doors_owner")
-		if item:get_name() == "default:key" then
-			local key_meta = minetest.parse_json(item:get_metadata())
-			local secret = meta:get_string("key_lock_secret")
-			if secret ~= key_meta.secret then
-				return false
-			end
+	-- BACKWARDS COMPATIBILITY
+	if not meta:get_string("owner") then
+		meta:set_string("owner", meta:get_string("doors_owner"))
+	end
 
-		elseif owner ~= "" then
-			if clicker:get_player_name() ~= owner then
-				return false
-			end
-		end
+	if not default.can_use_locked_node(pos, clicker, meta) then
+		return false
 	end
 
 	-- until Lua-5.2 we have no bitwise operators :(
@@ -209,7 +200,7 @@ local function can_dig_door(pos, digger)
 	if digger_name and minetest.get_player_privs(digger_name).protection_bypass then
 		return true
 	end
-	return minetest.get_meta(pos):get_string("doors_owner") == digger_name
+	return minetest.get_meta(pos):get_string("owner") == digger_name
 end
 
 function doors.register(name, def)
@@ -231,7 +222,7 @@ function doors.register(name, def)
 				{{type = "b", state = 1}, {type = "b", state = 2}}
 			}
 			local new = replace[l][h]
-			-- retain infotext and doors_owner fields
+			-- retain infotext and owner fields
 			minetest.swap_node(pos, {name = name .. "_" .. new.type, param2 = p2})
 			meta:set_int("state", new.state)
 			-- properly place doors:hidden at the right spot
@@ -324,7 +315,8 @@ function doors.register(name, def)
 			meta:set_int("state", state)
 
 			if def.protected then
-				meta:set_string("doors_owner", pn)
+				meta:set_string("owner", pn)
+				meta:set_string("doors_owner", pn) -- BACKWARDS COMPATIBILITY
 				meta:set_string("infotext", "Owned by " .. pn)
 			end
 
@@ -389,7 +381,7 @@ function doors.register(name, def)
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
 			local meta = minetest.get_meta(pos)
-			local owner = meta:get_string("doors_owner")
+			local owner = meta:get_string("owner")
 			local pname = player:get_player_name()
 
 			-- verify placer is owner of lockable door
@@ -530,7 +522,7 @@ function _doors.trapdoor_toggle(pos, node, clicker)
 		-- is player wielding the right key?
 		local item = clicker:get_wielded_item()
 		local meta = minetest.get_meta(pos)
-		local owner = meta:get_string("doors_owner")
+		local owner = meta:get_string("owner")
 		if item:get_name() == "default:key" then
 			local key_meta = minetest.parse_json(item:get_metadata())
 			local secret = meta:get_string("key_lock_secret")
@@ -584,7 +576,8 @@ function doors.register_trapdoor(name, def)
 		def.after_place_node = function(pos, placer, itemstack, pointed_thing)
 			local pn = placer:get_player_name()
 			local meta = minetest.get_meta(pos)
-			meta:set_string("doors_owner", pn)
+			meta:set_string("owner", pn)
+			meta:set_string("doors_owner", pn) -- BACKWARDS COMPATIBILITY
 			meta:set_string("infotext", "Owned by "..pn)
 
 			return minetest.setting_getbool("creative_mode")
@@ -597,7 +590,7 @@ function doors.register_trapdoor(name, def)
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
 			local meta = minetest.get_meta(pos)
-			local owner = meta:get_string("doors_owner")
+			local owner = meta:get_string("owner")
 			local pname = player:get_player_name()
 
 			-- verify placer is owner of lockable door
