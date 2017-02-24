@@ -132,8 +132,6 @@ end
 
 -- Slab facedir to placement 6d matching table
 local slab_trans_dir = {[0] = 8, 0, 2, 1, 3, 4}
--- Slab facedir when placing initial slab against other surface
-local slab_trans_dir_place = {[0] = 0, 20, 12, 16, 4, 8}
 
 -- Register slabs.
 -- Node will be called stairs:slab_<subname>
