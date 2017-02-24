@@ -23,20 +23,14 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 
 	local placer_pos = placer:getpos()
 	if placer_pos then
-		local dir = {
-			x = p1.x - placer_pos.x,
-			y = p1.y - placer_pos.y,
-			z = p1.z - placer_pos.z
-		}
-		param2 = minetest.dir_to_facedir(dir)
+		param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
 	end
-
-	print(param2)
 
 	local finepos = minetest.fine_pointed_position(placer, pointed_thing)
 	local _, fpos = math.modf(finepos.y)
 
-	if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5) or (fpos < -0.5 and fpos > -0.999999999) then
+	if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5)
+			or (fpos < -0.5 and fpos > -0.999999999) then
 		param2 = param2 + 20
 		if param2 == 21 then
 			param2 = 23
@@ -81,7 +75,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				return itemstack
 			end
 
-			rotate_and_place(itemstack, placer, pointed_thing)
+			return rotate_and_place(itemstack, placer, pointed_thing)
 		end,
 	})
 
@@ -162,7 +156,6 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 
 				local p2 = under.param2
 
-
 				-- combine two slabs if possible
 				if slab_trans_dir[math.floor(p2 / 4)] == dir
 						and wield_item == under.name then
@@ -199,7 +192,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				end
 				return itemstack
 			else
-				rotate_and_place(itemstack, placer, pointed_thing)
+				return rotate_and_place(itemstack, placer, pointed_thing)
 			end
 		end,
 	})
@@ -492,3 +485,42 @@ stairs.register_stair_and_slab(
 	default.node_sound_leaves_defaults()
 )
 
+stairs.register_stair_and_slab(
+	"steelblock",
+	"default:steelblock",
+	{cracky = 1, level = 2},
+	{"default_steel_block.png"},
+	"Steel Block Stair",
+	"Steel Block Slab",
+	default.node_sound_metal_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"copperblock",
+	"default:copperblock",
+	{cracky = 1, level = 2},
+	{"default_copper_block.png"},
+	"Copper Block Stair",
+	"Copper Block Slab",
+	default.node_sound_metal_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"bronzeblock",
+	"default:bronzeblock",
+	{cracky = 1, level = 2},
+	{"default_bronze_block.png"},
+	"Bronze Block Stair",
+	"Bronze Block Slab",
+	default.node_sound_metal_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"goldblock",
+	"default:goldblock",
+	{cracky = 1},
+	{"default_gold_block.png"},
+	"Gold Block Stair",
+	"Gold Block Slab",
+	default.node_sound_metal_defaults()
+)
