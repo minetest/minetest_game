@@ -1,13 +1,5 @@
 screwdriver = {}
 
-local function nextrange(x, max)
-	x = x + 1
-	if x > max then
-		x = 0
-	end
-	return x
-end
-
 screwdriver.ROTATE_FACE = 1
 screwdriver.ROTATE_AXIS = 2
 screwdriver.disallow = function(pos, node, user, mode, new_param2)
@@ -21,19 +13,27 @@ end
 
 screwdriver.rotate = {}
 
-screwdriver.rotate.facedir = function(node, mode)
-	-- Compute param2
-	local rotationPart = node.param2 % 32 -- get first 4 bits
-	local preservePart = node.param2 - rotationPart
-	local axisdir = math.floor(rotationPart / 4)
-	local rotation = rotationPart - axisdir * 4
-	if mode == screwdriver.ROTATE_FACE then
-		rotationPart = axisdir * 4 + nextrange(rotation, 3)
-	elseif mode == screwdriver.ROTATE_AXIS then
-		rotationPart = nextrange(axisdir, 5) * 4
-	end
+local facedir_tbl = {
+	[screwdriver.ROTATE_FACE] = {
+		[0] = 1, [1] = 2, [2] = 3, [3] = 0,
+		[4] = 5, [5] = 6, [6] = 7, [7] = 4,
+		[8] = 9, [9] = 10, [10] = 11, [11] = 8,
+		[12] = 13, [13] = 14, [14] = 15, [15] = 12,
+		[16] = 17, [17] = 18, [18] = 19, [19] = 16,
+		[20] = 21, [21] = 22, [22] = 23, [23] = 20,
+	},
+	[screwdriver.ROTATE_AXIS] = {
+		[0] = 4, [1] = 4, [2] = 4, [3] = 4,
+		[4] = 8, [5] = 8, [6] = 8, [7] = 8,
+		[8] = 12, [9] = 12, [10] = 12, [11] = 12,
+		[12] = 16, [13] = 16, [14] = 16, [15] = 16,
+		[16] = 20, [17] = 20, [18] = 20, [19] = 20,
+		[20] = 0, [21] = 0, [22] = 0, [23] = 0,
+	},
+}
 
-	return preservePart + rotationPart
+screwdriver.rotate.facedir = function(node, mode)
+	return facedir_tbl[mode][node.param2]
 end
 
 local wallmounted_tbl = {
