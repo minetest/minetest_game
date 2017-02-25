@@ -19,6 +19,31 @@ screwdriver.rotate_simple = function(pos, node, user, mode, new_param2)
 	end
 end
 
+screwdriver.rotate = {}
+
+screwdriver.rotate.facedir = function(node, mode)
+	-- Compute param2
+	local rotationPart = node.param2 % 32 -- get first 4 bits
+	local preservePart = node.param2 - rotationPart
+	local axisdir = math.floor(rotationPart / 4)
+	local rotation = rotationPart - axisdir * 4
+	if mode == screwdriver.ROTATE_FACE then
+		rotationPart = axisdir * 4 + nextrange(rotation, 3)
+	elseif mode == screwdriver.ROTATE_AXIS then
+		rotationPart = nextrange(axisdir, 5) * 4
+	end
+
+	return preservePart + rotationPart
+end
+
+local wallmounted_tbl = {
+	[screwdriver.ROTATE_FACE] = {[2] = 5, [3] = 4, [4] = 2, [5] = 3, [1] = 0, [0] = 1},
+	[screwdriver.ROTATE_AXIS] = {[2] = 5, [3] = 4, [4] = 2, [5] = 1, [1] = 0, [0] = 3}
+}
+screwdriver.rotate.wallmounted = function(node, mode)
+	return wallmounted_tbl[mode][node.param2]
+end
+
 -- Handles rotation
 screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	if pointed_thing.type ~= "node" then
@@ -34,23 +59,14 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 
 	local node = minetest.get_node(pos)
 	local ndef = minetest.registered_nodes[node.name]
-	-- verify node is facedir (expected to be rotatable)
-	if not ndef or ndef.paramtype2 ~= "facedir" then
+	-- can we rotate this paramtype2?
+	local fn = screwdriver.rotate[ndef.paramtype2]
+	if not fn then
 		return
 	end
-	-- Compute param2
-	local rotationPart = node.param2 % 32 -- get first 4 bits
-	local preservePart = node.param2 - rotationPart
-	local axisdir = math.floor(rotationPart / 4)
-	local rotation = rotationPart - axisdir * 4
-	if mode == screwdriver.ROTATE_FACE then
-		rotationPart = axisdir * 4 + nextrange(rotation, 3)
-	elseif mode == screwdriver.ROTATE_AXIS then
-		rotationPart = nextrange(axisdir, 5) * 4
-	end
 
-	local new_param2 = preservePart + rotationPart
 	local should_rotate = true
+	local new_param2 = fn(node, mode)
 
 	-- Node provides a handler, so let the handler decide instead if the node can be rotated
 	if ndef and ndef.on_rotate then
