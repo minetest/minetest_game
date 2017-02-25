@@ -1632,9 +1632,9 @@ function default.register_decorations()
 		deco_type = "schematic",
 		place_on = {"default:sand"},
 		noise_params = {
-			offset = -0.1,
+			offset = -0.15,
 			scale = 0.1,
-			spread = {x = 200, y = 200, z = 200},
+			spread = {x = 100, y = 100, z = 100},
 			seed = 7013,
 			octaves = 3,
 			persist = 1,
