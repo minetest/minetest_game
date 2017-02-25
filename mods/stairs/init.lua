@@ -26,7 +26,7 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 		param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
 	end
 
-	local finepos = minetest.fine_pointed_position(placer, pointed_thing)
+	local finepos = minetest.get_face_pos_from_pointed_thing(placer, pointed_thing)
 	local _, fpos = math.modf(finepos.y)
 
 	if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5)
