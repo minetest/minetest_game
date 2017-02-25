@@ -136,7 +136,7 @@ minetest.register_abm({
 	nodenames = {"default:lava_source", "default:lava_flowing"},
 	neighbors = {"group:cools_lava", "group:water"},
 	interval = 1,
-	chance = 1,
+	chance = 2,
 	catch_up = false,
 	action = function(...)
 		default.cool_lava(...)
