@@ -1727,9 +1727,13 @@ minetest.register_node("default:chest_locked", {
 	on_key_use = function(pos, player)
 		local secret = minetest.get_meta(pos):get_string("key_lock_secret")
 		local itemstack = player:get_wielded_item()
-		local key_meta = minetest.parse_json(itemstack:get_metadata())
+		local key_meta = itemstack:get_meta()
 
-		if secret ~= key_meta.secret then
+		if key_meta:get_string("secret") == "" then
+			key_meta:set_string("secret", minetest.parse_json(itemstack:get_metadata()).secret)
+		end
+
+		if secret ~= key_meta:get_string("secret") then
 			return
 		end
 
