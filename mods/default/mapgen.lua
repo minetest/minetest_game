@@ -1058,7 +1058,7 @@ function default.register_biomes()
 	minetest.register_biome({
 		name = "rainforest",
 		--node_dust = "",
-		node_top = "default:dirt_with_grass",
+		node_top = "default:dirt_with_rainforest_litter",
 		depth_top = 1,
 		node_filler = "default:dirt",
 		depth_filler = 3,
@@ -1322,7 +1322,7 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_grass", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
 		sidelen = 80,
 		fill_ratio = 0.1,
 		biomes = {"rainforest", "rainforest_swamp"},
@@ -1335,7 +1335,7 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_grass", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
 		sidelen = 80,
 		fill_ratio = 0.005,
 		biomes = {"rainforest", "rainforest_swamp"},
@@ -1596,7 +1596,7 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "simple",
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"default:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.1,
 		biomes = {"rainforest"},

@@ -44,6 +44,7 @@ default:dirt_with_grass
 default:dirt_with_grass_footsteps
 default:dirt_with_dry_grass
 default:dirt_with_snow
+default:dirt_with_rainforest_litter
 
 default:sand
 default:desert_sand
@@ -383,6 +384,21 @@ minetest.register_node("default:dirt_with_snow", {
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_snow_footstep", gain = 0.15},
+	}),
+})
+
+minetest.register_node("default:dirt_with_rainforest_litter", {
+	description = "Dirt with Rainforest Litter",
+	tiles = {
+		"default_rainforest_litter.png",
+		"default_dirt.png",
+		{name = "default_dirt.png^default_rainforest_litter_side.png",
+			tileable_vertical = false}
+	},
+	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+	drop = "default:dirt",
+	sounds = default.node_sound_dirt_defaults({
+		footstep = {name = "default_grass_footstep", gain = 0.4},
 	}),
 })
 

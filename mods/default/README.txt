@@ -198,6 +198,10 @@ Ferk (CC0 1.0)
   default_item_smoke.png
   default_item_smoke.ogg, based on sound by http://opengameart.org/users/bart
 
+npx (CC BY-SA 3.0)
+  default_rainforest_litter.png
+  default_rainforest_litter_side.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
