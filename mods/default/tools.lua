@@ -410,9 +410,10 @@ minetest.register_tool("default:skeleton_key", {
 				-- finish and return the new key
 				itemstack:take_item()
 				itemstack:add_item("default:key")
-				itemstack:set_metadata(minetest.write_json({
-					secret = secret
-				}))
+				local meta = itemstack:get_meta()
+				meta:set_string("secret", secret)
+				meta:set_string("description", "Key to "..placer:get_player_name().."'s "
+					..minetest.registered_nodes[node.name].description)
 				return itemstack
 			end
 		end
