@@ -11,6 +11,18 @@ screwdriver.rotate_simple = function(pos, node, user, mode, new_param2)
 	end
 end
 
+-- For attached wallmounted nodes: returns true if rotation is valid
+local function check_attached_node(pos, rotation)
+	local d = minetest.wallmounted_to_dir(rotation)
+	local p2 = vector.add(pos, d)
+	local n = minetest.get_node(p2).name
+	local def2 = minetest.registered_nodes[n]
+	if def2 and not def2.walkable then
+		return false
+	end
+	return true
+end
+
 screwdriver.rotate = {}
 
 local facedir_tbl = {
@@ -32,17 +44,38 @@ local facedir_tbl = {
 	},
 }
 
-screwdriver.rotate.facedir = function(node, mode)
-	return facedir_tbl[mode][node.param2]
+screwdriver.rotate.facedir = function(pos, node, mode)
+	local rotation = node.param2 % 32 -- get first 5 bits
+	local other = node.param2 - rotation
+	rotation = facedir_tbl[mode][rotation] or 0
+	return rotation + other
 end
+
+screwdriver.rotate.colorfacedir = screwdriver.rotate.facedir
 
 local wallmounted_tbl = {
 	[screwdriver.ROTATE_FACE] = {[2] = 5, [3] = 4, [4] = 2, [5] = 3, [1] = 0, [0] = 1},
 	[screwdriver.ROTATE_AXIS] = {[2] = 5, [3] = 4, [4] = 2, [5] = 1, [1] = 0, [0] = 3}
 }
-screwdriver.rotate.wallmounted = function(node, mode)
-	return wallmounted_tbl[mode][node.param2]
+
+screwdriver.rotate.wallmounted = function(pos, node, mode)
+	local rotation = node.param2 % 8 -- get first 3 bits
+	local other = node.param2 - rotation
+	rotation = wallmounted_tbl[mode][rotation] or 0
+	if minetest.get_item_group(node.name, "attached_node") ~= 0 then
+		-- find an acceptable orientation
+		for i = 1, 5 do
+			if not check_attached_node(pos, rotation) then
+				rotation = wallmounted_tbl[mode][rotation] or 0
+			else
+				break
+			end
+		end
+	end
+	return rotation + other
 end
+
+screwdriver.rotate.colorwallmounted = screwdriver.rotate.wallmounted
 
 -- Handles rotation
 screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
@@ -66,7 +99,7 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	end
 
 	local should_rotate = true
-	local new_param2 = fn(node, mode)
+	local new_param2 = fn(pos, node, mode)
 
 	if ndef and ndef.on_rotate then -- Node provides a handler, so let the handler decide instead if the node can be rotated
 		-- Copy pos and node because callback can modify it
@@ -79,7 +112,7 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 			should_rotate = false
 		end
 	else
-		if not ndef or not ndef.paramtype2 == "facedir" or
+		if not ndef or
 				ndef.on_rotate == false or
 				(ndef.drawtype == "nodebox" and
 				not ndef.node_box.type == "fixed") or
