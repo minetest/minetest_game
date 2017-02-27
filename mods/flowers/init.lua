@@ -122,7 +122,7 @@ function flowers.flower_spread(pos, node)
 
 	local pos0 = vector.subtract(pos, 4)
 	local pos1 = vector.add(pos, 4)
-	if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 3 then
+	if #minetest.find_nodes_in_area(pos0, pos1, "group:flower") > 3 then
 		return
 	end
 
@@ -141,7 +141,7 @@ end
 
 minetest.register_abm({
 	label = "Flower spread",
-	nodenames = {"group:flora"},
+	nodenames = {"group:flower"},
 	neighbors = {"default:dirt_with_grass", "default:dirt_with_dry_grass",
 		"default:desert_sand"},
 	interval = 13,

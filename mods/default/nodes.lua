@@ -337,42 +337,266 @@ minetest.register_node("default:dirt", {
 	sounds = default.node_sound_dirt_defaults(),
 })
 
+local spread_delay = 1000
+
+local function spread_grass(pos, grass_name, grass_side_name)
+   local pos1 = {x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}
+   local pos2 = {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}
+   local dt, cnt = minetest.find_nodes_in_area(pos1, pos2, {"default:dirt"})
+   if #dt > 0 then
+      for _, dtpos in ipairs(dt) do
+         local underdt = {x = dtpos.x, y = dtpos.y - 1, z = dtpos.z}
+         local abovedt = {x = dtpos.x, y = dtpos.y + 1, z = dtpos.z}
+         local name_underdt = minetest.get_node(underdt).name
+         local name_abovedt = minetest.get_node(abovedt).name
+         local nodedef_abovedt = minetest.registered_nodes[name_abovedt]
+         if name_abovedt ~= "ignore" and nodedef_abovedt and ((nodedef_abovedt.sunlight_propagates or
+               nodedef_abovedt.paramtype == "light") and
+               nodedef_abovedt.liquidtype == "none") and
+               (minetest.get_node_light(abovedt) or 0) >= 13 then
+            if name_underdt == "default:dirt"
+                  or name_underdt == grass_name
+                  or name_underdt == grass_side_name then
+               minetest.set_node(dtpos, {name = grass_name})
+               minetest.set_node(underdt, {name = grass_side_name})
+            else
+               minetest.set_node(dtpos, {name = grass_side_name})
+            end
+         elseif name_abovedt == grass_name then
+            local pos1 = {x = dtpos.x - 1, y = dtpos.y, z = dtpos.z - 1}
+            local pos2 = {x = dtpos.x + 1, y = dtpos.y, z = dtpos.z + 1}
+            local ai, cnt = minetest.find_nodes_in_area(pos1, pos2, {"air", "group:flora"})
+            if #ai ~= 0 then
+               minetest.set_node(dtpos, {name = grass_side_name})
+            end
+         end
+      end
+   end
+end
+
 minetest.register_node("default:dirt_with_grass", {
-	description = "Dirt with Grass",
-	tiles = {"default_grass.png", "default_dirt.png",
-		{name = "default_dirt.png^default_grass_side.png",
-			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = 'default:dirt',
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_grass_footstep", gain = 0.25},
-	}),
+   description = "Dirt with Grass",
+   tiles = {"default_grass.png"},
+   groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+   drop = 'default:dirt',
+   sounds = default.node_sound_dirt_defaults({
+      footstep = {name = "default_grass_footstep", gain = 0.25},
+   }),
+   on_construct = function(pos)
+      minetest.get_node_timer(pos):start(math.random(50, spread_delay))
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local name = minetest.get_node(above).name
+      if name == "air" then
+         minetest.set_node(above, {name = "default:grass_" .. math.random(1,5)})
+      end
+   end,
+   on_timer = function(pos,elapsed)
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local under = {x = pos.x, y = pos.y - 1, z = pos.z}
+      local name = minetest.get_node(above).name
+      local nodedef = minetest.registered_nodes[name]
+      if name ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
+            nodedef.paramtype == "light") and
+            nodedef.liquidtype == "none") then
+         minetest.set_node(pos, {name = "default:dirt"})
+         name = minetest.get_node(under).name
+         if name == "default:dirt_with_grass_side" then
+            minetest.set_node(under, {name = "default:dirt"})
+         end
+         return true
+      end
+      spread_grass(pos, "default:dirt_with_grass", "default:dirt_with_grass_side")
+      return true
+   end,
 })
 
+minetest.register_node("default:dirt_with_grass_side", {
+   description = "Dirt with Grass",
+   tiles = {"default_grass.png", "default_dirt.png",
+      {name = "default_dirt.png^default_grass_side.png",
+         tileable_vertical = false}},
+   groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+   drop = 'default:dirt',
+   sounds = default.node_sound_dirt_defaults({
+      footstep = {name = "default_grass_footstep", gain = 0.25},
+   }),
+   on_construct = function(pos)
+      minetest.get_node_timer(pos):start(math.random(50, spread_delay))
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local name = minetest.get_node(above).name
+      if name == "air" then
+         minetest.set_node(above, {name = "default:grass_" .. math.random(1,5)})
+      end
+   end,
+   on_timer = function(pos,elapsed)
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local name_above = minetest.get_node(above).name
+      local nodedef = minetest.registered_nodes[name_above]
+      if name_above ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
+            nodedef.paramtype == "light") and
+            nodedef.liquidtype == "none") and
+            name_above ~= "default:dirt_with_grass" then
+         minetest.set_node(pos, {name = "default:dirt"})
+         return true
+      end
+      local under = {x = pos.x, y = pos.y - 1, z = pos.z}
+      name_under = minetest.get_node(under).name
+      if name_under == "default:dirt" and name_above ~= "default:dirt_with_grass" then
+         local pos1 = {x = under.x - 1, y = under.y, z = under.z - 1}
+         local pos2 = {x = under.x + 1, y = under.y, z = under.z + 1}
+         local ai, cnt = minetest.find_nodes_in_area(pos1, pos2, {"air", "group:flora"})
+         if #ai ~= 0 then
+            minetest.set_node(pos, {name = "default:dirt_with_grass"})
+            minetest.set_node(under, {name = "default:dirt_with_grass_side"})
+         end
+      end
+      spread_grass(pos, "default:dirt_with_grass", "default:dirt_with_grass_side")
+      return true
+   end,
+})
+
+
+minetest.register_on_generated(function(minp, maxp)
+   local nodes, count = minetest.find_nodes_in_area(minp, maxp, {"default:dirt_with_grass"})
+
+   for _, pos in ipairs(nodes) do
+      local under = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
+      local above = minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z})
+
+      if under.name == "default:dirt" then
+         local pos1 = {x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}
+         local pos2 = {x = pos.x + 1, y = pos.y - 1, z = pos.z + 1}
+         local ai, cnt = minetest.find_nodes_in_area(pos1, pos2, {"air", "group:flora"})
+         if #ai ~= 0 then
+            minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, {name = "default:dirt_with_grass_side"})
+         end
+      else
+         minetest.set_node(pos, {name = "default:dirt_with_grass_side"})
+      end
+      minetest.get_node_timer(pos):start(math.random(50, spread_delay))
+      if above.name == "air" then
+         minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "default:grass_" .. math.random(1,5)})
+      end
+   end
+end)
+
+
 minetest.register_node("default:dirt_with_grass_footsteps", {
-	description = "Dirt with Grass and Footsteps",
-	tiles = {"default_grass.png^default_footprint.png", "default_dirt.png",
-		{name = "default_dirt.png^default_grass_side.png",
-			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, not_in_creative_inventory = 1},
-	drop = 'default:dirt',
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_grass_footstep", gain = 0.25},
-	}),
+   description = "Dirt with Grass and Footsteps",
+   tiles = {"default_grass.png^default_footprint.png"},
+   groups = {crumbly = 3, soil = 1, not_in_creative_inventory = 1},
+   drop = 'default:dirt',
+   sounds = default.node_sound_dirt_defaults({
+      footstep = {name = "default_grass_footstep", gain = 0.25},
+   }),
 })
 
 minetest.register_node("default:dirt_with_dry_grass", {
-	description = "Dirt with Dry Grass",
-	tiles = {"default_dry_grass.png",
-		"default_dirt.png",
-		{name = "default_dirt.png^default_dry_grass_side.png",
-			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = 'default:dirt',
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_grass_footstep", gain = 0.4},
-	}),
+   description = "Dirt with Dry Grass",
+   tiles = {"default_dry_grass.png"},
+   groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+   drop = 'default:dirt',
+   sounds = default.node_sound_dirt_defaults({
+      footstep = {name = "default_grass_footstep", gain = 0.4},
+   }),
+   on_construct = function(pos)
+      minetest.get_node_timer(pos):start(math.random(50, spread_delay))
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local name = minetest.get_node(above).name
+      if name == "air" then
+         minetest.set_node(above, {name = "default:dry_grass_" .. math.random(1,5)})
+      end
+   end,
+   on_timer = function(pos,elapsed)
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local under = {x = pos.x, y = pos.y - 1, z = pos.z}
+      local name = minetest.get_node(above).name
+      local nodedef = minetest.registered_nodes[name]
+      if name ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
+            nodedef.paramtype == "light") and
+            nodedef.liquidtype == "none") then
+         minetest.set_node(pos, {name = "default:dirt"})
+         name = minetest.get_node(under).name
+         if name == "default:dirt_with_grass_dry_side" then
+            minetest.set_node(under, {name = "default:dirt"})
+         end
+         return true
+      end
+      spread_grass(pos, "default:dirt_with_dry_grass", "default:dirt_with_dry_grass_side")
+      return true
+   end,
 })
+
+minetest.register_node("default:dirt_with_dry_grass_side", {
+   description = "Dirt with Dry Grass",
+   tiles = {"default_dry_grass.png",
+      "default_dirt.png",
+      {name = "default_dirt.png^default_dry_grass_side.png",
+         tileable_vertical = false}},
+   groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+   drop = 'default:dirt',
+   sounds = default.node_sound_dirt_defaults({
+      footstep = {name = "default_grass_footstep", gain = 0.4},
+   }),
+   on_construct = function(pos)
+      minetest.get_node_timer(pos):start(math.random(50, spread_delay))
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local name = minetest.get_node(above).name
+      if name == "air" then
+         minetest.set_node(above, {name = "default:dry_grass_" .. math.random(1,5)})
+      end
+   end,
+   on_timer = function(pos,elapsed)
+      local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+      local name_above = minetest.get_node(above).name
+      local nodedef = minetest.registered_nodes[name_above]
+      if name_above ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
+            nodedef.paramtype == "light") and
+            nodedef.liquidtype == "none") and
+            name_above ~= "default:dirt_with_dry_grass" then
+         minetest.set_node(pos, {name = "default:dirt"})
+         return true
+      end
+      local under = {x = pos.x, y = pos.y - 1, z = pos.z}
+      name_under = minetest.get_node(under).name
+      if name_under == "default:dirt" and name_above ~= "default:dirt_with_dry_grass" then
+         local pos1 = {x = under.x - 1, y = under.y, z = under.z - 1}
+         local pos2 = {x = under.x + 1, y = under.y, z = under.z + 1}
+         local ai, cnt = minetest.find_nodes_in_area(pos1, pos2, {"air", "group:flora"})
+         if #ai ~= 0 then
+            minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
+            minetest.set_node(under, {name = "default:dirt_with_grass_dry_side"})
+         end
+      end
+      spread_grass(pos, "default:dirt_with_dry_grass", "default:dirt_with_dry_grass_side")
+      return true
+   end,
+})
+
+
+minetest.register_on_generated(function(minp, maxp)
+   local nodes, count = minetest.find_nodes_in_area(minp, maxp, {"default:dirt_with_dry_grass"})
+
+   for _, pos in ipairs(nodes) do
+      local under = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
+      local above = minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z})
+
+      if under.name == "default:dirt" then
+         local pos1 = {x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}
+         local pos2 = {x = pos.x + 1, y = pos.y - 1, z = pos.z + 1}
+         local ai, cnt = minetest.find_nodes_in_area(pos1, pos2, {"air", "group:flora"})
+         if #ai ~= 0 then
+            minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, {name = "default:dirt_with_dry_grass_side"})
+         end
+      else
+         minetest.set_node(pos, {name = "default:dirt_with_dry_grass_side"})
+      end
+      minetest.get_node_timer(pos):start(math.random(50, spread_delay))
+      if above.name == "air" then
+         minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "default:dry_grass_" .. math.random(1,5)})
+      end
+   end
+end)
 
 minetest.register_node("default:dirt_with_snow", {
 	description = "Dirt with Snow",
