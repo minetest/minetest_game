@@ -414,35 +414,43 @@ stairs.register_stair_and_slab(
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
-	"sandstone",
-	"default:sandstone",
-	{crumbly = 1, cracky = 3},
-	{"default_sandstone.png"},
-	"Sandstone Stair",
-	"Sandstone Slab",
-	default.node_sound_stone_defaults()
-)
+local function register_sandstone_stairs(prefix, descprefix)
 
-stairs.register_stair_and_slab(
-	"sandstonebrick",
-	"default:sandstonebrick",
-	{cracky = 2},
-	{"default_sandstone_brick.png"},
-	"Sandstone Brick Stair",
-	"Sandstone Brick Slab",
-	default.node_sound_stone_defaults()
-)
+	stairs.register_stair_and_slab(
+		prefix.."sandstone",
+		"default:"..prefix.."sandstone",
+		{crumbly = 1, cracky = 3},
+		{"default_"..prefix.."sandstone.png"},
+		descprefix.."Sandstone Stair",
+		descprefix.."Sandstone Slab",
+		default.node_sound_stone_defaults()
+	)
 
-stairs.register_stair_and_slab(
-	"sandstone_block",
-	"default:sandstone_block",
-	{cracky = 2},
-	{"default_sandstone_block.png"},
-	"Sandstone Block Stair",
-	"Sandstone Block Slab",
-	default.node_sound_stone_defaults()
-)
+	stairs.register_stair_and_slab(
+		prefix.."sandstonebrick",
+		"default:"..prefix.."sandstonebrick",
+		{cracky = 2},
+		{"default_"..prefix.."sandstone_brick.png"},
+		descprefix.."Sandstone Brick Stair",
+		descprefix.."Sandstone Brick Slab",
+		default.node_sound_stone_defaults()
+	)
+
+	stairs.register_stair_and_slab(
+		prefix.."sandstone_block",
+		"default:"..prefix.."sandstone_block",
+		{cracky = 2},
+		{"default_"..prefix.."sandstone_block.png"},
+		descprefix.."Sandstone Block Stair",
+		descprefix.."Sandstone Block Slab",
+		default.node_sound_stone_defaults()
+	)
+
+end
+
+register_sandstone_stairs("", "") -- Beach sand
+register_sandstone_stairs("desert_", "Desert ")
+register_sandstone_stairs("silver_", "Silver ")
 
 stairs.register_stair_and_slab(
 	"obsidian",
