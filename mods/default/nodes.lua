@@ -30,6 +30,12 @@ default:desert_stone_block
 default:sandstone
 default:sandstonebrick
 default:sandstone_block
+default:desert_sandstone
+default:desert_sandstonebrick
+default:desert_sandstone_block
+default:silver_sandstone
+default:silver_sandstonebrick
+default:silver_sandstone_block
 
 default:obsidian
 default:obsidianbrick
@@ -275,32 +281,38 @@ minetest.register_node("default:desert_stone_block", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+local function register_sandstone(prefix, descprefix)
 
-minetest.register_node("default:sandstone", {
-	description = "Sandstone",
-	tiles = {"default_sandstone.png"},
-	groups = {crumbly = 1, cracky = 3},
-	sounds = default.node_sound_stone_defaults(),
-})
+	minetest.register_node("default:"..prefix.."sandstone", {
+		description = descprefix.."Sandstone",
+		tiles = {"default_"..prefix.."sandstone.png"},
+		groups = {crumbly = 1, cracky = 3},
+		sounds = default.node_sound_stone_defaults(),
+	})
 
-minetest.register_node("default:sandstonebrick", {
-	description = "Sandstone Brick",
-	paramtype2 = "facedir",
-	place_param2 = 0,
-	tiles = {"default_sandstone_brick.png"},
-	is_ground_content = false,
-	groups = {cracky = 2},
-	sounds = default.node_sound_stone_defaults(),
-})
+	minetest.register_node("default:"..prefix.."sandstonebrick", {
+		description = descprefix.."Sandstone Brick",
+		paramtype2 = "facedir",
+		place_param2 = 0,
+		tiles = {"default_"..prefix.."sandstone_brick.png"},
+		is_ground_content = false,
+		groups = {cracky = 2},
+		sounds = default.node_sound_stone_defaults(),
+	})
 
-minetest.register_node("default:sandstone_block", {
-	description = "Sandstone Block",
-	tiles = {"default_sandstone_block.png"},
-	is_ground_content = false,
-	groups = {cracky = 2},
-	sounds = default.node_sound_stone_defaults(),
-})
+	minetest.register_node("default:"..prefix.."sandstone_block", {
+		description = descprefix.."Sandstone Block",
+		tiles = {"default_"..prefix.."sandstone_block.png"},
+		is_ground_content = false,
+		groups = {cracky = 2},
+		sounds = default.node_sound_stone_defaults(),
+	})
 
+end
+
+register_sandstone("", "") -- Beach sand
+register_sandstone("desert_", "Desert ")
+register_sandstone("silver_", "Silver ")
 
 minetest.register_node("default:obsidian", {
 	description = "Obsidian",

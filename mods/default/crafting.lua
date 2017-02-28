@@ -494,37 +494,50 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = "default:sandstone",
-	recipe = {
-		{"default:sand", "default:sand"},
-		{"default:sand", "default:sand"},
-	}
-})
+local function register_sandstone_recipes(prefix)
 
-minetest.register_craft({
-	output = 'default:sand 4',
-	recipe = {
-		{'default:sandstone'},
-	}
-})
+	local sand = "default:"..prefix.."sand"
+	local stone = "default:"..prefix.."sandstone"
+	local brick = "default:"..prefix.."sandstonebrick"
+	local block = "default:"..prefix.."sandstone_block"
 
-minetest.register_craft({
-	output = 'default:sandstonebrick 4',
-	recipe = {
-		{'default:sandstone', 'default:sandstone'},
-		{'default:sandstone', 'default:sandstone'},
-	}
-})
+	minetest.register_craft({
+		output = stone,
+		recipe = {
+			{sand, sand},
+			{sand, sand},
+		}
+	})
 
-minetest.register_craft({
-	output = 'default:sandstone_block 9',
-	recipe = {
-		{'default:sandstone', 'default:sandstone', 'default:sandstone'},
-		{'default:sandstone', 'default:sandstone', 'default:sandstone'},
-		{'default:sandstone', 'default:sandstone', 'default:sandstone'},
-	}
-})
+	minetest.register_craft({
+		output = sand.." 4",
+		recipe = {
+			{stone},
+		}
+	})
+
+	minetest.register_craft({
+		output = brick.." 4",
+		recipe = {
+			{stone, stone},
+			{stone, stone},
+		}
+	})
+
+	minetest.register_craft({
+		output = block.." 9",
+		recipe = {
+			{stone, stone, stone},
+			{stone, stone, stone},
+			{stone, stone, stone},
+		}
+	})
+
+end
+
+register_sandstone_recipes("") -- Beach sand
+register_sandstone_recipes("desert_")
+register_sandstone_recipes("silver_")
 
 minetest.register_craft({
 	output = 'default:clay',
