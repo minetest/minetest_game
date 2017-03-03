@@ -266,8 +266,8 @@ function tnt.burn(pos, nodename)
 	elseif def.on_ignite then
 		def.on_ignite(pos)
 	elseif minetest.get_item_group(name, "tnt") > 0 then
-		minetest.sound_play("tnt_ignite", {pos = pos})
 		minetest.swap_node(pos, {name = name .. "_burning"})
+		minetest.sound_play("tnt_ignite", {pos = pos})
 		minetest.get_node_timer(pos):start(1)
 	end
 end
@@ -376,7 +376,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	end
 
 	minetest.log("action", "TNT owned by " .. owner .. " detonated at " ..
-		minetest.pos_to_string(pos) .. " radius " .. radius)
+		minetest.pos_to_string(pos) .. " with radius " .. radius)
 
 	return drops, radius
 end
@@ -592,10 +592,8 @@ function tnt.register_tnt(def)
 			end,
 			on_punch = function(pos, node, puncher)
 				if puncher:get_wielded_item():get_name() == "default:torch" then
-					local meta = minetest.get_meta(pos)
-					local owner = meta:get_string("owner")
-					minetest.set_node(pos, {name = name .. "_burning"})
-					meta:set_string("owner", owner)
+					minetest.swap_node(pos, {name = name .. "_burning"})
+					minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 					minetest.log("action", puncher:get_player_name() ..
 						" ignites " .. node.name .. " at " ..
 						minetest.pos_to_string(pos))
@@ -614,10 +612,12 @@ function tnt.register_tnt(def)
 				}
 			},
 			on_burn = function(pos)
-				minetest.set_node(pos, {name = name .. "_burning"})
+				minetest.swap_node(pos, {name = name .. "_burning"})
+				minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 			end,
 			on_ignite = function(pos, igniter)
-				minetest.set_node(pos, {name = name .. "_burning"})
+				minetest.swap_node(pos, {name = name .. "_burning"})
+				minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 			end,
 		})
 	end
