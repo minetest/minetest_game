@@ -36,7 +36,7 @@ minetest.register_alias("mapgen_stair_cobble", "stairs:stair_cobble")
 minetest.register_alias("mapgen_mossycobble", "default:mossycobble")
 minetest.register_alias("mapgen_stair_desert_stone", "stairs:stair_desert_stone")
 minetest.register_alias("mapgen_sandstonebrick", "default:sandstonebrick")
-minetest.register_alias("mapgen_stair_sandstonebrick", "stairs:stair_sandstonebrick")
+minetest.register_alias("mapgen_stair_sandstone_block", "stairs:stair_sandstone_block")
 
 
 --
