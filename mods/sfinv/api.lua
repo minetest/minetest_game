@@ -70,7 +70,7 @@ function sfinv.get_formspec(player, context)
 			nav[#nav + 1] = pdef.title
 			nav_ids[#nav_ids + 1] = pdef.name
 			if pdef.name == context.page then
-				current_idx = i
+				current_idx = #nav_ids
 			end
 		end
 	end
