@@ -66,7 +66,7 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 		if not ndef or not ndef.paramtype2 == "facedir" or
 				ndef.on_rotate == false or
 				(ndef.drawtype == "nodebox" and
-				(ndef.node_box and not ndef.node_box.type == "fixed")) or
+				(ndef.node_box and ndef.node_box.type ~= "fixed")) or
 				node.param2 == nil then
 			return
 		end
