@@ -202,6 +202,16 @@ npx (CC BY-SA 3.0)
   default_rainforest_litter.png
   default_rainforest_litter_side.png
 
+GreenXenith (CC-BY-SA 3.0):
+  default_silver_sandstone.png
+  default_silver_sandstone_brick.png
+  default_silver_sandstone_block.png
+
+kaeza (CC-BY-SA 3.0):
+  default_desert_sandstone.png
+  default_desert_sandstone_brick.png
+  default_desert_sandstone_block.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
