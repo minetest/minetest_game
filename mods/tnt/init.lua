@@ -399,7 +399,12 @@ minetest.register_node("tnt:gunpowder", {
 	is_ground_content = false,
 	sunlight_propagates = true,
 	walkable = false,
-	tiles = {"tnt_gunpowder_straight.png", "tnt_gunpowder_curved.png", "tnt_gunpowder_t_junction.png", "tnt_gunpowder_crossing.png"},
+	tiles = {
+		"tnt_gunpowder_straight.png",
+		"tnt_gunpowder_curved.png",
+		"tnt_gunpowder_t_junction.png",
+		"tnt_gunpowder_crossing.png"
+	},
 	inventory_image = "tnt_gunpowder_inventory.png",
 	wield_image = "tnt_gunpowder_inventory.png",
 	selection_box = {
@@ -476,7 +481,11 @@ minetest.register_node("tnt:gunpowder_burning", {
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
 	drop = "",
-	groups = {dig_immediate = 2, attached_node = 1, connect_to_raillike = minetest.raillike_group("gunpowder")},
+	groups = {
+		dig_immediate = 2,
+		attached_node = 1,
+		connect_to_raillike = minetest.raillike_group("gunpowder")
+	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
 		for dx = -1, 1 do
