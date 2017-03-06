@@ -582,11 +582,11 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:ladder_wood 3',
+	output = "default:ladder_wood 5",
 	recipe = {
-		{'group:stick', '', 'group:stick'},
-		{'group:stick', 'group:stick', 'group:stick'},
-		{'group:stick', '', 'group:stick'},
+		{"group:stick", "", "group:stick"},
+		{"group:stick", "group:stick", "group:stick"},
+		{"group:stick", "", "group:stick"},
 	}
 })
 
