@@ -445,6 +445,66 @@ stairs.register_stair_and_slab(
 )
 
 stairs.register_stair_and_slab(
+	"desert_sandstone",
+	"default:desert_sandstone",
+	{crumbly = 1, cracky = 3},
+	{"default_desert_sandstone.png"},
+	"Desert Sandstone Stair",
+	"Desert Sandstone Slab",
+	default.node_sound_stone_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"desert_sandstone_brick",
+	"default:desert_sandstone_brick",
+	{cracky = 2},
+	{"default_desert_sandstone_brick.png"},
+	"Desert Sandstone Brick Stair",
+	"Desert Sandstone Brick Slab",
+	default.node_sound_stone_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"desert_sandstone_block",
+	"default:desert_sandstone_block",
+	{cracky = 2},
+	{"default_desert_sandstone_block.png"},
+	"Desert Sandstone Block Stair",
+	"Desert Sandstone Block Slab",
+	default.node_sound_stone_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"silver_sandstone",
+	"default:silver_sandstone",
+	{crumbly = 1, cracky = 3},
+	{"default_silver_sandstone.png"},
+	"Silver Sandstone Stair",
+	"Silver Sandstone Slab",
+	default.node_sound_stone_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"silver_sandstone_brick",
+	"default:silver_sandstone_brick",
+	{cracky = 2},
+	{"default_silver_sandstone_brick.png"},
+	"Silver Sandstone Brick Stair",
+	"Silver Sandstone Brick Slab",
+	default.node_sound_stone_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"silver_sandstone_block",
+	"default:silver_sandstone_block",
+	{cracky = 2},
+	{"default_silver_sandstone_block.png"},
+	"Silver Sandstone Block Stair",
+	"Silver Sandstone Block Slab",
+	default.node_sound_stone_defaults()
+)
+
+stairs.register_stair_and_slab(
 	"obsidian",
 	"default:obsidian",
 	{cracky = 1, level = 2},
