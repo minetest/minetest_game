@@ -2198,5 +2198,5 @@ default.register_leafdecay({
 default.register_leafdecay({
 	trunks = {"default:aspen_tree"},
 	leaves = {"default:aspen_leaves"},
-	radius = 3,
+	radius = 2,
 })
