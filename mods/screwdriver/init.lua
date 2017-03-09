@@ -130,6 +130,7 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	if should_rotate then
 		node.param2 = new_param2
 		minetest.swap_node(pos, node)
+		minetest.check_for_falling(pos)
 	end
 
 	if not minetest.setting_getbool("creative_mode") then
