@@ -1324,7 +1324,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
-		sidelen = 80,
+		sidelen = 16,
 		fill_ratio = 0.1,
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_min = -1,
@@ -1337,7 +1337,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
-		sidelen = 80,
+		sidelen = 16,
 		fill_ratio = 0.005,
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_min = 1,
@@ -1598,7 +1598,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_rainforest_litter"},
-		sidelen = 80,
+		sidelen = 16,
 		fill_ratio = 0.1,
 		biomes = {"rainforest"},
 		y_min = 1,
