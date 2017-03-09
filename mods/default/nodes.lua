@@ -1308,6 +1308,8 @@ minetest.register_node("default:bush_leaves", {
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1},
 	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("default:acacia_bush_stem", {
@@ -1335,6 +1337,8 @@ minetest.register_node("default:acacia_bush_leaves", {
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1},
 	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
 })
 
 
@@ -2199,4 +2203,16 @@ default.register_leafdecay({
 	trunks = {"default:aspen_tree"},
 	leaves = {"default:aspen_leaves"},
 	radius = 2,
+})
+
+default.register_leafdecay({
+	trunks = {"default:bush_stem"},
+	leaves = {"default:bush_leaves"},
+	radius = 1,
+})
+
+default.register_leafdecay({
+	trunks = {"default:acacia_bush_stem"},
+	leaves = {"default:acacia_bush_leaves"},
+	radius = 1,
 })
