@@ -8,6 +8,7 @@ read_globals = {
 	"vector",
 	"VoxelManip", "VoxelArea",
 	"PseudoRandom", "ItemStack",
+	"unpack",
 	-- Silence "accessing undefined field copy of global table".
 	table = { fields = { "copy" } }
 }
