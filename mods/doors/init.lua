@@ -759,6 +759,8 @@ function doors.register_fencegate(name, def)
 	fence.groups.fence = 1
 
 	local fence_closed = table.copy(fence)
+	fence_closed.shape_type = "fencegate"
+	fence_closed.base_material = def.material
 	fence_closed.mesh = "doors_fencegate_closed.obj"
 	fence_closed.gate = name .. "_open"
 	fence_closed.sound = "doors_fencegate_open"

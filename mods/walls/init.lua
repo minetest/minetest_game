@@ -21,6 +21,8 @@ walls.register = function(wall_name, wall_desc, wall_texture, wall_mat, wall_sou
 		walkable = true,
 		groups = { cracky = 3, wall = 1, stone = 2 },
 		sounds = wall_sounds,
+		base_material = wall_mat,
+		shape_type = "wall",
 	})
 
 	-- crafting recipe
