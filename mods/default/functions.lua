@@ -569,3 +569,18 @@ function default.can_interact_with_node(player, pos)
 
 	return true
 end
+
+minetest.register_lbm({
+	name = "default:new_jungle_surface",
+	nodenames = { "default:jungletree" },
+	action = function(pos, node)
+		if #minetest.find_nodes_in_area(vector.subtract(pos, 3), vector.add(pos, 3), "default:junglegrass") == 0 then
+			return
+		end
+
+		local list = minetest.find_nodes_in_area(vector.subtract(pos, 3), vector.add(pos, 3), "default:dirt_with_grass")
+		for k, v in pairs(list) do
+			minetest.set_node(v, { name = "default:dirt_with_rainforest_litter" })
+		end
+	end
+})
