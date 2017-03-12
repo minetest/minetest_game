@@ -687,7 +687,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 1,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -999,7 +999,7 @@ function default.register_biomes()
 		node_top = "default:dirt_with_dry_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 1,
+		depth_filler = 3,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -1579,19 +1579,19 @@ function default.register_decorations()
 
 	-- Grasses
 
-	register_grass_decoration(-0.03,  0.09,  5)
-	register_grass_decoration(-0.015, 0.075, 4)
-	register_grass_decoration(0,      0.06,  3)
-	register_grass_decoration(0.015,  0.045, 2)
-	register_grass_decoration(0.03,   0.03,  1)
+	--~ register_grass_decoration(-0.03,  0.09,  5)
+	--~ register_grass_decoration(-0.015, 0.075, 4)
+	--~ register_grass_decoration(0,      0.06,  3)
+	--~ register_grass_decoration(0.015,  0.045, 2)
+	--~ register_grass_decoration(0.03,   0.03,  1)
 
 	-- Dry grasses
 
-	register_dry_grass_decoration(0.01, 0.05,  5)
-	register_dry_grass_decoration(0.03, 0.03,  4)
-	register_dry_grass_decoration(0.05, 0.01,  3)
-	register_dry_grass_decoration(0.07, -0.01, 2)
-	register_dry_grass_decoration(0.09, -0.03, 1)
+	--~ register_dry_grass_decoration(0.01, 0.05,  5)
+	--~ register_dry_grass_decoration(0.03, 0.03,  4)
+	--~ register_dry_grass_decoration(0.05, 0.01,  3)
+	--~ register_dry_grass_decoration(0.07, -0.01, 2)
+	--~ register_dry_grass_decoration(0.09, -0.03, 1)
 
 	-- Junglegrass
 
