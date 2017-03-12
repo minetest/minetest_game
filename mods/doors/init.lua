@@ -149,6 +149,7 @@ function _doors.door_toggle(pos, node, clicker)
 
 			if key_meta:get_string("secret") == "" then
 				key_meta:set_string("secret", minetest.parse_json(item:get_metadata()).secret)
+				item:set_metadata("")
 			end
 
 			if secret ~= key_meta:get_string("secret") then
