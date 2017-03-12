@@ -1805,6 +1805,7 @@ minetest.register_node("default:chest_locked", {
 
 		if key_meta:get_string("secret") == "" then
 			key_meta:set_string("secret", minetest.parse_json(itemstack:get_metadata()).secret)
+			itemstack:set_metadata("")
 		end
 
 		if secret ~= key_meta:get_string("secret") then

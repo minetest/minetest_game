@@ -551,21 +551,23 @@ function default.can_interact_with_node(player, pos)
 
 	local meta = minetest.get_meta(pos)
 
-	-- is player wielding the right key?
-	local item = player:get_wielded_item()
-	if item:get_name() == "default:key" then
-		local key_meta = minetest.parse_json(item:get_metadata())
-		local secret = meta:get_string("key_lock_secret")
-		if secret ~= key_meta.secret then
-			return false
-		end
-
+	if player:get_player_name() == meta:get_string("owner") then
+		-- Owner can access the node to any time
 		return true
 	end
 
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
+	-- is player wielding the right key?
+	local item = player:get_wielded_item()
+	if item:get_name() == "default:key" then
+		local key_meta = item:get_meta()
+
+		if key_meta:get_string("secret") == "" then
+			key_meta:set_string("secret", minetest.parse_json(item:get_metadata()).secret)
+			item:set_metadata("")
+		end
+
+		return meta:get_string("key_lock_secret") == key_meta:get_string("secret")
 	end
 
-	return true
+	return false
 end
