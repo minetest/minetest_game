@@ -93,38 +93,33 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 
 	local node = minetest.get_node(pos)
 	local ndef = minetest.registered_nodes[node.name]
+	if not ndef then
+		return itemstack
+	end
 	-- can we rotate this paramtype2?
 	local fn = screwdriver.rotate[ndef.paramtype2]
 	if not fn then
-		return
+		return itemstack
 	end
 
 	local should_rotate = true
 	local new_param2 = fn(pos, node, mode)
 
 	-- Node provides a handler, so let the handler decide instead if the node can be rotated
-	if ndef and ndef.on_rotate then
+	if ndef.on_rotate then
 		-- Copy pos and node because callback can modify it
 		local result = ndef.on_rotate(vector.new(pos),
 				{name = node.name, param1 = node.param1, param2 = node.param2},
 				user, mode, new_param2)
 		if result == false then -- Disallow rotation
-			return
+			return itemstack
 		elseif result == true then
 			should_rotate = false
 		end
-	else
-		if not ndef or
-				ndef.on_rotate == false or
-				(ndef.drawtype == "nodebox" and
-				(ndef.node_box and ndef.node_box.type ~= "fixed")) or
-				node.param2 == nil then
-			return
-		end
-
-		if ndef.can_dig and not ndef.can_dig(pos, user) then
-			return
-		end
+	elseif ndef.on_rotate == false then
+		return itemstack
+	elseif ndef.can_dig and not ndef.can_dig(pos, user) then
+		return itemstack
 	end
 
 	if should_rotate then
