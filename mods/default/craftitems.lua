@@ -71,6 +71,7 @@ local function book_on_use(itemstack, user)
 	end
 
 	minetest.show_formspec(player_name, "default:book", formspec)
+	return itemstack
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -133,11 +134,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 
-		local data_str = minetest.serialize(data)
-		stack:set_metadata(data_str)
-		book_on_use(stack, player)
+		stack:get_meta():from_table(data)
+		stack = book_on_use(stack, player)
 	end
 
+	-- Update stack
 	player:set_wielded_item(stack)
 end)
 
@@ -178,9 +179,9 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 	if not original then
 		return
 	end
-	local copymeta = original:get_metadata()
+	local copymeta = original:get_meta():to_table()
 	-- copy of the book held by player's mouse cursor
-	itemstack:set_metadata(copymeta)
+	itemstack:get_meta():from_table(copymeta)
 	-- put the book with metadata back in the craft grid
 	craft_inv:set_stack("craft", index, original)
 end)
