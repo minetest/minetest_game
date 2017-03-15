@@ -362,6 +362,15 @@ minetest.register_craftitem("carts:cart", {
 	inventory_image = minetest.inventorycube("carts_cart_top.png", "carts_cart_side.png", "carts_cart_side.png"),
 	wield_image = "carts_cart_side.png",
 	on_place = function(itemstack, placer, pointed_thing)
+		local under = pointed_thing.under
+		local node = minetest.get_node(under)
+		local udef = minetest.registered_nodes[node.name]
+		if udef and udef.on_rightclick and
+				not (placer and placer:get_player_control().sneak) then
+			return udef.on_rightclick(under, node, placer, itemstack,
+				pointed_thing) or itemstack
+		end
+
 		if not pointed_thing.type == "node" then
 			return
 		end

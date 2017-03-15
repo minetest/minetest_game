@@ -118,6 +118,9 @@ paramat (CC BY-SA 3.0):
   default_mese_post_light_side.png
   default_mese_post_light_side_dark.png
   default_mese_post_light_top.png
+  default_silver_sandstone.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
+  default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
+  default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
@@ -197,6 +200,15 @@ Pithydon (CC BY-SA 3.0)
 Ferk (CC0 1.0)
   default_item_smoke.png
   default_item_smoke.ogg, based on sound by http://opengameart.org/users/bart
+
+npx (CC BY-SA 3.0)
+  default_rainforest_litter.png
+  default_rainforest_litter_side.png
+
+kaeza (CC-BY-SA 3.0):
+  default_desert_sandstone.png
+  default_desert_sandstone_brick.png
+  default_desert_sandstone_block.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/

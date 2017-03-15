@@ -31,7 +31,10 @@ in mining.
 How to use the mod:
 Craft gunpowder by placing coal and gravel in the crafting area.
 The gunpowder can be used to craft TNT or as fuse for TNT.
-To craft TNT surround gunpowder with 4 wood in a + shape.
+To craft TNT place items like this:
+-- wood - gunpowder -- wood -
+gunpowder gunpowder gunpowder
+-- wood - gunpowder -- wood -
 
 There are different ways to blow up TNT:
   1. Hit it with a torch.

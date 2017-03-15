@@ -181,8 +181,8 @@ function carts:pathfinder(pos_, old_pos, old_dir, ctrl, pf_switch, railtype)
 	return false
 end
 
-function carts:register_rail(name, def, railparams)
-	local def_default = {
+function carts:register_rail(name, def_overwrite, railparams)
+	local def = {
 		drawtype = "raillike",
 		paramtype = "light",
 		sunlight_propagates = true,
@@ -194,7 +194,7 @@ function carts:register_rail(name, def, railparams)
 		},
 		sounds = default.node_sound_metal_defaults()
 	}
-	for k, v in pairs(def_default) do
+	for k, v in pairs(def_overwrite) do
 		def[k] = v
 	end
 	if not def.inventory_image then

@@ -36,7 +36,7 @@ minetest.register_alias("mapgen_stair_cobble", "stairs:stair_cobble")
 minetest.register_alias("mapgen_mossycobble", "default:mossycobble")
 minetest.register_alias("mapgen_stair_desert_stone", "stairs:stair_desert_stone")
 minetest.register_alias("mapgen_sandstonebrick", "default:sandstonebrick")
-minetest.register_alias("mapgen_stair_sandstonebrick", "stairs:stair_sandstonebrick")
+minetest.register_alias("mapgen_stair_sandstone_block", "stairs:stair_sandstone_block")
 
 
 --
@@ -1058,7 +1058,7 @@ function default.register_biomes()
 	minetest.register_biome({
 		name = "rainforest",
 		--node_dust = "",
-		node_top = "default:dirt_with_grass",
+		node_top = "default:dirt_with_rainforest_litter",
 		depth_top = 1,
 		node_filler = "default:dirt",
 		depth_filler = 3,
@@ -1296,6 +1296,7 @@ function default.register_decorations()
 		y_max = 31000,
 		schematic = minetest.get_modpath("default") .. "/schematics/apple_tree.mts",
 		flags = "place_center_x, place_center_z",
+		rotation = "random",
 	})
 
 	minetest.register_decoration({
@@ -1322,8 +1323,8 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_grass", "default:dirt"},
-		sidelen = 80,
+		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		sidelen = 16,
 		fill_ratio = 0.1,
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_min = -1,
@@ -1335,8 +1336,8 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_grass", "default:dirt"},
-		sidelen = 80,
+		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		sidelen = 16,
 		fill_ratio = 0.005,
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_min = 1,
@@ -1596,8 +1597,8 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		deco_type = "simple",
-		place_on = {"default:dirt_with_grass"},
-		sidelen = 80,
+		place_on = {"default:dirt_with_rainforest_litter"},
+		sidelen = 16,
 		fill_ratio = 0.1,
 		biomes = {"rainforest"},
 		y_min = 1,
@@ -1632,9 +1633,9 @@ function default.register_decorations()
 		deco_type = "schematic",
 		place_on = {"default:sand"},
 		noise_params = {
-			offset = -0.1,
+			offset = -0.15,
 			scale = 0.1,
-			spread = {x = 200, y = 200, z = 200},
+			spread = {x = 100, y = 100, z = 100},
 			seed = 7013,
 			octaves = 3,
 			persist = 1,

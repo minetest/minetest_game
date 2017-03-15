@@ -144,9 +144,15 @@ function _doors.door_toggle(pos, node, clicker)
 		local item = clicker:get_wielded_item()
 		local owner = meta:get_string("doors_owner")
 		if item:get_name() == "default:key" then
-			local key_meta = minetest.parse_json(item:get_metadata())
+			local key_meta = item:get_meta()
 			local secret = meta:get_string("key_lock_secret")
-			if secret ~= key_meta.secret then
+
+			if key_meta:get_string("secret") == "" then
+				key_meta:set_string("secret", minetest.parse_json(item:get_metadata()).secret)
+				item:set_metadata("")
+			end
+
+			if secret ~= key_meta:get_string("secret") then
 				return false
 			end
 
@@ -532,9 +538,14 @@ function _doors.trapdoor_toggle(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("doors_owner")
 		if item:get_name() == "default:key" then
-			local key_meta = minetest.parse_json(item:get_metadata())
+			local key_meta = item:get_meta()
 			local secret = meta:get_string("key_lock_secret")
-			if secret ~= key_meta.secret then
+
+			if key_meta:get_string("secret") == "" then
+				key_meta:set_string("secret", minetest.parse_json(item:get_metadata()).secret)
+			end
+
+			if secret ~= key_meta:get_string("secret") then
 				return false
 			end
 

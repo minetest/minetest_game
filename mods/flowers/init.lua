@@ -264,7 +264,7 @@ minetest.register_node("flowers:waterlily", {
 	node_placement_prediction = "",
 	node_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -15 / 32, 0.5}
+		fixed = {-0.5, -31 / 64, -0.5, 0.5, -15 / 32, 0.5}
 	},
 	selection_box = {
 		type = "fixed",

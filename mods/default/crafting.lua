@@ -503,26 +503,90 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:sand 4',
+	output = "default:sand 4",
 	recipe = {
-		{'default:sandstone'},
+		{"default:sandstone"},
 	}
 })
 
 minetest.register_craft({
-	output = 'default:sandstonebrick 4',
+	output = "default:sandstonebrick 4",
 	recipe = {
-		{'default:sandstone', 'default:sandstone'},
-		{'default:sandstone', 'default:sandstone'},
+		{"default:sandstone", "default:sandstone"},
+		{"default:sandstone", "default:sandstone"},
 	}
 })
 
 minetest.register_craft({
-	output = 'default:sandstone_block 9',
+	output = "default:sandstone_block 9",
 	recipe = {
-		{'default:sandstone', 'default:sandstone', 'default:sandstone'},
-		{'default:sandstone', 'default:sandstone', 'default:sandstone'},
-		{'default:sandstone', 'default:sandstone', 'default:sandstone'},
+		{"default:sandstone", "default:sandstone", "default:sandstone"},
+		{"default:sandstone", "default:sandstone", "default:sandstone"},
+		{"default:sandstone", "default:sandstone", "default:sandstone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:desert_sandstone",
+	recipe = {
+		{"default:desert_sand", "default:desert_sand"},
+		{"default:desert_sand", "default:desert_sand"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:desert_sand 4",
+	recipe = {
+		{"default:desert_sandstone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:desert_sandstone_brick 4",
+	recipe = {
+		{"default:desert_sandstone", "default:desert_sandstone"},
+		{"default:desert_sandstone", "default:desert_sandstone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:desert_sandstone_block 9",
+	recipe = {
+		{"default:desert_sandstone", "default:desert_sandstone", "default:desert_sandstone"},
+		{"default:desert_sandstone", "default:desert_sandstone", "default:desert_sandstone"},
+		{"default:desert_sandstone", "default:desert_sandstone", "default:desert_sandstone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:silver_sandstone",
+	recipe = {
+		{"default:silver_sand", "default:silver_sand"},
+		{"default:silver_sand", "default:silver_sand"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:silver_sand 4",
+	recipe = {
+		{"default:silver_sandstone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:silver_sandstone_brick 4",
+	recipe = {
+		{"default:silver_sandstone", "default:silver_sandstone"},
+		{"default:silver_sandstone", "default:silver_sandstone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:silver_sandstone_block 9",
+	recipe = {
+		{"default:silver_sandstone", "default:silver_sandstone", "default:silver_sandstone"},
+		{"default:silver_sandstone", "default:silver_sandstone", "default:silver_sandstone"},
+		{"default:silver_sandstone", "default:silver_sandstone", "default:silver_sandstone"},
 	}
 })
 
@@ -582,11 +646,11 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:ladder_wood 3',
+	output = "default:ladder_wood 5",
 	recipe = {
-		{'group:stick', '', 'group:stick'},
-		{'group:stick', 'group:stick', 'group:stick'},
-		{'group:stick', '', 'group:stick'},
+		{"group:stick", "", "group:stick"},
+		{"group:stick", "group:stick", "group:stick"},
+		{"group:stick", "", "group:stick"},
 	}
 })
 

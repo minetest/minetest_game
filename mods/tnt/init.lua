@@ -83,7 +83,10 @@ local function add_drop(drops, item)
 	end
 end
 
-local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_protection, ignore_on_blast)
+local basic_flame_on_construct -- cached value
+local function destroy(drops, npos, cid, c_air, c_fire,
+		on_blast_queue, on_construct_queue,
+		ignore_protection, ignore_on_blast)
 	if not ignore_protection and minetest.is_protected(npos, "") then
 		return cid
 	end
@@ -93,9 +96,16 @@ local function destroy(drops, npos, cid, c_air, c_fire, on_blast_queue, ignore_p
 	if not def then
 		return c_air
 	elseif not ignore_on_blast and def.on_blast then
-		on_blast_queue[#on_blast_queue + 1] = {pos = vector.new(npos), on_blast = def.on_blast}
+		on_blast_queue[#on_blast_queue + 1] = {
+			pos = vector.new(npos),
+			on_blast = def.on_blast
+		}
 		return cid
 	elseif def.flammable then
+		on_construct_queue[#on_construct_queue + 1] = {
+			fn = basic_flame_on_construct,
+			pos = vector.new(npos)
+		}
 		return c_fire
 	else
 		local node_drops = minetest.get_node_drops(def.name, "")
@@ -306,6 +316,8 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 
 	local drops = {}
 	local on_blast_queue = {}
+	local on_construct_queue = {}
+	basic_flame_on_construct = minetest.registered_nodes["fire:basic_flame"].on_construct
 
 	local c_fire = minetest.get_content_id("fire:basic_flame")
 	for z = -radius, radius do
@@ -318,8 +330,8 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 			local p = {x = pos.x + x, y = pos.y + y, z = pos.z + z}
 			if cid ~= c_air then
 				data[vi] = destroy(drops, p, cid, c_air, c_fire,
-					on_blast_queue, ignore_protection,
-					ignore_on_blast)
+					on_blast_queue, on_construct_queue,
+					ignore_protection, ignore_on_blast)
 			end
 		end
 		vi = vi + 1
@@ -355,6 +367,10 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast)
 				add_drop(drops, item)
 			end
 		end
+	end
+
+	for _, queued_data in pairs(on_construct_queue) do
+		queued_data.fn(queued_data.pos)
 	end
 
 	return drops, radius
@@ -399,7 +415,12 @@ minetest.register_node("tnt:gunpowder", {
 	is_ground_content = false,
 	sunlight_propagates = true,
 	walkable = false,
-	tiles = {"tnt_gunpowder_straight.png", "tnt_gunpowder_curved.png", "tnt_gunpowder_t_junction.png", "tnt_gunpowder_crossing.png"},
+	tiles = {
+		"tnt_gunpowder_straight.png",
+		"tnt_gunpowder_curved.png",
+		"tnt_gunpowder_t_junction.png",
+		"tnt_gunpowder_crossing.png"
+	},
 	inventory_image = "tnt_gunpowder_inventory.png",
 	wield_image = "tnt_gunpowder_inventory.png",
 	selection_box = {
@@ -476,7 +497,11 @@ minetest.register_node("tnt:gunpowder_burning", {
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
 	drop = "",
-	groups = {dig_immediate = 2, attached_node = 1, connect_to_raillike = minetest.raillike_group("gunpowder")},
+	groups = {
+		dig_immediate = 2,
+		attached_node = 1,
+		connect_to_raillike = minetest.raillike_group("gunpowder")
+	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
 		for dx = -1, 1 do

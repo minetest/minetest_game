@@ -136,7 +136,7 @@ minetest.register_abm({
 	nodenames = {"default:lava_source", "default:lava_flowing"},
 	neighbors = {"group:cools_lava", "group:water"},
 	interval = 1,
-	chance = 1,
+	chance = 2,
 	catch_up = false,
 	action = function(...)
 		default.cool_lava(...)
@@ -325,47 +325,64 @@ default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
 	end
 end
 
--- Leafdecay ABM
-
-minetest.register_abm({
-	label = "Leaf decay",
-	nodenames = {"group:leafdecay"},
-	neighbors = {"air"},
-	interval = 2,
-	chance = 10,
-	catch_up = false,
-
-	action = function(pos, node, _, _)
-		-- Check if leaf is placed
-		if node.param2 ~= 0 then
-			return
+-- Leafdecay
+local function leafdecay_after_destruct(pos, oldnode, def)
+	for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, def.radius),
+			vector.add(pos, def.radius), def.leaves)) do
+		local node = minetest.get_node(v)
+		if node.param2 == 0 then
+			minetest.get_node_timer(v):start(math.random(20, 120) / 10)
 		end
+	end
+end
 
-		local rad = minetest.registered_nodes[node.name].groups.leafdecay
-		-- Assume ignore is a trunk, to make this
-		-- work at the border of a loaded area
-		if minetest.find_node_near(pos, rad, {"ignore", "group:tree"}) then
-			return
-		end
-		-- Drop stuff
-		local itemstacks = minetest.get_node_drops(node.name)
-		for _, itemname in ipairs(itemstacks) do
-			if itemname ~= node.name or
-					minetest.get_item_group(node.name, "leafdecay_drop") ~= 0 then
-				local p_drop = {
-					x = pos.x - 0.5 + math.random(),
-					y = pos.y - 0.5 + math.random(),
-					z = pos.z - 0.5 + math.random(),
-				}
-				minetest.add_item(p_drop, itemname)
+local function leafdecay_on_timer(pos, def)
+	if minetest.find_node_near(pos, def.radius, def.trunks) then
+		return false
+	end
+
+	local node = minetest.get_node(pos)
+	local drops = minetest.get_node_drops(node.name)
+	for _, item in ipairs(drops) do
+		local is_leaf
+		for _, v in pairs(def.leaves) do
+			if v == item then
+				is_leaf = true
 			end
 		end
-		-- Remove node
-		minetest.remove_node(pos)
-		minetest.check_for_falling(pos)
+		if minetest.get_item_group(item, "leafdecay_drop") ~= 0 or
+				not is_leaf then
+			minetest.add_item({
+				x = pos.x - 0.5 + math.random(),
+				y = pos.y - 0.5 + math.random(),
+				z = pos.z - 0.5 + math.random(),
+			}, item)
+		end
 	end
-})
 
+	minetest.remove_node(pos)
+	minetest.check_for_falling(pos)
+end
+
+function default.register_leafdecay(def)
+	assert(def.leaves)
+	assert(def.trunks)
+	assert(def.radius)
+	for _, v in pairs(def.trunks) do
+		minetest.override_item(v, {
+			after_destruct = function(pos, oldnode)
+				leafdecay_after_destruct(pos, oldnode, def)
+			end,
+		})
+	end
+	for _, v in pairs(def.leaves) do
+		minetest.override_item(v, {
+			on_timer = function(pos)
+				leafdecay_on_timer(pos, def)
+			end,
+		})
+	end
+end
 
 --
 -- Convert dirt to something that fits the environment
@@ -516,3 +533,41 @@ minetest.register_abm({
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
 	end,
 })
+
+
+--
+-- NOTICE: This method is not an official part of the API yet!
+-- This method may change in future.
+--
+
+function default.can_interact_with_node(player, pos)
+	if player then
+		if minetest.check_player_privs(player, "protection_bypass") then
+			return true
+		end
+	else
+		return false
+	end
+
+	local meta = minetest.get_meta(pos)
+
+	if player:get_player_name() == meta:get_string("owner") then
+		-- Owner can access the node to any time
+		return true
+	end
+
+	-- is player wielding the right key?
+	local item = player:get_wielded_item()
+	if item:get_name() == "default:key" then
+		local key_meta = item:get_meta()
+
+		if key_meta:get_string("secret") == "" then
+			key_meta:set_string("secret", minetest.parse_json(item:get_metadata()).secret)
+			item:set_metadata("")
+		end
+
+		return meta:get_string("key_lock_secret") == key_meta:get_string("secret")
+	end
+
+	return false
+end
