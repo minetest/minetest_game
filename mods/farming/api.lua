@@ -57,7 +57,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		gain = 0.5,
 	})
 
-	if not creative.is_enabled_for(user:get_player_name()) then
+	if not (creative and creative.is_enabled_for and creative.is_enabled_for(user:get_player_name())) then
 		-- wear tool
 		local wdef = itemstack:get_definition()
 		itemstack:add_wear(65535/(uses-1))
@@ -187,7 +187,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	-- add the node and remove 1 item from the itemstack
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
-	if not creative.is_enabled_for(placer:get_player_name()) then
+	if not (creative and creative.is_enabled_for and creative.is_enabled_for(placer:get_player_name())) then
 		itemstack:take_item()
 	end
 	return itemstack

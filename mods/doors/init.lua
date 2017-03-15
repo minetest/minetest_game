@@ -328,7 +328,7 @@ function doors.register(name, def)
 				meta:set_string("infotext", "Owned by " .. pn)
 			end
 
-			if not creative.is_enabled_for(placer:get_player_name()) then
+			if not (creative and creative.is_enabled_for and creative.is_enabled_for(placer:get_player_name())) then
 				itemstack:take_item()
 			end
 
@@ -587,7 +587,7 @@ function doors.register_trapdoor(name, def)
 			meta:set_string("doors_owner", pn)
 			meta:set_string("infotext", "Owned by "..pn)
 
-			return creative.is_enabled_for(pn)
+			return (creative and creative.is_enabled_for and creative.is_enabled_for(pn))
 		end
 
 		def.on_blast = function() end
