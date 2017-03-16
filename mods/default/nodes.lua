@@ -1170,7 +1170,8 @@ minetest.register_node("default:junglegrass", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1, flammable = 1},
+	groups = {snappy = 3, flora = 1, attached_node = 1,
+		grass = 1, flammable = 1, color_green = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1191,7 +1192,8 @@ minetest.register_node("default:grass_1", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1, flammable = 1},
+	groups = {snappy = 3, flora = 1, attached_node = 1,
+		grass = 1, flammable = 1, color_green = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1220,7 +1222,7 @@ for i = 2, 5 do
 		walkable = false,
 		buildable_to = true,
 		drop = "default:grass_1",
-		groups = {snappy = 3, flora = 1, attached_node = 1,
+		groups = {snappy = 3, flora = 1, attached_node = 1, color_green = 1
 			not_in_creative_inventory = 1, grass = 1, flammable = 1},
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
