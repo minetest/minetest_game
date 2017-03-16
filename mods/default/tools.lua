@@ -379,7 +379,7 @@ minetest.register_tool("default:sword_diamond", {
 	sound = {breaks = "default_tool_breaks"},
 })
 
-minetest.register_tool("default:skeleton_key", {
+minetest.register_craftitem("default:skeleton_key", {
 	description = "Skeleton Key",
 	inventory_image = "default_key_skeleton.png",
 	groups = {key = 1},
@@ -407,13 +407,25 @@ minetest.register_tool("default:skeleton_key", {
 			local secret, _, _ = on_skeleton_key_use(pos, user, newsecret)
 
 			if secret then
-				-- finish and return the new key
+				-- update original itemstack
 				itemstack:take_item()
-				itemstack:add_item("default:key")
-				local meta = itemstack:get_meta()
+
+				-- finish and return the new key
+				local new_stack = ItemStack("default:key")
+				local meta = new_stack:get_meta()
+				local inv = minetest.get_inventory({type="player", name=user:get_player_name()})
 				meta:set_string("secret", secret)
 				meta:set_string("description", "Key to "..user:get_player_name().."'s "
 					..minetest.registered_nodes[node.name].description)
+
+				if itemstack:get_count() == 0 then
+					itemstack = new_stack
+				else
+					if inv:add_item("main", new_stack):get_count() > 0 then
+						minetest.add_item(user:getpos(), new_stack)
+					end
+				end
+
 				return itemstack
 			end
 		end
