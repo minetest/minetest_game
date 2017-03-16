@@ -562,7 +562,11 @@ function default.can_interact_with_node(player, pos)
 		local key_meta = item:get_meta()
 
 		if key_meta:get_string("secret") == "" then
-			key_meta:set_string("secret", minetest.parse_json(item:get_metadata()).secret)
+			local oldmeta = minetest.parse_json(item:get_metadata())
+			if not oldmeta then
+				return false
+			end
+			key_meta:set_string("secret", oldmeta.secret)
 			item:set_metadata("")
 		end
 
