@@ -457,19 +457,46 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 		return itemstack
 	end
 	-- Check tree volume for protection
-	if not default.intersects_protection(
+	if default.intersects_protection(
 			vector.add(pos, minp_relative),
 			vector.add(pos, maxp_relative),
 			player_name,
 			interval) then
-		minetest.set_node(pos, {name = sapling_name})
-		if not (creative and creative.is_enabled_for and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-	else
 		minetest.record_protection_violation(pos, player_name)
 		-- Print extra information to explain
 		minetest.chat_send_player(player_name, "Tree will intersect protection")
+		return itemstack
+	end
+
+	minetest.log("action", player_name .. " places node "
+			.. sapling_name .. " at " .. minetest.pos_to_string(pos))
+
+	local take_item = not minetest.setting_getbool("creative_mode")
+	local newnode = {name = sapling_name}
+	local ndef = minetest.registered_nodes[sapling_name]
+	minetest.set_node(pos, newnode)
+
+	-- Run callback
+	if ndef and ndef.after_place_node then
+		-- Deepcopy place_to and pointed_thing because callback can modify it
+		if ndef.after_place_node(table.copy(pos), placer,
+				itemstack, table.copy(pointed_thing)) then
+			take_item = false
+		end
+	end
+
+	-- Run script hook
+	for _, callback in ipairs(minetest.registered_on_placenodes) do
+		-- Deepcopy pos, node and pointed_thing because callback can modify them
+		if callback(table.copy(pos), table.copy(newnode),
+				placer, table.copy(node or {}),
+				itemstack, table.copy(pointed_thing)) then
+			take_item = false
+		end
+	end
+
+	if take_item then
+		itemstack:take_item()
 	end
 
 	return itemstack

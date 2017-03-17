@@ -1170,7 +1170,7 @@ minetest.register_node("default:junglegrass", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1, flammable = 1},
+	groups = {snappy = 3, flora = 1, attached_node = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -2203,7 +2203,7 @@ default.register_leafdecay({
 default.register_leafdecay({
 	trunks = {"default:aspen_tree"},
 	leaves = {"default:aspen_leaves"},
-	radius = 2,
+	radius = 3,
 })
 
 default.register_leafdecay({

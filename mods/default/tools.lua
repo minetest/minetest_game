@@ -383,22 +383,13 @@ minetest.register_tool("default:skeleton_key", {
 	description = "Skeleton Key",
 	inventory_image = "default_key_skeleton.png",
 	groups = {key = 1},
-	on_place = function(itemstack, placer, pointed_thing)
-		local under = pointed_thing.under
-		local node = minetest.get_node(under)
-		local def = minetest.registered_nodes[node.name]
-		if def and def.on_rightclick and
-				not (placer and placer:get_player_control().sneak) then
-			return def.on_rightclick(under, node, placer, itemstack,
-				pointed_thing) or itemstack
-		end
-
+	on_use = function(itemstack, user, pointed_thing)
 		if pointed_thing.type ~= "node" then
 			return itemstack
 		end
 
 		local pos = pointed_thing.under
-		node = minetest.get_node(pos)
+		local node = minetest.get_node(pos)
 
 		if not node then
 			return itemstack
@@ -413,7 +404,7 @@ minetest.register_tool("default:skeleton_key", {
 				random(2^16) - 1, random(2^16) - 1,
 				random(2^16) - 1, random(2^16) - 1)
 
-			local secret, _, _ = on_skeleton_key_use(pos, placer, newsecret)
+			local secret, _, _ = on_skeleton_key_use(pos, user, newsecret)
 
 			if secret then
 				-- finish and return the new key
@@ -421,7 +412,7 @@ minetest.register_tool("default:skeleton_key", {
 				itemstack:add_item("default:key")
 				local meta = itemstack:get_meta()
 				meta:set_string("secret", secret)
-				meta:set_string("description", "Key to "..placer:get_player_name().."'s "
+				meta:set_string("description", "Key to "..user:get_player_name().."'s "
 					..minetest.registered_nodes[node.name].description)
 				return itemstack
 			end
