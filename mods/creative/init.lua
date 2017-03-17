@@ -2,7 +2,7 @@ creative = {}
 
 local creative_mode_cache = minetest.setting_getbool("creative_mode")
 
-function (creative and creative.is_enabled_for and creative.is_enabled_for(name))
+function creative.is_enabled_for(name)
 	return creative_mode_cache
 end
 
