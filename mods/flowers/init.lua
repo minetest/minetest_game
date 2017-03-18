@@ -107,11 +107,10 @@ function flowers.flower_spread(pos, node)
 	pos.y = pos.y - 1
 	local under = minetest.get_node(pos)
 	pos.y = pos.y + 1
-	if under.name == "default:desert_sand" then
+	if minetest.get_item_group(under.name, "soil") == 0 and
+			-- Do not replace sand dune grasses
+			under.name ~= "default:sand" then
 		minetest.set_node(pos, {name = "default:dry_shrub"})
-		return
-	elseif under.name ~= "default:dirt_with_grass" and
-			under.name ~= "default:dirt_with_dry_grass" then
 		return
 	end
 
@@ -126,24 +125,26 @@ function flowers.flower_spread(pos, node)
 		return
 	end
 
-	local seedling = minetest.find_nodes_in_area_under_air(pos0, pos1,
-		{"default:dirt_with_grass", "default:dirt_with_dry_grass"})
-	if #seedling > 0 then
-		seedling = seedling[math.random(#seedling)]
-		seedling.y = seedling.y + 1
-		light = minetest.get_node_light(seedling)
-		if not light or light < 13 then
+	local soils = minetest.find_nodes_in_area_under_air(
+		pos0, pos1, "group:soil")
+	if #soils > 0 then
+		local seedling = soils[math.random(#soils)]
+		local seedling_above =
+			{x = seedling.x, y = seedling.y + 1, z = seedling.z}
+		light = minetest.get_node_light(seedling_above)
+		if not light or light < 13 or
+				-- Desert sand is in the soil group
+				minetest.get_node(seedling).name == "default:desert_sand" then
 			return
 		end
-		minetest.set_node(seedling, {name = node.name})
+
+		minetest.set_node(seedling_above, {name = node.name})
 	end
 end
 
 minetest.register_abm({
 	label = "Flower spread",
 	nodenames = {"group:flora"},
-	neighbors = {"default:dirt_with_grass", "default:dirt_with_dry_grass",
-		"default:desert_sand"},
 	interval = 13,
 	chance = 96,
 	action = function(...)
