@@ -550,9 +550,9 @@ function default.can_interact_with_node(player, pos)
 	end
 
 	local meta = minetest.get_meta(pos)
+	local owner = meta:get_string("owner")
 
-	if player:get_player_name() == meta:get_string("owner") then
-		-- Owner can access the node to any time
+	if not owner or owner == "" or owner == player:get_player_name() then
 		return true
 	end
 
