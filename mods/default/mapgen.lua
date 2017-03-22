@@ -494,6 +494,8 @@ end
 
 -- All mapgens except mgv6
 
+local nojungles = nil
+
 function default.register_biomes(upper_limit)
 
 	-- Icesheet
@@ -1058,65 +1060,69 @@ function default.register_biomes(upper_limit)
 
 	-- Rainforest
 
-	minetest.register_biome({
-		name = "rainforest",
-		--node_dust = "",
-		node_top = "default:dirt_with_rainforest_litter",
-		depth_top = 1,
-		node_filler = "default:dirt",
-		depth_filler = 3,
-		--node_stone = "",
-		--node_water_top = "",
-		--depth_water_top = ,
-		--node_water = "",
-		--node_river_water = "",
-		node_riverbed = "default:sand",
-		depth_riverbed = 2,
-		y_min = 1,
-		y_max = upper_limit,
-		heat_point = 86,
-		humidity_point = 65,
-	})
+	if nil == nojungles then
 
-	minetest.register_biome({
-		name = "rainforest_swamp",
-		--node_dust = "",
-		node_top = "default:dirt",
-		depth_top = 1,
-		node_filler = "default:dirt",
-		depth_filler = 3,
-		--node_stone = "",
-		--node_water_top = "",
-		--depth_water_top = ,
-		--node_water = "",
-		--node_river_water = "",
-		node_riverbed = "default:sand",
-		depth_riverbed = 2,
-		y_min = -1,
-		y_max = 0,
-		heat_point = 86,
-		humidity_point = 65,
-	})
+		minetest.register_biome({
+			name = "rainforest",
+			--node_dust = "",
+			node_top = "default:dirt_with_rainforest_litter",
+			depth_top = 1,
+			node_filler = "default:dirt",
+			depth_filler = 3,
+			--node_stone = "",
+			--node_water_top = "",
+			--depth_water_top = ,
+			--node_water = "",
+			--node_river_water = "",
+			node_riverbed = "default:sand",
+			depth_riverbed = 2,
+			y_min = 1,
+			y_max = upper_limit,
+			heat_point = 86,
+			humidity_point = 65,
+		})
 
-	minetest.register_biome({
-		name = "rainforest_ocean",
-		--node_dust = "",
-		node_top = "default:sand",
-		depth_top = 1,
-		node_filler = "default:sand",
-		depth_filler = 3,
-		--node_stone = "",
-		--node_water_top = "",
-		--depth_water_top = ,
-		--node_water = "",
-		--node_river_water = "",
-		node_riverbed = "default:sand",
-		depth_riverbed = 2,
-		y_min = -112,
-		y_max = -2,
-		heat_point = 86,
-		humidity_point = 65,
-	})
+		minetest.register_biome({
+			name = "rainforest_swamp",
+			--node_dust = "",
+			node_top = "default:dirt",
+			depth_top = 1,
+			node_filler = "default:dirt",
+			depth_filler = 3,
+			--node_stone = "",
+			--node_water_top = "",
+			--depth_water_top = ,
+			--node_water = "",
+			--node_river_water = "",
+			node_riverbed = "default:sand",
+			depth_riverbed = 2,
+			y_min = -1,
+			y_max = 0,
+			heat_point = 86,
+			humidity_point = 65,
+		})
+
+		minetest.register_biome({
+			name = "rainforest_ocean",
+			--node_dust = "",
+			node_top = "default:sand",
+			depth_top = 1,
+			node_filler = "default:sand",
+			depth_filler = 3,
+			--node_stone = "",
+			--node_water_top = "",
+			--depth_water_top = ,
+			--node_water = "",
+			--node_river_water = "",
+			node_riverbed = "default:sand",
+			depth_riverbed = 2,
+			y_min = -112,
+			y_max = -2,
+			heat_point = 86,
+			humidity_point = 65,
+		})
+
+	end
 
 	-- Underground
 
@@ -1759,9 +1765,11 @@ end
 
 -- Get setting or default
 local mgv7_spflags = minetest.get_mapgen_setting("mgv7_spflags") or
-	"mountains, ridges, nofloatlands"
+	"mountains, ridges, nofloatlands, jungles"
 local captures_float = string.match(mgv7_spflags, "floatlands")
 local captures_nofloat = string.match(mgv7_spflags, "nofloatlands")
+local captures_jungle = string.match(mgv7_spflags, "jungles")
+local captures_nojungle = string.match(mgv7_spflags, "nojungles")
 
 local mgv7_floatland_level = minetest.get_mapgen_setting("mgv7_floatland_level") or 1280
 local mgv7_shadow_limit = minetest.get_mapgen_setting("mgv7_shadow_limit") or 1024
@@ -1771,6 +1779,11 @@ minetest.clear_registered_ores()
 minetest.clear_registered_decorations()
 
 local mg_name = minetest.get_mapgen_setting("mg_name")
+
+if mg_name == "v7" and captures_nojungle == "nojungles" then
+	nojungles = true
+end
+
 if mg_name == "v6" then
 	default.register_mgv6_blob_ores()
 	default.register_ores()
