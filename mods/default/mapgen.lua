@@ -1768,7 +1768,6 @@ local mgv7_spflags = minetest.get_mapgen_setting("mgv7_spflags") or
 	"mountains, ridges, nofloatlands, jungles"
 local captures_float = string.match(mgv7_spflags, "floatlands")
 local captures_nofloat = string.match(mgv7_spflags, "nofloatlands")
-local captures_jungle = string.match(mgv7_spflags, "jungles")
 local captures_nojungle = string.match(mgv7_spflags, "nojungles")
 
 local mgv7_floatland_level = minetest.get_mapgen_setting("mgv7_floatland_level") or 1280
