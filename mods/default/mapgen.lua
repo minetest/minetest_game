@@ -494,7 +494,7 @@ end
 
 -- All mapgens except mgv6
 
-local nojungles = nil
+local nojungles = false
 
 function default.register_biomes(upper_limit)
 
@@ -1060,7 +1060,7 @@ function default.register_biomes(upper_limit)
 
 	-- Rainforest
 
-	if nil == nojungles then
+	if not nojungles then
 
 		minetest.register_biome({
 			name = "rainforest",
