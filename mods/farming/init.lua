@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- Global farming namespace
 farming = {}
 farming.path = minetest.get_modpath("farming")
@@ -9,7 +11,7 @@ dofile(farming.path .. "/hoes.lua")
 
 -- WHEAT
 farming.register_plant("farming:wheat", {
-	description = "Wheat seed",
+	description = S("Wheat seed"),
 	paramtype2 = "meshoptions",
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
@@ -20,13 +22,13 @@ farming.register_plant("farming:wheat", {
 	place_param2 = 3,
 })
 minetest.register_craftitem("farming:flour", {
-	description = "Flour",
+	description = S("Flour"),
 	inventory_image = "farming_flour.png",
 	groups = {flammable = 1},
 })
 
 minetest.register_craftitem("farming:bread", {
-	description = "Bread",
+	description = S("Bread"),
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
 	groups = {flammable = 2},
@@ -47,7 +49,7 @@ minetest.register_craft({
 
 -- Cotton
 farming.register_plant("farming:cotton", {
-	description = "Cotton seed",
+	description = S("Cotton seed"),
 	inventory_image = "farming_cotton_seed.png",
 	steps = 8,
 	minlight = 13,

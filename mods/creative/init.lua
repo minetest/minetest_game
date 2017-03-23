@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 creative = {}
 
 local creative_mode_cache = minetest.setting_getbool("creative_mode")

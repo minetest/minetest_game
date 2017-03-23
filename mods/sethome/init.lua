@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 
 sethome = {}
 
@@ -68,30 +70,30 @@ sethome.go = function(name)
 end
 
 minetest.register_privilege("home", {
-	description = "Can use /sethome and /home",
+	description = S("Can use /sethome and /home"),
 	give_to_singleplayer = false
 })
 
 minetest.register_chatcommand("home", {
-	description = "Teleport you to your home point",
+	description = S("Teleport you to your home point"),
 	privs = {home = true},
 	func = function(name)
 		if sethome.go(name) then
-			return true, "Teleported to home!"
+			return true, S("Teleported to home!")
 		end
-		return false, "Set a home using /sethome"
+		return false, S("Set a home using /sethome")
 	end,
 })
 
 minetest.register_chatcommand("sethome", {
-	description = "Set your home point",
+	description = S("Set your home point"),
 	privs = {home = true},
 	func = function(name)
 		name = name or "" -- fallback to blank name if nil
 		local player = minetest.get_player_by_name(name)
 		if player and sethome.set(name, player:getpos()) then
-			return true, "Home set!"
+			return true, S("Home set!")
 		end
-		return false, "Player not found!"
+		return false, S("Player not found!")
 	end,
 })

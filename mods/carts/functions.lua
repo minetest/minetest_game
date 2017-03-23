@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 function carts:get_sign(z)
 	if z == 0 then
 		return 0

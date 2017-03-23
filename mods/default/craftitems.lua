@@ -1,13 +1,15 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- mods/default/craftitems.lua
 
 minetest.register_craftitem("default:stick", {
-	description = "Stick",
+	description = S("Stick"),
 	inventory_image = "default_stick.png",
 	groups = {stick = 1, flammable = 2},
 })
 
 minetest.register_craftitem("default:paper", {
-	description = "Paper",
+	description = S("Paper"),
 	inventory_image = "default_paper.png",
 	groups = {flammable = 3},
 })
@@ -143,14 +145,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.register_craftitem("default:book", {
-	description = "Book",
+	description = S("Book"),
 	inventory_image = "default_book.png",
 	groups = {book = 1, flammable = 3},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("default:book_written", {
-	description = "Book With Text",
+	description = S("Book With Text"),
 	inventory_image = "default_book_written.png",
 	groups = {book = 1, not_in_creative_inventory = 1, flammable = 3},
 	stack_max = 1,
@@ -187,77 +189,77 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 minetest.register_craftitem("default:coal_lump", {
-	description = "Coal Lump",
+	description = S("Coal Lump"),
 	inventory_image = "default_coal_lump.png",
 	groups = {coal = 1, flammable = 1}
 })
 
 minetest.register_craftitem("default:iron_lump", {
-	description = "Iron Lump",
+	description = S("Iron Lump"),
 	inventory_image = "default_iron_lump.png",
 })
 
 minetest.register_craftitem("default:copper_lump", {
-	description = "Copper Lump",
+	description = S("Copper Lump"),
 	inventory_image = "default_copper_lump.png",
 })
 
 minetest.register_craftitem("default:mese_crystal", {
-	description = "Mese Crystal",
+	description = S("Mese Crystal"),
 	inventory_image = "default_mese_crystal.png",
 })
 
 minetest.register_craftitem("default:gold_lump", {
-	description = "Gold Lump",
+	description = S("Gold Lump"),
 	inventory_image = "default_gold_lump.png",
 })
 
 minetest.register_craftitem("default:diamond", {
-	description = "Diamond",
+	description = S("Diamond"),
 	inventory_image = "default_diamond.png",
 })
 
 minetest.register_craftitem("default:clay_lump", {
-	description = "Clay Lump",
+	description = S("Clay Lump"),
 	inventory_image = "default_clay_lump.png",
 })
 
 minetest.register_craftitem("default:steel_ingot", {
-	description = "Steel Ingot",
+	description = S("Steel Ingot"),
 	inventory_image = "default_steel_ingot.png",
 })
 
 minetest.register_craftitem("default:copper_ingot", {
-	description = "Copper Ingot",
+	description = S("Copper Ingot"),
 	inventory_image = "default_copper_ingot.png",
 })
 
 minetest.register_craftitem("default:bronze_ingot", {
-	description = "Bronze Ingot",
+	description = S("Bronze Ingot"),
 	inventory_image = "default_bronze_ingot.png",
 })
 
 minetest.register_craftitem("default:gold_ingot", {
-	description = "Gold Ingot",
+	description = S("Gold Ingot"),
 	inventory_image = "default_gold_ingot.png"
 })
 
 minetest.register_craftitem("default:mese_crystal_fragment", {
-	description = "Mese Crystal Fragment",
+	description = S("Mese Crystal Fragment"),
 	inventory_image = "default_mese_crystal_fragment.png",
 })
 
 minetest.register_craftitem("default:clay_brick", {
-	description = "Clay Brick",
+	description = S("Clay Brick"),
 	inventory_image = "default_clay_brick.png",
 })
 
 minetest.register_craftitem("default:obsidian_shard", {
-	description = "Obsidian Shard",
+	description = S("Obsidian Shard"),
 	inventory_image = "default_obsidian_shard.png",
 })
 
 minetest.register_craftitem("default:flint", {
-	description = "Flint",
+	description = S("Flint"),
 	inventory_image = "default_flint.png"
 })

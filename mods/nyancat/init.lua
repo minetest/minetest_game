@@ -1,5 +1,7 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 minetest.register_node("nyancat:nyancat", {
-	description = "Nyan Cat",
+	description = S("Nyan Cat"),
 	tiles = {"nyancat_side.png", "nyancat_side.png", "nyancat_side.png",
 		"nyancat_side.png", "nyancat_back.png", "nyancat_front.png"},
 	paramtype = "light",
@@ -12,7 +14,7 @@ minetest.register_node("nyancat:nyancat", {
 })
 
 minetest.register_node("nyancat:nyancat_rainbow", {
-	description = "Nyan Cat Rainbow",
+	description = S("Nyan Cat Rainbow"),
 	tiles = {
 		"nyancat_rainbow.png^[transformR90",
 		"nyancat_rainbow.png^[transformR90",

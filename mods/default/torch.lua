@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 
 --[[
 
@@ -36,7 +38,7 @@ See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
 --]]
 
 minetest.register_node("default:torch", {
-	description = "Torch",
+	description = S("Torch"),
 	drawtype = "mesh",
 	mesh = "torch_floor.obj",
 	inventory_image = "default_torch_on_floor.png",

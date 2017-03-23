@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 
 -- Wear out hoes, place soil
 -- TODO Ignore group:flower

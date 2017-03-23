@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- Minetest 0.4 mod: stairs
 -- See README.txt for licensing and other information.
 

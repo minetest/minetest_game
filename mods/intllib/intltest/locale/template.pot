@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-24 00:46-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: init.lua:8
+msgid "Hello, world!"
+msgstr ""
+
+#: init.lua:13
+msgid "Blue"
+msgstr ""
+
+#: init.lua:13
+msgid "Car"
+msgstr ""
+
+#: init.lua:13
+msgid "Test: @1 @2"
+msgstr ""
+
+#: init.lua:23
+msgid "Item has been used @1 time."
+msgid_plural "Item has been used @1 times."
+msgstr[0] ""
+msgstr[1] ""

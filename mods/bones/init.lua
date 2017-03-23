@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
 
@@ -25,7 +27,7 @@ local share_bones_time = tonumber(minetest.setting_get("share_bones_time")) or 1
 local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early")) or share_bones_time / 4
 
 minetest.register_node("bones:bones", {
-	description = "Bones",
+	description = S("Bones"),
 	tiles = {
 		"bones_top.png^[transform2",
 		"bones_bottom.png",

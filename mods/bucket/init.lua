@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- Minetest 0.4 mod: bucket
 -- See README.txt for licensing and other information.
 
@@ -110,7 +112,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 end
 
 minetest.register_craftitem("bucket:bucket_empty", {
-	description = "Empty Bucket",
+	description = S("Empty Bucket"),
 	inventory_image = "bucket.png",
 	stack_max = 99,
 	liquids_pointable = true,
@@ -212,4 +214,3 @@ minetest.register_craft({
 	burntime = 60,
 	replacements = {{"bucket:bucket_lava", "bucket:bucket_empty"}},
 })
-

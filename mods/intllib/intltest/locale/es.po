@@ -1,0 +1,40 @@
+# I18N Test Mod.
+# Copyright (C) 2013-2017 Diego Martínez <kaeza@users.sf.net>
+# This file is distributed under the same license as the intllib mod.
+# Diego Martínez <kaeza@users.sf.net>, 2013-2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: I18N Test Mod 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-24 00:46-0300\n"
+"PO-Revision-Date: 2017-01-23 17:36-0300\n"
+"Last-Translator: Diego Martnez <kaeza@users.sf.net>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: init.lua:8
+msgid "Hello, world!"
+msgstr "¡Hola, mundo!"
+
+#: init.lua:13
+msgid "Blue"
+msgstr "Azul"
+
+#: init.lua:13
+msgid "Car"
+msgstr "Carro"
+
+#: init.lua:13
+msgid "Test: @1 @2"
+msgstr "Prueba: @2 @1"
+
+#: init.lua:23
+msgid "Item has been used @1 time."
+msgid_plural "Item has been used @1 times."
+msgstr[0] "El objeto ha sido usado @1 vez."
+msgstr[1] "El objeto ha sido usado @1 veces."

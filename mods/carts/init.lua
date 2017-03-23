@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 
 carts = {}
 carts.modpath = minetest.get_modpath("carts")

@@ -1,3 +1,5 @@
+local S, NS = dofile(minetest.get_modpath(minetest.get_current_modname()).."/intllib.lua")
+
 -- mods/default/aliases.lua
 
 -- Aliases to support loading worlds using nodes following the old naming convention
