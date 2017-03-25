@@ -203,7 +203,12 @@ end
 
 local function can_dig_door(pos, digger)
 	replace_old_owner_information(pos)
-	return default.can_interact_with_node(digger, pos)
+	if default.can_interact_with_node(digger, pos) then
+		return true
+	else
+		minetest.record_protection_violation(pos, digger:get_player_name())
+		return false
+	end
 end
 
 function doors.register(name, def)
