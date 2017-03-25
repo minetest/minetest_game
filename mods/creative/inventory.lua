@@ -118,6 +118,8 @@ function creative.register_tab(name, title, items)
 					button[2.75,3.4;0.8,0.5;creative_clear;X]
 					tooltip[creative_search;Search]
 					tooltip[creative_clear;Reset]
+					tooltip[creative_prev;Previous page]
+					tooltip[creative_next;Next page]
 					listring[current_player;main]
 					field_close_on_enter[creative_filter;false]
 				]] ..
