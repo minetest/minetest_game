@@ -322,8 +322,7 @@ function doors.register(name, def)
 				meta:set_string("infotext", "Owned by " .. pn)
 			end
 
-			if not (creative and creative.is_enabled_for
-					and creative.is_enabled_for(placer:get_player_name())) then
+			if not (creative and creative.is_enabled_for and creative.is_enabled_for(pn)) then
 				itemstack:take_item()
 			end
 

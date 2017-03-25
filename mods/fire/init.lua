@@ -85,13 +85,13 @@ minetest.register_tool("fire:flint_and_steel", {
 			"fire_flint_and_steel",
 			{pos = sound_pos, gain = 0.5, max_hear_distance = 8}
 		)
+		local player_name = user:get_player_name()
 		if pointed_thing.type == "node" then
 			local node_under = minetest.get_node(pointed_thing.under).name
 			local nodedef = minetest.registered_nodes[node_under]
 			if not nodedef then
 				return
 			end
-			local player_name = user:get_player_name()
 			if minetest.is_protected(pointed_thing.under, player_name) then
 				minetest.chat_send_player(player_name, "This area is protected")
 				return
