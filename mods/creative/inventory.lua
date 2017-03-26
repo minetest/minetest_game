@@ -1,5 +1,10 @@
 local player_inventory = {}
 
+-- Creates a blank detached inventory to be filled with contents later
+--   Should only ever be called by update_creative_inventory, as there's
+--   never any need to create a blank inventory
+-- @param player Player object
+-- @return new player context - player_inventory[player_name]
 function creative.init_creative_inventory(player)
 	local player_name = player:get_player_name()
 	player_inventory[player_name] = {
@@ -33,16 +38,18 @@ function creative.init_creative_inventory(player)
 		end,
 	}, player_name)
 
-	creative.update_creative_inventory(player_name, minetest.registered_items)
+	return player_inventory[player_name]
 end
 
+-- Fills a player's creative inventory with the items listed by tab_content.
+--   calls init_creative_inventory if the inventory does not already exist
+-- @param player_name The name of the player
+-- @param tab_content A key-value list of item names to item defs
 function creative.update_creative_inventory(player_name, tab_content)
 	local creative_list = {}
+	local inv = player_inventory[player_name] or
+			creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
-	local inv = player_inventory[player_name]
-	if not inv then
-		creative.init_creative_inventory(minetest.get_player_by_name(player_name))
-	end
 
 	for name, def in pairs(tab_content) do
 		if not (def.groups.not_in_creative_inventory == 1) and
@@ -161,7 +168,7 @@ function creative.register_tab(name, title, items)
 end
 
 minetest.register_on_joinplayer(function(player)
-	creative.init_creative_inventory(player)
+	creative.update_creative_inventory(player:get_player_name(), minetest.registered_items)
 end)
 
 creative.register_tab("all", "All", minetest.registered_items)
