@@ -587,3 +587,27 @@ stairs.register_stair_and_slab(
 	"Gold Block Slab",
 	default.node_sound_metal_defaults()
 )
+
+stairs.register_stair_and_slab(
+	"ice",
+	"default:ice",
+	{cracky = 3, puts_out_fire = 1, cools_lava = 1},
+	{"default_ice.png"},
+	"Ice Stair",
+	"Ice Slab",
+	default.node_sound_glass_defaults()
+)
+
+stairs.register_stair_and_slab(
+	"snowblock",
+	"default:snowblock",
+	{crumbly = 3, puts_out_fire = 1, cools_lava = 1, snowy = 1},
+	{"default_snow.png"},
+	"Snow Block Stair",
+	"Snow Block Slab",
+	default.node_sound_dirt_defaults({
+		footstep = {name = "default_snow_footstep", gain = 0.15},
+		dug = {name = "default_snow_footstep", gain = 0.2},
+		dig = {name = "default_snow_footstep", gain = 0.2}
+	}),
+)
