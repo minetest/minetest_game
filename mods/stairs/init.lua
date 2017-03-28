@@ -612,4 +612,4 @@ stairs.register_stair_and_slab(
 	"Snow Stair",
 	"Snow Slab",
 	default.node_sound_dirt_defaults()
-) 
+)
