@@ -525,7 +525,7 @@ stairs.register_stair_and_slab(
 )
 
 stairs.register_stair_and_slab(
- 	"obsidian_block",
+	"obsidian_block",
 	"default:obsidian_block",
 	{cracky = 1, level = 2},
 	{"default_obsidian_block.png"},
@@ -593,10 +593,11 @@ stairs.register_stair_and_slab(
 	"Gold Block Slab",
 	default.node_sound_metal_defaults()
 )
+
 stairs.register_stair_and_slab(
 	"ice",
 	"default:ice",
-	{cracky = 3, puts_out_fire = 1},
+	{cracky = 3, puts_out_fire = 1, cools_lava = 1},
 	{"default_ice.png"},
 	"Ice Stair",
 	"Ice Slab",
@@ -606,7 +607,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"snow",
 	"default:snow",
-	{crumbly = 3, puts_out_fire = 1},
+	{crumbly = 3, puts_out_fire = 1, snowy = 1},
 	{"default_snow.png"},
 	"Snow Stair",
 	"Snow Slab",
