@@ -150,6 +150,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		on_place = function(itemstack, placer, pointed_thing)
 			local under = minetest.get_node(pointed_thing.under)
 			local wield_item = itemstack:get_name()
+			local creative_enabled = (creative and creative.is_enabled_for
+					and creative.is_enabled_for(placer:get_player_name()))
 
 			if under and wield_item == under.name then
 				-- place slab using under node orientation
@@ -171,7 +173,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 						return
 					end
 					minetest.set_node(pointed_thing.under, {name = recipeitem, param2 = p2})
-					if not minetest.setting_getbool("creative_mode") then
+					if not creative_enabled then
 						itemstack:take_item()
 					end
 					return itemstack
@@ -187,7 +189,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 
 				-- else attempt to place node with proper param2
 				minetest.item_place_node(ItemStack(wield_item), placer, pointed_thing, p2)
-				if not minetest.setting_getbool("creative_mode") then
+				if not creative_enabled then
 					itemstack:take_item()
 				end
 				return itemstack

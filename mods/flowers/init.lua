@@ -289,7 +289,8 @@ minetest.register_node("flowers:waterlily", {
 			if not minetest.is_protected(pos, player_name) then
 				minetest.set_node(pos, {name = "flowers:waterlily",
 					param2 = math.random(0, 3)})
-				if not minetest.setting_getbool("creative_mode") then
+				if not (creative and creative.is_enabled_for
+						and creative.is_enabled_for(player_name)) then
 					itemstack:take_item()
 				end
 			else

@@ -167,7 +167,8 @@ minetest.register_on_dieplayer(function(player)
 	end
 
 	-- return if keep inventory set or in creative mode
-	if bones_mode == "keep" or minetest.setting_getbool("creative_mode") then
+	if bones_mode == "keep" or (creative and creative.is_enabled_for
+			and creative.is_enabled_for(player:get_player_name())) then
 		return
 	end
 
