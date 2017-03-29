@@ -33,6 +33,8 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		is_ground_content = false,
 		groups = groups,
 		sounds = sounds,
+		base_material = recipeitem,
+		shape_type = "stair",
 		selection_box = {
 			type = "fixed",
 			fixed = {
@@ -143,6 +145,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		is_ground_content = false,
 		groups = groups,
 		sounds = sounds,
+		base_material = recipeitem,
+		shape_type = "slab",
 		node_box = {
 			type = "fixed",
 			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
@@ -346,7 +350,7 @@ stairs.register_stair_and_slab(
 
 stairs.register_stair_and_slab(
 	"mossycobble",
-	nil,
+	"default:mossycobble",
 	{cracky = 3},
 	{"default_mossycobble.png"},
 	"Mossy Cobblestone Stair",

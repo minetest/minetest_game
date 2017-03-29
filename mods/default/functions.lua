@@ -304,6 +304,8 @@ function default.register_fence(name, def)
 	-- Always add to the fence group, even if no group provided
 	def.groups.fence = 1
 
+	def.base_material = def.material
+	def.shape_type = "fence"
 	def.texture = nil
 	def.material = nil
 

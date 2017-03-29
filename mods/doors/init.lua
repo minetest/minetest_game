@@ -251,10 +251,17 @@ function doors.register(name, def)
 		end
 	})
 
+	local function get_chape_type(def)
+		if def.base_material then
+			return "door"
+		end
+	end
+
 	minetest.register_craftitem(":" .. name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
-
+		shape_type = get_chape_type(def),
+		base_material = def.base_material,
 		on_place = function(itemstack, placer, pointed_thing)
 			local pos
 
@@ -337,6 +344,7 @@ function doors.register(name, def)
 			return itemstack
 		end
 	})
+	def.base_material = nil
 	def.inventory_image = nil
 
 	if def.recipe then
@@ -445,6 +453,7 @@ doors.register("door_wood", {
 		description = "Wooden Door",
 		inventory_image = "doors_item_wood.png",
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+		base_material = "default:wood",
 		recipe = {
 			{"group:wood", "group:wood"},
 			{"group:wood", "group:wood"},
@@ -461,6 +470,7 @@ doors.register("door_steel", {
 		sounds = default.node_sound_metal_defaults(),
 		sound_open = "doors_steel_door_open",
 		sound_close = "doors_steel_door_close",
+		base_material = "default:steel_ingot",
 		recipe = {
 			{"default:steel_ingot", "default:steel_ingot"},
 			{"default:steel_ingot", "default:steel_ingot"},
@@ -476,6 +486,7 @@ doors.register("door_glass", {
 		sounds = default.node_sound_glass_defaults(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
+		base_material = "default:glass",
 		recipe = {
 			{"default:glass", "default:glass"},
 			{"default:glass", "default:glass"},
@@ -491,6 +502,7 @@ doors.register("door_obsidian_glass", {
 		sounds = default.node_sound_glass_defaults(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
+		base_material = "default:obsidian_glass",
 		recipe = {
 			{"default:obsidian_glass", "default:obsidian_glass"},
 			{"default:obsidian_glass", "default:obsidian_glass"},
@@ -625,6 +637,10 @@ function doors.register_trapdoor(name, def)
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
+	def_opened.base_material = nil
+	if def_closed.base_material then
+		def_closed.shape_type = "trapdoor"
+	end
 
 	def_closed.node_box = {
 		type = "fixed",
@@ -670,6 +686,7 @@ doors.register_trapdoor("doors:trapdoor", {
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
+	base_material = "group:wood",
 })
 
 doors.register_trapdoor("doors:trapdoor_steel", {
@@ -683,6 +700,7 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
 	groups = {cracky = 1, level = 2, door = 1},
+	base_material = "default:steel_ingot",
 })
 
 minetest.register_craft({
@@ -738,6 +756,8 @@ function doors.register_fencegate(name, def)
 	fence.groups.fence = 1
 
 	local fence_closed = table.copy(fence)
+	fence_closed.shape_type = "fencegate"
+	fence_closed.base_material = def.material
 	fence_closed.mesh = "doors_fencegate_closed.obj"
 	fence_closed.gate = name .. "_open"
 	fence_closed.sound = "doors_fencegate_open"
