@@ -330,8 +330,9 @@ local function leafdecay_after_destruct(pos, oldnode, def)
 	for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, def.radius),
 			vector.add(pos, def.radius), def.leaves)) do
 		local node = minetest.get_node(v)
-		if node.param2 == 0 then
-			minetest.get_node_timer(v):start(math.random(20, 120) / 10)
+		local timer = minetest.get_node_timer(v)
+		if node.param2 == 0 and not timer:is_started() then
+			timer:start(math.random(20, 120) / 10)
 		end
 	end
 end
