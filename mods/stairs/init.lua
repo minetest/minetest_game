@@ -27,7 +27,7 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	end
 
 	local finepos = minetest.pointed_thing_to_face_pos(placer, pointed_thing)
-	local _, fpos = math.modf(finepos.y)
+	local fpos = finepos.y % 1
 
 	if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5)
 			or (fpos < -0.5 and fpos > -0.999999999) then
