@@ -576,3 +576,138 @@ function default.can_interact_with_node(player, pos)
 
 	return false
 end
+
+
+--
+-- Stone/Ore API
+--
+
+default.registered_stones = {}
+default.registered_ores = {}
+
+local function check_stone_groups(groups_a, groups_b)
+	for fieldname, value in pairs(groups_a) do
+		if groups_b[fieldname] == value then
+			return true
+		end
+	end
+	return false
+end
+
+local function register_stone_with_ore(ore, stone)
+	-- Set name, description, texture and groups
+	-- name format: 'modNameStone:stoneName_with_oreName'
+	-- for example: 'morestones:granite_with_iron'
+	local fullname = stone.modname .. ":" .. stone.name .. "_with_" .. ore.name
+
+	-- description format: 'Stonename Orename Ore' -> 'Granite Iron Ore'
+	ore.description = stone.description .. " " .. ore.description .. " Ore"
+	-- Take the stone texture and add the ore texture as overlay
+	ore.tiles = {stone.tiles[1] .. "^" .. ore.texture}
+	-- Make the ore as cracky as the stone
+	ore.groups.cracky = (stone.groups.cracky or 3) + ore.additional_stone_crackyness or 0
+	if ore.groups.cracky < 1 then
+		ore.groups.cracky = 1
+	end
+
+	-- Use sounds from stone
+	ore.sounds = stone.sounds
+
+	-- Clean up
+	local ore_mapgen = ore.mapgen or {}
+	ore.additional_stone_crackyness = nil
+	ore.mapgen = nil
+	ore.stone_groups = nil
+	ore.texture = nil
+	ore.name = nil
+
+	minetest.register_node(fullname, ore)
+
+	-- return if no map generations to register
+	if #ore_mapgen == 0 then return end
+
+	-- Register ore generations
+	for _, oredef in pairs(ore_mapgen) do
+		if oredef.stone_groups then
+			if not check_stone_groups(stone.stone_groups, oredef.stone_groups) then
+				break
+			end
+		end
+
+		-- Set the fitting stone name
+		oredef.wherein = stone.name
+		-- default to use scatter ores
+		oredef.ore_type = oredef.ore_type or "scatter"
+		-- Set ore itemstring
+		oredef.ore = fullname
+
+		minetest.register_ore(oredef)
+	end
+end
+
+function default.register_stone(def)
+	local stone_def = {
+		modname = minetest.get_current_modname(),
+		tiles = {"unknown_node.png"},
+		groups = {cracky = 3},
+		stone_groups = {},
+		sounds = default.node_sound_stone_defaults()
+	}
+
+	-- Overwrite defaults with new specs
+	for k,v in pairs(def) do
+		stone_def[k] = v
+	end
+
+	-- every stone is in the 'all' group
+	stone_def.stone_groups.all = 1
+
+	-- Register the stone with all existing ores
+	for _, ore in pairs(default.registered_ores) do
+		if check_stone_groups(def.stone_groups, ore.stone_groups) then
+			-- The ore-def will be changed, so we copy it to not overwrite
+			-- the original in default.registered_ores.
+			register_stone_with_ore(table.copy(ore), stone_def)
+		end
+	end
+
+	table.insert(default.registered_stones, stone_def)
+
+	-- Create a clean node def
+	local modname = stone_def.modname
+	local node_def = table.copy(stone_def)
+	node_def.modname = nil
+	node_def.name = nil
+	node_def.stone_groups = nil
+
+	-- Register the stone
+	minetest.register_node(modname .. ":" .. def.name, node_def)
+end
+
+function default.register_ore(def)
+	local ore_def = {
+		name = "ore",
+		texture = "blank.png",
+		groups = {},
+		additional_stone_crackyness = 0,
+		mapgen = {},
+		stone_groups = {all = 1}
+	}
+
+	-- Overwrite defaults with new specs
+	for k,v in pairs(def) do
+		ore_def[k] = v
+	end
+
+	-- Use given description or the name and make the first letter uppercase
+	ore_def.description = ore_def.description or ore_def.name:gsub("^%l", string.upper)
+
+	-- Register this ore in all different types of stone
+	for _, stone in pairs(default.registered_stones) do
+		if check_stone_groups(stone.stone_groups, def.stone_groups) then
+			register_stone_with_ore(table.copy(ore_def), stone)
+		end
+	end
+
+	table.insert(default.registered_ores, def)
+end

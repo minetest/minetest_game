@@ -34,6 +34,11 @@ default.gui_survival_form = "size[8,8.5]"..
 			"listring[current_player;craft]"..
 			default.get_hotbar_bg(0,4.25)
 
+-- MapGen clean up
+minetest.clear_registered_biomes()
+minetest.clear_registered_ores()
+minetest.clear_registered_decorations()
+
 -- Load files
 local default_path = minetest.get_modpath("default")
 
