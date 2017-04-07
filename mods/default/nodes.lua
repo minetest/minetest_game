@@ -2219,3 +2219,15 @@ default.register_leafdecay({
 	leaves = {"default:acacia_bush_leaves"},
 	radius = 1,
 })
+
+default.register_leafdecay({
+	trunks = {"default:bush_stem"},
+	leaves = {"default:bush_leaves"},
+	radius = 1,
+})
+
+default.register_leafdecay({
+	trunks = {"default:acacia_bush_stem"},
+	leaves = {"default:acacia_bush_leaves"},
+	radius = 1,
+})
