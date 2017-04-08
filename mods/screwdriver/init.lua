@@ -98,12 +98,17 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	end
 	-- can we rotate this paramtype2?
 	local fn = screwdriver.rotate[ndef.paramtype2]
-	if not fn then
+	if not fn and not ndef.on_rotate then
 		return itemstack
 	end
 
 	local should_rotate = true
-	local new_param2 = fn(pos, node, mode)
+	local new_param2
+	if fn then
+		new_param2 = fn(pos, node, mode)
+	else
+		new_param2 = node.param2
+	end
 
 	-- Node provides a handler, so let the handler decide instead if the node can be rotated
 	if ndef.on_rotate then
@@ -122,7 +127,7 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 		return itemstack
 	end
 
-	if should_rotate then
+	if should_rotate and new_param2 ~= node.param2 then
 		node.param2 = new_param2
 		minetest.swap_node(pos, node)
 		minetest.check_for_falling(pos)
