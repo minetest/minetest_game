@@ -126,6 +126,7 @@ brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
 
 BlockMen (CC BY-SA 3.0):
+  default_aspen_leaves.png
   default_wood.png
   default_clay_brick.png
   default_iron_ingot.png
@@ -152,7 +153,6 @@ Wuzzy (CC BY-SA 3.0):
 sofar (CC BY-SA 3.0):
   default_book_written.png, based on default_book.png
   default_aspen_sapling
-  default_aspen_leaves
   default_aspen_tree
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
   default_aspen_wood, derived from default_pine_wood (by paramat)
