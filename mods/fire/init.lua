@@ -292,9 +292,18 @@ minetest.register_abm({
 
 local fire_enabled = minetest.setting_getbool("enable_fire")
 if fire_enabled == nil then
-	-- New setting not specified, check for old setting.
-	-- If old setting is also not specified, 'not nil' is true.
-	fire_enabled = not minetest.setting_getbool("disable_fire")
+	-- New setting not specified, check for old setting
+	fire_enabled = minetest.setting_getbool("disable_fire")
+	if fire_enabled == nil then
+		-- Neither setting specified, check whether singleplayer
+		if minetest.is_singleplayer() then
+			fire_enabled = true
+		else
+			fire_enabled = false
+		end
+	else
+		fire_enabled = not fire_enabled
+	end
 end
 
 if not fire_enabled then
