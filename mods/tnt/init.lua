@@ -2,9 +2,6 @@ tnt = {}
 
 -- Default to enabled when in singleplayer
 local enable_tnt = minetest.setting_getbool("enable_tnt")
-if enable_tnt == nil then
-	enable_tnt = minetest.is_singleplayer()
-end
 
 -- loss probabilities array (one in X will be lost)
 local loss_prob = {}
