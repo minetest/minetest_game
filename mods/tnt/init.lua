@@ -1,10 +1,16 @@
 tnt = {}
 
--- Default to enabled when in singleplayer
-local enable_tnt = minetest.setting_getbool("enable_tnt")
-if enable_tnt == nil then
-	enable_tnt = minetest.is_singleplayer()
+-- Default to enabled
+local enable_tnt_legacy = minetest.setting_getbool("enable_tnt")
+if enable_tnt_legacy == nil then
+	enable_tnt_legacy = true
 end
+config.register_setting("enable_tnt", {
+	description = "Enable TNT",
+	type = "bool",
+	default_value = enable_tnt_legacy,
+})
+local enable_tnt = config.setting_get("enable_tnt")
 
 -- loss probabilities array (one in X will be lost)
 local loss_prob = {}
