@@ -968,6 +968,18 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
+	recipe = "default:bush_sapling",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_bush_sapling",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
 	recipe = "default:aspen_sapling",
 	burntime = 8,
 })

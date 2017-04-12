@@ -17,6 +17,7 @@ Cisoun's texture pack (CC BY-SA 3.0):
   default_lava.png
   default_leaves.png
   default_sapling.png
+  default_bush_sapling.png
   default_stone.png
   default_tree.png
   default_tree_top.png
@@ -90,6 +91,7 @@ paramat (CC BY-SA 3.0):
   default_acacia_leaves.png
   default_acacia_leaves_simple.png
   default_acacia_sapling.png
+  default_acacia_bush_sapling.png
   default_acacia_tree.png
   default_acacia_tree_top.png
   default_acacia_wood.png
@@ -126,7 +128,7 @@ brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
 
 BlockMen (CC BY-SA 3.0):
-  default_aspen_leaves.png
+  default_aspen_leaves.png -- Derived from Sofar's texture
   default_wood.png
   default_clay_brick.png
   default_iron_ingot.png

@@ -778,14 +778,20 @@ Trees
  * `default.grow_new_pine_tree(pos)`
   * Grows a new design pine tree at pos
 
+ * `default.grow_new_snowy_pine_tree(pos)`
+  * Grows a new design snowy pine tree at pos
+
  * `default.grow_new_acacia_tree(pos)`
   * Grows a new design acacia tree at pos
 
  * `default.grow_new_aspen_tree(pos)`
   * Grows a new design aspen tree at pos
 
- * `default.grow_new_snowy_pine_tree(pos)`
-  * Grows a new design snowy pine tree at pos
+ * `default.grow_bush(pos)`
+  * Grows a bush at pos
+
+ * `default.grow_acacia_bush(pos)`
+  * Grows an acaia bush at pos
 
 Carts
 -----
