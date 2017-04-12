@@ -77,6 +77,14 @@ function default.grow_sapling(pos)
 		minetest.log("action", "An aspen sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		default.grow_new_aspen_tree(pos)
+	elseif node.name == "default:bush_sapling" then
+		minetest.log("action", "A bush sapling grows into a bush at "..
+			minetest.pos_to_string(pos))
+		default.grow_bush(pos)
+	elseif node.name == "default:acacia_bush_sapling" then
+		minetest.log("action", "An acacia bush sapling grows into a bush at "..
+			minetest.pos_to_string(pos))
+		default.grow_acacia_bush(pos)
 	end
 end
 
@@ -422,6 +430,29 @@ function default.grow_new_aspen_tree(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/aspen_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
+		path, "0", nil, false)
+end
+
+
+-- Bushes do not need 'from sapling' schematic variants because
+-- only the stem node is force-placed in the schematic.
+
+-- Bush
+
+function default.grow_bush(pos)
+	local path = minetest.get_modpath("default") ..
+		"/schematics/bush.mts"
+	minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
+		path, "0", nil, false)
+end
+
+
+-- Acacia bush
+
+function default.grow_acacia_bush(pos)
+	local path = minetest.get_modpath("default") ..
+		"/schematics/acacia_bush.mts"
+	minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
 		path, "0", nil, false)
 end
 
