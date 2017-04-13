@@ -283,8 +283,64 @@ Give Initial Stuff API
 ^ Adds items to the list of items to be given
 
 
+Stone/Ore API
+-------------
+
+### `default.register_ore(def)`
+Registers a new ore in all currently registered stones and various ore generations.
+ * `def = {}`: Ore definition, see [#Ore definition].
+
+### `default.register_stone(def)`
+Registers a new stone and all (wanted) combinations of this stone and ores.
+ * `def = {}`: Stone definition, see [#Stone definition].
+
+### Ore definition
+This is a table containing all needed information to register a new ore using
+`defualt.register_ore` or to be saved internally in `default.registered_ores`.
+ * `name = string`: A simple and short name of the ore. (required)
+ * `texture = string`: An overlay of the ore for the stone combinations. (default: `"blank.png"`)
+ * `additional_stone_crackyness = int`: Value added to cracky group of stone.
+ * `stone_groups = {}`: Restriction of combinations with stones; See [#Stone groups] (default: `{all = 1}`)
+ * `mapgen = {}`: A table of Ore MapGen definitions, see [#Ore MapGen definition]
+
+Any other values in here will be passed through `minetest.register_node` when
+registering combinations of ores and stones.
+
+### Ore MapGen definition
+A table based on [Ore definition] (engine), but without `ore` and `wherein`.
+ * `ore_type = string`: See [Ore types] (default: `"scatter"`)
+ * `clust_scarcity = int`: Ore has a 1 out of clust_scarcity chance of spawning in a node
+ * `clust_num_ores = int`: Number of ores in a cluster
+ * `clust_size = int`: Size of the bounding box of the cluster
+ * `y_min = int`: Minimal height
+ * `y_max = int`: Maximal height
+ * `stone_groups = {}`: Specific stone restrictions to this ore definition; See [#Stone groups]
+
+All other fields (e.g. `biomes`) in here will be passed through `minetest.register_ore`.
+See [Ore definition] for details.
+
+### Stone definition
+A table defining a stone that can have ores inside.
+ * `name = string`: name for the stone (required)
+ * `modname = string`: modname for itemstrings (default: `minetest.get_current_modname()`)
+ * `description = string`: Node's description (default: `name` with first letter uppercase)
+ * `stone_groups = {}`: The stone groups for ore combinations; generally should be only one.
+
+All other fields in here will be passed through `minetest.register_node`, but
+(only) for the stone without any ore.
+
+### Stone groups
+Stone groups are to restrict ores to be generated (and registered at all) in combination
+with certain stones. Here is a list of official stone groups (of course you can
+also use your own):
+ * `normal_soft`: Normal stones that are soft, but not out of sand (e.g. Soapstone)
+ * `normal_medium`: default:stone-like stones
+ * `normal_hard`: Normal, hard stones (e.g. Basalt)
+ * `desert`: Medium hard stones spawning in arid, hot areas
+ * `sand`: Soft sandstones
+
 TNT API
-----------
+-------
 
 `tnt.register_tnt(definition)`
 

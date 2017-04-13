@@ -204,11 +204,13 @@ default:cloud
 -- Stone
 --
 
-minetest.register_node("default:stone", {
+default.register_stone({
+	name = "stone",
 	description = "Stone",
 	tiles = {"default_stone.png"},
 	groups = {cracky = 3, stone = 1},
-	drop = 'default:cobble',
+	stone_groups = {normal_medium = 1},
+	drop = "default:cobble",
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -248,10 +250,12 @@ minetest.register_node("default:mossycobble", {
 })
 
 
-minetest.register_node("default:desert_stone", {
+default.register_stone({
+	name = "desert_stone",
 	description = "Desert Stone",
 	tiles = {"default_desert_stone.png"},
 	groups = {cracky = 3, stone = 1},
+	stone_groups = {desert = 1},
 	drop = 'default:desert_cobble',
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
@@ -996,12 +1000,34 @@ minetest.register_node("default:aspen_sapling", {
 -- Ores
 --
 
-minetest.register_node("default:stone_with_coal", {
-	description = "Coal Ore",
-	tiles = {"default_stone.png^default_mineral_coal.png"},
-	groups = {cracky = 3},
-	drop = 'default:coal_lump',
-	sounds = default.node_sound_stone_defaults(),
+default.register_ore({
+	name = "coal",
+	texture = "default_mineral_coal.png",
+	drop = "default:coal_lump",
+	stone_groups = {normal_soft = 1, normal_medium = 1, normal_hard = 1}, -- sand = 1 ?
+	mapgen = {
+		{
+			clust_scarcity = 8 * 8 * 8,
+			clust_num_ores = 9,
+			clust_size     = 3,
+			y_min          = 1025,
+			y_max          = 31000
+		},
+		{
+			clust_scarcity = 8 * 8 * 8,
+			clust_num_ores = 8,
+			clust_size     = 3,
+			y_min          = -31000,
+			y_max          = 64
+		},
+		{
+			clust_scarcity = 24 * 24 * 24,
+			clust_num_ores = 27,
+			clust_size     = 6,
+			y_min          = -31000,
+			y_max          = 0
+		}
+	}
 })
 
 minetest.register_node("default:coalblock", {
@@ -1013,12 +1039,36 @@ minetest.register_node("default:coalblock", {
 })
 
 
-minetest.register_node("default:stone_with_iron", {
-	description = "Iron Ore",
-	tiles = {"default_stone.png^default_mineral_iron.png"},
-	groups = {cracky = 2},
-	drop = 'default:iron_lump',
-	sounds = default.node_sound_stone_defaults(),
+default.register_ore({
+	name = "iron",
+	texture = "default_mineral_iron.png",
+	drop = "default:iron_lump",
+	additional_stone_crackyness = -1,
+	stone_groups = {normal_soft = 1, normal_medium = 1, normal_hard = 1,
+		desert = 1, sand = 1},
+	mapgen = {
+		{
+			clust_scarcity = 9 * 9 * 9,
+			clust_num_ores = 12,
+			clust_size     = 3,
+			y_min          = 1025,
+			y_max          = 31000
+		},
+		{
+			clust_scarcity = 7 * 7 * 7,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = -31000,
+			y_max          = 0
+		},
+		{
+			clust_scarcity = 24 * 24 * 24,
+			clust_num_ores = 27,
+			clust_size     = 6,
+			y_min          = -31000,
+			y_max          = -64
+		}
+	}
 })
 
 minetest.register_node("default:steelblock", {
@@ -1030,12 +1080,36 @@ minetest.register_node("default:steelblock", {
 })
 
 
-minetest.register_node("default:stone_with_copper", {
-	description = "Copper Ore",
-	tiles = {"default_stone.png^default_mineral_copper.png"},
-	groups = {cracky = 2},
+default.register_ore({
+	name = "copper",
+	texture = "default_mineral_copper.png",
 	drop = 'default:copper_lump',
-	sounds = default.node_sound_stone_defaults(),
+	additional_stone_crackyness = -1,
+	stone_groups = {normal_soft = 1, normal_medium = 1, normal_hard = 1,
+		desert = 1, sand = 1},
+	mapgen = {
+		{
+			clust_scarcity = 9 * 9 * 9,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = 1025,
+			y_max          = 31000,
+		},
+		{
+			clust_scarcity = 12 * 12 * 12,
+			clust_num_ores = 4,
+			clust_size     = 3,
+			y_min          = -63,
+			y_max          = -16,
+		},
+		{
+			clust_scarcity = 9 * 9 * 9,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = -31000,
+			y_max          = -64,
+		}
+	}
 })
 
 minetest.register_node("default:copperblock", {
@@ -1055,12 +1129,35 @@ minetest.register_node("default:bronzeblock", {
 })
 
 
-minetest.register_node("default:stone_with_mese", {
-	description = "Mese Ore",
-	tiles = {"default_stone.png^default_mineral_mese.png"},
-	groups = {cracky = 1},
+default.register_ore({
+	name = "mese",
+	texture = "default_mineral_mese.png",
 	drop = "default:mese_crystal",
-	sounds = default.node_sound_stone_defaults(),
+	additional_stone_crackyness = -2,
+	stone_groups = {normal_soft = 1, normal_medium = 1, normal_hard = 1},
+	mapgen = {
+		{
+			clust_scarcity = 14 * 14 * 14,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = 1025,
+			y_max          = 31000
+		},
+		{
+			clust_scarcity = 18 * 18 * 18,
+			clust_num_ores = 3,
+			clust_size     = 2,
+			y_min          = -255,
+			y_max          = -64
+		},
+		{
+			clust_scarcity = 14 * 14 * 14,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = -31000,
+			y_max          = -256
+		}
+	}
 })
 
 minetest.register_node("default:mese", {
@@ -1073,12 +1170,35 @@ minetest.register_node("default:mese", {
 })
 
 
-minetest.register_node("default:stone_with_gold", {
-	description = "Gold Ore",
-	tiles = {"default_stone.png^default_mineral_gold.png"},
-	groups = {cracky = 2},
+default.register_ore({
+	name = "gold",
+	texture = "default_mineral_gold.png",
 	drop = "default:gold_lump",
-	sounds = default.node_sound_stone_defaults(),
+	additional_stone_crackyness = -1,
+	stone_groups = {normal_soft = 1, normal_medium = 1, normal_hard = 1, sand = 1},
+	mapgen = {
+		{
+			clust_scarcity = 13 * 13 * 13,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = 1025,
+			y_max          = 31000
+		},
+		{
+			clust_scarcity = 15 * 15 * 15,
+			clust_num_ores = 3,
+			clust_size     = 2,
+			y_min          = -255,
+			y_max          = -64
+		},
+		{
+			clust_scarcity = 13 * 13 * 13,
+			clust_num_ores = 5,
+			clust_size     = 3,
+			y_min          = -31000,
+			y_max          = -256
+		}
+	}
 })
 
 minetest.register_node("default:goldblock", {
@@ -1090,12 +1210,35 @@ minetest.register_node("default:goldblock", {
 })
 
 
-minetest.register_node("default:stone_with_diamond", {
-	description = "Diamond Ore",
-	tiles = {"default_stone.png^default_mineral_diamond.png"},
-	groups = {cracky = 1},
+default.register_ore({
+	name = "diamond",
+	texture = "default_mineral_diamond.png",
 	drop = "default:diamond",
-	sounds = default.node_sound_stone_defaults(),
+	additional_stone_crackyness = -2,
+	stone_groups = {normal_medium = 1, normal_hard = 1},
+	mapgen = {
+		{
+			clust_scarcity = 15 * 15 * 15,
+			clust_num_ores = 4,
+			clust_size     = 3,
+			y_min          = 1025,
+			y_max          = 31000
+		},
+		{
+			clust_scarcity = 17 * 17 * 17,
+			clust_num_ores = 4,
+			clust_size     = 3,
+			y_min          = -255,
+			y_max          = -128
+		},
+		{
+			clust_scarcity = 15 * 15 * 15,
+			clust_num_ores = 4,
+			clust_size     = 3,
+			y_min          = -31000,
+			y_max          = -256
+		}
+	}
 })
 
 minetest.register_node("default:diamondblock", {
