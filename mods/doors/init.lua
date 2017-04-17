@@ -150,7 +150,7 @@ function _doors.door_toggle(pos, node, clicker)
 
 	replace_old_owner_information(pos)
 
-	if not default.can_interact_with_node(clicker, pos) then
+	if clicker and not default.can_interact_with_node(clicker, pos) then
 		return false
 	end
 
@@ -530,7 +530,7 @@ function _doors.trapdoor_toggle(pos, node, clicker)
 
 	replace_old_owner_information(pos)
 
-	if not default.can_interact_with_node(clicker, pos) then
+	if clicker and not default.can_interact_with_node(clicker, pos) then
 		return false
 	end
 
