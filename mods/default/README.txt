@@ -53,6 +53,10 @@ Calinou (CC BY-SA 3.0):
   default_papyrus.png
   default_mineral_copper.png
   default_glass_detail.png
+  default_mineral_tin.png
+  default_tin_block.png
+  default_tin_ingot.png
+  default_tin_lump.png
 
 MirceaKitsune (CC BY-SA 3.0):
   character.x

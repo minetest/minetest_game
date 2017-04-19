@@ -107,6 +107,10 @@ default:steelblock
 
 default:stone_with_copper
 default:copperblock
+
+default:stone_with_tin
+default:tinblock
+
 default:bronzeblock
 
 default:stone_with_gold
@@ -1045,6 +1049,24 @@ minetest.register_node("default:copperblock", {
 	groups = {cracky = 1, level = 2},
 	sounds = default.node_sound_metal_defaults(),
 })
+
+
+minetest.register_node("default:stone_with_tin", {
+	description = "Tin Ore",
+	tiles = {"default_stone.png^default_mineral_tin.png"},
+	groups = {cracky = 2},
+	drop = "default:tin_lump",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:tinblock", {
+	description = "Tin Block",
+	tiles = {"default_tin_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_metal_defaults(),
+})
+
 
 minetest.register_node("default:bronzeblock", {
 	description = "Bronze Block",
