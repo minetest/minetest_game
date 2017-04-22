@@ -814,6 +814,15 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'default:dirt',
+	recipe = {
+		{'group:leaves', 'group:leaves', 'group:leaves'},
+		{'group:leaves', 'group:leaves', 'group:leaves'},
+		{'group:leaves', 'group:leaves', 'group:leaves'},
+	}
+})
+
 --
 -- Crafting (tool repair)
 --
