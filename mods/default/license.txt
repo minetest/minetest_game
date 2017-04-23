@@ -43,6 +43,7 @@ Copyright (C) 2010-2016:
   Mito551
   GreenXenith
   kaeza
+  kilbith
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
