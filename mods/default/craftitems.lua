@@ -12,6 +12,7 @@ minetest.register_craftitem("default:paper", {
 	groups = {flammable = 3},
 })
 
+
 local lpp = 14 -- Lines per book's page
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
@@ -82,6 +83,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		else
 			data = minetest.deserialize(stack:get_metadata())
+		end
+
+		if data and data.owner and data.owner ~= player:get_player_name() then
+			return
 		end
 
 		if not data then data = {} end
@@ -249,4 +254,3 @@ minetest.register_craftitem("default:flint", {
 	description = "Flint",
 	inventory_image = "default_flint.png"
 })
-
