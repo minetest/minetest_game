@@ -53,6 +53,9 @@ Calinou (CC BY-SA 3.0):
   default_papyrus.png
   default_mineral_copper.png
   default_glass_detail.png
+  
+Ferk (CC0 1.0):
+  crosshair.png
 
 MirceaKitsune (CC BY-SA 3.0):
   character.x
