@@ -81,7 +81,6 @@ local dye_recipes = {
 	{"yellow", "red", "orange"},
 	{"yellow", "blue", "green"},
 	-- RYB complementary mixes
-	{"red", "green", "dark_grey"},
 	{"yellow", "violet", "dark_grey"},
 	{"blue", "orange", "dark_grey"},
 	-- CMY mixes - approximation
