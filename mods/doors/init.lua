@@ -332,6 +332,8 @@ function doors.register(name, def)
 				itemstack:take_item()
 			end
 
+			minetest.sound_play(def.sounds.place, {pos = pos})
+
 			on_place_node(pos, minetest.get_node(pos),
 				placer, node, itemstack, pointed_thing)
 
