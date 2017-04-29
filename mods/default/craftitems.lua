@@ -139,7 +139,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 
-		stack:get_meta():from_table(data)
+		stack:get_meta():from_table({fields = data})
 		stack = book_on_use(stack, player)
 	end
 
