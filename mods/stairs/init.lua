@@ -609,5 +609,5 @@ stairs.register_stair_and_slab(
 		footstep = {name = "default_snow_footstep", gain = 0.15},
 		dug = {name = "default_snow_footstep", gain = 0.2},
 		dig = {name = "default_snow_footstep", gain = 0.2}
-	}),
+	})
 )
