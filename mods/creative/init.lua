@@ -1,9 +1,8 @@
 creative = {}
-
-local creative_mode_cache = minetest.setting_getbool("creative_mode")
+creative.creative_mode_players = {}
 
 function creative.is_enabled_for(name)
-	return creative_mode_cache
+	return creative.creative_mode_players[name] == true
 end
 
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
@@ -61,3 +60,20 @@ function minetest.handle_node_drops(pos, drops, digger)
 		end
 	end
 end
+
+minetest.register_privilege("gamemode", {description = "Can change game mode", give_to_singleplayer = false})
+minetest.register_chatcommand("gamemode", {
+	params = "[game mode]",
+	description = "Change game mode",
+	privs = {gamemode = true},
+	func = function(name, param)
+			if param == "0" or param == "survival" then
+				creative.creative_mode_players[name] = false
+			elseif param == "1" or param == "creative" then
+				creative.creative_mode_players[name] = true
+			elseif param == "" then
+				creative.creative_mode_players[name] = not creative.creative_mode_players[name]
+			end
+			creative.update_creative_inventory(name, minetest.registered_items)
+	end
+})
