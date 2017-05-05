@@ -77,7 +77,7 @@ minetest.register_alias("default:ladder", "default:ladder_wood")
 minetest.register_alias("default:sign_wall", "default:sign_wall_wood")
 
 -- These items were before in other mods and minetest_game now includes them:
-minetest.register_alias("moreores:mineral_tin", "default:stone_with_tin")
-minetest.register_alias("moreores:tin_block", "default:tinblock")
-minetest.register_alias("moreores:tin_lump", "default:tin_lump")
-minetest.register_alias("moreores:tin_ingot", "default:tin_ingot")
+minetest.register_alias_force("moreores:mineral_tin", "default:stone_with_tin")
+minetest.register_alias_force("moreores:tin_block", "default:tinblock")
+minetest.register_alias_force("moreores:tin_lump", "default:tin_lump")
+minetest.register_alias_force("moreores:tin_ingot", "default:tin_ingot")
