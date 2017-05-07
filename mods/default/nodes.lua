@@ -1801,10 +1801,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "default:chest" then
 		return
 	end
-	if not fields.quit then
+	if not player or not fields.quit then
 		return
 	end
 	local pn = player:get_player_name()
+
+	if not open_chests[pn] then
+		return
+	end
 
 	local pos = open_chests[pn].pos
 	local sound = open_chests[pn].sound
