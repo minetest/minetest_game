@@ -27,6 +27,9 @@
 # Enable flame sound.
 #flame_sound = true
 
+# Whether lavacooling should be enabled.
+#enable_lavacooling = true
+
 # Whether the stuff in initial_stuff should be given to new players
 #give_initial_stuff = false
 #initial_stuff = default:pick_steel,default:axe_steel,default:shovel_steel,default:torch 99,default:cobble 99
