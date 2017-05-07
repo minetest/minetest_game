@@ -136,10 +136,10 @@ BlockMen (CC BY-SA 3.0):
   default_lava_source_animated.png
   default_lava_flowing_animated.png
   default_stick.png
-  default_chest_front.png
-  default_chest_lock.png
-  default_chest_side.png
-  default_chest_top.png
+  default_chest_front.png -- Texture kept for mod compability
+  default_chest_lock.png  -- Texture kept for mod compability
+  default_chest_side.png  -- Texture kept for mod compability
+  default_chest_top.png   -- Texture kept for mod compability
   default_mineral_mese.png
   default_meselamp.png
   bubble.png
