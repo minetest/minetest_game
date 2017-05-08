@@ -2015,6 +2015,7 @@ function default.register_chest(name, d)
 			local inv = meta:get_inventory()
 			local list = inv:get_list("default:chest")
 			if list then
+				inv:set_size("main", 8*4)
 				inv:set_list("main", list)
 				inv:set_list("default:chest", nil)
 			end
