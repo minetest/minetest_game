@@ -136,10 +136,10 @@ BlockMen (CC BY-SA 3.0):
   default_lava_source_animated.png
   default_lava_flowing_animated.png
   default_stick.png
-  default_chest_front.png -- Texture kept for mod compability
-  default_chest_lock.png  -- Texture kept for mod compability
-  default_chest_side.png  -- Texture kept for mod compability
-  default_chest_top.png   -- Texture kept for mod compability
+  default_chest_front.png
+  default_chest_lock.png
+  default_chest_side.png
+  default_chest_top.png
   default_mineral_mese.png
   default_meselamp.png
   bubble.png
@@ -154,7 +154,7 @@ sofar (CC BY-SA 3.0):
   default_aspen_tree
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
   default_aspen_wood, derived from default_pine_wood (by paramat)
-  default_chest_wood, default_chest_wood_locked derived from default_chest_* textures by BlockMen
+  default_chest_inside
 
 sofar (WTFPL):
   default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
