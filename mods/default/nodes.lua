@@ -1999,7 +1999,7 @@ function default.register_chest(name, d)
 		return false
 	end
 
-	def_closed.mesh = "cube.obj"
+	def_closed.mesh = "chest_closed.obj"
 
 	minetest.register_node("default:" .. name, def_closed)
 	minetest.register_node("default:" .. name .. "_open", def_opened)
@@ -2024,7 +2024,14 @@ end
 
 default.register_chest("chest", {
 	description = "Chest",
-	tiles = { "default_chest_wood.png" },
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_bottom.png",
+		"default_chest_side.png",
+		"default_chest_back.png",
+		"default_chest_front.png",
+		"default_chest_inside.png"
+	},
 	sounds = default.node_sound_wood_defaults(),
 	sound_open = "default_chest_open",
 	sound_close = "default_chest_close",
@@ -2033,7 +2040,14 @@ default.register_chest("chest", {
 
 default.register_chest("chest_locked", {
 	description = "Locked Chest",
-	tiles = { "default_chest_wood_locked.png" },
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_bottom.png",
+		"default_chest_side.png",
+		"default_chest_back.png",
+		"default_chest_lock.png",
+		"default_chest_inside.png"
+	},
 	sounds = default.node_sound_wood_defaults(),
 	sound_open = "default_chest_open",
 	sound_close = "default_chest_close",
