@@ -296,11 +296,7 @@ if fire_enabled == nil then
 	fire_enabled = minetest.setting_getbool("disable_fire")
 	if fire_enabled == nil then
 		-- Neither setting specified, check whether singleplayer
-		if minetest.is_singleplayer() then
-			fire_enabled = true
-		else
-			fire_enabled = false
-		end
+		fire_enabled = minetest.is_singleplayer()
 	else
 		fire_enabled = not fire_enabled
 	end
