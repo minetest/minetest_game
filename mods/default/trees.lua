@@ -23,6 +23,18 @@ function default.can_grow(pos)
 	return true
 end
 
+-- 'does sapling have enough room to grow into tree' function
+
+local function enough_height(pos, height)
+	local nod = minetest.line_of_sight(
+		{x = pos.x, y = pos.y + 1, z = pos.z},
+		{x = pos.x, y = pos.y + height, z = pos.z})
+	if not nod then
+		return false -- obstructed
+	else
+		return true -- can grow
+	end
+end
 
 -- 'is snow nearby' function
 
@@ -42,7 +54,7 @@ function default.grow_sapling(pos)
 
 	local mg_name = minetest.get_mapgen_setting("mg_name")
 	local node = minetest.get_node(pos)
-	if node.name == "default:sapling" then
+	if node.name == "default:sapling" and enough_height(pos, 7) then
 		minetest.log("action", "A sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		if mg_name == "v6" then
@@ -50,7 +62,7 @@ function default.grow_sapling(pos)
 		else
 			default.grow_new_apple_tree(pos)
 		end
-	elseif node.name == "default:junglesapling" then
+	elseif node.name == "default:junglesapling" and enough_height(pos, 15) then
 		minetest.log("action", "A jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		if mg_name == "v6" then
@@ -58,7 +70,7 @@ function default.grow_sapling(pos)
 		else
 			default.grow_new_jungle_tree(pos)
 		end
-	elseif node.name == "default:pine_sapling" then
+	elseif node.name == "default:pine_sapling" and enough_height(pos, 11) then
 		minetest.log("action", "A pine sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		local snow = is_snow_nearby(pos)
@@ -69,11 +81,11 @@ function default.grow_sapling(pos)
 		else
 			default.grow_new_pine_tree(pos)
 		end
-	elseif node.name == "default:acacia_sapling" then
+	elseif node.name == "default:acacia_sapling" and enough_height(pos, 7) then
 		minetest.log("action", "An acacia sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		default.grow_new_acacia_tree(pos)
-	elseif node.name == "default:aspen_sapling" then
+	elseif node.name == "default:aspen_sapling" and enough_height(pos, 11) then
 		minetest.log("action", "An aspen sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		default.grow_new_aspen_tree(pos)
@@ -86,6 +98,8 @@ function default.grow_sapling(pos)
 			minetest.pos_to_string(pos))
 		default.grow_acacia_bush(pos)
 	end
+	-- try a bit later again
+	minetest.get_node_timer(pos):start(math.random(240, 600))
 end
 
 minetest.register_lbm({
