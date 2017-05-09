@@ -1999,7 +1999,10 @@ function default.register_chest(name, d)
 		return false
 	end
 
-	def_closed.mesh = "chest_closed.obj"
+	def_closed.mesh = nil
+	def_closed.drawtype = nil
+	def_closed.tiles[6] = def.tiles[5] -- swap textures around for "normal"
+	def_closed.tiles[5] = def.tiles[3] -- drawtype
 
 	minetest.register_node("default:" .. name, def_closed)
 	minetest.register_node("default:" .. name .. "_open", def_opened)
