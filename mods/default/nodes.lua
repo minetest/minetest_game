@@ -2007,7 +2007,7 @@ function default.register_chest(name, d)
 	-- convert old chests to this new variant
 	minetest.register_lbm({
 		label = "update chests to opening chests",
-		name = "default:upgrade_" .. name,
+		name = "default:upgrade_" .. name .. "_v2",
 		nodenames = {"default:" .. name},
 		action = function(pos, node)
 			local meta = minetest.get_meta(pos)
