@@ -2026,9 +2026,9 @@ default.register_chest("chest", {
 	description = "Chest",
 	tiles = {
 		"default_chest_top.png",
-		"default_chest_bottom.png",
+		"default_chest_top.png",
 		"default_chest_side.png",
-		"default_chest_back.png",
+		"default_chest_side.png",
 		"default_chest_front.png",
 		"default_chest_inside.png"
 	},
@@ -2042,9 +2042,9 @@ default.register_chest("chest_locked", {
 	description = "Locked Chest",
 	tiles = {
 		"default_chest_top.png",
-		"default_chest_bottom.png",
+		"default_chest_top.png",
 		"default_chest_side.png",
-		"default_chest_back.png",
+		"default_chest_side.png",
 		"default_chest_lock.png",
 		"default_chest_inside.png"
 	},
