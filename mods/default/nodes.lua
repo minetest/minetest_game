@@ -2002,7 +2002,8 @@ function default.register_chest(name, d)
 	def_closed.mesh = nil
 	def_closed.drawtype = nil
 	def_closed.tiles[6] = def.tiles[5] -- swap textures around for "normal"
-	def_closed.tiles[5] = def.tiles[3] -- drawtype
+	def_closed.tiles[5] = def.tiles[3] -- drawtype to make them match the mesh
+	def_closed.tiles[3] = def.tiles[3].."^[transformFX"
 
 	minetest.register_node("default:" .. name, def_closed)
 	minetest.register_node("default:" .. name .. "_open", def_opened)
