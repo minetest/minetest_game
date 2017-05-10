@@ -1705,6 +1705,34 @@ function default.register_decorations()
 		rotation = "random",
 	})
 
+	-- Emergent jungle tree
+	-- Due to 32 node height, altitude is limited and prescence depends on chunksize
+
+	local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
+	if chunksize >= 5 then
+		minetest.register_decoration({
+			deco_type = "schematic",
+			place_on = {"default:dirt_with_rainforest_litter"},
+			sidelen = 80,
+			noise_params = {
+				offset = 0.0,
+				scale = 0.0025,
+				spread = {x = 250, y = 250, z = 250},
+				seed = 2685,
+				octaves = 3,
+				persist = 0.7
+			},
+			biomes = {"rainforest"},
+			y_min = 1,
+			y_max = 32,
+			schematic = minetest.get_modpath("default") ..
+					"/schematics/emergent_jungle_tree.mts",
+			flags = "place_center_x, place_center_z",
+			rotation = "random",
+			place_offset_y = -4,
+		})
+	end
+
 	-- Jungle tree and log
 
 	minetest.register_decoration({
