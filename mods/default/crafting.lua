@@ -763,13 +763,25 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "default:emergent_jungle_sapling",
+	recipe = {
+		{"default:junglesapling", "default:junglesapling", "default:junglesapling"},
+		{"default:junglesapling", "default:junglesapling", "default:junglesapling"},
+		{"default:junglesapling", "default:junglesapling", "default:junglesapling"},
+	}
+})
+
+
 --
 -- Crafting (tool repair)
 --
+
 minetest.register_craft({
 	type = "toolrepair",
 	additional_wear = -0.02,
 })
+
 
 --
 -- Cooking recipes
@@ -848,6 +860,7 @@ minetest.register_craft({
 	recipe = 'default:key',
 	cooktime = 5,
 })
+
 
 --
 -- Fuels
@@ -962,6 +975,12 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:junglesapling",
 	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:emergent_jungle_sapling",
+	burntime = 7,
 })
 
 

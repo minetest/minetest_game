@@ -85,6 +85,10 @@ function default.grow_sapling(pos)
 		minetest.log("action", "An acacia bush sapling grows into a bush at "..
 			minetest.pos_to_string(pos))
 		default.grow_acacia_bush(pos)
+	elseif node.name == "default:emergent_jungle_sapling" then
+		minetest.log("action", "An emergent jungle sapling grows into a tree at "..
+			minetest.pos_to_string(pos))
+		default.grow_new_emergent_jungle_tree(pos)
 	end
 end
 
@@ -390,6 +394,16 @@ function default.grow_new_jungle_tree(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/jungle_tree_from_sapling.mts"
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
+		path, "random", nil, false)
+end
+
+
+-- New emergent jungle tree
+
+function default.grow_new_emergent_jungle_tree(pos)
+	local path = minetest.get_modpath("default") ..
+		"/schematics/emergent_jungle_tree_from_sapling.mts"
+	minetest.place_schematic({x = pos.x - 3, y = pos.y - 5, z = pos.z - 3},
 		path, "random", nil, false)
 end
 
