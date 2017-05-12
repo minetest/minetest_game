@@ -1320,7 +1320,7 @@ minetest.register_node("default:bush_stem", {
 	sounds = default.node_sound_wood_defaults(),
 	selection_box = {
 		type = "fixed",
-		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.54, 7 / 16},
+		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
 	},
 })
 
@@ -1391,7 +1391,7 @@ minetest.register_node("default:acacia_bush_stem", {
 	sounds = default.node_sound_wood_defaults(),
 	selection_box = {
 		type = "fixed",
-		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.54, 7 / 16},
+		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
 	},
 })
 
