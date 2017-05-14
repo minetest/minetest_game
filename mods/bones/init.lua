@@ -191,21 +191,29 @@ minetest.register_on_dieplayer(function(player)
 		end
 	end
 
+	local invlist = {}
+	local droplist = {}
+
 	if bones_mode == "drop" then
 
 		-- drop inventory items
 		for i = 1, player_inv:get_size("main") do
+			local stackname = player_inv:get_stack("main", i):to_string()
+			if stackname ~= "" then droplist[#droplist+1] = stackname end
 			drop(pos, player_inv:get_stack("main", i))
 		end
 		player_inv:set_list("main", {})
 
 		-- drop crafting grid items
 		for i = 1, player_inv:get_size("craft") do
+			local stackname = player_inv:get_stack("main", i):to_string()
+			if stackname ~= "" then droplist[#droplist+1] = stackname end
 			drop(pos, player_inv:get_stack("craft", i))
 		end
 		player_inv:set_list("craft", {})
 
 		drop(pos, ItemStack("bones:bones"))
+		minetest.log("action","Dropped "..player_name.."'s items: "..table.concat(droplist,", "))
 		return
 	end
 
@@ -217,15 +225,28 @@ minetest.register_on_dieplayer(function(player)
 	inv:set_size("main", 8 * 4)
 	inv:set_list("main", player_inv:get_list("main"))
 
+	for i = 1, inv:get_size("main") do
+		local stack = inv:get_stack("main",i)
+		invlist[#invlist+1] = stack:to_string()
+	end
+
+
 	for i = 1, player_inv:get_size("craft") do
 		local stack = player_inv:get_stack("craft", i)
-		if inv:room_for_item("main", stack) then
-			inv:add_item("main", stack)
-		else
-			--drop if no space left
-			drop(pos, stack)
+		local stackname = stack:to_string()
+		if stackname ~= "" then
+			if inv:room_for_item("main", stack) then
+					invlist[#invlist+1] = stackname
+					inv:add_item("main", stack)
+			else
+				--drop if no space left
+				droplist[#droplist+1] = stackname
+				drop(pos, stack)
+			end
 		end
 	end
+	minetest.log("action","Moved "..player_name.."'s inventory to bones: "..table.concat(invlist,", "))
+	minetest.log("action","Dropped "..player_name.."'s extras: "..table.concat(droplist,", "))
 
 	player_inv:set_list("main", {})
 	player_inv:set_list("craft", {})
