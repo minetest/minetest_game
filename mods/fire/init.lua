@@ -148,11 +148,17 @@ minetest.override_item("default:coalblock", {
 -- Sound
 --
 
-local flame_sound = minetest.setting_getbool("flame_sound")
-if flame_sound == nil then
+local flame_sound_legacy = minetest.setting_getbool("flame_sound")
+if flame_sound_legacy == nil then
 	-- Enable if no setting present
-	flame_sound = true
+	flame_sound_legacy = true
 end
+config.register_setting("flame_sound", {
+	description = "Enable fire sounds",
+	type = "bool",
+	default_value = flame_sound_legacy
+})
+local flame_sound = config.setting_get("flame_sound")
 
 if flame_sound then
 
@@ -290,12 +296,19 @@ minetest.register_abm({
 
 -- Enable the following ABMs according to 'enable fire' setting
 
-local fire_enabled = minetest.setting_getbool("enable_fire")
-if fire_enabled == nil then
-	-- New setting not specified, check for old setting.
-	-- If old setting is also not specified, 'not nil' is true.
-	fire_enabled = not minetest.setting_getbool("disable_fire")
+local fire_enabled_legacy = minetest.setting_getbool("enable_fire")
+if fire_enabled_legacy == nil then
+	-- Old new setting not specified, check for old setting.
+	-- If old old setting is also not specified, 'not nil' is true.
+	fire_enabled_legacy = not minetest.setting_getbool("disable_fire")
 end
+config.register_setting("enable_fire", {
+	description = "Enable fire",
+	type = "bool",
+	default_value = fire_enabled_legacy
+})
+local fire_enabled = config.setting_get("enable_fire")
+
 
 if not fire_enabled then
 

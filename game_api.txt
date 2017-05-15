@@ -67,6 +67,38 @@ Beds API
 		}
 	}
 
+Config API
+----------
+
+The config API allows accessing and setting per-world configuration options that can be
+changed in multiplayer games by players having the `server` privilege using the configuation tab.
+
+`config.register_setting(name, def)`
+
+ * Registers new setting
+ * `name` Name for setting
+ * `def`  See [#Setting definition]
+
+`config.setting_get(name)`
+
+ * Returns the value of the setting `name`.
+
+`config.setting_set(name, value)`
+
+ * Sets the value of the setting `name` to `value`.
+   `value` is expected to have a type matching the setting being set.
+
+### Setting definition
+
+	description = "Setting description", -- For the configuration tab
+	type = "text", -- This should be "text", "bool" or "number"
+	default_value = "", -- Value to use if the setting does not exist yet
+	on_change = function(new_value), -- optional; if provided, will be
+	                                 -- called when the setting is changed.
+	                                 -- If not, a warning saying that changes
+	                                 -- might only take effect after server restart
+	                                 -- will be displayed.
+
 Creative API
 ------------
 
