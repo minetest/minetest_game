@@ -275,6 +275,39 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 			},
 		},
 	})
+
+		if recipeitem then
+			minetest.register_craft({
+				output = 'stairs:stair_inner_' .. subname .. ' 6',
+				recipe = {
+					{recipeitem, recipeitem, ""},
+					{recipeitem, recipeitem, recipeitem},
+				},
+			})
+
+			-- Flipped recipe for the silly minecrafters
+			minetest.register_craft({
+				output = 'stairs:stair_inner_' .. subname .. ' 6',
+				recipe = {
+					{"", recipeitem, recipeitem},
+					{recipeitem, recipeitem, recipeitem},
+				},
+			})
+
+		-- Fuel
+		local baseburntime = minetest.get_craft_result({
+			method = "fuel",
+			width = 1,
+			items = {recipeitem}
+		}).time
+		if baseburntime > 0 then
+			minetest.register_craft({
+				type = "fuel",
+				recipe = 'stairs:stair_inner_' .. subname,
+				burntime = math.floor(baseburntime * 0.75),
+			})
+		end
+	end
 end
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds)
@@ -296,6 +329,39 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 			},
 		},
 	})
+
+	if recipeitem then
+		minetest.register_craft({
+			output = 'stairs:stair_outer_' .. subname .. ' 5',
+			recipe = {
+				{recipeitem, "", ""},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
+
+		-- Flipped recipe for the silly minecrafters
+		minetest.register_craft({
+			output = 'stairs:stair_outer_' .. subname .. ' 5',
+			recipe = {
+				{"", "", recipeitem},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
+
+		-- Fuel
+		local baseburntime = minetest.get_craft_result({
+			method = "fuel",
+			width = 1,
+			items = {recipeitem}
+		}).time
+		if baseburntime > 0 then
+			minetest.register_craft({
+				type = "fuel",
+				recipe = 'stairs:stair_outer_' .. subname,
+				burntime = math.floor(baseburntime * 0.75),
+			})
+		end
+	end
 end
 
 -- Stair/slab registration function.
