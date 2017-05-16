@@ -265,7 +265,7 @@ minetest.register_alias("mushroom:red_natural", "flowers:mushroom_red")
 -- Waterlily
 --
 
-minetest.register_node("flowers:waterlily", {
+local waterlily_def = {
 	description = "Waterlily",
 	drawtype = "nodebox",
 	paramtype = "light",
@@ -293,7 +293,6 @@ minetest.register_node("flowers:waterlily", {
 		local pos = pointed_thing.above
 		local node = minetest.get_node(pointed_thing.under)
 		local def = minetest.registered_nodes[node.name]
-		local player_name = placer and placer:get_player_name() or ""
 
 		if def and def.on_rightclick then
 			return def.on_rightclick(pointed_thing.under, node, placer, itemstack,
@@ -302,8 +301,10 @@ minetest.register_node("flowers:waterlily", {
 
 		if def and def.liquidtype == "source" and
 				minetest.get_item_group(node.name, "water") > 0 then
+			local player_name = placer and placer:get_player_name() or ""
 			if not minetest.is_protected(pos, player_name) then
-				minetest.set_node(pos, {name = "flowers:waterlily",
+				minetest.set_node(pos, {name = "flowers:waterlily" ..
+					(def.waving == 3 and "_wave" or ""),
 					param2 = math.random(0, 3)})
 				if not (creative and creative.is_enabled_for
 						and creative.is_enabled_for(player_name)) then
@@ -317,4 +318,14 @@ minetest.register_node("flowers:waterlily", {
 
 		return itemstack
 	end
-})
+}
+
+local waterlily_wave_def = table.copy(waterlily_def)
+waterlily_wave_def.waving = 3
+waterlily_wave_def.drop = "flowers:waterlily"
+waterlily_wave_def.groups.not_in_creative_inventory = 1
+waterlily_wave_def.node_box.fixed[2] = -33 / 64
+
+minetest.register_node("flowers:waterlily", waterlily_def)
+minetest.register_node("flowers:waterlily_wave", waterlily_wave_def)
+
