@@ -274,6 +274,13 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 				{-0.5, 0, -0.5, 0, 0.5, 0},
 			},
 		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+
+			return rotate_and_place(itemstack, placer, pointed_thing)
+		end,
 	})
 
 		if recipeitem then
@@ -328,6 +335,13 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 				{-0.5, 0, 0, 0, 0.5, 0.5},
 			},
 		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+
+			return rotate_and_place(itemstack, placer, pointed_thing)
+		end,
 	})
 
 	if recipeitem then
