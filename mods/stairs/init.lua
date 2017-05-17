@@ -311,7 +311,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 			minetest.register_craft({
 				type = "fuel",
 				recipe = 'stairs:stair_inner_' .. subname,
-				burntime = math.floor(baseburntime * 0.75),
+				burntime = math.floor(baseburntime * 0.625),
 			})
 		end
 	end
@@ -372,7 +372,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 			minetest.register_craft({
 				type = "fuel",
 				recipe = 'stairs:stair_outer_' .. subname,
-				burntime = math.floor(baseburntime * 0.75),
+				burntime = math.floor(baseburntime * 0.875),
 			})
 		end
 	end
