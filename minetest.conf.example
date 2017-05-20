@@ -35,7 +35,7 @@
 #initial_stuff = default:pick_steel,default:axe_steel,default:shovel_steel,default:torch 99,default:cobble 99
 
 # Whether the TNT mod should be enabled
-#enable_tnt = <true in singleplayer, false in multiplayer>
+#enable_tnt = true
 
 # The radius of a TNT explosion
 #tnt_radius = 3
