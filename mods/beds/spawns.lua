@@ -54,10 +54,20 @@ function beds.set_spawns()
 	for name,_ in pairs(beds.player) do
 		local player = minetest.get_player_by_name(name)
 		local p = player:getpos()
-		-- but don't change spawn location if borrowing a bed
+		-- ...but don't change spawn location if borrowing a bed.
 		if not minetest.is_protected(p, name) then
 			beds.spawn[name] = p
 		end
+	end
+	beds.save_spawns()
+end
+
+function beds.set_spawn(playerName)
+	local player = minetest.get_player_by_name(playerName)
+	local p = player:getpos()
+	-- ...but don't change spawn location if borrowing a bed.
+	if not minetest.is_protected(p, playerName) then
+		beds.spawn[playerName] = p
 	end
 	beds.save_spawns()
 end
