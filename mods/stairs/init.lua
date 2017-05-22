@@ -15,7 +15,7 @@ minetest.register_alias("stairs:slab_pinewood", "stairs:slab_pine_wood")
 
 -- Get setting for replace ABM
 
-local replace = minetest.setting_getbool("enable_stairs_replace_abm")
+local replace = minetest.settings:get_bool("enable_stairs_replace_abm")
 
 local function rotate_and_place(itemstack, placer, pointed_thing)
 	local p0 = pointed_thing.under
