@@ -131,7 +131,7 @@ default.cool_lava = function(pos, node)
 		{pos = pos, max_hear_distance = 16, gain = 0.25})
 end
 
-if minetest.setting_getbool("enable_lavacooling") ~= false then
+if minetest.settings:get_bool("enable_lavacooling") ~= false then
 	minetest.register_abm({
 		label = "Lava cooling",
 		nodenames = {"default:lava_source", "default:lava_flowing"},
