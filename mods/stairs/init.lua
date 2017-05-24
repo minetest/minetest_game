@@ -6,7 +6,6 @@
 
 stairs = {}
 
-
 -- Register aliases for new pine node names
 
 minetest.register_alias("stairs:stair_pinewood", "stairs:stair_pine_wood")
