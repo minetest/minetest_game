@@ -72,7 +72,7 @@ flowers.datas = {
 	{
 		"dandelion_yellow",
 		"Yellow Dandelion",
-		{-2 / 16, -0.5, -2 / 16, 2 / 16, 4 / 16, 2 / 16},
+		{-4 / 16, -0.5, -4 / 16, 4 / 16, -2 / 16, 4 / 16},
 		{color_yellow = 1, flammable = 1}
 	},
 	{
