@@ -198,7 +198,7 @@ local function entity_physics(pos, radius, drops)
 	end
 end
 
-local function add_effects(pos, radius, drops)
+local function basic_explosion_particles(pos, radius)
 	minetest.add_particle({
 		pos = pos,
 		velocity = vector.new(),
@@ -224,7 +224,12 @@ local function add_effects(pos, radius, drops)
 		maxsize = radius * 5,
 		texture = "tnt_smoke.png",
 	})
+end
 
+local function add_effects(pos, radius, drops)
+	
+	basic_explosion_particles(pos, radius)
+	
 	-- we just dropped some items. Look at the items entities and pick
 	-- one of them to use as texture
 	local texture = "tnt_blast.png" --fallback texture
@@ -539,9 +544,9 @@ if enable_tnt then
 	minetest.register_craft({
 		output = "tnt:tnt",
 		recipe = {
-			{"group:wood",    "tnt:gunpowder", "group:wood"},
-			{"tnt:gunpowder", "tnt:gunpowder", "tnt:gunpowder"},
-			{"group:wood",    "tnt:gunpowder", "group:wood"}
+			{"tnt:stick","tnt:stick","tnt:stick"},
+			{"tnt:stick","tnt:stick","tnt:stick"},
+			{"tnt:stick","tnt:stick","tnt:stick"}
 		}
 	})
 
@@ -643,3 +648,108 @@ tnt.register_tnt({
 	description = "TNT",
 	radius = tnt_radius,
 })
+
+local harmless_explode = function(self, pos, radius)
+	-- Raising the y helps to prevent black particles.
+	pos = {x=pos.x,y=pos.y+1,z=pos.z}
+	
+	basic_explosion_particles(pos, radius)
+	
+	minetest.sound_play("tnt_explode", {
+			pos = pos,
+			gain = 1.5,
+			max_hear_distance = 2*64
+	})
+	
+	local objs = minetest.get_objects_inside_radius(pos, radius)
+	
+	--[[
+	We need to search again in a wider radius for
+	things to punch once the stick explodes.
+	]]--
+	
+	for k, obj in pairs(objs) do
+		if obj:get_luaentity() ~= nil and 
+				obj:get_luaentity().name ~= "tnt:thrown_stick" and 
+				obj:get_luaentity().name ~= "__builtin:item" then
+			obj:punch(self.object, 1.0, {
+				full_punch_interval=1.0,
+				damage_groups={fleshy=3},
+			}, nil)
+		else
+			obj:punch(self.object, 1.0, {
+				full_punch_interval=1.0,
+				damage_groups={fleshy=3},
+			}, nil)
+		end
+	end
+	
+	self.object:remove()
+end
+
+
+minetest.register_craftitem("tnt:stick", {
+	description = "TNT Stick",
+	inventory_image = "tnt_stick.png",
+	on_use = function(itemstack, user, pointed_thing)
+		local pos = user:getpos()
+		
+		local obj = minetest.add_entity({x=pos.x,y=pos.y+1.5,z=pos.z}, "tnt:thrown_stick")
+		local dir = user:get_look_dir()
+		
+		if not minetest.setting_getbool("creative_mode") then
+			itemstack:take_item()
+		end
+		
+		obj:setvelocity(vector.multiply(dir, 19))
+		obj:setacceleration({x=dir.x*-3, y=-10, z=dir.z*-3})
+		obj:setyaw(user:get_look_horizontal()+math.pi)
+		
+		
+		return itemstack
+	end,
+})
+
+minetest.register_entity("tnt:thrown_stick", {
+	physical = false,
+	timer=0,
+	visual = "sprite",
+	textures = {"tnt_stick.png"},
+	lastpos={},
+	visual_size = {x=0.5, y=0.5},
+	collisionbox = {0,0,0,0,0,0},
+	on_step = function(self, dtime)
+		self.timer = self.timer + dtime
+		local pos = self.object:getpos()
+		local node = minetest.get_node(pos)
+	
+		if self.timer > 0.2 then
+			local objs = minetest.get_objects_inside_radius(pos, 1)
+			for k, obj in pairs(objs) do
+				if obj:get_luaentity() == nil or
+						obj:get_luaentity().name ~= "tnt:thrown_stick" and 
+						obj:get_luaentity().name ~= "__builtin:item" then
+					harmless_explode(self, pos, 5)
+				end
+			end
+		end
+	
+		if self.lastpos.x ~= nil then
+			if node.name ~= "air" and node.name ~= "ignore" then
+				print("Exploding a block")
+				harmless_explode(self, pos, 5)
+			end
+		end
+		self.lastpos = pos
+	end
+})
+
+minetest.register_craft({
+	output = "tnt:stick",
+	recipe = {
+		{"default:paper"},
+		{"tnt:gunpowder"},
+		{"default:paper"}
+	},
+})
+
