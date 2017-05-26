@@ -29,7 +29,8 @@ end
 function sfinv.get_nav_fs(player, context, nav, current_idx)
 	-- Only show tabs if there is more than one page
 	if #nav > 1 then
-		return "tabheader[0,0;tabs;" .. table.concat(nav, ",") .. ";" .. current_idx .. ";true;false]"
+		local tab_id = context.nav_reverse[sfinv.pages_unordered[current_idx].name] -- Lookup an ID that can be used here.
+		return "tabheader[0,0;tabs;" .. table.concat(nav, ",") .. ";" .. tab_id .. ";true;false]"
 	else
 		return ""
 	end
@@ -64,17 +65,20 @@ function sfinv.get_formspec(player, context)
 	-- Generate navigation tabs
 	local nav = {}
 	local nav_ids = {}
+	local nav_ids_reverse = {}
 	local current_idx = 1
 	for i, pdef in pairs(sfinv.pages_unordered) do
 		if not pdef.is_in_nav or pdef:is_in_nav(player, context) then
 			nav[#nav + 1] = pdef.title
 			nav_ids[#nav_ids + 1] = pdef.name
+			nav_ids_reverse[pdef.name] = #nav_ids
 			if pdef.name == context.page then
 				current_idx = #nav_ids
 			end
 		end
 	end
 	context.nav = nav_ids
+	context.nav_reverse = nav_ids_reverse
 	context.nav_titles = nav
 	context.nav_idx = current_idx
 
