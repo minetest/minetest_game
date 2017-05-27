@@ -689,11 +689,10 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 })
 
 minetest.register_craft({
-	output = 'doors:trapdoor 2',
+	output = 'doors:trapdoor',
 	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'', '', ''},
+		{'group:wood', 'group:wood'},
+		{'group:wood', 'group:wood'},
 	}
 })
 
