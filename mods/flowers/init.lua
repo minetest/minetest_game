@@ -107,11 +107,16 @@ function flowers.flower_spread(pos, node)
 	pos.y = pos.y - 1
 	local under = minetest.get_node(pos)
 	pos.y = pos.y + 1
-	if under.name == "default:desert_sand" then
+	-- Replace flora with dry shrub in desert sand and silver sand,
+	-- as this is the only way to generate them.
+	-- However, preserve grasses in sand dune biomes.
+	if minetest.get_item_group(under.name, "sand") == 1 and
+			under.name ~= "default:sand" then
 		minetest.set_node(pos, {name = "default:dry_shrub"})
 		return
-	elseif under.name ~= "default:dirt_with_grass" and
-			under.name ~= "default:dirt_with_dry_grass" then
+	end
+
+	if minetest.get_item_group(under.name, "soil") == 0 then
 		return
 	end
 
@@ -126,24 +131,26 @@ function flowers.flower_spread(pos, node)
 		return
 	end
 
-	local seedling = minetest.find_nodes_in_area_under_air(pos0, pos1,
-		{"default:dirt_with_grass", "default:dirt_with_dry_grass"})
-	if #seedling > 0 then
-		seedling = seedling[math.random(#seedling)]
-		seedling.y = seedling.y + 1
-		light = minetest.get_node_light(seedling)
-		if not light or light < 13 then
+	local soils = minetest.find_nodes_in_area_under_air(
+		pos0, pos1, "group:soil")
+	if #soils > 0 then
+		local seedling = soils[math.random(#soils)]
+		local seedling_above =
+			{x = seedling.x, y = seedling.y + 1, z = seedling.z}
+		light = minetest.get_node_light(seedling_above)
+		if not light or light < 13 or
+				-- Desert sand is in the soil group
+				minetest.get_node(seedling).name == "default:desert_sand" then
 			return
 		end
-		minetest.set_node(seedling, {name = node.name})
+
+		minetest.set_node(seedling_above, {name = node.name})
 	end
 end
 
 minetest.register_abm({
 	label = "Flower spread",
 	nodenames = {"group:flora"},
-	neighbors = {"default:dirt_with_grass", "default:dirt_with_dry_grass",
-		"default:desert_sand"},
 	interval = 13,
 	chance = 96,
 	action = function(...)
@@ -264,7 +271,7 @@ minetest.register_node("flowers:waterlily", {
 	node_placement_prediction = "",
 	node_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -15 / 32, 0.5}
+		fixed = {-0.5, -31 / 64, -0.5, 0.5, -15 / 32, 0.5}
 	},
 	selection_box = {
 		type = "fixed",
@@ -282,7 +289,8 @@ minetest.register_node("flowers:waterlily", {
 			if not minetest.is_protected(pos, player_name) then
 				minetest.set_node(pos, {name = "flowers:waterlily",
 					param2 = math.random(0, 3)})
-				if not minetest.setting_getbool("creative_mode") then
+				if not (creative and creative.is_enabled_for
+						and creative.is_enabled_for(player_name)) then
 					itemstack:take_item()
 				end
 			else

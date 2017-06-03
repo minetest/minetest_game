@@ -1,4 +1,3 @@
-creative = {}
 local player_inventory = {}
 
 function creative.init_creative_inventory(player)
@@ -34,16 +33,14 @@ function creative.init_creative_inventory(player)
 		end,
 	}, player_name)
 
-	creative.update_creative_inventory(player_name, minetest.registered_items)
+	return player_inventory[player_name]
 end
 
 function creative.update_creative_inventory(player_name, tab_content)
 	local creative_list = {}
+	local inv = player_inventory[player_name] or
+			creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
-	local inv = player_inventory[player_name]
-	if not inv then
-		creative.init_creative_inventory(minetest.get_player_by_name(player_name))
-	end
 
 	for name, def in pairs(tab_content) do
 		if not (def.groups.not_in_creative_inventory == 1) and
@@ -79,7 +76,7 @@ function creative.register_tab(name, title, items)
 	sfinv.register_page("creative:" .. name, {
 		title = title,
 		is_in_nav = function(self, player, context)
-			return minetest.setting_getbool("creative_mode")
+			return creative.is_enabled_for(player:get_player_name())
 		end,
 		get = function(self, player, context)
 			local player_name = player:get_player_name()
@@ -162,7 +159,7 @@ function creative.register_tab(name, title, items)
 end
 
 minetest.register_on_joinplayer(function(player)
-	creative.init_creative_inventory(player)
+	creative.update_creative_inventory(player:get_player_name(), minetest.registered_items)
 end)
 
 creative.register_tab("all", "All", minetest.registered_items)
@@ -172,7 +169,7 @@ creative.register_tab("craftitems", "Items", minetest.registered_craftitems)
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)
-	if minetest.setting_getbool("creative_mode") then
+	if creative.is_enabled_for(player:get_player_name()) then
 		return "creative:all"
 	else
 		return old_homepage_name(player)

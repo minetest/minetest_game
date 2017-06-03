@@ -8,6 +8,10 @@ read_globals = {
 	"vector",
 	"VoxelManip", "VoxelArea",
 	"PseudoRandom", "ItemStack",
+	"Settings",
+	"unpack",
+	-- Silence "accessing undefined field copy of global table".
+	table = { fields = { "copy" } }
 }
 
 -- Overwrites minetest.handle_node_drops

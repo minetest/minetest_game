@@ -78,6 +78,12 @@ For example,
 is used to show all tools. Name is used in the sfinv page name, title is the
 human readable title.
 
+`is_enabled_for` is used to check whether a player is in creative mode:
+
+    creative.is_enabled_for(name)
+
+Override this to allow per-player game modes.
+
 The contents of `creative.formspec_add` is appended to every creative inventory
 page. Mods can use it to add additional formspec elements onto the default
 creative inventory formspec to be drawn after each update.
@@ -276,18 +282,6 @@ Give Initial Stuff API
 ^ str is a comma separated list of initial stuff
 ^ Adds items to the list of items to be given
 
-Nyancat API
------------
-
-`nyancat.place(pos, facedir, length)`
-
-^ Place a cat at `pos` facing `facedir` with tail length `length`
-  Only accepts facedir 0-3, if facedir > 3 then it will be interpreted as facedir = 0
-
-`nyancat.generate(minp, maxp, seed)`
-
-^ Called by `minetest.register_on_generated`. To disable nyancat generation,
-  you can redefine nyancat.generate() to be an empty function
 
 TNT API
 ----------
@@ -318,8 +312,10 @@ TNT API
 
 `tnt.burn(position, [nodename])`
 
-^ Ignite TNT at position, nodename isn't required unless already known.
-
+^ Ignite node at position, triggering its `on_ignite` callback (see fire mod).
+If no such callback exists, fallback to turn tnt group nodes to their
+"_burning" variant.
+  nodename isn't required unless already known.
 
 To make dropping items from node inventories easier, you can use the
 following helper function from 'default':
@@ -406,18 +402,28 @@ Sfinv API
 
 ### sfinv Methods
 
-* sfinv.set_player_inventory_formspec(player, context) - builds page formspec
-            and calls set_inventory_formspec().
-            If context is nil, it is either found or created.
-* sfinv.get_formspec(player, context) - builds current page's formspec
-* sfinv.get_nav_fs(player, context, nav, current_idx) - see above
+**Pages**
+
+* sfinv.set_page(player, pagename) - changes the page
 * sfinv.get_homepage_name(player) - get the page name of the first page to show to a player
-* sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
-    * show_inv, defaults to false. Whether to show the player's main inventory
-    * size, defaults to `size[8,8.6]` if not specified
 * sfinv.register_page(name, def) - register a page, see section below
 * sfinv.override_page(name, def) - overrides fields of an page registered with register_page.
     * Note: Page must already be defined, (opt)depend on the mod defining it.
+* sfinv.set_player_inventory_formspec(player) - (re)builds page formspec
+             and calls set_inventory_formspec().
+* sfinv.get_formspec(player, context) - builds current page's formspec
+
+**Contexts**
+
+* sfinv.get_or_create_context(player) - gets the player's context
+* sfinv.set_context(player, context)
+
+**Theming**
+
+* sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
+    * show_inv, defaults to false. Whether to show the player's main inventory
+    * size, defaults to `size[8,8.6]` if not specified
+* sfinv.get_nav_fs(player, context, nav, current_idx) - creates tabheader or ""
 
 ### sfinv Members
 
@@ -642,20 +648,36 @@ default.player_get_animation(player)
 Leafdecay
 ---------
 
-To enable leaf decay for a node, add it to the `leafdecay` group.
+To enable leaf decay for leaves when a tree is cut down by a player,
+register the tree with the default.register_leafdecay(leafdecaydef)
+function.
 
-The rating of the group determines how far from a node in the group `tree`
-the node can be without decaying.
+If `param2` of any registered node is ~= 0, the node will always be
+preserved. Thus, if the player places a node of that kind, you will
+want to set `param2 = 1` or so.
 
-If `param2` of the node is ~= 0, the node will always be preserved. Thus, if
-the player places a node of that kind, you will want to set `param2 = 1` or so.
+The function `default.after_place_leaves` can be set as
+`after_place_node of a node` to set param2 to 1 if the player places
+the node (should not be used for nodes that use param2 otherwise
+(e.g. facedir)).
 
-The function `default.after_place_leaves` can be set as `after_place_node of a node`
-to set param2 to 1 if the player places the node (should not be used for nodes
-that use param2 otherwise (e.g. facedir)).
+If the node is in the `leafdecay_drop` group then it will always be
+dropped as an item.
 
-If the node is in the `leafdecay_drop` group then it will always be dropped as an
-item.
+`default.register_leafdecay(leafdecaydef)`
+
+`leafdecaydef` is a table, with following members:
+	{
+		trunks = {"default:tree"}, -- nodes considered trunks
+		leaves = {"default:leaves", "default:apple"},
+			-- nodes considered for removal
+		radius = 3, -- radius to consider for searching
+	}
+
+Note: all the listed nodes in `trunks` have their `on_after_destruct`
+callback overridden. All the nodes listed in `leaves` have their
+`on_timer` callback overridden.
+
 
 Dyes
 ----
@@ -746,14 +768,20 @@ Trees
  * `default.grow_new_pine_tree(pos)`
   * Grows a new design pine tree at pos
 
+ * `default.grow_new_snowy_pine_tree(pos)`
+  * Grows a new design snowy pine tree at pos
+
  * `default.grow_new_acacia_tree(pos)`
   * Grows a new design acacia tree at pos
 
  * `default.grow_new_aspen_tree(pos)`
   * Grows a new design aspen tree at pos
 
- * `default.grow_new_snowy_pine_tree(pos)`
-  * Grows a new design snowy pine tree at pos
+ * `default.grow_bush(pos)`
+  * Grows a bush at pos
+
+ * `default.grow_acacia_bush(pos)`
+  * Grows an acaia bush at pos
 
 Carts
 -----

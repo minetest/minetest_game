@@ -17,6 +17,7 @@ Cisoun's texture pack (CC BY-SA 3.0):
   default_lava.png
   default_leaves.png
   default_sapling.png
+  default_bush_sapling.png
   default_stone.png
   default_tree.png
   default_tree_top.png
@@ -77,10 +78,6 @@ Splizard (CC BY-SA 3.0):
 
 Zeg9 (CC BY-SA 3.0):
   default_coal_block.png
-  default_steel_block.png
-  default_copper_block.png
-  default_bronze_block.png
-  default_gold_block.png
 
 paramat (CC BY-SA 3.0):
   wieldhand.png -- Copied from character.png by Jordach (CC BY-SA 3.0)
@@ -90,6 +87,7 @@ paramat (CC BY-SA 3.0):
   default_acacia_leaves.png
   default_acacia_leaves_simple.png
   default_acacia_sapling.png
+  default_acacia_bush_sapling.png
   default_acacia_tree.png
   default_acacia_tree_top.png
   default_acacia_wood.png
@@ -115,11 +113,18 @@ paramat (CC BY-SA 3.0):
   default_grass_side.png
   default_mese_block.png
   default_silver_sand.png
+  default_mese_post_light_side.png
+  default_mese_post_light_side_dark.png
+  default_mese_post_light_top.png
+  default_silver_sandstone.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
+  default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
+  default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
 
 brunob.santos (CC BY-SA 4.0):
   default_desert_cobble.png
 
 BlockMen (CC BY-SA 3.0):
+  default_aspen_leaves.png -- Derived from Sofar's texture
   default_wood.png
   default_clay_brick.png
   default_iron_ingot.png
@@ -146,10 +151,12 @@ Wuzzy (CC BY-SA 3.0):
 sofar (CC BY-SA 3.0):
   default_book_written.png, based on default_book.png
   default_aspen_sapling
-  default_aspen_leaves
   default_aspen_tree
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
   default_aspen_wood, derived from default_pine_wood (by paramat)
+  default_chest_inside
+
+sofar (WTFPL):
   default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
 
 Neuromancer (CC BY-SA 2.0):
@@ -194,6 +201,25 @@ Pithydon (CC BY-SA 3.0)
 Ferk (CC0 1.0)
   default_item_smoke.png
   default_item_smoke.ogg, based on sound by http://opengameart.org/users/bart
+
+npx (CC BY-SA 3.0)
+  default_rainforest_litter.png
+  default_rainforest_litter_side.png
+
+kaeza (CC-BY-SA 3.0):
+  default_desert_sandstone.png
+  default_desert_sandstone_brick.png
+  default_desert_sandstone_block.png
+
+kilbith (CC BY-SA 3.0):
+  default_steel_block.png
+  default_copper_block.png
+  default_bronze_block.png
+  default_gold_block.png
+  default_tin_block.png
+  default_mineral_tin.png
+  default_tin_ingot.png
+  default_tin_lump.png
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
@@ -262,3 +288,13 @@ https://www.freesound.org/people/AGFX/packs/1253/
 blukotek (CC0 1.0)
 https://www.freesound.org/people/blukotek/sounds/251660/
   default_dig_snappy.ogg
+
+Chests sounds added by sofar, derived of several files mixed together:
+  default_chest_open.ogg
+  default_chest_close.ogg
+    - http://www.freesound.org/people/Sevin7/sounds/269722/ CC0
+    - http://www.freesound.org/people/Percy%20Duke/sounds/23448/ CC-BY-3.0
+    - http://www.freesound.org/people/kingsamas/sounds/135576/ CC-BY-3.0
+    - http://www.freesound.org/people/bulbastre/sounds/126887/ CC-BY-3.0
+    - http://www.freesound.org/people/Yoyodaman234/sounds/183541/ CC0
+
