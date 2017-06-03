@@ -89,16 +89,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	end
 
 	if recipeitem then
-		minetest.register_craft({
-			output = 'stairs:stair_' .. subname .. ' 8',
-			recipe = {
-				{recipeitem, "", ""},
-				{recipeitem, recipeitem, ""},
-				{recipeitem, recipeitem, recipeitem},
-			},
-		})
-
-		-- Flipped recipe for the silly minecrafters
+		-- Recipe matches appearence in inventory
 		minetest.register_craft({
 			output = 'stairs:stair_' .. subname .. ' 8',
 			recipe = {
