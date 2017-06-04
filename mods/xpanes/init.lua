@@ -94,6 +94,7 @@ function xpanes.register_pane(name, def)
 	minetest.register_node(":xpanes:" .. name .. "_flat", {
 		description = def.description,
 		drawtype = "nodebox",
+		use_texture_alpha = def.use_texture_alpha,
 		paramtype = "light",
 		is_ground_content = false,
 		sunlight_propagates = true,
@@ -120,6 +121,7 @@ function xpanes.register_pane(name, def)
 	groups.not_in_creative_inventory = 1
 	minetest.register_node(":xpanes:" .. name, {
 		drawtype = "nodebox",
+		use_texture_alpha = def.use_texture_alpha,
 		paramtype = "light",
 		is_ground_content = false,
 		sunlight_propagates = true,
