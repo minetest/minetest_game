@@ -139,7 +139,9 @@ if minetest.settings:get_bool("enable_lavacooling") ~= false then
 		interval = 1,
 		chance = 2,
 		catch_up = false,
-		action = default.cool_lava,
+		action = function(...)
+			default.cool_lava(...)
+		end,
 	})
 end
 
@@ -222,7 +224,9 @@ minetest.register_abm({
 	neighbors = {"group:sand"},
 	interval = 12,
 	chance = 83,
-	action = default.grow_cactus
+	action = function(...)
+		default.grow_cactus(...)
+	end
 })
 
 minetest.register_abm({
@@ -231,7 +235,9 @@ minetest.register_abm({
 	neighbors = {"default:dirt", "default:dirt_with_grass"},
 	interval = 14,
 	chance = 71,
-	action = default.grow_papyrus
+	action = function(...)
+		default.grow_papyrus(...)
+	end
 })
 
 
