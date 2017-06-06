@@ -75,3 +75,11 @@ minetest.register_alias("default:pinewood", "default:pine_wood")
 
 minetest.register_alias("default:ladder", "default:ladder_wood")
 minetest.register_alias("default:sign_wall", "default:sign_wall_wood")
+
+-- Aliases for sandplus node names
+minetest.register_alias("sandplus:desert_sandstone", "default:desert_sandstone")
+minetest.register_alias("sandplus:desert_sandstone_block", "default:desert_sandstone_block")
+minetest.register_alias("sandplus:desert_sandstone_brick", "default:desert_sandstone_brick")
+minetest.register_alias("sandplus:silver_sandstone", "default:silver_sandstone")
+minetest.register_alias("sandplus:silver_sandstone_block", "default:silver_sandstone_block")
+minetest.register_alias("sandplus:silver_sandstone_brick", "default:silver_sandstone_brick")
