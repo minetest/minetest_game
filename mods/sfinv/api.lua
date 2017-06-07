@@ -29,7 +29,8 @@ end
 function sfinv.get_nav_fs(player, context, nav, current_idx)
 	-- Only show tabs if there is more than one page
 	if #nav > 1 then
-		return "tabheader[0,0;sfinv_nav_tabs;" .. table.concat(nav, ",") .. ";" .. current_idx .. ";true;false]"
+		return "tabheader[0,0;sfinv_nav_tabs;" .. table.concat(nav, ",") ..
+				";" .. current_idx .. ";true;false]"
 	else
 		return ""
 	end
@@ -84,9 +85,20 @@ function sfinv.get_formspec(player, context)
 		return page:get(player, context)
 	else
 		local old_page = context.page
-		context.page = sfinv.get_homepage_name(player)
+		local home_page = sfinv.get_homepage_name(player)
+
+		if old_page == home_page then
+			minetest.log("error", "[sfinv] Couldn't find " .. dump(old_page) ..
+					", which is also the old page")
+
+			return ""
+		end
+
+		context.page = home_page
 		assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
-		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
+		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) ..
+				" so switching to homepage")
+
 		return sfinv.get_formspec(player, context)
 	end
 end
