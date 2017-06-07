@@ -29,7 +29,7 @@ end
 function sfinv.get_nav_fs(player, context, nav, current_idx)
 	-- Only show tabs if there is more than one page
 	if #nav > 1 then
-		return "tabheader[0,0;tabs;" .. table.concat(nav, ",") .. ";" .. current_idx .. ";true;false]"
+		return "tabheader[0,0;sfinv_nav_tabs;" .. table.concat(nav, ",") .. ";" .. current_idx .. ";true;false]"
 	else
 		return ""
 	end
@@ -151,8 +151,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	-- Was a tab selected?
-	if fields.tabs and context.nav then
-		local tid = tonumber(fields.tabs)
+	if fields.sfinv_nav_tabs and context.nav then
+		local tid = tonumber(fields.sfinv_nav_tabs)
 		if tid and tid > 0 then
 			local id = context.nav[tid]
 			local page = sfinv.pages[id]
