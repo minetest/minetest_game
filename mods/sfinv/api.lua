@@ -84,10 +84,16 @@ function sfinv.get_formspec(player, context)
 		return page:get(player, context)
 	else
 		local old_page = context.page
-		context.page = sfinv.get_homepage_name(player)
-		assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
-		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
-		return sfinv.get_formspec(player, context)
+		local home_page = sfinv.get_homepage_name(player)
+		if context.page == home_page then
+			minetest.log("error", "[sfinv] Couldn't find " .. dump(old_page) .. ", which is also the old page")
+			return ""
+		else
+			context.page = home_page
+			assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
+			minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
+			return sfinv.get_formspec(player, context)
+		end
 	end
 end
 
