@@ -44,6 +44,17 @@ local theme_inv = default.gui_slots .. [[
 	]]
 
 function sfinv.make_formspec(player, context, content, show_inv, size)
+	if type(size) == "table" then
+		size = table.concat({
+			"size[",
+			size.w or size.x,
+			",",
+			size.h or size.y,
+			",",
+			size.lock and "true" or "false",
+			"]"}, "")
+	end
+
 	local tmp = {
 		size or "size[8,8.6]",
 		theme_main,
