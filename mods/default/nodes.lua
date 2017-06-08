@@ -1979,7 +1979,7 @@ function default.register_chest(name, d)
 	end
 	def.on_blast = function(pos)
 		local drops = {}
-		default.get_inventory_drops(pos, "main", drops)
+		default.get_inventory_drops(pos, "default:chest", drops)
 		drops[#drops+1] = "default:chest"
 		minetest.remove_node(pos)
 		return drops
