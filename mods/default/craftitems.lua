@@ -98,6 +98,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			return
 		end
 
+		if data and data.owner and data.owner ~= player:get_player_name() then
+			return
+		end
+
 		if not data then data = {} end
 		data.title = fields.title
 		data.owner = player:get_player_name()
