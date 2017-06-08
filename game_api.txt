@@ -747,6 +747,25 @@ Example of one shapeless recipe using a color group:
 
  * `dye.excolors` are an array containing the names of the available extended colors
 
+### Painting with palettes
+
+To make your nodes paintable with dyes, make a palette handler for them.
+A palette handler is a table with two methods:
+
+ * `index_to_rgb(param2) -> red, green, blue` returns the current paint's color
+    from the palette index.
+    0 <= `red`, `green`, `blue` <= 255
+ * `rgb_to_index(red, green, blue, oldparam2) -> param2` returns a palette
+    index for the given color. If the palette does not use all bits of
+    `param2`, the remaining bits are copied from `oldparam2`.
+    0 <= `red`, `green`, `blue` <= 255
+
+To register a palette handler, assign it to `palette_handlers[<palette_name>]`.
+
+All nodes that use the specified palette will be paintable.
+
+There is a default palette handler for `default_r6g6b6.png`.
+
 Trees
 -----
 
