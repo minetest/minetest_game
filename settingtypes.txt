@@ -46,3 +46,13 @@ share_bones_time (Bone share time) int 1200 0
 
 #    Replaces old stairs with new ones. Only required for older worlds.
 enable_stairs_replace_abm (Replace old stairs) bool false
+
+#    Enable the PB&J Pup mod entirely
+pbj_pup_enable (Enable PB&J pup mod) bool true
+
+#    Generate PB&J Pup blocks in the world
+pbj_pup_generate (Generate PBJ Pup blocks in world) bool true
+
+#    Let the PB&J Pup mod replace Nyan Cat nodes
+pbj_pup_alias_nyancat (Replace Nyan Cat blocks) bool false
+
