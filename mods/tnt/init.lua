@@ -1,7 +1,7 @@
 tnt = {}
 
 -- Default to enabled when in singleplayer
-local enable_tnt = minetest.setting_getbool("enable_tnt")
+local enable_tnt = minetest.settings:get_bool("enable_tnt")
 if enable_tnt == nil then
 	enable_tnt = minetest.is_singleplayer()
 end
@@ -12,7 +12,7 @@ local loss_prob = {}
 loss_prob["default:cobble"] = 3
 loss_prob["default:dirt"] = 4
 
-local tnt_radius = tonumber(minetest.setting_get("tnt_radius") or 3)
+local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
 
 -- Fill a list with data for content IDs, after all nodes are registered
 local cid_data = {}

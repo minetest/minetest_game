@@ -21,8 +21,8 @@ local bones_formspec =
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0,4.85)
 
-local share_bones_time = tonumber(minetest.setting_get("share_bones_time")) or 1200
-local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early")) or share_bones_time / 4
+local share_bones_time = tonumber(minetest.settings:get("share_bones_time")) or 1200
+local share_bones_time_early = tonumber(minetest.settings:get("share_bones_time_early")) or share_bones_time / 4
 
 minetest.register_node("bones:bones", {
 	description = "Bones",
@@ -124,7 +124,7 @@ minetest.register_node("bones:bones", {
 
 local function may_replace(pos, player)
 	local node_name = minetest.get_node(pos).name
-	local node_definition = minetest.registered_nodes[node_name]
+	local node_definition = minetest.get_nodedef(pos)
 
 	-- if the node is unknown, we return false
 	if not node_definition then
@@ -161,7 +161,7 @@ end
 
 minetest.register_on_dieplayer(function(player)
 
-	local bones_mode = minetest.setting_get("bones_mode") or "bones"
+	local bones_mode = minetest.settings:get("bones_mode") or "bones"
 	if bones_mode ~= "bones" and bones_mode ~= "drop" and bones_mode ~= "keep" then
 		bones_mode = "bones"
 	end
