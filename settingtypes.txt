@@ -46,3 +46,6 @@ share_bones_time (Bone share time) int 1200 0
 
 #    Replaces old stairs with new ones. Only required for older worlds.
 enable_stairs_replace_abm (Replace old stairs) bool false
+
+#    Tools & weapons will wear down & break when used for digging, chopping, etc.
+enable_tool_wear (Tools wear & break on use) bool true
