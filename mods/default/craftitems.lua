@@ -80,7 +80,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
-	if fields.save and fields.title ~= "" and fields.text ~= "" then
+	if fields.save and fields.title and fields.text
+			and fields.title ~= "" and fields.text ~= "" then
 		local new_stack, data
 		if stack:get_name() ~= "default:book_written" then
 			local count = stack:get_count()
