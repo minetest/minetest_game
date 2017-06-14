@@ -108,6 +108,15 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			},
 		})
 
+		-- Use stairs to craft full blocks again (1:1)
+		minetest.register_craft({
+			output = recipeitem .. ' 3',
+			recipe = {
+				{'stairs:stair_' .. subname, 'stairs:stair_' .. subname},
+				{'stairs:stair_' .. subname, 'stairs:stair_' .. subname},
+			},
+		})
+
 		-- Fuel
 		local baseburntime = minetest.get_craft_result({
 			method = "fuel",
