@@ -176,7 +176,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- check if you can replace the node above the pointed node
-	if not minetest.registered_nodes[above.name].buildable_to then
+	if not minetest.get_nodedef(pt.above).buildable_to then
 		return itemstack
 	end
 

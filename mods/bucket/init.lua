@@ -65,7 +65,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				end
 
 				local node = minetest.get_node_or_nil(pointed_thing.under)
-				local ndef = node and minetest.registered_nodes[node.name]
+				local ndef = node and minetest.get_nodedef(pointed_thing.under)
 
 				-- Call on_rightclick if the pointed node defines it
 				if ndef and ndef.on_rightclick and
@@ -88,7 +88,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 
 					lpos = pointed_thing.above
 					node = minetest.get_node_or_nil(lpos)
-					local above_ndef = node and minetest.registered_nodes[node.name]
+					local above_ndef = node and minetest.get_nodedef(lpos)
 
 					if not above_ndef or not above_ndef.buildable_to then
 						-- do not remove the bucket with the liquid

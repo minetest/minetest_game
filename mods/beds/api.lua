@@ -55,7 +55,7 @@ function beds.register_bed(name, def)
 			end
 
 			local pos
-			if minetest.registered_items[minetest.get_node(under).name].buildable_to then
+			if minetest.get_nodedef(under).buildable_to then
 				pos = under
 			else
 				pos = pointed_thing.above
@@ -67,7 +67,7 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+			local node_def = minetest.get_nodedef(pos)
 			if not node_def or not node_def.buildable_to then
 				return itemstack
 			end
@@ -81,7 +81,7 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			local botdef = minetest.registered_nodes[minetest.get_node(botpos).name]
+			local botdef = minetest.get_nodedef(botpos)
 			if not botdef or not botdef.buildable_to then
 				return itemstack
 			end
@@ -122,7 +122,7 @@ function beds.register_bed(name, def)
 			end
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
 			local node3 = minetest.get_node_or_nil(newp)
-			local node_def = node3 and minetest.registered_nodes[node3.name]
+			local node_def = node3 and minetest.get_nodedef(newp)
 			if not node_def or not node_def.buildable_to then
 				return false
 			end

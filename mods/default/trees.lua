@@ -466,7 +466,7 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 	-- Position of sapling
 	local pos = pointed_thing.under
 	local node = minetest.get_node_or_nil(pos)
-	local pdef = node and minetest.registered_nodes[node.name]
+	local pdef = node and minetest.get_nodedef(pos)
 
 	if pdef and pdef.on_rightclick and not placer:get_player_control().sneak then
 		return pdef.on_rightclick(pos, node, placer, itemstack, pointed_thing)
@@ -475,7 +475,7 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 	if not pdef or not pdef.buildable_to then
 		pos = pointed_thing.above
 		node = minetest.get_node_or_nil(pos)
-		pdef = node and minetest.registered_nodes[node.name]
+		pdef = node and minetest.get_nodedef(pos)
 		if not pdef or not pdef.buildable_to then
 			return itemstack
 		end

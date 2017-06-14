@@ -264,7 +264,7 @@ function doors.register(name, def)
 			end
 
 			local node = minetest.get_node(pointed_thing.under)
-			local pdef = minetest.registered_nodes[node.name]
+			local pdef = minetest.get_nodedef(pointed_thing.under)
 			if pdef and pdef.on_rightclick and
 					not placer:get_player_control().sneak then
 				return pdef.on_rightclick(pointed_thing.under,
@@ -276,7 +276,7 @@ function doors.register(name, def)
 			else
 				pos = pointed_thing.above
 				node = minetest.get_node(pos)
-				pdef = minetest.registered_nodes[node.name]
+				pdef = minetest.get_nodedef(pos)
 				if not pdef or not pdef.buildable_to then
 					return itemstack
 				end
@@ -284,7 +284,7 @@ function doors.register(name, def)
 
 			local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 			local top_node = minetest.get_node_or_nil(above)
-			local topdef = top_node and minetest.registered_nodes[top_node.name]
+			local topdef = top_node and minetest.get_nodedef(above)
 
 			if not topdef or not topdef.buildable_to then
 				return itemstack

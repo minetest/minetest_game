@@ -124,7 +124,7 @@ minetest.register_node("bones:bones", {
 
 local function may_replace(pos, player)
 	local node_name = minetest.get_node(pos).name
-	local node_definition = minetest.registered_nodes[node_name]
+	local node_definition = minetest.get_nodedef(pos)
 
 	-- if the node is unknown, we return false
 	if not node_definition then
