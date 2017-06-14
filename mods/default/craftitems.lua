@@ -75,6 +75,7 @@ local function book_on_use(itemstack, user)
 	return itemstack
 end
 
+local max_text_size = 10000
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "default:book" then return end
 	local inv = player:get_inventory()
@@ -102,8 +103,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		data.title = fields.title
 		data.owner = player:get_player_name()
 		data.description = "\""..fields.title.."\" by "..data.owner
-		data.text = fields.text
-		data.text_len = #data.text
+		data.text = fields.text:sub(1, max_text_size)
 		data.page = 1
 		data.page_max = math.ceil((#data.text:gsub("[^\n]", "") + 1) / lpp)
 
