@@ -53,7 +53,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				name = image,
 				backface_culling = true,
 			}
-		elseif image.backface_culling == nil then
+		elseif image.backface_culling == nil then -- override using any other value
 			stair_images[i] = table.copy(image)
 			stair_images[i].backface_culling = true
 		end
