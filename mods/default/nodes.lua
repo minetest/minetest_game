@@ -1990,12 +1990,22 @@ function default.register_chest(name, d)
 	local def_closed = table.copy(def)
 
 	def_opened.mesh = "chest_open.obj"
+	for i = 1, #def_opened.tiles do
+		local tile = def_opened.tiles[i]
+		local t = type(tile)
+		if t == "string" then
+			def_opened.tiles[i] = {name = tile, backface_culling = true}
+		elseif t == "table" then
+			def_opened.tiles[i].backface_culling = tile.backface_culling == nil
+					or tile.backface_culling
+		end
+	end
 	def_opened.drop = "default:" .. name
 	def_opened.groups.not_in_creative_inventory = 1
 	def_opened.selection_box = {
 		type = "fixed",
 		fixed = { -1/2, -1/2, -1/2, 1/2, 3/16, 1/2 },
-		}
+	}
 	def_opened.can_dig = function()
 		return false
 	end
