@@ -712,6 +712,7 @@ function doors.register_fencegate(name, def)
 	local fence = {
 		description = def.description,
 		drawtype = "mesh",
+		tiles = {},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
@@ -733,15 +734,14 @@ function doors.register_fencegate(name, def)
 		},
 	}
 
-	do
-		local t = type(def.texture)
-		if t == "string" then
-			fence.tiles = {{name = def.texture, backface_culling = true}}
-		elseif t == "table" then
-			fence.tiles = {table.copy(def.texture)}
-			fence.tiles[1].backface_culling = fence.tiles[1].backface_culling == nil
-					or fence.tiles[1].backface_culling
-		end
+
+	if type(def.texture) == "string" then
+		fence.tiles[1] = {name = def.texture, backface_culling = true}
+	elseif def.texture.backface_culling == nil then
+		fence.tiles[1] = table.copy(def.texture)
+		fence.tiles[1].backface_culling = true
+	else
+		fence.tiles[1] = def.texture
 	end
 
 	if not fence.sounds then

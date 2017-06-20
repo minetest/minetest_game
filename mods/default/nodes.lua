@@ -1991,13 +1991,10 @@ function default.register_chest(name, d)
 
 	def_opened.mesh = "chest_open.obj"
 	for i = 1, #def_opened.tiles do
-		local tile = def_opened.tiles[i]
-		local t = type(tile)
-		if t == "string" then
-			def_opened.tiles[i] = {name = tile, backface_culling = true}
-		elseif t == "table" then
-			def_opened.tiles[i].backface_culling = tile.backface_culling == nil
-					or tile.backface_culling
+		if type(def_opened.tiles[i]) == "string" then
+			def_opened.tiles[i] = {name = def_opened.tiles[i], backface_culling = true}
+		elseif def_opened.tiles[i].backface_culling == nil then
+			def_opened.tiles[i].backface_culling = true
 		end
 	end
 	def_opened.drop = "default:" .. name
