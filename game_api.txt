@@ -155,7 +155,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 ### Fence gate definition
 
 	description = "Wooden Fence Gate",
-	texture = "default_wood.png",
+	texture = "default_wood.png", -- `backface_culling` is `true` by default.
 	material = "default:wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(), -- optional
