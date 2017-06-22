@@ -349,7 +349,7 @@ stairs.register_stair_and_slab(
 
 stairs.register_stair_and_slab(
 	"mossycobble",
-	nil,
+	"default:mossycobble",
 	{cracky = 3},
 	{"default_mossycobble.png"},
 	"Mossy Cobblestone Stair",
