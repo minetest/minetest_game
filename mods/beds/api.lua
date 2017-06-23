@@ -29,8 +29,10 @@ function beds.register_bed(name, def)
 		wield_image = def.wield_image,
 		drawtype = "nodebox",
 		tiles = def.tiles.bottom,
+		overlay_tiles = def.overlay_tiles and def.overlay_tiles.bottom,
+		palette = def.palette,
 		paramtype = "light",
-		paramtype2 = "facedir",
+		paramtype2 = def.palette and "colorfacedir" or "facedir",
 		is_ground_content = false,
 		stack_max = 1,
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 1},
@@ -86,8 +88,10 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			minetest.set_node(pos, {name = name .. "_bottom", param2 = dir})
-			minetest.set_node(botpos, {name = name .. "_top", param2 = dir})
+			local color = tonumber(itemstack:get_meta():get_string("palette_index")) or 0
+
+			minetest.set_node(pos, {name = name .. "_bottom", param2 = dir+color})
+			minetest.set_node(botpos, {name = name .. "_top", param2 = dir+color})
 
 			if not (creative and creative.is_enabled_for
 					and creative.is_enabled_for(placer:get_player_name())) then
@@ -142,8 +146,10 @@ function beds.register_bed(name, def)
 	minetest.register_node(name .. "_top", {
 		drawtype = "nodebox",
 		tiles = def.tiles.top,
+		overlay_tiles = def.overlay_tiles and def.overlay_tiles.top,
+		palette = def.palette,
 		paramtype = "light",
-		paramtype2 = "facedir",
+		paramtype2 = def.palette and "colorfacedir" or "facedir",
 		is_ground_content = false,
 		pointable = false,
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},

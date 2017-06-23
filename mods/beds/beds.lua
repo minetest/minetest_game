@@ -58,28 +58,47 @@ beds.register_bed("beds:bed", {
 	tiles = {
 		bottom = {
 			"beds_bed_top_bottom.png^[transformR90",
-			"default_wood.png",
-			"beds_bed_side_bottom_r.png",
-			"beds_bed_side_bottom_r.png^[transformfx",
+			{name = "default_wood.png", color = "white"},
+			{name = "beds_bed_side_bottom_r.png", color = "white"},
+			{name = "beds_bed_side_bottom_r.png^[transformfx", color = "white"},
 			"beds_transparent.png",
-			"beds_bed_side_bottom.png"
+			{name = "beds_bed_side_bottom.png", color = "white"}
 		},
 		top = {
-			"beds_bed_top_top.png^[transformR90",
-			"default_wood.png",
-			"beds_bed_side_top_r.png",
-			"beds_bed_side_top_r.png^[transformfx",
-			"beds_bed_side_top.png",
+			{name = "beds_bed_top_top.png^[transformR90", color = "white"},
+			{name = "default_wood.png", color = "white"},
+			{name = "beds_bed_side_top_r.png", color = "white"},
+			{name = "beds_bed_side_top_r.png^[transformfx", color = "white"},
+			{name = "beds_bed_side_top.png", color = "white"},
 			"beds_transparent.png",
 		}
 	},
+	overlay_tiles = {
+		bottom = {
+			"",
+			"",
+			"beds_bed_side_bottom_r_o.png",
+			"beds_bed_side_bottom_r_o.png^[transformfx",
+			"",
+			"beds_bed_side_bottom_o.png"
+		},
+		top = {
+			"beds_bed_top_top_o.png^[transformR90",
+			"",
+			"beds_bed_side_top_r_o.png",
+			"beds_bed_side_top_r_o.png^[transformfx",
+			"",
+			"",
+		}
+	},
+	palette = "beds_palette.png",
 	nodebox = {
 		bottom = {-0.5, -0.5, -0.5, 0.5, 0.06, 0.5},
 		top = {-0.5, -0.5, -0.5, 0.5, 0.06, 0.5},
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
 	recipe = {
-		{"wool:red", "wool:red", "wool:white"},
+		{"group:wool", "group:wool", "wool:white"},
 		{"group:wood", "group:wood", "group:wood"}
 	},
 })
@@ -102,3 +121,20 @@ minetest.register_craft({
 	recipe = "beds:bed_bottom",
 	burntime = 12,
 })
+
+-- colored Crafting
+
+minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+	if itemstack:get_name():sub(1, 5) ~= "beds:" then
+		return
+	end
+	local colors = {red = 0, blue = 1, green = 2, yellow = 3, magenta = 4,
+		turquoise = 5, orange = 6, black = 7, brown = 7}
+	local loc = old_craft_grid[3]:get_name() == "" and 3 or 0
+	local color = colors[old_craft_grid[1+loc]:get_name():sub(6)]
+	if color == nil or colors[old_craft_grid[2+loc]:get_name():sub(6)] ~= color then
+		color = 7
+	end
+	itemstack:get_meta():set_string("palette_index", 2^5*color)
+	return itemstack
+end)
