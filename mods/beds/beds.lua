@@ -6,22 +6,41 @@ beds.register_bed("beds:fancy_bed", {
 	wield_image = "beds_bed_fancy.png",
 	tiles = {
 		bottom = {
-			"beds_bed_top1.png",
-			"default_wood.png",
-			"beds_bed_side1.png",
-			"beds_bed_side1.png^[transformFX",
-			"blank.png",
-			"beds_bed_foot.png",
+			"beds_wool.png^[transformR90",
+			{name = "default_wood.png", color = "white"},
+			"beds_wool.png",
+			"beds_wool.png^[transformFX",
+			{name = "default_wood.png", color = "white"},
+			"beds_wool.png^[transformR90",
 		},
 		top = {
-			"beds_bed_top2.png",
-			"default_wood.png",
-			"beds_bed_side2.png",
-			"beds_bed_side2.png^[transformFX",
-			"beds_bed_head.png",
-			"blank.png",
+			"beds_wool.png^[transformR270",
+			{name = "default_wood.png", color = "white"},
+			"beds_wool.png",
+			"beds_wool.png^[transformFX",
+			{name = "beds_bed_head.png", color = "white"},
+			{name = "default_wood.png", color = "white"},
 		}
 	},
+	overlay_tiles = {
+		bottom = {
+			{name = "beds_bed_top.png", color = "white"},
+			"",
+			{name = "beds_bed_side1.png", color = "white"},
+			{name = "beds_bed_side1.png^[transformFX", color = "white"},
+			"",
+			{name = "beds_bed_foot.png", color = "white"},
+		},
+		top = {
+			{name = "beds_bed_top_top.png^[transformR270^beds_bed_top.png^[transformR180", color = "white"},
+			"",
+			{name = "beds_bed_side2.png", color = "white"},
+			{name = "beds_bed_side2.png^[transformFX", color = "white"},
+			"",
+			"",
+		}
+	},
+	palette = "beds_palette.png",
 	nodebox = {
 		bottom = {
 			{-0.5, -0.5, -0.5, -0.375, -0.065, -0.4375},
@@ -44,7 +63,7 @@ beds.register_bed("beds:fancy_bed", {
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
 	recipe = {
 		{"", "", "group:stick"},
-		{"wool:red", "wool:red", "wool:white"},
+		{"group:wool", "group:wool", "wool:white"},
 		{"group:wood", "group:wood", "group:wood"},
 	},
 })
@@ -130,7 +149,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 	end
 	local colors = {red = 0, blue = 1, green = 2, yellow = 3, magenta = 4,
 		cyan = 5, orange = 6, black = 7, brown = 7}
-	local loc = old_craft_grid[3]:get_name() == "" and 3 or 0
+	local loc = old_craft_grid[1]:get_name() == "" and 3 or 0
 	local color = colors[old_craft_grid[1+loc]:get_name():sub(6)]
 	if color == nil or colors[old_craft_grid[2+loc]:get_name():sub(6)] ~= color then
 		color = 7
