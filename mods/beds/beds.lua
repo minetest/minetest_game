@@ -77,8 +77,8 @@ beds.register_bed("beds:bed", {
 		bottom = {
 			"",
 			"",
-			"beds_bed_side_bottom_r_o.png",
-			"beds_bed_side_bottom_r_o.png^[transformfx",
+			"beds_bed_side_bottom_o.png",
+			"beds_bed_side_bottom_o.png^[transformfx",
 			"",
 			"beds_bed_side_bottom_o.png"
 		},
@@ -129,7 +129,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 		return
 	end
 	local colors = {red = 0, blue = 1, green = 2, yellow = 3, magenta = 4,
-		turquoise = 5, orange = 6, black = 7, brown = 7}
+		cyan = 5, orange = 6, black = 7, brown = 7}
 	local loc = old_craft_grid[3]:get_name() == "" and 3 or 0
 	local color = colors[old_craft_grid[1+loc]:get_name():sub(6)]
 	if color == nil or colors[old_craft_grid[2+loc]:get_name():sub(6)] ~= color then
