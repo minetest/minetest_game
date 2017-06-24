@@ -54,8 +54,13 @@ Beds API
 		wield_image = "beds_bed.png",
 		tiles = {
 			bottom = {'Tile definition'}, -- the tiles of the bottom part of the bed.
-			top = {Tile definition} -- the tiles of the bottom part of the bed.
+			top = {Tile definition} -- the tiles of the top part of the bed.
 		},
+		oberlay_tiles = { -- optional
+			bottom = {'Tile definition'}, -- the overlay_tiles of the bottom part of the bed.
+			top = {Tile definition} -- the overlay_tiles of the top part of the bed.
+		},
+		palette = "beds_palette.png", -- optional. hardware coloring with param2 is possible if specified
 		nodebox = {
 			bottom = 'regular nodebox',     -- bottom part of bed (see [Node boxes])
 			top = 'regular nodebox',        -- top part of bed (see [Node boxes])
