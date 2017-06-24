@@ -10,7 +10,7 @@ beds.register_bed("beds:fancy_bed", {
 			"default_wood.png",
 			"beds_bed_side1.png",
 			"beds_bed_side1.png^[transformFX",
-			"default_wood.png",
+			"blank.png",
 			"beds_bed_foot.png",
 		},
 		top = {
@@ -19,7 +19,7 @@ beds.register_bed("beds:fancy_bed", {
 			"beds_bed_side2.png",
 			"beds_bed_side2.png^[transformFX",
 			"beds_bed_head.png",
-			"default_wood.png",
+			"blank.png",
 		}
 	},
 	nodebox = {
@@ -57,36 +57,36 @@ beds.register_bed("beds:bed", {
 	wield_image = "beds_bed.png",
 	tiles = {
 		bottom = {
-			"beds_bed_top_bottom.png^[transformR90",
+			"beds_wool.png^[transformR90",
 			{name = "default_wood.png", color = "white"},
-			{name = "beds_bed_side_bottom_r.png", color = "white"},
-			{name = "beds_bed_side_bottom_r.png^[transformfx", color = "white"},
-			"beds_transparent.png",
-			{name = "beds_bed_side_bottom.png", color = "white"}
+			"beds_wool.png",
+			"beds_wool.png^[transformFX",
+			"blank.png",
+			"beds_wool.png^[transformR90"
 		},
 		top = {
-			{name = "beds_bed_top_top.png^[transformR90", color = "white"},
+			"beds_wool.png^[transformR270",
 			{name = "default_wood.png", color = "white"},
-			{name = "beds_bed_side_top_r.png", color = "white"},
-			{name = "beds_bed_side_top_r.png^[transformfx", color = "white"},
-			{name = "beds_bed_side_top.png", color = "white"},
-			"beds_transparent.png",
+			"beds_wool.png",
+			"beds_wool.png^[transformFX",
+			{name = "beds_bed_side_top.png^[transformFX", color = "white"},
+			"blank.png",
 		}
 	},
 	overlay_tiles = {
 		bottom = {
 			"",
 			"",
-			"beds_bed_side_bottom_o.png",
-			"beds_bed_side_bottom_o.png^[transformfx",
+			{name = "beds_bed_side_bottom_r.png", color = "white"},
+			{name = "beds_bed_side_bottom_r.png^[transformFX", color = "white"},
 			"",
-			"beds_bed_side_bottom_o.png"
+			{name = "beds_bed_side_bottom.png", color = "white"}
 		},
 		top = {
-			"beds_bed_top_top_o.png^[transformR90",
+			{name = "beds_bed_top_top.png^[transformR90", color = "white"},
 			"",
-			"beds_bed_side_top_r_o.png",
-			"beds_bed_side_top_r_o.png^[transformfx",
+			{name = "beds_bed_side_top_r.png", color = "white"},
+			{name = "beds_bed_side_top_r.png^[transformFX", color = "white"},
 			"",
 			"",
 		}
