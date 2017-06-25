@@ -147,8 +147,16 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 	if itemstack:get_name():sub(1, 5) ~= "beds:" then
 		return
 	end
-	local colors = {red = 0, blue = 1, green = 2, yellow = 3, magenta = 4,
-		cyan = 5, orange = 6, black = 7, brown = 7}
+	local colors = {
+		red = 0,
+		blue = 1, cyan = 1,
+		green = 2, dark_green = 2,
+		yellow = 3,
+		magenta = 4, violet = 4, pink = 4,
+		white = 5,
+		orange = 6, brown = 6,
+		black = 7, dark_grey = 7, grey = 7
+	}
 	local loc = old_craft_grid[1]:get_name() == "" and 3 or 0
 	local color = colors[old_craft_grid[1+loc]:get_name():sub(6)]
 	if color == nil or colors[old_craft_grid[2+loc]:get_name():sub(6)] ~= color then
