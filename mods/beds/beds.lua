@@ -1,7 +1,7 @@
 -- Fancy shaped bed
 
 beds.register_bed("beds:fancy_bed", {
-	description = "Fancy red Bed",
+	description = "Fancy Bed",
 	inventory_image = "beds_bed_fancy.png^beds_bed_fancy_o.png",
 	wield_image = "beds_bed_fancy.png^beds_bed_fancy_o.png",
 	tiles = {
@@ -67,7 +67,7 @@ beds.register_bed("beds:fancy_bed", {
 -- Simple shaped bed
 
 beds.register_bed("beds:bed", {
-	description = "Simple red Bed",
+	description = "Simple Bed",
 	inventory_image = "beds_bed.png^beds_bed_o.png",
 	wield_image = "beds_bed.png^beds_bed_o.png",
 	tiles = {
@@ -150,9 +150,7 @@ local colors = {
 for color, palette_index in pairs(colors) do
 	palette_index = palette_index*2^5
 	local out = ItemStack("beds:fancy_bed")
-	local meta = out:get_meta()
-	meta:set_int("palette_index", palette_index)
-	meta:set_string("description", "Fancy "..color.." Bed")
+	out:get_meta():set_int("palette_index", palette_index)
 	minetest.register_craft({
 		output = out:to_string(),
 		recipe = {
@@ -166,9 +164,7 @@ end
 for color, palette_index in pairs(colors) do
 	palette_index = palette_index*2^5
 	local out = ItemStack("beds:bed")
-	local meta = out:get_meta()
-	meta:set_int("palette_index", palette_index)
-	meta:set_string("description", "Simple "..color.." Bed")
+	out:get_meta():set_int("palette_index", palette_index)
 	minetest.register_craft({
 		output = out:to_string(),
 		recipe = {

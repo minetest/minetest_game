@@ -60,6 +60,7 @@ Beds API
 			bottom = {'Tile definition'}, -- the overlay_tiles of the bottom part of the bed.
 			top = {Tile definition} -- the overlay_tiles of the top part of the bed.
 		},
+		color = "white", -- optional
 		palette = "beds_palette.png", -- optional. hardware coloring with param2 is possible if specified
 		nodebox = {
 			bottom = 'regular nodebox',     -- bottom part of bed (see [Node boxes])
