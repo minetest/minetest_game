@@ -2,8 +2,8 @@
 
 beds.register_bed("beds:fancy_bed", {
 	description = "Fancy red Bed",
-	inventory_image = "beds_bed_fancy.png",
-	wield_image = "beds_bed_fancy.png",
+	inventory_image = "beds_bed_fancy.png^beds_bed_fancy_o.png",
+	wield_image = "beds_bed_fancy.png^beds_bed_fancy_o.png",
 	tiles = {
 		bottom = {
 			"beds_wool.png^[transformR90",
@@ -68,8 +68,8 @@ beds.register_bed("beds:fancy_bed", {
 
 beds.register_bed("beds:bed", {
 	description = "Simple red Bed",
-	inventory_image = "beds_bed.png",
-	wield_image = "beds_bed.png",
+	inventory_image = "beds_bed.png^beds_bed_o.png",
+	wield_image = "beds_bed.png^beds_bed_o.png",
 	tiles = {
 		bottom = {
 			"beds_wool.png^[transformR90",
