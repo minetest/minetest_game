@@ -216,4 +216,4 @@ minetest.register_craft({
 })
 
 --adding alias for replacing the steel_bottle with tin_jug
-minetest.register_alias("vessels:steel_bottle":"vessels:tin_jug")
+minetest.register_alias("vessels:steel_bottle","vessels:tin_jug")
