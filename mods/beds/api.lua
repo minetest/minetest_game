@@ -88,7 +88,7 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			local color = tonumber(itemstack:get_meta():get_string("palette_index")) or 0
+			local color = itemstack:get_meta():get_int("palette_index")
 
 			minetest.set_node(pos, {name = name .. "_bottom", param2 = dir+color})
 			minetest.set_node(botpos, {name = name .. "_top", param2 = dir+color})
@@ -166,8 +166,10 @@ function beds.register_bed(name, def)
 
 	minetest.register_alias(name, name .. "_bottom")
 
-	minetest.register_craft({
-		output = name,
-		recipe = def.recipe
-	})
+	if def.recipe then
+		minetest.register_craft({
+			output = name,
+			recipe = def.recipe
+		})
+	end
 end

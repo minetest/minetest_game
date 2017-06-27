@@ -61,11 +61,6 @@ beds.register_bed("beds:fancy_bed", {
 		}
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
-	recipe = {
-		{"", "", "group:stick"},
-		{"group:wool", "group:wool", "wool:white"},
-		{"group:wood", "group:wood", "group:wood"},
-	},
 })
 
 -- Simple shaped bed
@@ -116,10 +111,6 @@ beds.register_bed("beds:bed", {
 		top = {-0.5, -0.5, -0.5, 0.5, 0.06, 0.5},
 	},
 	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
-	recipe = {
-		{"group:wool", "group:wool", "wool:white"},
-		{"group:wood", "group:wood", "group:wood"}
-	},
 })
 
 -- Aliases for PilzAdam's beds mod
@@ -143,25 +134,44 @@ minetest.register_craft({
 
 -- colored Crafting
 
-minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
-	if itemstack:get_name():sub(1, 5) ~= "beds:" then
-		return
-	end
-	local colors = {
-		red = 0,
-		blue = 1, cyan = 1,
-		green = 2, dark_green = 2,
-		yellow = 3,
-		magenta = 4, violet = 4, pink = 4,
-		white = 5,
-		orange = 6, brown = 6,
-		black = 7, dark_grey = 7, grey = 7
-	}
-	local loc = old_craft_grid[1]:get_name() == "" and 3 or 0
-	local color = colors[old_craft_grid[1+loc]:get_name():sub(6)]
-	if color == nil or colors[old_craft_grid[2+loc]:get_name():sub(6)] ~= color then
-		color = 7
-	end
-	itemstack:get_meta():set_string("palette_index", 2^5*color)
-	return itemstack
-end)
+local colors = {
+	red = 0,
+	blue = 1, cyan = 1,
+	green = 2, dark_green = 2,
+	yellow = 3,
+	magenta = 4, violet = 4, pink = 4,
+	white = 5,
+	orange = 6, brown = 6,
+	black = 7, dark_grey = 7, grey = 7
+}
+
+for color, palette_index in pairs(colors) do
+	palette_index = palette_index*2^5
+	local out = ItemStack("beds:fancy_bed")
+	local meta = out:get_meta()
+	meta:set_int("palette_index", palette_index)
+	meta:set_string("description", "Fancy "..color.." Bed")
+	minetest.register_craft({
+		output = out:to_string(),
+		recipe = {
+			{"",             "",             "group:stick"},
+			{"wool:"..color, "wool:"..color, "wool:white"},
+			{"group:wood",   "group:wood",   "group:wood"}
+		},
+	})
+end
+
+for color, palette_index in pairs(colors) do
+	palette_index = palette_index*2^5
+	local out = ItemStack("beds:bed")
+	local meta = out:get_meta()
+	meta:set_int("palette_index", palette_index)
+	meta:set_string("description", "Simple "..color.." Bed")
+	minetest.register_craft({
+		output = out:to_string(),
+		recipe = {
+			{"wool:"..color, "wool:"..color, "wool:white"},
+			{"group:wood",   "group:wood",   "group:wood"}
+		},
+	})
+end
