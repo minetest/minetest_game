@@ -214,3 +214,6 @@ minetest.register_craft({
 	recipe = "vessels:shelf",
 	burntime = 30,
 })
+
+--adding alias for replacing the steel_bottle with tin_jug
+minetest.register_alias("vessels:steel_bottle":"vessels:tin_jug")
