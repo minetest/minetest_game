@@ -145,12 +145,12 @@ minetest.register_craft( {
 	}
 })
 
-minetest.register_node("vessels:steel_bottle", {
-	description = "Heavy Steel Bottle (empty)",
+minetest.register_node("vessels:tin_jug", {
+	description = "Durable Tin Jug (empty)",
 	drawtype = "plantlike",
-	tiles = {"vessels_steel_bottle.png"},
-	inventory_image = "vessels_steel_bottle.png",
-	wield_image = "vessels_steel_bottle.png",
+	tiles = {"vessels_tin_jug.png"},
+	inventory_image = "vessels_tin_jug.png",
+	wield_image = "vessels_tin_jug.png",
 	paramtype = "light",
 	is_ground_content = false,
 	walkable = false,
@@ -163,11 +163,11 @@ minetest.register_node("vessels:steel_bottle", {
 })
 
 minetest.register_craft( {
-	output = "vessels:steel_bottle 5",
+	output = "vessels:tin_jug 5",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"", "default:steel_ingot", ""}
+		{"default:tin_ingot", "", "default:tin_ingot"},
+		{"default:tin_ingot", "", "default:tin_ingot"},
+		{"", "default:tin_ingot", ""}
 	}
 })
 
@@ -205,8 +205,8 @@ minetest.register_craft({
 
 minetest.register_craft( {
 	type = "cooking",
-	output = "default:steel_ingot",
-	recipe = "vessels:steel_bottle",
+	output = "default:tin_ingot",
+	recipe = "vessels:tin_jug",
 })
 
 minetest.register_craft({
