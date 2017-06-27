@@ -30,6 +30,7 @@ function beds.register_bed(name, def)
 		drawtype = "nodebox",
 		tiles = def.tiles.bottom,
 		overlay_tiles = def.overlay_tiles and def.overlay_tiles.bottom,
+		color = def.color,
 		palette = def.palette,
 		paramtype = "light",
 		paramtype2 = def.palette and "colorfacedir" or "facedir",

@@ -1,7 +1,7 @@
 -- Fancy shaped bed
 
 beds.register_bed("beds:fancy_bed", {
-	description = "Fancy Bed",
+	description = "Fancy red Bed",
 	inventory_image = "beds_bed_fancy.png",
 	wield_image = "beds_bed_fancy.png",
 	tiles = {
@@ -40,6 +40,7 @@ beds.register_bed("beds:fancy_bed", {
 			"",
 		}
 	},
+	color = "#A90000", -- First color on palette.
 	palette = "beds_palette.png",
 	nodebox = {
 		bottom = {
@@ -66,7 +67,7 @@ beds.register_bed("beds:fancy_bed", {
 -- Simple shaped bed
 
 beds.register_bed("beds:bed", {
-	description = "Simple Bed",
+	description = "Simple red Bed",
 	inventory_image = "beds_bed.png",
 	wield_image = "beds_bed.png",
 	tiles = {
@@ -105,6 +106,7 @@ beds.register_bed("beds:bed", {
 			"",
 		}
 	},
+	color = "#A90000", -- First color on palette.
 	palette = "beds_palette.png",
 	nodebox = {
 		bottom = {-0.5, -0.5, -0.5, 0.5, 0.06, 0.5},
