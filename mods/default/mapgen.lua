@@ -188,7 +188,8 @@ function default.register_blob_ores()
 			"deciduous_forest_shore", "deciduous_forest_ocean", "cold_desert",
 			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
 			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground",
-			"floatland_ocean", "floatland_grassland", "floatland_coniferous_forest"}
+			"floatland_grassland", "floatland_grassland_ocean",
+			"floatland_coniferous_forest", "floatland_coniferous_forest_ocean"}
 	})
 
 	-- Dirt
@@ -242,7 +243,8 @@ function default.register_blob_ores()
 			"deciduous_forest_shore", "deciduous_forest_ocean", "cold_desert",
 			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
 			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground",
-			"floatland_ocean", "floatland_grassland", "floatland_coniferous_forest"}
+			"floatland_grassland", "floatland_grassland_ocean",
+			"floatland_coniferous_forest", "floatland_coniferous_forest_ocean"}
 	})
 end
 
@@ -1201,6 +1203,28 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		humidity_point = 70,
 	})
 
+	-- Coniferous forest ocean
+
+	minetest.register_biome({
+		name = "floatland_coniferous_forest_ocean",
+		--node_dust = "",
+		node_top = "default:sand",
+		depth_top = 1,
+		node_filler = "default:sand",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = shadow_limit,
+		y_max = floatland_level + 1,
+		heat_point = 50,
+		humidity_point = 70,
+	})
+
 	-- Grassland
 
 	minetest.register_biome({
@@ -1219,6 +1243,28 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		--depth_riverbed = ,
 		y_min = floatland_level + 2,
 		y_max = 31000,
+		heat_point = 50,
+		humidity_point = 35,
+	})
+
+	-- Grassland ocean
+
+	minetest.register_biome({
+		name = "floatland_grassland_ocean",
+		--node_dust = "",
+		node_top = "default:sand",
+		depth_top = 1,
+		node_filler = "default:sand",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_min = shadow_limit,
+		y_max = floatland_level + 1,
 		heat_point = 50,
 		humidity_point = 35,
 	})
@@ -1245,16 +1291,16 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		humidity_point = 0,
 	})
 
-	-- Floatland ocean / underground
+	-- Sandstone desert ocean
 
 	minetest.register_biome({
-		name = "floatland_ocean",
+		name = "floatland_sandstone_desert_ocean",
 		--node_dust = "",
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
 		depth_filler = 3,
-		--node_stone = "",
+		node_stone = "default:sandstone",
 		--node_water_top = "",
 		--depth_water_top = ,
 		--node_water = "",
@@ -1264,7 +1310,7 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		y_min = shadow_limit,
 		y_max = floatland_level + 1,
 		heat_point = 50,
-		humidity_point = 50,
+		humidity_point = 0,
 	})
 end
 
