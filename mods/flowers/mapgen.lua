@@ -87,8 +87,8 @@ local function register_flower(seed, name)
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
-			offset = -0.015,
-			scale = 0.025,
+			offset = -0.02,
+			scale = 0.04,
 			spread = {x = 200, y = 200, z = 200},
 			seed = seed,
 			octaves = 3,
