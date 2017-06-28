@@ -39,8 +39,8 @@ local theme_main = "bgcolor[#080808BB;true]" .. default.gui_bg ..
 		default.gui_bg_img
 
 local theme_inv = default.gui_slots .. [[
-		list[current_player;main;0,4.7;8,1;]
-		list[current_player;main;0,5.85;8,3;8]
+		list[current_player;main;0,4.5;8,1;]
+		list[current_player;main;0,5.55;8,3;8]
 	]]
 
 function sfinv.make_formspec(player, context, content, show_inv, size)
