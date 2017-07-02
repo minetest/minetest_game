@@ -17,9 +17,9 @@ function creative.update_creative_inventory(player_name, tab_content)
 		creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 
 	for name, def in pairs(tab_content) do
-		if not (def.groups.not_in_creative_inventory == 1) and
-				 def.description and def.description ~= ""	  and
-				(def.name:find(inv.filter, 1, true)		  or
+		if def.groups.not_in_creative_inventory ~= 1 and
+				 def.description and def.description ~= "" and
+				(def.name:find(inv.filter, 1, true) or
 				 def.description:lower():find(inv.filter, 1, true)) then
 			creative_list[#creative_list+1] = name
 		end
@@ -45,6 +45,20 @@ trash:set_size("main", 1)
 
 creative.formspec_add = ""
 
+local function handle_item_button_press(fields, player)
+	local player_inv = player:get_inventory()
+	for item in pairs(fields) do
+		if item:find(":") and item:sub(-4) == "_inv" then
+			local stack = ItemStack(item:sub(1, -5))
+			stack:set_count(stack:get_stack_max())
+			if player_inv:room_for_item("main", stack) then
+				player_inv:add_item("main", stack)
+			end
+			return
+		end
+	end
+end
+
 function creative.register_tab(name, title, items)
 	sfinv.register_page("creative:" .. name, {
 		title = title,
@@ -58,12 +72,12 @@ function creative.register_tab(name, title, items)
 				creative.init_creative_inventory(
 					minetest.get_player_by_name(player_name))
 
-			local ipp = inv.expand and 3*8 or 6*8
+			local ipp = inv.expand and 6*8 or 3*8
 			local start_i = inv.start_i or 0
 			local pagenum = math.floor(start_i / ipp + 1)
 			local inv_items = creative.update_creative_inventory(player_name, items)
 			local pagemax = math.ceil(inv.size / ipp)
-			local offset = inv.expand and 3 or 6
+			local offset = inv.expand and 6 or 3
 
 			local formspec =
 				"label[6.2," .. offset .. ".35;" .. minetest.colorize("#FFFF00",
@@ -88,13 +102,13 @@ function creative.register_tab(name, title, items)
 				"field_close_on_enter[creative_filter;false]" ..
 				"field[0.25," .. offset .. ".5;2.25,1;creative_filter;;" ..
 					minetest.formspec_escape(inv.filter) .. "]" ..
-				default.get_hotbar_bg(0, (inv.expand and 4.5 or 7.5)) ..
+				default.get_hotbar_bg(0, (inv.expand and 7.5 or 4.5)) ..
 				default.gui_bg .. default.gui_bg_img .. default.gui_slots ..
 				creative.formspec_add
 
-			if inv.expand then
+			if not inv.expand then
 				formspec = formspec ..
-					"list[current_player;main;0,5.55;8,3;8]"
+					"list[current_player;main;0,5.5;8,3;8]"
 			end
 
 			local first_item = (pagenum - 1) * ipp
@@ -144,7 +158,7 @@ function creative.register_tab(name, title, items)
 
 			elseif fields.creative_prev or fields.creative_next then
 				local start_i = inv.start_i or 0
-				local ipp = inv.expand and 3*8 or 6*8
+				local ipp = inv.expand and 6*8 or 3*8
 
 				if fields.creative_prev then
 					start_i = start_i - ipp
@@ -164,29 +178,8 @@ function creative.register_tab(name, title, items)
 				inv.start_i = start_i
 				sfinv.set_player_inventory_formspec(player, context)
 
-			else for item in pairs(fields) do
-				  if item:find(":") then
-					local can_add = false
-					local player_inv = player:get_inventory()
-
-					for i = 1, 8 do
-						if player_inv:get_stack("main", i):is_empty() then
-							can_add = true
-							break
-						end
-					end
-
-					if can_add or inv.expand then
-						if item:sub(-4) == "_inv" then
-							item = item:sub(1,-5)
-						end
-
-						local stack = ItemStack(item)
-						player_inv:add_item("main",
-							item .. " " .. stack:get_stack_max())
-					end
-				  end
-			     end
+			else
+				handle_item_button_press(fields, player)
 			end
 		end
 	})
