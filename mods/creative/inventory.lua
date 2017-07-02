@@ -18,9 +18,9 @@ function creative.update_creative_inventory(player_name, tab_content)
 
 	for name, def in pairs(tab_content) do
 		if not (def.groups.not_in_creative_inventory == 1) and
-		   def.description and def.description ~= ""	   and
-		  (def.name:find(inv.filter, 1, true)		   or
-		   def.description:lower():find(inv.filter, 1, true)) then
+				 def.description and def.description ~= ""	  and
+				(def.name:find(inv.filter, 1, true)		  or
+				 def.description:lower():find(inv.filter, 1, true)) then
 			creative_list[#creative_list+1] = name
 		end
 	end
