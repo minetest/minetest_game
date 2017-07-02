@@ -11,11 +11,13 @@ stairs = {}
 
 minetest.register_alias("stairs:stair_pinewood", "stairs:stair_pine_wood")
 minetest.register_alias("stairs:slab_pinewood", "stairs:slab_pine_wood")
+minetest.register_alias("stairs:stairi_pinewood", "stairs:stairi_pine_wood")
+minetest.register_alias("stairs:stairo_pinewood", "stairs:stairo_pine_wood")
 
 
 -- Get setting for replace ABM
 
-local replace = minetest.setting_getbool("enable_stairs_replace_abm")
+local replace = minetest.settings:get_bool("enable_stairs_replace_abm")
 
 local function rotate_and_place(itemstack, placer, pointed_thing)
 	local p0 = pointed_thing.under
@@ -233,6 +235,121 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 end
 
 
+-- Register corners
+-- Node will be called stairs:stairi_<subname>
+
+function stairs.register_stairi(subname, recipeitem, groups, images, description, sounds)
+	minetest.register_node(":stairs:stairi_" .. subname, {
+		description = description,
+		drawtype = "nodebox",
+		tiles = images,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		is_ground_content = false,
+		groups = groups,
+		sounds = sounds,
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0.5, 0.5, 0.5},
+                {-0.5, 0.5, -0.5, 0, 0, 0},
+			},
+		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+
+			return rotate_and_place(itemstack, placer, pointed_thing)
+		end,
+	})
+
+	-- for replace ABM
+	if replace then
+		minetest.register_node(":stairs:stairi_" .. subname .. "upside_down", {
+			replace_name = "stairs:stairi_" .. subname,
+			groups = {slabs_replace = 1},
+		})
+	end
+
+	minetest.register_craft({
+		output = 'stairs:stairi_' .. subname .. ' 6',
+		recipe = {
+			{recipeitem, "", ""},
+			{recipeitem, "default:torch", ""},
+			{recipeitem, recipeitem, recipeitem},
+		},
+	})
+
+	-- Flipped recipe for the silly minecrafters
+	minetest.register_craft({
+		output = 'stairs:stairi_' .. subname .. ' 6',
+		recipe = {
+			{"", "", recipeitem},
+			{"", "default:torch", recipeitem},
+			{recipeitem, recipeitem, recipeitem},
+		},
+	})
+end
+
+-- this is area for outer
+-- Node will be called stairs:stairo_<subname>
+
+function stairs.register_stairo(subname, recipeitem, groups, images, description, sounds)
+	minetest.register_node(":stairs:stairo_" .. subname, {
+		description = description,
+		drawtype = "nodebox",
+		tiles = images,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		is_ground_content = false,
+		groups = groups,
+		sounds = sounds,
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{0, 0, 0, 0.5, 0.5, 0.5},
+			},
+		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+
+			return rotate_and_place(itemstack, placer, pointed_thing)
+		end,
+	})
+
+    -- for replace ABM
+	if replace then
+		minetest.register_node(":stairs:stairo_" .. subname .. "upside_down", {
+			replace_name = "stairs:stairo_" .. subname,
+			groups = {slabs_replace = 1},
+		})
+	end
+
+	minetest.register_craft({
+		output = 'stairs:stairo_' .. subname .. ' 6',
+		recipe = {
+			{"", "", ""},
+			{recipeitem, "default:torch", ""},
+			{recipeitem, recipeitem, recipeitem},
+		},
+	})
+
+	-- Flipped recipe for the silly minecrafters
+	minetest.register_craft({
+		output = 'stairs:stairo_' .. subname .. ' 6',
+		recipe = {
+			{"", "", ""},
+			{"", "default:torch", recipeitem},
+			{recipeitem, recipeitem, recipeitem},
+		},
+	})
+end
+
 -- Optionally replace old "upside_down" nodes with new param2 versions.
 -- Disabled by default.
 
@@ -256,355 +373,425 @@ if replace then
 end
 
 
--- Stair/slab registration function.
--- Nodes will be called stairs:{stair,slab}_<subname>
+-- Stair/slab/stairi/stairo registration function.
+-- Nodes will be called stairs:{stair,slab,stairi,stairo}_<subname>
 
-function stairs.register_stair_and_slab(subname, recipeitem,
-		groups, images, desc_stair, desc_slab, sounds)
+function stairs.register_stair_and_slab_and_stairi_and_stairo(subname, recipeitem,
+		groups, images, desc_stair, desc_slab, desc_stairi, desc_stairo, sounds)
 	stairs.register_stair(subname, recipeitem, groups, images, desc_stair, sounds)
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
+    stairs.register_stairi(subname, recipeitem, groups, images, desc_stairi, sounds)
+	stairs.register_stairo(subname, recipeitem, groups, images, desc_stairo, sounds)
 end
 
 
--- Register default stairs and slabs
+-- Register default stairs and slabs and corners
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"wood",
 	"default:wood",
 	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"default_wood.png"},
 	"Wooden Stair",
 	"Wooden Slab",
+	"Wooden Stairi",
+	"Wooden Stairo",
 	default.node_sound_wood_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"junglewood",
 	"default:junglewood",
 	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"default_junglewood.png"},
 	"Jungle Wood Stair",
 	"Jungle Wood Slab",
+	"Jungle Wood Stairi",
+	"Jungle Wood Stairo",
 	default.node_sound_wood_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"pine_wood",
 	"default:pine_wood",
 	{choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	{"default_pine_wood.png"},
 	"Pine Wood Stair",
 	"Pine Wood Slab",
+	"Pine Wood Stairi",
+	"Pine Wood Stairo",
 	default.node_sound_wood_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"acacia_wood",
 	"default:acacia_wood",
 	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"default_acacia_wood.png"},
 	"Acacia Wood Stair",
 	"Acacia Wood Slab",
+	"Acacia Wood Stairi",
+	"Acacia Wood Stairo",
 	default.node_sound_wood_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"aspen_wood",
 	"default:aspen_wood",
 	{choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 	{"default_aspen_wood.png"},
 	"Aspen Wood Stair",
 	"Aspen Wood Slab",
+	"Aspen Wood Stairi",
+	"Aspen Wood Stairo",
 	default.node_sound_wood_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"stone",
 	"default:stone",
 	{cracky = 3},
 	{"default_stone.png"},
 	"Stone Stair",
 	"Stone Slab",
+	"Stone Stairi",
+	"Stone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"cobble",
 	"default:cobble",
 	{cracky = 3},
 	{"default_cobble.png"},
 	"Cobblestone Stair",
 	"Cobblestone Slab",
+	"Cobblestone Stairi",
+	"Cobblestone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"mossycobble",
-	nil,
+	"default:mossycobble",
 	{cracky = 3},
 	{"default_mossycobble.png"},
 	"Mossy Cobblestone Stair",
 	"Mossy Cobblestone Slab",
+	"Mossy Cobblestone Stairi",
+	"Mossy Cobblestone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"stonebrick",
 	"default:stonebrick",
 	{cracky = 2},
 	{"default_stone_brick.png"},
 	"Stone Brick Stair",
 	"Stone Brick Slab",
+	"Stone Brick Stairi",
+	"Stone Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"stone_block",
 	"default:stone_block",
 	{cracky = 2},
 	{"default_stone_block.png"},
 	"Stone Block Stair",
 	"Stone Block Slab",
+	"Stone Block Stairi",
+	"Stone Block Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_stone",
 	"default:desert_stone",
 	{cracky = 3},
 	{"default_desert_stone.png"},
 	"Desert Stone Stair",
 	"Desert Stone Slab",
+	"Desert Stone Stairi",
+	"Desert Stone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_cobble",
 	"default:desert_cobble",
 	{cracky = 3},
 	{"default_desert_cobble.png"},
 	"Desert Cobblestone Stair",
 	"Desert Cobblestone Slab",
+	"Desert Cobblestone Stairi",
+	"Desert Cobblestone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_stonebrick",
 	"default:desert_stonebrick",
 	{cracky = 2},
 	{"default_desert_stone_brick.png"},
 	"Desert Stone Brick Stair",
 	"Desert Stone Brick Slab",
+	"Desert Stone Brick Stairi",
+	"Desert Stone Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_stone_block",
 	"default:desert_stone_block",
 	{cracky = 2},
 	{"default_desert_stone_block.png"},
 	"Desert Stone Block Stair",
 	"Desert Stone Block Slab",
+	"Desert Stone Block Stairi",
+	"Desert Stone Block Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"sandstone",
 	"default:sandstone",
 	{crumbly = 1, cracky = 3},
 	{"default_sandstone.png"},
 	"Sandstone Stair",
 	"Sandstone Slab",
+	"Sandstone Stairi",
+	"Sandstone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"sandstonebrick",
 	"default:sandstonebrick",
 	{cracky = 2},
 	{"default_sandstone_brick.png"},
 	"Sandstone Brick Stair",
 	"Sandstone Brick Slab",
+	"Sandstone Brick Stairi",
+	"Sandstone Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"sandstone_block",
 	"default:sandstone_block",
 	{cracky = 2},
 	{"default_sandstone_block.png"},
 	"Sandstone Block Stair",
 	"Sandstone Block Slab",
+	"Sandstone Block Stairi",
+	"Sandstone Block Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_sandstone",
 	"default:desert_sandstone",
 	{crumbly = 1, cracky = 3},
 	{"default_desert_sandstone.png"},
 	"Desert Sandstone Stair",
 	"Desert Sandstone Slab",
+	"Desert Sandstone Stairi",
+	"Desert Sandstone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_sandstone_brick",
 	"default:desert_sandstone_brick",
 	{cracky = 2},
 	{"default_desert_sandstone_brick.png"},
 	"Desert Sandstone Brick Stair",
 	"Desert Sandstone Brick Slab",
+	"Desert Sandstone Brick Stairi",
+	"Desert Sandstone Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"desert_sandstone_block",
 	"default:desert_sandstone_block",
 	{cracky = 2},
 	{"default_desert_sandstone_block.png"},
 	"Desert Sandstone Block Stair",
 	"Desert Sandstone Block Slab",
+	"Desert Sandstone Block Stairi",
+	"Desert Sandstone Block Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"silver_sandstone",
 	"default:silver_sandstone",
 	{crumbly = 1, cracky = 3},
 	{"default_silver_sandstone.png"},
 	"Silver Sandstone Stair",
 	"Silver Sandstone Slab",
+	"Silver Sandstone Stairi",
+	"Silver Sandstone Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"silver_sandstone_brick",
 	"default:silver_sandstone_brick",
 	{cracky = 2},
 	{"default_silver_sandstone_brick.png"},
 	"Silver Sandstone Brick Stair",
 	"Silver Sandstone Brick Slab",
+	"Silver Sandstone Brick Stairi",
+	"Silver Sandstone Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"silver_sandstone_block",
 	"default:silver_sandstone_block",
 	{cracky = 2},
 	{"default_silver_sandstone_block.png"},
 	"Silver Sandstone Block Stair",
 	"Silver Sandstone Block Slab",
+	"Silver Sandstone Block Stairi",
+	"Silver Sandstone Block Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"obsidian",
 	"default:obsidian",
 	{cracky = 1, level = 2},
 	{"default_obsidian.png"},
 	"Obsidian Stair",
 	"Obsidian Slab",
+	"Obsidian Stairi",
+	"Obsidian Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"obsidianbrick",
 	"default:obsidianbrick",
 	{cracky = 1, level = 2},
 	{"default_obsidian_brick.png"},
 	"Obsidian Brick Stair",
 	"Obsidian Brick Slab",
+	"Obsidian Brick Stairi",
+	"Obsidian Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"obsidian_block",
 	"default:obsidian_block",
 	{cracky = 1, level = 2},
 	{"default_obsidian_block.png"},
 	"Obsidian Block Stair",
 	"Obsidian Block Slab",
+	"Obsidian Block Stairi",
+	"Obsidian Block Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"brick",
 	"default:brick",
 	{cracky = 3},
 	{"default_brick.png"},
 	"Brick Stair",
 	"Brick Slab",
+	"Brick Stairi",
+	"Brick Stairo",
 	default.node_sound_stone_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"straw",
 	"farming:straw",
 	{snappy = 3, flammable = 4},
 	{"farming_straw.png"},
 	"Straw Stair",
 	"Straw Slab",
+	"Straw Stairi",
+	"Straw Stairo",
 	default.node_sound_leaves_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"steelblock",
 	"default:steelblock",
 	{cracky = 1, level = 2},
 	{"default_steel_block.png"},
 	"Steel Block Stair",
 	"Steel Block Slab",
+	"Steel Block Stairi",
+	"Steel Block Stairo",
 	default.node_sound_metal_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"copperblock",
 	"default:copperblock",
 	{cracky = 1, level = 2},
 	{"default_copper_block.png"},
 	"Copper Block Stair",
 	"Copper Block Slab",
+	"Copper Block Stairi",
+	"Copper Block Stairo",
 	default.node_sound_metal_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"bronzeblock",
 	"default:bronzeblock",
 	{cracky = 1, level = 2},
 	{"default_bronze_block.png"},
 	"Bronze Block Stair",
 	"Bronze Block Slab",
+	"Bronze Block Stairi",
+	"Bronze Block Stairo",
 	default.node_sound_metal_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"goldblock",
 	"default:goldblock",
 	{cracky = 1},
 	{"default_gold_block.png"},
 	"Gold Block Stair",
 	"Gold Block Slab",
+	"Gold Block Stairi",
+	"Gold Block Stairo",
 	default.node_sound_metal_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"ice",
 	"default:ice",
 	{cracky = 3, puts_out_fire = 1, cools_lava = 1},
 	{"default_ice.png"},
 	"Ice Stair",
 	"Ice Slab",
+	"Ice Stairi",
+	"Ice Stairo",
 	default.node_sound_glass_defaults()
 )
 
-stairs.register_stair_and_slab(
+stairs.register_stair_and_slab_and_stairi_and_stairo(
 	"snowblock",
 	"default:snowblock",
 	{crumbly = 3, puts_out_fire = 1, cools_lava = 1, snowy = 1},
 	{"default_snow.png"},
 	"Snow Block Stair",
 	"Snow Block Slab",
+	"Snow Block Stairi",
+	"Snow Block Stairo",
 	default.node_sound_dirt_defaults({
 		footstep = {name = "default_snow_footstep", gain = 0.15},
 		dug = {name = "default_snow_footstep", gain = 0.2},
