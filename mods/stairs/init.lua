@@ -711,6 +711,16 @@ stairs.register_stair_and_slab(
 )
 
 stairs.register_stair_and_slab(
+	"diamonblock",
+	"default:diamonblock",
+	{cracky = 1, level = 2},
+	{"default_diamond_block.png"},
+	"Diamond Block Stair",
+	"Diamond Block Slab",
+	default.node_sound_metal_defaults()
+)
+
+stairs.register_stair_and_slab(
 	"goldblock",
 	"default:goldblock",
 	{cracky = 1},
