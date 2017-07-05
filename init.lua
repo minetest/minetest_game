@@ -283,7 +283,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
 		description = description,
 		drawtype = "mesh",
-        mesh = "stairs_stair_inner.obj",
+		mesh = "stairs_stair_inner.obj",
 		tiles = images,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -348,7 +348,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
 		description = description,
 		drawtype = "mesh",
-        mesh = "stairs_stair_outer.obj",
+		mesh = "stairs_stair_outer.obj",
 		tiles = images,
 		paramtype = "light",
 		paramtype2 = "facedir",
