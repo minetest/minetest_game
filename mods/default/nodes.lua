@@ -608,7 +608,7 @@ minetest.register_node("default:sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(2400,4800))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -742,7 +742,7 @@ minetest.register_node("default:junglesapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(2400,4800))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -821,7 +821,7 @@ minetest.register_node("default:pine_sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(2400,4800))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -901,7 +901,7 @@ minetest.register_node("default:acacia_sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(2400,4800))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -979,7 +979,7 @@ minetest.register_node("default:aspen_sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(2400,4800))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -1362,7 +1362,7 @@ minetest.register_node("default:bush_sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -1433,7 +1433,7 @@ minetest.register_node("default:acacia_bush_sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(1200, 2400))
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 
 	on_place = function(itemstack, placer, pointed_thing)
