@@ -48,15 +48,15 @@ end
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
        local stair_images = {}
        for i, image in ipairs(images) do
-	       if type(image) == "string" then
+	        if type(image) == "string" then
 		       stair_images[i] = {
 			       name = image,
 			       backface_culling = true,
 		       }
-	       elseif image.backface_culling == nil then -- override using any other value
+	        elseif image.backface_culling == nil then -- override using any other value
 		       stair_images[i] = table.copy(image)
 		       stair_images[i].backface_culling = true
-	       end
+	        end
        end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_" .. subname, {
