@@ -54,8 +54,8 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			        backface_culling = true,
 		        }
 	        elseif image.backface_culling == nil then -- override using any other value
-		       stair_images[i] = table.copy(image)
-		       stair_images[i].backface_culling = true
+		        stair_images[i] = table.copy(image)
+		        stair_images[i].backface_culling = true
 	        end
        end
 	groups.stair = 1
