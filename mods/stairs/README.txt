@@ -12,5 +12,7 @@ Authors of media (models)
 -------------------------
 Jean-Patrick G. (kilbith) <jeanpatrick.guerrero@gmail.com> (CC BY-SA 3.0):
   stairs_stair.obj
+GreenXenith (CC BY-SA 3.0)
+  stairs_stair_inner.obj stairs_stair_outer.obj
 
 
