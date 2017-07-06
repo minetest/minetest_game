@@ -278,12 +278,24 @@ end
 -- Node will be called stairs:stair_inner_<subname>
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds)
+	local stair_images = {}
+	for i, image in ipairs(images) do
+		if type(image) == "string" then
+		        stair_images[i] = {
+			        name = image,
+			        backface_culling = true,
+		        }
+	        elseif image.backface_culling == nil then -- override using any other value
+		        stair_images[i] = table.copy(image)
+		        stair_images[i].backface_culling = true
+	        end
+	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
-		description = description,
+		description = description .. " Inner",
 		drawtype = "mesh",
 		mesh = "stairs_stair_inner.obj",
-		tiles = images,
+		tiles = stair_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -333,7 +345,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 			minetest.register_craft({
 				type = "fuel",
 				recipe = 'stairs:stair_inner_' .. subname,
-				burntime = math.floor(baseburntime * 0.625),
+				burntime = math.floor(baseburntime * 0.875),
 			})
 		end
 	end
@@ -343,12 +355,24 @@ end
 -- Node will be called stairs:stair_outer_<subname>
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds)
+	local stair_images = {}
+	for i, image in ipairs(images) do
+		if type(image) == "string" then
+		        stair_images[i] = {
+			        name = image,
+			        backface_culling = true,
+		        }
+	        elseif image.backface_culling == nil then -- override using any other value
+		        stair_images[i] = table.copy(image)
+		        stair_images[i].backface_culling = true
+	        end
+	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
-		description = description,
+		description = description .. " Outer",
 		drawtype = "mesh",
 		mesh = "stairs_stair_outer.obj",
-		tiles = images,
+		tiles = stair_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -379,7 +403,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 
 	if recipeitem then
 		minetest.register_craft({
-			output = 'stairs:stair_outer_' .. subname .. ' 5',
+			output = 'stairs:stair_outer_' .. subname .. ' 6',
 			recipe = {
 				{recipeitem, "", ""},
 				{recipeitem, recipeitem, recipeitem},
@@ -396,7 +420,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 			minetest.register_craft({
 				type = "fuel",
 				recipe = 'stairs:stair_outer_' .. subname,
-				burntime = math.floor(baseburntime * 0.875),
+				burntime = math.floor(baseburntime * 0.625),
 			})
 		end
 	end
@@ -486,7 +510,7 @@ stairs.register_stair_and_slab(
 
 stairs.register_stair_and_slab(
 	"mossycobble",
-    nil,
+	"default:mossycobble",
 	{cracky = 3},
 	{"default_mossycobble.png"},
 	"Mossy Cobblestone Stair",
