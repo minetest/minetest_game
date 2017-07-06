@@ -328,14 +328,14 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 		end,
 	})
 
-		if recipeitem then
-			minetest.register_craft({
-				output = 'stairs:stair_inner_' .. subname .. ' 6',
-				recipe = {
-					{recipeitem, recipeitem, ""},
-					{recipeitem, recipeitem, recipeitem},
-				},
-			})
+	if recipeitem then
+		minetest.register_craft({
+			output = 'stairs:stair_inner_' .. subname .. ' 6',
+			recipe = {
+				{recipeitem, recipeitem, ""},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
 
 		-- Fuel
 		local baseburntime = minetest.get_craft_result({
