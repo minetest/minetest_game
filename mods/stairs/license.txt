@@ -21,6 +21,7 @@ Licenses of media (models)
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Copyright (C) 2015-2016 Jean-Patrick G. (kilbith) <jeanpatrick.guerrero@gmail.com>
+GreenXenith
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
