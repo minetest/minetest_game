@@ -136,6 +136,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	end
 end
 
+
 -- Slab facedir to placement 6d matching table
 local slab_trans_dir = {[0] = 8, 0, 2, 1, 3, 4}
 
@@ -251,6 +252,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		end
 	end
 end
+
 
 -- Optionally replace old "upside_down" nodes with new param2 versions.
 -- Disabled by default.
