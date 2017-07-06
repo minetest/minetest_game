@@ -49,14 +49,14 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
-		        stair_images[i] = {
-			        name = image,
-			        backface_culling = true,
-		        }
-	        elseif image.backface_culling == nil then -- override using any other value
-		        stair_images[i] = table.copy(image)
-		        stair_images[i].backface_culling = true
-	        end
+			stair_images[i] = {
+				name = image,
+				backface_culling = true,
+			}
+		elseif image.backface_culling == nil then -- override using any other value
+			stair_images[i] = table.copy(image)
+			stair_images[i].backface_culling = true
+		end
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_" .. subname, {
@@ -281,14 +281,14 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
-		        stair_images[i] = {
-			        name = image,
-			        backface_culling = true,
-		        }
-	        elseif image.backface_culling == nil then -- override using any other value
-		        stair_images[i] = table.copy(image)
-		        stair_images[i].backface_culling = true
-	        end
+			stair_images[i] = {
+				name = image,
+				backface_culling = true,
+			}
+		elseif image.backface_culling == nil then -- override using any other value
+			stair_images[i] = table.copy(image)
+			stair_images[i].backface_culling = true
+		end
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
@@ -358,14 +358,14 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
-		        stair_images[i] = {
-			        name = image,
-			        backface_culling = true,
-		        }
-	        elseif image.backface_culling == nil then -- override using any other value
-		        stair_images[i] = table.copy(image)
-		        stair_images[i].backface_culling = true
-	        end
+			stair_images[i] = {
+				name = image,
+				backface_culling = true,
+			}
+		elseif image.backface_culling == nil then -- override using any other value
+			stair_images[i] = table.copy(image)
+			stair_images[i].backface_culling = true
+		end
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
