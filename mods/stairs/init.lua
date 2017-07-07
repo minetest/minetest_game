@@ -276,16 +276,169 @@ if replace then
 	})
 end
 
+-- Register stairs.
+-- Node will be called stairs:stair_inner_<subname>
+
+function stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds)
+	local stair_images = {}
+	for i, image in ipairs(images) do
+		if type(image) == "string" then
+			stair_images[i] = {
+				name = image,
+				backface_culling = true,
+			}
+		elseif image.backface_culling == nil then -- override using any other value
+			stair_images[i] = table.copy(image)
+			stair_images[i].backface_culling = true
+		end
+	end
+	groups.stair = 1
+	minetest.register_node(":stairs:stair_inner_" .. subname, {
+		description = description .. " Inner",
+		drawtype = "mesh",
+		mesh = "stairs_stair_inner.obj",
+		tiles = stair_images,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		is_ground_content = false,
+		groups = groups,
+		sounds = sounds,
+		selection_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0.5, 0.5, 0.5},
+				{-0.5, 0, -0.5, 0, 0.5, 0},
+			},
+		},
+		collision_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0.5, 0.5, 0.5},
+				{-0.5, 0, -0.5, 0, 0.5, 0},
+			},
+		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+
+			return rotate_and_place(itemstack, placer, pointed_thing)
+		end,
+	})
+
+	if recipeitem then
+		minetest.register_craft({
+			output = 'stairs:stair_inner_' .. subname .. ' 7',
+			recipe = {
+				{ "", "", ""},
+				{ "", recipeitem, ""},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
+
+		-- Fuel
+		local baseburntime = minetest.get_craft_result({
+			method = "fuel",
+			width = 1,
+			items = {recipeitem}
+		}).time
+		if baseburntime > 0 then
+			minetest.register_craft({
+				type = "fuel",
+				recipe = 'stairs:stair_inner_' .. subname,
+				burntime = math.floor(baseburntime * 0.875),
+			})
+		end
+	end
+end
+
+-- Register stairs.
+-- Node will be called stairs:stair_outer_<subname>
+
+function stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds)
+	local stair_images = {}
+	for i, image in ipairs(images) do
+		if type(image) == "string" then
+			stair_images[i] = {
+				name = image,
+				backface_culling = true,
+			}
+		elseif image.backface_culling == nil then -- override using any other value
+			stair_images[i] = table.copy(image)
+			stair_images[i].backface_culling = true
+		end
+	end
+	groups.stair = 1
+	minetest.register_node(":stairs:stair_outer_" .. subname, {
+		description = description .. " Outer",
+		drawtype = "mesh",
+		mesh = "stairs_stair_outer.obj",
+		tiles = stair_images,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		is_ground_content = false,
+		groups = groups,
+		sounds = sounds,
+		selection_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0, 0.5, 0.5},
+			},
+		},
+		collision_box = {
+			type = "fixed",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+				{-0.5, 0, 0, 0, 0.5, 0.5},
+			},
+		},
+		on_place = function(itemstack, placer, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return itemstack
+			end
+
+			return rotate_and_place(itemstack, placer, pointed_thing)
+		end,
+	})
+
+	if recipeitem then
+		minetest.register_craft({
+			output = 'stairs:stair_outer_' .. subname .. ' 6',
+			recipe = {
+				{ "", recipeitem, ""},
+				{ recipeitem, "", recipeitem},
+				{recipeitem, recipeitem, recipeitem},
+			},
+		})
+
+		-- Fuel
+		local baseburntime = minetest.get_craft_result({
+			method = "fuel",
+			width = 1,
+			items = {recipeitem}
+		}).time
+		if baseburntime > 0 then
+			minetest.register_craft({
+				type = "fuel",
+				recipe = 'stairs:stair_outer_' .. subname,
+				burntime = math.floor(baseburntime * 0.625),
+			})
+		end
+	end
+end
 
 -- Stair/slab registration function.
 -- Nodes will be called stairs:{stair,slab}_<subname>
 
-function stairs.register_stair_and_slab(subname, recipeitem,
-		groups, images, desc_stair, desc_slab, sounds)
+function stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds)
 	stairs.register_stair(subname, recipeitem, groups, images, desc_stair, sounds)
+	stairs.register_stair_inner(subname, recipeitem, groups, images, desc_stair, sounds)
+	stairs.register_stair_outer(subname, recipeitem, groups, images, desc_stair, sounds)
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
-
 
 -- Register default stairs and slabs
 
