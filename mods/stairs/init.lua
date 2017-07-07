@@ -733,6 +733,16 @@ stairs.register_stair_and_slab(
 )
 
 stairs.register_stair_and_slab(
+	"tinblock",
+	"default:tinblock",
+	{cracky = 1, level = 2},
+	{"default_tin_block.png"},
+	"Tin Block Stair",
+	"Tin Block Slab",
+	default.node_sound_metal_defaults()
+)
+
+stairs.register_stair_and_slab(
 	"copperblock",
 	"default:copperblock",
 	{cracky = 1, level = 2},
