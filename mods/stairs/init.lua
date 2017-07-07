@@ -330,7 +330,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 
 	if recipeitem then
 		minetest.register_craft({
-			output = 'stairs:stair_inner_' .. subname .. ' 6',
+			output = 'stairs:stair_inner_' .. subname .. ' 7',
 			recipe = {
 				{ "", "", ""},
 				{ "", recipeitem, ""},
