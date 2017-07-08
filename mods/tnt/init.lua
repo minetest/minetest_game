@@ -384,7 +384,9 @@ end
 function tnt.boom(pos, def)
 	local meta = minetest.get_meta(pos)
 	local owner = meta:get_string("owner")
-	minetest.sound_play("tnt_explode", {pos = pos, gain = 1.5, max_hear_distance = 2*64})
+	local sound = def.sound or "tnt_explode"
+	minetest.sound_play(sound, {pos = pos, gain = 1.5,
+			max_hear_distance = math.min(def.radius * 20, 128)})
 	minetest.set_node(pos, {name = "tnt:boom"})
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast, owner)
