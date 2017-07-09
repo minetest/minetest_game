@@ -129,9 +129,7 @@ end
 
 minetest.register_on_joinplayer(function(player)
 	if sfinv.enabled then
-		minetest.after(0.5, function()
-			sfinv.set_player_inventory_formspec(player)
-		end)
+		sfinv.set_player_inventory_formspec(player)
 	end
 end)
 

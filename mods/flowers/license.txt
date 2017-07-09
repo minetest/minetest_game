@@ -32,6 +32,7 @@ Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Copyright (C) 2014-2016 RHRhino
 Copyright (C) 2015-2016 Gambit
 Copyright (C) 2016 yyt16384
+Copyright (C) 2017 paramat
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.

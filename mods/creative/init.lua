@@ -1,9 +1,15 @@
 creative = {}
 
-local creative_mode_cache = minetest.setting_getbool("creative_mode")
+minetest.register_privilege("creative", {
+	description = "Allow player to use creative inventory",
+	give_to_singleplayer = false
+})
+
+local creative_mode_cache = minetest.settings:get_bool("creative_mode")
 
 function creative.is_enabled_for(name)
-	return creative_mode_cache
+	return creative_mode_cache or
+		minetest.check_player_privs(name, {creative = true})
 end
 
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
@@ -55,8 +61,7 @@ function minetest.handle_node_drops(pos, drops, digger)
 	local inv = digger:get_inventory()
 	if inv then
 		for _, item in ipairs(drops) do
-			item = ItemStack(item):get_name()
-			if not inv:contains_item("main", item) then
+			if not inv:contains_item("main", item, true) then
 				inv:add_item("main", item)
 			end
 		end
