@@ -1,7 +1,7 @@
 tnt = {}
 
 -- Default to enabled when in singleplayer
-local enable_tnt = minetest.setting_getbool("enable_tnt")
+local enable_tnt = minetest.settings:get_bool("enable_tnt")
 if enable_tnt == nil then
 	enable_tnt = minetest.is_singleplayer()
 end
@@ -12,7 +12,7 @@ local loss_prob = {}
 loss_prob["default:cobble"] = 3
 loss_prob["default:dirt"] = 4
 
-local tnt_radius = tonumber(minetest.setting_get("tnt_radius") or 3)
+local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
 
 -- Fill a list with data for content IDs, after all nodes are registered
 local cid_data = {}
@@ -260,13 +260,15 @@ end
 
 function tnt.burn(pos, nodename)
 	local name = nodename or minetest.get_node(pos).name
-	local group = minetest.get_item_group(name, "tnt")
-	if group > 0 then
+	local def = minetest.registered_nodes[name]
+	if not def then
+		return
+	elseif def.on_ignite then
+		def.on_ignite(pos)
+	elseif minetest.get_item_group(name, "tnt") > 0 then
 		minetest.sound_play("tnt_ignite", {pos = pos})
 		minetest.set_node(pos, {name = name .. "_burning"})
 		minetest.get_node_timer(pos):start(1)
-	elseif name == "tnt:gunpowder" then
-		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 	end
 end
 

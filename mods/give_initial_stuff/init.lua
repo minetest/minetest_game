@@ -1,4 +1,4 @@
-local stuff_string = minetest.setting_get("initial_stuff") or
+local stuff_string = minetest.settings:get("initial_stuff") or
 		"default:pick_steel,default:axe_steel,default:shovel_steel," ..
 		"default:torch 99,default:cobble 99"
 
@@ -39,6 +39,6 @@ function give_initial_stuff.get_list()
 end
 
 give_initial_stuff.add_from_csv(stuff_string)
-if minetest.setting_getbool("give_initial_stuff") then
+if minetest.settings:get_bool("give_initial_stuff") then
 	minetest.register_on_newplayer(give_initial_stuff.give)
 end

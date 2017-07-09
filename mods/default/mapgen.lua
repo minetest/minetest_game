@@ -357,6 +357,41 @@ function default.register_ores()
 		y_max          = -64,
 	})
 
+	-- Tin
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_tin",
+		wherein        = "default:stone",
+		clust_scarcity = 10 * 10 * 10,
+		clust_num_ores = 5,
+		clust_size     = 3,
+		y_min          = 1025,
+		y_max          = 31000,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_tin",
+		wherein        = "default:stone",
+		clust_scarcity = 13 * 13 * 13,
+		clust_num_ores = 4,
+		clust_size     = 3,
+		y_min          = -127,
+		y_max          = -32,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_tin",
+		wherein        = "default:stone",
+		clust_scarcity = 10 * 10 * 10,
+		clust_num_ores = 5,
+		clust_size     = 3,
+		y_min          = -31000,
+		y_max          = -128,
+	})
+
 	-- Gold
 
 	minetest.register_ore({

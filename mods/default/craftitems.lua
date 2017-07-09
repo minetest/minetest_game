@@ -12,6 +12,7 @@ minetest.register_craftitem("default:paper", {
 	groups = {flammable = 3},
 })
 
+
 local lpp = 14 -- Lines per book's page
 local function book_on_use(itemstack, user)
 	local player_name = user:get_player_name()
@@ -74,12 +75,16 @@ local function book_on_use(itemstack, user)
 	return itemstack
 end
 
+local max_text_size = 10000
+local max_title_size = 80
+local short_title_size = 35
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "default:book" then return end
 	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
-	if fields.save and fields.title ~= "" and fields.text ~= "" then
+	if fields.save and fields.title and fields.text
+			and fields.title ~= "" and fields.text ~= "" then
 		local new_stack, data
 		if stack:get_name() ~= "default:book_written" then
 			local count = stack:get_count()
@@ -93,12 +98,20 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			data = stack:get_meta():to_table().fields
 		end
 
+		if data and data.owner and data.owner ~= player:get_player_name() then
+			return
+		end
+
 		if not data then data = {} end
-		data.title = fields.title
+		data.title = fields.title:sub(1, max_title_size)
 		data.owner = player:get_player_name()
-		data.description = "\""..fields.title.."\" by "..data.owner
-		data.text = fields.text
-		data.text_len = #data.text
+		local short_title = data.title
+		-- Don't bother triming the title if the trailing dots would make it longer
+		if #short_title > short_title_size + 3 then
+			short_title = short_title:sub(1, short_title_size) .. "..."
+		end
+		data.description = "\""..short_title.."\" by "..data.owner
+		data.text = fields.text:sub(1, max_text_size)
 		data.page = 1
 		data.page_max = math.ceil((#data.text:gsub("[^\n]", "") + 1) / lpp)
 
@@ -134,7 +147,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 
-		stack:get_meta():from_table(data)
+		stack:get_meta():from_table({fields = data})
 		stack = book_on_use(stack, player)
 	end
 
@@ -186,6 +199,62 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 	craft_inv:set_stack("craft", index, original)
 end)
 
+minetest.register_craftitem("default:skeleton_key", {
+	description = "Skeleton Key",
+	inventory_image = "default_key_skeleton.png",
+	groups = {key = 1},
+	on_use = function(itemstack, user, pointed_thing)
+		if pointed_thing.type ~= "node" then
+			return itemstack
+		end
+
+		local pos = pointed_thing.under
+		local node = minetest.get_node(pos)
+
+		if not node then
+			return itemstack
+		end
+
+		local on_skeleton_key_use = minetest.registered_nodes[node.name].on_skeleton_key_use
+		if not on_skeleton_key_use then
+			return itemstack
+		end
+
+		-- make a new key secret in case the node callback needs it
+		local random = math.random
+		local newsecret = string.format(
+			"%04x%04x%04x%04x",
+			random(2^16) - 1, random(2^16) - 1,
+			random(2^16) - 1, random(2^16) - 1)
+
+		local secret, _, _ = on_skeleton_key_use(pos, user, newsecret)
+
+		if secret then
+			local inv = minetest.get_inventory({type="player", name=user:get_player_name()})
+
+			-- update original itemstack
+			itemstack:take_item()
+
+			-- finish and return the new key
+			local new_stack = ItemStack("default:key")
+			local meta = new_stack:get_meta()
+			meta:set_string("secret", secret)
+			meta:set_string("description", "Key to "..user:get_player_name().."'s "
+				..minetest.registered_nodes[node.name].description)
+
+			if itemstack:get_count() == 0 then
+				itemstack = new_stack
+			else
+				if inv:add_item("main", new_stack):get_count() > 0 then
+					minetest.add_item(user:getpos(), new_stack)
+				end -- else: added to inventory successfully
+			end
+
+			return itemstack
+		end
+	end
+})
+
 minetest.register_craftitem("default:coal_lump", {
 	description = "Coal Lump",
 	inventory_image = "default_coal_lump.png",
@@ -200,6 +269,11 @@ minetest.register_craftitem("default:iron_lump", {
 minetest.register_craftitem("default:copper_lump", {
 	description = "Copper Lump",
 	inventory_image = "default_copper_lump.png",
+})
+
+minetest.register_craftitem("default:tin_lump", {
+	description = "Tin Lump",
+	inventory_image = "default_tin_lump.png",
 })
 
 minetest.register_craftitem("default:mese_crystal", {
@@ -230,6 +304,11 @@ minetest.register_craftitem("default:steel_ingot", {
 minetest.register_craftitem("default:copper_ingot", {
 	description = "Copper Ingot",
 	inventory_image = "default_copper_ingot.png",
+})
+
+minetest.register_craftitem("default:tin_ingot", {
+	description = "Tin Ingot",
+	inventory_image = "default_tin_ingot.png",
 })
 
 minetest.register_craftitem("default:bronze_ingot", {
