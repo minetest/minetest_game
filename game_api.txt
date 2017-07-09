@@ -295,6 +295,7 @@ TNT API
  * `description` A description for your TNT.
  * `radius` The radius within which the TNT can destroy nodes. The default is 3.
  * `damage_radius` The radius within which the TNT can damage players and mobs. By default it is twice the `radius`.
+ * `sound` The sound played when explosion occurs. By default it is `tnt_explode`.
  * `disable_drops` Disable drops. By default it is set to false.
  * `ignore_protection` Don't check `minetest.is_protected` before removing a node.
  * `ignore_on_blast` Don't call `on_blast` even if a node has one.
