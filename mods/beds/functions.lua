@@ -10,14 +10,21 @@ end
 
 local function get_look_yaw(pos)
 	local n = minetest.get_node(pos)
-	if n.param2 == 1 then
-		return pi / 2, n.param2
-	elseif n.param2 == 3 then
-		return -pi / 2, n.param2
-	elseif n.param2 == 0 then
-		return pi, n.param2
+	local face_dir = n.param2
+	if face_dir > 3 then
+		-- Enforce valid param2 facedir values (see minetest/minetest_game#1784)
+		minetest.log("warning", "face_dir value exceeds the maximum!")
+		face_dir = (1 * (n.param2 % 2)) + (2 * (math.floor(n.param2 / 2) % 2))
+		minetest.log("warning", "face_dir from:" .. n.param2 .. " to:" .. face_dir)
+	end
+	if face_dir == 1 then
+		return pi / 2, face_dir
+	elseif face_dir == 3 then
+		return -pi / 2, face_dir
+	elseif face_dir == 0 then
+		return pi, face_dir
 	else
-		return 0, n.param2
+		return 0, face_dir
 	end
 end
 
