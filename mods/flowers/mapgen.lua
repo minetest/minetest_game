@@ -95,7 +95,7 @@ local function register_flower(seed, name)
 			persist = 0.6
 		},
 		biomes = {"grassland", "deciduous_forest", "coniferous_forest",
-			"floatland_grassland", "floatland_coniferous_forest"},
+			"floatland_coniferous_forest"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "flowers:"..name,
