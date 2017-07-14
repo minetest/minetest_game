@@ -19,7 +19,7 @@ local function get_look_yaw(pos)
 		minetest.log("warning", "bed: facedir value invalid, compensating...")
 		local metadata = minetest.registered_nodes[n.name]
 		if metadata ~= nil and metadata.paramtype2 ~= nil then
-			local divisor = 32 -- default to facedir values (e.g 0-21, 5 bits)
+			local divisor = 32 -- default to facedir values (e.g 0-24, 5 bits)
 			local value_type = metadata.paramtype2
 			local known_type = facedir_types[value_type]
 			if known_type ~= nil then
