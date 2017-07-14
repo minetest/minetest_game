@@ -7,15 +7,33 @@ if enable_respawn == nil then
 end
 
 -- Helper functions
+local facedir_types = {
+	colorwallmounted = 8, -- 3 bits are used for facedir
+	colorfacedir = 32     -- 5 bits are used for facedir
+}
 
 local function get_look_yaw(pos)
 	local n = minetest.get_node(pos)
 	local face_dir = n.param2
-	if face_dir > 3 then
-		-- Enforce valid param2 facedir values (see minetest/minetest_game#1784)
-		minetest.log("warning", "face_dir value exceeds the maximum!")
-		face_dir = (1 * (n.param2 % 2)) + (2 * (math.floor(n.param2 / 2) % 2))
-		minetest.log("warning", "face_dir from:" .. n.param2 .. " to:" .. face_dir)
+	if face_dir < 0 or face_dir > 24 then
+		minetest.log("warning", "bed: facedir value invalid, compensating...")
+		local metadata = minetest.registered_nodes[n.name]
+		if metadata ~= nil and metadata.paramtype2 ~= nil then
+			local divisor = 32 -- default to facedir values (e.g 0-21, 5 bits)
+			local value_type = metadata.paramtype2
+			local known_type = facedir_types[value_type]
+			if known_type ~= nil then
+				minetest.log("info", "bed: applying paramtype2 rules for: "..value_type)
+				divisor = known_type
+			else
+				minetest.log("info", "bed: applying default rules for: "..value_type)
+				minetest.log("info", "bed: game may still crash if given invaild value")
+			end
+			face_dir = n.param2 % divisor
+			minetest.log("info", "bed: facedir changed "..n.param2.." --> "..face_dir)
+		else
+			minetest.log("warning", "bed: no metadata available (game might crash)")
+		end
 	end
 	if face_dir == 1 then
 		return pi / 2, face_dir
