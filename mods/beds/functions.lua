@@ -15,8 +15,9 @@ local facedir_types = {
 local function get_look_yaw(pos)
 	local n = minetest.get_node(pos)
 	local face_dir = n.param2
-	if face_dir < 0 or face_dir > 24 then
-		minetest.log("warning", "bed: facedir value invalid, compensating...")
+	if face_dir > 3 then
+		minetest.log("warning", "bed: unexpected facedir value, compensating...")
+		minetest.log("info", "bed: offending node name is "..n.name)
 		local metadata = minetest.registered_nodes[n.name]
 		if metadata ~= nil and metadata.paramtype2 ~= nil then
 			local divisor = 32 -- default to facedir values (e.g 0-24, 5 bits)
