@@ -8,60 +8,33 @@ function creative.init_creative_inventory(player)
 		start_i = 0
 	}
 
-	minetest.create_detached_inventory("creative_" .. player_name, {
-		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player2)
-			if not to_list == "main" then
-				return count
-			else
-				return 0
-			end
-		end,
-		allow_put = function(inv, listname, index, stack, player2)
-			return 0
-		end,
-		allow_take = function(inv, listname, index, stack, player2)
-			return -1
-		end,
-		on_move = function(inv, from_list, from_index, to_list, to_index, count, player2)
-		end,
-		on_put = function(inv, listname, index, stack, player2)
-		end,
-		on_take = function(inv, listname, index, stack, player2)
-			if stack and stack:get_count() > 0 then
-				minetest.log("action", player_name .. " takes " .. stack:get_name().. " from creative inventory")
-			end
-		end,
-	}, player_name)
-
 	return player_inventory[player_name]
 end
 
 function creative.update_creative_inventory(player_name, tab_content)
 	local creative_list = {}
 	local inv = player_inventory[player_name] or
-			creative.init_creative_inventory(minetest.get_player_by_name(player_name))
-	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
+		creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 
 	for name, def in pairs(tab_content) do
-		if not (def.groups.not_in_creative_inventory == 1) and
-				def.description and def.description ~= "" and
+		if def.groups.not_in_creative_inventory ~= 1 and
+				 def.description and def.description ~= "" and
 				(def.name:find(inv.filter, 1, true) or
-					def.description:lower():find(inv.filter, 1, true)) then
+				 def.description:lower():find(inv.filter, 1, true)) then
 			creative_list[#creative_list+1] = name
 		end
 	end
 
-	table.sort(creative_list)
-	player_inv:set_size("main", #creative_list)
-	player_inv:set_list("main", creative_list)
 	inv.size = #creative_list
+	table.sort(creative_list)
+	return creative_list
 end
 
 -- Create the trash field
 local trash = minetest.create_detached_inventory("creative_trash", {
 	-- Allow the stack to be placed and remove it in on_put()
 	-- This allows the creative inventory to restore the stack
-	allow_put = function(inv, listname, index, stack, player)
+	allow_put = function(_, _, _, stack)
 		return stack:get_count()
 	end,
 	on_put = function(inv, listname)
@@ -72,44 +45,87 @@ trash:set_size("main", 1)
 
 creative.formspec_add = ""
 
+local function handle_item_button_press(fields, player)
+	local player_inv = player:get_inventory()
+	for item in pairs(fields) do
+		if item:find(":") and item:sub(-4) == "_inv" then
+			local stack = ItemStack(item:sub(1, -5))
+			stack:set_count(stack:get_stack_max())
+			if player_inv:room_for_item("main", stack) then
+				player_inv:add_item("main", stack)
+			end
+			return
+		end
+	end
+end
+
 function creative.register_tab(name, title, items)
 	sfinv.register_page("creative:" .. name, {
 		title = title,
 		is_in_nav = function(self, player, context)
 			return creative.is_enabled_for(player:get_player_name())
 		end,
+
 		get = function(self, player, context)
 			local player_name = player:get_player_name()
-			creative.update_creative_inventory(player_name, items)
-			local inv = player_inventory[player_name]
+			local inv = player_inventory[player_name] or
+				creative.init_creative_inventory(
+					minetest.get_player_by_name(player_name))
+
+			local ipp = inv.expand and 6*8 or 3*8
 			local start_i = inv.start_i or 0
-			local pagenum = math.floor(start_i / (3*8) + 1)
-			local pagemax = math.ceil(inv.size / (3*8))
-			return sfinv.make_formspec(player, context,
-				"label[6.2,3.35;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
-				[[
-					image[4.06,3.4;0.8,0.8;creative_trash_icon.png]
-					listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]
-					list[current_player;main;0,4.7;8,1;]
-					list[current_player;main;0,5.85;8,3;8]
-					list[detached:creative_trash;main;4,3.3;1,1;]
-					listring[]
-					button[5.4,3.2;0.8,0.9;creative_prev;<]
-					button[7.25,3.2;0.8,0.9;creative_next;>]
-					button[2.1,3.4;0.8,0.5;creative_search;?]
-					button[2.75,3.4;0.8,0.5;creative_clear;X]
-					tooltip[creative_search;Search]
-					tooltip[creative_clear;Reset]
-					listring[current_player;main]
-					field_close_on_enter[creative_filter;false]
-				]] ..
-				"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. "]" ..
-				"listring[detached:creative_" .. player_name .. ";main]" ..
-				"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
-				default.get_hotbar_bg(0,4.7) ..
-				default.gui_bg .. default.gui_bg_img .. default.gui_slots
-				.. creative.formspec_add, false)
+			local pagenum = math.floor(start_i / ipp + 1)
+			local inv_items = creative.update_creative_inventory(player_name, items)
+			local pagemax = math.ceil(inv.size / ipp)
+			local offset = inv.expand and 6 or 3
+
+			local formspec =
+				"label[6.2," .. offset .. ".35;" .. minetest.colorize("#FFFF00",
+					tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
+				"image[4.06," .. offset .. ".4;0.8,0.8;creative_trash_icon.png]" ..
+				"listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]" ..
+				"list[current_player;main;0," .. (offset + 1) .. ".5;8,1;]" ..
+				"list[detached:creative_trash;main;4," .. offset .. ".3;1,1;]" ..
+				"listring[]" ..
+				"button[5.4,"  .. offset .. ".2;0.8,0.9;creative_prev;<]" ..
+				"button[7.25," .. offset .. ".2;0.8,0.9;creative_next;>]" ..
+				"button[2.1,"  .. offset .. ".4;0.8,0.5;creative_search;?]" ..
+				"button[2.75," .. offset .. ".4;0.8,0.5;creative_clear;X]" ..
+				"image_button[3.78,8.55;0.45,0.4;creative_" ..
+					(inv.expand and "less" or "more") ..
+					".png;creative_" ..
+					(inv.expand and "less" or "more") ..
+					";;true;false;]" ..
+				"tooltip[creative_search;Search]" ..
+				"tooltip[creative_clear;Reset]" ..
+				"listring[current_player;main]" ..
+				"field_close_on_enter[creative_filter;false]" ..
+				"field[0.25," .. offset .. ".5;2.25,1;creative_filter;;" ..
+					minetest.formspec_escape(inv.filter) .. "]" ..
+				default.get_hotbar_bg(0, (inv.expand and 7.5 or 4.5)) ..
+				default.gui_bg .. default.gui_bg_img .. default.gui_slots ..
+				creative.formspec_add
+
+			if not inv.expand then
+				formspec = formspec ..
+					"list[current_player;main;0,5.5;8,3;8]"
+			end
+
+			local first_item = (pagenum - 1) * ipp
+			for i = first_item, first_item + ipp - 1 do
+				local item_name = inv_items[i + 1]
+				if not item_name then break end
+				local X = i % 8
+				local Y = (i % ipp - X) / 8 + 1
+
+				formspec = formspec ..
+					"item_image_button[" .. (X - 0.05) .. "," .. (Y - 1) ..
+						";1.1,1.1;" .. item_name .. ";" .. item_name .. "_inv;]"
+			end
+
+			return sfinv.make_formspec(player, context, formspec, false)
 		end,
+
 		on_enter = function(self, player, context)
 			local player_name = player:get_player_name()
 			local inv = player_inventory[player_name]
@@ -117,6 +133,7 @@ function creative.register_tab(name, title, items)
 				inv.start_i = 0
 			end
 		end,
+
 		on_player_receive_fields = function(self, player, context, fields)
 			local player_name = player:get_player_name()
 			local inv = player_inventory[player_name]
@@ -127,25 +144,32 @@ function creative.register_tab(name, title, items)
 				inv.filter = ""
 				creative.update_creative_inventory(player_name, items)
 				sfinv.set_player_inventory_formspec(player, context)
+
 			elseif fields.creative_search or
 					fields.key_enter_field == "creative_filter" then
 				inv.start_i = 0
 				inv.filter = fields.creative_filter:lower()
 				creative.update_creative_inventory(player_name, items)
 				sfinv.set_player_inventory_formspec(player, context)
-			elseif not fields.quit then
+
+			elseif fields.creative_more or fields.creative_less then
+				inv.expand = fields.creative_more and true or false
+				sfinv.set_player_inventory_formspec(player, context)
+
+			elseif fields.creative_prev or fields.creative_next then
 				local start_i = inv.start_i or 0
+				local ipp = inv.expand and 6*8 or 3*8
 
 				if fields.creative_prev then
-					start_i = start_i - 3*8
+					start_i = start_i - ipp
 					if start_i < 0 then
-						start_i = inv.size - (inv.size % (3*8))
+						start_i = inv.size - (inv.size % ipp)
 						if inv.size == start_i then
-							start_i = math.max(0, inv.size - (3*8))
+							start_i = math.max(0, inv.size - ipp)
 						end
 					end
 				elseif fields.creative_next then
-					start_i = start_i + 3*8
+					start_i = start_i + ipp
 					if start_i >= inv.size then
 						start_i = 0
 					end
@@ -153,13 +177,17 @@ function creative.register_tab(name, title, items)
 
 				inv.start_i = start_i
 				sfinv.set_player_inventory_formspec(player, context)
+
+			else
+				handle_item_button_press(fields, player)
 			end
 		end
 	})
 end
 
 minetest.register_on_joinplayer(function(player)
-	creative.update_creative_inventory(player:get_player_name(), minetest.registered_items)
+	creative.update_creative_inventory(
+		player:get_player_name(), minetest.registered_items)
 end)
 
 creative.register_tab("all", "All", minetest.registered_items)
