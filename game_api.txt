@@ -592,6 +592,48 @@ Default constants
 
 `default.LIGHT_MAX`  The maximum light level (see [Node definition] light_source)
 
+
+GUI and formspecs
+-----------------
+
+`default.get_hotbar_bg(x, y)`
+
+ * Get the hotbar background as string, containing the formspec elements
+ * x: Horizontal position in the formspec
+ * y: Vertical position in the formspec
+
+`default.gui_bg`
+
+ * Background color formspec element
+
+`default.gui_bg_img`
+
+ * Image overlay formspec element for the background to use in formspecs
+
+`default.gui_slots`
+
+ * `listcolors` formspec element that is used to format the slots in formspecs
+
+`default.gui_survival_form`
+
+ * Entire formspec for the survival inventory
+
+`default.get_chest_formspec(pos)`
+
+ * Get the chest formspec using the defined GUI elements
+ * pos: Location of the node
+
+`default.get_furnace_active_formspec(fuel_percent, item_percent)`
+
+ * Get the active furnace formspec using the defined GUI elements
+ * fuel_percent: Percent of how much the fuel is used
+ * item_percent: Percent of how much the item is cooked
+
+`default.get_furnace_inactive_formspec()`
+
+ * Get the inactive furnace formspec using the defined GUI elements
+
+
 Player API
 ----------
 

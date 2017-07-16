@@ -1766,7 +1766,7 @@ minetest.register_node("default:lava_flowing", {
 -- Tools / "Advanced" crafting / Non-"natural"
 --
 
-local function get_chest_formspec(pos)
+function default.get_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec =
 		"size[8,9]" ..
@@ -1890,7 +1890,7 @@ function default.register_chest(name, d)
 			end
 			minetest.after(0.2, minetest.show_formspec,
 					clicker:get_player_name(),
-					"default:chest", get_chest_formspec(pos))
+					"default:chest", default.get_chest_formspec(pos))
 			open_chests[clicker:get_player_name()] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
@@ -1912,7 +1912,7 @@ function default.register_chest(name, d)
 			minetest.show_formspec(
 				player:get_player_name(),
 				"default:chest_locked",
-				get_chest_formspec(pos)
+				default.get_chest_formspec(pos)
 			)
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
@@ -1957,7 +1957,7 @@ function default.register_chest(name, d)
 			end
 			minetest.after(0.2, minetest.show_formspec,
 					clicker:get_player_name(),
-					"default:chest", get_chest_formspec(pos))
+					"default:chest", default.get_chest_formspec(pos))
 			open_chests[clicker:get_player_name()] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
