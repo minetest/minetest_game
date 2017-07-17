@@ -9,12 +9,9 @@ end
 -- Helper functions
 local function get_look_yaw(pos, override_rotation)
 	local n = minetest.get_node(pos)
-	local rotation_param = override_rotation or n.param2
-	local rotation = rotation_param
+	local rotation = override_rotation or n.param2
 	if rotation > 3 then
 		rotation = rotation % 4 -- mask colorfacedir values
-		minetest.log("info", "bed: rotation changed from " ..
-			rotation_param .. " to " .. rotation)
 	end
 	if rotation == 1 then
 		return pi / 2, rotation
