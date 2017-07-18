@@ -209,7 +209,7 @@ default:cloud
 --
 
 minetest.register_node("default:stone", {
-	description = "Stone",
+	description = "Grey Stone",
 	tiles = {"default_stone.png"},
 	groups = {cracky = 3, stone = 1},
 	drop = 'default:cobble',
@@ -218,7 +218,7 @@ minetest.register_node("default:stone", {
 })
 
 minetest.register_node("default:cobble", {
-	description = "Cobblestone",
+	description = "Grey Cobblestone",
 	tiles = {"default_cobble.png"},
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 2},
@@ -226,7 +226,7 @@ minetest.register_node("default:cobble", {
 })
 
 minetest.register_node("default:stonebrick", {
-	description = "Stone Brick",
+	description = "Grey Stone Brick",
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_stone_brick.png"},
@@ -236,7 +236,7 @@ minetest.register_node("default:stonebrick", {
 })
 
 minetest.register_node("default:stone_block", {
-	description = "Stone Block",
+	description = "Grey Stone Block",
 	tiles = {"default_stone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2, stone = 1},
@@ -288,14 +288,14 @@ minetest.register_node("default:desert_stone_block", {
 })
 
 minetest.register_node("default:sandstone", {
-	description = "Sandstone",
+	description = "Golden Sandstone",
 	tiles = {"default_sandstone.png"},
 	groups = {crumbly = 1, cracky = 3},
 	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("default:sandstonebrick", {
-	description = "Sandstone Brick",
+	description = "Golden Sandstone Brick",
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_sandstone_brick.png"},
@@ -305,7 +305,7 @@ minetest.register_node("default:sandstonebrick", {
 })
 
 minetest.register_node("default:sandstone_block", {
-	description = "Sandstone Block",
+	description = "Golden Sandstone Block",
 	tiles = {"default_sandstone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2},
@@ -463,7 +463,7 @@ minetest.register_node("default:dirt_with_rainforest_litter", {
 })
 
 minetest.register_node("default:sand", {
-	description = "Sand",
+	description = "Golden Sand",
 	tiles = {"default_sand.png"},
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
@@ -569,7 +569,7 @@ minetest.register_node("default:ice", {
 --
 
 minetest.register_node("default:tree", {
-	description = "Tree",
+	description = "Apple Tree",
 	tiles = {"default_tree_top.png", "default_tree_top.png", "default_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
@@ -580,7 +580,7 @@ minetest.register_node("default:tree", {
 })
 
 minetest.register_node("default:wood", {
-	description = "Wooden Planks",
+	description = "Apple Wood Planks",
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_wood.png"},
@@ -590,7 +590,7 @@ minetest.register_node("default:wood", {
 })
 
 minetest.register_node("default:sapling", {
-	description = "Tree Sapling",
+	description = "Apple Tree Sapling",
 	drawtype = "plantlike",
 	tiles = {"default_sapling.png"},
 	inventory_image = "default_sapling.png",
@@ -626,7 +626,7 @@ minetest.register_node("default:sapling", {
 })
 
 minetest.register_node("default:leaves", {
-	description = "Tree Leaves",
+	description = "Apple Tree Leaves",
 	drawtype = "allfaces_optional",
 	waving = 1,
 	tiles = {"default_leaves.png"},
@@ -2252,7 +2252,7 @@ minetest.register_node("default:ladder_steel", {
 })
 
 default.register_fence("default:fence_wood", {
-	description = "Wooden Fence",
+	description = "Apple Wood Fence",
 	texture = "default_fence_wood.png",
 	inventory_image = "default_fence_overlay.png^default_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_overlay.png^default_wood.png^default_fence_overlay.png^[makealpha:255,126,126",

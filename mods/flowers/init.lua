@@ -59,7 +59,7 @@ end
 flowers.datas = {
 	{
 		"rose",
-		"Rose",
+		"Red Rose",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 5 / 16, 2 / 16},
 		{color_red = 1, flammable = 1}
 	},
