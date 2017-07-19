@@ -208,6 +208,7 @@ local function add_effects(pos, radius, drops)
 		collisiondetection = false,
 		vertical = false,
 		texture = "tnt_boom.png",
+		glow = 15,
 	})
 	minetest.add_particlespawner({
 		amount = 64,
@@ -281,10 +282,9 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	local minp, maxp = vm1:read_from_map(p1, p2)
 	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
 	local data = vm1:get_data()
-	local count = 0
+	local count = 1
 	local c_tnt = minetest.get_content_id("tnt:tnt")
 	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
-	local c_tnt_boom = minetest.get_content_id("tnt:boom")
 	local c_air = minetest.get_content_id("air")
 
 	for z = pos.z - 2, pos.z + 2 do
@@ -292,7 +292,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		local vi = a:index(pos.x - 2, y, z)
 		for x = pos.x - 2, pos.x + 2 do
 			local cid = data[vi]
-			if cid == c_tnt or cid == c_tnt_boom or cid == c_tnt_burning then
+			if cid == c_tnt or cid == c_tnt_burning then
 				count = count + 1
 				data[vi] = c_air
 			end
@@ -385,9 +385,11 @@ function tnt.boom(pos, def)
 	local meta = minetest.get_meta(pos)
 	local owner = meta:get_string("owner")
 	minetest.sound_play("tnt_explode", {pos = pos, gain = 1.5, max_hear_distance = 2*64})
-	minetest.set_node(pos, {name = "tnt:boom"})
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast, owner)
+	if not minetest.is_protected(pos, owner) then
+		minetest.set_node(pos, {name = "tnt:boom"})
+	end
 	-- append entity drops
 	local damage_radius = (radius / def.radius) * def.damage_radius
 	entity_physics(pos, damage_radius, drops)
