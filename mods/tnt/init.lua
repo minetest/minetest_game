@@ -387,6 +387,9 @@ function tnt.boom(pos, def)
 	minetest.sound_play("tnt_explode", {pos = pos, gain = 1.5, max_hear_distance = 2*64})
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast, owner)
+	if not minetest.is_protected(pos, owner) then
+		minetest.set_node(pos, {name = "tnt:boom"})
+	end
 	-- append entity drops
 	local damage_radius = (radius / def.radius) * def.damage_radius
 	entity_physics(pos, damage_radius, drops)
@@ -397,6 +400,22 @@ function tnt.boom(pos, def)
 	minetest.log("action", "A TNT explosion occurred at " .. minetest.pos_to_string(pos) ..
 		" with radius " .. radius)
 end
+
+minetest.register_node("tnt:boom", {
+	drawtype = "airlike",
+	light_source = default.LIGHT_MAX,
+	walkable = false,
+	drop = "",
+	groups = {dig_immediate = 3},
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(0.4)
+	end,
+	on_timer = function(pos, elapsed)
+		minetest.remove_node(pos)
+	end,
+	-- unaffected by explosions
+	on_blast = function() end,
+})
 
 minetest.register_node("tnt:gunpowder", {
 	description = "Gun Powder",
