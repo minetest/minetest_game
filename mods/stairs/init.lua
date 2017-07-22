@@ -713,16 +713,6 @@ stairs.register_stair_and_slab(
 )
 
 stairs.register_stair_and_slab(
-	"straw",
-	"farming:straw",
-	{snappy = 3, flammable = 4},
-	{"farming_straw.png"},
-	"Straw Stair",
-	"Straw Slab",
-	default.node_sound_leaves_defaults()
-)
-
-stairs.register_stair_and_slab(
 	"steelblock",
 	"default:steelblock",
 	{cracky = 1, level = 2},
