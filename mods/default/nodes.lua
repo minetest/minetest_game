@@ -209,7 +209,7 @@ default:cloud
 --
 
 minetest.register_node("default:stone", {
-	description = "Grey Stone",
+	description = "Stone",
 	tiles = {"default_stone.png"},
 	groups = {cracky = 3, stone = 1},
 	drop = 'default:cobble',
@@ -218,7 +218,7 @@ minetest.register_node("default:stone", {
 })
 
 minetest.register_node("default:cobble", {
-	description = "Grey Cobblestone",
+	description = "Cobblestone",
 	tiles = {"default_cobble.png"},
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 2},
@@ -226,7 +226,7 @@ minetest.register_node("default:cobble", {
 })
 
 minetest.register_node("default:stonebrick", {
-	description = "Grey Stone Brick",
+	description = "Stone Brick",
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_stone_brick.png"},
@@ -236,7 +236,7 @@ minetest.register_node("default:stonebrick", {
 })
 
 minetest.register_node("default:stone_block", {
-	description = "Grey Stone Block",
+	description = "Stone Block",
 	tiles = {"default_stone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2, stone = 1},
@@ -288,14 +288,14 @@ minetest.register_node("default:desert_stone_block", {
 })
 
 minetest.register_node("default:sandstone", {
-	description = "Golden Sandstone",
+	description = "Sandstone",
 	tiles = {"default_sandstone.png"},
 	groups = {crumbly = 1, cracky = 3},
 	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("default:sandstonebrick", {
-	description = "Golden Sandstone Brick",
+	description = "Sandstone Brick",
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_sandstone_brick.png"},
@@ -305,7 +305,7 @@ minetest.register_node("default:sandstonebrick", {
 })
 
 minetest.register_node("default:sandstone_block", {
-	description = "Golden Sandstone Block",
+	description = "Sandstone Block",
 	tiles = {"default_sandstone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2},
@@ -463,7 +463,7 @@ minetest.register_node("default:dirt_with_rainforest_litter", {
 })
 
 minetest.register_node("default:sand", {
-	description = "Golden Sand",
+	description = "Sand",
 	tiles = {"default_sand.png"},
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
