@@ -98,6 +98,16 @@ minetest.register_node("farming:straw", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
+stairs.register_stair_and_slab(
+	"straw",
+	"farming:straw",
+	{snappy = 3, flammable = 4},
+	{"farming_straw.png"},
+	"Straw Stair",
+	"Straw Slab",
+	default.node_sound_leaves_defaults()
+)
+
 minetest.register_abm({
 	label = "Farming soil",
 	nodenames = {"group:field"},
