@@ -1607,7 +1607,7 @@ local function register_grass_decoration(offset, scale, length)
 		},
 		biomes = {"grassland", "grassland_dunes", "deciduous_forest",
 			"coniferous_forest", "coniferous_forest_dunes",
-			"floatland_grassland", "floatland_coniferous_forest"},
+			"floatland_coniferous_forest"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "default:grass_" .. length,
@@ -1895,7 +1895,7 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/papyrus.mts",
 	})
 
-	-- Bush
+	-- Pine bush
 
 	minetest.register_decoration({
 		deco_type = "schematic",
@@ -1909,8 +1909,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"snowy_grassland", "grassland", "deciduous_forest",
-			"floatland_grassland"},
+		biomes = {"snowy_grassland", "grassland"},
 		y_min = 1,
 		y_max = 31000,
 		schematic = minetest.get_modpath("default") .. "/schematics/bush.mts",
