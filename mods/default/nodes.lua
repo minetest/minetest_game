@@ -1308,7 +1308,7 @@ end
 
 
 minetest.register_node("default:bush_stem", {
-	description = "Bush Stem",
+	description = "Pine Bush Stem",
 	drawtype = "plantlike",
 	visual_scale = 1.41,
 	tiles = {"default_bush_stem.png"},
@@ -1325,10 +1325,10 @@ minetest.register_node("default:bush_stem", {
 })
 
 minetest.register_node("default:bush_leaves", {
-	description = "Bush Leaves",
+	description = "Pine Bush Needles",
 	drawtype = "allfaces_optional",
 	waving = 1,
-	tiles = {"default_leaves_simple.png"},
+	tiles = {"default_pine_needles.png"},
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1},
 	drop = {
@@ -1344,7 +1344,7 @@ minetest.register_node("default:bush_leaves", {
 })
 
 minetest.register_node("default:bush_sapling", {
-	description = "Bush Sapling",
+	description = "Pine Bush Sapling",
 	drawtype = "plantlike",
 	tiles = {"default_bush_sapling.png"},
 	inventory_image = "default_bush_sapling.png",
