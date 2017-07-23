@@ -272,7 +272,7 @@ function tnt.burn(pos, nodename)
 	end
 end
 
-local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owner)
+local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owner, explode_centre)
 	pos = vector.round(pos)
 	-- scan for adjacent TNT nodes first, and enlarge the explosion
 	local vm1 = VoxelManip()
@@ -286,6 +286,10 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
 	local c_tnt_boom = minetest.get_content_id("tnt:boom")
 	local c_air = minetest.get_content_id("air")
+	-- make sure we still have explosion even when centre node isnt tnt related
+	if explode_centre then
+		count = 1
+	end
 
 	for z = pos.z - 2, pos.z + 2 do
 	for y = pos.y - 2, pos.y + 2 do
@@ -385,9 +389,11 @@ function tnt.boom(pos, def)
 	local meta = minetest.get_meta(pos)
 	local owner = meta:get_string("owner")
 	minetest.sound_play("tnt_explode", {pos = pos, gain = 1.5, max_hear_distance = 2*64})
-	minetest.set_node(pos, {name = "tnt:boom"})
+	if not def.explode_centre then
+		minetest.set_node(pos, {name = "tnt:boom"})
+	end
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
-			def.ignore_on_blast, owner)
+			def.ignore_on_blast, owner, def.explosion_centre)
 	-- append entity drops
 	local damage_radius = (radius / def.radius) * def.damage_radius
 	entity_physics(pos, damage_radius, drops)
