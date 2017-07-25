@@ -35,6 +35,12 @@ See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
 
 --]]
 
+local on_flood = function(pos, oldnode, newnode)
+	local obj = minetest.add_item(pos, ItemStack("default:torch 1"))
+	minetest.sound_play("fire_extinguish_flame", {pos = pos, max_hear_distance = 8, gain = 0.07})
+	return false -- To allow the water to take out the torch
+end
+
 minetest.register_node("default:torch", {
 	description = "Torch",
 	drawtype = "mesh",
@@ -83,7 +89,9 @@ minetest.register_node("default:torch", {
 		itemstack:set_name("default:torch")
 
 		return itemstack
-	end
+	end,
+	floodable = true,
+	on_flood = on_flood,
 })
 
 minetest.register_node("default:torch_wall", {
@@ -105,6 +113,8 @@ minetest.register_node("default:torch_wall", {
 		wall_side = {-1/2, -1/2, -1/8, -1/8, 1/8, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
+	floodable = true,
+	on_flood = on_flood,
 })
 
 minetest.register_node("default:torch_ceiling", {
@@ -126,6 +136,8 @@ minetest.register_node("default:torch_ceiling", {
 		wall_top = {-1/8, -1/16, -5/16, 1/8, 1/2, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
+	floodable = true,
+	on_flood = on_flood,
 })
 
 minetest.register_lbm({
