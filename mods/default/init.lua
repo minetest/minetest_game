@@ -8,7 +8,9 @@ default = {}
 
 default.LIGHT_MAX = 14
 
+
 -- GUI related stuff
+
 default.gui_bg = "bgcolor[#080808BB;true]"
 default.gui_bg_img = "background[5,5;1,1;gui_formbg.png;true]"
 default.gui_slots = "listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
@@ -34,7 +36,18 @@ default.gui_survival_form = "size[8,8.5]"..
 			"listring[current_player;craft]"..
 			default.get_hotbar_bg(0,4.25)
 
+
+-- Disable minimap in survival, to be enabled by a special item
+
+minetest.register_on_joinplayer(function(player)
+	if not minetest.settings:get_bool("creative_mode") then
+		player:hud_set_flags({minimap = false})
+	end
+end)
+
+
 -- Load files
+
 local default_path = minetest.get_modpath("default")
 
 dofile(default_path.."/functions.lua")
