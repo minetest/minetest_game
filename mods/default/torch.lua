@@ -35,10 +35,17 @@ See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
 
 --]]
 
-local on_flood = function(pos, oldnode, newnode)
-	local obj = minetest.add_item(pos, ItemStack("default:torch 1"))
-	minetest.sound_play("fire_extinguish_flame", {pos = pos, max_hear_distance = 8, gain = 0.07})
-	return false -- To allow the water to take out the torch
+local function on_flood(pos, oldnode, newnode)
+	local nodedef = minetest.registered_items[newnode.name]
+	-- Drop the torch if the liquid does not burn.
+	if nodedef ~= nil and not (
+			nodedef.groups ~= nil and
+			nodedef.groups.igniter ~= nil and
+			nodedef.groups.igniter > 0) then
+		minetest.add_item(pos, ItemStack("default:torch 1"))
+		minetest.sound_play("fire_extinguish_flame", {pos = pos, max_hear_distance = 8, gain = 0.07})
+	end
+	return false -- To allow the liquid to take out the torch
 end
 
 minetest.register_node("default:torch", {
