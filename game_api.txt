@@ -284,8 +284,58 @@ Give Initial Stuff API
 ^ Adds items to the list of items to be given
 
 
+Players API
+-----------
+
+The player API can register player models and update the player's appearence
+
+* `player_api.register_model(name, def)`
+	* Register a new model to be used by players
+	* name: model filename such as "character.x", "foo.b3d", etc.
+	* def: See [#Model definition]
+    * saved to player_api.registered_models
+
+* `player_api.registered_player_models[name]`
+	 * Get a model's definition
+	 * see [#Model definition]
+
+* `player_api.set_model(player, model_name)`
+	* Change a player's model
+	* `player`: PlayerRef
+	* `model_name`: model registered with player_api.register_model()
+
+* `player_api.set_animation(player, anim_name [, speed])`
+	* Applies an animation to a player
+	* anim_name: name of the animation.
+	* speed: frames per second. If nil, default from the model is used
+
+* `player_api.set_textures(player, textures)`
+	* Sets player textures
+	* `player`: PlayerRef
+	* `textures`: array of textures, If `textures` is nil, the default textures from the model def are used
+
+* `player_api.get_animation(player)`
+	* Returns a table containing fields `model`, `textures` and `animation`.
+	* Any of the fields of the returned table may be nil.
+	* player: PlayerRef
+
+### Model Definition
+
+	{
+		animation_speed = 30,            -- Default animation speed, in FPS.
+		textures = {"character.png", },  -- Default array of textures.
+		visual_size = {x = 1, y = 1},    -- Used to scale the model.
+		animations = {
+			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
+			foo = {x = 0, y = 19},
+			bar = {x = 20, y = 39},
+		-- ...
+		},
+	}
+
+
 TNT API
-----------
+-------
 
 `tnt.register_tnt(definition)`
 
@@ -633,60 +683,6 @@ GUI and formspecs
 
  * Get the inactive furnace formspec using the defined GUI elements
 
-
-Player API
-----------
-
-The player API can register player models and update the player's appearence
-
-`default.player_register_model(name, def)`
-
- * Register a new model to be used by players.
- * name: model filename such as "character.x", "foo.b3d", etc.
- * def: See [#Model definition]
-
-`default.registered_player_models[name]`
-
- * Get a model's definition
- * see [#Model definition]
-
-`default.player_set_model(player, model_name)`
-
- * Change a player's model
- * `player`: PlayerRef
- * `model_name`: model registered with player_register_model()
-
-`default.player_set_animation(player, anim_name [, speed])`
-
- * Applies an animation to a player
- * anim_name: name of the animation.
- * speed: frames per second. If nil, default from the model is used
-
-`default.player_set_textures(player, textures)`
-
- * Sets player textures
- * `player`: PlayerRef
- * `textures`: array of textures, If `textures` is nil, the default textures from the model def are used
-
-default.player_get_animation(player)
-
- * Returns a table containing fields `model`, `textures` and `animation`.
- * Any of the fields of the returned table may be nil.
- * player: PlayerRef
-
-### Model Definition
-
-	{
-		animation_speed = 30,            -- Default animation speed, in FPS.
-		textures = {"character.png", },  -- Default array of textures.
-		visual_size = {x = 1, y = 1},    -- Used to scale the model.
-		animations = {
-			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
-			foo = {x = 0, y = 19},
-			bar = {x = 20, y = 39},
-		-- ...
-		},
-	}
 
 Leafdecay
 ---------
