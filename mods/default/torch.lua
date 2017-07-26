@@ -44,13 +44,8 @@ local function on_flood(pos, oldnode, newnode)
 			nodedef.groups.igniter > 0) then
 		minetest.add_item(pos, ItemStack("default:torch 1"))
 		minetest.sound_play(
-			"fire_extinguish_flame",
-			{pos = pos, max_hear_distance = 16, gain = 0.1}
-		)
-	else -- we're burning the torch.
-		minetest.sound_play(
-			"fire_fire",
-			{pos = pos, max_hear_distance = 16, gain = 0.05}
+			"default_cool_lava",
+			{pos = pos, max_hear_distance = 16, gain = 0.10}
 		)
 	end
 	return false -- To allow the liquid to take out the torch
