@@ -208,6 +208,7 @@ local function add_effects(pos, radius, drops)
 		collisiondetection = false,
 		vertical = false,
 		texture = "tnt_boom.png",
+		glow = 15,
 	})
 	minetest.add_particlespawner({
 		amount = 64,
