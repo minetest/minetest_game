@@ -159,23 +159,29 @@ function carts:get_rail_direction(pos_, dir, ctrl, old_switch, railtype)
 end
 
 function carts:pathfinder(pos_, old_pos, old_dir, ctrl, pf_switch, railtype)
+	if vector.equals(old_pos, pos_) then
+		return true
+	end
+
 	local pos = vector.round(pos_)
 	local pf_pos = vector.round(old_pos)
 	local pf_dir = vector.new(old_dir)
 
 	for i = 1, 3 do
-		if vector.equals(pf_pos, pos) then
-			-- Success! Cart moved on correctly
-			return true
-		end
+		pf_dir, pf_switch = carts:get_rail_direction(
+			pf_pos, pf_dir, ctrl, pf_switch, railtype)
 
-		pf_dir, pf_switch = carts:get_rail_direction(pf_pos, pf_dir, ctrl, pf_switch, railtype)
 		if vector.equals(pf_dir, {x=0, y=0, z=0}) then
 			-- No way forwards
 			return false
 		end
 
 		pf_pos = vector.add(pf_pos, pf_dir)
+
+		if vector.equals(pf_pos, pos) then
+			-- Success! Cart moved on correctly
+			return true
+		end
 	end
 	-- Cart not found
 	return false
