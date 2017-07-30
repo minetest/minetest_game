@@ -58,8 +58,10 @@ end
 
 function player_api.set_textures(player, textures)
 	local name = player:get_player_name()
-	player_textures[name] = textures
-	player:set_properties({textures = textures,})
+	local model = models[player_model[name]]
+	local model_textures = model and model.textures or nil
+	player_textures[name] = textures or model_textures
+	player:set_properties({textures = textures or model_textures,})
 end
 
 function player_api.set_animation(player, anim_name, speed)
