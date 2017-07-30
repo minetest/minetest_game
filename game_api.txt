@@ -686,6 +686,7 @@ default.player_get_animation(player)
 			bar = {x = 20, y = 39},
 		-- ...
 		},
+		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3},  -- In nodes from centre of feet
 	}
 
 Leafdecay
