@@ -218,8 +218,8 @@ function flowers.mushroom_spread(pos, node)
 	end
 	local pos2 = positions[math.random(#positions)]
 	pos2.y = pos2.y + 1
-	if minetest.get_node_light(pos, 0.5) < 4 and
-			minetest.get_node_light(pos2, 0.5) < 4 then
+	if minetest.get_node_light(pos, 0.5) <= 3 and
+			minetest.get_node_light(pos2, 0.5) <= 3 then
 		minetest.set_node(pos2, {name = node.name})
 	end
 end
@@ -228,7 +228,7 @@ minetest.register_abm({
 	label = "Mushroom spread",
 	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
 	interval = 11,
-	chance = 50,
+	chance = 150,
 	action = function(...)
 		flowers.mushroom_spread(...)
 	end,
