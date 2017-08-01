@@ -45,12 +45,14 @@ function player_api.set_model(player, model_name)
 			textures = player_textures[name] or model.textures,
 			visual = "mesh",
 			visual_size = model.visual_size or {x=1, y=1},
+			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3},
 		})
 		player_api.set_animation(player, "stand")
 	else
 		player:set_properties({
 			textures = { "player.png", "player_back.png", },
 			visual = "upright_sprite",
+			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.75, 0.3},
 		})
 	end
 	player_model[name] = model_name
