@@ -1446,19 +1446,18 @@ end
 
 -- Biomes for floatlands
 -- Used when mgv7 'biomerepeat' flag is false
--- TODO Temporary simple biomes to be developed later
+
+-- TODO Temporary simple biomes to be replaced by special floatland biomes later.
 
 function default.register_floatland_biomes(floatland_level, shadow_limit)
 
-	-- Coniferous forest
-
 	minetest.register_biome({
-		name = "floatland_coniferous_forest",
+		name = "floatland_grassland",
 		--node_dust = "",
 		node_top = "default:dirt_with_grass",
 		depth_top = 1,
 		node_filler = "default:dirt",
-		depth_filler = 3,
+		depth_filler = 1,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -1472,10 +1471,8 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		humidity_point = 50,
 	})
 
-	-- Coniferous forest ocean
-
 	minetest.register_biome({
-		name = "floatland_coniferous_forest_ocean",
+		name = "floatland_grassland_ocean",
 		--node_dust = "",
 		node_top = "default:sand",
 		depth_top = 1,
@@ -1607,7 +1604,7 @@ local function register_grass_decoration(offset, scale, length)
 		},
 		biomes = {"grassland", "grassland_dunes", "deciduous_forest",
 			"coniferous_forest", "coniferous_forest_dunes",
-			"floatland_grassland", "floatland_coniferous_forest"},
+			"floatland_grassland"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "default:grass_" .. length,
@@ -1721,7 +1718,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
+		biomes = {"taiga", "coniferous_forest"},
 		y_min = 2,
 		y_max = 31000,
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_tree.mts",
