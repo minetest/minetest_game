@@ -35,6 +35,26 @@ See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
 
 --]]
 
+local function on_flood(pos, oldnode, newnode)
+	-- Instantiate item drop.
+	minetest.add_item(pos, ItemStack("default:torch 1"))
+
+	-- Play sound if torch is not flooded by igniter type liquid.
+	local nodedef = minetest.registered_items[newnode.name]
+	if nodedef == nil or not (
+			nodedef.groups ~= nil and
+			nodedef.groups.igniter ~= nil and
+			nodedef.groups.igniter > 0) then
+		minetest.sound_play(
+			"default_cool_lava",
+			{pos = pos, max_hear_distance = 16, gain = 0.10}
+		)
+	end
+
+	-- Allow the liquid to remove the torch node.
+	return false
+end
+
 minetest.register_node("default:torch", {
 	description = "Torch",
 	drawtype = "mesh",
@@ -83,7 +103,9 @@ minetest.register_node("default:torch", {
 		itemstack:set_name("default:torch")
 
 		return itemstack
-	end
+	end,
+	floodable = true,
+	on_flood = on_flood,
 })
 
 minetest.register_node("default:torch_wall", {
@@ -105,6 +127,8 @@ minetest.register_node("default:torch_wall", {
 		wall_side = {-1/2, -1/2, -1/8, -1/8, 1/8, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
+	floodable = true,
+	on_flood = on_flood,
 })
 
 minetest.register_node("default:torch_ceiling", {
@@ -126,6 +150,8 @@ minetest.register_node("default:torch_ceiling", {
 		wall_top = {-1/8, -1/16, -5/16, 1/8, 1/2, 1/8},
 	},
 	sounds = default.node_sound_wood_defaults(),
+	floodable = true,
+	on_flood = on_flood,
 })
 
 minetest.register_lbm({
