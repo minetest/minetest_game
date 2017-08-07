@@ -312,7 +312,8 @@ The player API can register player models and update the player's appearence
 * `player_api.set_textures(player, textures)`
 	* Sets player textures
 	* `player`: PlayerRef
-	* `textures`: array of textures, If `textures` is nil, the default textures from the model def are used
+	* `textures`: array of textures, If `textures` is nil the default
+	  textures from the model def are used
 
 * `player_api.get_animation(player)`
 	* Returns a table containing fields `model`, `textures` and `animation`.
@@ -331,7 +332,8 @@ The player API can register player models and update the player's appearence
 			bar = {x = 20, y = 39},
 		-- ...
 		},
-		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3}, -- In nodes from centre of feet
+		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3}, -- In nodes from feet position
+		stepheight = 0.6, -- In nodes
 	}
 
 
