@@ -120,8 +120,8 @@ paramat (CC BY-SA 3.0):
   default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
 
-brunob.santos (CC BY-SA 4.0):
-  default_desert_cobble.png
+TumeniNodes (CC BY-SA 4.0):
+  default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 4.0)
 
 BlockMen (CC BY-SA 3.0):
   default_aspen_leaves.png -- Derived from Sofar's texture
