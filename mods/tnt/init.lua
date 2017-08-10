@@ -405,12 +405,6 @@ minetest.register_node("tnt:boom", {
 	walkable = false,
 	drop = "",
 	groups = {dig_immediate = 3},
-	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(0.4)
-	end,
-	on_timer = function(pos, elapsed)
-		minetest.remove_node(pos)
-	end,
 	-- unaffected by explosions
 	on_blast = function() end,
 })
