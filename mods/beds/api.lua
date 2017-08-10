@@ -55,7 +55,7 @@ function beds.register_bed(name, def)
 			end
 
 			local pos
-			if minetest.registered_items[minetest.get_node(under).name].buildable_to then
+			if udef and udef.buildable_to then
 				pos = under
 			else
 				pos = pointed_thing.above
