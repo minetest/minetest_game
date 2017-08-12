@@ -394,7 +394,7 @@ function tnt.boom(pos, def)
 		minetest.set_node(pos, {name = "tnt:boom"})
 	end
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
-			def.ignore_on_blast, owner, def.explosion_centre)
+			def.ignore_on_blast, owner, def.explode_middle)
 	-- append entity drops
 	local damage_radius = (radius / def.radius) * def.damage_radius
 	entity_physics(pos, damage_radius, drops)
