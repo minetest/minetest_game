@@ -56,8 +56,8 @@ function boat.on_rightclick(self, clicker)
 	if self.driver and clicker == self.driver then
 		self.driver = nil
 		clicker:set_detach()
-		default.player_attached[name] = false
-		default.player_set_animation(clicker, "stand" , 30)
+		player_api.player_attached[name] = false
+		player_api.set_animation(clicker, "stand" , 30)
 		local pos = clicker:getpos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
 		minetest.after(0.1, function()
@@ -74,10 +74,10 @@ function boat.on_rightclick(self, clicker)
 		end
 		self.driver = clicker
 		clicker:set_attach(self.object, "",
-			{x = 0, y = 11, z = -3}, {x = 0, y = 0, z = 0})
-		default.player_attached[name] = true
+			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
+		player_api.player_attached[name] = true
 		minetest.after(0.2, function()
-			default.player_set_animation(clicker, "sit" , 30)
+			player_api.set_animation(clicker, "sit" , 30)
 		end)
 		clicker:set_look_horizontal(self.object:getyaw())
 	end
@@ -105,7 +105,7 @@ function boat.on_punch(self, puncher)
 	if self.driver and puncher == self.driver then
 		self.driver = nil
 		puncher:set_detach()
-		default.player_attached[puncher:get_player_name()] = false
+		player_api.player_attached[puncher:get_player_name()] = false
 	end
 	if not self.driver then
 		self.removed = true
