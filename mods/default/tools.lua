@@ -283,7 +283,7 @@ minetest.register_tool("default:axe_diamond", {
 		full_punch_interval = 0.9,
 		max_drop_level=1,
 		groupcaps={
-			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=2},
+			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=3},
 		},
 		damage_groups = {fleshy=7},
 	},

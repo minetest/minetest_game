@@ -54,12 +54,6 @@ Calinou (CC BY-SA 3.0):
   default_mineral_copper.png
   default_glass_detail.png
 
-MirceaKitsune (CC BY-SA 3.0):
-  character.x
-
-Jordach (CC BY-SA 3.0):
-  character.png
-
 PilzAdam (CC BY-SA 3.0):
   default_jungleleaves.png
   default_junglesapling.png
@@ -120,8 +114,8 @@ paramat (CC BY-SA 3.0):
   default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
 
-brunob.santos (CC BY-SA 4.0):
-  default_desert_cobble.png
+TumeniNodes (CC BY-SA 4.0):
+  default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 4.0)
 
 BlockMen (CC BY-SA 3.0):
   default_aspen_leaves.png -- Derived from Sofar's texture
@@ -297,4 +291,3 @@ Chests sounds added by sofar, derived of several files mixed together:
     - http://www.freesound.org/people/kingsamas/sounds/135576/ CC-BY-3.0
     - http://www.freesound.org/people/bulbastre/sounds/126887/ CC-BY-3.0
     - http://www.freesound.org/people/Yoyodaman234/sounds/183541/ CC0
-

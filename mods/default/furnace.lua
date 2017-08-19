@@ -208,11 +208,11 @@ local function furnace_node_timer(pos, elapsed)
 	end
 
 	local fuel_state = "Empty"
-	local active = "inactive "
+	local active = "inactive"
 	local result = false
 
 	if fuel_totaltime ~= 0 then
-		active = "active "
+		active = "active"
 		local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = fuel_percent .. "%"
 		formspec = default.get_furnace_active_formspec(fuel_percent, item_percent)
@@ -229,7 +229,7 @@ local function furnace_node_timer(pos, elapsed)
 		minetest.get_node_timer(pos):stop()
 	end
 
-	local infotext = "Furnace " .. active .. "(Item: " .. item_state ..
+	local infotext = "Furnace " .. active .. "\n(Item: " .. item_state ..
 		"; Fuel: " .. fuel_state .. ")"
 
 	--
