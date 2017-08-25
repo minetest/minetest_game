@@ -29,7 +29,7 @@ end
 function sfinv.get_nav_fs(player, context, nav, current_idx)
 	-- Only show tabs if there is more than one page
 	if #nav > 1 then
-		return "tabheader[0,0;tabs;" .. table.concat(nav, ",") .. ";" .. current_idx .. ";true;false]"
+		return "tabheader[0,0;sfinv_nav_tabs;" .. table.concat(nav, ",") .. ";" .. current_idx .. ";true;false]"
 	else
 		return ""
 	end
@@ -44,6 +44,17 @@ local theme_inv = default.gui_slots .. [[
 	]]
 
 function sfinv.make_formspec(player, context, content, show_inv, size)
+	if type(size) == "table" then
+		size = table.concat({
+			"size[",
+			size.w or size.x,
+			",",
+			size.h or size.y,
+			",",
+			size.lock and "true" or "false",
+			"]"}, "")
+	end
+
 	local tmp = {
 		size or "size[8,8.6]",
 		theme_main,
@@ -84,10 +95,16 @@ function sfinv.get_formspec(player, context)
 		return page:get(player, context)
 	else
 		local old_page = context.page
-		context.page = sfinv.get_homepage_name(player)
-		assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
-		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
-		return sfinv.get_formspec(player, context)
+		local home_page = sfinv.get_homepage_name(player)
+		if context.page == home_page then
+			minetest.log("error", "[sfinv] Couldn't find " .. dump(old_page) .. ", which is also the old page")
+			return ""
+		else
+			context.page = home_page
+			assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
+			minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
+			return sfinv.get_formspec(player, context)
+		end
 	end
 end
 
@@ -151,8 +168,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	-- Was a tab selected?
-	if fields.tabs and context.nav then
-		local tid = tonumber(fields.tabs)
+	if fields.sfinv_nav_tabs and context.nav then
+		local tid = tonumber(fields.sfinv_nav_tabs)
 		if tid and tid > 0 then
 			local id = context.nav[tid]
 			local page = sfinv.pages[id]
