@@ -363,7 +363,8 @@ TNT API
 ^ Create an explosion.
 
 * `position` The center of explosion.
-* `definition` The TNT definion as passed to `tnt.register`
+* `definition` The TNT definion as passed to `tnt.register` with the following addition:
+ * `explode_center` false by default which removes TNT node on blast, when true will explode center node.
 
 `tnt.burn(position, [nodename])`
 
