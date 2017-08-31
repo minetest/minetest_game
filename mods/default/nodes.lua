@@ -530,7 +530,7 @@ minetest.register_node("default:snow", {
 	}),
 
 	on_construct = function(pos)
-		local belowPos = pos
+		local belowPos = vector.new(pos)
 		belowPos.y = belowPos.y -1
 		if minetest.get_node(belowPos).name == "default:dirt_with_grass" then
 			minetest.set_node(belowPos, {name = "default:dirt_with_snow"})
