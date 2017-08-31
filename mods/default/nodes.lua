@@ -1814,7 +1814,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local pos = open_chests[pn].pos
 	local sound = open_chests[pn].sound
 	local swap = open_chests[pn].swap
-	local node = minetest.get_node(pos)
 
 	open_chests[pn] = nil
 	for k, v in pairs(open_chests) do
@@ -1822,10 +1821,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			return true
 		end
 	end
+
+	local node = minetest.get_node(pos)
 	minetest.after(0.2, minetest.swap_node, pos, { name = "default:" .. swap,
 			param2 = node.param2 })
 	minetest.sound_play(sound, {gain = 0.3, pos = pos, max_hear_distance = 10})
 	return true
+end)
+
+minetest.register_on_leaveplayer(function(player)
+	open_chests[player:get_player_name()] = nil
 end)
 
 function default.register_chest(name, d)
