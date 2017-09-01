@@ -1811,7 +1811,7 @@ local function chest_lid_close(pn)
 	end
 
 	local node = minetest.get_node(pos)
-	minetest.after(0.2, minetest.swap_node, pos, { name = "test:" .. swap,
+	minetest.after(0.2, minetest.swap_node, pos, { name = "default:" .. swap,
 			param2 = node.param2 })
 	minetest.sound_play(sound, {gain = 0.3, pos = pos, max_hear_distance = 10})
 end
