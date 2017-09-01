@@ -1834,7 +1834,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.register_on_leaveplayer(function(player)
-	chest_lid_close(player:get_player_name())
+	local pn = player:get_player_name()
+	if open_chests[pn] then
+		chest_lid_close(pn)
+	end
 end)
 
 function default.register_chest(name, d)
