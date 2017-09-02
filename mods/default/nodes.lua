@@ -1961,6 +1961,13 @@ function default.register_chest(name, d)
 			open_chests[clicker:get_player_name()] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
+		def.on_blast = function(pos)
+			local drops = {}
+			default.get_inventory_drops(pos, "main", drops)
+			drops[#drops+1] = "default:" .. name
+			minetest.remove_node(pos)
+			return drops
+		end
 	end
 
 	def.on_metadata_inventory_move = function(pos, from_list, from_index,
@@ -1977,13 +1984,6 @@ function default.register_chest(name, d)
 		minetest.log("action", player:get_player_name() ..
 			" takes " .. stack:get_name() ..
 			" from chest at " .. minetest.pos_to_string(pos))
-	end
-	def.on_blast = function(pos)
-		local drops = {}
-		default.get_inventory_drops(pos, "main", drops)
-		drops[#drops+1] = "default:chest"
-		minetest.remove_node(pos)
-		return drops
 	end
 
 	local def_opened = table.copy(def)
@@ -2006,6 +2006,7 @@ function default.register_chest(name, d)
 	def_opened.can_dig = function()
 		return false
 	end
+	def_opened.on_blast = function() end
 
 	def_closed.mesh = nil
 	def_closed.drawtype = nil
