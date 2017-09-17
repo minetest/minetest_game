@@ -1445,7 +1445,6 @@ end
 
 
 -- Biomes for floatlands
--- Used when mgv7 'biomerepeat' flag is false
 
 -- TODO Temporary simple biomes to be replaced by special floatland biomes later.
 
@@ -2018,10 +2017,9 @@ end
 
 -- Get setting or default
 local mgv7_spflags = minetest.get_mapgen_setting("mgv7_spflags") or
-	"mountains, ridges, nofloatlands, caverns, biomerepeat"
+	"mountains, ridges, nofloatlands, caverns"
 local captures_float = string.match(mgv7_spflags, "floatlands")
 local captures_nofloat = string.match(mgv7_spflags, "nofloatlands")
-local captures_nobiorep = string.match(mgv7_spflags, "nobiomerepeat")
 
 -- Get setting or default
 -- Make global for mods to use to register floatland biomes
@@ -2039,12 +2037,11 @@ local mg_name = minetest.get_mapgen_setting("mg_name")
 if mg_name == "v6" then
 	default.register_mgv6_ores()
 	default.register_mgv6_decorations()
+-- Need to check for 'nofloatlands' because that contains
+-- 'floatlands' which makes the second condition true.
 elseif mg_name == "v7" and
 		captures_float == "floatlands" and
-		-- Need to check for 'nofloatlands' because that contains
-		-- 'floatlands' which makes the second condition true.
-		captures_nofloat ~= "nofloatlands" and
-		captures_nobiorep == "nobiomerepeat" then
+		captures_nofloat ~= "nofloatlands" then
 	-- Mgv7 with floatlands and floatland biomes
 	default.register_biomes(default.mgv7_shadow_limit - 1)
 	default.register_floatland_biomes(
