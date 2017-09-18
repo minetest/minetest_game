@@ -32,6 +32,7 @@ minetest.register_tool("default:pick_wood", {
 		},
 		damage_groups = {fleshy=2},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1, flammable = 2}
 })
@@ -47,6 +48,7 @@ minetest.register_tool("default:pick_stone", {
 		},
 		damage_groups = {fleshy=3},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
 })
@@ -62,6 +64,7 @@ minetest.register_tool("default:pick_bronze", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
 })
@@ -77,6 +80,7 @@ minetest.register_tool("default:pick_steel", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
 })
@@ -92,6 +96,7 @@ minetest.register_tool("default:pick_mese", {
 		},
 		damage_groups = {fleshy=5},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
 })
@@ -107,6 +112,7 @@ minetest.register_tool("default:pick_diamond", {
 		},
 		damage_groups = {fleshy=5},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
 })
@@ -127,6 +133,7 @@ minetest.register_tool("default:shovel_wood", {
 		},
 		damage_groups = {fleshy=2},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1, flammable = 2}
 })
@@ -143,6 +150,7 @@ minetest.register_tool("default:shovel_stone", {
 		},
 		damage_groups = {fleshy=2},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
 })
@@ -159,6 +167,7 @@ minetest.register_tool("default:shovel_bronze", {
 		},
 		damage_groups = {fleshy=3},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
 })
@@ -175,6 +184,7 @@ minetest.register_tool("default:shovel_steel", {
 		},
 		damage_groups = {fleshy=3},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
 })
@@ -191,6 +201,7 @@ minetest.register_tool("default:shovel_mese", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
 })
@@ -207,6 +218,7 @@ minetest.register_tool("default:shovel_diamond", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
 })
@@ -226,6 +238,7 @@ minetest.register_tool("default:axe_wood", {
 		},
 		damage_groups = {fleshy=2},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1, flammable = 2}
 })
@@ -241,6 +254,7 @@ minetest.register_tool("default:axe_stone", {
 		},
 		damage_groups = {fleshy=3},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
 })
@@ -256,6 +270,7 @@ minetest.register_tool("default:axe_bronze", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
 })
@@ -271,6 +286,7 @@ minetest.register_tool("default:axe_steel", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
 })
@@ -286,6 +302,7 @@ minetest.register_tool("default:axe_mese", {
 		},
 		damage_groups = {fleshy=6},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
 })
@@ -301,6 +318,7 @@ minetest.register_tool("default:axe_diamond", {
 		},
 		damage_groups = {fleshy=7},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
 })
@@ -320,6 +338,7 @@ minetest.register_tool("default:sword_wood", {
 		},
 		damage_groups = {fleshy=2},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1, flammable = 2}
 })
@@ -335,6 +354,7 @@ minetest.register_tool("default:sword_stone", {
 		},
 		damage_groups = {fleshy=4},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
 })
@@ -350,6 +370,7 @@ minetest.register_tool("default:sword_bronze", {
 		},
 		damage_groups = {fleshy=6},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
 })
@@ -365,6 +386,7 @@ minetest.register_tool("default:sword_steel", {
 		},
 		damage_groups = {fleshy=6},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
 })
@@ -380,6 +402,7 @@ minetest.register_tool("default:sword_mese", {
 		},
 		damage_groups = {fleshy=7},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
 })
@@ -395,6 +418,7 @@ minetest.register_tool("default:sword_diamond", {
 		},
 		damage_groups = {fleshy=8},
 	},
+	range = 4.0,
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
 })
