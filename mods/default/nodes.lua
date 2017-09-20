@@ -1798,6 +1798,24 @@ end
 
 local open_chests = {}
 
+local function chest_lid_close(pn)
+	local pos = open_chests[pn].pos
+	local sound = open_chests[pn].sound
+	local swap = open_chests[pn].swap
+
+	open_chests[pn] = nil
+	for k, v in pairs(open_chests) do
+		if v.pos.x == pos.x and v.pos.y == pos.y and v.pos.z == pos.z then
+			return true
+		end
+	end
+
+	local node = minetest.get_node(pos)
+	minetest.after(0.2, minetest.swap_node, pos, { name = "default:" .. swap,
+			param2 = node.param2 })
+	minetest.sound_play(sound, {gain = 0.3, pos = pos, max_hear_distance = 10})
+end
+
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "default:chest" then
 		return
@@ -1811,21 +1829,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 
-	local pos = open_chests[pn].pos
-	local sound = open_chests[pn].sound
-	local swap = open_chests[pn].swap
-	local node = minetest.get_node(pos)
-
-	open_chests[pn] = nil
-	for k, v in pairs(open_chests) do
-		if v.pos.x == pos.x and v.pos.y == pos.y and v.pos.z == pos.z then
-			return true
-		end
-	end
-	minetest.after(0.2, minetest.swap_node, pos, { name = "default:" .. swap,
-			param2 = node.param2 })
-	minetest.sound_play(sound, {gain = 0.3, pos = pos, max_hear_distance = 10})
+	chest_lid_close(pn)
 	return true
+end)
+
+minetest.register_on_leaveplayer(function(player)
+	local pn = player:get_player_name()
+	if open_chests[pn] then
+		chest_lid_close(pn)
+	end
 end)
 
 function default.register_chest(name, d)
