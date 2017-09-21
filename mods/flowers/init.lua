@@ -276,12 +276,17 @@ minetest.register_node("flowers:waterlily", {
 
 	on_place = function(itemstack, placer, pointed_thing)
 		local pos = pointed_thing.above
-		local node = minetest.get_node(pointed_thing.under).name
-		local def = minetest.registered_nodes[node]
+		local node = minetest.get_node(pointed_thing.under)
+		local def = minetest.registered_nodes[node.name]
 		local player_name = placer:get_player_name()
 
+		if def and def.on_rightclick then
+			return def.on_rightclick(pointed_thing.under, node, placer, itemstack,
+					pointed_thing)
+		end
+
 		if def and def.liquidtype == "source" and
-				minetest.get_item_group(node, "water") > 0 then
+				minetest.get_item_group(node.name, "water") > 0 then
 			if not minetest.is_protected(pos, player_name) then
 				minetest.set_node(pos, {name = "flowers:waterlily",
 					param2 = math.random(0, 3)})
