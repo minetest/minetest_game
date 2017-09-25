@@ -7,17 +7,20 @@ if enable_respawn == nil then
 end
 
 -- Helper functions
-
-local function get_look_yaw(pos)
+local function get_look_yaw(pos, override_rotation)
 	local n = minetest.get_node(pos)
-	if n.param2 == 1 then
-		return pi / 2, n.param2
-	elseif n.param2 == 3 then
-		return -pi / 2, n.param2
-	elseif n.param2 == 0 then
-		return pi, n.param2
+	local rotation = override_rotation or n.param2
+	if rotation > 3 then
+		rotation = rotation % 4 -- mask colorfacedir values
+	end
+	if rotation == 1 then
+		return pi / 2, rotation
+	elseif rotation == 3 then
+		return -pi / 2, rotation
+	elseif rotation == 0 then
+		return pi, rotation
 	else
-		return 0, n.param2
+		return 0, rotation
 	end
 end
 
@@ -45,7 +48,7 @@ local function check_in_beds(players)
 	return #players > 0
 end
 
-local function lay_down(player, pos, bed_pos, state, skip)
+local function lay_down(player, pos, bed_pos, state, skip, override_rotation)
 	local name = player:get_player_name()
 	local hud_flags = player:hud_get_flags()
 
@@ -84,7 +87,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
-		local yaw, param2 = get_look_yaw(bed_pos)
+		local yaw, param2 = get_look_yaw(bed_pos, override_rotation)
 		player:set_look_horizontal(yaw)
 		local dir = minetest.facedir_to_dir(param2)
 		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
@@ -132,14 +135,14 @@ function beds.skip_night()
 	minetest.set_timeofday(0.23)
 end
 
-function beds.on_rightclick(pos, player)
+function beds.on_rightclick(pos, player, override_rotation)
 	local name = player:get_player_name()
 	local ppos = player:getpos()
 	local tod = minetest.get_timeofday()
 
 	if tod > 0.2 and tod < 0.805 then
 		if beds.player[name] then
-			lay_down(player, nil, nil, false)
+			lay_down(player, nil, nil, false, nil, override_rotation)
 		end
 		minetest.chat_send_player(name, "You can only sleep at night.")
 		return
@@ -147,10 +150,10 @@ function beds.on_rightclick(pos, player)
 
 	-- move to bed
 	if not beds.player[name] then
-		lay_down(player, ppos, pos)
+		lay_down(player, ppos, pos, nil, nil, override_rotation)
 		beds.set_spawns() -- save respawn positions when entering bed
 	else
-		lay_down(player, nil, nil, false)
+		lay_down(player, nil, nil, false, nil, override_rotation)
 	end
 
 	if not is_sp then
