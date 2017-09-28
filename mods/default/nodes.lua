@@ -530,9 +530,12 @@ minetest.register_node("default:snow", {
 	}),
 
 	on_construct = function(pos)
-		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "default:dirt_with_grass" then
-			minetest.set_node(pos, {name = "default:dirt_with_snow"})
+		local pos_below = {x = pos.x, y = (pos.y - 1), z = pos.z}
+		local node_below = minetest.get_node(pos_below).name
+		if node_below == "default:dirt_with_grass" then
+			minetest.set_node(pos_below, {name = "default:dirt_with_snow"})
+		elseif node_below == "default:snow"  then
+			minetest.spawn_falling_node(pos)
 		end
 	end,
 })
