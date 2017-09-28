@@ -146,12 +146,11 @@ minetest.register_globalstep(function(dtime)
 	end
 end)
 
--- player get node vars
+-- setup a few timer variables
 local update_time = 1.0
 local timer = 0
 
 minetest.register_globalstep(function(dtime)
-
 	timer = timer + dtime
 	if timer < update_time then
 		return
@@ -159,24 +158,19 @@ minetest.register_globalstep(function(dtime)
 	timer = 0
 
 	local name, pos, ndef
-
 	for _,player in pairs(minetest.get_connected_players()) do
-
 		name = player:get_player_name()
 		pos = player:getpos()
 
 		pos.y = pos.y - 0.1
 		player_api.nodes[name].stand = minetest.get_node_or_nil(pos) or
 				minetest.registered_nodes["air"]
-
 		pos.y = pos.y + 1.5
 		player_api.nodes[name].head = minetest.get_node_or_nil(pos) or
 				minetest.registered_nodes["air"]
-
 		pos.y = pos.y - 1.2
 		player_api.nodes[name].foot = minetest.get_node_or_nil(pos) or
 				minetest.registered_nodes["air"]
-
 		pos.y = pos.y - 0.2 -- reset pos
 
 		ndef = minetest.registered_nodes[player_api.nodes[name].stand.name]
