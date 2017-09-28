@@ -22,6 +22,7 @@ local player_textures = {}
 local player_anim = {}
 local player_sneak = {}
 player_api.player_attached = {}
+player_api.nodes = {}
 
 function player_api.get_animation(player)
 	local name = player:get_player_name()
@@ -82,11 +83,20 @@ function player_api.set_animation(player, anim_name, speed)
 	player:set_animation(anim, speed or model.animation_speed, animation_blend)
 end
 
+minetest.register_on_joinplayer(function(player)
+	local name = player:get_player_name()
+	player_api.nodes[name] = {}
+	player_api.nodes[name].head = ""
+	player_api.nodes[name].foot = ""
+	player_api.nodes[name].stand = ""
+end)
+
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	player_model[name] = nil
 	player_anim[name] = nil
 	player_textures[name] = nil
+	player_api.nodes[name] = nil
 end)
 
 -- Localize for better performance.
@@ -132,6 +142,40 @@ minetest.register_globalstep(function(dtime)
 			else
 				player_set_animation(player, "stand", animation_speed_mod)
 			end
+		end
+	end
+end)
+
+-- setup a few timer variables
+local update_time = 1.0
+local timer = 0
+
+minetest.register_globalstep(function(dtime)
+	timer = timer + dtime
+	if timer < update_time then
+		return
+	end
+	timer = 0
+
+	local name, pos, ndef
+	for _,player in pairs(minetest.get_connected_players()) do
+		name = player:get_player_name()
+		pos = player:getpos()
+
+		pos.y = pos.y - 0.1
+		player_api.nodes[name].stand = minetest.get_node_or_nil(pos) or
+				minetest.registered_nodes["air"]
+		pos.y = pos.y + 1.5
+		player_api.nodes[name].head = minetest.get_node_or_nil(pos) or
+				minetest.registered_nodes["air"]
+		pos.y = pos.y - 1.2
+		player_api.nodes[name].foot = minetest.get_node_or_nil(pos) or
+				minetest.registered_nodes["air"]
+		pos.y = pos.y - 0.2 -- reset pos
+
+		ndef = minetest.registered_nodes[player_api.nodes[name].stand.name]
+		if ndef and ndef.on_walk_over then
+			ndef.on_walk_over(pos, player_api.nodes[name].stand, player)
 		end
 	end
 end)
