@@ -336,6 +336,18 @@ The player API can register player models and update the player's appearence
 		stepheight = 0.6, -- In nodes
 	}
 
+It can also provide mods with node information from the player position using the following table:
+
+* `player_api[player_name].head`  -- node at players head position
+* `player_api[player_name].foot`  -- node at players foot position
+* `player_api[player_name].stand` -- node the player is standing on
+
+A new node definition function has been added which is called when a player walks over it:
+
+* `òn_walk_over(pos, node, player)`
+	* `pos`: position table of node
+	* `node`: node definition
+	* `player`: PlayerRef
 
 TNT API
 -------
