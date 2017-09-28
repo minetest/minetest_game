@@ -387,6 +387,9 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 end
 
 function tnt.boom(pos, def)
+	def = def or {}
+	def.radius = def.radius or 1
+	def.damage_radius = def.damage_radius or def.radius * 2
 	local meta = minetest.get_meta(pos)
 	local owner = meta:get_string("owner")
 	if not def.explode_center then
