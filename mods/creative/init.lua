@@ -2,7 +2,8 @@ creative = {}
 
 minetest.register_privilege("creative", {
 	description = "Allow player to use creative inventory",
-	give_to_singleplayer = false
+	give_to_singleplayer = false,
+	give_to_admin = false
 })
 
 local creative_mode_cache = minetest.settings:get_bool("creative_mode")
