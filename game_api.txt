@@ -358,7 +358,7 @@ TNT API
   * `bottom` Bottom tile. By default the name of the tnt with a suffix of `_bottom.png`.
   * `burning` Top tile when lit. By default the name of the tnt with a suffix of `_top_burning_animated.png".
 
-`tnt.boom(position, definition)`
+`tnt.boom(position[, definition])`
 
 ^ Create an explosion.
 
