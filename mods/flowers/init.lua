@@ -278,7 +278,7 @@ minetest.register_node("flowers:waterlily", {
 		local pos = pointed_thing.above
 		local node = minetest.get_node(pointed_thing.under)
 		local def = minetest.registered_nodes[node.name]
-		local player_name = placer:get_player_name()
+		local player_name = placer and placer:get_player_name() or ""
 
 		if def and def.on_rightclick then
 			return def.on_rightclick(pointed_thing.under, node, placer, itemstack,

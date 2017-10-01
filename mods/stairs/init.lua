@@ -22,21 +22,23 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	local p1 = pointed_thing.above
 	local param2 = 0
 
-	local placer_pos = placer:getpos()
-	if placer_pos then
-		param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
-	end
+	if placer then
+		local placer_pos = placer:getpos()
+		if placer_pos then
+			param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
+		end
 
-	local finepos = minetest.pointed_thing_to_face_pos(placer, pointed_thing)
-	local fpos = finepos.y % 1
+		local finepos = minetest.pointed_thing_to_face_pos(placer, pointed_thing)
+		local fpos = finepos.y % 1
 
-	if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5)
-			or (fpos < -0.5 and fpos > -0.999999999) then
-		param2 = param2 + 20
-		if param2 == 21 then
-			param2 = 23
-		elseif param2 == 23 then
-			param2 = 21
+		if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5)
+				or (fpos < -0.5 and fpos > -0.999999999) then
+			param2 = param2 + 20
+			if param2 == 21 then
+				param2 = 23
+			elseif param2 == 23 then
+				param2 = 21
+			end
 		end
 	end
 	return minetest.item_place(itemstack, placer, pointed_thing, param2)
@@ -175,8 +177,9 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		on_place = function(itemstack, placer, pointed_thing)
 			local under = minetest.get_node(pointed_thing.under)
 			local wield_item = itemstack:get_name()
+			local player_name = placer and placer:get_player_name() or ""
 			local creative_enabled = (creative and creative.is_enabled_for
-					and creative.is_enabled_for(placer:get_player_name()))
+					and creative.is_enabled_for(player_name))
 
 			if under and under.name:find("stairs:slab_") then
 				-- place slab using under node orientation
@@ -192,9 +195,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 					if not recipeitem then
 						return itemstack
 					end
-					local player_name = placer:get_player_name()
 					if minetest.is_protected(pointed_thing.under, player_name) and not
-							minetest.check_player_privs(placer, "protection_bypass") then
+							minetest.check_player_privs(player_name, "protection_bypass") then
 						minetest.record_protection_violation(pointed_thing.under,
 							player_name)
 						return

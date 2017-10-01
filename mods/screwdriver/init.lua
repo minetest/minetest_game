@@ -85,9 +85,10 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	end
 
 	local pos = pointed_thing.under
+	local player_name = user and user:get_player_name() or ""
 
-	if minetest.is_protected(pos, user:get_player_name()) then
-		minetest.record_protection_violation(pos, user:get_player_name())
+	if minetest.is_protected(pos, player_name) then
+		minetest.record_protection_violation(pos, player_name)
 		return
 	end
 
@@ -133,8 +134,8 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 		minetest.check_for_falling(pos)
 	end
 
-	if not (creative and creative.is_enabled_for
-			and creative.is_enabled_for(user:get_player_name())) then
+	if not (creative and creative.is_enabled_for and
+			creative.is_enabled_for(player_name)) then
 		itemstack:add_wear(65535 / ((uses or 200) - 1))
 	end
 
