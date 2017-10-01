@@ -265,7 +265,7 @@ function doors.register(name, def)
 
 			local node = minetest.get_node(pointed_thing.under)
 			local pdef = minetest.registered_nodes[node.name]
-			if pdef and pdef.on_rightclick and
+			if placer and pdef and pdef.on_rightclick and
 					not placer:get_player_control().sneak then
 				return pdef.on_rightclick(pointed_thing.under,
 						node, placer, itemstack, pointed_thing)
@@ -290,12 +290,12 @@ function doors.register(name, def)
 				return itemstack
 			end
 
-			local pn = placer:get_player_name()
+			local pn = placer and placer:get_player_name() or ""
 			if minetest.is_protected(pos, pn) or minetest.is_protected(above, pn) then
 				return itemstack
 			end
 
-			local dir = minetest.dir_to_facedir(placer:get_look_dir())
+			local dir = placer and minetest.dir_to_facedir(placer:get_look_dir()) or 0
 
 			local ref = {
 				{x = -1, y = 0, z = 0},

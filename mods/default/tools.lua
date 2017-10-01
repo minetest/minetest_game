@@ -388,8 +388,8 @@ minetest.register_tool("default:key", {
 		local under = pointed_thing.under
 		local node = minetest.get_node(under)
 		local def = minetest.registered_nodes[node.name]
-		if def and def.on_rightclick and
-				not (placer and placer:get_player_control().sneak) then
+		if placer and def and def.on_rightclick and
+				not placer:get_player_control().sneak then
 			return def.on_rightclick(under, node, placer, itemstack,
 				pointed_thing) or itemstack
 		end
@@ -410,7 +410,7 @@ minetest.register_tool("default:key", {
 		end
 
 		local on_key_use = ndef.on_key_use
-		if on_key_use then
+		if placer and on_key_use then
 			on_key_use(pos, placer)
 		end
 

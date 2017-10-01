@@ -150,7 +150,9 @@ minetest.register_tool("screwdriver:screwdriver", {
 		return itemstack
 	end,
 	on_place = function(itemstack, user, pointed_thing)
-		screwdriver.handler(itemstack, user, pointed_thing, screwdriver.ROTATE_AXIS, 200)
+		if user then
+			screwdriver.handler(itemstack, user, pointed_thing, screwdriver.ROTATE_AXIS, 200)
+		end
 		return itemstack
 	end,
 })
