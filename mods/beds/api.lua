@@ -49,7 +49,8 @@ function beds.register_bed(name, def)
 			local node = minetest.get_node(under)
 			local udef = minetest.registered_nodes[node.name]
 			if udef and udef.on_rightclick and
-					not (placer and placer:get_player_control().sneak) then
+					not (placer and placer:is_player() and
+					placer:get_player_control().sneak) then
 				return udef.on_rightclick(under, node, placer, itemstack,
 					pointed_thing) or itemstack
 			end
@@ -61,9 +62,11 @@ function beds.register_bed(name, def)
 				pos = pointed_thing.above
 			end
 
-			if minetest.is_protected(pos, placer:get_player_name()) and
-					not minetest.check_player_privs(placer, "protection_bypass") then
-				minetest.record_protection_violation(pos, placer:get_player_name())
+			local player_name = placer and placer:get_player_name() or ""
+
+			if minetest.is_protected(pos, player_name) and
+					not minetest.check_player_privs(player_name, "protection_bypass") then
+				minetest.record_protection_violation(pos, player_name)
 				return itemstack
 			end
 
@@ -72,12 +75,13 @@ function beds.register_bed(name, def)
 				return itemstack
 			end
 
-			local dir = minetest.dir_to_facedir(placer:get_look_dir())
+			local dir = placer and placer:get_look_dir() and
+				minetest.dir_to_facedir(placer:get_look_dir()) or 0
 			local botpos = vector.add(pos, minetest.facedir_to_dir(dir))
 
-			if minetest.is_protected(botpos, placer:get_player_name()) and
-					not minetest.check_player_privs(placer, "protection_bypass") then
-				minetest.record_protection_violation(botpos, placer:get_player_name())
+			if minetest.is_protected(botpos, player_name) and
+					not minetest.check_player_privs(player_name, "protection_bypass") then
+				minetest.record_protection_violation(botpos, player_name)
 				return itemstack
 			end
 
@@ -90,7 +94,7 @@ function beds.register_bed(name, def)
 			minetest.set_node(botpos, {name = name .. "_top", param2 = dir})
 
 			if not (creative and creative.is_enabled_for
-					and creative.is_enabled_for(placer:get_player_name())) then
+					and creative.is_enabled_for(player_name)) then
 				itemstack:take_item()
 			end
 			return itemstack

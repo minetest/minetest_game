@@ -673,9 +673,7 @@ minetest.register_node("default:apple", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	after_place_node = function(pos, placer, itemstack)
-		if placer:is_player() then
-			minetest.set_node(pos, {name = "default:apple", param2 = 1})
-		end
+		minetest.set_node(pos, {name = "default:apple", param2 = 1})
 	end,
 })
 

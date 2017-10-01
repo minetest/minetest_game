@@ -367,7 +367,8 @@ minetest.register_craftitem("carts:cart", {
 		local node = minetest.get_node(under)
 		local udef = minetest.registered_nodes[node.name]
 		if udef and udef.on_rightclick and
-				not (placer and placer:get_player_control().sneak) then
+				not (placer and placer:is_player() and
+				placer:get_player_control().sneak) then
 			return udef.on_rightclick(under, node, placer, itemstack,
 				pointed_thing) or itemstack
 		end

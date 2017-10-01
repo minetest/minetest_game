@@ -69,7 +69,8 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 
 				-- Call on_rightclick if the pointed node defines it
 				if ndef and ndef.on_rightclick and
-				   user and not user:get_player_control().sneak then
+						not (user and user:is_player() and
+						user:get_player_control().sneak) then
 					return ndef.on_rightclick(
 						pointed_thing.under,
 						node, user,

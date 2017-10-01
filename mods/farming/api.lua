@@ -144,12 +144,14 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	local under = minetest.get_node(pt.under)
 	local above = minetest.get_node(pt.above)
 
-	if minetest.is_protected(pt.under, placer:get_player_name()) then
-		minetest.record_protection_violation(pt.under, placer:get_player_name())
+	local player_name = placer and placer:get_player_name() or ""
+
+	if minetest.is_protected(pt.under, player_name) then
+		minetest.record_protection_violation(pt.under, player_name)
 		return
 	end
-	if minetest.is_protected(pt.above, placer:get_player_name()) then
-		minetest.record_protection_violation(pt.above, placer:get_player_name())
+	if minetest.is_protected(pt.above, player_name) then
+		minetest.record_protection_violation(pt.above, player_name)
 		return
 	end
 
@@ -180,7 +182,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
 	if not (creative and creative.is_enabled_for
-			and creative.is_enabled_for(placer:get_player_name())) then
+			and creative.is_enabled_for(player_name)) then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -310,7 +312,8 @@ farming.register_plant = function(name, def)
 			local node = minetest.get_node(under)
 			local udef = minetest.registered_nodes[node.name]
 			if udef and udef.on_rightclick and
-					not (placer and placer:get_player_control().sneak) then
+					not (placer and placer:is_player() and
+					placer:get_player_control().sneak) then
 				return udef.on_rightclick(under, node, placer, itemstack,
 					pointed_thing) or itemstack
 			end

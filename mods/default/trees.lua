@@ -468,7 +468,9 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 	local node = minetest.get_node_or_nil(pos)
 	local pdef = node and minetest.registered_nodes[node.name]
 
-	if pdef and pdef.on_rightclick and not placer:get_player_control().sneak then
+	if pdef and pdef.on_rightclick and
+			not (placer and placer:is_player() and
+			placer:get_player_control().sneak) then
 		return pdef.on_rightclick(pos, node, placer, itemstack, pointed_thing)
 	end
 
@@ -481,7 +483,7 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 		end
 	end
 
-	local player_name = placer:get_player_name()
+	local player_name = placer and placer:get_player_name() or ""
 	-- Check sapling position for protection
 	if minetest.is_protected(pos, player_name) then
 		minetest.record_protection_violation(pos, player_name)
