@@ -68,6 +68,12 @@ minetest.register_node("bones:bones", {
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if meta:get_inventory():is_empty("main") then
+			local inv = player:get_inventory()
+			if inv:room_for_item("main", {name = "bones:bones"}) then
+				inv:add_item("main", {name = "bones:bones"})
+			else
+				minetest.add_item(pos, "bones:bones")
+			end
 			minetest.remove_node(pos)
 		end
 	end,
