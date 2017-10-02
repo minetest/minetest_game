@@ -311,8 +311,9 @@ farming.register_plant = function(name, def)
 			local under = pointed_thing.under
 			local node = minetest.get_node(under)
 			local udef = minetest.registered_nodes[node.name]
-			if placer and udef and udef.on_rightclick and
-					not placer:get_player_control().sneak then
+			if udef and udef.on_rightclick and
+					not (placer and placer:is_player() and
+					placer:get_player_control().sneak) then
 				return udef.on_rightclick(under, node, placer, itemstack,
 					pointed_thing) or itemstack
 			end

@@ -229,8 +229,9 @@ minetest.register_craftitem("boats:boat", {
 		local under = pointed_thing.under
 		local node = minetest.get_node(under)
 		local udef = minetest.registered_nodes[node.name]
-		if placer and udef and udef.on_rightclick and
-				not placer:get_player_control().sneak then
+		if udef and udef.on_rightclick and
+				not (placer and placer:is_player() and
+				placer:get_player_control().sneak) then
 			return udef.on_rightclick(under, node, placer, itemstack,
 				pointed_thing) or itemstack
 		end
@@ -243,10 +244,13 @@ minetest.register_craftitem("boats:boat", {
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
 		boat = minetest.add_entity(pointed_thing.under, "boats:boat")
-		if placer and boat then
-			boat:setyaw(placer:get_look_horizontal())
-			if not (creative and creative.is_enabled_for
-					and creative.is_enabled_for(placer:get_player_name())) then
+		if boat then
+			if placer then
+				boat:setyaw(placer:get_look_horizontal())
+			end
+			local player_name = placer and placer:get_player_name() or ""
+			if not (creative and creative.is_enabled_for and
+					creative.is_enabled_for(player_name)) then
 				itemstack:take_item()
 			end
 		end
