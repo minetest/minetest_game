@@ -32,13 +32,12 @@ WPD
 Usage
 -----
 In survival mode, use of the minimap requires the mapping kit item in your
-inventory.
-Once crafted, to instantly enable, 'use' (left click) the item, otherwise the
-minimap will be automatically enabled a few seconds later.
-Minimap radar mode is always disabled in survival mode.
+inventory. It can take up to 3 seconds for adding to or removal from inventory
+to have an effect.
+Minimap radar mode is always disallowed in survival mode.
 
-Minimap and minimap radar mode will be automatically enabled in creative mode
-and for any player with the 'creative' privilege.
+Minimap and minimap radar mode are automatically allowed in creative mode and
+for any player with the 'creative' privilege.
 
 The 'map.update_hud_flags()' function is global so can be redefined by a mod for
 alternative behaviour.
