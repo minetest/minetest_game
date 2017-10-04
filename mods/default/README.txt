@@ -215,6 +215,9 @@ kilbith (CC BY-SA 3.0):
   default_tin_ingot.png
   default_tin_lump.png
 
+tobyplowy (CC BY-SA 3.0):
+  default_kelp.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
