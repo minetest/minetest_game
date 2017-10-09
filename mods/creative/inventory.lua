@@ -176,10 +176,6 @@ function creative.register_tab(name, title, items)
 	})
 end
 
---minetest.register_on_joinplayer(function(player)
---	creative.update_creative_inventory(player:get_player_name(), minetest.registered_items)
---end)
-
 creative.register_tab("all", "All", minetest.registered_items)
 creative.register_tab("nodes", "Nodes", minetest.registered_nodes)
 creative.register_tab("tools", "Tools", minetest.registered_tools)
