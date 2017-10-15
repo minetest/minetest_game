@@ -57,8 +57,8 @@ function cart_entity:get_staticdata()
 end
 
 function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
-	local pos = self.object:getpos()
-	local vel = self.object:getvelocity()
+	local pos = self.object:get_pos()
+	local vel = self.object:get_velocity()
 	if not self.railtype or vector.equals(vel, {x=0, y=0, z=0}) then
 		local node = minetest.get_node(pos).name
 		self.railtype = minetest.get_item_group(node, "connect_to_raillike")
@@ -81,7 +81,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		-- Detach driver and items
 		if self.driver then
 			if self.old_pos then
-				self.object:setpos(self.old_pos)
+				self.object:set_pos(self.old_pos)
 			end
 			local player = minetest.get_player_by_name(self.driver)
 			carts:manage_attachment(player, nil)
@@ -99,7 +99,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 			local leftover = inv:add_item("main", "carts:cart")
 			-- If no room in inventory add a replacement cart to the world
 			if not leftover:is_empty() then
-				minetest.add_item(self.object:getpos(), leftover)
+				minetest.add_item(self.object:get_pos(), leftover)
 			end
 		end
 		self.object:remove()
@@ -152,7 +152,7 @@ local function rail_sound(self, dtime)
 		self.sound_handle = nil
 		minetest.after(0.2, minetest.sound_stop, handle)
 	end
-	local vel = self.object:getvelocity()
+	local vel = self.object:get_velocity()
 	local speed = vector.length(vel)
 	if speed > 0 then
 		self.sound_handle = minetest.sound_play(
@@ -170,16 +170,16 @@ local function get_railparams(pos)
 end
 
 local function rail_on_step(self, dtime)
-	local vel = self.object:getvelocity()
+	local vel = self.object:get_velocity()
 	if self.punched then
 		vel = vector.add(vel, self.velocity)
-		self.object:setvelocity(vel)
+		self.object:set_velocity(vel)
 		self.old_dir.y = 0
 	elseif vector.equals(vel, {x=0, y=0, z=0}) then
 		return
 	end
 
-	local pos = self.object:getpos()
+	local pos = self.object:get_pos()
 	local update = {}
 
 	-- stop cart if velocity vector flips
@@ -187,8 +187,8 @@ local function rail_on_step(self, dtime)
 			(self.old_vel.x * vel.x < 0 or self.old_vel.z * vel.z < 0) then
 		self.old_vel = {x = 0, y = 0, z = 0}
 		self.old_pos = pos
-		self.object:setvelocity(vector.new())
-		self.object:setacceleration(vector.new())
+		self.object:set_velocity(vector.new())
+		self.object:set_acceleration(vector.new())
 		rail_on_step_event(get_railparams(pos).on_step, self, dtime)
 		return
 	end
@@ -294,7 +294,7 @@ local function rail_on_step(self, dtime)
 		end
 	end
 
-	self.object:setacceleration(new_acc)
+	self.object:set_acceleration(new_acc)
 	self.old_pos = vector.new(pos)
 	if not vector.equals(dir, {x=0, y=0, z=0}) then
 		self.old_dir = vector.new(dir)
@@ -342,9 +342,9 @@ local function rail_on_step(self, dtime)
 	end
 	self.object:set_animation(anim, 1, 0)
 
-	self.object:setvelocity(vel)
+	self.object:set_velocity(vel)
 	if update.pos then
-		self.object:setpos(pos)
+		self.object:set_pos(pos)
 	end
 
 	-- call event handler
