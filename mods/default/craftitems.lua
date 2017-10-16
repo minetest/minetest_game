@@ -112,6 +112,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		data.description = "\""..short_title.."\" by "..data.owner
 		data.text = fields.text:sub(1, max_text_size)
+		data.text = data.text:gsub("\r\n", "\n"):gsub("\r", "\n")
 		data.page = 1
 		data.page_max = math.ceil((#data.text:gsub("[^\n]", "") + 1) / lpp)
 
