@@ -112,6 +112,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		data.description = "\""..short_title.."\" by "..data.owner
 		data.text = fields.text:sub(1, max_text_size)
+		while(true) do
+			local num_start,num_end = data.text:find("\r")
+			if num_start ~= nil and num_end ~= nil then
+				local str_start = data.text:sub(1,num_start-1)
+				local str_end = data.text:sub(num_end+1)
+				data.text = str_start .. "\n" .. str_end
+			else
+				break
+			end
+		end
 		data.page = 1
 		data.page_max = math.ceil((#data.text:gsub("[^\n]", "") + 1) / lpp)
 
