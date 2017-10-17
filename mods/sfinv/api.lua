@@ -44,9 +44,10 @@ local theme_inv = default.gui_slots .. [[
 		list[current_player;main;0,5.85;8,3;8]
 	]]
 
-function sfinv.make_formspec(player, context, content, show_inv, size)
+function sfinv.make_formspec(player, context, content, show_inv, size, position)
 	local tmp = {
 		size or "size[8,8.6]",
+		position or "position[0.5,0.5]",
 		theme_main,
 		sfinv.get_nav_fs(player, context, context.nav_titles, context.nav_idx),
 		content

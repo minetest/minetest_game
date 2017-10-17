@@ -476,9 +476,10 @@ Sfinv API
 
 **Theming**
 
-* sfinv.make_formspec(player, context, content, show_inv, size) - adds a theme to a formspec
+* sfinv.make_formspec(player, context, content, show_inv, size, position) - adds a theme to a formspec
     * show_inv, defaults to false. Whether to show the player's main inventory
     * size, defaults to `size[8,8.6]` if not specified
+    * position, defaults to `position[0.5,0.5]` (screen centre) if not specified
 * sfinv.get_nav_fs(player, context, nav, current_idx) - creates tabheader or ""
 
 ### sfinv Members
