@@ -4,6 +4,16 @@ local function noise3d_integer(noise, pos)
 	return math.abs(math.floor(noise:get3d(pos) * 2147483647))
 end
 
+local function random_sample(rand, list, count)
+	local ret = {}
+	for n = 1, count do
+		local idx = rand:next(1, #list)
+		table.insert(ret, list[idx])
+		table.remove(list, idx)
+	end
+	return ret
+end
+
 local function find_walls(cpos)
 	local wall = ItemStack("mapgen_cobble"):get_name()
 	local wall_alt = ItemStack("mapgen_mossycobble"):get_name()
@@ -69,6 +79,9 @@ local function populate_chest(pos, rand)
 		{"default:pick_stone", 0.3, 1, 1},
 		{"default:axe_diamond", 0.05, 1, 1},
 	}
+	if pos.y > 48 then
+		table.insert(item_list, {"default:ladder", 0.7, 2, 8})
+	end
 	if pos.y > -64 then
 		table.insert(item_list, {"default:dirt", 0.8, 4, 32})
 		table.insert(item_list, {"default:sand", 0.6, 2, 16})
@@ -84,13 +97,7 @@ local function populate_chest(pos, rand)
 	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
 
 	-- random sample of all items (half)
-	local item_list2 = {}
-	for n = 1, math.floor(#item_list / 2) do
-		local idx = rand:next(1, #item_list)
-		table.insert(item_list2, item_list[idx])
-		table.remove(item_list, idx)
-	end
-	item_list = item_list2
+	item_list = random_sample(rand, item_list, math.floor(#item_list / 2))
 
 	-- apply chances / randomized amounts and collect resulting items
 	local items = {}
@@ -163,12 +170,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 	local no_chests = rand:next(0, 2) -- not necessarily in a single dungeon
 	no_chests = math.min(#candidates, no_chests)
-	local rooms = {} -- rooms with chests
-	for n = 1, no_chests do
-		local idx = rand:next(1, #candidates)
-		table.insert(rooms, candidates[idx])
-		table.remove(candidates, idx)
-	end
+	local rooms = random_sample(rand, candidates, no_chests)
 
 	for _, room in ipairs(rooms) do
 		-- choose place somewhere in front of any of the walls
