@@ -169,7 +169,6 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		table.insert(rooms, candidates[idx])
 		table.remove(candidates, idx)
 	end
-	candidates = nil
 
 	for _, room in ipairs(rooms) do
 		-- choose place somewhere in front of any of the walls

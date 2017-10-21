@@ -7,7 +7,8 @@ read_globals = {
 	"dump",
 	"vector",
 	"VoxelManip", "VoxelArea",
-	"PseudoRandom", "ItemStack",
+	"PseudoRandom", "PcgRandom",
+	"ItemStack",
 	"Settings",
 	"unpack",
 	-- Silence "accessing undefined field copy of global table".
