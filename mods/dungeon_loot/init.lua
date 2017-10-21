@@ -181,12 +181,12 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		else
 			v, vi = {x=1, y=0, z=0}, "x"
 		end
-		local chestpos = vector.add(wall.pos, {x=wall.facing.x, y=0, z=wall.facing.z})
+		local chestpos = vector.add(wall.pos, wall.facing)
 		local off = rand:next(-room.size[vi]/2 + 1, room.size[vi]/2 - 1)
 		chestpos = vector.add(chestpos, vector.multiply(v, off))
 
 		-- make it face inwards to the room
-		local facedir = minetest.dir_to_facedir({x=-wall.facing.x, y=0, z=-wall.facing.z})
+		local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
 		minetest.add_node(chestpos, {name="default:chest", param2=facedir})
 		populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)))
 	end
