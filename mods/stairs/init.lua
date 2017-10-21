@@ -779,9 +779,5 @@ stairs.register_stair_and_slab(
 	{"default_snow.png"},
 	"Snow Block Stair",
 	"Snow Block Slab",
-	default.node_sound_dirt_defaults({
-		footstep = {name = "default_snow_footstep", gain = 0.15},
-		dug = {name = "default_snow_footstep", gain = 0.2},
-		dig = {name = "default_snow_footstep", gain = 0.2}
-	})
+	default.node_sound_snow_defaults()
 )
