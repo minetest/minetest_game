@@ -184,7 +184,7 @@ Gambit (CC BY-SA 3.0):
 asl97 (CC BY-SA 3.0):
   default_ice.png
 
-KevDoy (CC BY-SA 3.0)
+KevDoy (CC BY-SA 3.0):
   heart.png
 
 Pithydon (CC BY-SA 3.0)
@@ -192,11 +192,11 @@ Pithydon (CC BY-SA 3.0)
   default_coral_orange.png
   default_coral_skeleton.png
 
-Ferk (CC0 1.0)
+Ferk (CC0 1.0):
   default_item_smoke.png
   default_item_smoke.ogg, based on sound by http://opengameart.org/users/bart
 
-npx (CC BY-SA 3.0)
+npx (CC BY-SA 3.0):
   default_rainforest_litter.png
   default_rainforest_litter_side.png
 
@@ -249,8 +249,6 @@ Mito551 (sounds) (CC BY-SA 3.0):
   default_place_node.3.ogg
   default_place_node_hard.1.ogg
   default_place_node_hard.2.ogg
-  default_snow_footstep.1.ogg
-  default_snow_footstep.2.ogg
   default_hard_footstep.1.ogg
   default_hard_footstep.2.ogg
   default_hard_footstep.3.ogg
@@ -275,14 +273,14 @@ Metal sounds:
 Tool breaking sounds added by sofar: CC-BY-3.0
   default_tool_breaks.* - http://www.freesound.org/people/HerbertBoland/sounds/33206/
 
-AGFX (CC BY 3.0)
+AGFX (CC BY 3.0):
 https://www.freesound.org/people/AGFX/packs/1253/
   default_water_footstep.1.ogg
   default_water_footstep.2.ogg
   default_water_footstep.3.ogg
 (default_water_footstep.4.ogg is silent)
 
-blukotek (CC0 1.0)
+blukotek (CC0 1.0):
 https://www.freesound.org/people/blukotek/sounds/251660/
   default_dig_snappy.ogg
 
@@ -294,3 +292,7 @@ Chests sounds added by sofar, derived of several files mixed together:
     - http://www.freesound.org/people/kingsamas/sounds/135576/ CC-BY-3.0
     - http://www.freesound.org/people/bulbastre/sounds/126887/ CC-BY-3.0
     - http://www.freesound.org/people/Yoyodaman234/sounds/183541/ CC0
+
+Ryding (CC0 1.0):
+http://freesound.org/people/Ryding/sounds/94337/
+  default_snow_footstep.*.ogg

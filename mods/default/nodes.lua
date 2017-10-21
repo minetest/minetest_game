@@ -445,7 +445,7 @@ minetest.register_node("default:dirt_with_snow", {
 	groups = {crumbly = 3, spreading_dirt_type = 1, snowy = 1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_snow_footstep", gain = 0.15},
+		footstep = {name = "default_snow_footstep", gain = 0.2},
 	}),
 })
 
@@ -525,11 +525,7 @@ minetest.register_node("default:snow", {
 		},
 	},
 	groups = {crumbly = 3, falling_node = 1, puts_out_fire = 1, snowy = 1},
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_snow_footstep", gain = 0.15},
-		dug = {name = "default_snow_footstep", gain = 0.2},
-		dig = {name = "default_snow_footstep", gain = 0.2}
-	}),
+	sounds = default.node_sound_snow_defaults(),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -543,11 +539,7 @@ minetest.register_node("default:snowblock", {
 	description = "Snow Block",
 	tiles = {"default_snow.png"},
 	groups = {crumbly = 3, puts_out_fire = 1, cools_lava = 1, snowy = 1},
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_snow_footstep", gain = 0.15},
-		dug = {name = "default_snow_footstep", gain = 0.2},
-		dig = {name = "default_snow_footstep", gain = 0.2}
-	}),
+	sounds = default.node_sound_snow_defaults(),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
