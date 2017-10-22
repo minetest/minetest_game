@@ -1,11 +1,3 @@
--- {
---   name = "item:name",
---   chance = 0.5,
---   count = {min, max},
---   y = {min, max},
---   types = {"normal", ...},
--- }
--- only name and chance are required
 dungeon_loot.registered_loot = {
 	-- buckets
 	{name="bucket:bucket_empty", chance=0.65},
@@ -40,6 +32,15 @@ dungeon_loot.registered_loot = {
 	{name="default:obsidian", chance=0.25, count={1, 3}, y={-32768, -512}},
 	{name="default:mese", chance=0.15, y={-32768, -512}},
 }
+
+dungeon_loot.register = function(t)
+	if t.name ~= nil then
+		t = {t} -- single entry
+	end
+	for _, loot in ipairs(t) do
+		table.insert(dungeon_loot.registered_loot, loot)
+	end
+end
 
 dungeon_loot._internal_get_loot = function(pos_y, dungeontype)
 	-- filter by y pos and type
