@@ -72,9 +72,8 @@ local function populate_chest(pos, rand, dungeontype)
 
 	local item_list = dungeon_loot._internal_get_loot(pos.y, dungeontype)
 	-- take random (partial) sample of all possible items
-	-- 8 is the absolute maximum number of itemstacks per chest
-	assert(#item_list >= 8)
-	item_list = random_sample(rand, item_list, 8)
+	assert(#item_list >= dungeon_loot.STACKS_PER_CHEST_MAX)
+	item_list = random_sample(rand, item_list, dungeon_loot.STACKS_PER_CHEST_MAX)
 
 	-- apply chances / randomized amounts and collect resulting items
 	local items = {}
@@ -116,20 +115,6 @@ local function populate_chest(pos, rand, dungeontype)
 	end
 end
 
---[[local function room_debug(cpos, room)
-	minetest.chat_send_all("dungeon room at " .. minetest.pos_to_string(cpos))
-
-	minetest.add_node(cpos, {name="default:sign_wall_wood", param2=1})
-	local meta = minetest.get_meta(cpos)
-	meta:set_string("text", string.format("roomsize = (%d, %d)", room.size.x, room.size.z))
-	meta:set_string("infotext", '"' .. meta:get_string("text") .. '"')
-
-	for _, w in ipairs(room.walls) do
-		local p = minetest.dir_to_wallmounted(vector.multiply(w.facing, -1))
-		minetest.add_node(vector.add(w.pos, w.facing), {name="default:torch", param2=p})
-	end
-end--]]
-
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local poslist = minetest.get_mapgen_object("gennotify")["dungeon"]
@@ -143,12 +128,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		local room = find_walls(cpos)
 		-- skip small rooms and everything that doesn't at least have 3 walls
 		if math.min(room.size.x, room.size.z) >= 4 and #room.walls >= 3 then
-			--room_debug(cpos, room)
 			table.insert(candidates, room)
 		end
 	end
 
-	local no_chests = rand:next(0, 2) -- not necessarily in a single dungeon
+	local no_chests = rand:next(dungeon_loot.CHESTS_MIN, dungeon_loot.CHESTS_MAX)
 	no_chests = math.min(#candidates, no_chests)
 	local rooms = random_sample(rand, candidates, no_chests)
 
@@ -165,9 +149,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		local off = rand:next(-room.size[vi]/2 + 1, room.size[vi]/2 - 1)
 		chestpos = vector.add(chestpos, vector.multiply(v, off))
 
-		-- make it face inwards to the room
-		local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
-		minetest.add_node(chestpos, {name="default:chest", param2=facedir})
-		populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
+		if minetest.get_node(chestpos).name == "air" then
+			-- make it face inwards to the room
+			local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
+			minetest.add_node(chestpos, {name="default:chest", param2=facedir})
+			populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
+		end
 	end
 end)

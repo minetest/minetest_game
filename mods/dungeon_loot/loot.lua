@@ -1,18 +1,18 @@
 dungeon_loot.registered_loot = {
 	-- buckets
-	{name="bucket:bucket_empty", chance=0.65},
+	{name="bucket:bucket_empty", chance=0.55},
 	-- water in deserts or above ground, lava otherwise
-	{name="bucket:bucket_water", chance=0.55, types={"desert"}},
-	{name="bucket:bucket_water", chance=0.55, y={0, 32768}, types={"normal"}},
-	{name="bucket:bucket_lava", chance=0.55, y={-32768, -1}, types={"normal"}},
+	{name="bucket:bucket_water", chance=0.45, types={"desert"}},
+	{name="bucket:bucket_water", chance=0.45, y={0, 32768}, types={"normal"}},
+	{name="bucket:bucket_lava", chance=0.45, y={-32768, -1}, types={"normal"}},
 
 	-- various items
 	{name="default:flint", chance=0.6, count={1, 3}},
 	{name="default:stick", chance=0.6, count={3, 6}},
 	{name="farming:string", chance=0.5, count={1, 8}},
-	{name="farming:wheat", chance=0.5, count={1, 4}},
-	{name="vessels:glass_fragments", chance=0.4, count={2, 5}},
+	{name="farming:wheat", chance=0.5, count={2, 5}},
 	{name="fire:flint_and_steel", chance=0.4},
+	{name="vessels:glass_fragments", chance=0.35, count={1, 4}},
 
 	-- minerals
 	{name="default:coal_lump", chance=0.9, count={1, 12}},
@@ -28,7 +28,7 @@ dungeon_loot.registered_loot = {
 	-- natural materials
 	{name="default:desert_sand", chance=0.8, count={4, 32}, y={-64, 32768}, types={"desert"}},
 	{name="default:sand", chance=0.8, count={4, 32}, y={-64, 32768}, types={"normal"}},
-	{name="default:sand", chance=0.6, count={2, 16}, y={-64, 32768}},
+	{name="default:dirt", chance=0.6, count={2, 16}, y={-64, 32768}},
 	{name="default:obsidian", chance=0.25, count={1, 3}, y={-32768, -512}},
 	{name="default:mese", chance=0.15, y={-32768, -512}},
 }
