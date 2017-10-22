@@ -17,7 +17,10 @@ end
 local function find_walls(cpos)
 	local wall = ItemStack("mapgen_cobble"):get_name()
 	local wall_alt = ItemStack("mapgen_mossycobble"):get_name()
-	local is_wall = function(node) return node.name == wall or node.name == wall_alt end
+	local wall_sand = ItemStack("mapgen_sandstonebrick"):get_name()
+	local is_wall = function(node)
+		return table.indexof({wall, wall_alt, wall_sand}, node.name) ~= -1
+	end
 
 	local dirs = { {x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1} }
 	local get_node = minetest.get_node
@@ -25,12 +28,14 @@ local function find_walls(cpos)
 	local ret = {}
 	local mindist = {x=0, z=0}
 	local min = function(a, b) return a ~= 0 and math.min(a, b) or b end
+	local wallnode
 	for _, dir in ipairs(dirs) do
 		for i = 1, 8 do -- 8 = max room size / 2
 			local pos = vector.add(cpos, {x=dir.x*i, y=0, z=dir.z*i})
 
 			-- continue in that direction until we find a wall-like node
-			if is_wall(get_node(pos)) then
+			local node = get_node(pos)
+			if is_wall(node) then
 				local front_below = vector.subtract(pos, {x=dir.x, y=1, z=dir.z})
 				local above = vector.add(pos, {x=0, y=1, z=0})
 
@@ -44,6 +49,7 @@ local function find_walls(cpos)
 					else
 						mindist.z = min(mindist.z, i-1)
 					end
+					wallnode = node.name
 				end
 				-- abort even if it wasn't a wall cause something is in the way
 				break
@@ -54,14 +60,14 @@ local function find_walls(cpos)
 	return {
 		walls = ret,
 		size = {x=mindist.x*2, z=mindist.z*2},
+		type = wallnode == wall_sand and "desert" or "normal"
 	}
 end
 
-local function populate_chest(pos, rand)
+local function populate_chest(pos, rand, dungeontype)
 	local item_list = {
 		-- {"item:name", chance, min, max},
 		{"bucket:bucket_empty", 0.65, 1, 1},
-		{"bucket:bucket_lava", 0.55, 1, 1},
 
 		{"default:flint", 0.6, 1, 3},
 		{"default:stick", 0.6, 3, 6},
@@ -79,11 +85,17 @@ local function populate_chest(pos, rand)
 		{"default:pick_stone", 0.3, 1, 1},
 		{"default:axe_diamond", 0.05, 1, 1},
 	}
-	if pos.y > 48 then
+	if pos.y > 48 and dungeontype ~= "desert" then
 		table.insert(item_list, {"default:ladder", 0.7, 2, 8})
 	end
+	if pos.y >= 0 or dungeontype == "desert" then
+		table.insert(item_list, {"bucket:bucket_water", 0.55, 1, 1})
+	else
+		table.insert(item_list, {"bucket:bucket_lava", 0.55, 1, 1})
+	end
 	if pos.y > -64 then
-		table.insert(item_list, {"default:dirt", 0.8, 4, 32})
+		local n = dungeontype == "desert" and "default:desert_sand" or "default:dirt"
+		table.insert(item_list, {n, 0.8, 4, 32})
 		table.insert(item_list, {"default:sand", 0.6, 2, 16})
 	end
 	if pos.y <= -512 then
@@ -92,7 +104,7 @@ local function populate_chest(pos, rand)
 	end
 
 	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
-	minetest.chat_send_all("chest placed at "  .. minetest.pos_to_string(pos))
+	minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) .. " [" .. dungeontype .. "]")
 	minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="default:torch", param2=1})
 	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
 
@@ -188,6 +200,6 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		-- make it face inwards to the room
 		local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
 		minetest.add_node(chestpos, {name="default:chest", param2=facedir})
-		populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)))
+		populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
 	end
 end)
