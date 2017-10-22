@@ -33,7 +33,7 @@ dungeon_loot.registered_loot = {
 	{name="default:mese", chance=0.15, y={-32768, -512}},
 }
 
-dungeon_loot.register = function(t)
+function dungeon_loot.register(t)
 	if t.name ~= nil then
 		t = {t} -- single entry
 	end
@@ -42,7 +42,7 @@ dungeon_loot.register = function(t)
 	end
 end
 
-dungeon_loot._internal_get_loot = function(pos_y, dungeontype)
+function dungeon_loot._internal_get_loot(pos_y, dungeontype)
 	-- filter by y pos and type
 	local ret = {}
 	for _, l in ipairs(dungeon_loot.registered_loot) do

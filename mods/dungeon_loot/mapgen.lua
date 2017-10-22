@@ -15,9 +15,9 @@ local function random_sample(rand, list, count)
 end
 
 local function find_walls(cpos)
-	local wall = ItemStack("mapgen_cobble"):get_name()
-	local wall_alt = ItemStack("mapgen_mossycobble"):get_name()
-	local wall_sand = ItemStack("mapgen_sandstonebrick"):get_name()
+	local wall = minetest.registered_aliases["mapgen_cobble"]
+	local wall_alt = minetest.registered_aliases["mapgen_mossycobble"]
+	local wall_sand = minetest.registered_aliases["mapgen_sandstonebrick"]
 	local is_wall = function(node)
 		return table.indexof({wall, wall_alt, wall_sand}, node.name) ~= -1
 	end
