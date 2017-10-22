@@ -11,8 +11,8 @@ read_globals = {
 	"ItemStack",
 	"Settings",
 	"unpack",
-	-- Silence "accessing undefined field copy of global table".
-	table = { fields = { "copy" } }
+	-- Silence errors about custom table methods.
+	table = { fields = { "copy", "indexof" } }
 }
 
 -- Overwrites minetest.handle_node_drops

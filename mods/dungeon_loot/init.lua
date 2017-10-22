@@ -64,72 +64,96 @@ local function find_walls(cpos)
 	}
 end
 
+-- {
+--   name = "item:name",
+--   chance = 0.5,
+--   count = {min, max},
+--   y = {min, max},
+--   types = {"normal", ...},
+-- }
+-- only name and chance are required
+local default_loot = {
+	-- buckets
+	{name="bucket:bucket_empty", chance=0.65},
+	-- water in deserts or above ground, lava otherwise
+	{name="bucket:bucket_water", chance=0.55, types={"desert"}},
+	{name="bucket:bucket_water", chance=0.55, y={0, 32768}, types={"normal"}},
+	{name="bucket:bucket_lava", chance=0.55, y={-32768, -1}, types={"normal"}},
+
+	-- various items
+	{name="default:flint", chance=0.6, count={1, 3}},
+	{name="default:stick", chance=0.6, count={3, 6}},
+	{name="farming:string", chance=0.5, count={1, 8}},
+	{name="farming:wheat", chance=0.5, count={1, 4}},
+	{name="vessels:glass_fragments", chance=0.4, count={2, 5}},
+	{name="fire:flint_and_steel", chance=0.4},
+
+	-- minerals
+	{name="default:coal_lump", chance=0.9, count={1, 12}},
+	{name="default:gold_ingot", chance=0.5},
+	{name="default:steel_ingot", chance=0.4, count={1, 6}},
+	{name="default:mese_crystal", chance=0.1, count={2, 3}},
+
+	-- tools
+	{name="default:sword_wood", chance=0.6},
+	{name="default:pick_stone", chance=0.3},
+	{name="default:axe_diamond", chance=0.05},
+
+	-- natural materials
+	{name="default:desert_sand", chance=0.8, count={4, 32}, y={-64, 32768}, types={"desert"}},
+	{name="default:sand", chance=0.8, count={4, 32}, y={-64, 32768}, types={"normal"}},
+	{name="default:sand", chance=0.6, count={2, 16}, y={-64, 32768}},
+	{name="default:obsidian", chance=0.25, count={1, 3}, y={-32768, -512}},
+	{name="default:mese", chance=0.15, y={-32768, -512}},
+}
+
+local function get_loot(pos_y, dungeontype)
+	-- filter default loot by y and type
+	local ret = {}
+	for _, l in ipairs(default_loot) do
+		if l.y == nil or (pos_y >= l.y[1] and pos_y <= l.y[2]) then
+			if l.types == nil or table.indexof(l.types, dungeontype) ~= -1 then
+				table.insert(ret, l)
+			end
+		end
+	end
+	return ret
+end
+
 local function populate_chest(pos, rand, dungeontype)
-	local item_list = {
-		-- {"item:name", chance, min, max},
-		{"bucket:bucket_empty", 0.65, 1, 1},
-
-		{"default:flint", 0.6, 1, 3},
-		{"default:stick", 0.6, 3, 6},
-		{"farming:string", 0.5, 1, 8},
-		{"farming:wheat", 0.5, 1, 4},
-		{"vessels:glass_fragments", 0.4, 2, 5},
-		{"fire:flint_and_steel", 0.4, 1, 1},
-
-		{"default:coal_lump", 0.9, 1, 12},
-		{"default:gold_ingot", 0.5, 1, 1},
-		{"default:steel_ingot", 0.4, 1, 6},
-		{"default:mese_crystal", 0.1, 2, 3},
-
-		{"default:sword_wood", 0.6, 1, 1},
-		{"default:pick_stone", 0.3, 1, 1},
-		{"default:axe_diamond", 0.05, 1, 1},
-	}
-	if pos.y > 48 and dungeontype ~= "desert" then
-		table.insert(item_list, {"default:ladder", 0.7, 2, 8})
-	end
-	if pos.y >= 0 or dungeontype == "desert" then
-		table.insert(item_list, {"bucket:bucket_water", 0.55, 1, 1})
-	else
-		table.insert(item_list, {"bucket:bucket_lava", 0.55, 1, 1})
-	end
-	if pos.y > -64 then
-		local n = dungeontype == "desert" and "default:desert_sand" or "default:dirt"
-		table.insert(item_list, {n, 0.8, 4, 32})
-		table.insert(item_list, {"default:sand", 0.6, 2, 16})
-	end
-	if pos.y <= -512 then
-		table.insert(item_list, {"default:obsidian", 0.25, 1, 3})
-		table.insert(item_list, {"default:mese", 0.15, 1, 1})
-	end
-
 	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
 	minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) .. " [" .. dungeontype .. "]")
 	minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="default:torch", param2=1})
 	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
 
-	-- random sample of all items (half)
-	item_list = random_sample(rand, item_list, math.floor(#item_list / 2))
+	local item_list = get_loot(pos.y, dungeontype)
+	-- take random (partial) sample of all possible items
+	-- 8 is the absolute maximum number of itemstacks per chest
+	assert(#item_list >= 8)
+	item_list = random_sample(rand, item_list, 8)
 
 	-- apply chances / randomized amounts and collect resulting items
 	local items = {}
-	for _, spec in ipairs(item_list) do
-		if rand:next(0, 1000) / 1000 <= spec[2] then
-			local itemdef = minetest.registered_items[spec[1]]
-			local amount = rand:next(spec[3], spec[4])
+	for _, loot in ipairs(item_list) do
+		if rand:next(0, 1000) / 1000 <= loot.chance then
+			local itemdef = minetest.registered_items[loot.name]
+			local amount = 1
+			if loot.count ~= nil then
+				amount = rand:next(loot.count[1], loot.count[2])
+			end
 
 			if itemdef.tool_capabilities then
 				for n = 1, amount do
 					local wear = rand:next(0.20 * 65535, 0.75 * 65535) -- 20% to 75% wear
-					table.insert(items, ItemStack({name=spec[1], wear=wear}))
+					table.insert(items, ItemStack({name=loot.name, wear=wear}))
 				end
 			elseif itemdef.stack_max == 1 then
-				-- not stackable -> add separately
+				-- not stackable, add separately
 				for n = 1, amount do
-					table.insert(items, spec[1])
+					table.insert(items, loot.name)
 				end
 			else
-				table.insert(items, ItemStack({name=spec[1], count=amount}))
+				table.insert(items, ItemStack({name=loot.name, count=amount}))
 			end
 		end
 	end
