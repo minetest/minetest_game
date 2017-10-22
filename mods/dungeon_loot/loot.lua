@@ -12,7 +12,10 @@ dungeon_loot.registered_loot = {
 	{name="farming:string", chance=0.5, count={1, 8}},
 	{name="farming:wheat", chance=0.5, count={2, 5}},
 	{name="fire:flint_and_steel", chance=0.4},
+	{name="farming:seed_cotton", chance=0.4, count={1, 4}, types={"normal"}},
+	{name="default:cactus", chance=0.4, count={1, 4}, types={"desert"}},
 	{name="vessels:glass_fragments", chance=0.35, count={1, 4}},
+	{name="carts:rail", chance=0.35, count={1, 6}},
 
 	-- minerals
 	{name="default:coal_lump", chance=0.9, count={1, 12}},
