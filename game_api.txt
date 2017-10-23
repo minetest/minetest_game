@@ -190,7 +190,7 @@ The mod that places chests with loot in dungeons provides an API to register add
 	--   optional, defaults to no height restrictions
 	types = {"desert"},
 	-- ^ table with types of dungeons this item can be found in
-	--   supported types: "normal" (the cobble/mossycobble one), "desert"
+	--   supported types: "normal" (the cobble/mossycobble one), "sandstone", "desert"
 	--   optional, defaults to no type restrictions
 
 Fence API

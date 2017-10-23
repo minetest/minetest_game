@@ -1,4 +1,4 @@
-minetest.set_gen_notify({dungeon=true})
+minetest.set_gen_notify({dungeon=true, temple=true})
 
 local function noise3d_integer(noise, pos)
 	return math.abs(math.floor(noise:get3d(pos) * 2147483647))
@@ -17,9 +17,10 @@ end
 local function find_walls(cpos)
 	local wall = minetest.registered_aliases["mapgen_cobble"]
 	local wall_alt = minetest.registered_aliases["mapgen_mossycobble"]
-	local wall_sand = minetest.registered_aliases["mapgen_sandstonebrick"]
+	local wall_ss = minetest.registered_aliases["mapgen_sandstonebrick"]
+	local wall_ds = minetest.registered_aliases["mapgen_desert_stone"]
 	local is_wall = function(node)
-		return table.indexof({wall, wall_alt, wall_sand}, node.name) ~= -1
+		return table.indexof({wall, wall_alt, wall_ss, wall_ds}, node.name) ~= -1
 	end
 
 	local dirs = { {x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1} }
@@ -30,7 +31,7 @@ local function find_walls(cpos)
 	local min = function(a, b) return a ~= 0 and math.min(a, b) or b end
 	local wallnode
 	for _, dir in ipairs(dirs) do
-		for i = 1, 8 do -- 8 = max room size / 2
+		for i = 1, 9 do -- 9 = max room size / 2
 			local pos = vector.add(cpos, {x=dir.x*i, y=0, z=dir.z*i})
 
 			-- continue in that direction until we find a wall-like node
@@ -57,10 +58,14 @@ local function find_walls(cpos)
 		end
 	end
 
+	local mapping = {
+		[wall_ss] = "sandstone",
+		[wall_ds] = "desert"
+	}
 	return {
 		walls = ret,
 		size = {x=mindist.x*2, z=mindist.z*2},
-		type = wallnode == wall_sand and "desert" or "normal"
+		type = mapping[wallnode] or "normal"
 	}
 end
 
@@ -117,8 +122,12 @@ end
 
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
-	local poslist = minetest.get_mapgen_object("gennotify")["dungeon"]
-	if poslist == nil then return end
+	local gennotify = minetest.get_mapgen_object("gennotify")
+	local poslist = gennotify["dungeon"] or {}
+	for _, entry in ipairs(gennotify["temple"] or {}) do
+		table.insert(poslist, entry)
+	end
+	if #poslist == 0 then return end
 
 	local noise = minetest.get_perlin(10115, 4, 0.5, 1)
 	local rand = PcgRandom(noise3d_integer(noise, poslist[1]))
