@@ -7,15 +7,17 @@ dungeon_loot.registered_loot = {
 	{name="bucket:bucket_lava", chance=0.45, y={-32768, -1}, types={"normal"}},
 
 	-- various items
-	{name="default:flint", chance=0.6, count={1, 3}},
 	{name="default:stick", chance=0.6, count={3, 6}},
+	{name="default:flint", chance=0.4, count={1, 3}},
+	{name="vessels:glass_fragments", chance=0.35, count={1, 4}},
+	{name="carts:rail", chance=0.35, count={1, 6}},
+	
+	-- farming / consumable
 	{name="farming:string", chance=0.5, count={1, 8}},
 	{name="farming:wheat", chance=0.5, count={2, 5}},
 	{name="default:apple", chance=0.4, count={1, 4}},
 	{name="farming:seed_cotton", chance=0.4, count={1, 4}, types={"normal"}},
 	{name="default:cactus", chance=0.4, count={1, 4}, types={"sandstone", "desert"}},
-	{name="vessels:glass_fragments", chance=0.35, count={1, 4}},
-	{name="carts:rail", chance=0.35, count={1, 6}},
 
 	-- minerals
 	{name="default:coal_lump", chance=0.9, count={1, 12}},
