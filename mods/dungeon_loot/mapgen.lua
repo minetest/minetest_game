@@ -133,8 +133,10 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local rand = PcgRandom(noise3d_integer(noise, poslist[1]))
 
 	local candidates = {}
-	for _, cpos in ipairs(poslist) do
-		local room = find_walls(cpos)
+	-- process at most 16 rooms to keep runtime of this predictable
+	local no_process = math.min(#poslist, 16)
+	for i = 1, no_process do
+		local room = find_walls(poslist[i])
 		-- skip small rooms and everything that doesn't at least have 3 walls
 		if math.min(room.size.x, room.size.z) >= 4 and #room.walls >= 3 then
 			table.insert(candidates, room)

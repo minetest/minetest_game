@@ -11,7 +11,7 @@ dungeon_loot.registered_loot = {
 	{name="default:flint", chance=0.4, count={1, 3}},
 	{name="vessels:glass_fragments", chance=0.35, count={1, 4}},
 	{name="carts:rail", chance=0.35, count={1, 6}},
-	
+
 	-- farming / consumable
 	{name="farming:string", chance=0.5, count={1, 8}},
 	{name="farming:wheat", chance=0.5, count={2, 5}},
