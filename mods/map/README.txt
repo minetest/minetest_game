@@ -32,8 +32,9 @@ WPD
 Usage
 -----
 In survival mode, use of the minimap requires the mapping kit item in your
-inventory. It can take up to 3 seconds for adding to or removal from inventory
-to have an effect.
+inventory. It can take up to 5 seconds for adding to or removal from inventory
+to have an effect, however to instantly allow the use of the minimap 'use'
+(leftclick) the item.
 Minimap radar mode is always disallowed in survival mode.
 
 Minimap and minimap radar mode are automatically allowed in creative mode and
