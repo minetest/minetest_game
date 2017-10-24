@@ -40,19 +40,23 @@ local function cyclic_update()
 	for _, player in ipairs(minetest.get_connected_players()) do
 		map.update_hud_flags(player)
 	end
-	minetest.after(3.1, cyclic_update)
+	minetest.after(5.3, cyclic_update)
 end
 
-minetest.after(3.1, cyclic_update)
+minetest.after(5.3, cyclic_update)
 
 
 -- Mapping kit item
 
 minetest.register_craftitem("map:mapping_kit", {
-	description = "Mapping Kit",
+	description = "Mapping Kit\nUse with 'Minimap' key",
 	inventory_image = "map_mapping_kit.png",
 	stack_max = 1,
 	groups = {flammable = 3},
+
+	on_use = function(itemstack, user, pointed_thing)
+		map.update_hud_flags(user)
+	end,
 })
 
 
