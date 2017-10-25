@@ -1,4 +1,4 @@
-minetest.set_gen_notify({dungeon=true, temple=true})
+minetest.set_gen_notify({dungeon = true, temple = true})
 
 local function noise3d_integer(noise, pos)
 	return math.abs(math.floor(noise:get3d(pos) * 2147483647))
@@ -23,7 +23,7 @@ local function find_walls(cpos)
 		return table.indexof({wall, wall_alt, wall_ss, wall_ds}, node.name) ~= -1
 	end
 
-	local dirs = { {x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1} }
+	local dirs = {{x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1}}
 	local get_node = minetest.get_node
 
 	local ret = {}
@@ -44,7 +44,7 @@ local function find_walls(cpos)
 				--- is at least 2 nodes high (not a staircase)
 				--- has a floor
 				if is_wall(get_node(front_below)) and is_wall(get_node(above)) then
-					table.insert(ret, {pos=pos, facing={x=-dir.x, y=0, z=-dir.z}})
+					table.insert(ret, {pos = pos, facing = {x=-dir.x, y=0, z=-dir.z}})
 					if dir.z == 0 then
 						mindist.x = min(mindist.x, i-1)
 					else
@@ -70,10 +70,8 @@ local function find_walls(cpos)
 end
 
 local function populate_chest(pos, rand, dungeontype)
-	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
-	minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) .. " [" .. dungeontype .. "]")
-	minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="default:torch", param2=1})
-	-------------------- COMMENT THESE OUT BEFORE MERGING --------------------
+	--minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) .. " [" .. dungeontype .. "]")
+	--minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="default:torch", param2=1})
 
 	local item_list = dungeon_loot._internal_get_loot(pos.y, dungeontype)
 	-- take random (partial) sample of all possible items
@@ -93,7 +91,7 @@ local function populate_chest(pos, rand, dungeontype)
 			if itemdef.tool_capabilities then
 				for n = 1, amount do
 					local wear = rand:next(0.20 * 65535, 0.75 * 65535) -- 20% to 75% wear
-					table.insert(items, ItemStack({name=loot.name, wear=wear}))
+					table.insert(items, ItemStack({name = loot.name, wear = wear}))
 				end
 			elseif itemdef.stack_max == 1 then
 				-- not stackable, add separately
@@ -101,7 +99,7 @@ local function populate_chest(pos, rand, dungeontype)
 					table.insert(items, loot.name)
 				end
 			else
-				table.insert(items, ItemStack({name=loot.name, count=amount}))
+				table.insert(items, ItemStack({name = loot.name, count = amount}))
 			end
 		end
 	end
@@ -134,8 +132,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 	local candidates = {}
 	-- process at most 16 rooms to keep runtime of this predictable
-	local no_process = math.min(#poslist, 16)
-	for i = 1, no_process do
+	local num_process = math.min(#poslist, 16)
+	for i = 1, num_process do
 		local room = find_walls(poslist[i])
 		-- skip small rooms and everything that doesn't at least have 3 walls
 		if math.min(room.size.x, room.size.z) >= 4 and #room.walls >= 3 then
@@ -143,9 +141,9 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		end
 	end
 
-	local no_chests = rand:next(dungeon_loot.CHESTS_MIN, dungeon_loot.CHESTS_MAX)
-	no_chests = math.min(#candidates, no_chests)
-	local rooms = random_sample(rand, candidates, no_chests)
+	local num_chests = rand:next(dungeon_loot.CHESTS_MIN, dungeon_loot.CHESTS_MAX)
+	num_chests = math.min(#candidates, num_chests)
+	local rooms = random_sample(rand, candidates, num_chests)
 
 	for _, room in ipairs(rooms) do
 		-- choose place somewhere in front of any of the walls
@@ -163,7 +161,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		if minetest.get_node(chestpos).name == "air" then
 			-- make it face inwards to the room
 			local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
-			minetest.add_node(chestpos, {name="default:chest", param2=facedir})
+			minetest.add_node(chestpos, {name = "default:chest", param2 = facedir})
 			populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
 		end
 	end
