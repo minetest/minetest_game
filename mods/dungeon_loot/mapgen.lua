@@ -1,7 +1,7 @@
 minetest.set_gen_notify({dungeon = true, temple = true})
 
 local function noise3d_integer(noise, pos)
-	return math.abs(math.floor(noise:get3d(pos) * 2147483647))
+	return math.abs(math.floor(noise:get3d(pos) * 0x7fffffff))
 end
 
 local function random_sample(rand, list, count)
