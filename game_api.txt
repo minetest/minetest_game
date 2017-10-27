@@ -161,6 +161,38 @@ The doors mod allows modders to register custom doors and trapdoors.
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(), -- optional
 
+Dungeon Loot API
+----------------
+
+The mod that places chests with loot in dungeons provides an API to register additional loot.
+
+`dungeon_loot.register(def)`
+
+ * Registers one or more loot items
+ * `def` Can be a single [#Loot definition] or a list of them
+
+`dungeon_loot.registered_loot`
+
+ * Table of all registered loot, not to be modified manually
+
+### Loot definition
+
+	name = "item:name",
+	chance = 0.5,
+	-- ^ chance value from 0.0 to 1.0 that the item will appear in the chest when chosen
+	--   due to an extra step in the selection process, 0.5 does not(!) mean that
+	--   on average every second chest will have this item
+	count = {1, 4},
+	-- ^ table with minimum and maximum amounts of this item
+	--   optional, defaults to always single item
+	y = {-32768, -512},
+	-- ^ table with minimum and maximum heights this item can be found at
+	--   optional, defaults to no height restrictions
+	types = {"desert"},
+	-- ^ table with types of dungeons this item can be found in
+	--   supported types: "normal" (the cobble/mossycobble one), "sandstone", "desert"
+	--   optional, defaults to no type restrictions
+
 Fence API
 ---------
 
