@@ -13,7 +13,7 @@ player_api.register_model("character.b3d", {
 		walk_mine = {x = 200, y = 219},
 		sit       = {x = 81,  y = 160},
 	},
-	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3},
+	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 	stepheight = 0.6,
 })
 
