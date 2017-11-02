@@ -46,41 +46,40 @@ end
 -- Node will be called stairs:stair_<subname>
 
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
+	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
 			stair_images[i] = {
 				name = image,
 				backface_culling = true,
+				align_style = "world",
 			}
-		elseif image.backface_culling == nil then -- override using any other value
+		else
 			stair_images[i] = table.copy(image)
-			stair_images[i].backface_culling = true
+			if stair_images[i].backface_culling == nil then
+				stair_images[i].backface_culling = true
+			end
+			if stair_images[i].align_style == nil then
+				stair_images[i].align_style = "world"
+			end
 		end
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
-		drawtype = "mesh",
-		mesh = "stairs_stair.obj",
+		drawtype = "nodebox",
 		tiles = stair_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = groups,
 		sounds = sounds,
-		selection_box = {
+		node_box = {
 			type = "fixed",
 			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0.5, 0.5, 0.5},
-			},
-		},
-		collision_box = {
-			type = "fixed",
-			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0.5, 0.5, 0.5},
+				{-0.5, -0.5, -0.5, 0.5, 0.0, 0.5},
+				{-0.5, 0.0, 0.0, 0.5, 0.5, 0.5},
 			},
 		},
 		on_place = function(itemstack, placer, pointed_thing)
@@ -144,11 +143,26 @@ local slab_trans_dir = {[0] = 8, 0, 2, 1, 3, 4}
 -- Node will be called stairs:slab_<subname>
 
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
+	-- Set world-aligned textures
+	local slab_images = {}
+	for i, image in ipairs(images) do
+		if type(image) == "string" then
+			slab_images[i] = {
+				name = image,
+				align_style = "world",
+			}
+		else
+			slab_images[i] = table.copy(image)
+			if image.align_style == nil then
+				slab_images[i].align_style = "world"
+			end
+		end
+	end
 	groups.slab = 1
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
-		tiles = images,
+		tiles = slab_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -280,43 +294,41 @@ end
 -- Node will be called stairs:stair_inner_<subname>
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds)
+	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
 			stair_images[i] = {
 				name = image,
 				backface_culling = true,
+				align_style = "world",
 			}
-		elseif image.backface_culling == nil then -- override using any other value
+		else
 			stair_images[i] = table.copy(image)
-			stair_images[i].backface_culling = true
+			if stair_images[i].backface_culling == nil then
+				stair_images[i].backface_culling = true
+			end
+			if stair_images[i].align_style == nil then
+				stair_images[i].align_style = "world"
+			end
 		end
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
 		description = description .. " Inner",
-		drawtype = "mesh",
-		mesh = "stairs_stair_inner.obj",
+		drawtype = "nodebox",
 		tiles = stair_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = groups,
 		sounds = sounds,
-		selection_box = {
+		node_box = {
 			type = "fixed",
 			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0.5, 0.5, 0.5},
-				{-0.5, 0, -0.5, 0, 0.5, 0},
-			},
-		},
-		collision_box = {
-			type = "fixed",
-			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0.5, 0.5, 0.5},
-				{-0.5, 0, -0.5, 0, 0.5, 0},
+				{-0.5, -0.5, -0.5, 0.5, 0.0, 0.5},
+				{-0.5, 0.0, 0.0, 0.5, 0.5, 0.5},
+				{-0.5, 0.0, -0.5, 0.0, 0.5, 0.0},
 			},
 		},
 		on_place = function(itemstack, placer, pointed_thing)
@@ -358,41 +370,40 @@ end
 -- Node will be called stairs:stair_outer_<subname>
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds)
+	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
 			stair_images[i] = {
 				name = image,
 				backface_culling = true,
+				align_style = "world",
 			}
-		elseif image.backface_culling == nil then -- override using any other value
+		else
 			stair_images[i] = table.copy(image)
-			stair_images[i].backface_culling = true
+			if stair_images[i].backface_culling == nil then
+				stair_images[i].backface_culling = true
+			end
+			if stair_images[i].align_style == nil then
+				stair_images[i].align_style = "world"
+			end
 		end
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
 		description = description .. " Outer",
-		drawtype = "mesh",
-		mesh = "stairs_stair_outer.obj",
+		drawtype = "nodebox",
 		tiles = stair_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = groups,
 		sounds = sounds,
-		selection_box = {
+		node_box = {
 			type = "fixed",
 			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0, 0.5, 0.5},
-			},
-		},
-		collision_box = {
-			type = "fixed",
-			fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-				{-0.5, 0, 0, 0, 0.5, 0.5},
+				{-0.5, -0.5, -0.5, 0.5, 0.0, 0.5},
+				{-0.5, 0.0, 0.0, 0.0, 0.5, 0.5},
 			},
 		},
 		on_place = function(itemstack, placer, pointed_thing)
