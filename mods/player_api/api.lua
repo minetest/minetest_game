@@ -45,8 +45,9 @@ function player_api.set_model(player, model_name)
 			textures = player_textures[name] or model.textures,
 			visual = "mesh",
 			visual_size = model.visual_size or {x = 1, y = 1},
-			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3},
+			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 			stepheight = model.stepheight or 0.6,
+			eye_height = model.eye_height or 1.47,
 		})
 		player_api.set_animation(player, "stand")
 	else
@@ -55,6 +56,7 @@ function player_api.set_model(player, model_name)
 			visual = "upright_sprite",
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.75, 0.3},
 			stepheight = 0.6,
+			eye_height = 1.625,
 		})
 	end
 	player_model[name] = model_name
