@@ -364,8 +364,9 @@ The player API can register player models and update the player's appearence
 			bar = {x = 20, y = 39},
 		-- ...
 		},
-		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.77, 0.3}, -- In nodes from feet position
+		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
 		stepheight = 0.6, -- In nodes
+		eye_height = 1.47, -- In nodes above feet position
 	}
 
 
