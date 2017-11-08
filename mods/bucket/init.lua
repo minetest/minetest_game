@@ -188,6 +188,12 @@ bucket.register_liquid(
 	{water_bucket = 1}
 )
 
+-- River water source is 'liquid_renewable = false' to avoid horizontal spread
+-- of water sources in sloping rivers that can cause water to overflow
+-- riverbanks and cause floods.
+-- River water source is instead made renewable by the 'force renew' option
+-- used here.
+
 bucket.register_liquid(
 	"default:river_water_source",
 	"default:river_water_flowing",
