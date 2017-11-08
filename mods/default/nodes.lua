@@ -1656,6 +1656,10 @@ minetest.register_node("default:river_water_source", {
 	liquid_alternative_flowing = "default:river_water_flowing",
 	liquid_alternative_source = "default:river_water_source",
 	liquid_viscosity = 1,
+	-- Not renewable to avoid horizontal spread of water sources in sloping
+	-- rivers that can cause water to overflow riverbanks and cause floods.
+	-- River water source is instead made renewable by the 'force renew'
+	-- option used in the 'bucket' mod by the river water bucket.
 	liquid_renewable = false,
 	liquid_range = 2,
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
