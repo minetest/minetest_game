@@ -26,3 +26,5 @@ yyt16384 (CC BY-SA 3.0):
 
 paramat (CC BY-SA 3.0):
   flowers_dandelion_yellow.png -- Derived from RHRhino's texture
+  flowers_tulip_black.png -- Derived from RHRhino's texture
+  flowers_chrysanthemum_green.png
