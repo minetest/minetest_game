@@ -76,6 +76,12 @@ flowers.datas = {
 		{color_yellow = 1, flammable = 1}
 	},
 	{
+		"chrysanthemum_green",
+		"Green Chrysanthemum",
+		{-4 / 16, -0.5, -4 / 16, 4 / 16, -1 / 16, 4 / 16},
+		{color_green = 1, flammable = 1}
+	},
+	{
 		"geranium",
 		"Blue Geranium",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 2 / 16, 2 / 16},
@@ -92,6 +98,12 @@ flowers.datas = {
 		"White Dandelion",
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -2 / 16, 5 / 16},
 		{color_white = 1, flammable = 1}
+	},
+	{
+		"tulip_black",
+		"Black Tulip",
+		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
+		{color_black = 1, flammable = 1}
 	},
 }
 
