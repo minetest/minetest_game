@@ -4,12 +4,8 @@ binoculars = {}
 
 
 -- Detect creative mod
-
 local creative_mod = minetest.get_modpath("creative")
-
-
 -- Cache creative mode setting as fallback if creative mod not present
-
 local creative_mode_cache = minetest.settings:get_bool("creative_mode")
 
 
@@ -20,11 +16,18 @@ function binoculars.update_player_property(player)
 	local creative_enabled =
 		(creative_mod and creative.is_enabled_for(player:get_player_name())) or
 		creative_mode_cache
+	local new_zoom_fov = 0
+
+	if player:get_inventory():contains_item(
+			"main", "binoculars:binoculars") then
+		new_zoom_fov = 10
+	elseif creative_enabled then
+		new_zoom_fov = 15
+	end
+
 	-- Only set property if necessary to avoid player mesh reload
-	local new_can_zoom = creative_enabled or player:get_inventory():contains_item(
-			"main", "binoculars:binoculars")
-	if player:get_properties().can_zoom ~= new_can_zoom then
-		player:set_properties({can_zoom = new_can_zoom})
+	if player:get_properties().zoom_fov ~= new_zoom_fov then
+		player:set_properties({zoom_fov = new_zoom_fov})
 	end
 end
 
