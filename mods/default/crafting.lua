@@ -1041,7 +1041,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:ladder_wood",
-	burntime = 2,
+	burntime = 7,
 })
 
 minetest.register_craft({
