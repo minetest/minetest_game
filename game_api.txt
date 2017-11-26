@@ -88,6 +88,56 @@ The contents of `creative.formspec_add` is appended to every creative inventory
 page. Mods can use it to add additional formspec elements onto the default
 creative inventory formspec to be drawn after each update.
 
+Chests API
+----------
+
+The chests API allows the creation of chests, which have their own inventories for holding items.
+
+`default.chest.get_chest_formspec(pos)`
+
+ * Returns a formspec for a specific chest.
+ * `pos` Location of the chest node, e.g `{x = 1, y = 1, z = 1}`
+
+`default.chest.chest_lid_obstructed(pos)`
+
+ * Returns a boolean depending on whether or not a chest has its top obstructed by a solid node.
+ * `pos` Location of the chest node, e.g `{x = 1, y = 1, z = 1}`
+
+`default.chest.chest_lid_close(pn)`
+
+ * Closes the chest that a player is currently looking in.
+ * `pn` The name of the player whose chest is going to be closed
+
+`default.chest.open_chests`
+
+ * A table indexed by player name to keep track of who opened what chest.
+ * Key: The name of the player.
+ * Value: A table containing information about the chest the player is looking at.
+   e.g `{ pos = {1, 1, 1}, sound = null, swap = "chest" }`
+
+`default.chest.register_chest(name, def)`
+
+ * Registers new chest
+ * `name` Name for chest
+ * `def`  See [#Chest Definition]
+
+### Chest Definition
+
+	description = "Chest",
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_inside.png"
+	}, -- Textures which are applied to the chest model.
+	sounds = default.node_sound_wood_defaults(),
+	sound_open = "default_chest_open",
+	sound_close = "default_chest_close",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2},
+	protected = false, -- If true, only placer can modify chest.
+
 Doors API
 ---------
 
@@ -705,11 +755,6 @@ GUI and formspecs
 `default.gui_survival_form`
 
  * Entire formspec for the survival inventory
-
-`default.get_chest_formspec(pos)`
-
- * Get the chest formspec using the defined GUI elements
- * pos: Location of the node
 
 `default.get_furnace_active_formspec(fuel_percent, item_percent)`
 

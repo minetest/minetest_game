@@ -34,3 +34,6 @@ if minetest.get_modpath("player_api") then
 	default.player_set_textures      = player_api.set_textures
 	default.player_set_animation     = player_api.set_animation
 end
+
+-- Chests
+default.register_chest = default.chest.register_chest
