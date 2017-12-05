@@ -44,7 +44,8 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	return minetest.item_place(itemstack, placer, pointed_thing, param2)
 end
 
--- Register stairs.
+
+-- Register stair
 -- Node will be called stairs:stair_<subname>
 
 function stairs.register_stair(subname, recipeitem, groups, images, description, sounds)
@@ -141,7 +142,8 @@ end
 -- Slab facedir to placement 6d matching table
 local slab_trans_dir = {[0] = 8, 0, 2, 1, 3, 4}
 
--- Register slabs.
+
+-- Register slab
 -- Node will be called stairs:slab_<subname>
 
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
@@ -292,7 +294,8 @@ if replace then
 	})
 end
 
--- Register stairs.
+
+-- Register inner stair
 -- Node will be called stairs:stair_inner_<subname>
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds)
@@ -317,7 +320,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
-		description = description .. " Inner",
+		description = "Inner " .. description,
 		drawtype = "nodebox",
 		tiles = stair_images,
 		paramtype = "light",
@@ -368,7 +371,8 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 	end
 end
 
--- Register stairs.
+
+-- Register outer stair
 -- Node will be called stairs:stair_outer_<subname>
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds)
@@ -393,7 +397,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 	end
 	groups.stair = 1
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
-		description = description .. " Outer",
+		description = "Outer " .. description,
 		drawtype = "nodebox",
 		tiles = stair_images,
 		paramtype = "light",
@@ -443,6 +447,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 	end
 end
 
+
 -- Stair/slab registration function.
 -- Nodes will be called stairs:{stair,slab}_<subname>
 
@@ -452,6 +457,7 @@ function stairs.register_stair_and_slab(subname, recipeitem, groups, images, des
 	stairs.register_stair_outer(subname, recipeitem, groups, images, desc_stair, sounds)
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
+
 
 -- Register default stairs and slabs
 
