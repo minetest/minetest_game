@@ -214,8 +214,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	if fields.force then
-		update_formspecs(is_night_skip_enabled())
-		if is_night_skip_enabled() then
+		local is_majority = (#minetest.get_connected_players() / 2) < player_in_bed
+		update_formspecs(is_majority and is_night_skip_enabled())
+		if is_majority and is_night_skip_enabled() then
 			beds.skip_night()
 			beds.kick_players()
 		end
