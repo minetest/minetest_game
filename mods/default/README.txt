@@ -113,6 +113,7 @@ paramat (CC BY-SA 3.0):
   default_silver_sandstone.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
+  default_bookshelf_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)
 
 TumeniNodes (CC BY-SA 4.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 4.0)
@@ -125,7 +126,6 @@ BlockMen (CC BY-SA 3.0):
   default_gold_ingot.png
   default_tool_steelsword.png
   default_diamond.png
-  default_book.png
   default_tool_*.png
   default_lava_source_animated.png
   default_lava_flowing_animated.png
@@ -139,11 +139,7 @@ BlockMen (CC BY-SA 3.0):
   bubble.png
   gui_*.png
 
-Wuzzy (CC BY-SA 3.0):
-  default_bookshelf_slot.png (based on default_book.png)
-
 sofar (CC BY-SA 3.0):
-  default_book_written.png, based on default_book.png
   default_aspen_sapling
   default_aspen_tree
   default_aspen_tree_top, derived from default_pine_tree_top (by paramat)
@@ -180,6 +176,7 @@ Gambit (CC BY-SA 3.0):
   default_snowball.png
   default_key.png
   default_key_skeleton.png
+  default_book.png
 
 asl97 (CC BY-SA 3.0):
   default_ice.png
@@ -217,6 +214,9 @@ kilbith (CC BY-SA 3.0):
 
 tobyplowy (CC BY-SA 3.0):
   default_kelp.png
+
+CloudyProton (CC BY-SA 3.0):
+  default_book_written.png, based on default_book.png by Gambit
 
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
