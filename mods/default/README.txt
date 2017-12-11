@@ -115,8 +115,8 @@ paramat (CC BY-SA 3.0):
   default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_bookshelf_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)
 
-TumeniNodes (CC BY-SA 4.0):
-  default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 4.0)
+TumeniNodes (CC BY-SA 3.0):
+  default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
 
 BlockMen (CC BY-SA 3.0):
   default_aspen_leaves.png -- Derived from Sofar's texture
@@ -146,14 +146,12 @@ sofar (CC BY-SA 3.0):
   default_aspen_wood, derived from default_pine_wood (by paramat)
   default_chest_inside
 
-sofar (WTFPL):
+sofar (CC0 1.0):
   default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
 
-Neuromancer (CC BY-SA 2.0):
+Neuromancer (CC BY-SA 3.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
-
-Neuromancer (CC BY-SA 3.0):
   default_dirt.png
   default_furnace_*.png
 
