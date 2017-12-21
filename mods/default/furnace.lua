@@ -118,7 +118,7 @@ local function furnace_node_timer(pos, elapsed)
 	local fuel
 
 	local update = true
-	while update do
+	while elapsed > 0 and update do
 		update = false
 
 		srclist = inv:get_list("src")
@@ -149,6 +149,9 @@ local function furnace_node_timer(pos, elapsed)
 						src_time = src_time - cooked.time
 						update = true
 					end
+				else
+					-- Item could not be cooked: probably missing fuel
+					update = true
 				end
 			end
 		else
