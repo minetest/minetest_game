@@ -133,13 +133,14 @@ local function furnace_node_timer(pos, elapsed)
 		cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
 		cookable = cooked.time ~= 0
 
+		local el = math.min(elapsed, fuel_totaltime - fuel_time)
 		-- Check if we have enough fuel to burn
 		if fuel_time < fuel_totaltime then
 			-- The furnace is currently active and has enough fuel
-			fuel_time = fuel_time + elapsed
+			fuel_time = fuel_time + el
 			-- If there is a cookable item then check if it is ready yet
 			if cookable then
-				src_time = src_time + elapsed
+				src_time = src_time + el
 				if src_time >= cooked.time then
 					-- Place result in dst list if possible
 					if inv:room_for_item("dst", cooked.item) then
@@ -165,8 +166,7 @@ local function furnace_node_timer(pos, elapsed)
 					-- Take fuel from fuel list
 					inv:set_stack("fuel", 1, afterfuel.items[1])
 					update = true
-					fuel_totaltime = fuel.time + (fuel_time - fuel_totaltime)
-					src_time = src_time + elapsed
+					fuel_totaltime = fuel.time + (fuel_totaltime - fuel_time)
 				end
 			else
 				-- We don't need to get new fuel since there is no cookable item
@@ -176,7 +176,7 @@ local function furnace_node_timer(pos, elapsed)
 			fuel_time = 0
 		end
 
-		elapsed = 0
+		elapsed = elapsed - el
 	end
 
 	if fuel and fuel_totaltime > fuel.time then
