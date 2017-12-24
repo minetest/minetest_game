@@ -48,6 +48,7 @@ Copyright (C) 2010-2017:
   tobyplowy
   CloudyProton
   TumeniNodes
+  Mossmanikin
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
