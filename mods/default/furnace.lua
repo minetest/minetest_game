@@ -134,6 +134,10 @@ local function furnace_node_timer(pos, elapsed)
 		cookable = cooked.time ~= 0
 
 		local el = math.min(elapsed, fuel_totaltime - fuel_time)
+		if cookable then -- fuel lasts long enough, adjust el to cooking duration
+			el = math.min(el, cooked.time - src_time)
+		end
+
 		-- Check if we have enough fuel to burn
 		if fuel_time < fuel_totaltime then
 			-- The furnace is currently active and has enough fuel
