@@ -218,6 +218,9 @@ tobyplowy (CC BY-SA 3.0):
 CloudyProton (CC BY-SA 3.0):
   default_book_written.png, based on default_book.png by Gambit
 
+Mossmanikin (CC BY-SA 3.0):
+  default_fern_*.png
+
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/

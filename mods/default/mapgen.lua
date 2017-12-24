@@ -1640,6 +1640,26 @@ local function register_dry_grass_decoration(offset, scale, length)
 	})
 end
 
+local function register_fern_decoration(seed, length)
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {"default:dirt_with_coniferous_litter"},
+		sidelen = 16,
+		noise_params = {
+			offset = 0,
+			scale = 0.2,
+			spread = {x = 100, y = 100, z = 100},
+			seed = seed,
+			octaves = 3,
+			persist = 0.7
+		},
+		biomes = {"coniferous_forest"},
+		y_min = 6,
+		y_max = 31000,
+		decoration = "default:fern_" .. length,
+	})
+end
+
 
 function default.register_decorations()
 
@@ -1959,6 +1979,12 @@ function default.register_decorations()
 	register_dry_grass_decoration(0.05, 0.01,  3)
 	register_dry_grass_decoration(0.07, -0.01, 2)
 	register_dry_grass_decoration(0.09, -0.03, 1)
+
+	-- Ferns
+
+	register_fern_decoration(14936, 3)
+	register_fern_decoration(801,   2)
+	register_fern_decoration(5,     1)
 
 	-- Junglegrass
 
