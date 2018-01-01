@@ -1183,6 +1183,8 @@ minetest.register_node("default:dry_shrub", {
 	inventory_image = "default_dry_shrub.png",
 	wield_image = "default_dry_shrub.png",
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 4,
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
@@ -1190,7 +1192,7 @@ minetest.register_node("default:dry_shrub", {
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
-		fixed = {-5 / 16, -0.5, -5 / 16, 5 / 16, 4 / 16, 5 / 16},
+		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 4 / 16, 6 / 16},
 	},
 })
 
