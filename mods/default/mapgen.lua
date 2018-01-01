@@ -1593,6 +1593,7 @@ function default.register_mgv6_decorations()
 		y_min = 1,
 		y_max = 30,
 		decoration = "default:dry_shrub",
+		param2 = 4,
 	})
 end
 
@@ -2018,6 +2019,7 @@ function default.register_decorations()
 		y_min = 2,
 		y_max = 31000,
 		decoration = "default:dry_shrub",
+		param2 = 4,
 	})
 
 	-- Coral reef
