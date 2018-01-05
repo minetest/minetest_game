@@ -256,6 +256,18 @@ minetest.register_craftitem("default:skeleton_key", {
 	end
 })
 
+minetest.register_craftitem("default:nametag", {
+	description = "Nametag",
+	inventory_image = "default_nametag.png",
+	groups = {renameable = 0}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:nametag 4",
+	recipe = { "default:copper_ingot" },
+})
+
 minetest.register_craftitem("default:coal_lump", {
 	description = "Coal Lump",
 	inventory_image = "default_coal_lump.png",

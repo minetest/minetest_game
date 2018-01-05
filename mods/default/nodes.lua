@@ -181,6 +181,7 @@ Tools / "Advanced" crafting / Non-"natural"
 
 default:chest
 default:chest_locked
+default:workbench
 
 default:bookshelf
 
