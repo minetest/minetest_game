@@ -437,12 +437,11 @@ function doors.register(name, def)
 
 	def.mesh = "door_a.obj"
 	minetest.register_node(":" .. name .. "_a", def)
-
+	doors.registered_doors[name .. "_a"] = def
+	
 	def.mesh = "door_b.obj"
 	minetest.register_node(":" .. name .. "_b", def)
-
-	doors.registered_doors[name .. "_a"] = true
-	doors.registered_doors[name .. "_b"] = true
+	doors.registered_doors[name .. "_b"] = def
 end
 
 doors.register("door_wood", {
@@ -665,8 +664,8 @@ function doors.register_trapdoor(name, def)
 	minetest.register_node(name_opened, def_opened)
 	minetest.register_node(name_closed, def_closed)
 
-	doors.registered_trapdoors[name_opened] = true
-	doors.registered_trapdoors[name_closed] = true
+	doors.registered_trapdoors[name_opened] = def_opened
+	doors.registered_trapdoors[name_closed] = def_closed
 end
 
 doors.register_trapdoor("doors:trapdoor", {
