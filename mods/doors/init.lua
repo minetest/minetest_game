@@ -1,10 +1,10 @@
 -- our API object
 doors = {}
+doors.registered_doors = {}
+doors.registered_trapdoors = {}
 
 -- private data
 local _doors = {}
-_doors.registered_doors = {}
-_doors.registered_trapdoors = {}
 
 local function replace_old_owner_information(pos)
 	local meta = minetest.get_meta(pos)
@@ -18,7 +18,7 @@ end
 -- returns an object to a door object or nil
 function doors.get(pos)
 	local node_name = minetest.get_node(pos).name
-	if _doors.registered_doors[node_name] then
+	if doors.registered_doors[node_name] then
 		-- A normal upright door
 		return {
 			pos = pos,
@@ -42,7 +42,7 @@ function doors.get(pos)
 				return state %2 == 1
 			end
 		}
-	elseif _doors.registered_trapdoors[node_name] then
+	elseif doors.registered_trapdoors[node_name] then
 		-- A trapdoor
 		return {
 			pos = pos,
@@ -441,8 +441,8 @@ function doors.register(name, def)
 	def.mesh = "door_b.obj"
 	minetest.register_node(":" .. name .. "_b", def)
 
-	_doors.registered_doors[name .. "_a"] = true
-	_doors.registered_doors[name .. "_b"] = true
+	doors.registered_doors[name .. "_a"] = true
+	doors.registered_doors[name .. "_b"] = true
 end
 
 doors.register("door_wood", {
@@ -665,8 +665,8 @@ function doors.register_trapdoor(name, def)
 	minetest.register_node(name_opened, def_opened)
 	minetest.register_node(name_closed, def_closed)
 
-	_doors.registered_trapdoors[name_opened] = true
-	_doors.registered_trapdoors[name_closed] = true
+	doors.registered_trapdoors[name_opened] = true
+	doors.registered_trapdoors[name_closed] = true
 end
 
 doors.register_trapdoor("doors:trapdoor", {
