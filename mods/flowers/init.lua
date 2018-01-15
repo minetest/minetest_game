@@ -139,24 +139,29 @@ function flowers.flower_spread(pos, node)
 
 	local pos0 = vector.subtract(pos, 4)
 	local pos1 = vector.add(pos, 4)
-	if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 3 then
+	-- Maximum flower density created by mapgen is 13 per 9x9 area.
+	-- The limit of 7 below was tuned by in-game testing to result in a maximum
+	-- flower density by ABM spread of 13 per 9x9 area.
+	-- Warning: Setting this limit theoretically without in-game testing
+	-- results in a maximum flower density by ABM spread that is far too high.
+	if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 7 then
 		return
 	end
 
 	local soils = minetest.find_nodes_in_area_under_air(
 		pos0, pos1, "group:soil")
-	if #soils > 0 then
-		local seedling = soils[math.random(#soils)]
-		local seedling_above =
-			{x = seedling.x, y = seedling.y + 1, z = seedling.z}
-		light = minetest.get_node_light(seedling_above)
-		if not light or light < 13 or
-				-- Desert sand is in the soil group
-				minetest.get_node(seedling).name == "default:desert_sand" then
-			return
+	local num_soils = #soils
+	if num_soils >= 1 then
+		for si = 1, math.min(3, num_soils) do
+			local soil = soils[math.random(num_soils)]
+			local soil_above = {x = soil.x, y = soil.y + 1, z = soil.z}
+			light = minetest.get_node_light(soil_above)
+			if light and light >= 13 and
+					-- Desert sand is in the soil group
+					minetest.get_node(soil).name ~= "default:desert_sand" then
+				minetest.set_node(soil_above, {name = node.name})
+			end
 		end
-
-		minetest.set_node(seedling_above, {name = node.name})
 	end
 end
 
@@ -164,7 +169,7 @@ minetest.register_abm({
 	label = "Flower spread",
 	nodenames = {"group:flora"},
 	interval = 13,
-	chance = 96,
+	chance = 300,
 	action = function(...)
 		flowers.flower_spread(...)
 	end,
