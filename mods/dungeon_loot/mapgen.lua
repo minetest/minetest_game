@@ -131,8 +131,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local rand = PcgRandom(noise3d_integer(noise, poslist[1]))
 
 	local candidates = {}
-	-- process at most 16 rooms to keep runtime of this predictable
-	local num_process = math.min(#poslist, 16)
+	-- process at most 8 rooms to keep runtime of this predictable
+	local num_process = math.min(#poslist, 8)
 	for i = 1, num_process do
 		local room = find_walls(poslist[i])
 		-- skip small rooms and everything that doesn't at least have 3 walls
