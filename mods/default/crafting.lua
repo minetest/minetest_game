@@ -1106,6 +1106,12 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
+	recipe = "default:marram_grass_1",
+	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
 	recipe = "default:paper",
 	burntime = 1,
 })

@@ -114,6 +114,7 @@ paramat (CC BY-SA 3.0):
   default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)
   default_bookshelf_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)
+  default_marram_grass_*.png -- Derived from textures by TumeniNodes (CC-BY-SA 3.0)
 
 TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
