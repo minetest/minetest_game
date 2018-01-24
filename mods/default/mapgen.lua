@@ -1603,7 +1603,7 @@ end
 local function register_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
 		deco_type = "simple",
-		place_on = {"default:dirt_with_grass", "default:sand"},
+		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = offset,
@@ -1613,8 +1613,7 @@ local function register_grass_decoration(offset, scale, length)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"grassland", "grassland_dunes", "deciduous_forest",
-			"coniferous_forest_dunes", "floatland_grassland"},
+		biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "default:grass_" .. length,
@@ -2020,6 +2019,31 @@ function default.register_decorations()
 		y_max = 31000,
 		decoration = "default:dry_shrub",
 		param2 = 4,
+	})
+
+	-- Marram grass
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {"default:sand"},
+		sidelen = 4,
+		noise_params = {
+			offset = -0.4,
+			scale = 3.0,
+			spread = {x = 16, y = 16, z = 16},
+			seed = 513337,
+			octaves = 1,
+			persist = 0.5,
+			flags = "absvalue"
+		},
+		biomes = {"coniferous_forest_dunes", "grassland_dunes"},
+		y_min = 4,
+		y_max = 5,
+		decoration = {
+			"default:marram_grass_1",
+			"default:marram_grass_2",
+			"default:marram_grass_3",
+		},
 	})
 
 	-- Coral reef
