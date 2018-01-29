@@ -33,7 +33,7 @@ minetest.register_node("fireflies:firefly", {
 
 
 -- bug net
-minetest.register_tool("fireflies:bugnet", {
+minetest.register_tool("fireflies:bug_net", {
 	description = "Bug Net",
 	inventory_image = "fireflies_bugnet.png",
 	on_use = function(itemstack, player, pointed_thing)
@@ -59,7 +59,7 @@ minetest.register_tool("fireflies:bugnet", {
 })
 
 minetest.register_craft( {
-	output = "fireflies:bugnet",
+	output = "fireflies:bug_net",
 	recipe = {
 		{"farming:string", "farming:string", ""},
 		{"farming:string", "farming:string", ""},
