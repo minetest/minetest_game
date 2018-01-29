@@ -37,7 +37,7 @@ minetest.register_tool("fireflies:bugnet", {
 	description = "Bug Net",
 	inventory_image = "fireflies_bugnet.png",
 	on_use = function(itemstack, player, pointed_thing)
-		if not pointed_thing or pointed_thing.type ~= "node" or 
+		if not pointed_thing or pointed_thing.type ~= "node" or
 				minetest.is_protected(pointed_thing.under, player:get_player_name()) then
 			return
 		end
@@ -49,7 +49,7 @@ minetest.register_tool("fireflies:bugnet", {
 			local leftover = inv:add_item("main", stack)
 			if leftover:get_count() > 0 then
 				minetest.add_item(pointed_thing.under, node_name.." 1")
-			end	
+			end
 		end
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:add_wear(256)
@@ -59,7 +59,7 @@ minetest.register_tool("fireflies:bugnet", {
 })
 
 minetest.register_craft( {
-	output = "fireflies:bugnet 1",
+	output = "fireflies:bugnet",
 	recipe = {
 		{"farming:string", "farming:string", ""},
 		{"farming:string", "farming:string", ""},
@@ -107,7 +107,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 })
 
 minetest.register_craft( {
-	output = "fireflies:firefly_bottle 1",
+	output = "fireflies:firefly_bottle",
 	recipe = {
 		{"", "", ""},
 		{"", "fireflies:firefly", ""},
