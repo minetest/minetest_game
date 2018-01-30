@@ -1,5 +1,5 @@
 
--- firefly 
+-- firefly
 minetest.register_node("fireflies:firefly", {
 	description = "Firefly",
 	drawtype = "plantlike",
