@@ -104,7 +104,6 @@ function xpanes.register_pane(name, def)
 		groups = flatgroups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
-		use_texture_alpha = def.use_texture_alpha or false,
 		node_box = {
 			type = "fixed",
 			fixed = {{-1/2, -1/2, -1/32, 1/2, 1/2, 1/32}},
@@ -129,7 +128,6 @@ function xpanes.register_pane(name, def)
 		groups = groups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
-		use_texture_alpha = def.use_texture_alpha or false,
 		node_box = {
 			type = "connected",
 			fixed = {{-1/32, -1/2, -1/32, 1/32, 1/2, 1/32}},
@@ -149,9 +147,10 @@ end
 
 xpanes.register_pane("pane", {
 	description = "Glass Pane",
-	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_white.png"},
-	inventory_image = "default_glass.png",
-	wield_image = "default_glass.png",
+	textures = {"default_glass.png^default_glass_detail.png","xpanes_pane_half.png","xpanes_white.png"},
+    use_texture_alpha = true,
+	inventory_image = "default_glass.png^default_glass_detail.png",
+	wield_image = "default_glass.png^default_glass_detail.png",
 	sounds = default.node_sound_glass_defaults(),
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3},
 	recipe = {
@@ -162,11 +161,11 @@ xpanes.register_pane("pane", {
 
 xpanes.register_pane("obsidian_pane", {
 	description = "Obsidian Glass Pane",
-	textures = {"default_obsidian_glass.png","xpanes_pane_half.png","default_obsidian.png"},
+	textures = {"default_obsidian_glass.png","xpanes_pane_half.png","xpanes_obsidian.png"},
 	inventory_image = "default_obsidian_glass.png",
 	wield_image = "default_obsidian_glass.png",
 	sounds = default.node_sound_glass_defaults(),
-	groups = {snappy=2, cracky=3},
+	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3},
 	recipe = {
 		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"},
 		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"}
@@ -174,7 +173,7 @@ xpanes.register_pane("obsidian_pane", {
 })
 
 xpanes.register_pane("bar", {
-	description = "Iron Bar",
+	description = "Iron bar",
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_bar_top.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
