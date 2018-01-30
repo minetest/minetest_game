@@ -94,7 +94,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 	},
 	sounds = default.node_sound_glass_defaults(),
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+		local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}	
 		if minetest.is_protected(pos, player:get_player_name()) or
 				minetest.get_node(lower_pos).name ~= "air" then
 			return
@@ -103,14 +103,17 @@ minetest.register_node("fireflies:firefly_bottle", {
 		local upper_pos = {x = pos.x, y = pos.y + 2, z = pos.z}
 		local firefly_pos
 
-		if minetest.is_protected(upper_pos, player:get_player_name()) or
-				minetest.get_node(upper_pos).name ~= "air" then
-			firefly_pos = lower_pos
-		else
+		if not minetest.is_protected(upper_pos, player:get_player_name()) and
+				minetest.get_node(upper_pos).name == "air" then
 			firefly_pos = upper_pos
+		elseif not minetest.is_protected(lower_pos, player:get_player_name()) then
+			firefly_pos = lower_pos
 		end
-		minetest.set_node(pos, {name = "vessels:glass_bottle"})
-		minetest.set_node(firefly_pos, {name = "fireflies:firefly"})
+
+		if firefly_pos then
+			minetest.set_node(pos, {name = "vessels:glass_bottle"})
+			minetest.set_node(firefly_pos, {name = "fireflies:firefly"})
+		end
 	end
 })
 
