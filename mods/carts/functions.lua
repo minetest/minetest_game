@@ -23,6 +23,8 @@ function carts:manage_attachment(player, obj)
 	else
 		player:set_detach()
 		player:set_eye_offset({x=0, y=0, z=0},{x=0, y=0, z=0})
+		-- HACK in effect! Force updating the attachment rotation
+		player:set_properties({})
 	end
 end
 
