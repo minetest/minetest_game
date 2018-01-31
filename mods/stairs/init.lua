@@ -68,7 +68,8 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			end
 		end
 	end
-	groups.stair = 1
+	local new_groups = table.copy(groups)
+	new_groups.stair = 1
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -76,7 +77,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		groups = groups,
+		groups = new_groups,
 		sounds = sounds,
 		node_box = {
 			type = "fixed",
@@ -162,7 +163,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			end
 		end
 	end
-	groups.slab = 1
+	local new_groups = table.copy(groups)
+	new_groups.slab = 1
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -170,7 +172,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		groups = groups,
+		groups = new_groups,
 		sounds = sounds,
 		node_box = {
 			type = "fixed",
@@ -318,7 +320,8 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 			end
 		end
 	end
-	groups.stair = 1
+	local new_groups = table.copy(groups)
+	new_groups.stair = 1
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
 		description = "Inner " .. description,
 		drawtype = "nodebox",
@@ -326,7 +329,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images, descri
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		groups = groups,
+		groups = new_groups,
 		sounds = sounds,
 		node_box = {
 			type = "fixed",
@@ -395,7 +398,8 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 			end
 		end
 	end
-	groups.stair = 1
+	local new_groups = table.copy(groups)
+	new_groups.stair = 1
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
 		description = "Outer " .. description,
 		drawtype = "nodebox",
@@ -403,7 +407,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images, descri
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		groups = groups,
+		groups = new_groups,
 		sounds = sounds,
 		node_box = {
 			type = "fixed",
