@@ -149,7 +149,7 @@ end
 
 xpanes.register_pane("pane", {
 	description = "Glass Pane",
-	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_white.png"},
+	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_edge.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
 	sounds = default.node_sound_glass_defaults(),
@@ -157,6 +157,19 @@ xpanes.register_pane("pane", {
 	recipe = {
 		{"default:glass", "default:glass", "default:glass"},
 		{"default:glass", "default:glass", "default:glass"}
+	}
+})
+
+xpanes.register_pane("obsidian_pane", {
+	description = "Obsidian Glass Pane",
+	textures = {"default_obsidian_glass.png","xpanes_pane_half.png","xpanes_edge_obsidian.png"},
+	inventory_image = "default_obsidian_glass.png",
+	wield_image = "default_obsidian_glass.png",
+	sounds = default.node_sound_glass_defaults(),
+	groups = {snappy=2, cracky=3},
+	recipe = {
+		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"},
+		{"default:obsidian_glass", "default:obsidian_glass", "default:obsidian_glass"}
 	}
 })
 
