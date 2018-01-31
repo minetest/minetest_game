@@ -94,7 +94,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 	},
 	sounds = default.node_sound_glass_defaults(),
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}	
+		local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.is_protected(pos, player:get_player_name()) or
 				minetest.get_node(lower_pos).name ~= "air" then
 			return
