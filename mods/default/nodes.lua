@@ -373,7 +373,7 @@ minetest.register_node("default:obsidian", {
 	description = "Obsidian",
 	tiles = {"default_obsidian.png"},
 	sounds = default.node_sound_stone_defaults(),
-	groups = {cracky = 1, level = 2},
+	groups = {cracky = 1, level = 2, obsidian = 1},
 })
 
 minetest.register_node("default:obsidianbrick", {
@@ -383,7 +383,7 @@ minetest.register_node("default:obsidianbrick", {
 	tiles = {"default_obsidian_brick.png"},
 	is_ground_content = false,
 	sounds = default.node_sound_stone_defaults(),
-	groups = {cracky = 1, level = 2},
+	groups = {cracky = 1, level = 2, obsidian = 1},
 })
 
 minetest.register_node("default:obsidian_block", {
@@ -391,7 +391,7 @@ minetest.register_node("default:obsidian_block", {
 	tiles = {"default_obsidian_block.png"},
 	is_ground_content = false,
 	sounds = default.node_sound_stone_defaults(),
-	groups = {cracky = 1, level = 2},
+	groups = {cracky = 1, level = 2, obsidian = 1},
 })
 
 --
@@ -2458,7 +2458,7 @@ minetest.register_node("default:glass", {
 	paramtype2 = "glasslikeliquidlevel",
 	sunlight_propagates = true,
 	is_ground_content = false,
-	groups = {cracky = 3, oddly_breakable_by_hand = 3},
+	groups = {cracky = 3, oddly_breakable_by_hand = 3, glass = 1},
 	sounds = default.node_sound_glass_defaults(),
 })
 
