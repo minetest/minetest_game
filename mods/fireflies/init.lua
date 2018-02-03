@@ -87,7 +87,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 	sunlight_propagates = true,
 	light_source = 9,
 	walkable = false,
-	groups = {snappy = 3, attached_node = 1},
+	groups = {dig_immediate = 3, attached_node = 1},
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
