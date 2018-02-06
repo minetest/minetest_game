@@ -1523,6 +1523,13 @@ minetest.register_node("default:sand_with_kelp", {
 	inventory_image = "default_kelp.png",
 	paramtype2 = "leveled",
 	groups = {snappy = 3},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+				{-0.1, 0.5, -0.1, 0.1, 3.5, 0.1},
+		},
+	},
 	node_placement_prediction = "",
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -1537,7 +1544,11 @@ minetest.register_node("default:sand_with_kelp", {
 			end
 		end
 
-		local pos = pointed_thing.above
+		local pos = pointed_thing.under
+		if minetest.get_node(pos).name ~= "default:sand" then
+			return itemstack
+		end
+
 		local height = math.random(4, 6)
 		local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
 		local node_top = minetest.get_node(pos_top)
@@ -1561,6 +1572,10 @@ minetest.register_node("default:sand_with_kelp", {
 		end
 
 		return itemstack
+	end,
+
+	after_destruct  = function(pos, oldnode)
+		minetest.set_node(pos, {name = "default:sand"})
 	end
 })
 
