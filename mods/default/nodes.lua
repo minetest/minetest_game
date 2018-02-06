@@ -1571,13 +1571,22 @@ minetest.register_node("default:acacia_bush_sapling", {
 })
 
 minetest.register_node("default:sand_with_kelp", {
-	description = "Kelp On Sand",
+	description = "Kelp",
 	drawtype = "plantlike_rooted",
+	waving = 1,
 	tiles = {"default_sand.png"},
 	special_tiles = {{name = "default_kelp.png", tileable_vertical = true}},
 	inventory_image = "default_kelp.png",
 	paramtype2 = "leveled",
 	groups = {snappy = 3},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+				{-2/16, 0.5, -2/16, 2/16, 3.5, 2/16},
+		},
+	},
+	node_dig_prediction = "default:sand",
 	node_placement_prediction = "",
 
 	on_place = function(itemstack, placer, pointed_thing)
@@ -1592,7 +1601,11 @@ minetest.register_node("default:sand_with_kelp", {
 			end
 		end
 
-		local pos = pointed_thing.above
+		local pos = pointed_thing.under
+		if minetest.get_node(pos).name ~= "default:sand" then
+			return itemstack
+		end
+
 		local height = math.random(4, 6)
 		local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
 		local node_top = minetest.get_node(pos_top)
@@ -1616,6 +1629,10 @@ minetest.register_node("default:sand_with_kelp", {
 		end
 
 		return itemstack
+	end,
+
+	after_destruct  = function(pos, oldnode)
+		minetest.set_node(pos, {name = "default:sand"})
 	end
 })
 
