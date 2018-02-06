@@ -1527,7 +1527,7 @@ minetest.register_node("default:sand_with_kelp", {
 		type = "fixed",
 		fixed = {
 				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-				{-0.1, 0.5, -0.1, 0.1, 3.5, 0.1},
+				{-2/16, 0.5, -2/16, 2/16, 3.5, 2/16},
 		},
 	},
 	node_placement_prediction = "",
