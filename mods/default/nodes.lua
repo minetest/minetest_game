@@ -1518,6 +1518,7 @@ minetest.register_node("default:acacia_bush_sapling", {
 minetest.register_node("default:sand_with_kelp", {
 	description = "Kelp",
 	drawtype = "plantlike_rooted",
+	waving = 1,
 	tiles = {"default_sand.png"},
 	special_tiles = {{name = "default_kelp.png", tileable_vertical = true}},
 	inventory_image = "default_kelp.png",
