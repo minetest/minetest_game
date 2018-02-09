@@ -26,16 +26,16 @@ function doors.get(pos)
 				if self:state() then
 					return false
 				end
-				return _doors.door_toggle(self.pos, nil, player)
+				return doors.door_toggle(self.pos, nil, player)
 			end,
 			close = function(self, player)
 				if not self:state() then
 					return false
 				end
-				return _doors.door_toggle(self.pos, nil, player)
+				return doors.door_toggle(self.pos, nil, player)
 			end,
 			toggle = function(self, player)
-				return _doors.door_toggle(self.pos, nil, player)
+				return doors.door_toggle(self.pos, nil, player)
 			end,
 			state = function(self)
 				local state = minetest.get_meta(self.pos):get_int("state")
@@ -130,7 +130,7 @@ local transform = {
 	},
 }
 
-function _doors.door_toggle(pos, node, clicker)
+function doors.door_toggle(pos, node, clicker)
 	local meta = minetest.get_meta(pos)
 	node = node or minetest.get_node(pos)
 	local def = minetest.registered_nodes[node.name]
@@ -365,10 +365,11 @@ function doors.register(name, def)
 		name = name,
 		sounds = { def.sound_close, def.sound_open },
 	}
-
-	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		_doors.door_toggle(pos, node, clicker)
-		return itemstack
+	if not def.on_rightclick then
+		def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+			doors.door_toggle(pos, node, clicker)
+			return itemstack
+		end
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
