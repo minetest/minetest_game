@@ -882,7 +882,7 @@ minetest.register_node("default:pine_sapling", {
 			-- minp, maxp to be checked, relative to sapling pos
 			-- minp_relative.y = 1 because sapling pos has been checked
 			{x = -2, y = 1, z = -2},
-			{x = 2, y = 12, z = 2},
+			{x = 2, y = 14, z = 2},
 			-- maximum interval of interior volume check
 			4)
 
@@ -962,7 +962,7 @@ minetest.register_node("default:acacia_sapling", {
 			-- minp, maxp to be checked, relative to sapling pos
 			-- minp_relative.y = 1 because sapling pos has been checked
 			{x = -4, y = 1, z = -4},
-			{x = 4, y = 6, z = 4},
+			{x = 4, y = 7, z = 4},
 			-- maximum interval of interior volume check
 			4)
 
