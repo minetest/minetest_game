@@ -144,8 +144,8 @@ minetest.register_decoration({
 		"rainforest",
 		"rainforest_swamp"
 	},
-	y_min = -1,
 	y_max = 31000,
+	y_min = -1,
 	decoration = "fireflies:firefly",
 })
 
@@ -166,7 +166,7 @@ minetest.register_decoration({
 		"rainforest",
 		"rainforest_swamp"
 	},
-	y_min = -1,
 	y_max = 31000,
+	y_min = -1,
 	decoration = "fireflies:firefly",
 })
