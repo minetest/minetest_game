@@ -15,3 +15,10 @@ dofile(modpath .. "/functions.lua")
 dofile(modpath .. "/api.lua")
 dofile(modpath .. "/beds.lua")
 dofile(modpath .. "/spawns.lua")
+
+
+-- Modifications
+-- Saturation: 150
+-- Lightness: -25
+-- Contrast: -100
+-- Brightness: -85
