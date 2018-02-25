@@ -137,7 +137,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 		sidelen = 80,
 		fill_ratio = 0.0002,
 		y_max = 31000,
-		y_min = -1,
+		y_min = 1,
 		decoration = "fireflies:firefly",
 	})
 
@@ -148,7 +148,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 		sidelen = 80,
 		fill_ratio = 0.0002,
 		y_max = 31000,
-		y_min = -1,
+		y_min = 1,
 		decoration = "fireflies:firefly",
 	})
 
