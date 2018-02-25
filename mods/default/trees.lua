@@ -504,7 +504,7 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 		return itemstack
 	end
 	-- Check tree volume for protection
-	if minetest.intersects_protection(
+	if minetest.is_area_protected(
 			vector.add(pos, minp_relative),
 			vector.add(pos, maxp_relative),
 			player_name,
