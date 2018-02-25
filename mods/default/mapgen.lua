@@ -1476,13 +1476,33 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		--node_riverbed = "",
 		--depth_riverbed = ,
 		y_max = 31000,
-		y_min = floatland_level + 4,
+		y_min = floatland_level + 2,
 		heat_point = 50,
-		humidity_point = 50,
+		humidity_point = 25,
 	})
 
 	minetest.register_biome({
-		name = "floatland_grassland_ocean",
+		name = "floatland_coniferous_forest",
+		--node_dust = "",
+		node_top = "default:dirt_with_coniferous_litter",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		--node_riverbed = "",
+		--depth_riverbed = ,
+		y_max = 31000,
+		y_min = floatland_level + 2,
+		heat_point = 50,
+		humidity_point = 75,
+	})
+
+	minetest.register_biome({
+		name = "floatland_ocean",
 		--node_dust = "",
 		node_top = "default:sand",
 		depth_top = 1,
@@ -1495,7 +1515,7 @@ function default.register_floatland_biomes(floatland_level, shadow_limit)
 		--node_river_water = "",
 		--node_riverbed = "",
 		--depth_riverbed = ,
-		y_max = floatland_level + 3,
+		y_max = floatland_level + 1,
 		y_min = shadow_limit,
 		heat_point = 50,
 		humidity_point = 50,
@@ -1653,7 +1673,7 @@ local function register_fern_decoration(seed, length)
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"coniferous_forest"},
+		biomes = {"coniferous_forest", "floatland_coniferous_forest"},
 		y_max = 31000,
 		y_min = 6,
 		decoration = "default:fern_" .. length,
@@ -1775,7 +1795,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"taiga", "coniferous_forest"},
+		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
 		y_max = 31000,
 		y_min = 2,
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_tree.mts",
@@ -1794,7 +1814,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"taiga", "coniferous_forest"},
+		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_log.mts",
