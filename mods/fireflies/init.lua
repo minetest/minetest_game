@@ -127,46 +127,75 @@ minetest.register_craft( {
 
 
 -- register fireflies as decorations
-minetest.register_decoration({
-	deco_type = "simple",
-	place_on = {
-		"default:dirt_with_grass",
-		"default:dirt_with_coniferous_litter",
-		"default:dirt_with_rainforest_litter",
-		"default:dirt"
-	},
-	place_offset_y = 2,
-	sidelen = 80,
-	fill_ratio = 0.002,
-	biomes = {
-		"deciduous_forest",
-		"coniferous_forest",
-		"rainforest",
-		"rainforest_swamp"
-	},
-	y_max = 31000,
-	y_min = -1,
-	decoration = "fireflies:firefly",
-})
 
-minetest.register_decoration({
-	deco_type = "simple",
-	place_on = {
-		"default:dirt_with_grass",
-		"default:dirt_with_coniferous_litter",
-		"default:dirt_with_rainforest_litter",
-		"default:dirt"
-	},
-	place_offset_y = 3,
-	sidelen = 80,
-	fill_ratio = 0.002,
-	biomes = {
-		"deciduous_forest",
-		"coniferous_forest",
-		"rainforest",
-		"rainforest_swamp"
-	},
-	y_max = 31000,
-	y_min = -1,
-	decoration = "fireflies:firefly",
-})
+if minetest.get_mapgen_setting("mg_name") == "v6" then
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = "default:dirt_with_grass",
+		place_offset_y = 2,
+		sidelen = 80,
+		fill_ratio = 0.0002,
+		y_max = 31000,
+		y_min = 1,
+		decoration = "fireflies:firefly",
+	})
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = "default:dirt_with_grass",
+		place_offset_y = 3,
+		sidelen = 80,
+		fill_ratio = 0.0002,
+		y_max = 31000,
+		y_min = 1,
+		decoration = "fireflies:firefly",
+	})
+
+else
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {
+			"default:dirt_with_grass",
+			"default:dirt_with_coniferous_litter",
+			"default:dirt_with_rainforest_litter",
+			"default:dirt"
+		},
+		place_offset_y = 2,
+		sidelen = 80,
+		fill_ratio = 0.002,
+		biomes = {
+			"deciduous_forest",
+			"coniferous_forest",
+			"rainforest",
+			"rainforest_swamp"
+		},
+		y_max = 31000,
+		y_min = -1,
+		decoration = "fireflies:firefly",
+	})
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {
+			"default:dirt_with_grass",
+			"default:dirt_with_coniferous_litter",
+			"default:dirt_with_rainforest_litter",
+			"default:dirt"
+		},
+		place_offset_y = 3,
+		sidelen = 80,
+		fill_ratio = 0.002,
+		biomes = {
+			"deciduous_forest",
+			"coniferous_forest",
+			"rainforest",
+			"rainforest_swamp"
+		},
+		y_max = 31000,
+		y_min = -1,
+		decoration = "fireflies:firefly",
+	})
+
+end
