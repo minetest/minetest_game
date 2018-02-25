@@ -15,8 +15,8 @@ local function register_mgv6_flower(name)
 			octaves = 3,
 			persist = 0.6
 		},
-		y_min = 1,
 		y_max = 30,
+		y_min = 1,
 		decoration = "flowers:"..name,
 	})
 end
@@ -34,8 +34,8 @@ local function register_mgv6_mushroom(name)
 			octaves = 3,
 			persist = 0.6
 		},
-		y_min = 1,
 		y_max = 30,
+		y_min = 1,
 		decoration = "flowers:"..name,
 		spawn_by = "default:tree",
 		num_spawn_by = 1,
@@ -55,8 +55,8 @@ local function register_mgv6_waterlily()
 			octaves = 3,
 			persist = 0.7
 		},
-		y_min = 0,
 		y_max = 0,
+		y_min = 0,
 		schematic = minetest.get_modpath("flowers").."/schematics/waterlily.mts",
 		rotation = "random",
 	})
@@ -95,8 +95,8 @@ local function register_flower(seed, name)
 			persist = 0.6
 		},
 		biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
-		y_min = 1,
 		y_max = 31000,
+		y_min = 1,
 		decoration = "flowers:"..name,
 	})
 end
@@ -115,8 +115,8 @@ local function register_mushroom(name)
 			persist = 0.66
 		},
 		biomes = {"deciduous_forest", "coniferous_forest"},
-		y_min = 1,
 		y_max = 31000,
+		y_min = 1,
 		decoration = "flowers:"..name,
 	})
 end
@@ -135,8 +135,8 @@ local function register_waterlily()
 			persist = 0.7
 		},
 		biomes = {"rainforest_swamp", "savanna_shore", "deciduous_forest_shore"},
-		y_min = 0,
 		y_max = 0,
+		y_min = 0,
 		schematic = minetest.get_modpath("flowers") .. "/schematics/waterlily.mts",
 		rotation = "random",
 	})
