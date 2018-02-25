@@ -44,7 +44,7 @@ end
 
 local function register_mgv6_waterlily()
 	minetest.register_decoration({
-		deco_type = "schematic",
+		deco_type = "simple",
 		place_on = {"default:dirt"},
 		sidelen = 16,
 		noise_params = {
@@ -57,8 +57,10 @@ local function register_mgv6_waterlily()
 		},
 		y_max = 0,
 		y_min = 0,
-		schematic = minetest.get_modpath("flowers").."/schematics/waterlily.mts",
-		rotation = "random",
+		decoration = "flowers:waterlily",
+		param2 = 0,
+		param2_max = 3,
+		place_offset_y = 1,
 	})
 end
 
@@ -124,7 +126,7 @@ end
 
 local function register_waterlily()
 	minetest.register_decoration({
-		deco_type = "schematic",
+		deco_type = "simple",
 		place_on = {"default:dirt"},
 		sidelen = 16,
 		noise_params = {
@@ -138,8 +140,10 @@ local function register_waterlily()
 		biomes = {"rainforest_swamp", "savanna_shore", "deciduous_forest_shore"},
 		y_max = 0,
 		y_min = 0,
-		schematic = minetest.get_modpath("flowers") .. "/schematics/waterlily.mts",
-		rotation = "random",
+		decoration = "flowers:waterlily",
+		param2 = 0,
+		param2_max = 3,
+		place_offset_y = 1,
 	})
 end
 
