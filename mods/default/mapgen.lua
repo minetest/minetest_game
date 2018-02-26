@@ -820,7 +820,7 @@ function default.register_biomes(upper_limit)
 		depth_top = 1,
 		node_filler = "default:snowblock",
 		depth_filler = 3,
-		node_stone = "default:ice",
+		node_stone = "default:cave_ice",
 		node_water_top = "default:ice",
 		depth_water_top = 10,
 		--node_water = "",
