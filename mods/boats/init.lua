@@ -172,23 +172,15 @@ function boat.on_step(self, dtime)
 	local new_velo
 	local new_acce = {x = 0, y = 0, z = 0}
 	if not is_water(p) then
-		local nodename = minetest.get_node(p).name
-		local nodedef = minetest.registered_nodes[nodename]
-		if nodename == "ignore" then
-			-- at world edge bounce boat back into world
-			self.v = -self.v
-			-- at world base avoid falling into ignore
-			new_velo = get_velocity(self.v, self.object:getyaw(), 0)
-		elseif (not nodedef) or nodedef.walkable then
+		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
+		if (not nodedef) or nodedef.walkable then
 			self.v = 0
 			new_acce = {x = 0, y = 1, z = 0}
-			new_velo = get_velocity(self.v, self.object:getyaw(),
-				self.object:getvelocity().y)
 		else
 			new_acce = {x = 0, y = -9.8, z = 0}
-			new_velo = get_velocity(self.v, self.object:getyaw(),
-				self.object:getvelocity().y)
 		end
+		new_velo = get_velocity(self.v, self.object:getyaw(),
+			self.object:getvelocity().y)
 		self.object:setpos(self.object:getpos())
 	else
 		p.y = p.y + 1
