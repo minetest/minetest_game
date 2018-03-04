@@ -1758,7 +1758,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
-		sidelen = 16,
+		sidelen = 80,
 		fill_ratio = 0.1,
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_max = 31000,
@@ -1771,7 +1771,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
-		sidelen = 16,
+		sidelen = 80,
 		fill_ratio = 0.005,
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_max = 31000,
@@ -1781,15 +1781,15 @@ function default.register_decorations()
 		rotation = "random",
 	})
 
-	-- Taiga and temperate coniferous forest pine tree and log
+	-- Taiga and temperate coniferous forest pine tree, small pine tree and log
 
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
 		sidelen = 16,
 		noise_params = {
-			offset = 0.036,
-			scale = 0.022,
+			offset = 0.010,
+			scale = 0.048,
 			spread = {x = 250, y = 250, z = 250},
 			seed = 2,
 			octaves = 3,
@@ -1805,15 +1805,27 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
-		sidelen = 80,
+		sidelen = 16,
 		noise_params = {
-			offset = 0.0018,
-			scale = 0.0011,
+			offset = 0.010,
+			scale = -0.048,
 			spread = {x = 250, y = 250, z = 250},
 			seed = 2,
 			octaves = 3,
 			persist = 0.66
 		},
+		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
+		y_max = 31000,
+		y_min = 2,
+		schematic = minetest.get_modpath("default") .. "/schematics/small_pine_tree.mts",
+		flags = "place_center_x, place_center_z",
+	})
+
+	minetest.register_decoration({
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		sidelen = 80,
+		fill_ratio = 0.0018,
 		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
@@ -2039,7 +2051,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_rainforest_litter"},
-		sidelen = 16,
+		sidelen = 80,
 		fill_ratio = 0.1,
 		biomes = {"rainforest"},
 		y_max = 31000,
