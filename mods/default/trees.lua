@@ -411,8 +411,14 @@ end
 -- New pine tree
 
 function default.grow_new_pine_tree(pos)
-	local path = minetest.get_modpath("default") ..
-		"/schematics/pine_tree_from_sapling.mts"
+	local path
+	if math.random() > 0.5 then
+		path = minetest.get_modpath("default") ..
+			"/schematics/pine_tree_from_sapling.mts"
+	else
+		path = minetest.get_modpath("default") ..
+			"/schematics/small_pine_tree_from_sapling.mts"
+	end
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 		path, "0", nil, false)
 end
@@ -421,8 +427,14 @@ end
 -- New snowy pine tree
 
 function default.grow_new_snowy_pine_tree(pos)
-	local path = minetest.get_modpath("default") ..
-		"/schematics/snowy_pine_tree_from_sapling.mts"
+	local path
+	if math.random() > 0.5 then
+		path = minetest.get_modpath("default") ..
+			"/schematics/snowy_pine_tree_from_sapling.mts"
+	else
+		path = minetest.get_modpath("default") ..
+			"/schematics/snowy_small_pine_tree_from_sapling.mts"
+	end
 	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 		path, "random", nil, false)
 end
