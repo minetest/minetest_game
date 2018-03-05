@@ -164,7 +164,7 @@ else
 		},
 		place_offset_y = 2,
 		sidelen = 80,
-		fill_ratio = 0.002,
+		fill_ratio = 0.0005,
 		biomes = {
 			"deciduous_forest",
 			"coniferous_forest",
@@ -186,7 +186,7 @@ else
 		},
 		place_offset_y = 3,
 		sidelen = 80,
-		fill_ratio = 0.002,
+		fill_ratio = 0.0005,
 		biomes = {
 			"deciduous_forest",
 			"coniferous_forest",
