@@ -114,6 +114,10 @@ paramat (CC BY-SA 3.0):
   default_bookshelf_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)
   default_marram_grass_*.png -- Derived from textures by TumeniNodes (CC-BY-SA 3.0)
   default_emergent_jungle_sapling.png
+  default_permafrost.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
+  default_stones.png -- Derived from a texture by sofar (CC0 1.0)
+  default_moss.png
+  default_moss_side.png
 
 TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
