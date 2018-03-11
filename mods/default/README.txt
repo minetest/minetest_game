@@ -23,9 +23,6 @@ Cisoun's texture pack (CC BY-SA 3.0):
   default_tree_top.png
   default_water.png
 
-Cisoun's conifers mod (CC BY-SA 3.0):
-  default_pine_needles.png
-
 Originating from G4JC's Almost MC Texture Pack (CC BY-SA 3.0):
   default_torch.png
   default_torch_on_ceiling.png
@@ -69,6 +66,7 @@ InfinityProject (CC BY-SA 3.0):
 
 Splizard (CC BY-SA 3.0):
   default_pine_sapling.png
+  default_pine_needles.png
 
 Zeg9 (CC BY-SA 3.0):
   default_coal_block.png
