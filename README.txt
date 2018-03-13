@@ -1,9 +1,9 @@
 Minetest Game [minetest_game]
 =============================
-The main subgame for the Minetest engine
-========================================
+The main game for the Minetest engine
+=====================================
 
-To use this subgame with the Minetest engine, insert this repository as
+To use this game with the Minetest engine, insert this repository as
 	/games/minetest_game
 
 The Minetest engine can be found in:
