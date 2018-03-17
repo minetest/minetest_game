@@ -131,6 +131,7 @@ minetest.register_craft( {
 if minetest.get_mapgen_setting("mg_name") == "v6" then
 
 	minetest.register_decoration({
+		name = "fireflies:firefly_low",
 		deco_type = "simple",
 		place_on = "default:dirt_with_grass",
 		place_offset_y = 2,
@@ -142,6 +143,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 	})
 
 	minetest.register_decoration({
+		name = "fireflies:firefly_high",
 		deco_type = "simple",
 		place_on = "default:dirt_with_grass",
 		place_offset_y = 3,
@@ -155,6 +157,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 else
 
 	minetest.register_decoration({
+		name = "fireflies:firefly_low",
 		deco_type = "simple",
 		place_on = {
 			"default:dirt_with_grass",
@@ -177,6 +180,7 @@ else
 	})
 
 	minetest.register_decoration({
+		name = "fireflies:firefly_high",
 		deco_type = "simple",
 		place_on = {
 			"default:dirt_with_grass",
