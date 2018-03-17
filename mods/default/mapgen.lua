@@ -1534,6 +1534,7 @@ function default.register_mgv6_decorations()
 	-- Papyrus
 
 	minetest.register_decoration({
+		name = "default:papyrus",
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -1557,6 +1558,7 @@ function default.register_mgv6_decorations()
 	-- Cacti
 
 	minetest.register_decoration({
+		name = "default:cactus",
 		deco_type = "simple",
 		place_on = {"default:desert_sand"},
 		sidelen = 16,
@@ -1579,6 +1581,7 @@ function default.register_mgv6_decorations()
 
 	for length = 1, 5 do
 		minetest.register_decoration({
+			name = "default:grass_"..length,
 			deco_type = "simple",
 			place_on = {"default:dirt_with_grass"},
 			sidelen = 16,
@@ -1599,6 +1602,7 @@ function default.register_mgv6_decorations()
 	-- Dry shrubs
 
 	minetest.register_decoration({
+		name = "default:dry_shrub",
 		deco_type = "simple",
 		place_on = {"default:desert_sand", "default:dirt_with_snow"},
 		sidelen = 16,
@@ -1622,6 +1626,7 @@ end
 
 local function register_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
+		name = "default:grass_" .. length,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -1642,6 +1647,7 @@ end
 
 local function register_dry_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
+		name = "default:dry_grass_" .. length,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
@@ -1662,6 +1668,7 @@ end
 
 local function register_fern_decoration(seed, length)
 	minetest.register_decoration({
+		name = "default:fern_" .. length,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_coniferous_litter"},
 		sidelen = 16,
@@ -1686,6 +1693,7 @@ function default.register_decorations()
 	-- Apple tree and log
 
 	minetest.register_decoration({
+		name = "default:apple_tree",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -1706,6 +1714,7 @@ function default.register_decorations()
 	})
 
 	minetest.register_decoration({
+		name = "default:apple_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -1731,6 +1740,7 @@ function default.register_decorations()
 	local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
 	if chunksize >= 5 then
 		minetest.register_decoration({
+			name = "default:emergent_jungle_tree",
 			deco_type = "schematic",
 			place_on = {"default:dirt_with_rainforest_litter"},
 			sidelen = 80,
@@ -1756,6 +1766,7 @@ function default.register_decorations()
 	-- Jungle tree and log
 
 	minetest.register_decoration({
+		name = "default:jungle_tree",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
 		sidelen = 80,
@@ -1769,6 +1780,7 @@ function default.register_decorations()
 	})
 
 	minetest.register_decoration({
+		name = "default:jungle_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
 		sidelen = 80,
@@ -1784,6 +1796,7 @@ function default.register_decorations()
 	-- Taiga and temperate coniferous forest pine tree, small pine tree and log
 
 	minetest.register_decoration({
+		name = "default:pine_tree",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
 		sidelen = 16,
@@ -1803,6 +1816,7 @@ function default.register_decorations()
 	})
 
 	minetest.register_decoration({
+		name = "default:small_pine_tree",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
 		sidelen = 16,
@@ -1822,6 +1836,7 @@ function default.register_decorations()
 	})
 
 	minetest.register_decoration({
+		name = "default:pine_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
 		sidelen = 80,
@@ -1837,6 +1852,7 @@ function default.register_decorations()
 	-- Acacia tree and log
 
 	minetest.register_decoration({
+		name = "default:acacia_tree",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
@@ -1857,6 +1873,7 @@ function default.register_decorations()
 	})
 
 	minetest.register_decoration({
+		name = "default:acacia_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
@@ -1879,6 +1896,7 @@ function default.register_decorations()
 	-- Aspen tree and log
 
 	minetest.register_decoration({
+		name = "default:aspen_tree",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -1898,6 +1916,7 @@ function default.register_decorations()
 	})
 
 	minetest.register_decoration({
+		name = "default:aspen_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -1920,6 +1939,7 @@ function default.register_decorations()
 	-- Large cactus
 
 	minetest.register_decoration({
+		name = "default:large_cactus",
 		deco_type = "schematic",
 		place_on = {"default:desert_sand"},
 		sidelen = 16,
@@ -1942,6 +1962,7 @@ function default.register_decorations()
 	-- Cactus
 
 	minetest.register_decoration({
+		name = "default:cactus",
 		deco_type = "simple",
 		place_on = {"default:desert_sand"},
 		sidelen = 16,
@@ -1964,6 +1985,7 @@ function default.register_decorations()
 	-- Papyrus
 
 	minetest.register_decoration({
+		name = "default:papyrus",
 		deco_type = "schematic",
 		place_on = {"default:dirt"},
 		sidelen = 16,
@@ -1984,6 +2006,7 @@ function default.register_decorations()
 	-- Bush
 
 	minetest.register_decoration({
+		name = "default:bush",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass", "default:dirt_with_snow"},
 		sidelen = 16,
@@ -2006,6 +2029,7 @@ function default.register_decorations()
 	-- Acacia bush
 
 	minetest.register_decoration({
+		name = "default:acacia_bush",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
@@ -2049,6 +2073,7 @@ function default.register_decorations()
 	-- Junglegrass
 
 	minetest.register_decoration({
+		name = "default:junglegrass",
 		deco_type = "simple",
 		place_on = {"default:dirt_with_rainforest_litter"},
 		sidelen = 80,
@@ -2062,6 +2087,7 @@ function default.register_decorations()
 	-- Dry shrub
 
 	minetest.register_decoration({
+		name = "default:dry_shrub",
 		deco_type = "simple",
 		place_on = {"default:desert_sand",
 			"default:sand", "default:silver_sand"},
@@ -2084,6 +2110,7 @@ function default.register_decorations()
 	-- Marram grass
 
 	minetest.register_decoration({
+		name = "default:marram_grass",
 		deco_type = "simple",
 		place_on = {"default:sand"},
 		sidelen = 4,
@@ -2109,6 +2136,7 @@ function default.register_decorations()
 	-- Coral reef
 
 	minetest.register_decoration({
+		name = "default:corals",
 		deco_type = "schematic",
 		place_on = {"default:sand"},
 		noise_params = {
@@ -2134,6 +2162,7 @@ function default.register_decorations()
 	-- Kelp
 
 	minetest.register_decoration({
+		name = "default:kelp",
 		deco_type = "simple",
 		place_on = {"default:sand"},
 		place_offset_y = -1,
