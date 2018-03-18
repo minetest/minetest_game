@@ -59,6 +59,7 @@ minetest.register_node("fireflies:hidden_firefly", {
 	walkable = false,
 	pointable = false,
 	diggable = false,
+	buildable_to = true,
 	drop = "",
 	groups = {not_in_creative_inventory = 1},
 	on_place = function(itemstack, placer, pointed_thing)
