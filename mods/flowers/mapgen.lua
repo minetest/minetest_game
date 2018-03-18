@@ -2,8 +2,9 @@
 -- Mgv6
 --
 
-local function register_mgv6_flower(name)
+local function register_mgv6_flower(flower_name)
 	minetest.register_decoration({
+		name = "flowers:"..flower_name,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -17,12 +18,13 @@ local function register_mgv6_flower(name)
 		},
 		y_max = 30,
 		y_min = 1,
-		decoration = "flowers:"..name,
+		decoration = "flowers:"..flower_name,
 	})
 end
 
-local function register_mgv6_mushroom(name)
+local function register_mgv6_mushroom(mushroom_name)
 	minetest.register_decoration({
+		name = "flowers:"..mushroom_name,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -36,7 +38,7 @@ local function register_mgv6_mushroom(name)
 		},
 		y_max = 30,
 		y_min = 1,
-		decoration = "flowers:"..name,
+		decoration = "flowers:"..mushroom_name,
 		spawn_by = "default:tree",
 		num_spawn_by = 1,
 	})
@@ -44,6 +46,7 @@ end
 
 local function register_mgv6_waterlily()
 	minetest.register_decoration({
+		name = "flowers:waterlily",
 		deco_type = "simple",
 		place_on = {"default:dirt"},
 		sidelen = 16,
@@ -83,8 +86,9 @@ end
 -- All other biome API mapgens
 --
 
-local function register_flower(seed, name)
+local function register_flower(seed, flower_name)
 	minetest.register_decoration({
+		name = "flowers:"..flower_name,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
@@ -99,12 +103,13 @@ local function register_flower(seed, name)
 		biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
 		y_max = 31000,
 		y_min = 1,
-		decoration = "flowers:"..name,
+		decoration = "flowers:"..flower_name,
 	})
 end
 
-local function register_mushroom(name)
+local function register_mushroom(mushroom_name)
 	minetest.register_decoration({
+		name = "flowers:"..mushroom_name,
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass", "default:dirt_with_coniferous_litter"},
 		sidelen = 16,
@@ -120,12 +125,13 @@ local function register_mushroom(name)
 			"floatland_coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
-		decoration = "flowers:"..name,
+		decoration = "flowers:"..mushroom_name,
 	})
 end
 
 local function register_waterlily()
 	minetest.register_decoration({
+		name = "default:waterlily",
 		deco_type = "simple",
 		place_on = {"default:dirt"},
 		sidelen = 16,
