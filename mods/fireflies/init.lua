@@ -27,6 +27,58 @@ minetest.register_node("fireflies:firefly", {
 	floodable = true,
 	on_flood = function(pos, oldnode, newnode)
 		minetest.add_item(pos, "fireflies:firefly 1")
+	end,
+	on_place = function(itemstack, placer, pointed_thing)
+		local player_name = placer:get_player_name()
+		local pos = pointed_thing.above
+
+		if not minetest.is_protected(pos, player_name) and
+				not minetest.is_protected(pointed_thing.under, player_name) and
+				minetest.get_node(pos).name == "air" then
+			minetest.set_node(pos, {name = "fireflies:firefly"})
+			minetest.get_node_timer(pos):start(1)
+			itemstack:take_item()
+		end
+		return itemstack
+	end,
+	on_timer = function(pos, elapsed)
+		if minetest.get_node_light(pos) > 11 then
+			minetest.set_node(pos, {name = "fireflies:hidden_firefly"})
+		end
+		minetest.get_node_timer(pos):start(30)
+	end
+})
+
+minetest.register_node("fireflies:hidden_firefly", {
+	description = "Hidden Firefly",
+	drawtype = "airlike",
+	inventory_image = "fireflies_firefly.png",
+	wield_image =  "fireflies_firefly.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	drop = "",
+	groups = {not_in_creative_inventory = 1},
+	on_place = function(itemstack, placer, pointed_thing)
+		local player_name = placer:get_player_name()
+		local pos = pointed_thing.above
+
+		if not minetest.is_protected(pos, player_name) and
+				not minetest.is_protected(pointed_thing.under, player_name) and
+				minetest.get_node(pos).name == "air" then
+			minetest.set_node(pos, {name = "fireflies:hidden_firefly"})
+			minetest.get_node_timer(pos):start(1)
+			itemstack:take_item()
+		end
+		return itemstack
+	end,
+	on_timer = function(pos, elapsed)
+		if minetest.get_node_light(pos) <= 11 then
+			minetest.set_node(pos, {name = "fireflies:firefly"})
+		end
+		minetest.get_node_timer(pos):start(30)
 	end
 })
 
@@ -112,6 +164,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 		if firefly_pos then
 			minetest.set_node(pos, {name = "vessels:glass_bottle"})
 			minetest.set_node(firefly_pos, {name = "fireflies:firefly"})
+			minetest.get_node_timer(firefly_pos):start(1)
 		end
 	end
 })
@@ -203,3 +256,32 @@ else
 	})
 
 end
+
+
+-- get decoration IDs
+local firefly_low = minetest.get_decoration_id("fireflies:firefly_low")
+local firefly_high = minetest.get_decoration_id("fireflies:firefly_high")
+
+minetest.set_gen_notify({decoration = true}, {firefly_low, firefly_high})
+
+-- start nodetimers
+minetest.register_on_generated(function(minp, maxp, blockseed)
+	local gennotify = minetest.get_mapgen_object("gennotify")
+	local poslist = {}
+
+	for _, pos in ipairs(gennotify["decoration#"..firefly_low] or {}) do
+		local firefly_low_pos = {x = pos.x, y = pos.y + 3, z = pos.z}
+		table.insert(poslist, firefly_low_pos)
+	end
+	for _, pos in ipairs(gennotify["decoration#"..firefly_high] or {}) do
+		local firefly_high_pos = {x = pos.x, y = pos.y + 4, z = pos.z}
+		table.insert(poslist, firefly_high_pos)
+	end
+
+	if #poslist ~= 0 then
+		for i = 1, #poslist do
+			local pos = poslist[i]
+			minetest.get_node_timer(pos):start(1)
+		end
+	end
+end)
