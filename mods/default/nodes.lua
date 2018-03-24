@@ -564,6 +564,7 @@ minetest.register_node("default:snow", {
 minetest.register_node("default:snowblock", {
 	description = "Snow Block",
 	tiles = {"default_snow.png"},
+	paramtype = "light",
 	groups = {crumbly = 3, puts_out_fire = 1, cools_lava = 1, snowy = 1},
 	sounds = default.node_sound_snow_defaults(),
 
