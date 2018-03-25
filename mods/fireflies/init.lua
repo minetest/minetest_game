@@ -103,7 +103,7 @@ minetest.register_tool("fireflies:bug_net", {
 				minetest.add_item(pointed_thing.under, node_name.." 1")
 			end
 		end
-		if not minetest.setting_getbool("creative_mode") then
+		if not creative.is_enabled_for(player:get_player_name()) then
 			itemstack:add_wear(256)
 			return itemstack
 		end
