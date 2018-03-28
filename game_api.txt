@@ -548,6 +548,9 @@ set a players home position and teleport a player to home position.
 Sfinv API
 ---------
 
+It is recommended that you read this link for a good introduction to the
+sfinv API by its author: https://rubenwardy.com/minetest_modding_book/en/chapters/sfinv.html
+
 ### sfinv Methods
 
 **Pages**
@@ -752,15 +755,15 @@ GUI and formspecs
 
 `default.gui_bg`
 
- * Background color formspec element
+ * Deprecated, remove from mods.
 
 `default.gui_bg_img`
 
- * Image overlay formspec element for the background to use in formspecs
+ * Deprecated, remove from mods.
 
 `default.gui_slots`
 
- * `listcolors` formspec element that is used to format the slots in formspecs
+ * Deprecated, remove from mods.
 
 `default.gui_survival_form`
 
