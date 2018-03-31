@@ -21,12 +21,8 @@ farming.register_plant("farming:wheat", {
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland"},
-	groups = {flammable = 4},
+	groups = {food_wheat = 1, flammable = 4},
 	place_param2 = 3,
-})
-
-minetest.override_item("farming:wheat", {
-	groups = {food_wheat = 1, flammable = 2},
 })
 
 minetest.register_craftitem("farming:flour", {
