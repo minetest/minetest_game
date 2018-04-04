@@ -21,21 +21,21 @@ farming.register_plant("farming:wheat", {
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland"},
-	groups = {flammable = 4},
+	groups = {food_wheat = 1, flammable = 4},
 	place_param2 = 3,
 })
 
 minetest.register_craftitem("farming:flour", {
 	description = "Flour",
 	inventory_image = "farming_flour.png",
-	groups = {flammable = 1},
+	groups = {food_flour = 1, flammable = 1},
 })
 
 minetest.register_craftitem("farming:bread", {
 	description = "Bread",
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
-	groups = {flammable = 2},
+	groups = {food_bread = 1, flammable = 2},
 })
 
 minetest.register_craft({

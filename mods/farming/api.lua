@@ -330,7 +330,7 @@ farming.register_plant = function(name, def)
 	minetest.register_craftitem(":" .. mname .. ":" .. pname, {
 		description = pname:gsub("^%l", string.upper),
 		inventory_image = mname .. "_" .. pname .. ".png",
-		groups = {flammable = 2},
+		groups = def.groups or {flammable = 2},
 	})
 
 	-- Register growing steps
