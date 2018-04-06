@@ -16,27 +16,32 @@ farming.register_hoe(":farming:hoe_stone", {
 farming.register_hoe(":farming:hoe_steel", {
 	description = "Steel Hoe",
 	inventory_image = "farming_tool_steelhoe.png",
-	max_uses = 200,
+	max_uses = 500,
 	material = "default:steel_ingot"
 })
+
+-- The following are deprecated by removing the 'material' field to prevent
+-- crafting and removing from creative inventory, to cause them to eventually
+-- disappear from worlds. The registrations should be removed in a future
+-- release.
 
 farming.register_hoe(":farming:hoe_bronze", {
 	description = "Bronze Hoe",
 	inventory_image = "farming_tool_bronzehoe.png",
 	max_uses = 220,
-	material = "default:bronze_ingot"
+	groups = {not_in_creative_inventory = 1},
 })
 
 farming.register_hoe(":farming:hoe_mese", {
 	description = "Mese Hoe",
 	inventory_image = "farming_tool_mesehoe.png",
 	max_uses = 350,
-	material = "default:mese_crystal"
+	groups = {not_in_creative_inventory = 1},
 })
 
 farming.register_hoe(":farming:hoe_diamond", {
 	description = "Diamond Hoe",
 	inventory_image = "farming_tool_diamondhoe.png",
 	max_uses = 500,
-	material = "default:diamond"
+	groups = {not_in_creative_inventory = 1},
 })
