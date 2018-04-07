@@ -401,7 +401,7 @@ function tnt.boom(pos, def)
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast, owner, def.explode_center)
 	-- append entity drops
-	local damage_radius = (radius / def.radius) * def.damage_radius
+	local damage_radius = (radius / math.max(1, def.radius)) * def.damage_radius
 	entity_physics(pos, damage_radius, drops)
 	if not def.disable_drops then
 		eject_drops(drops, pos, radius)
