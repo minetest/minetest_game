@@ -576,7 +576,7 @@ function default.register_ores()
 		clust_scarcity = 7 * 7 * 7,
 		clust_num_ores = 5,
 		clust_size     = 3,
-		y_max          = 0,
+		y_max          = -64,
 		y_min          = -127,
 	})
 
@@ -682,7 +682,7 @@ function default.register_ores()
 		clust_num_ores = 3,
 		clust_size     = 2,
 		y_max          = -256,
-		y_min          = -1023,
+		y_min          = -511,
 	})
 
 	minetest.register_ore({
@@ -692,42 +692,7 @@ function default.register_ores()
 		clust_scarcity = 13 * 13 * 13,
 		clust_num_ores = 5,
 		clust_size     = 3,
-		y_max          = -1024,
-		y_min          = -31000,
-	})
-
-	-- Diamond
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_diamond",
-		wherein        = "default:stone",
-		clust_scarcity = 15 * 15 * 15,
-		clust_num_ores = 4,
-		clust_size     = 3,
-		y_max          = 31000,
-		y_min          = 1025,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_diamond",
-		wherein        = "default:stone",
-		clust_scarcity = 17 * 17 * 17,
-		clust_num_ores = 4,
-		clust_size     = 3,
 		y_max          = -512,
-		y_min          = -1023,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "default:stone_with_diamond",
-		wherein        = "default:stone",
-		clust_scarcity = 15 * 15 * 15,
-		clust_num_ores = 4,
-		clust_size     = 3,
-		y_max          = -1024,
 		y_min          = -31000,
 	})
 
@@ -766,6 +731,41 @@ function default.register_ores()
 		y_min          = -31000,
 	})
 
+	-- Diamond
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_diamond",
+		wherein        = "default:stone",
+		clust_scarcity = 15 * 15 * 15,
+		clust_num_ores = 4,
+		clust_size     = 3,
+		y_max          = 31000,
+		y_min          = 1025,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_diamond",
+		wherein        = "default:stone",
+		clust_scarcity = 17 * 17 * 17,
+		clust_num_ores = 4,
+		clust_size     = 3,
+		y_max          = -1024,
+		y_min          = -2047,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "default:stone_with_diamond",
+		wherein        = "default:stone",
+		clust_scarcity = 15 * 15 * 15,
+		clust_num_ores = 4,
+		clust_size     = 3,
+		y_max          = -2048,
+		y_min          = -31000,
+	})
+
 	-- Mese block
 
 	minetest.register_ore({
@@ -786,8 +786,8 @@ function default.register_ores()
 		clust_scarcity = 36 * 36 * 36,
 		clust_num_ores = 3,
 		clust_size     = 2,
-		y_max          = -1024,
-		y_min          = -2047,
+		y_max          = -2048,
+		y_min          = -4095,
 	})
 
 	minetest.register_ore({
@@ -797,7 +797,7 @@ function default.register_ores()
 		clust_scarcity = 28 * 28 * 28,
 		clust_num_ores = 5,
 		clust_size     = 3,
-		y_max          = -2048,
+		y_max          = -4096,
 		y_min          = -31000,
 	})
 end
