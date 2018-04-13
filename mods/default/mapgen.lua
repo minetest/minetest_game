@@ -519,6 +519,88 @@ function default.register_ores()
 			"floatland_coniferous_forest", "floatland_coniferous_forest_ocean"}
 	})
 
+	-- Stratum ores
+
+	-- Silver sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:silver_sandstone",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 1,
+		y_min           = -36,
+		y_max           = 180,
+		noise_params    = {
+			offset = 72,
+			scale = 64,
+			spread = {x = 512, y = 512, z = 512},
+			seed = 90122,
+			octaves = 3,
+			persist = 0.4
+		},
+		stratum_thickness = 16,
+		biomes = {"cold_desert"},
+	})
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:silver_sandstone",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 1,
+		y_min           = -52,
+		y_max           = 156,
+		noise_params    = {
+			offset = 52,
+			scale = 64,
+			spread = {x = 512, y = 512, z = 512},
+			seed = 90122,
+			octaves = 3,
+			persist = 0.4
+		},
+		stratum_thickness = 8,
+		biomes = {"cold_desert"},
+	})
+
+	-- Desert sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:desert_sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_min           = -36,
+		y_max           = 180,
+		noise_params    = {
+			offset = 72,
+			scale = 64,
+			spread = {x = 512, y = 512, z = 512},
+			seed = 90122,
+			octaves = 3,
+			persist = 0.4
+		},
+		stratum_thickness = 16,
+		biomes = {"desert"},
+	})
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:desert_sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_min           = -52,
+		y_max           = 156,
+		noise_params    = {
+			offset = 52,
+			scale = 64,
+			spread = {x = 512, y = 512, z = 512},
+			seed = 90122,
+			octaves = 3,
+			persist = 0.4
+		},
+		stratum_thickness = 8,
+		biomes = {"desert"},
+	})
+
 	-- Scatter ores
 
 	-- Coal
