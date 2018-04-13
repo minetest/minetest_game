@@ -84,7 +84,6 @@ end
 -- Spawn position search
 
 local function search()
-	local t0 = os.clock()
 	for iter = 1, checks do
 		local biome_data = minetest.get_biome_data(pos)
 		-- Sometimes biome_data is nil
@@ -92,16 +91,9 @@ local function search()
 		for id_ind = 1, #biome_ids do
 			local biome_id = biome_ids[id_ind]
 			if biome == biome_id then
-				print("suitable biome found")
 				local spawn_y = minetest.get_spawn_level(pos.x, pos.z)
 				if spawn_y then
-					print("suitable level found")
-					print("at iteration " .. iter)
 					spawn_pos = {x = pos.x, y = spawn_y, z = pos.z}
-					print("spawn pos x " .. spawn_pos.x ..
-						"  y " .. spawn_pos.y .. "  z " .. spawn_pos.z)
-					local time = math.ceil((os.clock() - t0) * 1000)
-					print ("search time " .. time .. " ms")
 					return true
 				end
 			end
@@ -110,9 +102,6 @@ local function search()
 		pos = next_pos()
 	end
 
-	print("search failed, use engine spawn pos")
-	local time = math.ceil((os.clock() - t0) * 1000)
-	print ("search time " .. time .. " ms")
 	return false
 end
 
@@ -130,7 +119,6 @@ minetest.register_on_newplayer(function(player)
 	end
 
 	if success then
-		print("move player to search pos")
 		player:setpos(spawn_pos)
 	end
 end)
