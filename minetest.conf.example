@@ -1,18 +1,21 @@
-# This file contains settings of Minetest Game that can be changed in minetest.conf
+# This file contains settings of Minetest Game that can be changed in
+# minetest.conf.
 # By default, all the settings are commented and not functional.
 # Uncomment settings by removing the preceding #.
 
-# Whether creative mode (fast digging of all blocks, unlimited resources) should be enabled
+# Whether creative mode (fast digging of all blocks, unlimited resources) should
+# be enabled.
 #creative_mode = false
 
 # Sets the behaviour of the inventory items when a player dies.
-#  "bones": Store all items inside a bone node but drop items if inside protected area
-#  "drop": Drop all items on the ground
-#  "keep": Player keeps all items
+#  "bones": Store items in a bone node but drop items if inside protected area.
+#  "drop": Drop items on the ground.
+#  "keep": Player keeps items.
 #bones_mode = "bones"
 
-# The time in seconds after which the bones of a dead player can be looted by everyone
-# 0 to disable
+# The time in seconds after which the bones of a dead player can be looted by
+# everyone.
+# 0 to disable.
 #share_bones_time = 1200
 
 # How much earlier the bones of a dead player can be looted by
@@ -20,8 +23,9 @@
 # 0 to disable. By default it is "share_bones_time" divide by four.
 #share_bones_time_early = 300
 
-# Whether fire should be enabled. If disabled, 'basic flame' nodes will disappear.
-# 'permanent flame' nodes will remain with either setting.
+# Whether fire should be enabled. If disabled, 'basic_flame' nodes will
+# disappear.
+# 'permanent_flame' nodes will remain with either setting.
 #enable_fire = true
 
 # Enable flame sound.
@@ -30,24 +34,30 @@
 # Whether lavacooling should be enabled.
 #enable_lavacooling = true
 
-# Whether the stuff in initial_stuff should be given to new players
+# Whether the stuff in initial_stuff should be given to new players.
 #give_initial_stuff = false
-#initial_stuff = default:pick_steel,default:axe_steel,default:shovel_steel,default:torch 99,default:cobble 99
+#initial_stuff = default:pick_steel,default:axe_steel,default:shovel_steel,
+default:torch 99,default:cobble 99
 
-# Whether the TNT mod should be enabled
+# Whether the TNT mod should be enabled.
 #enable_tnt = <true in singleplayer, false in multiplayer>
 
-# The radius of a TNT explosion
+# The radius of a TNT explosion.
 #tnt_radius = 3
 
 # Enable the stairs mod ABM that replaces the old 'upside down'
 # stair and slab nodes in old maps with the new param2 versions.
 #enable_stairs_replace_abm = false
 
-# Whether you allow respawning in beds
-# Default value is true
+# Whether to allow respawning in beds.
+# Default value is true.
 #enable_bed_respawn = true
 
-# Whether players can skip night by sleeping
-# Default value is true
+# Whether players can skip night by sleeping.
+# Default value is true.
 #enable_bed_night_skip = true
+
+# Whether the engine's spawn search, which does not check for a suitable
+# starting biome, is used.
+# Default value is false.
+#engine_spawn = false
