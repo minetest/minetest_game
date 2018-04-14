@@ -412,11 +412,74 @@ end
 
 function default.register_ores()
 
-	-- Blob ore
-	-- These first to avoid other ores in blobs
+	-- Stratum ores.
+	-- These obviously first.
+
+	-- Silver sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:silver_sandstone",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 1,
+		y_max           = 31,
+		y_min           = 28,
+		stratum_thickness = 4,
+		biomes = {"cold_desert"},
+	})
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:silver_sandstone",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 1,
+		y_max           = 25,
+		y_min           = 24,
+		stratum_thickness = 2,
+		biomes = {"cold_desert"},
+	})
+
+	-- Sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_max           = 25,
+		y_min           = 24,
+		stratum_thickness = 2,
+		biomes = {"desert"},
+	})
+
+	-- Desert sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:desert_sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_max           = 35,
+		y_min           = 32,
+		stratum_thickness = 4,
+		biomes = {"desert"},
+	})
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:desert_sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_max           = 29,
+		y_min           = 28,
+		stratum_thickness = 2,
+		biomes = {"desert"},
+	})
+
+	-- Blob ore.
+	-- These before scatter ores to avoid other ores in blobs.
 
 	-- Clay
-	-- This first to avoid clay in sand blobs
 
 	minetest.register_ore({
 		ore_type        = "blob",
