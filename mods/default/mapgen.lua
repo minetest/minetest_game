@@ -412,11 +412,109 @@ end
 
 function default.register_ores()
 
-	-- Blob ore
-	-- These first to avoid other ores in blobs
+	-- Stratum ores.
+	-- These obviously first.
+
+	-- Silver sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:silver_sandstone",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 1,
+		y_max           = 46,
+		y_min           = 10,
+		noise_params    = {
+			offset = 28,
+			scale = 16,
+			spread = {x = 128, y = 128, z = 128},
+			seed = 90122,
+			octaves = 1,
+		},
+		stratum_thickness = 4,
+		biomes = {"cold_desert"},
+	})
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:silver_sandstone",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 1,
+		y_max           = 42,
+		y_min           = 6,
+		noise_params    = {
+			offset = 24,
+			scale = 16,
+			spread = {x = 128, y = 128, z = 128},
+			seed = 90122,
+			octaves = 1,
+		},
+		stratum_thickness = 2,
+		biomes = {"cold_desert"},
+	})
+
+	-- Desert sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:desert_sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_max           = 46,
+		y_min           = 10,
+		noise_params    = {
+			offset = 28,
+			scale = 16,
+			spread = {x = 128, y = 128, z = 128},
+			seed = 90122,
+			octaves = 1,
+		},
+		stratum_thickness = 4,
+		biomes = {"desert"},
+	})
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:desert_sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_max           = 42,
+		y_min           = 6,
+		noise_params    = {
+			offset = 24,
+			scale = 16,
+			spread = {x = 128, y = 128, z = 128},
+			seed = 90122,
+			octaves = 1,
+		},
+		stratum_thickness = 2,
+		biomes = {"desert"},
+	})
+
+	-- Sandstone
+
+	minetest.register_ore({
+		ore_type        = "stratum",
+		ore             = "default:sandstone",
+		wherein         = {"default:desert_stone"},
+		clust_scarcity  = 1,
+		y_max           = 39,
+		y_min           = 3,
+		noise_params    = {
+			offset = 21,
+			scale = 16,
+			spread = {x = 128, y = 128, z = 128},
+			seed = 90122,
+			octaves = 1,
+		},
+		stratum_thickness = 2,
+		biomes = {"desert"},
+	})
+
+	-- Blob ore.
+	-- These before scatter ores to avoid other ores in blobs.
 
 	-- Clay
-	-- This first to avoid clay in sand blobs
 
 	minetest.register_ore({
 		ore_type        = "blob",
