@@ -33,7 +33,7 @@ minetest.register_node("fire:basic_flame", {
 	on_timer = function(pos)
 		local f = minetest.find_node_near(pos, 1, {"group:flammable"})
 		if not f then
-			minetest.remove_node(pos)
+			minetest.swap_node(pos, {name = "air"})
 			return
 		end
 		-- Restart timer
@@ -132,13 +132,13 @@ minetest.override_item("default:coalblock", {
 	after_destruct = function(pos, oldnode)
 		pos.y = pos.y + 1
 		if minetest.get_node(pos).name == "fire:permanent_flame" then
-			minetest.remove_node(pos)
+			minetest.swap_node(pos, {name = "air"})
 		end
 	end,
 	on_ignite = function(pos, igniter)
 		local flame_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.get_node(flame_pos).name == "air" then
-			minetest.set_node(flame_pos, {name = "fire:permanent_flame"})
+			minetest.swap_node(flame_pos, {name = "fire:permanent_flame"})
 		end
 	end,
 })
@@ -148,13 +148,7 @@ minetest.override_item("default:coalblock", {
 -- Sound
 --
 
-local flame_sound = minetest.settings:get_bool("flame_sound")
-if flame_sound == nil then
-	-- Enable if no setting present
-	flame_sound = true
-end
-
-if flame_sound then
+if minetest.settings:get_bool("flame_sound") ~= false then
 
 	local handles = {}
 	local timer = 0
@@ -281,7 +275,7 @@ minetest.register_abm({
 	chance = 1,
 	catch_up = false,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		minetest.remove_node(pos)
+		minetest.swap_node(pos, {name = "air"})
 		minetest.sound_play("fire_extinguish_flame",
 			{pos = pos, max_hear_distance = 16, gain = 0.15})
 	end,
@@ -312,7 +306,9 @@ if not fire_enabled then
 		interval = 7,
 		chance = 1,
 		catch_up = false,
-		action = minetest.remove_node,
+		action = function(pos, node)
+			minetest.swap_node(pos, {name = "air"})
+		end,
 	})
 
 else -- Fire enabled
