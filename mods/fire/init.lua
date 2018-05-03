@@ -300,10 +300,12 @@ if not fire_enabled then
 
 	-- Remove basic flames only if fire disabled
 
-	minetest.register_lbm({
-		name = "fire:remove_fire",
-		nodenames = {"fire:basic_flame"},
-		run_at_every_load = true,
+	minetest.register_abm({
+		label = "Remove disabled fire",
+ 		nodenames = {"fire:basic_flame"},
+		interval = 9,
+		chance = 1,
+		catch_up = false,
 		action = function(pos, node)
 			minetest.swap_node(pos, {name = "air"})
 		end,
