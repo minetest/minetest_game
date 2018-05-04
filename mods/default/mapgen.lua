@@ -948,11 +948,25 @@ function default.register_biomes(upper_limit)
 	-- Tundra
 
 	minetest.register_biome({
-		name = "tundra",
-		node_dust = "default:snowblock",
+		name = "tundra_highland",
+		node_dust = "default:snow",
 		node_riverbed = "default:gravel",
 		depth_riverbed = 2,
 		y_max = upper_limit,
+		y_min = 49,
+		heat_point = 0,
+		humidity_point = 40,
+	})
+
+	minetest.register_biome({
+		name = "tundra",
+		node_top = "default:permafrost_with_stones",
+		depth_top = 1,
+		node_filler = "default:permafrost",
+		depth_filler = 1,
+		node_riverbed = "default:gravel",
+		depth_riverbed = 2,
+		y_max = 48,
 		y_min = 2,
 		heat_point = 0,
 		humidity_point = 40,
@@ -2026,6 +2040,52 @@ function default.register_decorations()
 			"default:marram_grass_2",
 			"default:marram_grass_3",
 		},
+	})
+
+	-- Tundra moss
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {"default:permafrost_with_stones"},
+		sidelen = 4,
+		noise_params = {
+			offset = -0.8,
+			scale = 2.0,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 53995,
+			octaves = 3,
+			persist = 1.0
+		},
+		biomes = {"tundra"},
+		y_max = 48,
+		y_min = 2,
+		decoration = "default:permafrost_with_moss",
+		place_offset_y = -1,
+		flags = "force_placement",
+	})
+
+	-- Tundra patchy snow
+
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {
+			"default:permafrost_with_moss",
+			"default:permafrost_with_stones",
+			"default:stone"
+		},
+		sidelen = 4,
+		noise_params = {
+			offset = 0,
+			scale = 1.0,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 172555,
+			octaves = 3,
+			persist = 1.0
+		},
+		biomes = {"tundra"},
+		y_max = 48,
+		y_min = 2,
+		decoration = "default:snow",
 	})
 
 	-- Coral reef
