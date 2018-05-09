@@ -741,7 +741,7 @@ minetest.register_node("default:apple", {
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
 		if oldnode.param2 == 0 then
 			minetest.set_node(pos, {name = "default:apple_mark"})
-			minetest.get_node_timer(pos):start(math.random(2400, 4800))
+			minetest.get_node_timer(pos):start(math.random(300, 1500))
 		end
 	end,
 })
@@ -761,7 +761,7 @@ minetest.register_node("default:apple_mark", {
 		if not minetest.find_node_near(pos, 1, "default:leaves") then
 			minetest.remove_node(pos)
 		elseif minetest.get_node_light(pos) < 13 then
-			minetest.get_node_timer(pos):start(300)
+			minetest.get_node_timer(pos):start(200)
 		else
 			minetest.set_node(pos, {name = "default:apple"})
 		end
