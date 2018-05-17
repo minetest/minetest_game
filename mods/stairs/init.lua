@@ -60,7 +60,8 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			stair_images[i].backface_culling = true
 		end
 	end
-	groups.stair = 1
+	local new_groups = table.copy(groups)
+	new_groups.stair = 1
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
 		drawtype = "mesh",
@@ -69,7 +70,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		groups = groups,
+		groups = new_groups,
 		sounds = sounds,
 		selection_box = {
 			type = "fixed",
@@ -137,7 +138,8 @@ local slab_trans_dir = {[0] = 8, 0, 2, 1, 3, 4}
 -- Node will be called stairs:slab_<subname>
 
 function stairs.register_slab(subname, recipeitem, groups, images, description, sounds)
-	groups.slab = 1
+	local new_groups = table.copy(groups)
+	new_groups.slab = 1
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -145,7 +147,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		groups = groups,
+		groups = new_groups,
 		sounds = sounds,
 		node_box = {
 			type = "fixed",
