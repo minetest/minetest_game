@@ -174,6 +174,14 @@ function beds.on_rightclick(pos, player)
 	end
 end
 
+function beds.can_dig(pos, player)
+	for _, used_pos in pairs(beds.pos) do
+		if vector.equals(pos, used_pos) then
+			return false
+		end
+	end
+	return true
+end
 
 -- Callbacks
 -- Only register respawn callback if respawn enabled

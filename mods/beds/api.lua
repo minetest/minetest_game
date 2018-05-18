@@ -141,6 +141,9 @@ function beds.register_bed(name, def)
 			minetest.set_node(newp, {name = name .. "_top", param2 = new_param2})
 			return true
 		end,
+		can_dig = function(pos, player)
+			return beds.can_dig(pos)
+		end,
 	})
 
 	minetest.register_node(name .. "_top", {
@@ -159,6 +162,12 @@ function beds.register_bed(name, def)
 		},
 		on_destruct = function(pos)
 			destruct_bed(pos, 2)
+		end,
+		can_dig = function(pos, player)
+			local node = minetest.get_node(pos)
+			local dir = minetest.facedir_to_dir(node.param2)
+			local p = vector.add(pos, dir)
+			return beds.can_dig(p)
 		end,
 	})
 
