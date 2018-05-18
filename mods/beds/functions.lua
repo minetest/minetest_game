@@ -81,9 +81,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- lay down
 	else
-		beds.player[name] = 1
 		beds.pos[name] = pos
-		player_in_bed = player_in_bed + 1
+		if not beds.player[name] then
+			beds.player[name] = 1
+			player_in_bed = player_in_bed + 1
+		end
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
