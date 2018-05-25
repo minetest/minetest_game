@@ -193,7 +193,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 		fill_ratio = 0.0002,
 		y_max = 31000,
 		y_min = 1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 	minetest.register_decoration({
@@ -205,7 +205,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 		fill_ratio = 0.0002,
 		y_max = 31000,
 		y_min = 1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 else
@@ -230,7 +230,7 @@ else
 		},
 		y_max = 31000,
 		y_min = -1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 	minetest.register_decoration({
@@ -253,7 +253,7 @@ else
 		},
 		y_max = 31000,
 		y_min = -1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 end
