@@ -61,6 +61,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local p = beds.pos[name] or nil
 		if beds.player[name] ~= nil then
 			beds.player[name] = nil
+			beds.bed_position[name] = nil
 			player_in_bed = player_in_bed - 1
 		end
 		-- skip here to prevent sending player specific changes (used for leaving players)
@@ -83,6 +84,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	else
 		beds.player[name] = 1
 		beds.pos[name] = pos
+		beds.bed_position[name] = bed_pos
 		player_in_bed = player_in_bed + 1
 
 		-- physics, eye_offset, etc
@@ -175,16 +177,9 @@ function beds.on_rightclick(pos, player)
 end
 
 function beds.can_dig(bed_pos, player)
-	-- Calculate expected player position
-	local _, param2 = get_look_yaw(bed_pos)
-	local dir = minetest.facedir_to_dir(param2)
-	local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
-
 	-- Check all players in bed which one is at the expected position
-	for playername, _ in pairs(beds.player) do
-		local bed_player = minetest.get_player_by_name(playername)
-		local bed_player_pos = bed_player:get_pos()
-		if vector.distance(p, bed_player_pos) < 0.1 then
+	for _, player_bed_pos in pairs(beds.bed_position) do
+		if vector.equals(bed_pos, player_bed_pos) then
 			return false
 		end
 	end
