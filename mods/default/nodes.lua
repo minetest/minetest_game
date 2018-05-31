@@ -581,6 +581,12 @@ minetest.register_node("default:snow", {
 			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
 		},
 	},
+	collision_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -7 / 16, 0.5},
+		},
+	},
 	groups = {crumbly = 3, falling_node = 1, puts_out_fire = 1, snowy = 1},
 	sounds = default.node_sound_snow_defaults(),
 
