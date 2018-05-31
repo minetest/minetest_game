@@ -174,9 +174,17 @@ function beds.on_rightclick(pos, player)
 	end
 end
 
-function beds.can_dig(pos, player)
-	for _, used_pos in pairs(beds.pos) do
-		if vector.equals(pos, used_pos) then
+function beds.can_dig(bed_pos, player)
+	-- Calculate expected player position
+	local _, param2 = get_look_yaw(bed_pos)
+	local dir = minetest.facedir_to_dir(param2)
+	local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
+
+	-- Check all players in bed which one is at the expected position
+	for playername, _ in pairs(beds.player) do
+		local bed_player = minetest.get_player_by_name(playername)
+		local bed_player_pos = bed_player:get_pos()
+		if vector.distance(p, bed_player_pos) < 0.1 then
 			return false
 		end
 	end
