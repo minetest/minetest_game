@@ -1022,6 +1022,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "taiga_ocean",
+		node_dust = "default:snow",
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
@@ -1054,6 +1055,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "snowy_grassland_ocean",
+		node_dust = "default:snow",
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
@@ -2083,7 +2085,8 @@ function default.register_decorations()
 		place_on = {
 			"default:permafrost_with_moss",
 			"default:permafrost_with_stones",
-			"default:stone"
+			"default:stone",
+			"default:gravel"
 		},
 		sidelen = 4,
 		noise_params = {
@@ -2094,9 +2097,9 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 1.0
 		},
-		biomes = {"tundra"},
+		biomes = {"tundra", "tundra_beach"},
 		y_max = 50,
-		y_min = 2,
+		y_min = 1,
 		decoration = "default:snow",
 	})
 
