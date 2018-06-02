@@ -44,6 +44,9 @@ tnt_radius (TNT radius) int 3 0
 #    Setting this to 0 will disable sharing of bones completely.
 share_bones_time (Bone share time) int 1200 0
 
+#    Inform player of condition and location of new bones.
+bones_position_message (Inform player about bones) bool false
+
 #    Replaces old stairs with new ones. Only required for older worlds.
 enable_stairs_replace_abm (Replace old stairs) bool false
 

@@ -186,19 +186,31 @@ minetest.register_on_dieplayer(function(player)
 		bones_mode = "bones"
 	end
 
+	local bones_position_message = minetest.settings:get_bool("bones_position_message") == true
+	local player_name = player:get_player_name()
+	local pos = vector.round(player:get_pos())
+	local pos_string = minetest.pos_to_string(pos)
+
 	-- return if keep inventory set or in creative mode
 	if bones_mode == "keep" or (creative and creative.is_enabled_for
 			and creative.is_enabled_for(player:get_player_name())) then
+		minetest.log("action", player_name .. " dies at " .. pos_string ..
+			". No bones placed")
+		if bones_position_message then
+			minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string .. ".")
+		end
 		return
 	end
 
 	local player_inv = player:get_inventory()
 	if is_all_empty(player_inv) then
+		minetest.log("action", player_name .. " dies at " .. pos_string ..
+			". No bones placed")
+		if bones_position_message then
+			minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string .. ".")
+		end
 		return
 	end
-
-	local pos = vector.round(player:getpos())
-	local player_name = player:get_player_name()
 
 	-- check if it's possible to place bones, if not find space near player
 	if bones_mode == "bones" and not may_replace(pos, player) then
@@ -218,11 +230,24 @@ minetest.register_on_dieplayer(function(player)
 			player_inv:set_list(list_name, {})
 		end
 		drop(pos, ItemStack("bones:bones"))
+		minetest.log("action", player_name .. " dies at " .. pos_string ..
+			". Inventory dropped")
+		if bones_position_message then
+			minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string ..
+				", and dropped their inventory.")
+		end
 		return
 	end
 
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	minetest.set_node(pos, {name = "bones:bones", param2 = param2})
+
+	minetest.log("action", player_name .. " dies at " .. pos_string ..
+		". Bones placed")
+	if bones_position_message then
+		minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string ..
+			", and bones were placed.")
+	end
 
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()

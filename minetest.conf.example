@@ -23,6 +23,9 @@
 # 0 to disable. By default it is "share_bones_time" divide by four.
 #share_bones_time_early = 300
 
+# Inform player of condition and location of new bones.
+#bones_position_message = false
+
 # Whether fire should be enabled. If disabled, 'basic_flame' nodes will
 # disappear.
 # 'permanent_flame' nodes will remain with either setting.
