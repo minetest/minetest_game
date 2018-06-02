@@ -8,10 +8,10 @@
 #creative_mode = false
 
 # Sets the behaviour of the inventory items when a player dies.
-#  "bones": Store items in a bone node but drop items if inside protected area.
-#  "drop": Drop items on the ground.
-#  "keep": Player keeps items.
-#bones_mode = "bones"
+#   bones: Store items in a bone node but drop items if inside protected area.
+#   drop: Drop items on the ground.
+#   keep: Player keeps items.
+#bones_mode = bones
 
 # The time in seconds after which the bones of a dead player can be looted by
 # everyone.
