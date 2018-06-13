@@ -1708,7 +1708,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:jungle_log",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter"},
 		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.005,
@@ -1718,7 +1718,7 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
-		spawn_by = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		spawn_by = "default:dirt_with_rainforest_litter",
 		num_spawn_by = 8,
 	})
 
