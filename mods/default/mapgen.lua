@@ -1640,6 +1640,7 @@ function default.register_decorations()
 		name = "default:apple_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
+		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
 			offset = 0.0018,
@@ -1655,6 +1656,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/apple_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_grass",
+		num_spawn_by = 8,
 	})
 
 	-- Emergent jungle tree
@@ -1705,7 +1708,8 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:jungle_log",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter"},
+		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.005,
 		biomes = {"rainforest", "rainforest_swamp"},
@@ -1714,6 +1718,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_rainforest_litter",
+		num_spawn_by = 8,
 	})
 
 	-- Taiga and temperate coniferous forest pine tree, small pine tree and log
@@ -1762,6 +1768,7 @@ function default.register_decorations()
 		name = "default:pine_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.0018,
 		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
@@ -1770,6 +1777,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		num_spawn_by = 8,
 	})
 
 	-- Acacia tree and log
@@ -1799,6 +1808,7 @@ function default.register_decorations()
 		name = "default:acacia_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
+		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
@@ -1814,6 +1824,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/acacia_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_dry_grass",
+		num_spawn_by = 8,
 	})
 
 	-- Aspen tree and log
@@ -1842,6 +1854,7 @@ function default.register_decorations()
 		name = "default:aspen_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
+		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
 			offset = 0.0,
@@ -1857,6 +1870,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/aspen_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_grass",
+		num_spawn_by = 8,
 	})
 
 	-- Large cactus
