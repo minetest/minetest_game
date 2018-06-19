@@ -176,7 +176,7 @@ function beds.on_rightclick(pos, player)
 	end
 end
 
-function beds.can_dig(bed_pos, player)
+function beds.can_dig(bed_pos)
 	-- Check all players in bed which one is at the expected position
 	for _, player_bed_pos in pairs(beds.bed_position) do
 		if vector.equals(bed_pos, player_bed_pos) then
