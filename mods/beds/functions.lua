@@ -61,6 +61,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local p = beds.pos[name] or nil
 		if beds.player[name] ~= nil then
 			beds.player[name] = nil
+			beds.bed_position[name] = nil
 			player_in_bed = player_in_bed - 1
 		end
 		-- skip here to prevent sending player specific changes (used for leaving players)
@@ -83,6 +84,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	else
 		beds.player[name] = 1
 		beds.pos[name] = pos
+		beds.bed_position[name] = bed_pos
 		player_in_bed = player_in_bed + 1
 
 		-- physics, eye_offset, etc
@@ -174,6 +176,15 @@ function beds.on_rightclick(pos, player)
 	end
 end
 
+function beds.can_dig(bed_pos)
+	-- Check all players in bed which one is at the expected position
+	for _, player_bed_pos in pairs(beds.bed_position) do
+		if vector.equals(bed_pos, player_bed_pos) then
+			return false
+		end
+	end
+	return true
+end
 
 -- Callbacks
 -- Only register respawn callback if respawn enabled

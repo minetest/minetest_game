@@ -1,5 +1,6 @@
 beds = {}
 beds.player = {}
+beds.bed_position = {}
 beds.pos = {}
 beds.spawn = {}
 
