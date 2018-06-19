@@ -557,12 +557,14 @@ sfinv API by its author: https://rubenwardy.com/minetest_modding_book/en/chapter
 **Pages**
 
 * sfinv.set_page(player, pagename) - changes the page
+* sfinv.set_page_and_show(player, pagename) - changes the page and shows it to the player
 * sfinv.get_homepage_name(player) - get the page name of the first page to show to a player
 * sfinv.register_page(name, def) - register a page, see section below
 * sfinv.override_page(name, def) - overrides fields of an page registered with register_page.
     * Note: Page must already be defined, (opt)depend on the mod defining it.
 * sfinv.set_player_inventory_formspec(player) - (re)builds page formspec
              and calls set_inventory_formspec().
+* sfinv.show_formspec(player) - shows formspec to player
 * sfinv.get_formspec(player, context) - builds current page's formspec
 
 **Contexts**
