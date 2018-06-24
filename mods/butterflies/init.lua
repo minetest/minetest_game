@@ -100,8 +100,8 @@ minetest.register_decoration({
 	place_offset_y = 1,
 	sidelen = 80,
 	fill_ratio = 0.005,
-	biomes = {"grassland", "deciduous_forest"},
-	y_max = 300,
+	biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
+	y_max = 31000,
 	y_min = 1,
 	decoration = {
 		"butterflies:butterfly_white",
