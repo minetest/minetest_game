@@ -34,9 +34,6 @@ for i in ipairs (butter_list) do
 			fixed = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
 		},
 		floodable = true,
-		on_flood = function(pos, oldnode, newnode)
-			minetest.add_item(pos, "butterflies:butterfly_"..name.."1")
-		end,
 		on_place = function(itemstack, placer, pointed_thing)
 			local player_name = placer:get_player_name()
 			local pos = pointed_thing.above
@@ -70,6 +67,7 @@ for i in ipairs (butter_list) do
 		diggable = false,
 		drop = "",
 		groups = {not_in_creative_inventory = 1},
+		floodable = true,
 		on_place = function(itemstack, placer, pointed_thing)
 			local player_name = placer:get_player_name()
 			local pos = pointed_thing.above
