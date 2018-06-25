@@ -1,4 +1,3 @@
-
 Minetest Game mod: Butterflies
 ==============================
 Adds butterflies to the world on mapgen, which can be caught in a net if the
