@@ -95,7 +95,7 @@ minetest.register_decoration({
 	name = "butterflies:butterfly",
 	deco_type = "simple",
 	place_on = {"default:dirt_with_grass"},
-	place_offset_y = 1,
+	place_offset_y = 2,
 	sidelen = 80,
 	fill_ratio = 0.005,
 	biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
@@ -120,8 +120,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local poslist = {}
 
 	for _, pos in ipairs(gennotify["decoration#"..butterflies] or {}) do
-		local deco3_pos = {x = pos.x, y = pos.y + 2, z = pos.z}
-		table.insert(poslist, deco3_pos)
+		local deco_pos = {x = pos.x, y = pos.y + 3, z = pos.z}
+		table.insert(poslist, deco_pos)
 	end
 
 	if #poslist ~= 0 then
