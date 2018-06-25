@@ -42,7 +42,7 @@ local function book_on_use(itemstack, user)
 		    for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
 			    lines[#lines+1] = str
 		    end
-        end
+		end
 		
 		if data.page then
 			page = data.page
