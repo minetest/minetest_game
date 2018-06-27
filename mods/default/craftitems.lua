@@ -29,21 +29,14 @@ local function book_on_use(itemstack, user)
 	local data = meta:to_table().fields
 
 	if data.owner then
-		title = data.title
-		text = data.text
+		title = data.title or ""
+		text = data.text or ""
 		owner = data.owner
 
-		if title == nil then
-		    title = ""
+		for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
+			lines[#lines+1] = str
 		end
-		if text == nil then
-		    text = ""
-		else
-		    for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
-			    lines[#lines+1] = str
-		    end
-		end
-		
+
 		if data.page then
 			page = data.page
 			page_max = data.page_max
@@ -90,8 +83,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
---	if fields.save and fields.title and fields.text
---			and fields.title ~= "" and fields.text ~= "" then
 	if fields.save and fields.title and fields.text then
 		local new_stack, data
 		if stack:get_name() ~= "default:book_written" then
