@@ -303,7 +303,7 @@ function default.register_fence(name, def)
 			connect_right = {{1/8,3/16,-1/16,1/2,5/16,1/16},
 				{1/8,-5/16,-1/16,1/2,-3/16,1/16}},
 		},
-		connects_to = {"group:fence", "group:wood", "group:tree"},
+		connects_to = {"group:fence", "group:fence_rail", "group:wood", "group:tree"},
 		inventory_image = fence_texture,
 		wield_image = fence_texture,
 		tiles = {def.texture},
@@ -319,6 +319,58 @@ function default.register_fence(name, def)
 
 	-- Always add to the fence group, even if no group provided
 	def.groups.fence = 1
+
+	def.texture = nil
+	def.material = nil
+
+	minetest.register_node(name, def)
+end
+
+
+--
+-- Fence rail registration helper
+--
+
+function default.register_fence_rail(name, def)
+	minetest.register_craft({
+		output = name .. " 16",
+		recipe = {
+			{def.material, def.material},
+			{"", ""},
+			{def.material, def.material},
+		}
+	})
+
+	local fence_rail_texture = "default_fence_rail_overlay.png^" .. def.texture ..
+			"^default_fence_rail_overlay.png^[makealpha:255,126,126"
+	-- Allow almost everything to be overridden
+	local default_fields = {
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-1/2, 3/16, -1/16, 1/2, 5/16, 1/16},
+				{-1/2, -5/16, -1/16, 1/2, -3/16, 1/16}
+			},
+		},
+		connects_to = {"group:fence", "group:fence_rail", "group:wall"},
+		inventory_image = fence_rail_texture,
+		wield_image = fence_rail_texture,
+		tiles = {def.texture},
+		sunlight_propagates = true,
+		is_ground_content = false,
+		groups = {},
+	}
+	for k, v in pairs(default_fields) do
+		if def[k] == nil then
+			def[k] = v
+		end
+	end
+
+	-- Always add to the fence rail group, even if no group provided
+	def.groups.fence_rail = 1
 
 	def.texture = nil
 	def.material = nil
