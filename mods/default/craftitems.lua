@@ -79,11 +79,13 @@ local max_text_size = 10000
 local max_title_size = 80
 local short_title_size = 35
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "default:book" then return end
 	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
-	if fields.save and fields.title and fields.text then
+	if fields.save and fields.title == "" and fields.text == "" then
+		stack:set_name("default:book")
+		stack:get_meta():from_table({ fields = nil })
+	elseif fields.save and (fields.title ~= "" or fields.text ~= "") then
 		local new_stack, data
 		if stack:get_name() ~= "default:book_written" then
 			local count = stack:get_count()
