@@ -219,16 +219,25 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "beds_form" then
 		return
 	end
+
+	-- Because "Force night skip" button is a button_exit, it will set fields.quit
+	-- and lay_down call will change value of player_in_bed, so it must be taken
+	-- earlier.
+	local last_player_in_bed = player_in_bed
+
 	if fields.quit or fields.leave then
 		lay_down(player, nil, nil, false)
 		update_formspecs(false)
 	end
 
 	if fields.force then
-		update_formspecs(is_night_skip_enabled())
-		if is_night_skip_enabled() then
+		local is_majority = (#minetest.get_connected_players() / 2) < last_player_in_bed
+		if is_majority and is_night_skip_enabled() then
+			update_formspecs(true)
 			beds.skip_night()
 			beds.kick_players()
+		else
+			update_formspecs(false)
 		end
 	end
 end)
