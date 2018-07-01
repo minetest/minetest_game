@@ -69,7 +69,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			return
 		end
 		if p then
-			player:setpos(p)
+			player:set_pos(p)
 		end
 
 		-- physics, eye_offset, etc
@@ -94,7 +94,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local dir = minetest.facedir_to_dir(param2)
 		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
 		player:set_physics_override(0, 0, 0)
-		player:setpos(p)
+		player:set_pos(p)
 		default.player_attached[name] = true
 		hud_flags.wielditem = false
 		default.player_set_animation(player, "lay" , 0)
@@ -139,7 +139,7 @@ end
 
 function beds.on_rightclick(pos, player)
 	local name = player:get_player_name()
-	local ppos = player:getpos()
+	local ppos = player:get_pos()
 	local tod = minetest.get_timeofday()
 
 	if tod > 0.2 and tod < 0.805 then
@@ -194,7 +194,7 @@ if enable_respawn then
 		local name = player:get_player_name()
 		local pos = beds.spawn[name]
 		if pos then
-			player:setpos(pos)
+			player:set_pos(pos)
 			return true
 		end
 	end)

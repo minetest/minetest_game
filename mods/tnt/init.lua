@@ -58,8 +58,8 @@ local function eject_drops(drops, pos, radius)
 			local obj = minetest.add_item(drop_pos, dropitem)
 			if obj then
 				obj:get_luaentity().collect = true
-				obj:setacceleration({x = 0, y = -10, z = 0})
-				obj:setvelocity({x = math.random(-3, 3),
+				obj:set_acceleration({x = 0, y = -10, z = 0})
+				obj:set_velocity({x = math.random(-3, 3),
 						y = math.random(0, 10),
 						z = math.random(-3, 3)})
 			end
@@ -152,7 +152,7 @@ end
 local function entity_physics(pos, radius, drops)
 	local objs = minetest.get_objects_inside_radius(pos, radius)
 	for _, obj in pairs(objs) do
-		local obj_pos = obj:getpos()
+		local obj_pos = obj:get_pos()
 		local dist = math.max(1, vector.distance(pos, obj_pos))
 
 		local damage = (4 / dist) * radius
@@ -164,7 +164,7 @@ local function entity_physics(pos, radius, drops)
 			local moveoff = vector.multiply(dir, dist + 1.0)
 			local newpos = vector.add(pos, moveoff)
 			newpos = vector.add(newpos, {x = 0, y = 0.2, z = 0})
-			obj:setpos(newpos)
+			obj:set_pos(newpos)
 
 			obj:set_hp(obj:get_hp() - damage)
 		else
@@ -179,8 +179,8 @@ local function entity_physics(pos, radius, drops)
 			end
 
 			if do_knockback then
-				local obj_vel = obj:getvelocity()
-				obj:setvelocity(calc_velocity(pos, obj_pos,
+				local obj_vel = obj:get_velocity()
+				obj:set_velocity(calc_velocity(pos, obj_pos,
 						obj_vel, radius * 10))
 			end
 			if do_damage then

@@ -16,7 +16,7 @@ local item = {
 	burn_up = function(self)
 		-- disappear in a smoke puff
 		self.object:remove()
-		local p = self.object:getpos()
+		local p = self.object:get_pos()
 		minetest.sound_play("default_item_smoke", {
 			pos = p,
 			max_hear_distance = 8,
@@ -48,7 +48,7 @@ local item = {
 			if self.ignite_timer > 10 then
 				self.ignite_timer = 0
 
-				local node = minetest.get_node_or_nil(self.object:getpos())
+				local node = minetest.get_node_or_nil(self.object:get_pos())
 				if not node then
 					return
 				end
