@@ -335,9 +335,9 @@ function default.register_fence_rail(name, def)
 	minetest.register_craft({
 		output = name .. " 16",
 		recipe = {
-			{def.material, def.material},
-			{"", ""},
-			{def.material, def.material},
+			{ def.material, def.material },
+			{ "", ""},
+			{ def.material, def.material },
 		}
 	})
 
@@ -346,16 +346,29 @@ function default.register_fence_rail(name, def)
 	-- Allow almost everything to be overridden
 	local default_fields = {
 		paramtype = "light",
-		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		node_box = {
-			type = "fixed",
+			type = "connected",
 			fixed = {
-				{-1/2, 3/16, -1/16, 1/2, 5/16, 1/16},
-				{-1/2, -5/16, -1/16, 1/2, -3/16, 1/16}
+				{-1/16,  3/16, -1/16, 1/16,  5/16, 1/16},
+				{-1/16, -3/16, -1/16, 1/16, -5/16, 1/16}
 			},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {
+				{-1/16,  3/16, -1/2, 1/16,  5/16, -1/16},
+				{-1/16, -5/16, -1/2, 1/16, -3/16, -1/16}},
+			connect_left = {
+				{-1/2,  3/16, -1/16, -1/16,  5/16, 1/16},
+				{-1/2, -5/16, -1/16, -1/16, -3/16, 1/16}},
+			connect_back = {
+				{-1/16,  3/16, 1/16, 1/16,  5/16, 1/2},
+				{-1/16, -5/16, 1/16, 1/16, -3/16, 1/2}},
+			connect_right = {
+				{1/16,  3/16, -1/16, 1/2,  5/16, 1/16},
+				{1/16, -5/16, -1/16, 1/2, -3/16, 1/16}},
 		},
-		connects_to = {"group:fence", "group:fence_rail", "group:wall"},
+		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
 		inventory_image = fence_rail_texture,
 		wield_image = fence_rail_texture,
 		tiles = {def.texture},
@@ -369,8 +382,8 @@ function default.register_fence_rail(name, def)
 		end
 	end
 
-	-- Always add to the fence rail group, even if no group provided
-	def.groups.fence_rail = 1
+	-- Always add to the fence group, even if no group provided
+	def.groups.fence = 1
 
 	def.texture = nil
 	def.material = nil
