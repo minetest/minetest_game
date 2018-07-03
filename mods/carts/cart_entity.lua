@@ -228,7 +228,8 @@ local function rail_on_step(self, dtime)
 	if stop_wiggle or vector.equals(dir, {x=0, y=0, z=0}) then
 		vel = {x = 0, y = 0, z = 0}
 		local pos_r = vector.round(pos)
-		if not carts:is_rail(pos_r, self.railtype) then
+		if not carts:is_rail(pos_r, self.railtype)
+				and self.old_pos then
 			pos = self.old_pos
 		elseif not stop_wiggle then
 			pos = pos_r
@@ -292,8 +293,12 @@ local function rail_on_step(self, dtime)
 
 	self.object:set_acceleration(new_acc)
 	self.old_pos = vector.new(pos)
+	local old_y_dir = self.old_dir.y
 	if not vector.equals(dir, {x=0, y=0, z=0}) and not stop_wiggle then
-		self.old_dir = vector.new(dir)
+		self.old_dir = dir
+	else
+		-- Cart stopped, set the animation to 0
+		self.old_dir.y = 0
 	end
 	self.old_switch = switch_keys
 
@@ -319,13 +324,15 @@ local function rail_on_step(self, dtime)
 		rail_on_step_event(railparams.on_step, self, dtime)
 		return
 	end
+	-- Re-use "dir", localize self.old_dir
+	dir = self.old_dir
 
 	local yaw = 0
-	if self.old_dir.x < 0 then
+	if dir.x < 0 then
 		yaw = 0.5
-	elseif self.old_dir.x > 0 then
+	elseif dir.x > 0 then
 		yaw = 1.5
-	elseif self.old_dir.z < 0 then
+	elseif dir.z < 0 then
 		yaw = 1
 	end
 	self.object:set_yaw(yaw * math.pi)
@@ -338,7 +345,24 @@ local function rail_on_step(self, dtime)
 	end
 	self.object:set_animation(anim, 1, 0)
 
-	self.object:set_velocity(vel)
+	-- Change player model rotation, depending on the Y direction
+	if player and dir.y ~= old_y_dir then
+		local feet = {x=0, y=-4, z=0}
+		local eye = {x=0, y=-4, z=0}
+		if dir.y ~= 0 then
+			-- TODO: Find a better way to calculate this
+			feet.y = feet.y + 4
+			feet.z = -dir.y * 2
+			eye.z = -dir.y * 8
+		end
+		player:set_attach(self.object, "", feet,
+			{x=dir.y * -30, y=0, z=0})
+		player:set_eye_offset(eye, eye)
+	end
+
+	if update.vel then
+		self.object:set_velocity(vel)
+	end
 	if update.pos then
 		self.object:set_pos(pos)
 	end
