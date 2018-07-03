@@ -2697,7 +2697,7 @@ default.register_fence_rail("default:fence_rail_pine_wood", {
 
 default.register_fence_rail("default:fence_rail_aspen_wood", {
 	description = "Aspen Wood Fence Rail",
-	texture = "default_fence_rail_aspen_wood.png",
+	texture = "default_aspen_wood.png",
 	inventory_image = "default_fence_rail_overlay.png^default_aspen_wood.png^" ..
 				"default_fence_rail_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_rail_overlay.png^default_aspen_wood.png^" ..

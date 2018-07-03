@@ -1024,7 +1024,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "fuel",
 	recipe = "default:fence_rail_pine_wood",
-	burntime = 3,
+	burntime = 4,
 })
 
 minetest.register_craft({
