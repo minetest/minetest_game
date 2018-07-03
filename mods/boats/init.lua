@@ -141,26 +141,26 @@ function boat.on_step(self, dtime)
 					"[boats] Cruise on")
 			end
 		elseif ctrl.down then
-			self.v = self.v - 0.1
+			self.v = self.v - dtime * 1.8
 			if self.auto then
 				self.auto = false
 				minetest.chat_send_player(driver_name,
 					"[boats] Cruise off")
 			end
 		elseif ctrl.up or self.auto then
-			self.v = self.v + 0.1
+			self.v = self.v + dtime * 1.8
 		end
 		if ctrl.left then
-			if self.v < 0 then
-				self.object:set_yaw(self.object:get_yaw() - (1 + dtime) * 0.03)
+			if self.v < -0.001 then
+				self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
 			else
-				self.object:set_yaw(self.object:get_yaw() + (1 + dtime) * 0.03)
+				self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
 			end
 		elseif ctrl.right then
-			if self.v < 0 then
-				self.object:set_yaw(self.object:get_yaw() + (1 + dtime) * 0.03)
+			if self.v < -0.001 then
+				self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
 			else
-				self.object:set_yaw(self.object:get_yaw() - (1 + dtime) * 0.03)
+				self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
 			end
 		end
 	end
@@ -170,7 +170,7 @@ function boat.on_step(self, dtime)
 		return
 	end
 	local s = get_sign(self.v)
-	self.v = self.v - 0.02 * s
+	self.v = self.v - dtime * 0.6 * s
 	if s ~= get_sign(self.v) then
 		self.object:set_velocity({x = 0, y = 0, z = 0})
 		self.v = 0
