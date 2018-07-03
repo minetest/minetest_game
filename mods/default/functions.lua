@@ -303,7 +303,7 @@ function default.register_fence(name, def)
 			connect_right = {{1/8,3/16,-1/16,1/2,5/16,1/16},
 				{1/8,-5/16,-1/16,1/2,-3/16,1/16}},
 		},
-		connects_to = {"group:fence", "group:wood", "group:tree"},
+		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
 		inventory_image = fence_texture,
 		wield_image = fence_texture,
 		tiles = {def.texture},
