@@ -44,7 +44,8 @@ local boat = {
 	driver = nil,
 	v = 0,
 	last_v = 0,
-	removed = false
+	removed = false,
+	auto = false
 }
 
 
@@ -55,6 +56,7 @@ function boat.on_rightclick(self, clicker)
 	local name = clicker:get_player_name()
 	if self.driver and clicker == self.driver then
 		self.driver = nil
+		self.auto = false
 		clicker:set_detach()
 		player_api.player_attached[name] = false
 		player_api.set_animation(clicker, "stand" , 30)
@@ -130,24 +132,35 @@ end
 function boat.on_step(self, dtime)
 	self.v = get_v(self.object:get_velocity()) * get_sign(self.v)
 	if self.driver then
+		local driver_name = self.driver:get_player_name()
 		local ctrl = self.driver:get_player_control()
-		local yaw = self.object:get_yaw()
-		if ctrl.up then
-			self.v = self.v + 0.1
+		if ctrl.up and ctrl.down then
+			if not self.auto then
+				self.auto = true
+				minetest.chat_send_player(driver_name,
+					"[boats] Cruise on")
+			end
 		elseif ctrl.down then
 			self.v = self.v - 0.1
+			if self.auto then
+				self.auto = false
+				minetest.chat_send_player(driver_name,
+					"[boats] Cruise off")
+			end
+		elseif ctrl.up or self.auto then
+			self.v = self.v + 0.1
 		end
 		if ctrl.left then
 			if self.v < 0 then
-				self.object:set_yaw(yaw - (1 + dtime) * 0.03)
+				self.object:set_yaw(self.object:get_yaw() - (1 + dtime) * 0.03)
 			else
-				self.object:set_yaw(yaw + (1 + dtime) * 0.03)
+				self.object:set_yaw(self.object:get_yaw() + (1 + dtime) * 0.03)
 			end
 		elseif ctrl.right then
 			if self.v < 0 then
-				self.object:set_yaw(yaw + (1 + dtime) * 0.03)
+				self.object:set_yaw(self.object:get_yaw() + (1 + dtime) * 0.03)
 			else
-				self.object:set_yaw(yaw - (1 + dtime) * 0.03)
+				self.object:set_yaw(self.object:get_yaw() - (1 + dtime) * 0.03)
 			end
 		end
 	end
