@@ -2649,7 +2649,7 @@ default.register_fence("default:fence_aspen_wood", {
 
 default.register_fence_rail("default:fence_rail_wood", {
 	description = "Apple Wood Fence Rail",
-	texture = "default_fence_rail_wood.png",
+	texture = "default_wood.png",
 	inventory_image = "default_fence_rail_overlay.png^default_wood.png^" ..
 				"default_fence_rail_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_rail_overlay.png^default_wood.png^" ..
@@ -2661,7 +2661,7 @@ default.register_fence_rail("default:fence_rail_wood", {
 
 default.register_fence_rail("default:fence_rail_acacia_wood", {
 	description = "Acacia Wood Fence Rail",
-	texture = "default_fence_rail_acacia_wood.png",
+	texture = "default_acacia_wood.png",
 	inventory_image = "default_fence_rail_overlay.png^default_acacia_wood.png^" ..
 				"default_fence_rail_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_rail_overlay.png^default_acacia_wood.png^" ..
@@ -2673,7 +2673,7 @@ default.register_fence_rail("default:fence_rail_acacia_wood", {
 
 default.register_fence_rail("default:fence_rail_junglewood", {
 	description = "Jungle Wood Fence Rail",
-	texture = "default_fence_rail_junglewood.png",
+	texture = "default_junglewood.png",
 	inventory_image = "default_fence_rail_overlay.png^default_junglewood.png^" ..
 				"default_fence_rail_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_rail_overlay.png^default_junglewood.png^" ..
@@ -2685,7 +2685,7 @@ default.register_fence_rail("default:fence_rail_junglewood", {
 
 default.register_fence_rail("default:fence_rail_pine_wood", {
 	description = "Pine Wood Fence Rail",
-	texture = "default_fence_rail_pine_wood.png",
+	texture = "default_pine_wood.png",
 	inventory_image = "default_fence_rail_overlay.png^default_pine_wood.png^" ..
 				"default_fence_rail_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_rail_overlay.png^default_pine_wood.png^" ..
