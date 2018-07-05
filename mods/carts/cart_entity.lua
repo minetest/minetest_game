@@ -202,7 +202,6 @@ local function rail_on_step(self, dtime)
 	end
 
 	local ctrl, player
-	local distance = 1
 
 	-- Get player controls
 	if self.driver then
@@ -217,7 +216,7 @@ local function rail_on_step(self, dtime)
 		-- Detection for "skipping" nodes (perhaps use average dtime?)
 		-- It's sophisticated enough to take the acceleration in account
 		local acc = self.object:get_acceleration()
-		distance = dtime * (v3_len(vel) + 0.5 * dtime * v3_len(acc))
+		local distance = dtime * (v3_len(vel) + 0.5 * dtime * v3_len(acc))
 
 		local new_pos, new_dir = carts:pathfinder(
 			pos, self.old_pos, self.old_dir, distance, ctrl,
