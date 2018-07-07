@@ -12,6 +12,9 @@ Authors of media (textures, models and sounds)
 Everything not listed in here:
 celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 
+
+Textures
+--------
 Cisoun's texture pack (CC BY-SA 3.0):
   default_jungletree.png
   default_lava.png
@@ -22,11 +25,6 @@ Cisoun's texture pack (CC BY-SA 3.0):
   default_tree.png
   default_tree_top.png
   default_water.png
-
-Originating from G4JC's Almost MC Texture Pack (CC BY-SA 3.0):
-  default_torch.png
-  default_torch_on_ceiling.png
-  default_torch_on_floor.png
 
 VanessaE's animated torches (CC BY-SA 3.0):
   default_torch_animated.png
@@ -118,6 +116,11 @@ paramat (CC BY-SA 3.0):
   default_stones.png -- Derived from a texture by sofar (CC0 1.0)
   default_moss.png
   default_moss_side.png
+  default_fence_rail_acacia_wood
+  default_fence_rail_aspen_wood -- Derived from a texture by sofar (CC BY-SA 3.0)
+  default_fence_rail_junglewood
+  default_fence_rail_pine_wood
+  default_fence_rail_wood -- Derived from a texture by BlockMen (CC BY-SA 3.0)
 
 TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
@@ -195,7 +198,6 @@ Pithydon (CC BY-SA 3.0)
 
 Ferk (CC0 1.0):
   default_item_smoke.png
-  default_item_smoke.ogg, based on sound by http://opengameart.org/users/bart
 
 npx (CC BY-SA 3.0):
   default_rainforest_litter.png
@@ -225,6 +227,9 @@ CloudyProton (CC BY-SA 3.0):
 Mossmanikin (CC BY-SA 3.0):
   default_fern_*.png
 
+
+Sounds
+------
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
@@ -303,3 +308,6 @@ Chests sounds added by sofar, derived of several files mixed together:
 Ryding (CC0 1.0):
 http://freesound.org/people/Ryding/sounds/94337/
   default_snow_footstep.*.ogg
+
+Ferk (CC0 1.0):
+  default_item_smoke.ogg, based on a sound by http://opengameart.org/users/bart
