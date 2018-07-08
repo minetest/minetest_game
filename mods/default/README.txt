@@ -7,6 +7,9 @@ Authors of source code
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
 Various Minetest developers and contributors (LGPL 2.1)
 
+The torch code was derived by sofar from the 'torches' mod by
+BlockMen (LGPL 2.1)
+
 Authors of media (textures, models and sounds)
 ----------------------------------------------
 Everything not listed in here:
@@ -26,17 +29,15 @@ Cisoun's texture pack (CC BY-SA 3.0):
   default_tree_top.png
   default_water.png
 
-VanessaE's animated torches (CC BY-SA 3.0):
-  default_torch_animated.png
-  default_torch_on_ceiling_animated.png
-  default_torch_on_floor_animated.png
-  default_torch_on_floor.png
-
 RealBadAngel's animated water (CC BY-SA 3.0):
   default_water_source_animated.png
   default_water_flowing_animated.png
 
 VanessaE (CC BY-SA 3.0):
+  default_torch_animated.png
+  default_torch_on_ceiling_animated.png
+  default_torch_on_floor_animated.png
+  default_torch_on_floor.png
   default_desert_sand.png
   default_desert_stone.png
   default_sand.png
@@ -311,3 +312,12 @@ http://freesound.org/people/Ryding/sounds/94337/
 
 Ferk (CC0 1.0):
   default_item_smoke.ogg, based on a sound by http://opengameart.org/users/bart
+
+
+Models
+------
+sofar (CC BY-SA 3.0):
+  chest_open.obj
+  torch_ceiling.obj
+  torch_floor.obj
+  torch_wall.obj
