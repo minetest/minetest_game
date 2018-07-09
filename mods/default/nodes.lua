@@ -163,7 +163,7 @@ default:acacia_bush_stem
 default:acacia_bush_leaves
 default:acacia_bush_sapling
 default:evergreen_bush_stem
-default:evergreen_needles
+default:evergreen_bush_needles
 default:evergreen_bush_sapling
 
 default:sand_with_kelp
