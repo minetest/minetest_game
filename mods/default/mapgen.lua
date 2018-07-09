@@ -2001,7 +2001,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.66,
 		},
-		biomes = {"taiga", "snowy_grassland", "coniferous_forest", 
+		biomes = {"taiga", "snowy_grassland", "coniferous_forest",
 				"floatland_coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
