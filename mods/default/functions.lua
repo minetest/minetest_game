@@ -563,22 +563,6 @@ minetest.register_abm({
 
 
 --
--- Coral death near air
---
-
-minetest.register_abm({
-	nodenames = {"default:coral_brown", "default:coral_orange"},
-	neighbors = {"air"},
-	interval = 17,
-	chance = 5,
-	catch_up = false,
-	action = function(pos, node)
-		minetest.set_node(pos, {name = "default:coral_skeleton"})
-	end,
-})
-
-
---
 -- NOTICE: This method is not an official part of the API yet.
 -- This method may change in future.
 --
