@@ -88,7 +88,7 @@ function default.grow_sapling(pos)
 	elseif node.name == "default:pine_bush_sapling" then
 		minetest.log("action", "A pine bush sapling grows into a bush at "..
 			minetest.pos_to_string(pos))
-		default.grow_bush(pos)
+		default.grow_pine_bush(pos)
 	elseif node.name == "default:emergent_jungle_sapling" then
 		minetest.log("action", "An emergent jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
