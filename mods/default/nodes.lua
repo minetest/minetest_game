@@ -162,9 +162,9 @@ default:bush_sapling
 default:acacia_bush_stem
 default:acacia_bush_leaves
 default:acacia_bush_sapling
-default:evergreen_bush_stem
-default:evergreen_bush_needles
-default:evergreen_bush_sapling
+default:pine_bush_stem
+default:pine_bush_needles
+default:pine_bush_sapling
 
 default:sand_with_kelp
 
@@ -1687,13 +1687,13 @@ minetest.register_node("default:acacia_bush_sapling", {
 	end,
 })
 
-minetest.register_node("default:evergreen_bush_stem", {
-	description = "Evergreen Bush Stem",
+minetest.register_node("default:pine_bush_stem", {
+	description = "Pine Bush Stem",
 	drawtype = "plantlike",
 	visual_scale = 1.41,
-	tiles = {"default_evergreen_bush_stem.png"},
-	inventory_image = "default_evergreen_bush_stem.png",
-	wield_image = "default_evergreen_bush_stem.png",
+	tiles = {"default_pine_bush_stem.png"},
+	inventory_image = "default_pine_bush_stem.png",
+	wield_image = "default_pine_bush_stem.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
@@ -1704,8 +1704,8 @@ minetest.register_node("default:evergreen_bush_stem", {
 	},
 })
 
-minetest.register_node("default:evergreen_bush_needles", {
-	description = "Evergreen Bush Needles",
+minetest.register_node("default:pine_bush_needles", {
+	description = "Pine Bush Needles",
 	drawtype = "allfaces_optional",
 	waving = 1,
 	tiles = {"default_pine_needles.png"},
@@ -1714,8 +1714,8 @@ minetest.register_node("default:evergreen_bush_needles", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {"default:evergreen_bush_sapling"}, rarity = 5},
-			{items = {"default:evergreen_bush_needles"}}
+			{items = {"default:pine_bush_sapling"}, rarity = 5},
+			{items = {"default:pine_bush_needles"}}
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
@@ -1723,12 +1723,12 @@ minetest.register_node("default:evergreen_bush_needles", {
 	after_place_node = default.after_place_leaves,
 })
 
-minetest.register_node("default:evergreen_bush_sapling", {
-	description = "Evergreen Bush Sapling",
+minetest.register_node("default:pine_bush_sapling", {
+	description = "Pine Bush Sapling",
 	drawtype = "plantlike",
-	tiles = {"default_evergreen_bush_sapling.png"},
-	inventory_image = "default_evergreen_bush_sapling.png",
-	wield_image = "default_evergreen_bush_sapling.png",
+	tiles = {"default_pine_bush_sapling.png"},
+	inventory_image = "default_pine_bush_sapling.png",
+	wield_image = "default_pine_bush_sapling.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -1747,7 +1747,7 @@ minetest.register_node("default:evergreen_bush_sapling", {
 
 	on_place = function(itemstack, placer, pointed_thing)
 		itemstack = default.sapling_on_place(itemstack, placer, pointed_thing,
-			"default:evergreen_bush_sapling",
+			"default:pine_bush_sapling",
 			-- minp, maxp to be checked, relative to sapling pos
 			{x = -1, y = 0, z = -1},
 			{x = 1, y = 1, z = 1},
@@ -2929,7 +2929,7 @@ default.register_leafdecay({
 })
 
 default.register_leafdecay({
-	trunks = {"default:evergreen_bush_stem"},
-	leaves = {"default:evergreen_bush_needles"},
+	trunks = {"default:pine_bush_stem"},
+	leaves = {"default:pine_bush_needles"},
 	radius = 1,
 })

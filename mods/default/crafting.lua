@@ -52,7 +52,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'default:pine_wood',
 	recipe = {
-		{'default:evergreen_bush_stem'},
+		{'default:pine_bush_stem'},
 	}
 })
 
@@ -962,7 +962,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:evergreen_bush_sapling",
+	recipe = "default:pine_bush_sapling",
 	burntime = 2,
 })
 
@@ -1069,6 +1069,12 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:acacia_bush_stem",
 	burntime = 8,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_bush_stem",
+	burntime = 6,
 })
 
 minetest.register_craft({
