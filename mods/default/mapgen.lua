@@ -1997,7 +1997,7 @@ function default.register_decorations()
 			offset = -0.004,
 			scale = 0.01,
 			spread = {x = 100, y = 100, z = 100},
-			seed = 157,
+			seed = 137,
 			octaves = 3,
 			persist = 0.7,
 		},
