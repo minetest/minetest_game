@@ -1992,7 +1992,7 @@ function default.register_decorations()
 		name = "default:pine_bush",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow"},
-        sidelen = 16,
+		sidelen = 16,
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
