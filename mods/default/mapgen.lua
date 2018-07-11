@@ -2003,7 +2003,7 @@ function default.register_decorations()
 		},
 		biomes = {"taiga", "snowy_grassland"},
 		y_max = 31000,
-		y_min = 1,
+		y_min = 4,
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
