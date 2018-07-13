@@ -918,6 +918,9 @@ Trees
 
  * `default.grow_acacia_bush(pos)`
   * Grows an acaia bush at pos
+  
+ * `default.grow_pine_bush(pos)`
+  * Grows a pine bush at pos
 
 Carts
 -----

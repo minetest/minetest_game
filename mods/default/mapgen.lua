@@ -1946,7 +1946,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:bush",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_grass", "default:dirt_with_snow"},
+		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.004,
@@ -1956,7 +1956,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"snowy_grassland", "grassland", "deciduous_forest",
+		biomes = {"grassland", "deciduous_forest",
 			"floatland_grassland"},
 		y_max = 31000,
 		y_min = 1,
@@ -1983,6 +1983,28 @@ function default.register_decorations()
 		y_max = 31000,
 		y_min = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/acacia_bush.mts",
+		flags = "place_center_x, place_center_z",
+	})
+
+	-- Pine bush
+
+	minetest.register_decoration({
+		name = "default:pine_bush",
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_snow"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.004,
+			scale = 0.01,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 137,
+			octaves = 3,
+			persist = 0.7,
+		},
+		biomes = {"taiga", "snowy_grassland"},
+		y_max = 31000,
+		y_min = 4,
+		schematic = minetest.get_modpath("default") .. "/schematics/pine_bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
 
