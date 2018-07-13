@@ -54,7 +54,7 @@ function boat.on_rightclick(self, clicker)
 		return
 	end
 	local name = clicker:get_player_name()
-	if self.driver and clicker == self.driver then
+	if self.driver and name == self.driver then
 		self.driver = nil
 		self.auto = false
 		clicker:set_detach()
@@ -74,7 +74,7 @@ function boat.on_rightclick(self, clicker)
 			end
 			clicker:set_detach()
 		end
-		self.driver = clicker
+		self.driver = name
 		clicker:set_attach(self.object, "",
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
 		player_api.player_attached[name] = true
@@ -83,6 +83,13 @@ function boat.on_rightclick(self, clicker)
 		end)
 		clicker:set_look_horizontal(self.object:get_yaw())
 	end
+end
+
+
+-- If driver leaves server while driving boat
+function boat.on_detach_child(self, child)
+	self.driver = nil
+	self.auto = false
 end
 
 
@@ -104,16 +111,18 @@ function boat.on_punch(self, puncher)
 	if not puncher or not puncher:is_player() or self.removed then
 		return
 	end
-	if self.driver and puncher == self.driver then
+
+	local name = puncher:get_player_name()
+	if self.driver and name == self.driver then
 		self.driver = nil
 		puncher:set_detach()
-		player_api.player_attached[puncher:get_player_name()] = false
+		player_api.player_attached[name] = false
 	end
 	if not self.driver then
 		self.removed = true
 		local inv = puncher:get_inventory()
 		if not (creative and creative.is_enabled_for
-				and creative.is_enabled_for(puncher:get_player_name()))
+				and creative.is_enabled_for(name))
 				or not inv:contains_item("main", "boats:boat") then
 			local leftover = inv:add_item("main", "boats:boat")
 			-- if no room in inventory add a replacement boat to the world
@@ -132,35 +141,35 @@ end
 function boat.on_step(self, dtime)
 	self.v = get_v(self.object:get_velocity()) * get_sign(self.v)
 	if self.driver then
-		local driver_name = self.driver:get_player_name()
-		local ctrl = self.driver:get_player_control()
-		if ctrl.up and ctrl.down then
-			if not self.auto then
-				self.auto = true
-				minetest.chat_send_player(driver_name,
-					"[boats] Cruise on")
+		local driver_objref = minetest.get_player_by_name(self.driver)
+		if driver_objref then
+			local ctrl = driver_objref:get_player_control()
+			if ctrl.up and ctrl.down then
+				if not self.auto then
+					self.auto = true
+					minetest.chat_send_player(self.driver, "[boats] Cruise on")
+				end
+			elseif ctrl.down then
+				self.v = self.v - dtime * 1.8
+				if self.auto then
+					self.auto = false
+					minetest.chat_send_player(self.driver, "[boats] Cruise off")
+				end
+			elseif ctrl.up or self.auto then
+				self.v = self.v + dtime * 1.8
 			end
-		elseif ctrl.down then
-			self.v = self.v - dtime * 1.8
-			if self.auto then
-				self.auto = false
-				minetest.chat_send_player(driver_name,
-					"[boats] Cruise off")
-			end
-		elseif ctrl.up or self.auto then
-			self.v = self.v + dtime * 1.8
-		end
-		if ctrl.left then
-			if self.v < -0.001 then
-				self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
-			else
-				self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
-			end
-		elseif ctrl.right then
-			if self.v < -0.001 then
-				self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
-			else
-				self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+			if ctrl.left then
+				if self.v < -0.001 then
+					self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+				else
+					self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
+				end
+			elseif ctrl.right then
+				if self.v < -0.001 then
+					self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
+				else
+					self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+				end
 			end
 		end
 	end
