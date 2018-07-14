@@ -10,8 +10,8 @@ Various Minetest developers and contributors (LGPL 2.1)
 The torch code was derived by sofar from the 'torches' mod by
 BlockMen (LGPL 2.1)
 
-Authors of media (textures, models and sounds)
-----------------------------------------------
+Authors of media (textures, sounds, models and schematics)
+----------------------------------------------------------
 Everything not listed in here:
 celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 
@@ -323,3 +323,41 @@ sofar (CC BY-SA 3.0):
   torch_ceiling.obj
   torch_floor.obj
   torch_wall.obj
+
+
+Schematics
+----------
+paramat (CC BY-SA 3.0):
+  acacia_bush.mts
+  acacia_tree.mts
+  acacia_tree_from_sapling.mts
+  apple_tree.mts
+  apple_tree_from_sapling.mts
+  aspen_tree.mts
+  aspen_tree_from_sapling.mts
+  bush.mts
+  emergent_jungle_tree.mts
+  emergent_jungle_tree_from_sapling.mts
+  jungle_tree.mts
+  jungle_tree_from_sapling.mts
+  large_cactus.mts
+  papyrus.mts
+  pine_tree.mts
+  pine_tree_from_sapling.mts
+  snowy_pine_tree_from_sapling.mts
+  small_pine_tree.mts
+  small_pine_tree_from_sapling.mts
+  snowy_small_pine_tree_from_sapling.mts
+
+Shara RedCat (CC BY-SA 3.0):
+  acacia_log.mts
+  apple_log.mts
+  aspen_log.mts
+  jungle_log.mts
+  pine_log.mts
+
+sofar (CC BY-SA 3.0):
+  corals.mts
+
+TumeniNodes (CC BY-SA 3.0):
+  pine_bush.mts
