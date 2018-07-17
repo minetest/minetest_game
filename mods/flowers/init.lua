@@ -139,12 +139,9 @@ function flowers.flower_spread(pos, node)
 
 	local pos0 = vector.subtract(pos, 4)
 	local pos1 = vector.add(pos, 4)
-	-- Maximum flower density created by mapgen is 13 per 9x9 area.
-	-- The limit of 7 below was tuned by in-game testing to result in a maximum
-	-- flower density by ABM spread of 13 per 9x9 area.
-	-- Warning: Setting this limit theoretically without in-game testing
-	-- results in a maximum flower density by ABM spread that is far too high.
-	if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 7 then
+	-- Testing shows that a threshold of 3 results in an appropriate maximum
+	-- density of approximately 7 flora per 9x9 area.
+	if #minetest.find_nodes_in_area(pos0, pos1, "group:flora") > 3 then
 		return
 	end
 
