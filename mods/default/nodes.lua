@@ -165,6 +165,10 @@ default:acacia_bush_sapling
 default:pine_bush_stem
 default:pine_bush_needles
 default:pine_bush_sapling
+default:huckleberry_bush_stem
+default:huckleberry_bush_leaves
+default:huckleberry_bush_sapling
+default:huckleberries
 
 default:sand_with_kelp
 
@@ -1613,6 +1617,107 @@ minetest.register_node("default:bush_sapling", {
 	end,
 })
 
+minetest.register_node("default:huckleberry_bush_stem", {
+	description = "Huckleberry Bush Stem",
+	drawtype = "plantlike",
+	visual_scale = 1.41,
+	tiles = {"default_huckleberry_bush_stem.png"},
+	inventory_image = "default_huckleberry_bush_stem.png",
+	wield_image = "default_huckleberry_bush_stem.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	sounds = default.node_sound_wood_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
+	},
+})
+
+minetest.register_node("default:huckleberry_bush_leaves", {
+	description = "Huckleberry Bush Leaves",
+	drawtype = "allfaces_optional",
+	waving = 1,
+	tiles = {"default_huckleberry_bush_leaves.png"},
+	paramtype = "light",
+	groups = {snappy = 3, flammable = 2, leaves = 1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
+			{items = {"default:huckleberries"}}
+		}
+	},
+	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
+})
+
+minetest.register_node("default:huckleberry_bush_sapling", {
+	description = "Huckleberry Bush Sapling",
+	drawtype = "plantlike",
+	tiles = {"default_huckleberry_bush_sapling.png"},
+	inventory_image = "default_huckleberry_bush_sapling.png",
+	wield_image = "default_huckleberry_bush_sapling.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	on_timer = default.grow_sapling,
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
+	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
+	sounds = default.node_sound_leaves_defaults(),
+
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
+	end,
+
+	on_place = function(itemstack, placer, pointed_thing)
+		itemstack = default.sapling_on_place(itemstack, placer, pointed_thing,
+			"default:huckleberry_bush_sapling",
+			-- minp, maxp to be checked, relative to sapling pos
+			{x = -1, y = 0, z = -1},
+			{x = 1, y = 1, z = 1},
+			-- maximum interval of interior volume check
+			2)
+
+		return itemstack
+	end,
+})
+
+minetest.register_node("default:huckleberries", {
+	description = "Huckleberries",
+	drawtype = "plantlike",
+	tiles = {"default_huckleberries.png"},
+	inventory_image = "default_huckleberries.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	is_ground_content = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-6 / 16, -8 / 16, -6 / 16, 6 / 16, 2 / 16, 6 / 16}
+	},
+	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
+		leafdecay = 3, leafdecay_drop = 1, food_apple = 1},
+		
+	on_use = function(itemstack, player, pointed_thing)
+		if math.random(10) == 1 then
+			minetest.do_item_eat(-4, nil, itemstack, player, pointed_thing)
+		end
+		return minetest.do_item_eat(2, nil, itemstack, player, pointed_thing)
+	end,
+	
+	sounds = default.node_sound_leaves_defaults(),
+	
+	after_place_node = function(pos, placer, itemstack)
+		minetest.set_node(pos, {name = "default:huckleberries", param2 = 1})
+	end,
+})
+
 minetest.register_node("default:acacia_bush_stem", {
 	description = "Acacia Bush Stem",
 	drawtype = "plantlike",
@@ -2610,5 +2715,11 @@ default.register_leafdecay({
 default.register_leafdecay({
 	trunks = {"default:pine_bush_stem"},
 	leaves = {"default:pine_bush_needles"},
+	radius = 1,
+})
+
+default.register_leafdecay({
+	trunks = {"default:huckleberry_bush_stem"},
+	leaves = {"default:huckleberry_bush_leaves"},
 	radius = 1,
 })

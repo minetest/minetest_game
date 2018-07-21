@@ -230,6 +230,11 @@ CloudyProton (CC BY-SA 3.0):
 Mossmanikin (CC BY-SA 3.0):
   default_fern_*.png
 
+random-geek (CC BY-SA 3.0):
+  default_huckleberries.png
+  default_huckleberry_bush_stem.png, derived from default_bush_stem (by paramat)
+  default_huckleberry_bush_leaves.png, derived from default_bush_leaves (by paramat)
+  default_huckleberry_bush_sapling.png, derived from default_bush_sapling (by paramat)
 
 Sounds
 ------
@@ -361,3 +366,6 @@ sofar (CC BY-SA 3.0):
 
 TumeniNodes (CC BY-SA 3.0):
   pine_bush.mts
+
+random-geek (CC BY-SA 3.0):
+  huckleberry_bush.mts

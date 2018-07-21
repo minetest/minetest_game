@@ -921,6 +921,9 @@ Trees
   
  * `default.grow_pine_bush(pos)`
   * Grows a pine bush at pos
+  
+ * `default.grow_huckleberry_bush(pos)`
+  * Grows a huckleberry bush at pos
 
 Carts
 -----

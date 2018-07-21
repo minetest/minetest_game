@@ -1963,6 +1963,28 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
+	
+	-- Huckleberry bush
+
+	minetest.register_decoration({
+		name = "default:huckberry_bush",
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_grass", "default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.004,
+			scale = 0.005,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 137,
+			octaves = 3,
+			persist = 0.7,
+		},
+		biomes = {"deciduous_forest", "taiga", "coniferous_forest"},
+		y_max = 31000,
+		y_min = 1,
+		schematic = minetest.get_modpath("default") .. "/schematics/huckleberry_bush.mts",
+		flags = "place_center_x, place_center_z",
+	})
 
 	-- Acacia bush
 
