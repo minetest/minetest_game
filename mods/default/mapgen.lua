@@ -1963,7 +1963,7 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	-- Huckleberry bush
 
 	minetest.register_decoration({

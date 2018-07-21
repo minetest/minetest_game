@@ -1703,16 +1703,16 @@ minetest.register_node("default:huckleberries", {
 	},
 	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
 		leafdecay = 3, leafdecay_drop = 1, food_apple = 1},
-		
+
 	on_use = function(itemstack, player, pointed_thing)
 		if math.random(10) == 1 then
 			minetest.do_item_eat(-4, nil, itemstack, player, pointed_thing)
 		end
 		return minetest.do_item_eat(2, nil, itemstack, player, pointed_thing)
 	end,
-	
+
 	sounds = default.node_sound_leaves_defaults(),
-	
+
 	after_place_node = function(pos, placer, itemstack)
 		minetest.set_node(pos, {name = "default:huckleberries", param2 = 1})
 	end,
