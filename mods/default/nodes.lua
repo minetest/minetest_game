@@ -1701,21 +1701,10 @@ minetest.register_node("default:huckleberries", {
 		type = "fixed",
 		fixed = {-6 / 16, -8 / 16, -6 / 16, 6 / 16, 2 / 16, 6 / 16}
 	},
-	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
-		leafdecay = 3, leafdecay_drop = 1, food_apple = 1},
+	groups = {fleshy = 3, dig_immediate = 3, flammable = 2},
 
-	on_use = function(itemstack, player, pointed_thing)
-		if math.random(10) == 1 then
-			minetest.do_item_eat(-4, nil, itemstack, player, pointed_thing)
-		end
-		return minetest.do_item_eat(2, nil, itemstack, player, pointed_thing)
-	end,
-
+	on_use = minetest.item_eat(2),
 	sounds = default.node_sound_leaves_defaults(),
-
-	after_place_node = function(pos, placer, itemstack)
-		minetest.set_node(pos, {name = "default:huckleberries", param2 = 1})
-	end,
 })
 
 minetest.register_node("default:acacia_bush_stem", {
