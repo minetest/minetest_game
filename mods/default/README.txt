@@ -234,7 +234,7 @@ random-geek (CC BY-SA 3.0):
   default_huckleberries.png
   default_huckleberry_bush_stem.png, derived from default_bush_stem (by paramat)
   default_huckleberry_bush_leaves.png, derived from default_bush_leaves (by paramat)
-  default_huckleberry_bush_sapling.png, derived from default_bush_sapling (by paramat)
+  default_huckleberry_bush_sapling.png
 
 Sounds
 ------
