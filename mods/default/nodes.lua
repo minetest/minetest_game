@@ -1653,7 +1653,7 @@ minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
 		max_items = 1,
 		items = {
 			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
-			{items = {"default:huckleberries"}}
+			{items = {"default:huckleberry_bush_leaves_with_berries"}}
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
@@ -1707,7 +1707,7 @@ minetest.register_node("default:huckleberry_bush_leaves", {
 		max_items = 1,
 		items = {
 			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
-			{items = {"default:huckleberries"}}
+			{items = {"default:huckleberry_bush_leaves"}}
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
