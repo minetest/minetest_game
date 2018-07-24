@@ -376,8 +376,8 @@ Give Initial Stuff API
 ^ Adds items to the list of items to be given
 
 
-Players API
------------
+Player API
+----------
 
 The player API can register player models and update the player's appearence
 
@@ -425,6 +425,9 @@ The player API can register player models and update the player's appearence
 		-- ...
 		},
 		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
+		-- A low and wide collision box for a dead or laying player.
+		-- In nodes from centrepoint of model underside.
+		collisionbox_lay = {-0.6, 0.0, -0.6, 0.6, 0.3, 0.6},
 		stepheight = 0.6, -- In nodes
 		eye_height = 1.47, -- In nodes above feet position
 	}

@@ -14,6 +14,7 @@ player_api.register_model("character.b3d", {
 		sit       = {x = 81,  y = 160},
 	},
 	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+	collisionbox_lay = {-0.6, 0.0, -0.6, 0.6, 0.3, 0.6},
 	stepheight = 0.6,
 	eye_height = 1.47,
 })
@@ -31,4 +32,9 @@ minetest.register_on_joinplayer(function(player)
 	)
 	player:hud_set_hotbar_image("gui_hotbar.png")
 	player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
+end)
+
+-- Reset collision and selection boxes to be upright on player respawn
+minetest.register_on_respawnplayer(function(player)
+	player_api.reset_boxes(player, "character.b3d")
 end)

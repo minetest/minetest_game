@@ -7,6 +7,8 @@ player_api = {}
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
 
+local model_collisionbox_default = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}
+
 player_api.registered_models = { }
 
 -- Local for speed.
@@ -45,7 +47,7 @@ function player_api.set_model(player, model_name)
 			textures = player_textures[name] or model.textures,
 			visual = "mesh",
 			visual_size = model.visual_size or {x = 1, y = 1},
-			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+			collisionbox = model.collisionbox or model_collisionbox_default,
 			stepheight = model.stepheight or 0.6,
 			eye_height = model.eye_height or 1.47,
 		})
@@ -60,6 +62,15 @@ function player_api.set_model(player, model_name)
 		})
 	end
 	player_model[name] = model_name
+end
+
+function player_api.reset_boxes(player, model_name)
+	local model = models[model_name]
+	if model then
+		player:set_properties({
+			collisionbox = model.collisionbox or model_collisionbox_default,
+		})
+	end
 end
 
 function player_api.set_textures(player, textures)
@@ -119,6 +130,10 @@ minetest.register_globalstep(function(dtime)
 			-- Apply animations based on what the player is doing
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
+				player:set_properties({
+					collisionbox = model.collisionbox_lay or
+						{-0.6, 0.0, -0.6, 0.6, 0.3, 0.6},
+				})
 			elseif walking then
 				if player_sneak[name] ~= controls.sneak then
 					player_anim[name] = nil
