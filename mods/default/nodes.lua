@@ -166,9 +166,9 @@ default:pine_bush_stem
 default:pine_bush_needles
 default:pine_bush_sapling
 default:huckleberry_bush_stem
+default:huckleberry_bush_leaves_with_berries
 default:huckleberry_bush_leaves
 default:huckleberry_bush_sapling
-default:huckleberries
 
 default:sand_with_kelp
 
@@ -1634,6 +1634,25 @@ minetest.register_node("default:huckleberry_bush_stem", {
 	},
 })
 
+minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
+	description = "Huckleberry Bush Leaves with Berries",
+	drawtype = "allfaces_optional",
+	waving = 1,
+	tiles = {"default_huckleberry_bush_leaves_with_berries.png"},
+	paramtype = "light",
+	groups = {snappy = 3, flammable = 2, leaves = 1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
+			{items = {"default:huckleberries"}}
+		}
+	},
+	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
+})
+
 minetest.register_node("default:huckleberry_bush_leaves", {
 	description = "Huckleberry Bush Leaves",
 	drawtype = "allfaces_optional",
@@ -1686,25 +1705,6 @@ minetest.register_node("default:huckleberry_bush_sapling", {
 
 		return itemstack
 	end,
-})
-
-minetest.register_node("default:huckleberries", {
-	description = "Huckleberries",
-	drawtype = "plantlike",
-	tiles = {"default_huckleberries.png"},
-	inventory_image = "default_huckleberries.png",
-	paramtype = "light",
-	sunlight_propagates = true,
-	walkable = false,
-	is_ground_content = false,
-	selection_box = {
-		type = "fixed",
-		fixed = {-6 / 16, -8 / 16, -6 / 16, 6 / 16, 2 / 16, 6 / 16}
-	},
-	groups = {fleshy = 3, dig_immediate = 3, flammable = 2},
-
-	on_use = minetest.item_eat(2),
-	sounds = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_node("default:acacia_bush_stem", {
@@ -2704,11 +2704,5 @@ default.register_leafdecay({
 default.register_leafdecay({
 	trunks = {"default:pine_bush_stem"},
 	leaves = {"default:pine_bush_needles"},
-	radius = 1,
-})
-
-default.register_leafdecay({
-	trunks = {"default:huckleberry_bush_stem"},
-	leaves = {"default:huckleberry_bush_leaves"},
 	radius = 1,
 })

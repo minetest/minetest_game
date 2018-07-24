@@ -233,6 +233,7 @@ Mossmanikin (CC BY-SA 3.0):
 random-geek (CC BY-SA 3.0):
   default_huckleberries.png
   default_huckleberry_bush_stem.png, derived from default_bush_stem (by paramat)
+  default_huckleberry_bush_leaves_with_berries.png, derived from default_bush_leaves (by paramat)
   default_huckleberry_bush_leaves.png, derived from default_bush_leaves (by paramat)
   default_huckleberry_bush_sapling.png
 
