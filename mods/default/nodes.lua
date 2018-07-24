@@ -1678,8 +1678,8 @@ minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
 
 			for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, 1),
 				vector.add(pos, 1), "default:huckleberry_bush_stem")) do
-				local node = minetest.get_node(v)
-				if node.param2 == 0 then
+				local n = minetest.get_node(v)
+				if n.param2 == 0 then
 					minetest.get_node_timer(pos):start(math.random(300, 1500))
 					return
 				end
