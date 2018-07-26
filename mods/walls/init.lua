@@ -1,6 +1,10 @@
 walls = {}
 
 walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wall_sounds)
+	--make wall_texture_table paramenter backwards compatible for mods passing single texture
+	if type(wall_texture_table) ~= "table" then
+             wall_texture_table = { wall_texture_table }
+        end
 	-- inventory node, and pole-type wall start item
 	minetest.register_node(wall_name, {
 		description = wall_desc,
