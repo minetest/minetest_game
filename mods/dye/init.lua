@@ -1,9 +1,5 @@
--- Other mods can use these for looping through available colors
 
 dye = {}
-dye.basecolors = {"white", "grey", "black", "red", "yellow", "green", "cyan", "blue", "magenta"}
-dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow",
-	"lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"}
 
 -- Make dye names and descriptions available globally
 
@@ -25,38 +21,20 @@ dye.dyes = {
 	{"pink",       "Pink"},
 }
 
--- This collection of colors is partly a historic thing, partly something else
-
-local dyes = {
-	{"white",      "White Dye",      {dye=1, basecolor_white=1,   excolor_white=1,      unicolor_white=1}},
-	{"grey",       "Grey Dye",       {dye=1, basecolor_grey=1,    excolor_grey=1,       unicolor_grey=1}},
-	{"dark_grey",  "Dark Grey Dye",  {dye=1, basecolor_grey=1,    excolor_darkgrey=1,   unicolor_darkgrey=1}},
-	{"black",      "Black Dye",      {dye=1, basecolor_black=1,   excolor_black=1,      unicolor_black=1}},
-	{"violet",     "Violet Dye",     {dye=1, basecolor_magenta=1, excolor_violet=1,     unicolor_violet=1}},
-	{"blue",       "Blue Dye",       {dye=1, basecolor_blue=1,    excolor_blue=1,       unicolor_blue=1}},
-	{"cyan",       "Cyan Dye",       {dye=1, basecolor_cyan=1,    excolor_cyan=1,       unicolor_cyan=1}},
-	{"dark_green", "Dark Green Dye", {dye=1, basecolor_green=1,   excolor_green=1,      unicolor_dark_green=1}},
-	{"green",      "Green Dye",      {dye=1, basecolor_green=1,   excolor_green=1,      unicolor_green=1}},
-	{"yellow",     "Yellow Dye",     {dye=1, basecolor_yellow=1,  excolor_yellow=1,     unicolor_yellow=1}},
-	{"brown",      "Brown Dye",      {dye=1, basecolor_brown=1,   excolor_orange=1,     unicolor_dark_orange=1}},
-	{"orange",     "Orange Dye",     {dye=1, basecolor_orange=1,  excolor_orange=1,     unicolor_orange=1}},
-	{"red",        "Red Dye",        {dye=1, basecolor_red=1,     excolor_red=1,        unicolor_red=1}},
-	{"magenta",    "Magenta Dye",    {dye=1, basecolor_magenta=1, excolor_red_violet=1, unicolor_red_violet=1}},
-	{"pink",       "Pink Dye",       {dye=1, basecolor_red=1,     excolor_red=1,        unicolor_light_red=1}},
-}
-
 -- Define items
 
-for _, row in ipairs(dyes) do
+for _, row in ipairs(dye.dyes) do
 	local name = row[1]
-	local description = row[2]
-	local groups = row[3]
+	local description = row[2] .. " Dye"
 	local item_name = "dye:" .. name
 	local item_image = "dye_" .. name .. ".png"
+	local groups = {dye = 1, flammable = 2}
+	groups["color_" .. name] = 1
+
 	minetest.register_craftitem(item_name, {
 		inventory_image = item_image,
 		description = description,
-		groups = groups
+		groups = groups,
 	})
 	minetest.register_craft({
 		type = "shapeless",
@@ -65,7 +43,7 @@ for _, row in ipairs(dyes) do
 	})
 end
 
--- Manually add coal->black dye
+-- Manually add coal -> black dye
 
 minetest.register_craft({
 	type = "shapeless",
