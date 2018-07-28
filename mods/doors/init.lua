@@ -86,7 +86,7 @@ minetest.register_node("doors:hidden", {
 	diggable = false,
 	buildable_to = false,
 	floodable = false,
-	drop = "",
+	drop = {},
 	groups = {not_in_creative_inventory = 1},
 	on_blast = function() end,
 	tiles = {"doors_blank.png"},
