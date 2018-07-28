@@ -35,7 +35,7 @@ for _, row in ipairs(dye.dyes) do
 
 	minetest.register_craftitem("dye:" .. name, {
 		inventory_image = "dye_" .. name .. ".png",
-		description = description,
+		description = description .. " Dye",
 		groups = groups
 	})
 
