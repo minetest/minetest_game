@@ -415,7 +415,7 @@ minetest.register_node("tnt:boom", {
 	drawtype = "airlike",
 	light_source = default.LIGHT_MAX,
 	walkable = false,
-	drop = "",
+	drop = {},
 	groups = {dig_immediate = 3},
 	-- unaffected by explosions
 	on_blast = function() end,
@@ -509,7 +509,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
-	drop = "",
+	drop = {},
 	groups = {
 		dig_immediate = 2,
 		attached_node = 1,
@@ -657,7 +657,7 @@ function tnt.register_tnt(def)
 			tnt_bottom, tnt_side
 			},
 		light_source = 5,
-		drop = "",
+		drop = {},
 		sounds = default.node_sound_wood_defaults(),
 		groups = {falling_node = 1},
 		on_timer = function(pos, elapsed)
