@@ -39,7 +39,7 @@ minetest.register_node("fire:basic_flame", {
 		-- Restart timer
 		return true
 	end,
-	drop = "",
+	drop = {},
 
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(math.random(30, 60))
@@ -68,7 +68,7 @@ minetest.register_node("fire:permanent_flame", {
 	sunlight_propagates = true,
 	damage_per_second = 4,
 	groups = {igniter = 2, dig_immediate = 3},
-	drop = "",
+	drop = {},
 })
 
 
