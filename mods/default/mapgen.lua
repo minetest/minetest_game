@@ -1982,6 +1982,7 @@ function default.register_decorations()
 		biomes = {"snowy_grassland", "taiga", "coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
+		place_offset_y = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/huckleberry_bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
