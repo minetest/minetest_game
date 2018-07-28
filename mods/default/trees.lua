@@ -485,7 +485,7 @@ end
 function default.grow_huckleberry_bush(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/huckleberry_bush.mts"
-	minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
+	minetest.place_schematic({x = pos.x - 1, y = pos.y, z = pos.z - 1},
 		path, "0", nil, false)
 end
 
