@@ -238,10 +238,6 @@ Glass breaking sounds (CC BY 3.0):
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
   3: http://www.freesound.org/people/lsprice/sounds/88808/
 
-sonictechtonic (CC BY 3.0):
-https://www.freesound.org/people/sonictechtonic/sounds/241872/
-  player_damage.ogg
-
 Mito551 (sounds) (CC BY-SA 3.0):
   default_dig_choppy.ogg
   default_dig_cracky.ogg
