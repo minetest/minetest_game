@@ -227,7 +227,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	-- Because "Force night skip" button is a button_exit, it will set fields.quit
 	-- and lay_down call will change value of player_in_bed, so it must be taken
 	-- earlier.
-	local last_player_in_bed = player_in_bed
+	local last_player_in_bed = get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
 		lay_down(player, nil, nil, false)
