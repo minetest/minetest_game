@@ -25,9 +25,6 @@ minetest.register_node("fireflies:firefly", {
 	},
 	light_source = 6,
 	floodable = true,
-	on_flood = function(pos, oldnode, newnode)
-		minetest.add_item(pos, "fireflies:firefly 1")
-	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		local player_name = placer:get_player_name()
 		local pos = pointed_thing.above
@@ -62,6 +59,7 @@ minetest.register_node("fireflies:hidden_firefly", {
 	buildable_to = true,
 	drop = "",
 	groups = {not_in_creative_inventory = 1},
+	floodable = true,
 	on_place = function(itemstack, placer, pointed_thing)
 		local player_name = placer:get_player_name()
 		local pos = pointed_thing.above
@@ -193,7 +191,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 		fill_ratio = 0.0002,
 		y_max = 31000,
 		y_min = 1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 	minetest.register_decoration({
@@ -205,7 +203,7 @@ if minetest.get_mapgen_setting("mg_name") == "v6" then
 		fill_ratio = 0.0002,
 		y_max = 31000,
 		y_min = 1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 else
@@ -230,7 +228,7 @@ else
 		},
 		y_max = 31000,
 		y_min = -1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 	minetest.register_decoration({
@@ -253,7 +251,7 @@ else
 		},
 		y_max = 31000,
 		y_min = -1,
-		decoration = "fireflies:firefly",
+		decoration = "fireflies:hidden_firefly",
 	})
 
 end

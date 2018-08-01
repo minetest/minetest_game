@@ -106,19 +106,28 @@ local function search()
 end
 
 
--- On new player spawn
+-- On new player spawn and player respawn
 
--- Search for new player spawn once per server session. If successful, store
--- position and reposition new players, otherwise leave them at engine spawn
+-- Search for spawn position once per server session. If successful, store
+-- position and reposition players, otherwise leave them at engine spawn
 -- position.
 
-minetest.register_on_newplayer(function(player)
+local function on_spawn(player)
 	if not searched then
 		success = search()
 		searched = true
 	end
-
 	if success then
-		player:setpos(spawn_pos)
+		player:set_pos(spawn_pos)
 	end
+end
+
+minetest.register_on_newplayer(function(player)
+	on_spawn(player)
+end)
+
+minetest.register_on_respawnplayer(function(player)
+	on_spawn(player)
+
+	return true
 end)

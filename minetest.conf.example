@@ -8,10 +8,10 @@
 #creative_mode = false
 
 # Sets the behaviour of the inventory items when a player dies.
-#  "bones": Store items in a bone node but drop items if inside protected area.
-#  "drop": Drop items on the ground.
-#  "keep": Player keeps items.
-#bones_mode = "bones"
+#   bones: Store items in a bone node but drop items if inside protected area.
+#   drop: Drop items on the ground.
+#   keep: Player keeps items.
+#bones_mode = bones
 
 # The time in seconds after which the bones of a dead player can be looted by
 # everyone.
@@ -22,6 +22,9 @@
 # everyone if the player dies in a protected area they don't own.
 # 0 to disable. By default it is "share_bones_time" divide by four.
 #share_bones_time_early = 300
+
+# Inform player of condition and location of new bones.
+#bones_position_message = false
 
 # Whether fire should be enabled. If disabled, 'basic_flame' nodes will
 # disappear.

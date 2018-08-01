@@ -33,18 +33,21 @@ end
 --
 
 local boat = {
-	physical = true,
-	-- Warning: Do not change the position of the collisionbox top surface,
-	-- lowering it causes the boat to fall through the world if underwater
-	collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
-	visual = "mesh",
-	mesh = "boats_boat.obj",
-	textures = {"default_wood.png"},
+	initial_properties = {
+		physical = true,
+		-- Warning: Do not change the position of the collisionbox top surface,
+		-- lowering it causes the boat to fall through the world if underwater
+		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
+		visual = "mesh",
+		mesh = "boats_boat.obj",
+		textures = {"default_wood.png"},
+	},
 
 	driver = nil,
 	v = 0,
 	last_v = 0,
-	removed = false
+	removed = false,
+	auto = false
 }
 
 
@@ -53,15 +56,16 @@ function boat.on_rightclick(self, clicker)
 		return
 	end
 	local name = clicker:get_player_name()
-	if self.driver and clicker == self.driver then
+	if self.driver and name == self.driver then
 		self.driver = nil
+		self.auto = false
 		clicker:set_detach()
 		player_api.player_attached[name] = false
 		player_api.set_animation(clicker, "stand" , 30)
-		local pos = clicker:getpos()
+		local pos = clicker:get_pos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
 		minetest.after(0.1, function()
-			clicker:setpos(pos)
+			clicker:set_pos(pos)
 		end)
 	elseif not self.driver then
 		local attach = clicker:get_attach()
@@ -72,15 +76,22 @@ function boat.on_rightclick(self, clicker)
 			end
 			clicker:set_detach()
 		end
-		self.driver = clicker
+		self.driver = name
 		clicker:set_attach(self.object, "",
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
 		player_api.player_attached[name] = true
 		minetest.after(0.2, function()
 			player_api.set_animation(clicker, "sit" , 30)
 		end)
-		clicker:set_look_horizontal(self.object:getyaw())
+		clicker:set_look_horizontal(self.object:get_yaw())
 	end
+end
+
+
+-- If driver leaves server while driving boat
+function boat.on_detach_child(self, child)
+	self.driver = nil
+	self.auto = false
 end
 
 
@@ -102,21 +113,23 @@ function boat.on_punch(self, puncher)
 	if not puncher or not puncher:is_player() or self.removed then
 		return
 	end
-	if self.driver and puncher == self.driver then
+
+	local name = puncher:get_player_name()
+	if self.driver and name == self.driver then
 		self.driver = nil
 		puncher:set_detach()
-		player_api.player_attached[puncher:get_player_name()] = false
+		player_api.player_attached[name] = false
 	end
 	if not self.driver then
 		self.removed = true
 		local inv = puncher:get_inventory()
 		if not (creative and creative.is_enabled_for
-				and creative.is_enabled_for(puncher:get_player_name()))
+				and creative.is_enabled_for(name))
 				or not inv:contains_item("main", "boats:boat") then
 			local leftover = inv:add_item("main", "boats:boat")
 			-- if no room in inventory add a replacement boat to the world
 			if not leftover:is_empty() then
-				minetest.add_item(self.object:getpos(), leftover)
+				minetest.add_item(self.object:get_pos(), leftover)
 			end
 		end
 		-- delay remove to ensure player is detached
@@ -128,38 +141,49 @@ end
 
 
 function boat.on_step(self, dtime)
-	self.v = get_v(self.object:getvelocity()) * get_sign(self.v)
+	self.v = get_v(self.object:get_velocity()) * get_sign(self.v)
 	if self.driver then
-		local ctrl = self.driver:get_player_control()
-		local yaw = self.object:getyaw()
-		if ctrl.up then
-			self.v = self.v + 0.1
-		elseif ctrl.down then
-			self.v = self.v - 0.1
-		end
-		if ctrl.left then
-			if self.v < 0 then
-				self.object:setyaw(yaw - (1 + dtime) * 0.03)
-			else
-				self.object:setyaw(yaw + (1 + dtime) * 0.03)
+		local driver_objref = minetest.get_player_by_name(self.driver)
+		if driver_objref then
+			local ctrl = driver_objref:get_player_control()
+			if ctrl.up and ctrl.down then
+				if not self.auto then
+					self.auto = true
+					minetest.chat_send_player(self.driver, "[boats] Cruise on")
+				end
+			elseif ctrl.down then
+				self.v = self.v - dtime * 1.8
+				if self.auto then
+					self.auto = false
+					minetest.chat_send_player(self.driver, "[boats] Cruise off")
+				end
+			elseif ctrl.up or self.auto then
+				self.v = self.v + dtime * 1.8
 			end
-		elseif ctrl.right then
-			if self.v < 0 then
-				self.object:setyaw(yaw + (1 + dtime) * 0.03)
-			else
-				self.object:setyaw(yaw - (1 + dtime) * 0.03)
+			if ctrl.left then
+				if self.v < -0.001 then
+					self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+				else
+					self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
+				end
+			elseif ctrl.right then
+				if self.v < -0.001 then
+					self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
+				else
+					self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+				end
 			end
 		end
 	end
-	local velo = self.object:getvelocity()
+	local velo = self.object:get_velocity()
 	if self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
-		self.object:setpos(self.object:getpos())
+		self.object:set_pos(self.object:get_pos())
 		return
 	end
 	local s = get_sign(self.v)
-	self.v = self.v - 0.02 * s
+	self.v = self.v - dtime * 0.6 * s
 	if s ~= get_sign(self.v) then
-		self.object:setvelocity({x = 0, y = 0, z = 0})
+		self.object:set_velocity({x = 0, y = 0, z = 0})
 		self.v = 0
 		return
 	end
@@ -167,7 +191,7 @@ function boat.on_step(self, dtime)
 		self.v = 5 * get_sign(self.v)
 	end
 
-	local p = self.object:getpos()
+	local p = self.object:get_pos()
 	p.y = p.y - 0.5
 	local new_velo
 	local new_acce = {x = 0, y = 0, z = 0}
@@ -179,13 +203,13 @@ function boat.on_step(self, dtime)
 		else
 			new_acce = {x = 0, y = -9.8, z = 0}
 		end
-		new_velo = get_velocity(self.v, self.object:getyaw(),
-			self.object:getvelocity().y)
-		self.object:setpos(self.object:getpos())
+		new_velo = get_velocity(self.v, self.object:get_yaw(),
+			self.object:get_velocity().y)
+		self.object:set_pos(self.object:get_pos())
 	else
 		p.y = p.y + 1
 		if is_water(p) then
-			local y = self.object:getvelocity().y
+			local y = self.object:get_velocity().y
 			if y >= 5 then
 				y = 5
 			elseif y < 0 then
@@ -193,24 +217,24 @@ function boat.on_step(self, dtime)
 			else
 				new_acce = {x = 0, y = 5, z = 0}
 			end
-			new_velo = get_velocity(self.v, self.object:getyaw(), y)
-			self.object:setpos(self.object:getpos())
+			new_velo = get_velocity(self.v, self.object:get_yaw(), y)
+			self.object:set_pos(self.object:get_pos())
 		else
 			new_acce = {x = 0, y = 0, z = 0}
-			if math.abs(self.object:getvelocity().y) < 1 then
-				local pos = self.object:getpos()
+			if math.abs(self.object:get_velocity().y) < 1 then
+				local pos = self.object:get_pos()
 				pos.y = math.floor(pos.y) + 0.5
-				self.object:setpos(pos)
-				new_velo = get_velocity(self.v, self.object:getyaw(), 0)
+				self.object:set_pos(pos)
+				new_velo = get_velocity(self.v, self.object:get_yaw(), 0)
 			else
-				new_velo = get_velocity(self.v, self.object:getyaw(),
-					self.object:getvelocity().y)
-				self.object:setpos(self.object:getpos())
+				new_velo = get_velocity(self.v, self.object:get_yaw(),
+					self.object:get_velocity().y)
+				self.object:set_pos(self.object:get_pos())
 			end
 		end
 	end
-	self.object:setvelocity(new_velo)
-	self.object:setacceleration(new_acce)
+	self.object:set_velocity(new_velo)
+	self.object:set_acceleration(new_acce)
 end
 
 
@@ -246,7 +270,7 @@ minetest.register_craftitem("boats:boat", {
 		boat = minetest.add_entity(pointed_thing.under, "boats:boat")
 		if boat then
 			if placer then
-				boat:setyaw(placer:get_look_horizontal())
+				boat:set_yaw(placer:get_look_horizontal())
 			end
 			local player_name = placer and placer:get_player_name() or ""
 			if not (creative and creative.is_enabled_for and

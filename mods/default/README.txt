@@ -7,11 +7,17 @@ Authors of source code
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
 Various Minetest developers and contributors (LGPL 2.1)
 
-Authors of media (textures, models and sounds)
-----------------------------------------------
+The torch code was derived by sofar from the 'torches' mod by
+BlockMen (LGPL 2.1)
+
+Authors of media (textures, sounds, models and schematics)
+----------------------------------------------------------
 Everything not listed in here:
 celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 
+
+Textures
+--------
 Cisoun's texture pack (CC BY-SA 3.0):
   default_jungletree.png
   default_lava.png
@@ -23,22 +29,15 @@ Cisoun's texture pack (CC BY-SA 3.0):
   default_tree_top.png
   default_water.png
 
-Originating from G4JC's Almost MC Texture Pack (CC BY-SA 3.0):
-  default_torch.png
-  default_torch_on_ceiling.png
-  default_torch_on_floor.png
-
-VanessaE's animated torches (CC BY-SA 3.0):
-  default_torch_animated.png
-  default_torch_on_ceiling_animated.png
-  default_torch_on_floor_animated.png
-  default_torch_on_floor.png
-
 RealBadAngel's animated water (CC BY-SA 3.0):
   default_water_source_animated.png
   default_water_flowing_animated.png
 
 VanessaE (CC BY-SA 3.0):
+  default_torch_animated.png
+  default_torch_on_ceiling_animated.png
+  default_torch_on_floor_animated.png
+  default_torch_on_floor.png
   default_desert_sand.png
   default_desert_stone.png
   default_sand.png
@@ -80,11 +79,13 @@ paramat (CC BY-SA 3.0):
   default_acacia_leaves_simple.png
   default_acacia_sapling.png
   default_acacia_bush_sapling.png
+  default_pine_bush_sapling.png
   default_acacia_tree.png
   default_acacia_tree_top.png
   default_acacia_wood.png
   default_acacia_bush_stem.png
   default_bush_stem.png
+  default_pine_bush_stem.png
   default_junglewood.png
   default_jungletree_top.png
   default_sandstone_brick.png
@@ -118,6 +119,11 @@ paramat (CC BY-SA 3.0):
   default_stones.png -- Derived from a texture by sofar (CC0 1.0)
   default_moss.png
   default_moss_side.png
+  default_fence_rail_acacia_wood
+  default_fence_rail_aspen_wood -- Derived from a texture by sofar (CC BY-SA 3.0)
+  default_fence_rail_junglewood
+  default_fence_rail_pine_wood
+  default_fence_rail_wood -- Derived from a texture by BlockMen (CC BY-SA 3.0)
 
 TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
@@ -195,7 +201,6 @@ Pithydon (CC BY-SA 3.0)
 
 Ferk (CC0 1.0):
   default_item_smoke.png
-  default_item_smoke.ogg, based on sound by http://opengameart.org/users/bart
 
 npx (CC BY-SA 3.0):
   default_rainforest_litter.png
@@ -225,14 +230,13 @@ CloudyProton (CC BY-SA 3.0):
 Mossmanikin (CC BY-SA 3.0):
   default_fern_*.png
 
+
+Sounds
+------
 Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
   3: http://www.freesound.org/people/lsprice/sounds/88808/
-
-sonictechtonic (CC BY 3.0):
-https://www.freesound.org/people/sonictechtonic/sounds/241872/
-  player_damage.ogg
 
 Mito551 (sounds) (CC BY-SA 3.0):
   default_dig_choppy.ogg
@@ -303,3 +307,53 @@ Chests sounds added by sofar, derived of several files mixed together:
 Ryding (CC0 1.0):
 http://freesound.org/people/Ryding/sounds/94337/
   default_snow_footstep.*.ogg
+
+Ferk (CC0 1.0):
+  default_item_smoke.ogg, based on a sound by http://opengameart.org/users/bart
+
+
+Models
+------
+sofar (CC BY-SA 3.0):
+  chest_open.obj
+  torch_ceiling.obj
+  torch_floor.obj
+  torch_wall.obj
+
+
+Schematics
+----------
+paramat (CC BY-SA 3.0):
+  acacia_bush.mts
+  acacia_tree.mts
+  acacia_tree_from_sapling.mts
+  apple_tree.mts
+  apple_tree_from_sapling.mts
+  aspen_tree.mts
+  aspen_tree_from_sapling.mts
+  bush.mts
+  emergent_jungle_tree.mts
+  emergent_jungle_tree_from_sapling.mts
+  jungle_tree.mts
+  jungle_tree_from_sapling.mts
+  large_cactus.mts
+  papyrus.mts
+  pine_tree.mts
+  pine_tree_from_sapling.mts
+  snowy_pine_tree_from_sapling.mts
+  small_pine_tree.mts
+  small_pine_tree_from_sapling.mts
+  snowy_small_pine_tree_from_sapling.mts
+
+Shara RedCat (CC BY-SA 3.0):
+  acacia_log.mts
+  apple_log.mts
+  aspen_log.mts
+  jungle_log.mts
+  pine_log.mts
+
+sofar (CC BY-SA 3.0):
+  corals.mts
+
+TumeniNodes (CC BY-SA 3.0):
+  pine_bush.mts

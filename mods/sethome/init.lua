@@ -89,7 +89,7 @@ minetest.register_chatcommand("sethome", {
 	func = function(name)
 		name = name or "" -- fallback to blank name if nil
 		local player = minetest.get_player_by_name(name)
-		if player and sethome.set(name, player:getpos()) then
+		if player and sethome.set(name, player:get_pos()) then
 			return true, "Home set!"
 		end
 		return false, "Player not found!"

@@ -303,9 +303,74 @@ function default.register_fence(name, def)
 			connect_right = {{1/8,3/16,-1/16,1/2,5/16,1/16},
 				{1/8,-5/16,-1/16,1/2,-3/16,1/16}},
 		},
-		connects_to = {"group:fence", "group:wood", "group:tree"},
+		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
 		inventory_image = fence_texture,
 		wield_image = fence_texture,
+		tiles = {def.texture},
+		sunlight_propagates = true,
+		is_ground_content = false,
+		groups = {},
+	}
+	for k, v in pairs(default_fields) do
+		if def[k] == nil then
+			def[k] = v
+		end
+	end
+
+	-- Always add to the fence group, even if no group provided
+	def.groups.fence = 1
+
+	def.texture = nil
+	def.material = nil
+
+	minetest.register_node(name, def)
+end
+
+
+--
+-- Fence rail registration helper
+--
+
+function default.register_fence_rail(name, def)
+	minetest.register_craft({
+		output = name .. " 16",
+		recipe = {
+			{ def.material, def.material },
+			{ "", ""},
+			{ def.material, def.material },
+		}
+	})
+
+	local fence_rail_texture = "default_fence_rail_overlay.png^" .. def.texture ..
+			"^default_fence_rail_overlay.png^[makealpha:255,126,126"
+	-- Allow almost everything to be overridden
+	local default_fields = {
+		paramtype = "light",
+		drawtype = "nodebox",
+		node_box = {
+			type = "connected",
+			fixed = {
+				{-1/16,  3/16, -1/16, 1/16,  5/16, 1/16},
+				{-1/16, -3/16, -1/16, 1/16, -5/16, 1/16}
+			},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {
+				{-1/16,  3/16, -1/2, 1/16,  5/16, -1/16},
+				{-1/16, -5/16, -1/2, 1/16, -3/16, -1/16}},
+			connect_left = {
+				{-1/2,  3/16, -1/16, -1/16,  5/16, 1/16},
+				{-1/2, -5/16, -1/16, -1/16, -3/16, 1/16}},
+			connect_back = {
+				{-1/16,  3/16, 1/16, 1/16,  5/16, 1/2},
+				{-1/16, -5/16, 1/16, 1/16, -3/16, 1/2}},
+			connect_right = {
+				{1/16,  3/16, -1/16, 1/2,  5/16, 1/16},
+				{1/16, -5/16, -1/16, 1/2, -3/16, 1/16}},
+		},
+		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
+		inventory_image = fence_rail_texture,
+		wield_image = fence_rail_texture,
 		tiles = {def.texture},
 		sunlight_propagates = true,
 		is_ground_content = false,
@@ -494,22 +559,6 @@ minetest.register_abm({
 			minetest.set_node(pos, {name = "walls:mossycobble", param2 = node.param2})
 		end
 	end
-})
-
-
---
--- Coral death near air
---
-
-minetest.register_abm({
-	nodenames = {"default:coral_brown", "default:coral_orange"},
-	neighbors = {"air"},
-	interval = 17,
-	chance = 5,
-	catch_up = false,
-	action = function(pos, node)
-		minetest.set_node(pos, {name = "default:coral_skeleton"})
-	end,
 })
 
 

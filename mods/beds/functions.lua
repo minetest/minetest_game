@@ -59,13 +59,13 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
 		beds.player[name] = nil
-
+		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
 			return
 		end
 		if p then
-			player:setpos(p)
+			player:set_pos(p)
 		end
 
 		-- physics, eye_offset, etc
@@ -80,6 +80,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	else
 		beds.pos[name] = pos
 		beds.player[name] = 1
+		beds.bed_position[name] = bed_pos
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
@@ -88,7 +89,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local dir = minetest.facedir_to_dir(param2)
 		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
 		player:set_physics_override(0, 0, 0)
-		player:setpos(p)
+		player:set_pos(p)
 		default.player_attached[name] = true
 		hud_flags.wielditem = false
 		default.player_set_animation(player, "lay" , 0)
@@ -142,7 +143,7 @@ end
 
 function beds.on_rightclick(pos, player)
 	local name = player:get_player_name()
-	local ppos = player:getpos()
+	local ppos = player:get_pos()
 	local tod = minetest.get_timeofday()
 
 	if tod > 0.2 and tod < 0.805 then
@@ -179,6 +180,15 @@ function beds.on_rightclick(pos, player)
 	end
 end
 
+function beds.can_dig(bed_pos)
+	-- Check all players in bed which one is at the expected position
+	for _, player_bed_pos in pairs(beds.bed_position) do
+		if vector.equals(bed_pos, player_bed_pos) then
+			return false
+		end
+	end
+	return true
+end
 
 -- Callbacks
 -- Only register respawn callback if respawn enabled
@@ -188,7 +198,7 @@ if enable_respawn then
 		local name = player:get_player_name()
 		local pos = beds.spawn[name]
 		if pos then
-			player:setpos(pos)
+			player:set_pos(pos)
 			return true
 		end
 	end)
@@ -213,16 +223,25 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "beds_form" then
 		return
 	end
+
+	-- Because "Force night skip" button is a button_exit, it will set fields.quit
+	-- and lay_down call will change value of player_in_bed, so it must be taken
+	-- earlier.
+	local last_player_in_bed = player_in_bed
+
 	if fields.quit or fields.leave then
 		lay_down(player, nil, nil, false)
 		update_formspecs(false)
 	end
 
 	if fields.force then
-		update_formspecs(is_night_skip_enabled())
-		if is_night_skip_enabled() then
+		local is_majority = (#minetest.get_connected_players() / 2) < last_player_in_bed
+		if is_majority and is_night_skip_enabled() then
+			update_formspecs(true)
 			beds.skip_night()
 			beds.kick_players()
+		else
+			update_formspecs(false)
 		end
 	end
 end)

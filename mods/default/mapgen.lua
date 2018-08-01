@@ -1022,6 +1022,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "taiga_ocean",
+		node_dust = "default:snow",
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
@@ -1054,6 +1055,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "snowy_grassland_ocean",
+		node_dust = "default:snow",
 		node_top = "default:sand",
 		depth_top = 1,
 		node_filler = "default:sand",
@@ -1638,6 +1640,7 @@ function default.register_decorations()
 		name = "default:apple_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
+		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
 			offset = 0.0018,
@@ -1653,6 +1656,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/apple_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_grass",
+		num_spawn_by = 8,
 	})
 
 	-- Emergent jungle tree
@@ -1703,7 +1708,8 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:jungle_log",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter"},
+		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.005,
 		biomes = {"rainforest", "rainforest_swamp"},
@@ -1712,6 +1718,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_rainforest_litter",
+		num_spawn_by = 8,
 	})
 
 	-- Taiga and temperate coniferous forest pine tree, small pine tree and log
@@ -1760,6 +1768,7 @@ function default.register_decorations()
 		name = "default:pine_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.0018,
 		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
@@ -1768,6 +1777,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		num_spawn_by = 8,
 	})
 
 	-- Acacia tree and log
@@ -1797,6 +1808,7 @@ function default.register_decorations()
 		name = "default:acacia_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
+		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
@@ -1812,6 +1824,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/acacia_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_dry_grass",
+		num_spawn_by = 8,
 	})
 
 	-- Aspen tree and log
@@ -1840,6 +1854,7 @@ function default.register_decorations()
 		name = "default:aspen_log",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
+		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
 			offset = 0.0,
@@ -1855,6 +1870,8 @@ function default.register_decorations()
 		schematic = minetest.get_modpath("default") .. "/schematics/aspen_log.mts",
 		flags = "place_center_x",
 		rotation = "random",
+		spawn_by = "default:dirt_with_grass",
+		num_spawn_by = 8,
 	})
 
 	-- Large cactus
@@ -1929,7 +1946,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:bush",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_grass", "default:dirt_with_snow"},
+		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.004,
@@ -1939,7 +1956,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"snowy_grassland", "grassland", "deciduous_forest",
+		biomes = {"grassland", "deciduous_forest",
 			"floatland_grassland"},
 		y_max = 31000,
 		y_min = 1,
@@ -1966,6 +1983,28 @@ function default.register_decorations()
 		y_max = 31000,
 		y_min = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/acacia_bush.mts",
+		flags = "place_center_x, place_center_z",
+	})
+
+	-- Pine bush
+
+	minetest.register_decoration({
+		name = "default:pine_bush",
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_snow"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.004,
+			scale = 0.01,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 137,
+			octaves = 3,
+			persist = 0.7,
+		},
+		biomes = {"taiga", "snowy_grassland"},
+		y_max = 31000,
+		y_min = 4,
+		schematic = minetest.get_modpath("default") .. "/schematics/pine_bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
 
@@ -2083,7 +2122,8 @@ function default.register_decorations()
 		place_on = {
 			"default:permafrost_with_moss",
 			"default:permafrost_with_stones",
-			"default:stone"
+			"default:stone",
+			"default:gravel"
 		},
 		sidelen = 4,
 		noise_params = {
@@ -2094,9 +2134,9 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 1.0
 		},
-		biomes = {"tundra"},
+		biomes = {"tundra", "tundra_beach"},
 		y_max = 50,
-		y_min = 2,
+		y_min = 1,
 		decoration = "default:snow",
 	})
 
