@@ -1632,14 +1632,6 @@ minetest.register_node("default:huckleberry_bush_stem", {
 		type = "fixed",
 		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
 	},
-
-	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		if placer and placer:is_player() then
-			local node = minetest.get_node(pos)
-			node.param2 = 1
-			minetest.set_node(pos, node)
-		end
-	end
 })
 
 minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
@@ -1648,52 +1640,20 @@ minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
 	waving = 1,
 	tiles = {"default_huckleberry_bush_leaves_with_berries.png"},
 	paramtype = "light",
-	groups = {snappy = 3, flammable = 2, leaves = 1},
+	groups = {snappy = 3, flammable = 2, leaves = 1, dig_immediate = 3},
 	drop = {
 		max_items = 1,
 		items = {
 			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
-			{items = {"default:huckleberry_bush_leaves_with_berries"}}
+			{items = {"default:huckleberries"}}
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		local name = player:get_player_name()
-		if minetest.is_protected(pos, name) then
-			minetest.record_protection_violation(pos, name)
-			return
-		end
-
-		local inv = player:get_inventory()
-		local stack = ItemStack("default:huckleberries 1")
-		if inv:room_for_item("main", stack) then
-			inv:add_item("main", stack)
-			minetest.set_node(pos, {name = "default:huckleberry_bush_leaves"})
-			minetest.sound_play({name = "default_grass_footstep"}, {pos = pos})
-
-			if node.param2 == 1 then
-				return
-			end
-
-			for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, 1),
-				vector.add(pos, 1), "default:huckleberry_bush_stem")) do
-				local n = minetest.get_node(v)
-				if n.param2 == 0 then
-					minetest.get_node_timer(pos):start(math.random(300, 1500))
-					return
-				end
-			end
-		end
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		minetest.set_node(pos, {name = "default:huckleberry_bush_leaves"})
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
-
-	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		if placer and placer:is_player() then
-			local node = minetest.get_node(pos)
-			node.param2 = 1
-			minetest.set_node(pos, node)
-		end
-	end
 })
 
 minetest.register_node("default:huckleberry_bush_leaves", {
@@ -1703,27 +1663,14 @@ minetest.register_node("default:huckleberry_bush_leaves", {
 	tiles = {"default_huckleberry_bush_leaves.png"},
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1},
-	drop = {
-		max_items = 1,
-		items = {
-			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
-			{items = {"default:huckleberry_bush_leaves"}}
-		}
-	},
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_timer = function(pos, elapsed)
-		if minetest.get_node_light(pos) < 11 then
-			minetest.get_node_timer(pos):start(200)
-			return
-		end
-
-		for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, 1),
-			vector.add(pos, 1), "default:huckleberry_bush_stem")) do
-			local node = minetest.get_node(v)
-			if node.param2 == 0 then
+		if minetest.find_node_near(pos, 1, "default:huckleberry_bush_stem") then
+			if minetest.get_node_light(pos) < 11 then
+				minetest.get_node_timer(pos):start(200)
+			else
 				minetest.set_node(pos, {name = "default:huckleberry_bush_leaves_with_berries"})
-				return
 			end
 		end
 	end,
