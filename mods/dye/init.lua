@@ -4,21 +4,21 @@ dye = {}
 -- Make dye names and descriptions available globally
 
 dye.dyes = {
-	{"white",      "White",      {unicolor_white = 1}},
-	{"grey",       "Grey",       {unicolor_grey = 1}},
-	{"dark_grey",  "Dark grey",  {unicolor_darkgrey = 1}},
-	{"black",      "Black",      {unicolor_black = 1}},
-	{"violet",     "Violet",     {unicolor_violet = 1}},
-	{"blue",       "Blue",       {unicolor_blue = 1}},
-	{"cyan",       "Cyan",       {unicolor_cyan = 1}},
-	{"dark_green", "Dark green", {unicolor_dark_green = 1}},
-	{"green",      "Green",      {unicolor_green = 1}},
-	{"yellow",     "Yellow",     {unicolor_yellow = 1}},
-	{"brown",      "Brown",      {unicolor_dark_orange = 1}},
-	{"orange",     "Orange",     {unicolor_orange = 1}},
-	{"red",        "Red",        {unicolor_red = 1}},
-	{"magenta",    "Magenta",    {unicolor_red_violet = 1}},
-	{"pink",       "Pink",       {unicolor_light_red = 1}},
+	{"white",      "White"},
+	{"grey",       "Grey"},
+	{"dark_grey",  "Dark grey"},
+	{"black",      "Black"},
+	{"violet",     "Violet"},
+	{"blue",       "Blue"},
+	{"cyan",       "Cyan"},
+	{"dark_green", "Dark green"},
+	{"green",      "Green"},
+	{"yellow",     "Yellow"},
+	{"brown",      "Brown"},
+	{"orange",     "Orange"},
+	{"red",        "Red"},
+	{"magenta",    "Magenta"},
+	{"pink",       "Pink"},
 }
 
 -- Define items
@@ -26,11 +26,9 @@ dye.dyes = {
 for _, row in ipairs(dye.dyes) do
 	local name = row[1]
 	local description = row[2]
-	local groups = row[3]
 
 	-- Add groups
-	groups.dye = 1
-	groups.flammable = 2
+	local groups = {dye = 1, flammable = 2}
 	groups["color_" .. name] = 1
 
 	minetest.register_craftitem("dye:" .. name, {
