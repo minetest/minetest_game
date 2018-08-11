@@ -1649,6 +1649,7 @@ minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	node_dig_prediction = "default:huckleberry_bush_leaves",
 
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
 		minetest.set_node(pos, {name = "default:huckleberry_bush_leaves"})
