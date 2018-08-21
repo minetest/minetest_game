@@ -2,8 +2,8 @@ License of source code
 ----------------------
 
 GNU Lesser General Public License, version 2.1
-Copyright (C) 2011-2016 celeron55, Perttu Ahola <celeron55@gmail.com>
-Copyright (C) 2011-2016 Various Minetest developers and contributors
+Copyright (C) 2011-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2011-2018 Various Minetest developers and contributors
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU Lesser General Public License as published by the Free Software Foundation;
@@ -19,7 +19,7 @@ Licenses of media (textures, models and sounds)
 -----------------------------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-Copyright (C) 2010-2017:
+Copyright (C) 2010-2018:
 
   celeron55, Perttu Ahola <celeron55@gmail.com>
   Cisoun
@@ -49,6 +49,7 @@ Copyright (C) 2010-2017:
   CloudyProton
   TumeniNodes
   Mossmanikin
+  random-geek
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
