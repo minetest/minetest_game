@@ -7,8 +7,8 @@ Also sets the default model, texture, and player flags.
 
 Authors of source code
 ----------------------
-Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
-Various Minetest developers and contributors (LGPL 2.1)
+Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
+Various Minetest developers and contributors (LGPLv2.1+)
 
 Authors of media (textures, models and sounds)
 ----------------------------------------------
