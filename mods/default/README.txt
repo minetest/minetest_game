@@ -164,7 +164,6 @@ sofar (CC0 1.0):
 Neuromancer (CC BY-SA 3.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
-  default_dirt.png
   default_furnace_*.png
 
 Gambit (CC BY-SA 3.0):
@@ -229,6 +228,9 @@ CloudyProton (CC BY-SA 3.0):
 
 Mossmanikin (CC BY-SA 3.0):
   default_fern_*.png
+
+random-geek (CC BY-SA 3.0):
+  default_dirt.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
 
 
 Sounds
