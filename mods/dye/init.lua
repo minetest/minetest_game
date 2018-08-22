@@ -1,4 +1,3 @@
-
 dye = {}
 
 -- Make dye names and descriptions available globally
