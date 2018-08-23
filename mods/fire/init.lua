@@ -292,23 +292,6 @@ end
 -- ABMs
 --
 
--- Extinguish all flames quickly with water, snow, ice
-
-minetest.register_abm({
-	label = "Extinguish flame",
-	nodenames = {"fire:basic_flame", "fire:permanent_flame"},
-	neighbors = {"group:puts_out_fire"},
-	interval = 3,
-	chance = 1,
-	catch_up = false,
-	action = function(pos, node, active_object_count, active_object_count_wider)
-		minetest.remove_node(pos)
-		minetest.sound_play("fire_extinguish_flame",
-			{pos = pos, max_hear_distance = 16, gain = 0.15})
-	end,
-})
-
-
 -- Enable the following ABMs according to 'enable fire' setting
 
 local fire_enabled = minetest.settings:get_bool("enable_fire")
@@ -348,10 +331,6 @@ else -- Fire enabled
 		chance = 12,
 		catch_up = false,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			-- If there is water or stuff like that around node, don't ignite
-			if minetest.find_node_near(pos, 1, {"group:puts_out_fire"}) then
-				return
-			end
 			local p = minetest.find_node_near(pos, 1, {"air"})
 			if p then
 				minetest.set_node(p, {name = "fire:basic_flame"})
