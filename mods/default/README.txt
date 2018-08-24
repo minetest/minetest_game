@@ -4,11 +4,11 @@ See license.txt for license information.
 
 Authors of source code
 ----------------------
-Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPL 2.1)
-Various Minetest developers and contributors (LGPL 2.1)
+Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
+Various Minetest developers and contributors (LGPLv2.1+)
 
 The torch code was derived by sofar from the 'torches' mod by
-BlockMen (LGPL 2.1)
+BlockMen (LGPLv2.1+)
 
 Authors of media (textures, sounds, models and schematics)
 ----------------------------------------------------------
@@ -164,7 +164,6 @@ sofar (CC0 1.0):
 Neuromancer (CC BY-SA 3.0):
   default_cobble.png, based on texture by Brane praefect
   default_mossycobble.png, based on texture by Brane praefect
-  default_dirt.png
   default_furnace_*.png
 
 Gambit (CC BY-SA 3.0):
@@ -231,11 +230,13 @@ Mossmanikin (CC BY-SA 3.0):
   default_fern_*.png
 
 random-geek (CC BY-SA 3.0):
+  default_dirt.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
   default_huckleberries.png
   default_huckleberry_bush_stem.png, derived from default_bush_stem (by paramat)
   default_huckleberry_bush_leaves_with_berries.png, derived from default_bush_leaves (by paramat)
   default_huckleberry_bush_leaves.png, derived from default_bush_leaves (by paramat)
   default_huckleberry_bush_sapling.png
+
 
 Sounds
 ------
@@ -243,10 +244,6 @@ Glass breaking sounds (CC BY 3.0):
   1: http://www.freesound.org/people/cmusounddesign/sounds/71947/
   2: http://www.freesound.org/people/Tomlija/sounds/97669/
   3: http://www.freesound.org/people/lsprice/sounds/88808/
-
-sonictechtonic (CC BY 3.0):
-https://www.freesound.org/people/sonictechtonic/sounds/241872/
-  player_damage.ogg
 
 Mito551 (sounds) (CC BY-SA 3.0):
   default_dig_choppy.ogg

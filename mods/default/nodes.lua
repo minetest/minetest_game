@@ -688,8 +688,8 @@ minetest.register_node("default:sapling", {
 			"default:sapling",
 			-- minp, maxp to be checked, relative to sapling pos
 			-- minp_relative.y = 1 because sapling pos has been checked
-			{x = -2, y = 1, z = -2},
-			{x = 2, y = 6, z = 2},
+			{x = -3, y = 1, z = -3},
+			{x = 3, y = 6, z = 3},
 			-- maximum interval of interior volume check
 			4)
 
