@@ -13,7 +13,8 @@ minetest.register_chatcommand("killme", {
 					end
 				end
 
-				-- There doesn't seem to be a way to get a default spawn pos from the lua API
+				-- There doesn't seem to be a way to get a default spawn pos
+				-- from the lua API
 				return false, "No static_spawnpoint defined"
 			end
 		else
