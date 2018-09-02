@@ -7,6 +7,20 @@ fire = {}
 -- Items
 --
 
+-- Flood flame function
+
+local function flood_flame(pos, oldnode, newnode)
+	-- Play flame extinguish sound if liquid is not an 'igniter'
+	local nodedef = minetest.registered_items[newnode.name]
+	if not (nodedef and nodedef.groups and
+			nodedef.groups.igniter and nodedef.groups.igniter > 0) then
+		minetest.sound_play("fire_extinguish_flame",
+			{pos = pos, max_hear_distance = 16, gain = 0.15})
+	end
+	-- Remove the flame
+	return false
+end
+
 -- Flame nodes
 
 minetest.register_node("fire:basic_flame", {
@@ -28,8 +42,11 @@ minetest.register_node("fire:basic_flame", {
 	walkable = false,
 	buildable_to = true,
 	sunlight_propagates = true,
+	floodable = true,
 	damage_per_second = 4,
 	groups = {igniter = 2, dig_immediate = 3, not_in_creative_inventory = 1},
+	drop = "",
+
 	on_timer = function(pos)
 		local f = minetest.find_node_near(pos, 1, {"group:flammable"})
 		if not f then
@@ -39,11 +56,12 @@ minetest.register_node("fire:basic_flame", {
 		-- Restart timer
 		return true
 	end,
-	drop = "",
 
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(math.random(30, 60))
 	end,
+
+	on_flood = flood_flame,
 })
 
 minetest.register_node("fire:permanent_flame", {
@@ -66,9 +84,12 @@ minetest.register_node("fire:permanent_flame", {
 	walkable = false,
 	buildable_to = true,
 	sunlight_propagates = true,
+	floodable = true,
 	damage_per_second = 4,
 	groups = {igniter = 2, dig_immediate = 3},
 	drop = "",
+
+	on_flood = flood_flame,
 })
 
 
@@ -271,23 +292,6 @@ end
 -- ABMs
 --
 
--- Extinguish all flames quickly with water, snow, ice
-
-minetest.register_abm({
-	label = "Extinguish flame",
-	nodenames = {"fire:basic_flame", "fire:permanent_flame"},
-	neighbors = {"group:puts_out_fire"},
-	interval = 3,
-	chance = 1,
-	catch_up = false,
-	action = function(pos, node, active_object_count, active_object_count_wider)
-		minetest.remove_node(pos)
-		minetest.sound_play("fire_extinguish_flame",
-			{pos = pos, max_hear_distance = 16, gain = 0.15})
-	end,
-})
-
-
 -- Enable the following ABMs according to 'enable fire' setting
 
 local fire_enabled = minetest.settings:get_bool("enable_fire")
@@ -327,10 +331,6 @@ else -- Fire enabled
 		chance = 12,
 		catch_up = false,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			-- If there is water or stuff like that around node, don't ignite
-			if minetest.find_node_near(pos, 1, {"group:puts_out_fire"}) then
-				return
-			end
 			local p = minetest.find_node_near(pos, 1, {"air"})
 			if p then
 				minetest.set_node(p, {name = "fire:basic_flame"})
