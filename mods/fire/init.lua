@@ -2,6 +2,19 @@
 
 fire = {}
 
+-- 'Enable fire' setting
+
+local fire_enabled = minetest.settings:get_bool("enable_fire")
+if fire_enabled == nil then
+	-- enable_fire setting not specified, check for disable_fire
+	local fire_disabled = minetest.settings:get_bool("disable_fire")
+	if fire_disabled == nil then
+		-- Neither setting specified, check whether singleplayer
+		fire_enabled = minetest.is_singleplayer()
+	else
+		fire_enabled = not fire_disabled
+	end
+end
 
 --
 -- Items
@@ -49,7 +62,7 @@ minetest.register_node("fire:basic_flame", {
 
 	on_timer = function(pos)
 		local f = minetest.find_node_near(pos, 1, {"group:flammable"})
-		if not f then
+		if not fire_enabled or not f then
 			minetest.remove_node(pos)
 			return
 		end
@@ -58,7 +71,11 @@ minetest.register_node("fire:basic_flame", {
 	end,
 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(30, 60))
+		if not fire_enabled then
+			minetest.remove_node(pos)
+		else
+			minetest.get_node_timer(pos):start(math.random(30, 60))
+		end
 	end,
 
 	on_flood = flood_flame,
@@ -292,34 +309,7 @@ end
 -- ABMs
 --
 
--- Enable the following ABMs according to 'enable fire' setting
-
-local fire_enabled = minetest.settings:get_bool("enable_fire")
-if fire_enabled == nil then
-	-- enable_fire setting not specified, check for disable_fire
-	local fire_disabled = minetest.settings:get_bool("disable_fire")
-	if fire_disabled == nil then
-		-- Neither setting specified, check whether singleplayer
-		fire_enabled = minetest.is_singleplayer()
-	else
-		fire_enabled = not fire_disabled
-	end
-end
-
-if not fire_enabled then
-
-	-- Remove basic flames only if fire disabled
-
-	minetest.register_abm({
-		label = "Remove disabled fire",
-		nodenames = {"fire:basic_flame"},
-		interval = 7,
-		chance = 1,
-		catch_up = false,
-		action = minetest.remove_node,
-	})
-
-else -- Fire enabled
+if fire_enabled then
 
 	-- Ignite neighboring nodes, add basic flames
 
