@@ -19,7 +19,7 @@ stujones11 (CC BY-SA 3.0):
 Jordach (CC BY-SA 3.0):
   character.png
 
-BlockMen (CC BY-SA 3.0):
+paramat (CC BY-SA 3.0):
   gui_hotbar.png
   gui_hotbar_selected.png
 

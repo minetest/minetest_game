@@ -21,8 +21,8 @@ Licenses of media (textures, models and sounds)
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Copyright (C) 2011-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
 Copyright (C) 2012-2018 Jordach
-Copyright (C) 2014-2018 BlockMen
 Copyright (C) 2018 stujones11
+Copyright (C) 2018 paramat
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
