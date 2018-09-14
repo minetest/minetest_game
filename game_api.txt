@@ -569,6 +569,7 @@ sfinv API by its author: https://rubenwardy.com/minetest_modding_book/en/chapter
 **Pages**
 
 * sfinv.set_page(player, pagename) - changes the page
+* sfinv.get_page(player) - get the current page name. Will never return nil
 * sfinv.get_homepage_name(player) - get the page name of the first page to show to a player
 * sfinv.register_page(name, def) - register a page, see section below
 * sfinv.override_page(name, def) - overrides fields of an page registered with register_page.
