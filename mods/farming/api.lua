@@ -408,9 +408,10 @@ farming_grain.enlarge_drop("default:grass_4",{items={"farming:seed_wheat"},rarit
       new_drop[i+1]=tdrop[i]
     end
   end
-  -- calculate new rarity for each element. if all seeds have same rarity then the first element will drop more often than following elements
+  -- calculate new rarity for each element.
+  -- if all seeds have same rarity then the first element will drop more often than following elements
   for i=1,#new_drop do
-    new_rarity=2^(#new_drop-i)
+    local new_rarity=2^(#new_drop-i)
     new_drop[i].rarity=new_rarity
   end
   -- grab old drop table
