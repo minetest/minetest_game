@@ -389,3 +389,33 @@ farming.register_plant = function(name, def)
 	}
 	return r
 end
+
+
+farming.enlarge_drop = function(item_name,def)
+--[[
+insert new seed at beginning of drop table. calculate new rarity.
+
+example:
+farming_grain.enlarge_drop("default:grass_4",{items={"farming:seed_wheat"},rarity=8})
+]]
+
+  local tdrop=minetest.registered_nodes[item_name].drop.items -- get drop.items table of stored item
+  local new_drop={def}
+
+  -- new drop table
+  if tdrop ~= nil then
+    for i=1,#tdrop do
+      new_drop[i+1]=tdrop[i]
+    end
+  end
+  -- calculate new rarity for each element. if all seeds have same rarity then the first element will drop more often than following elements
+  for i=1,#new_drop do
+    new_rarity=2^(#new_drop-i)
+    new_drop[i].rarity=new_rarity
+  end
+  -- grab old drop table
+  local old_def=minetest.registered_nodes[item_name].drop
+  old_def.items=new_drop
+  -- override drop table
+  minetest.override_item(item_name,{drop=old_def})
+end
