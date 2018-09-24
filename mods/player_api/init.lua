@@ -34,7 +34,7 @@ minetest.register_on_joinplayer(function(player)
 	player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
 end)
 
--- Reset collision and selection boxes to be upright on player respawn
+-- Reset collisionbox to be upright on player respawn
 minetest.register_on_respawnplayer(function(player)
-	player_api.reset_boxes(player, "character.b3d")
+	player_api.reset_box(player)
 end)

@@ -412,6 +412,9 @@ The player API can register player models and update the player's appearence
 	* Any of the fields of the returned table may be nil.
 	* player: PlayerRef
 
+* `player_api.reset_box(player)`
+	* Resets player collisionbox to the stand/walk/mine collisionbox.
+
 ### Model Definition
 
 	{

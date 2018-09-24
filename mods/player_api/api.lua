@@ -64,15 +64,6 @@ function player_api.set_model(player, model_name)
 	player_model[name] = model_name
 end
 
-function player_api.reset_boxes(player, model_name)
-	local model = models[model_name]
-	if model then
-		player:set_properties({
-			collisionbox = model.collisionbox or model_collisionbox_default,
-		})
-	end
-end
-
 function player_api.set_textures(player, textures)
 	local name = player:get_player_name()
 	local model = models[player_model[name]]
@@ -93,6 +84,15 @@ function player_api.set_animation(player, anim_name, speed)
 	local anim = model.animations[anim_name]
 	player_anim[name] = anim_name
 	player:set_animation(anim, speed or model.animation_speed, animation_blend)
+end
+
+function player_api.reset_box(player)
+	local model = player_model[player:get_player_name()]
+	if model then
+		player:set_properties({
+			collisionbox = model.collisionbox or model_collisionbox_default,
+		})
+	end
 end
 
 minetest.register_on_leaveplayer(function(player)
