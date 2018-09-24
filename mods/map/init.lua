@@ -67,7 +67,7 @@ minetest.register_craft({
 	recipe = {
 		{"default:glass", "default:paper", "default:stick"},
 		{"default:steel_ingot", "default:paper", "default:steel_ingot"},
-		{"default:wood", "default:paper", "dye:black"},
+		{"group:wood", "default:paper", "dye:black"},
 	}
 })
 
