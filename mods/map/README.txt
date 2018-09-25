@@ -22,7 +22,7 @@ default:glass G
 default:paper P
 default:stick S
 default:steel_ingot I
-default:wood W
+group:wood W
 dye:black D
 
 GPS
