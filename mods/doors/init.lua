@@ -2,7 +2,6 @@
 doors = {}
 
 -- private data
-local _doors = {}
 doors.registered_doors = {}
 doors.registered_trapdoors = {}
 
