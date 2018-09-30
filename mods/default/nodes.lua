@@ -631,7 +631,8 @@ minetest.register_node("default:cave_ice", {
 	description = "Cave Ice",
 	tiles = {"default_ice.png"},
 	paramtype = "light",
-	groups = {cracky = 3, puts_out_fire = 1, cools_lava = 1, slippery = 3},
+	groups = {cracky = 3, puts_out_fire = 1, cools_lava = 1, slippery = 3,
+		not_in_creative_inventory = 1},
 	drop = "default:ice",
 	sounds = default.node_sound_glass_defaults(),
 })
@@ -688,8 +689,8 @@ minetest.register_node("default:sapling", {
 			"default:sapling",
 			-- minp, maxp to be checked, relative to sapling pos
 			-- minp_relative.y = 1 because sapling pos has been checked
-			{x = -2, y = 1, z = -2},
-			{x = 2, y = 6, z = 2},
+			{x = -3, y = 1, z = -3},
+			{x = 3, y = 6, z = 3},
 			-- maximum interval of interior volume check
 			4)
 

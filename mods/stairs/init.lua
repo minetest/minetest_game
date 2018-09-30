@@ -185,7 +185,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			local creative_enabled = (creative and creative.is_enabled_for
 					and creative.is_enabled_for(player_name))
 
-			if under and under.name:find("stairs:slab_") then
+			if under and under.name:find("^stairs:slab_") then
 				-- place slab using under node orientation
 				local dir = minetest.dir_to_facedir(vector.subtract(
 					pointed_thing.above, pointed_thing.under), true)

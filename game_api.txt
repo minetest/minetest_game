@@ -2,6 +2,7 @@ Minetest Game API
 =================
 GitHub Repo: https://github.com/minetest/minetest_game
 
+
 Introduction
 ------------
 
@@ -13,6 +14,7 @@ Please note:
  * [XYZ] refers to a section the Minetest API
  * [#ABC] refers to a section in this document
  * [pos] refers to a position table `{x = -5, y = 0, z = 200}`
+
 
 Bucket API
 ----------
@@ -33,6 +35,7 @@ The bucket API allows registering new types of buckets for non-default liquids.
 
 The filled bucket item is returned to the player that uses an empty bucket pointing to the given liquid source.
 When punching with an empty bucket pointing to an entity or a non-liquid node, the on_punch of the entity or node will be triggered.
+
 
 Beds API
 --------
@@ -68,6 +71,7 @@ Beds API
 		}
 	}
 
+
 Bones API
 ---------
 
@@ -76,6 +80,7 @@ that will be placed into bones or dropped on player death can be looked up or ch
 in `bones.player_inventory_lists`.
 
 e.g. `table.insert(bones.player_inventory_lists, "backpack")`
+
 
 Creative API
 ------------
@@ -97,6 +102,7 @@ Override this to allow per-player game modes.
 The contents of `creative.formspec_add` is appended to every creative inventory
 page. Mods can use it to add additional formspec elements onto the default
 creative inventory formspec to be drawn after each update.
+
 
 Chests API
 ----------
@@ -147,6 +153,7 @@ The chests API allows the creation of chests, which have their own inventories f
 	sound_close = "default_chest_close",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2},
 	protected = false, -- If true, only placer can modify chest.
+
 
 Doors API
 ---------
@@ -221,6 +228,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(), -- optional
 
+
 Dungeon Loot API
 ----------------
 
@@ -253,6 +261,7 @@ The mod that places chests with loot in dungeons provides an API to register add
 	--   supported types: "normal" (the cobble/mossycobble one), "sandstone", "desert"
 	--   optional, defaults to no type restrictions
 
+
 Fence API
 ---------
 
@@ -274,6 +283,7 @@ Allows creation of new fences with "fencelike" drawtype.
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 
+
 Walls API
 ---------
 
@@ -285,6 +295,7 @@ walls.register(name, desc, texture, mat, sounds)
 ^ texture = "default_stone.png"
 ^ mat = "default:stone". Used to auto-generate crafting recipe.
 ^ sounds = sounds: see [#Default sounds]
+
 
 Farming API
 -----------
@@ -325,6 +336,7 @@ The farming API allows you to easily register plants and hoes.
 		minlight = 13,                         -- Minimum light to grow
 		maxlight = default.LIGHT_MAX           -- Maximum light to grow
 	}
+
 
 Fire API
 --------
@@ -653,6 +665,7 @@ And override this function to change the layout:
 		return table.concat(tmp, "")
 	end
 
+
 Stairs API
 ----------
 
@@ -686,6 +699,7 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `desc_stair`: Description for stair node
  * `desc_slab`: Description for slab node
 
+
 Xpanes API
 ----------
 
@@ -705,6 +719,7 @@ Creates panes that automatically connect to each other
 		recipe = {{"","","","","","","","",""}}, -- Recipe field only
 		use_texture_alpha = true, -- Optional boolean (default: `false`) for colored glass panes
 	}
+
 
 Raillike definitions
 --------------------
@@ -738,6 +753,7 @@ Sounds inside the default table can be used within the sounds field of node defi
  * `default.node_sound_leaves_defaults()`
  * `default.node_sound_glass_defaults()`
  * `default.node_sound_metal_defaults()`
+
 
 Default constants
 -----------------
@@ -818,70 +834,39 @@ callback overridden. All the nodes listed in `leaves` have their
 Dyes
 ----
 
-To make recipes that will work with any dye ever made by anybody, define
-them based on groups. You can select any group of groups, based on your need for
-amount of colors.
+Minetest Game dyes are registered with:
 
-### Color groups
+    groups = {dye = 1, color_<color> = 1},
 
-Base color groups:
+To make recipes that will work with dyes from many mods, define them using the
+dye group and the color groups.
 
- * `basecolor_white`
- * `basecolor_grey`
- * `basecolor_black`
- * `basecolor_red`
- * `basecolor_yellow`
- * `basecolor_green`
- * `basecolor_cyan`
- * `basecolor_blue`
- * `basecolor_magenta`
+Dye color groups:
 
-Extended color groups ( * means also base color )
+ * `color_white`
+ * `color_grey`
+ * `color_dark_grey`
+ * `color_black`
+ * `color_red`
+ * `color_pink`
+ * `color_orange`
+ * `color_brown`
+ * `color_yellow`
+ * `color_green`
+ * `color_dark_green`
+ * `color_blue`
+ * `color_cyan`
+ * `color_violet`
+ * `color_magenta`
 
- * `excolor_white` *
- * `excolor_lightgrey`
- * `excolor_grey` *
- * `excolor_darkgrey`
- * `excolor_black` *
- * `excolor_red` *
- * `excolor_orange`
- * `excolor_yellow` *
- * `excolor_lime`
- * `excolor_green` *
- * `excolor_aqua`
- * `excolor_cyan` *
- * `excolor_sky_blue`
- * `excolor_blue` *
- * `excolor_violet`
- * `excolor_magenta` *
- * `excolor_red_violet`
-
-The whole unifieddyes palette as groups:
-
- * `unicolor_<excolor>`
-
-For the following, no white/grey/black is allowed:
-
- * `unicolor_medium_<excolor>`
- * `unicolor_dark_<excolor>`
- * `unicolor_light_<excolor>`
- * `unicolor_<excolor>_s50`
- * `unicolor_medium_<excolor>_s50`
- * `unicolor_dark_<excolor>_s50`
-
-Example of one shapeless recipe using a color group:
+Example of one shapeless recipe using the dye group and a color group:
 
 	minetest.register_craft({
 		type = "shapeless",
-		output = '<mod>:item_yellow',
-		recipe = {'<mod>:item_no_color', 'group:basecolor_yellow'},
+		output = "<mod>:item_yellow",
+		recipe = {"<mod>:item_no_color", "group:dye,color_yellow"},
 	})
 
-### Color lists
-
- * `dye.basecolors` are an array containing the names of available base colors
-
- * `dye.excolors` are an array containing the names of the available extended colors
 
 Trees
 -----
@@ -925,6 +910,7 @@ Trees
  * `default.grow_huckleberry_bush(pos)`
   * Grows a huckleberry bush at pos
 
+
 Carts
 -----
 
@@ -946,6 +932,7 @@ Carts
 	like speed, acceleration, player attachment. The handler will
 	likely be called many times per second, so the function needs
 	to make sure that the event is handled properly.
+
 
 Key API
 -------
