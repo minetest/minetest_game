@@ -2,9 +2,8 @@
 doors = {}
 
 -- private data
-local _doors = {}
-_doors.registered_doors = {}
-_doors.registered_trapdoors = {}
+doors.registered_doors = {}
+doors.registered_trapdoors = {}
 
 local function replace_old_owner_information(pos)
 	local meta = minetest.get_meta(pos)
@@ -18,7 +17,7 @@ end
 -- returns an object to a door object or nil
 function doors.get(pos)
 	local node_name = minetest.get_node(pos).name
-	if _doors.registered_doors[node_name] then
+	if doors.registered_doors[node_name] then
 		-- A normal upright door
 		return {
 			pos = pos,
@@ -26,23 +25,23 @@ function doors.get(pos)
 				if self:state() then
 					return false
 				end
-				return _doors.door_toggle(self.pos, nil, player)
+				return doors.door_toggle(self.pos, nil, player)
 			end,
 			close = function(self, player)
 				if not self:state() then
 					return false
 				end
-				return _doors.door_toggle(self.pos, nil, player)
+				return doors.door_toggle(self.pos, nil, player)
 			end,
 			toggle = function(self, player)
-				return _doors.door_toggle(self.pos, nil, player)
+				return doors.door_toggle(self.pos, nil, player)
 			end,
 			state = function(self)
 				local state = minetest.get_meta(self.pos):get_int("state")
 				return state %2 == 1
 			end
 		}
-	elseif _doors.registered_trapdoors[node_name] then
+	elseif doors.registered_trapdoors[node_name] then
 		-- A trapdoor
 		return {
 			pos = pos,
@@ -50,16 +49,16 @@ function doors.get(pos)
 				if self:state() then
 					return false
 				end
-				return _doors.trapdoor_toggle(self.pos, nil, player)
+				return doors.trapdoor_toggle(self.pos, nil, player)
 			end,
 			close = function(self, player)
 				if not self:state() then
 					return false
 				end
-				return _doors.trapdoor_toggle(self.pos, nil, player)
+				return doors.trapdoor_toggle(self.pos, nil, player)
 			end,
 			toggle = function(self, player)
-				return _doors.trapdoor_toggle(self.pos, nil, player)
+				return doors.trapdoor_toggle(self.pos, nil, player)
 			end,
 			state = function(self)
 				return minetest.get_node(self.pos).name:sub(-5) == "_open"
@@ -130,7 +129,7 @@ local transform = {
 	},
 }
 
-function _doors.door_toggle(pos, node, clicker)
+function doors.door_toggle(pos, node, clicker)
 	local meta = minetest.get_meta(pos)
 	node = node or minetest.get_node(pos)
 	local def = minetest.registered_nodes[node.name]
@@ -365,10 +364,11 @@ function doors.register(name, def)
 		name = name,
 		sounds = { def.sound_close, def.sound_open },
 	}
-
-	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		_doors.door_toggle(pos, node, clicker)
-		return itemstack
+	if not def.on_rightclick then
+		def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+			doors.door_toggle(pos, node, clicker)
+			return itemstack
+		end
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
@@ -436,8 +436,8 @@ function doors.register(name, def)
 	def.mesh = "door_b.obj"
 	minetest.register_node(":" .. name .. "_b", def)
 
-	_doors.registered_doors[name .. "_a"] = true
-	_doors.registered_doors[name .. "_b"] = true
+	doors.registered_doors[name .. "_a"] = true
+	doors.registered_doors[name .. "_b"] = true
 end
 
 doors.register("door_wood", {
@@ -524,7 +524,7 @@ end
 
 ----trapdoor----
 
-function _doors.trapdoor_toggle(pos, node, clicker)
+function doors.trapdoor_toggle(pos, node, clicker)
 	node = node or minetest.get_node(pos)
 
 	replace_old_owner_information(pos)
@@ -557,7 +557,7 @@ function doors.register_trapdoor(name, def)
 	local name_opened = name.."_open"
 
 	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		_doors.trapdoor_toggle(pos, node, clicker)
+		doors.trapdoor_toggle(pos, node, clicker)
 		return itemstack
 	end
 
@@ -660,8 +660,8 @@ function doors.register_trapdoor(name, def)
 	minetest.register_node(name_opened, def_opened)
 	minetest.register_node(name_closed, def_closed)
 
-	_doors.registered_trapdoors[name_opened] = true
-	_doors.registered_trapdoors[name_closed] = true
+	doors.registered_trapdoors[name_opened] = true
+	doors.registered_trapdoors[name_closed] = true
 end
 
 doors.register_trapdoor("doors:trapdoor", {
