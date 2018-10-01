@@ -1642,13 +1642,7 @@ minetest.register_node("default:blueberry_bush_leaves_with_berries", {
 	tiles = {"default_blueberry_bush_leaves.png^default_blueberry_overlay.png"},
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1, dig_immediate = 3},
-	drop = {
-		max_items = 1,
-		items = {
-			{items = {"default:blueberry_bush_sapling"}, rarity = 5},
-			{items = {"default:blueberries"}}
-		}
-	},
+	drop = "default:blueberries",
 	sounds = default.node_sound_leaves_defaults(),
 	node_dig_prediction = "default:blueberry_bush_leaves",
 
@@ -1665,6 +1659,13 @@ minetest.register_node("default:blueberry_bush_leaves", {
 	tiles = {"default_blueberry_bush_leaves.png"},
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:blueberry_bush_sapling"}, rarity = 5},
+			{items = {"default:blueberry_bush_leaves"}}
+		}
+	},
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_timer = function(pos, elapsed)
