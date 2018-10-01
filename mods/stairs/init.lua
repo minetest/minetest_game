@@ -804,3 +804,20 @@ stairs.register_stair_and_slab(
 	"Snow Block Slab",
 	default.node_sound_snow_defaults()
 )
+stairs.register_slab(
+	"glass",
+	"default:glass",
+	{cracky = 3, oddly_breakable_by_hand = 3},
+	{"default_glass.png", "default_glass.png", "default_glass_slab.png"},
+	"Glass Slab",
+	default.node_sound_glass_defaults()
+)
+
+stairs.register_slab(
+	"obsidian_glass",
+	"default:obsidian_glass",
+	{cracky = 3},
+	{"default_obsidian_glass.png", "default_obsidian_glass.png", "default_obsidian_glass_slab.png"},
+	"Obsidian Glass Slab",
+	default.node_sound_glass_defaults()
+)
