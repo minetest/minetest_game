@@ -804,6 +804,7 @@ stairs.register_stair_and_slab(
 	"Snow Block Slab",
 	default.node_sound_snow_defaults()
 )
+
 stairs.register_stair_and_slab(
 	"glass",
 	"default:glass",
