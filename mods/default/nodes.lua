@@ -165,10 +165,10 @@ default:acacia_bush_sapling
 default:pine_bush_stem
 default:pine_bush_needles
 default:pine_bush_sapling
-default:huckleberry_bush_stem
-default:huckleberry_bush_leaves_with_berries
-default:huckleberry_bush_leaves
-default:huckleberry_bush_sapling
+default:blueberry_bush_stem
+default:blueberry_bush_leaves_with_berries
+default:blueberry_bush_leaves
+default:blueberry_bush_sapling
 
 default:sand_with_kelp
 
@@ -1618,13 +1618,13 @@ minetest.register_node("default:bush_sapling", {
 	end,
 })
 
-minetest.register_node("default:huckleberry_bush_stem", {
-	description = "Huckleberry Bush Stem",
+minetest.register_node("default:blueberry_bush_stem", {
+	description = "Blueberry Bush Stem",
 	drawtype = "plantlike",
 	visual_scale = 1.41,
-	tiles = {"default_huckleberry_bush_stem.png"},
-	inventory_image = "default_huckleberry_bush_stem.png",
-	wield_image = "default_huckleberry_bush_stem.png",
+	tiles = {"default_blueberry_bush_stem.png"},
+	inventory_image = "default_blueberry_bush_stem.png",
+	wield_image = "default_blueberry_bush_stem.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
@@ -1635,44 +1635,44 @@ minetest.register_node("default:huckleberry_bush_stem", {
 	},
 })
 
-minetest.register_node("default:huckleberry_bush_leaves_with_berries", {
-	description = "Huckleberry Bush Leaves with Berries",
+minetest.register_node("default:blueberry_bush_leaves_with_berries", {
+	description = "Blueberry Bush Leaves with Berries",
 	drawtype = "allfaces_optional",
 	waving = 1,
-	tiles = {"default_huckleberry_bush_leaves_with_berries.png"},
+	tiles = {"default_blueberry_bush_leaves.png^default_blueberry_overlay.png"},
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1, dig_immediate = 3},
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {"default:huckleberry_bush_sapling"}, rarity = 5},
-			{items = {"default:huckleberries"}}
+			{items = {"default:blueberry_bush_sapling"}, rarity = 5},
+			{items = {"default:blueberries"}}
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
-	node_dig_prediction = "default:huckleberry_bush_leaves",
+	node_dig_prediction = "default:blueberry_bush_leaves",
 
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
-		minetest.set_node(pos, {name = "default:huckleberry_bush_leaves"})
+		minetest.set_node(pos, {name = "default:blueberry_bush_leaves"})
 		minetest.get_node_timer(pos):start(math.random(300, 1500))
 	end,
 })
 
-minetest.register_node("default:huckleberry_bush_leaves", {
-	description = "Huckleberry Bush Leaves",
+minetest.register_node("default:blueberry_bush_leaves", {
+	description = "Blueberry Bush Leaves",
 	drawtype = "allfaces_optional",
 	waving = 1,
-	tiles = {"default_huckleberry_bush_leaves.png"},
+	tiles = {"default_blueberry_bush_leaves.png"},
 	paramtype = "light",
 	groups = {snappy = 3, flammable = 2, leaves = 1},
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_timer = function(pos, elapsed)
-		if minetest.find_node_near(pos, 1, "default:huckleberry_bush_stem") then
+		if minetest.find_node_near(pos, 1, "default:blueberry_bush_stem") then
 			if minetest.get_node_light(pos) < 11 then
 				minetest.get_node_timer(pos):start(200)
 			else
-				minetest.set_node(pos, {name = "default:huckleberry_bush_leaves_with_berries"})
+				minetest.set_node(pos, {name = "default:blueberry_bush_leaves_with_berries"})
 			end
 		end
 	end,
@@ -1680,12 +1680,12 @@ minetest.register_node("default:huckleberry_bush_leaves", {
 	after_place_node = default.after_place_leaves,
 })
 
-minetest.register_node("default:huckleberry_bush_sapling", {
-	description = "Huckleberry Bush Sapling",
+minetest.register_node("default:blueberry_bush_sapling", {
+	description = "Blueberry Bush Sapling",
 	drawtype = "plantlike",
-	tiles = {"default_huckleberry_bush_sapling.png"},
-	inventory_image = "default_huckleberry_bush_sapling.png",
-	wield_image = "default_huckleberry_bush_sapling.png",
+	tiles = {"default_blueberry_bush_sapling.png"},
+	inventory_image = "default_blueberry_bush_sapling.png",
+	wield_image = "default_blueberry_bush_sapling.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -1704,7 +1704,7 @@ minetest.register_node("default:huckleberry_bush_sapling", {
 
 	on_place = function(itemstack, placer, pointed_thing)
 		itemstack = default.sapling_on_place(itemstack, placer, pointed_thing,
-			"default:huckleberry_bush_sapling",
+			"default:blueberry_bush_sapling",
 			-- minp, maxp to be checked, relative to sapling pos
 			{x = -1, y = 0, z = -1},
 			{x = 1, y = 1, z = 1},

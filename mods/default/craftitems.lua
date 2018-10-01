@@ -342,8 +342,8 @@ minetest.register_craftitem("default:flint", {
 	inventory_image = "default_flint.png"
 })
 
-minetest.register_craftitem("default:huckleberries", {
-	description = "Huckleberries",
-	inventory_image = "default_huckleberries.png",
+minetest.register_craftitem("default:blueberries", {
+	description = "Blueberries",
+	inventory_image = "default_blueberries.png",
 	on_use = minetest.item_eat(2),
 })

@@ -1964,10 +1964,10 @@ function default.register_decorations()
 		flags = "place_center_x, place_center_z",
 	})
 
-	-- Huckleberry bush
+	-- Blueberry bush
 
 	minetest.register_decoration({
-		name = "default:huckberry_bush",
+		name = "default:blueberry_bush",
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
 		sidelen = 16,
@@ -1983,7 +1983,7 @@ function default.register_decorations()
 		y_max = 31000,
 		y_min = 1,
 		place_offset_y = 1,
-		schematic = minetest.get_modpath("default") .. "/schematics/huckleberry_bush.mts",
+		schematic = minetest.get_modpath("default") .. "/schematics/blueberry_bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
 
