@@ -121,7 +121,9 @@ function beds.register_bed(name, def)
 				minetest.record_protection_violation(p, user:get_player_name())
 				return false
 			end
-			if new_param2 % 32 > 3 then return false end
+			if new_param2 % 32 > 3 then
+				return false
+			end
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
 			local node3 = minetest.get_node_or_nil(newp)
 			local node_def = node3 and minetest.registered_nodes[node3.name]
