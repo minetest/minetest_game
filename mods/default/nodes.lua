@@ -165,7 +165,6 @@ default:acacia_bush_sapling
 default:pine_bush_stem
 default:pine_bush_needles
 default:pine_bush_sapling
-default:blueberry_bush_stem
 default:blueberry_bush_leaves_with_berries
 default:blueberry_bush_leaves
 default:blueberry_bush_sapling
@@ -1618,23 +1617,6 @@ minetest.register_node("default:bush_sapling", {
 	end,
 })
 
-minetest.register_node("default:blueberry_bush_stem", {
-	description = "Blueberry Bush Stem",
-	drawtype = "plantlike",
-	visual_scale = 1.41,
-	tiles = {"default_blueberry_bush_stem.png"},
-	inventory_image = "default_blueberry_bush_stem.png",
-	wield_image = "default_blueberry_bush_stem.png",
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
-	sounds = default.node_sound_wood_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
-	},
-})
-
 minetest.register_node("default:blueberry_bush_leaves_with_berries", {
 	description = "Blueberry Bush Leaves with Berries",
 	drawtype = "allfaces_optional",
@@ -1669,7 +1651,10 @@ minetest.register_node("default:blueberry_bush_leaves", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_timer = function(pos, elapsed)
-		if minetest.find_node_near(pos, 1, "default:blueberry_bush_stem") then
+		local nodes = minetest.find_nodes_in_area(vector.add(pos, {x = -1, y = -1, z = -1}),
+			vector.add(pos, {x = 1, y = -1, z = 1}),
+			{"default:dirt_with_grass", "default:dirt_with_snow"})[1]
+		if nodes then
 			if minetest.get_node_light(pos) < 11 then
 				minetest.get_node_timer(pos):start(200)
 			else
