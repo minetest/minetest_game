@@ -15,5 +15,5 @@ Textures
 --------
 
 TumeniNodes (CC BY-SA 3.0):
-  default_glass_slab -- Derived from a texture by celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
-  default_obsidian_glass_slab -- Derived from a texture by PilzAdam (CC BY-SA 3.0)
+  default_glass_split -- Derived from a texture by celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
+  default_obsidian_glass_split -- Derived from a texture by PilzAdam (CC BY-SA 3.0)

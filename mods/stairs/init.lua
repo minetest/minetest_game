@@ -860,18 +860,20 @@ stairs.register_stair_and_slab(
 	"glass",
 	"default:glass",
 	{cracky = 3, oddly_breakable_by_hand = 3},
-	{"default_glass.png", "default_glass.png", "stairs_glass_slab.png"},
+	{"default_glass.png", "default_glass.png", "stairs_glass_split.png"},
 	"Glass Stair",
 	"Glass Slab",
-	default.node_sound_glass_defaults()
+	default.node_sound_glass_defaults(),
+	false
 )
 
 stairs.register_stair_and_slab(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_slab.png"},
+	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
 	"Obsidian Glass Stair",
 	"Obsidian Glass Slab",
-	default.node_sound_glass_defaults()
+	default.node_sound_glass_defaults(),
+	false
 )
