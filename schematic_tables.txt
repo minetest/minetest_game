@@ -9,7 +9,7 @@ The following tables are for pasting into mods that contain a function to
 convert the Lua tables into .mts files. Such mods often have two functions to
 process two formats of the 'data' table:
 
-The standard table format is described in the 'Schematic specifier' section of 
+The standard table format is described in the 'Schematic specifier' section of
 the lua_api.txt file in the Minetest Engine.
 The 'data' table appears as a sequence of vertical slices through the structure
 the schematic describes.
@@ -2141,6 +2141,24 @@ mts_save("bush", {
 
 		_, _, _,
 		M, L, M,
+		N, M, N,
+	},
+})
+
+
+-- Blueberry bush
+
+local L = {name = "default:blueberry_bush_leaves_with_berries", prob = 255, force_place = true}
+local M = {name = "default:blueberry_bush_leaves_with_berries", prob = 223}
+local N = {name = "default:blueberry_bush_leaves_with_berries", prob = 95}
+
+mts_save("blueberry_bush", {
+	size = {x = 3, y = 1, z = 3},
+	data = {
+		N, M, N,
+
+		M, L, M,
+
 		N, M, N,
 	},
 })
