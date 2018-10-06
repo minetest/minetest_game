@@ -884,7 +884,7 @@ stairs.register_slab(
 	"default:obsidian_glass",
 	{cracky = 3},
 	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
-	"Obsidian Glass Stair",
+	"Obsidian Glass Slab",
 	default.node_sound_glass_defaults(),
 	false
 )

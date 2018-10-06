@@ -14,6 +14,11 @@ Authors of media (textures)
 Textures
 --------
 
-TumeniNodes (CC BY-SA 3.0):
+Copyright (c) 2017 Shara RedCat (CC BY-SA 3.0)
+ stairs_obsidian_glass_outer_stairside.png
+ stairs_obsidian_glass_stairside.png
+
+
+Copyright (c) 2018 TumeniNodes (CC BY-SA 3.0):
   default_glass_split -- Derived from a texture by celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
   default_obsidian_glass_split -- Derived from a texture by PilzAdam (CC BY-SA 3.0)
