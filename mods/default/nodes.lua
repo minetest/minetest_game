@@ -1651,15 +1651,10 @@ minetest.register_node("default:blueberry_bush_leaves", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_timer = function(pos, elapsed)
-		local nodes = minetest.find_nodes_in_area(vector.add(pos, {x = -1, y = -1, z = -1}),
-			vector.add(pos, {x = 1, y = -1, z = 1}),
-			{"default:dirt_with_grass", "default:dirt_with_snow"})[1]
-		if nodes then
-			if minetest.get_node_light(pos) < 11 then
-				minetest.get_node_timer(pos):start(200)
-			else
-				minetest.set_node(pos, {name = "default:blueberry_bush_leaves_with_berries"})
-			end
+		if minetest.get_node_light(pos) < 11 then
+			minetest.get_node_timer(pos):start(200)
+		else
+			minetest.set_node(pos, {name = "default:blueberry_bush_leaves_with_berries"})
 		end
 	end,
 
