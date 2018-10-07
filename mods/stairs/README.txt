@@ -14,9 +14,9 @@ Authors of media (textures)
 Textures
 --------
 
-Copyright (c) 2017 Shara RedCat (CC BY-SA 3.0)
- stairs_obsidian_glass_outer_stairside.png
- stairs_obsidian_glass_stairside.png
+Copyright (c) 2018 Shara RedCat (CC BY-SA 3.0)
+ stairs_obsidian_glass_outer_stairside.png -- Derived from a texture by PilzAdam (CC BY-SA 3.0)
+ stairs_obsidian_glass_stairside.png -- Derived from a texture by PilzAdam (CC BY-SA 3.0)
 
 
 Copyright (c) 2018 TumeniNodes (CC BY-SA 3.0):

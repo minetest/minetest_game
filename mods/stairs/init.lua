@@ -877,7 +877,7 @@ stairs.register_stair(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"stairs_obsidian_glass_split.png", "default_obsidian_glass.png", 
+	{"stairs_obsidian_glass_split.png", "default_obsidian_glass.png",
         "stairs_obsidian_glass_stairside.png^[transformFX", "stairs_obsidian_glass_stairside.png",
         "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
 	"Obsidian Glass Stair",
