@@ -862,7 +862,7 @@ stairs.register_stair_and_slab(
 	true
 )
 
-	--glass stair nodes need to be registered individually to utilize specialized textures.
+-- Glass stair nodes need to be registered individually to utilize specialized textures.
 
 stairs.register_stair(
 	"glass",
