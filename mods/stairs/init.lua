@@ -211,6 +211,12 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 							player_name)
 						return
 					end
+					-- If paramtype2 of cubic version is not 'facedir' set its
+					-- param2 to 0 to avoid bugs such as liquid in connected
+					-- framed glass.
+					if minetest.registered_nodes[recipeitem].paramtype2 ~= "facedir" then
+						p2 = 0
+					end
 					minetest.set_node(pointed_thing.under, {name = recipeitem, param2 = p2})
 					if not creative_enabled then
 						itemstack:take_item()
@@ -854,4 +860,98 @@ stairs.register_stair_and_slab(
 	"Snow Block Slab",
 	default.node_sound_snow_defaults(),
 	true
+)
+
+-- Glass stair nodes need to be registered individually to utilize specialized textures.
+
+stairs.register_stair(
+	"glass",
+	"default:glass",
+	{cracky = 3},
+	{"stairs_glass_split.png", "default_glass.png",
+	"stairs_glass_stairside.png^[transformFX", "stairs_glass_stairside.png",
+	"default_glass.png", "stairs_glass_split.png"},
+	"Glass Stair",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"glass",
+	"default:glass",
+	{cracky = 3},
+	{"default_glass.png", "default_glass.png", "stairs_glass_split.png"},
+	"Glass Slab",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_stair_inner(
+	"glass",
+	"default:glass",
+	{cracky = 3},
+	{"stairs_glass_stairside.png^[transformR270", "default_glass.png",
+	"stairs_glass_stairside.png^[transformFX", "default_glass.png",
+	"default_glass.png", "stairs_glass_stairside.png"},
+	"Glass Inner Stair",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_stair_outer(
+	"glass",
+	"default:glass",
+	{cracky = 3},
+	{"stairs_glass_stairside.png^[transformR90", "default_glass.png",
+	"stairs_glass_outer_stairside.png", "stairs_glass_stairside.png",
+	"stairs_glass_stairside.png^[transformR90","stairs_glass_outer_stairside.png"},
+	"Glass Outer Stair",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_stair(
+	"obsidian_glass",
+	"default:obsidian_glass",
+	{cracky = 3},
+	{"stairs_obsidian_glass_split.png", "default_obsidian_glass.png",
+	"stairs_obsidian_glass_stairside.png^[transformFX", "stairs_obsidian_glass_stairside.png",
+	"default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
+	"Obsidian Glass Stair",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"obsidian_glass",
+	"default:obsidian_glass",
+	{cracky = 3},
+	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
+	"Obsidian Glass Slab",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_stair_inner(
+	"obsidian_glass",
+	"default:obsidian_glass",
+	{cracky = 3},
+	{"stairs_obsidian_glass_stairside.png^[transformR270", "default_obsidian_glass.png",
+	"stairs_obsidian_glass_stairside.png^[transformFX", "default_obsidian_glass.png",
+	"default_obsidian_glass.png", "stairs_obsidian_glass_stairside.png"},
+	"Obsidian Glass Inner Stair",
+	default.node_sound_glass_defaults(),
+	false
+)
+
+stairs.register_stair_outer(
+	"obsidian_glass",
+	"default:obsidian_glass",
+	{cracky = 3},
+	{"stairs_obsidian_glass_stairside.png^[transformR90", "default_obsidian_glass.png",
+	"stairs_obsidian_glass_outer_stairside.png", "stairs_obsidian_glass_stairside.png",
+	"stairs_obsidian_glass_stairside.png^[transformR90","stairs_obsidian_glass_outer_stairside.png"},
+	"Obsidian Glass Outer Stair",
+	default.node_sound_glass_defaults(),
+	false
 )
