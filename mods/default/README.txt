@@ -230,6 +230,10 @@ Mossmanikin (CC BY-SA 3.0):
   default_fern_*.png
 
 random-geek (CC BY-SA 3.0):
+  default_blueberries.png
+  default_blueberry_overlay.png
+  default_blueberry_bush_leaves.png, derived from default_bush_leaves (by paramat)
+  default_blueberry_bush_sapling.png
   default_dirt.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
 
 
@@ -359,3 +363,6 @@ sofar (CC BY-SA 3.0):
 
 TumeniNodes (CC BY-SA 3.0):
   pine_bush.mts
+
+random-geek (CC BY-SA 3.0):
+  blueberry_bush.mts
