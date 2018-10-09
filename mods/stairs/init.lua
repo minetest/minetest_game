@@ -198,7 +198,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 
 				local p2 = under.param2
 
-				-- combine two slabs if possible
+--[[				-- combine two slabs if possible
 				if slab_trans_dir[math.floor(p2 / 4)] == dir
 						and wield_item == under.name then
 
@@ -222,7 +222,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 						itemstack:take_item()
 					end
 					return itemstack
-				end
+				end]]--
 
 				-- Placing a slab on an upside down slab should make it right-side up.
 				if p2 >= 20 and dir == 8 then
