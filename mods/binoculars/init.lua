@@ -59,6 +59,15 @@ minetest.register_craftitem("binoculars:binoculars", {
 	stack_max = 1,
 
 	on_use = function(itemstack, user, pointed_thing)
+		if pointed_thing then
+			local node = minetest.get_node(pointed_thing.under)
+			local def = minetest.registered_nodes[node.name]
+			if def and def.on_rightclick then
+				return def.on_rightclick(pointed_thing.under, node, user,
+					itemstack)
+			end
+		end
+
 		binoculars.update_player_property(user)
 	end,
 })

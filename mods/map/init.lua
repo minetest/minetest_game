@@ -55,6 +55,15 @@ minetest.register_craftitem("map:mapping_kit", {
 	groups = {flammable = 3},
 
 	on_use = function(itemstack, user, pointed_thing)
+		if pointed_thing then
+			local node = minetest.get_node(pointed_thing.under)
+			local def = minetest.registered_nodes[node.name]
+			if def and def.on_rightclick then
+				return def.on_rightclick(pointed_thing.under, node, user,
+					itemstack)
+			end
+		end
+
 		map.update_hud_flags(user)
 	end,
 })
