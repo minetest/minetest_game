@@ -868,6 +868,17 @@ minetest.register_craft({
 	cooktime = 5,
 })
 
+minetest.register_craft({
+	type = "cooking",
+	recipe = "default:coral_brown",
+	output = "default:coral_skeleton",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	recipe = "default:coral_orange",
+	output = "default:coral_skeleton",
+})
 
 --
 -- Fuels
