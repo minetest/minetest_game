@@ -1944,6 +1944,7 @@ minetest.register_node("default:water_source", {
 	tiles = {
 		{
 			name = "default_water_source_animated.png",
+			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1951,18 +1952,15 @@ minetest.register_node("default:water_source", {
 				length = 2.0,
 			},
 		},
-	},
-	special_tiles = {
-		-- New-style water source material (mostly unused)
 		{
 			name = "default_water_source_animated.png",
+			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
 				length = 2.0,
 			},
-			backface_culling = false,
 		},
 	},
 	alpha = 160,
@@ -2036,6 +2034,7 @@ minetest.register_node("default:river_water_source", {
 	tiles = {
 		{
 			name = "default_river_water_source_animated.png",
+			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -2043,17 +2042,15 @@ minetest.register_node("default:river_water_source", {
 				length = 2.0,
 			},
 		},
-	},
-	special_tiles = {
 		{
 			name = "default_river_water_source_animated.png",
+			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
 				length = 2.0,
 			},
-			backface_culling = false,
 		},
 	},
 	alpha = 160,
@@ -2135,6 +2132,7 @@ minetest.register_node("default:lava_source", {
 	tiles = {
 		{
 			name = "default_lava_source_animated.png",
+			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -2142,18 +2140,15 @@ minetest.register_node("default:lava_source", {
 				length = 3.0,
 			},
 		},
-	},
-	special_tiles = {
-		-- New-style lava source material (mostly unused)
 		{
 			name = "default_lava_source_animated.png",
+			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
 				length = 3.0,
 			},
-			backface_culling = false,
 		},
 	},
 	paramtype = "light",
