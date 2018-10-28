@@ -11,6 +11,9 @@ Authors of media (textures)
 ---------------------------
 BlockMen (CC BY-SA 3.0)
 
+TumeniNodes (CC BY-SA 3.0)
+ beds_bed_under.png
+
 This mod adds a bed to Minetest which allows to skip the night.
 To sleep, rightclick the bed. If playing in singleplayer mode the night gets skipped
 immediately. If playing multiplayer you get shown how many other players are in bed too,
