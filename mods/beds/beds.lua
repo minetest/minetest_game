@@ -15,7 +15,7 @@ beds.register_bed("beds:fancy_bed", {
 		},
 		top = {
 			"beds_bed_top2.png",
-			"beds_bed_under.png^[transformT2",
+			"beds_bed_under.png",
 			"beds_bed_side2.png",
 			"beds_bed_side2.png^[transformFX",
 			"beds_bed_head.png",
