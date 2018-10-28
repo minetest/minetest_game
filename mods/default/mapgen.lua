@@ -2167,11 +2167,13 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		name = "default:corals",
-		deco_type = "schematic",
+		deco_type = "simple",
 		place_on = {"default:sand"},
+		place_offset_y = -1,
+		sidelen = 4,
 		noise_params = {
-			offset = -0.15,
-			scale = 0.1,
+			offset = -6,
+			scale = 4,
 			spread = {x = 100, y = 100, z = 100},
 			seed = 7013,
 			octaves = 3,
@@ -2184,9 +2186,12 @@ function default.register_decorations()
 		},
 		y_max = -2,
 		y_min = -8,
-		schematic = minetest.get_modpath("default") .. "/schematics/corals.mts",
-		flags = "place_center_x, place_center_z",
-		rotation = "random",
+		flags = "force_placement",
+		decoration = {
+			"default:coral_green", "default:coral_pink",
+			"default:coral_cyan", "default:coral_brown",
+			"default:coral_orange", "default:coral_skeleton",
+		},
 	})
 
 	-- Kelp
