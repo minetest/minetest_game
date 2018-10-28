@@ -7,19 +7,19 @@ beds.register_bed("beds:fancy_bed", {
 	tiles = {
 		bottom = {
 			"beds_bed_top1.png",
-			"default_wood.png",
+			"beds_bed_under.png",
 			"beds_bed_side1.png",
 			"beds_bed_side1.png^[transformFX",
-			"default_wood.png",
+			"beds_bed_foot.png",
 			"beds_bed_foot.png",
 		},
 		top = {
 			"beds_bed_top2.png",
-			"default_wood.png",
+			"beds_bed_under.png^[transformT2",
 			"beds_bed_side2.png",
 			"beds_bed_side2.png^[transformFX",
 			"beds_bed_head.png",
-			"default_wood.png",
+			"beds_bed_head.png",
 		}
 	},
 	nodebox = {
