@@ -58,7 +58,7 @@ beds.register_bed("beds:bed", {
 	tiles = {
 		bottom = {
 			"beds_bed_top_bottom.png^[transformR90",
-			"default_wood.png",
+			"beds_bed_under.png",
 			"beds_bed_side_bottom_r.png",
 			"beds_bed_side_bottom_r.png^[transformfx",
 			"beds_transparent.png",
@@ -66,7 +66,7 @@ beds.register_bed("beds:bed", {
 		},
 		top = {
 			"beds_bed_top_top.png^[transformR90",
-			"default_wood.png",
+			"beds_bed_under.png",
 			"beds_bed_side_top_r.png",
 			"beds_bed_side_top_r.png^[transformfx",
 			"beds_bed_side_top.png",
