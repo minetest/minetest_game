@@ -1015,3 +1015,24 @@ for the wielded skeleton key.
 
 if `nil` is returned, it is assumed that the wielder did not have
 permissions to create a key for this node, and no key is created.
+
+
+Spawn API
+---------
+
+Searches for a suitable player spawn position: at ground level, above water
+level, and in one of the specified biomes (if provided).
+Searches a square area starting at the centre and progressing outwards.
+Can be used to calculate a suitable teleport destination in ungenerated world.
+
+`spawn.search(pos, radius, spacing, biome_ids)`
+
+ * Returns a spawn position, or `false` on search failure.
+ * `pos` Starting position for search, for example `{x = 0, y = 8, z = 0}`.
+   This sets the y co-ordinate for all positions checked, so any specified
+   biomes must be active at this y.
+ * `radius` Radius of search area. Defaults to 4096.
+ * `spacing` Spacing of checked positions, in nodes. Defaults to 64.
+ * `biome_ids` Table of biome ids.
+   Returned spawn position will be in one of these biomes.
+   If missing or nil, returned spawn position will be in any biome.
