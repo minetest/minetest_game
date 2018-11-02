@@ -48,7 +48,6 @@ Calinou (CC BY-SA 3.0):
   default_brick.png
   default_papyrus.png
   default_mineral_copper.png
-  default_glass_detail.png
 
 PilzAdam (CC BY-SA 3.0):
   default_jungleleaves.png
@@ -235,6 +234,10 @@ random-geek (CC BY-SA 3.0):
   default_blueberry_bush_leaves.png, derived from default_bush_leaves (by paramat)
   default_blueberry_bush_sapling.png
   default_dirt.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
+
+Krock (CC0 1.0):
+  default_glass.png
+  default_glass_detail.png
 
 
 Sounds
