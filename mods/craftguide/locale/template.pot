@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-23 18:35+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: init.lua
+msgid "Unknown Item (@1)"
+msgstr ""
+
+#: init.lua
+msgid "Any item belonging to the group(s)"
+msgstr ""
+
+#: init.lua
+msgid "Cooking time"
+msgstr ""
+
+#: init.lua
+msgid "Burning time"
+msgstr ""
+
+#: init.lua
+msgid "Alternate"
+msgstr ""
+
+#: init.lua
+msgid "Recipe @1 of @2"
+msgstr ""
+
+#: init.lua
+msgid ""
+"Recipe is too big to\n"
+"be displayed (@1x@2)"
+msgstr ""
+
+#: init.lua
+msgid "Search"
+msgstr ""
+
+#: init.lua
+msgid "Reset"
+msgstr ""
+
+#: init.lua
+msgid "Increase window size"
+msgstr ""
+
+#: init.lua
+msgid "Decrease window size"
+msgstr ""
+
+#: init.lua
+msgid "Previous page"
+msgstr ""
+
+#: init.lua
+msgid "Next page"
+msgstr ""
+
+#: init.lua
+msgid "No item to show"
+msgstr ""
+
+#: init.lua
+msgid "Crafting Guide"
+msgstr ""
+
+#: init.lua
+msgid "Crafting Guide Sign"
+msgstr ""
+
+#: init.lua
+msgid "Shows a list of available crafting recipes, cooking recipes and fuels"
+msgstr ""
