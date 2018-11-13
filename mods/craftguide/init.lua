@@ -17,7 +17,6 @@ craftguide.intllib = S
 -- https://github.com/kilbith/xdecor/blob/master/handlers/helpers.lua#L1
 local remove, maxn, sort = table.remove, table.maxn, table.sort
 local min, max, floor, ceil = math.min, math.max, math.floor, math.ceil
-local unpack = unpack
 
 local DEFAULT_SIZE = 10
 local MIN_LIMIT, MAX_LIMIT = 9, 12
@@ -60,8 +59,7 @@ local function extract_groups(str)
 end
 
 local function colorize(str)
-	-- If client <= 0.4.14, don't colorize for compatibility.
-	return mt.colorize and mt.colorize("#FFFF00", str) or str
+	return mt.colorize("#FFFF00", str)
 end
 
 local function get_fueltime(item)
@@ -162,14 +160,13 @@ function craftguide:get_recipe(iY, xoffset, recipe_num, recipes, show_usage)
 		end
 	end
 
-	local output = recipes[recipe_num].output
+	local output = recipes[recipe_num].output:match("%S+")
 	return formspec ..
 		"image[" .. (xoffset - 1) .. "," .. (iY + (sfinv_only and 2.85 or 2.35)) ..
 			";0.9,0.7;craftguide_arrow.png]" ..
 		"item_image_button[" .. (xoffset - 2) .. "," ..
 				(iY + (sfinv_only and 2.7 or 2.2)) .. ";1,1;" ..
-			output .. ";" .. output .. ";]" ..
-			self:get_tooltip(output:match("%S+"))
+			output .. ";" .. output .. ";]" .. self:get_tooltip(output)
 end
 
 function craftguide:get_formspec(player_name, is_fuel)
@@ -233,13 +230,16 @@ function craftguide:get_formspec(player_name, is_fuel)
 	if data.item and reg_items[data.item] then
 		if not data.recipes_item or (is_fuel and not get_recipe(data.item).items) then
 			formspec = formspec ..
-				"image[" .. (xoffset - 1) .. "," .. (iY + 2.35) ..
+				"image[" .. (xoffset - 1) .. "," ..
+					(iY + (sfinv_only and 2.85 or 2.35)) ..
 					";0.9,0.7;craftguide_arrow.png]" ..
-				"item_image_button[" .. xoffset .. "," .. (iY + 2.2) ..
+				"item_image_button[" .. xoffset .. "," ..
+					(iY + (sfinv_only and 2.7 or 2.2)) ..
 					";1,1;" .. data.item .. ";" .. data.item .. ";]" ..
 				self:get_tooltip(data.item) ..
 				"image[" .. (xoffset - 2) .. "," ..
-					(iY + 2.18) .. ";1,1;craftguide_fire.png]"
+					(iY + (sfinv_only and 2.68 or 2.18)) ..
+					";1,1;craftguide_fire.png]"
 		else
 			local show_usage = data.show_usage
 			formspec = formspec ..
@@ -407,25 +407,21 @@ function craftguide:get_item_usages(item)
 end
 
 local function get_fields(player, ...)
-	local args = {...}
-	local formname, fields
-
-	if #args == 1 then
-		formname = "craftguide"
+	local args, formname, fields = {...}
+	if sfinv_only then
 		fields = args[1]
 	else
-		formname, fields = unpack(args)
+		formname, fields = args[1], args[2]
 	end
 
-	if formname ~= "craftguide" then return end
+	if not sfinv_only and formname ~= "craftguide" then return end
 	local player_name = player:get_player_name()
 	local data = datas[player_name]
 
 	local show_fs = function(is_fuel)
-		local context = sfinv.get_or_create_context(player)
-		context.fuel = is_fuel
-
 		if sfinv_only then
+			local context = sfinv.get_or_create_context(player)
+			context.fuel = is_fuel
 			sfinv.set_player_inventory_formspec(player, context)
 		else
 			craftguide:get_formspec(player_name, is_fuel)
