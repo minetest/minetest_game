@@ -1,7 +1,6 @@
 -- our API object
 doors = {}
 
--- private data
 doors.registered_doors = {}
 doors.registered_trapdoors = {}
 
