@@ -1,7 +1,7 @@
 local craftguide, datas, mt = {}, {searches = {}}, minetest
 
 local progressive_mode = mt.settings:get_bool("craftguide_progressive_mode")
-local sfinv_only       = mt.settings:get_bool("craftguide_sfinv_only")
+local sfinv_only       = mt.settings:get_bool("craftguide_sfinv_only") or true
 
 local get_recipe, get_recipes = mt.get_craft_recipe, mt.get_all_craft_recipes
 local get_result, show_formspec = mt.get_craft_result, mt.show_formspec
