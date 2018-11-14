@@ -28,14 +28,15 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 				after_place_node = function(pos, placer, itemstack, pointed_thing)
 			local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
 			local pos_above = {x = pos.x, y = pos.y + 1, z = pos.z}
-			local node_under = string.gsub(minetest.get_node(pos_under).name, "_full$", "")
-			local node_above = string.gsub(minetest.get_node(pos_above).name, "_full$", "")
-
+			local node_under = minetest.get_node(pos_under).name
 			if minetest.get_item_group(node_under, "wall") == 1 then
-				minetest.set_node(pos_under, {name = node_under .. "_full"})
+					local node_under_can = string.gsub(node_under, "_full$", "")
+					minetest.set_node(pos_under, {name = node_under_can .. "_full"})
 			end
+
+			local node_above = minetest.get_node(pos_above).name
 			if minetest.get_item_group(node_above, "wall") == 1 then
-				minetest.set_node(pos, {name = wall_name .. "_full"})
+					minetest.set_node(pos, {name = wall_name .. "_full"})
 			end
 		end,
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
