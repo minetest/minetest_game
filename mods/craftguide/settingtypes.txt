@@ -1,4 +1,4 @@
 #For enabling some options of craftguide.
 
 craftguide_progressive_mode	(Progressive Mode)	bool false
-craftguide_sfinv_only		(Sfinv only)		bool false
+craftguide_sfinv_only		(Sfinv only)		bool true
