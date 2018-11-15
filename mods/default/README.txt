@@ -239,6 +239,11 @@ Krock (CC0 1.0):
   default_glass.png
   default_glass_detail.png
 
+Topywo (CC BY-SA 3.0)
+  default_coral_cyan.png
+  default_coral_green.png
+  default_coral_pink.png
+
 
 Sounds
 ------
