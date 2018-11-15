@@ -2172,12 +2172,12 @@ function default.register_decorations()
 		place_offset_y = -1,
 		sidelen = 4,
 		noise_params = {
-			offset = -6,
+			offset = -4,
 			scale = 4,
-			spread = {x = 100, y = 100, z = 100},
+			spread = {x = 50, y = 50, z = 50},
 			seed = 7013,
 			octaves = 3,
-			persist = 1,
+			persist = 0.7,
 		},
 		biomes = {
 			"desert_ocean",
