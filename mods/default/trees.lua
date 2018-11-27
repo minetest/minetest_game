@@ -20,6 +20,9 @@ function default.can_grow(pos)
 	if not light_level or light_level < 13 then
 		return false
 	end
+	if minetest.get_node(pos) == "default:cactus_seedling" and name_under == "group:sand" then
+		return true
+	end
 	return true
 end
 
@@ -39,7 +42,6 @@ function default.grow_sapling(pos)
 		minetest.get_node_timer(pos):start(300)
 		return
 	end
-
 	local mg_name = minetest.get_mapgen_setting("mg_name")
 	local node = minetest.get_node(pos)
 	if node.name == "default:sapling" then
@@ -97,6 +99,10 @@ function default.grow_sapling(pos)
 		minetest.log("action", "An emergent jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		default.grow_new_emergent_jungle_tree(pos)
+	elseif node.name == "default:cactus_seedling" then
+		minetest.log("action", "A cactus seedling grows into a large cactus at "..
+			minetest.pos_to_string(pos))
+		default.grow_large_cactus(pos)
 	end
 end
 
@@ -509,6 +515,16 @@ function default.grow_pine_bush(pos)
 		path, "0", nil, false)
 end
 
+
+-- Cactus large
+
+function default.grow_large_cactus(pos)
+	local path
+	path = minetest.get_modpath("default") ..
+		"/schematics/large_cactus.mts"
+	minetest.place_schematic({x = pos.x - 2, y = pos.y, z = pos.z},
+		path, "0", {["default:cactus_seedling"] = "default:cactus"}, false)
+end
 
 --
 -- Sapling 'on place' function to check protection of node and resulting tree volume
