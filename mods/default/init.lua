@@ -5,7 +5,7 @@
 
 -- Definitions made by this mod that other mods can use too
 default = {}
-
+default.CACTUS_GROW_TIME = 12
 default.LIGHT_MAX = 14
 
 -- GUI related stuff
