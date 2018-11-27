@@ -237,7 +237,7 @@ minetest.register_abm({
 	label = "Grow cactus",
 	nodenames = {"default:cactus"},
 	neighbors = {"group:sand"},
-	interval = 12,
+	interval = default.CACTUS_GROW_TIME,
 	chance = 83,
 	action = function(...)
 		default.grow_cactus(...)
