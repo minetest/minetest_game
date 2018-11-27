@@ -132,6 +132,7 @@ Plantlife
 ---------
 
 default:cactus
+default:cactus_seedling
 default:papyrus
 default:dry_shrub
 default:junglegrass
@@ -1276,6 +1277,46 @@ minetest.register_node("default:cactus", {
 	on_place = minetest.rotate_node,
 })
 
+minetest.register_node("default:cactus_seedling", {
+	description = "Cactus Seedling",
+	drawtype = "plantlike",
+	tiles = {"default_cactus_seedling.png"},
+	inventory_image = "default_cactus_seedling.png",
+	wield_image = "default_cactus_seedling.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	on_timer = default.grow_sapling,
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
+	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
+	sounds = default.node_sound_leaves_defaults(),
+
+	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(
+			math.random(
+				default.CACTUS_GROW_TIME-1*11,--It has a chance of growing faster than normal cactus growth method
+				default.CACTUS_GROW_TIME+3*11--But more common to take longer
+			)
+		)
+	end,
+
+	on_place = function(itemstack, placer, pointed_thing)
+		itemstack = default.sapling_on_place(itemstack, placer, pointed_thing,
+			"default:cactus_seedling",
+			-- minp, maxp to be checked, relative to sapling pos
+			{x = -1, y = 0, z = -1},
+			{x = 1, y = 1, z = 1},
+			-- maximum interval of interior volume check
+			2)
+
+		return itemstack
+	end,
+})
+
 minetest.register_node("default:papyrus", {
 	description = "Papyrus",
 	drawtype = "plantlike",
@@ -1910,159 +1951,6 @@ minetest.register_node("default:sand_with_kelp", {
 -- Corals
 --
 
-minetest.register_node("default:coral_green", {
-	description = "Green Coral",
-	drawtype = "plantlike_rooted",
-	waving = 1,
-	paramtype = "light",
-	tiles = {"default_coral_skeleton.png"},
-	special_tiles = {{name = "default_coral_green.png", tileable_vertical = true}},
-	inventory_image = "default_coral_green.png",
-	groups = {snappy = 3},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-				{-4/16, 0.5, -4/16, 4/16, 1.5, 4/16},
-		},
-	},
-	node_dig_prediction = "default:coral_skeleton",
-	node_placement_prediction = "",
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" or not placer then
-			return itemstack
-		end
-
-		local player_name = placer:get_player_name()
-		local pos_under = pointed_thing.under
-		local pos_above = pointed_thing.above
-
-		if minetest.get_node(pos_under).name ~= "default:coral_skeleton" or
-				minetest.get_node(pos_above).name ~= "default:water_source" then
-			return itemstack
-		end
-
-		if minetest.is_protected(pos_under, player_name) or
-				minetest.is_protected(pos_above, player_name) then
-			minetest.chat_send_player(player_name, "Node is protected")
-			minetest.record_protection_violation(pos_under, player_name)
-			return itemstack
-		end
-
-		minetest.set_node(pos_under, {name = "default:coral_green"})
-		if not (creative and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-
-		return itemstack
-	end,
-	after_destruct  = function(pos, oldnode)
-		minetest.set_node(pos, {name = "default:coral_skeleton"})
-	end,
-})
-
-minetest.register_node("default:coral_pink", {
-	description = "Pink Coral",
-	drawtype = "plantlike_rooted",
-	waving = 1,
-	paramtype = "light",
-	tiles = {"default_coral_skeleton.png"},
-	special_tiles = {{name = "default_coral_pink.png", tileable_vertical = true}},
-	inventory_image = "default_coral_pink.png",
-	groups = {snappy = 3},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-				{-4/16, 0.5, -4/16, 4/16, 1.5, 4/16},
-		},
-	},
-	node_dig_prediction = "default:coral_skeleton",
-	node_placement_prediction = "",
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" or not placer then
-			return itemstack
-		end
-
-		local player_name = placer:get_player_name()
-		local pos_under = pointed_thing.under
-		local pos_above = pointed_thing.above
-
-		if minetest.get_node(pos_under).name ~= "default:coral_skeleton" or
-				minetest.get_node(pos_above).name ~= "default:water_source" then
-			return itemstack
-		end
-
-		if minetest.is_protected(pos_under, player_name) or
-				minetest.is_protected(pos_above, player_name) then
-			minetest.chat_send_player(player_name, "Node is protected")
-			minetest.record_protection_violation(pos_under, player_name)
-			return itemstack
-		end
-
-		minetest.set_node(pos_under, {name = "default:coral_pink"})
-		if not (creative and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-
-		return itemstack
-	end,
-	after_destruct  = function(pos, oldnode)
-		minetest.set_node(pos, {name = "default:coral_skeleton"})
-	end,
-})
-
-minetest.register_node("default:coral_cyan", {
-	description = "Cyan Coral",
-	drawtype = "plantlike_rooted",
-	waving = 1,
-	paramtype = "light",
-	tiles = {"default_coral_skeleton.png"},
-	special_tiles = {{name = "default_coral_cyan.png", tileable_vertical = true}},
-	inventory_image = "default_coral_cyan.png",
-	groups = {snappy = 3},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-				{-4/16, 0.5, -4/16, 4/16, 1.5, 4/16},
-		},
-	},
-	node_dig_prediction = "default:coral_skeleton",
-	node_placement_prediction = "",
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" or not placer then
-			return itemstack
-		end
-
-		local player_name = placer:get_player_name()
-		local pos_under = pointed_thing.under
-		local pos_above = pointed_thing.above
-
-		if minetest.get_node(pos_under).name ~= "default:coral_skeleton" or
-				minetest.get_node(pos_above).name ~= "default:water_source" then
-			return itemstack
-		end
-
-		if minetest.is_protected(pos_under, player_name) or
-				minetest.is_protected(pos_above, player_name) then
-			minetest.chat_send_player(player_name, "Node is protected")
-			minetest.record_protection_violation(pos_under, player_name)
-			return itemstack
-		end
-
-		minetest.set_node(pos_under, {name = "default:coral_cyan"})
-		if not (creative and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-
-		return itemstack
-	end,
-	after_destruct  = function(pos, oldnode)
-		minetest.set_node(pos, {name = "default:coral_skeleton"})
-	end,
-})
-
 minetest.register_node("default:coral_brown", {
 	description = "Brown Coral",
 	tiles = {"default_coral_brown.png"},
@@ -2097,7 +1985,6 @@ minetest.register_node("default:water_source", {
 	tiles = {
 		{
 			name = "default_water_source_animated.png",
-			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -2105,15 +1992,18 @@ minetest.register_node("default:water_source", {
 				length = 2.0,
 			},
 		},
+	},
+	special_tiles = {
+		-- New-style water source material (mostly unused)
 		{
 			name = "default_water_source_animated.png",
-			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
 				length = 2.0,
 			},
+			backface_culling = false,
 		},
 	},
 	alpha = 160,
@@ -2187,7 +2077,6 @@ minetest.register_node("default:river_water_source", {
 	tiles = {
 		{
 			name = "default_river_water_source_animated.png",
-			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -2195,15 +2084,17 @@ minetest.register_node("default:river_water_source", {
 				length = 2.0,
 			},
 		},
+	},
+	special_tiles = {
 		{
 			name = "default_river_water_source_animated.png",
-			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
 				length = 2.0,
 			},
+			backface_culling = false,
 		},
 	},
 	alpha = 160,
@@ -2285,7 +2176,6 @@ minetest.register_node("default:lava_source", {
 	tiles = {
 		{
 			name = "default_lava_source_animated.png",
-			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -2293,15 +2183,18 @@ minetest.register_node("default:lava_source", {
 				length = 3.0,
 			},
 		},
+	},
+	special_tiles = {
+		-- New-style lava source material (mostly unused)
 		{
 			name = "default_lava_source_animated.png",
-			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
 				aspect_h = 16,
 				length = 3.0,
 			},
+			backface_culling = false,
 		},
 	},
 	paramtype = "light",
