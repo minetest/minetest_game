@@ -132,6 +132,8 @@ Plantlife
 ---------
 
 default:cactus
+default:large_cactus_seedling
+
 default:papyrus
 default:dry_shrub
 default:junglegrass
@@ -1274,6 +1276,76 @@ minetest.register_node("default:cactus", {
 	groups = {choppy = 3},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
+})
+
+minetest.register_node("default:large_cactus_seedling", {
+	description = "Large Cactus Seedling",
+	drawtype = "plantlike",
+	tiles = {"default_large_cactus_seedling.png"},
+	inventory_image = "default_large_cactus_seedling.png",
+	wield_image = "default_large_cactus_seedling.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			-5 / 16, -0.5, -5 / 16,
+			5 / 16, 0.5, 5 / 16
+		}
+	},
+	groups = {choppy = 3, dig_immediate = 3, attached_node = 1},
+	sounds = default.node_sound_wood_defaults(),
+
+	on_place = function(itemstack, placer, pointed_thing)
+		itemstack = default.sapling_on_place(itemstack, placer, pointed_thing,
+			"default:large_cactus_seedling",
+			{x = -2, y = -1, z = -2},
+			{x = 2, y = 5, z = 2},
+			4)
+
+		return itemstack
+	end,
+
+	on_construct = function(pos)
+		-- Normal cactus farming adds 1 cactus node by ABM,
+		-- interval 12s, chance 83.
+		-- Consider starting with 5 cactus nodes. We make sure that growing a
+		-- large cactus is not a faster way to produce new cactus nodes.
+		-- Confirmed by experiment, when farming 5 cacti, on average 1 new
+		-- cactus node is added on average every
+		-- 83 / 5 = 16.6 intervals = 16.6 * 12 = 199.2s.
+		-- Large cactus contains on average 14 cactus nodes.
+		-- 14 * 199.2 = 2788.8s.
+		minetest.get_node_timer(pos):start(2789)
+	end,
+
+	on_timer = function(pos)
+		local node_under = minetest.get_node_or_nil(
+			{x = pos.x, y = pos.y - 1, z = pos.z})
+		if not node_under then
+			-- Node under not yet loaded, try later
+			minetest.get_node_timer(pos):start(300)
+			return
+		end
+
+		if minetest.get_item_group(node_under.name, "sand") == 0 then
+			-- Seedling dies
+			minetest.remove_node(pos)
+			return
+		end
+
+		local light_level = minetest.get_node_light(pos)
+		if not light_level or light_level < 13 then
+			-- Too dark for growth, try later in case it's night
+			minetest.get_node_timer(pos):start(300)
+			return
+		end
+
+		minetest.log("action", "A large cactus seedling grows into a large" ..
+			"cactus at ".. minetest.pos_to_string(pos))
+		default.grow_large_cactus(pos)
+	end,
 })
 
 minetest.register_node("default:papyrus", {
