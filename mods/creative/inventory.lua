@@ -108,8 +108,6 @@ function creative.register_tab(name, title, items)
 				[[
 					image[4.06,3.4;0.8,0.8;creative_trash_icon.png]
 					listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]
-					list[current_player;main;0,4.7;8,1;]
-					list[current_player;main;0,5.85;8,3;8]
 					list[detached:creative_trash;main;4,3.3;1,1;]
 					listring[]
 					image_button[5.4,3.25;0.8,0.8;creative_prev_icon.png;creative_prev;]
@@ -126,7 +124,7 @@ function creative.register_tab(name, title, items)
 				"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. "]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
 				"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
-				default.get_hotbar_bg(0,4.7) .. creative.formspec_add, false)
+				creative.formspec_add, true)
 		end,
 		on_enter = function(self, player, context)
 			local player_name = player:get_player_name()
