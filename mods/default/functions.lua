@@ -368,7 +368,7 @@ function default.register_fence_rail(name, def)
 				{1/16,  3/16, -1/16, 1/2,  5/16, 1/16},
 				{1/16, -5/16, -1/16, 1/2, -3/16, 1/16}},
 		},
-		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
+		connects_to = {"group:fence", "group:wall"},
 		inventory_image = fence_rail_texture,
 		wield_image = fence_rail_texture,
 		tiles = {def.texture},

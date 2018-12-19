@@ -135,6 +135,11 @@ function sfinv.set_page(player, pagename)
 	sfinv.set_player_inventory_formspec(player, context)
 end
 
+function sfinv.get_page(player)
+	local context = sfinv.contexts[player:get_player_name()]
+	return context and context.page or sfinv.get_homepage_name(player)
+end
+
 minetest.register_on_joinplayer(function(player)
 	if sfinv.enabled then
 		sfinv.set_player_inventory_formspec(player)

@@ -81,6 +81,10 @@ function default.grow_sapling(pos)
 		minetest.log("action", "A bush sapling grows into a bush at "..
 			minetest.pos_to_string(pos))
 		default.grow_bush(pos)
+	elseif node.name == "default:blueberry_bush_sapling" then
+		minetest.log("action", "A blueberry bush sapling grows into a bush at "..
+			minetest.pos_to_string(pos))
+		default.grow_blueberry_bush(pos)
 	elseif node.name == "default:acacia_bush_sapling" then
 		minetest.log("action", "An acacia bush sapling grows into a bush at "..
 			minetest.pos_to_string(pos))
@@ -387,7 +391,7 @@ end
 function default.grow_new_apple_tree(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/apple_tree_from_sapling.mts"
-	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
+	minetest.place_schematic({x = pos.x - 3, y = pos.y - 1, z = pos.z - 3},
 		path, "random", nil, false)
 end
 
@@ -473,6 +477,15 @@ function default.grow_bush(pos)
 	local path = minetest.get_modpath("default") ..
 		"/schematics/bush.mts"
 	minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
+		path, "0", nil, false)
+end
+
+-- Blueberry bush
+
+function default.grow_blueberry_bush(pos)
+	local path = minetest.get_modpath("default") ..
+		"/schematics/blueberry_bush.mts"
+	minetest.place_schematic({x = pos.x - 1, y = pos.y, z = pos.z - 1},
 		path, "0", nil, false)
 end
 

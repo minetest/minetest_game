@@ -162,6 +162,14 @@ function _doors.door_toggle(pos, node, clicker)
 	end
 
 	local dir = node.param2
+
+	-- It's possible param2 is messed up, so, validate before using
+	-- the input data. This indicates something may have rotated
+	-- the door, even though that is not supported.
+	if not transform[state + 1] or not transform[state + 1][dir + 1] then
+		return false
+	end
+
 	if state % 2 == 0 then
 		minetest.sound_play(def.door.sounds[1],
 			{pos = pos, gain = 0.3, max_hear_distance = 10})

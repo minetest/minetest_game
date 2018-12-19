@@ -113,7 +113,8 @@ stairs.register_stair_and_slab(
 	{"farming_straw.png"},
 	"Straw Stair",
 	"Straw Slab",
-	default.node_sound_leaves_defaults()
+	default.node_sound_leaves_defaults(),
+	true
 )
 
 minetest.register_abm({

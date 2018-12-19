@@ -1621,8 +1621,8 @@ function default.register_decorations()
 		place_on = {"default:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
-			offset = 0.036,
-			scale = 0.022,
+			offset = 0.024,
+			scale = 0.015,
 			spread = {x = 250, y = 250, z = 250},
 			seed = 2,
 			octaves = 3,
@@ -1643,8 +1643,8 @@ function default.register_decorations()
 		place_offset_y = 1,
 		sidelen = 16,
 		noise_params = {
-			offset = 0.0018,
-			scale = 0.0011,
+			offset = 0.0012,
+			scale = 0.0007,
 			spread = {x = 250, y = 250, z = 250},
 			seed = 2,
 			octaves = 3,
@@ -1964,6 +1964,29 @@ function default.register_decorations()
 		flags = "place_center_x, place_center_z",
 	})
 
+	-- Blueberry bush
+
+	minetest.register_decoration({
+		name = "default:blueberry_bush",
+		deco_type = "schematic",
+		place_on = {"default:dirt_with_grass", "default:dirt_with_snow"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.004,
+			scale = 0.01,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 697,
+			octaves = 3,
+			persist = 0.7,
+		},
+		biomes = {"grassland", "snowy_grassland"},
+		y_max = 31000,
+		y_min = 1,
+		place_offset_y = 1,
+		schematic = minetest.get_modpath("default") .. "/schematics/blueberry_bush.mts",
+		flags = "place_center_x, place_center_z",
+	})
+
 	-- Acacia bush
 
 	minetest.register_decoration({
@@ -2144,15 +2167,17 @@ function default.register_decorations()
 
 	minetest.register_decoration({
 		name = "default:corals",
-		deco_type = "schematic",
+		deco_type = "simple",
 		place_on = {"default:sand"},
+		place_offset_y = -1,
+		sidelen = 4,
 		noise_params = {
-			offset = -0.15,
-			scale = 0.1,
-			spread = {x = 100, y = 100, z = 100},
+			offset = -4,
+			scale = 4,
+			spread = {x = 50, y = 50, z = 50},
 			seed = 7013,
 			octaves = 3,
-			persist = 1,
+			persist = 0.7,
 		},
 		biomes = {
 			"desert_ocean",
@@ -2161,9 +2186,12 @@ function default.register_decorations()
 		},
 		y_max = -2,
 		y_min = -8,
-		schematic = minetest.get_modpath("default") .. "/schematics/corals.mts",
-		flags = "place_center_x, place_center_z",
-		rotation = "random",
+		flags = "force_placement",
+		decoration = {
+			"default:coral_green", "default:coral_pink",
+			"default:coral_cyan", "default:coral_brown",
+			"default:coral_orange", "default:coral_skeleton",
+		},
 	})
 
 	-- Kelp

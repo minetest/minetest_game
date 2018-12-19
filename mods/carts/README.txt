@@ -6,7 +6,8 @@ itself is based on (and fully compatible with) the carts mod [2].
 
 The model was originally designed by stujones11 [3] (CC-0).
 
-Cart textures are based on original work from PixelBOX (WTFPL).
+Cart textures are based on original work from PixelBOX by Gambit (permissive
+license).
 
 
 [1] https://github.com/SmallJoker/boost_cart/

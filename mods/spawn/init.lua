@@ -126,7 +126,18 @@ minetest.register_on_newplayer(function(player)
 	on_spawn(player)
 end)
 
+local enable_bed_respawn = minetest.settings:get_bool("enable_bed_respawn")
+if enable_bed_respawn == nil then
+	enable_bed_respawn = true
+end
+
 minetest.register_on_respawnplayer(function(player)
+	-- Avoid respawn conflict with beds mod
+	if beds and enable_bed_respawn and
+			beds.spawn[player:get_player_name()] then
+		return
+	end
+
 	on_spawn(player)
 
 	return true
