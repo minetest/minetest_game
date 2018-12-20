@@ -160,6 +160,12 @@ Doors API
 
 The doors mod allows modders to register custom doors and trapdoors.
 
+`doors.registered_doors[name] = Door definition` 
+ * Table of registered doors, indexed by door name 
+
+`doors.registered_trapdoors[name] = Trapdoor definition` 
+ * Table of registered trap doors, indexed by trap door name 
+
 `doors.register_door(name, def)`
 
  * Registers new door
@@ -195,6 +201,13 @@ The doors mod allows modders to register custom doors and trapdoors.
     has the permissions needed to open this door. If omitted then no
     permission checks are performed.
 
+`doors.door_toggle(pos, node, clicker)`
+
+ * Toggle door open or shut
+ * `pos` Position of the door
+ * `node` Node definition
+ * `clicker` Player definition for the player that clicked on the door
+ 
 ### Door definition
 
 	description = "Door description",
@@ -206,6 +219,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
 	protected = false, -- If true, only placer can open the door (locked for others)
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
 
 ### Trapdoor definition
 
@@ -218,6 +233,10 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
 	protected = false, -- If true, only placer can open the door (locked for others)
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	-- function containing the on_rightclick callback
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	-- function containing the on_rightclick callback
 
 ### Fence gate definition
 
@@ -227,6 +246,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	material = "default:wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(), -- optional
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	-- function containing the on_rightclick callback
 
 
 Dungeon Loot API
