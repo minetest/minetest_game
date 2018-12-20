@@ -46,7 +46,7 @@ Following textures created by sofar (CC-BY-SA-3.0):
 Obsidian door textures by red-001 based on textures by Pilzadam and BlockMen (CC BY-SA 3.0):
   door_obsidian_glass.png
 
-Glass door textures by Krock based on textures by VanessaE (CC BY-SA 3.0):
+Glass door textures by Krock and paramat based on textures by VanessaE (CC BY-SA 3.0):
   doors_door_glass.png
   doors_item_glass.png
 
