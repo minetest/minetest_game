@@ -220,7 +220,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sound_close = sound play for close door, -- optional
 	protected = false, -- If true, only placer can open the door (locked for others)
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
-	-- function containing the on_rightclick callback
+	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
 
 ### Trapdoor definition
 
