@@ -560,7 +560,8 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 			interval) then
 		minetest.record_protection_violation(pos, player_name)
 		-- Print extra information to explain
-		minetest.chat_send_player(player_name, "Will intersect protection " ..
+		minetest.chat_send_player(player_name,
+			itemstack:get_definition().description .. " will intersect protection " ..
 			"on growth")
 		return itemstack
 	end
