@@ -106,9 +106,9 @@ farming.register_hoe = function(name, def)
 		minetest.register_craft({
 			output = name:sub(2),
 			recipe = {
-				{def.material, def.material, ""},
-				{"", "group:stick", ""},
-				{"", "group:stick", ""}
+				{def.material, def.material},
+				{"", "group:stick"},
+				{"", "group:stick"}
 			}
 		})
 	end
