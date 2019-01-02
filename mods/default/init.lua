@@ -9,10 +9,6 @@ default = {}
 default.LIGHT_MAX = 14
 
 -- GUI related stuff
-default.gui_bg     = ""
-default.gui_bg_img = ""
-default.gui_slots  = ""
-
 minetest.register_on_joinplayer(function(player)
 	player:set_formspec_prepend([[
 			bgcolor[#080808BB;true]
@@ -29,9 +25,6 @@ function default.get_hotbar_bg(x,y)
 end
 
 default.gui_survival_form = "size[8,8.5]"..
-			default.gui_bg..
-			default.gui_bg_img..
-			default.gui_slots..
 			"list[current_player;main;0,4.25;8,1;]"..
 			"list[current_player;main;0,5.5;8,3;8]"..
 			"list[current_player;craft;1.75,0.5;3,3;]"..

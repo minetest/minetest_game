@@ -23,6 +23,9 @@ LIGHT_MAX = default.LIGHT_MAX
 
 -- Formspecs
 default.gui_suvival_form = default.gui_survival_form
+default.gui_bg     = ""
+default.gui_bg_img = ""
+default.gui_slots  = ""
 
 -- Players
 if minetest.get_modpath("player_api") then

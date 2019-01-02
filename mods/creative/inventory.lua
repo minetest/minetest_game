@@ -126,9 +126,7 @@ function creative.register_tab(name, title, items)
 				"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. "]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
 				"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
-				default.get_hotbar_bg(0,4.7) ..
-				default.gui_bg .. default.gui_bg_img .. default.gui_slots
-				.. creative.formspec_add, false)
+				default.get_hotbar_bg(0,4.7) .. creative.formspec_add, false)
 		end,
 		on_enter = function(self, player, context)
 			local player_name = player:get_player_name()
