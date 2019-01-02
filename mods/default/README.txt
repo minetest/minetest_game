@@ -244,6 +244,9 @@ Topywo (CC BY-SA 3.0)
   default_coral_green.png
   default_coral_pink.png
 
+Extex101 (CC BY-SA 3.0)
+  default_large_cactus_seedling.png
+
 
 Sounds
 ------

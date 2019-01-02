@@ -779,6 +779,15 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "default:large_cactus_seedling",
+	recipe = {
+		{"", "default:cactus", ""},
+		{"default:cactus", "default:cactus", "default:cactus"},
+		{"", "default:cactus", ""},
+	}
+})
+
 
 --
 -- Crafting (tool repair)
@@ -1093,6 +1102,12 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:cactus",
 	burntime = 15,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:large_cactus_seedling",
+	burntime = 5,
 })
 
 minetest.register_craft({

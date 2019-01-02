@@ -510,6 +510,16 @@ function default.grow_pine_bush(pos)
 end
 
 
+-- Large cactus
+
+function default.grow_large_cactus(pos)
+	local path = minetest.get_modpath("default") ..
+		"/schematics/large_cactus.mts"
+	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
+		path, "random", nil, false)
+end
+
+
 --
 -- Sapling 'on place' function to check protection of node and resulting tree volume
 --
@@ -550,7 +560,9 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 			interval) then
 		minetest.record_protection_violation(pos, player_name)
 		-- Print extra information to explain
-		minetest.chat_send_player(player_name, "Tree will intersect protection")
+		minetest.chat_send_player(player_name,
+			itemstack:get_definition().description .. " will intersect protection " ..
+			"on growth")
 		return itemstack
 	end
 
