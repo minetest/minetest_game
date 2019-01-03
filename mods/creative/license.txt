@@ -29,8 +29,7 @@ Licenses of media (textures)
 ----------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-Copyright (C) 2016 Jean-Patrick G. (kilbith) <jeanpatrick.guerrero@gmail.com>
-Copyright (C) 2018 paramat
+Copyright (C) 2019 paramat
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.

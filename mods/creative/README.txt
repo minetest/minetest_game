@@ -14,4 +14,4 @@ paramat (CC BY-SA 3.0):
 * creative_next_icon.png
 * creative_search_icon.png
 * creative_clear_icon.png
-* creative_trash_icon.png derived from a texture by kilbith (CC BY-SA 3.0)
+* creative_trash_icon.png
