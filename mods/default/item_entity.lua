@@ -70,5 +70,5 @@ local item = {
 }
 
 -- set defined item as new __builtin:item, with the old one as fallback table
-setmetatable(item, builtin_item)
+setmetatable(item, { __index = builtin_item })
 minetest.register_entity(":__builtin:item", item)
