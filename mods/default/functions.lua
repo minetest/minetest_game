@@ -585,7 +585,8 @@ function default.can_interact_with_node(player, pos)
 
 	-- Is player wielding the right key?
 	local item = player:get_wielded_item()
-	if minetest.registered_items[item:get_name()].groups.key == 1 then
+	local def = minetest.registered_items[item:get_name()]
+	if def and def.groups and def.groups.key == 1 then
 		local key_meta = item:get_meta()
 
 		if key_meta:get_string("secret") == "" then
