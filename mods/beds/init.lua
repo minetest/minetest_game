@@ -4,9 +4,10 @@ beds.bed_position = {}
 beds.pos = {}
 beds.spawn = {}
 
-beds.formspec = "size[8,15;true]" ..
-	"bgcolor[#080808BB; true]" ..
-	"button_exit[2,12;4,0.75;leave;Leave Bed]"
+beds.formspec = "size[8,11;true]" ..
+	"no_prepend[]" ..
+	"bgcolor[#080808BB;true]" ..
+	"button_exit[2,10;4,0.75;leave;Leave Bed]"
 
 local modpath = minetest.get_modpath("beds")
 
