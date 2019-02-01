@@ -508,7 +508,7 @@ minetest.register_node("default:permafrost", {
 minetest.register_node("default:permafrost_with_stones", {
 	description = "Permafrost with Stones",
 	tiles = {"default_permafrost.png^default_stones.png",
-		"default_permafrost.png"
+		"default_permafrost.png",
 		"default_permafrost.png^default_stones_side.png"},
 	groups = {cracky = 3},
 	drop = "default:permafrost",
