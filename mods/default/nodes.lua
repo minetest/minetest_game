@@ -511,7 +511,6 @@ minetest.register_node("default:permafrost_with_stones", {
 		"default_permafrost.png",
 		"default_permafrost.png^default_stones_side.png"},
 	groups = {cracky = 3},
-	drop = "default:permafrost",
 	sounds = default.node_sound_gravel_defaults(),
 })
 
@@ -521,7 +520,6 @@ minetest.register_node("default:permafrost_with_moss", {
 		{name = "default_permafrost.png^default_moss_side.png",
 			tileable_vertical = false}},
 	groups = {cracky = 3},
-	drop = "default:permafrost",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
