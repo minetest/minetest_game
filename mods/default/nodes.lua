@@ -2575,12 +2575,19 @@ local function register_sign(material, desc, def)
 				minetest.record_protection_violation(pos, player_name)
 				return
 			end
-			local meta = minetest.get_meta(pos)
-			if not fields.text then return end
+			local text = fields.text
+			if not text then
+				return
+			end
+			if string.len(text) > 512 then
+				minetest.chat_send_player(player_name, "Text too long")
+				return
+			end
 			minetest.log("action", (player_name or "") .. " wrote \"" ..
-				fields.text .. "\" to sign at " .. minetest.pos_to_string(pos))
-			meta:set_string("text", fields.text)
-			meta:set_string("infotext", '"' .. fields.text .. '"')
+				text .. "\" to sign at " .. minetest.pos_to_string(pos))
+			local meta = minetest.get_meta(pos)
+			meta:set_string("text", text)
+			meta:set_string("infotext", '"' .. text .. '"')
 		end,
 	})
 end
