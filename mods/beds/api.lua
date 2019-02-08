@@ -109,7 +109,7 @@ function beds.register_bed(name, def)
 			return itemstack
 		end,
 
-		on_rotate = function(pos, node, user, mode, new_param2)
+		on_rotate = function(pos, node, user, _, new_param2)
 			local dir = minetest.facedir_to_dir(node.param2)
 			local p = vector.add(pos, dir)
 			local node2 = minetest.get_node_or_nil(p)
@@ -121,7 +121,7 @@ function beds.register_bed(name, def)
 				minetest.record_protection_violation(p, user:get_player_name())
 				return false
 			end
-			if mode ~= screwdriver.ROTATE_FACE then
+			if new_param2 % 32 > 3 then
 				return false
 			end
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
