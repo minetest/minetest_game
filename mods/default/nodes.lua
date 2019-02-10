@@ -1929,6 +1929,10 @@ minetest.register_node("default:sand_with_kelp", {
 	},
 	node_dig_prediction = "default:sand",
 	node_placement_prediction = "",
+	sounds = default.node_sound_sand_defaults({
+		dig = {name = "default_dig_snappy", gain = 0.2},
+		dug = {name = "default_grass_footstep", gain = 0.25},
+	}),
 
 	on_place = function(itemstack, placer, pointed_thing)
 		-- Call on_rightclick if the pointed node defines it
@@ -2000,6 +2004,11 @@ minetest.register_node("default:coral_green", {
 	},
 	node_dig_prediction = "default:coral_skeleton",
 	node_placement_prediction = "",
+	sounds = default.node_sound_stone_defaults({
+		dig = {name = "default_dig_snappy", gain = 0.2},
+		dug = {name = "default_grass_footstep", gain = 0.25},
+	}),
+
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" or not placer then
 			return itemstack
@@ -2028,6 +2037,7 @@ minetest.register_node("default:coral_green", {
 
 		return itemstack
 	end,
+
 	after_destruct  = function(pos, oldnode)
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
 	end,
@@ -2051,6 +2061,11 @@ minetest.register_node("default:coral_pink", {
 	},
 	node_dig_prediction = "default:coral_skeleton",
 	node_placement_prediction = "",
+	sounds = default.node_sound_stone_defaults({
+		dig = {name = "default_dig_snappy", gain = 0.2},
+		dug = {name = "default_grass_footstep", gain = 0.25},
+	}),
+
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" or not placer then
 			return itemstack
@@ -2079,6 +2094,7 @@ minetest.register_node("default:coral_pink", {
 
 		return itemstack
 	end,
+
 	after_destruct  = function(pos, oldnode)
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
 	end,
@@ -2102,6 +2118,11 @@ minetest.register_node("default:coral_cyan", {
 	},
 	node_dig_prediction = "default:coral_skeleton",
 	node_placement_prediction = "",
+	sounds = default.node_sound_stone_defaults({
+		dig = {name = "default_dig_snappy", gain = 0.2},
+		dug = {name = "default_grass_footstep", gain = 0.25},
+	}),
+
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type ~= "node" or not placer then
 			return itemstack
@@ -2130,6 +2151,7 @@ minetest.register_node("default:coral_cyan", {
 
 		return itemstack
 	end,
+
 	after_destruct  = function(pos, oldnode)
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
 	end,
