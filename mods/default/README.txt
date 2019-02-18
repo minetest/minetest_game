@@ -370,9 +370,6 @@ Shara RedCat (CC BY-SA 3.0):
   jungle_log.mts
   pine_log.mts
 
-sofar (CC BY-SA 3.0):
-  corals.mts
-
 TumeniNodes (CC BY-SA 3.0):
   pine_bush.mts
 
