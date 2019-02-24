@@ -1,12 +1,11 @@
 language: generic
-sudo: false
 addons:
   apt:
     packages:
     - luarocks
 before_install:
   - luarocks install --local luacheck
-script: 
-- $HOME/.luarocks/bin/luacheck --no-color ./mods
+script:
+- $HOME/.luarocks/bin/luacheck ./mods
 notifications:
   email: false
