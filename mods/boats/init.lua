@@ -109,7 +109,8 @@ function boat.get_staticdata(self)
 end
 
 
-function boat.on_punch(self, puncher)
+function boat.on_punch(self, puncher, time_from_last_punch, tool_capabilities,
+			direction, damage)
 	if not puncher or not puncher:is_player() or self.removed then
 		return
 	end
@@ -136,6 +137,14 @@ function boat.on_punch(self, puncher)
 		minetest.after(0.1, function()
 			self.object:remove()
 		end)
+	elseif name ~= self.driver then
+		local driver = minetest.get_player_by_name(self.driver)
+		driver:punch(puncher, time_from_last_punch, tool_capabilities, direction)
+		if driver:get_hp()<=0 then
+			driver:set_detach()
+			player_api.player_attached[driver:get_player_name()] = false
+			self.driver = nil
+		end
 	end
 end
 
