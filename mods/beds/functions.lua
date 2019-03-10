@@ -1,5 +1,4 @@
 local pi = math.pi
-local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
 local enable_respawn = minetest.settings:get_bool("enable_bed_respawn")
 if enable_respawn == nil then
@@ -59,11 +58,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	-- stand up
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
-		if beds.player[name] ~= nil then
-			beds.player[name] = nil
-			beds.bed_position[name] = nil
-			player_in_bed = player_in_bed - 1
-		end
+		beds.player[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
 			return
@@ -82,10 +77,9 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- lay down
 	else
-		beds.player[name] = 1
 		beds.pos[name] = pos
 		beds.bed_position[name] = bed_pos
-		player_in_bed = player_in_bed + 1
+		beds.player[name] = 1
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
@@ -103,9 +97,18 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	player:hud_set_flags(hud_flags)
 end
 
+local function get_player_in_bed_count()
+	local c = 0
+	for _, _ in pairs(beds.player) do
+		c = c + 1
+	end
+	return c
+end
+
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
 	local form_n
+	local player_in_bed = get_player_in_bed_count()
 	local is_majority = (ges / 2) < player_in_bed
 
 	if finished then
@@ -223,7 +226,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	-- Because "Force night skip" button is a button_exit, it will set fields.quit
 	-- and lay_down call will change value of player_in_bed, so it must be taken
 	-- earlier.
-	local last_player_in_bed = player_in_bed
+	local last_player_in_bed = get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
 		lay_down(player, nil, nil, false)
