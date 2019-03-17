@@ -88,7 +88,9 @@ local function populate_chest(pos, rand, dungeontype)
 				amount = rand:next(loot.count[1], loot.count[2])
 			end
 
-			if itemdef.tool_capabilities then
+			if itemdef == nil then
+				-- item doesn't exist, do nothing
+			elseif itemdef.tool_capabilities then
 				for n = 1, amount do
 					local wear = rand:next(0.20 * 65535, 0.75 * 65535) -- 20% to 75% wear
 					table.insert(items, ItemStack({name = loot.name, wear = wear}))
