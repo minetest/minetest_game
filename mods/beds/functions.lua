@@ -59,6 +59,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
 		beds.player[name] = nil
+		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
 			return
