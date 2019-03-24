@@ -781,8 +781,8 @@ function doors.register_fencegate(name, def)
 	minetest.register_craft({
 		output = name .. "_closed",
 		recipe = {
-			{"default:stick", def.material, "default:stick"},
-			{"default:stick", def.material, "default:stick"}
+			{"group:stick", def.material, "group:stick"},
+			{"group:stick", def.material, "group:stick"}
 		}
 	})
 end
