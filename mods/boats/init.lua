@@ -28,6 +28,25 @@ local function get_v(v)
 	return math.sqrt(v.x ^ 2 + v.z ^ 2)
 end
 
+
+local function after_detach(name, pos)
+  local player = minetest.get_player_by_name(name)
+  
+  if player then
+    player:set_pos(pos)
+  end
+end
+
+
+local function after_attach(name)
+  local player = minetest.get_player_by_name(name)
+  
+  if player then
+    player_api.set_animation(player, "sit" , 30)
+  end
+end
+
+
 --
 -- Boat entity
 --
@@ -55,7 +74,9 @@ function boat.on_rightclick(self, clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
+  
 	local name = clicker:get_player_name()
+  
 	if self.driver and name == self.driver then
 		self.driver = nil
 		self.auto = false
@@ -64,13 +85,10 @@ function boat.on_rightclick(self, clicker)
 		player_api.set_animation(clicker, "stand" , 30)
 		local pos = clicker:get_pos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
-		minetest.after(0.1, function()
-      if clicker then
-        clicker:set_pos(pos)
-      end
-		end)
+		minetest.after(0.1, after_detach, name, pos)
 	elseif not self.driver then
 		local attach = clicker:get_attach()
+    
 		if attach and attach:get_luaentity() then
 			local luaentity = attach:get_luaentity()
 			if luaentity.driver then
@@ -78,15 +96,12 @@ function boat.on_rightclick(self, clicker)
 			end
 			clicker:set_detach()
 		end
+    
 		self.driver = name
 		clicker:set_attach(self.object, "",
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
 		player_api.player_attached[name] = true
-		minetest.after(0.2, function()
-      if clicker then
-        player_api.set_animation(clicker, "sit" , 30)
-      end
-		end)
+		minetest.after(0.2, after_attach, name)
 		clicker:set_look_horizontal(self.object:get_yaw())
 	end
 end
