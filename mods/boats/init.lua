@@ -31,7 +31,6 @@ end
 
 local function after_detach(name, pos)
 	local player = minetest.get_player_by_name(name)
-	
 	if player then
 		player:set_pos(pos)
 	end
@@ -40,7 +39,6 @@ end
 
 local function after_attach(name)
 	local player = minetest.get_player_by_name(name)
-	
 	if player then
 		player_api.set_animation(player, "sit" , 30)
 	end
