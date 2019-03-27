@@ -231,5 +231,5 @@ if dungeon_loot and dungeon_loot.register then
 	}
 	for _,loot in pairs(loot_list) do
 		dungeon_loot.register(loot)
-    end
+	end
 end
