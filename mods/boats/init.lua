@@ -30,22 +30,28 @@ end
 
 
 local function after_detach(name, pos)
-  local player = minetest.get_player_by_name(name)
-  
-  if player then
-    player:set_pos(pos)
-  end
+	local player = minetest.get_player_by_name(name)
+	
+	if player then
+		player:set_pos(pos)
+	end
 end
 
 
 local function after_attach(name)
-  local player = minetest.get_player_by_name(name)
-  
-  if player then
-    player_api.set_animation(player, "sit" , 30)
-  end
+	local player = minetest.get_player_by_name(name)
+	
+	if player then
+		player_api.set_animation(player, "sit" , 30)
+	end
 end
 
+
+local function after_remove(object)
+	if object then
+		object:remove()
+	end
+end
 
 --
 -- Boat entity
@@ -74,9 +80,7 @@ function boat.on_rightclick(self, clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
-  
 	local name = clicker:get_player_name()
-  
 	if self.driver and name == self.driver then
 		self.driver = nil
 		self.auto = false
@@ -88,7 +92,6 @@ function boat.on_rightclick(self, clicker)
 		minetest.after(0.1, after_detach, name, pos)
 	elseif not self.driver then
 		local attach = clicker:get_attach()
-    
 		if attach and attach:get_luaentity() then
 			local luaentity = attach:get_luaentity()
 			if luaentity.driver then
@@ -96,7 +99,6 @@ function boat.on_rightclick(self, clicker)
 			end
 			clicker:set_detach()
 		end
-    
 		self.driver = name
 		clicker:set_attach(self.object, "",
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
@@ -152,9 +154,7 @@ function boat.on_punch(self, puncher)
 			end
 		end
 		-- delay remove to ensure player is detached
-		minetest.after(0.1, function()
-			self.object:remove()
-		end)
+		minetest.after(0.1, after_remove, self.object)
 	end
 end
 
