@@ -65,9 +65,7 @@ function boat.on_rightclick(self, clicker)
 		local pos = clicker:get_pos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
 		minetest.after(0.1, function()
-      if clicker then
-        clicker:set_pos(pos)
-      end
+			clicker:set_pos(pos)
 		end)
 	elseif not self.driver then
 		local attach = clicker:get_attach()
@@ -83,9 +81,7 @@ function boat.on_rightclick(self, clicker)
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
 		player_api.player_attached[name] = true
 		minetest.after(0.2, function()
-      if clicker then
-        player_api.set_animation(clicker, "sit" , 30)
-      end
+			player_api.set_animation(clicker, "sit" , 30)
 		end)
 		clicker:set_look_horizontal(self.object:get_yaw())
 	end
