@@ -211,13 +211,3 @@ minetest.register_craft({
 	recipe = "vessels:shelf",
 	burntime = 30,
 })
-
--- register glass_fragments as dungeon loot
-if dungeon_loot and dungeon_loot.register then
-	local loot_list = {
-		{name = "vessels:glass_fragments", chance = 0.35, count = {1, 4}},
-	}
-	for _,loot in pairs(loot_list) do
-		dungeon_loot.register(loot)
-    end
-end

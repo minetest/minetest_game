@@ -14,13 +14,3 @@ carts.path_distance_max = 3
 dofile(carts.modpath.."/functions.lua")
 dofile(carts.modpath.."/rails.lua")
 dofile(carts.modpath.."/cart_entity.lua")
-
--- register cart as dungeon loot
-if dungeon_loot and dungeon_loot.register then
-	local loot_list = {
-		{name = "carts:rail", chance = 0.35, count = {1, 6}},
-	}
-	for _,loot in pairs(loot_list) do
-		dungeon_loot.register(loot)
-    end
-end
