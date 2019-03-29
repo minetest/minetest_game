@@ -779,15 +779,6 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = "default:large_cactus_seedling",
-	recipe = {
-		{"", "default:cactus", ""},
-		{"default:cactus", "default:cactus", "default:cactus"},
-		{"", "default:cactus", ""},
-	}
-})
-
 
 --
 -- Crafting (tool repair)
