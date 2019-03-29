@@ -1275,6 +1275,13 @@ minetest.register_node("default:cactus", {
 	groups = {choppy = 3},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {'default:large_cactus_seedling'},rarity = 8},
+			{items = {'default:cactus'}},
+		}
+	},
 })
 
 minetest.register_node("default:large_cactus_seedling", {
