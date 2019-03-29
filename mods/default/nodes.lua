@@ -1323,13 +1323,16 @@ minetest.register_node("default:large_cactus_seedling", {
 	on_timer = function(pos)
 		local node_under = minetest.get_node_or_nil(
 			{x = pos.x, y = pos.y - 1, z = pos.z})
+		local node_above = minetest.get_node_or_nil(
+			{x = pos.x, y = pos.y + 1, z = pos.z})
 		if not node_under then
 			-- Node under not yet loaded, try later
 			minetest.get_node_timer(pos):start(300)
 			return
 		end
 
-		if minetest.get_item_group(node_under.name, "sand") == 0 then
+		if minetest.get_item_group(node_under.name, "sand") == 0
+				or minetest.get_item_group(node_above.name, "liquid") >= 1 then
 			-- Seedling dies
 			minetest.remove_node(pos)
 			return
