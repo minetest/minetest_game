@@ -1,4 +1,0 @@
-default
-wool
-stairs
-dungeon_loot?
