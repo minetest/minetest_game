@@ -304,7 +304,7 @@ local waterlily_def = {
 			local player_name = placer and placer:get_player_name() or ""
 			if not minetest.is_protected(pos, player_name) then
 				minetest.set_node(pos, {name = "flowers:waterlily" ..
-					(def.waving == 3 and "_wave" or ""),
+					(def.waving == 3 and "_waving" or ""),
 					param2 = math.random(0, 3)})
 				if not (creative and creative.is_enabled_for
 						and creative.is_enabled_for(player_name)) then
@@ -320,12 +320,12 @@ local waterlily_def = {
 	end
 }
 
-local waterlily_wave_def = table.copy(waterlily_def)
-waterlily_wave_def.waving = 3
-waterlily_wave_def.drop = "flowers:waterlily"
-waterlily_wave_def.groups.not_in_creative_inventory = 1
-waterlily_wave_def.node_box.fixed[2] = -33 / 64
+local waterlily_waving_def = table.copy(waterlily_def)
+waterlily_waving_def.waving = 3
+waterlily_waving_def.drop = "flowers:waterlily"
+waterlily_waving_def.groups.not_in_creative_inventory = 1
+waterlily_waving_def.node_box.fixed[2] = -33 / 64
 
 minetest.register_node("flowers:waterlily", waterlily_def)
-minetest.register_node("flowers:waterlily_wave", waterlily_wave_def)
+minetest.register_node("flowers:waterlily_waving", waterlily_waving_def)
 
