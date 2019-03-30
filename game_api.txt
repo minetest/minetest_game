@@ -362,6 +362,8 @@ The farming API allows you to easily register plants and hoes.
 Fire API
 --------
 
+Add group flammable when registering a node to make fire seek for it.
+Add it to an item to make it burn up when dropped in lava or fire.
 New node def property:
 
 `on_burn(pos)`
