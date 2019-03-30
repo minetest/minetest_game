@@ -90,6 +90,9 @@ end
 
 -- If driver leaves server while driving boat
 function boat.on_detach_child(self, child)
+	if minetest.get_player_by_name(self.driver) then
+		player_api.player_attached[self.driver] = false
+	end
 	self.driver = nil
 	self.auto = false
 end
@@ -140,11 +143,6 @@ function boat.on_punch(self, puncher, time_from_last_punch, tool_capabilities,
 	elseif name ~= self.driver then
 		local driver = minetest.get_player_by_name(self.driver)
 		driver:punch(puncher, time_from_last_punch, tool_capabilities, direction)
-		if driver:get_hp()<=0 then
-			driver:set_detach()
-			player_api.player_attached[driver:get_player_name()] = false
-			self.driver = nil
-		end
 	end
 end
 
