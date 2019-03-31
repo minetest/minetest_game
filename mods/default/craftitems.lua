@@ -201,7 +201,6 @@ end)
 minetest.register_craftitem("default:skeleton_key", {
 	description = "Skeleton Key",
 	inventory_image = "default_key_skeleton.png",
-	groups = {key = 1},
 	on_use = function(itemstack, user, pointed_thing)
 		if pointed_thing.type ~= "node" then
 			return itemstack
