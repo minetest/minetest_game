@@ -324,7 +324,6 @@ local waterlily_waving_def = table.copy(waterlily_def)
 waterlily_waving_def.waving = 3
 waterlily_waving_def.drop = "flowers:waterlily"
 waterlily_waving_def.groups.not_in_creative_inventory = 1
-waterlily_waving_def.node_box.fixed[2] = -33 / 64
 
 minetest.register_node("flowers:waterlily", waterlily_def)
 minetest.register_node("flowers:waterlily_waving", waterlily_waving_def)
