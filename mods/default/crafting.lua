@@ -126,6 +126,24 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:pick_silver',
+	recipe = {
+		{'default:silver_ingot', 'default:silver_ingot', 'default:silver_ingot'},
+		{'', 'group:stick', ''},
+		{'', 'group:stick', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:pick_mithril',
+	recipe = {
+		{'default:mithril_ingot', 'default:mithril_ingot', 'default:mithril_ingot'},
+		{'', 'group:stick', ''},
+		{'', 'group:stick', ''},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:pick_mese',
 	recipe = {
 		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
@@ -174,6 +192,24 @@ minetest.register_craft({
 	output = 'default:shovel_bronze',
 	recipe = {
 		{'default:bronze_ingot'},
+		{'group:stick'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:shovel_silver',
+	recipe = {
+		{'default:silver_ingot'},
+		{'group:stick'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:shovel_mithril',
+	recipe = {
+		{'default:mithril_ingot'},
 		{'group:stick'},
 		{'group:stick'},
 	}
@@ -237,6 +273,24 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:axe_silver',
+	recipe = {
+		{'default:silver_ingot', 'default:silver_ingot'},
+		{'default:silver_ingot', 'group:stick'},
+		{'', 'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:axe_mithril',
+	recipe = {
+		{'default:mithril_ingot', 'default:mithril_ingot'},
+		{'default:mithril_ingot', 'group:stick'},
+		{'', 'group:stick'},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:axe_mese',
 	recipe = {
 		{'default:mese_crystal', 'default:mese_crystal'},
@@ -286,6 +340,24 @@ minetest.register_craft({
 	recipe = {
 		{'default:bronze_ingot'},
 		{'default:bronze_ingot'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:sword_silver',
+	recipe = {
+		{'default:silver_ingot'},
+		{'default:silver_ingot'},
+		{'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:sword_mithril',
+	recipe = {
+		{'default:mithril_ingot'},
+		{'default:mithril_ingot'},
 		{'group:stick'},
 	}
 })
