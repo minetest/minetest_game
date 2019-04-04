@@ -122,6 +122,12 @@ default:bronzeblock
 default:stone_with_gold
 default:goldblock
 
+default:stone_with_silver
+default:silver_block
+
+default:stone_with_mithril
+default:mithril_block
+
 default:stone_with_mese
 default:mese
 
