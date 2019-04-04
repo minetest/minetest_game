@@ -1247,6 +1247,40 @@ minetest.register_node("default:goldblock", {
 })
 
 
+minetest.register_node("default:stone_with_silver", {
+	description = "Silver Ore",
+	tiles = {"default_stone.png^default_mineral_silver.png"},
+	groups = {cracky = 3},
+	drop = 'default:silver_lump',
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:silver_block", {
+	description = "Silver Block",
+	tiles = {"default_silver_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_metal_defaults(),
+})
+
+
+minetest.register_node("default:stone_with_mithril", {
+	description = "Mithril Ore",
+	tiles = {"default_stone.png^default_mineral_mithril.png"},
+	groups = {cracky = 3},
+	drop = 'default:mithril_lump',
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:mithril_block", {
+	description = "Mithril Block",
+	tiles = {"default_mithril_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_metal_defaults(),
+})
+
+
 minetest.register_node("default:stone_with_diamond", {
 	description = "Diamond Ore",
 	tiles = {"default_stone.png^default_mineral_diamond.png"},
