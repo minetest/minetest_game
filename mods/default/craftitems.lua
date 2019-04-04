@@ -285,6 +285,16 @@ minetest.register_craftitem("default:gold_lump", {
 	inventory_image = "default_gold_lump.png",
 })
 
+minetest.register_craftitem("default:silver_lump", {
+	description = "Silver Lump",
+	inventory_image = "default_silver_lump.png",
+})
+
+minetest.register_craftitem("default:mithril_lump", {
+	description = "Mithril Lump",
+	inventory_image = "default_mithril_lump.png",
+})
+
 minetest.register_craftitem("default:diamond", {
 	description = "Diamond",
 	inventory_image = "default_diamond.png",
@@ -318,6 +328,16 @@ minetest.register_craftitem("default:bronze_ingot", {
 minetest.register_craftitem("default:gold_ingot", {
 	description = "Gold Ingot",
 	inventory_image = "default_gold_ingot.png"
+})
+
+minetest.register_craftitem("default:silver_ingot", {
+	description = "Silver Ingot",
+	inventory_image = "default_silver_ingot.png"
+})
+
+minetest.register_craftitem("default:mithril_ingot", {
+	description = "Mithril Ingot",
+	inventory_image = "default_mithril_ingot.png"
 })
 
 minetest.register_craftitem("default:mese_crystal_fragment", {
