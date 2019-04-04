@@ -78,6 +78,34 @@ minetest.register_tool("default:pick_steel", {
 	sound = {breaks = "default_tool_breaks"},
 })
 
+minetest.register_tool("default:pick_silver", {
+	description = "Silver Pickaxe",
+	inventory_image = "default_tool_silverpick.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level = 3,
+		groupcaps = {
+			cracky = {times = {[1] = 2.60, [2] = 1.00, [3] = 0.60}, uses = 100, maxlevel = 1},
+		},
+		damage_groups = {fleshy = 6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("default:pick_mithril", {
+	description = "Mithril Pickaxe",
+	inventory_image = "default_tool_mithrilpick.png",
+	tool_capabilities = {
+		full_punch_interval = 0.45,
+		max_drop_level = 3,
+		groupcaps = {
+			cracky = {times = {[1] = 2.25, [2] = 0.55, [3] = 0.35}, uses = 200, maxlevel = 2},
+		},
+		damage_groups = {fleshy = 9},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
 minetest.register_tool("default:pick_mese", {
 	description = "Mese Pickaxe",
 	inventory_image = "default_tool_mesepick.png",
@@ -167,6 +195,36 @@ minetest.register_tool("default:shovel_steel", {
 			crumbly = {times={[1]=1.50, [2]=0.90, [3]=0.40}, uses=30, maxlevel=2},
 		},
 		damage_groups = {fleshy=3},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("default:shovel_silver", {
+	description = "Silver Shovel",
+	inventory_image = "default_tool_silvershovel.png",
+	wield_image = "default_tool_silvershovel.png^[transformR90",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level = 3,
+		groupcaps = {
+			crumbly = {times = {[1] = 1.10, [2] = 0.40, [3] = 0.25}, uses = 100, maxlevel = 1},
+		},
+		damage_groups = {fleshy = 6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("default:shovel_mithril", {
+	description = "Mithril Shovel",
+	inventory_image = "default_tool_mithrilshovel.png",
+	wield_image = "default_tool_mithrilshovel.png^[transformR90",
+	tool_capabilities = {
+		full_punch_interval = 0.45,
+		max_drop_level = 3,
+		groupcaps = {
+			crumbly = {times = {[1] = 0.70, [2] = 0.35, [3] = 0.20}, uses = 200, maxlevel = 2},
+		},
+		damage_groups = {fleshy = 9},
 	},
 	sound = {breaks = "default_tool_breaks"},
 })
@@ -276,6 +334,36 @@ minetest.register_tool("default:axe_mese", {
 	sound = {breaks = "default_tool_breaks"},
 })
 
+minetest.register_tool("default:axe_silver", {
+	description = "Silver Axe",
+	inventory_image = "default_tool_silveraxe.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level = 3,
+		groupcaps = {
+			choppy = {times = {[1] = 2.50, [2] = 0.80, [3] = 0.50}, uses = 100, maxlevel = 1},
+			fleshy = {times = {[2] = 1.10, [3] = 0.60}, uses = 100, maxlevel = 1}
+		},
+		damage_groups = {fleshy = 6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("default:axe_mithril", {
+	description = "Mithril Axe",
+	inventory_image = "default_tool_mithrilaxe.png",
+	tool_capabilities = {
+		full_punch_interval = 0.45,
+		max_drop_level = 3,
+		groupcaps = {
+			choppy = {times = {[1] = 1.75, [2] = 0.45, [3] = 0.45}, uses = 200, maxlevel = 2},
+			fleshy = {times = {[2] = 0.95, [3] = 0.30}, uses = 200, maxlevel = 1}
+		},
+		damage_groups = {fleshy = 9},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
 minetest.register_tool("default:axe_diamond", {
 	description = "Diamond Axe",
 	inventory_image = "default_tool_diamondaxe.png",
@@ -347,6 +435,38 @@ minetest.register_tool("default:sword_steel", {
 			snappy={times={[1]=2.5, [2]=1.20, [3]=0.35}, uses=30, maxlevel=2},
 		},
 		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("default:sword_silver", {
+	description = "Silver Sword",
+	inventory_image = "default_tool_silversword.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level = 3,
+		groupcaps = {
+			fleshy = {times = {[2] = 0.70, [3] = 0.30}, uses = 100, maxlevel = 1},
+			snappy = {times = {[2] = 0.70, [3] = 0.30}, uses = 100, maxlevel = 1},
+			choppy = {times = {[3] = 0.80}, uses = 100, maxlevel = 0}
+		},
+		damage_groups = {fleshy = 6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("default:sword_mithril", {
+	description = "Mithril Sword",
+	inventory_image = "default_tool_mithrilsword.png",
+	tool_capabilities = {
+		full_punch_interval = 0.45,
+		max_drop_level = 3,
+		groupcaps = {
+			fleshy = {times = {[2] = 0.65, [3] = 0.25}, uses = 200, maxlevel = 2},
+			snappy = {times = {[2] = 0.70, [3] = 0.25}, uses = 200, maxlevel = 2},
+			choppy = {times = {[3] = 0.65}, uses = 200, maxlevel = 0}
+		},
+		damage_groups = {fleshy = 9},
 	},
 	sound = {breaks = "default_tool_breaks"},
 })
