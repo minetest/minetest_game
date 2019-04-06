@@ -90,7 +90,7 @@ end
 
 -- If driver leaves server while driving boat
 function boat.on_detach_child(self, child)
-	if self.driver~=nil and minetest.get_player_by_name(self.driver) then
+	if self.driver ~= nil and minetest.get_player_by_name(self.driver) then
 		player_api.player_attached[self.driver] = false
 	end
 	self.driver = nil
