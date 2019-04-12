@@ -554,14 +554,6 @@ function default.register_ores()
 			octaves = 1,
 			persist = 0.0
 		},
-		biomes = {"icesheet_ocean", "tundra", "tundra_beach", "tundra_ocean",
-			"taiga", "taiga_ocean", "snowy_grassland", "snowy_grassland_ocean",
-			"grassland", "grassland_dunes", "grassland_ocean", "coniferous_forest",
-			"coniferous_forest_dunes", "coniferous_forest_ocean", "deciduous_forest",
-			"deciduous_forest_shore", "deciduous_forest_ocean", "cold_desert",
-			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
-			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground",
-			"floatland_coniferous_forest", "floatland_coniferous_forest_ocean"}
 	})
 
 	-- Dirt
@@ -583,6 +575,7 @@ function default.register_ores()
 			octaves = 1,
 			persist = 0.0
 		},
+		-- Only where default:dirt is present as surface material
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
 			"deciduous_forest", "deciduous_forest_shore", "savanna", "savanna_shore",
 			"rainforest", "rainforest_swamp", "floatland_coniferous_forest"}
@@ -607,14 +600,6 @@ function default.register_ores()
 			octaves = 1,
 			persist = 0.0
 		},
-		biomes = {"icesheet_ocean", "tundra", "tundra_beach", "tundra_ocean",
-			"taiga", "taiga_ocean", "snowy_grassland", "snowy_grassland_ocean",
-			"grassland", "grassland_dunes", "grassland_ocean", "coniferous_forest",
-			"coniferous_forest_dunes", "coniferous_forest_ocean", "deciduous_forest",
-			"deciduous_forest_shore", "deciduous_forest_ocean", "cold_desert",
-			"cold_desert_ocean", "savanna", "savanna_shore", "savanna_ocean",
-			"rainforest", "rainforest_swamp", "rainforest_ocean", "underground",
-			"floatland_coniferous_forest", "floatland_coniferous_forest_ocean"}
 	})
 
 	-- Scatter ores
@@ -940,7 +925,15 @@ function default.register_biomes(upper_limit)
 		node_water_top = "default:ice",
 		depth_water_top = 10,
 		y_max = -9,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 0,
+		humidity_point = 73,
+	})
+
+	minetest.register_biome({
+		name = "icesheet_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 0,
 		humidity_point = 73,
 	})
@@ -998,7 +991,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = -4,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 0,
+		humidity_point = 40,
+	})
+
+	minetest.register_biome({
+		name = "tundra_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 0,
 		humidity_point = 40,
 	})
@@ -1031,7 +1032,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 25,
+		humidity_point = 70,
+	})
+
+	minetest.register_biome({
+		name = "taiga_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 25,
 		humidity_point = 70,
 	})
@@ -1064,7 +1073,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 20,
+		humidity_point = 35,
+	})
+
+	minetest.register_biome({
+		name = "snowy_grassland_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 20,
 		humidity_point = 35,
 	})
@@ -1109,7 +1126,15 @@ function default.register_biomes(upper_limit)
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 50,
+		humidity_point = 35,
+	})
+
+	minetest.register_biome({
+		name = "grassland_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 50,
 		humidity_point = 35,
 	})
@@ -1154,7 +1179,15 @@ function default.register_biomes(upper_limit)
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 45,
+		humidity_point = 70,
+	})
+
+	minetest.register_biome({
+		name = "coniferous_forest_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 45,
 		humidity_point = 70,
 	})
@@ -1199,7 +1232,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = -2,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 60,
+		humidity_point = 68,
+	})
+
+	minetest.register_biome({
+		name = "deciduous_forest_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 60,
 		humidity_point = 68,
 	})
@@ -1232,7 +1273,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 92,
+		humidity_point = 16,
+	})
+
+	minetest.register_biome({
+		name = "desert_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 92,
 		humidity_point = 16,
 	})
@@ -1264,7 +1313,15 @@ function default.register_biomes(upper_limit)
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 60,
+		humidity_point = 0,
+	})
+
+	minetest.register_biome({
+		name = "sandstone_desert_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 60,
 		humidity_point = 0,
 	})
@@ -1295,7 +1352,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = 3,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 40,
+		humidity_point = 0,
+	})
+
+	minetest.register_biome({
+		name = "cold_desert_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 40,
 		humidity_point = 0,
 	})
@@ -1340,7 +1405,15 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = -2,
-		y_min = -112,
+		y_min = -255,
+		heat_point = 89,
+		humidity_point = 42,
+	})
+
+	minetest.register_biome({
+		name = "savanna_under",
+		y_max = -256,
+		y_min = -31000,
 		heat_point = 89,
 		humidity_point = 42,
 	})
@@ -1385,19 +1458,17 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		vertical_blend = 1,
 		y_max = -2,
-		y_min = -112,
+		y_min = -255,
 		heat_point = 86,
 		humidity_point = 65,
 	})
 
-	-- Underground
-
 	minetest.register_biome({
-		name = "underground",
-		y_max = -113,
+		name = "rainforest_under",
+		y_max = -256,
 		y_min = -31000,
-		heat_point = 50,
-		humidity_point = 50,
+		heat_point = 86,
+		humidity_point = 65,
 	})
 end
 
