@@ -61,3 +61,12 @@ function beds.set_spawns()
 	end
 	beds.save_spawns()
 end
+
+function beds.remove_spawns_at(pos)
+	for name, p in pairs(beds.spawn) do
+		if vector.equals(vector.round(p), pos) then
+			beds.spawn[name] = nil
+		end
+	end
+	beds.save_spawns()
+end
