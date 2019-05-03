@@ -214,6 +214,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	inventory_image = "mod_door_inv.png",
 	groups = {choppy = 2},
 	tiles = {"mod_door.png"}, -- UV map.
+	-- The front and back of the door must be identical in appearence as they swap on
+	-- open/close.
 	recipe = craftrecipe,
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
@@ -228,7 +230,12 @@ The doors mod allows modders to register custom doors and trapdoors.
 	inventory_image = "mod_trapdoor_inv.png",
 	groups = {choppy = 2},
 	tile_front = "doors_trapdoor.png", -- the texture for the front and back of the trapdoor
-	tile_side = "doors_trapdoor_side.png", -- the tiles of the four side parts of the trapdoor
+	tile_side = "doors_trapdoor_side.png",
+	-- The texture for the four sides of the trapdoor.
+	-- The texture should have the trapdoor side drawn twice, in the lowest and highest
+	-- 1/8ths of the texture, both upright. The area between is not used.
+	-- The lower 1/8th will be used for the closed trapdoor, the higher 1/8th will be used
+	-- for the open trapdoor.
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
