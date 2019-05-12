@@ -145,29 +145,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	player:set_wielded_item(stack)
 end)
 
-minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
-	if itemstack:get_name() ~= "default:book_written" then
-		return
-	end
-
-	local original
-	local index
-	for i = 1, player:get_inventory():get_size("craft") do
-		if old_craft_grid[i]:get_name() == "default:book_written" then
-			original = old_craft_grid[i]
-			index = i
-		end
-	end
-	if not original then
-		return
-	end
-	local copymeta = original:get_meta():to_table()
-	-- copy of the book held by player's mouse cursor
-	itemstack:get_meta():from_table(copymeta)
-	-- put the book with metadata back in the craft grid
-	craft_inv:set_stack("craft", index, original)
-end)
-
 minetest.register_craftitem("default:skeleton_key", {
 	description = S("Skeleton Key"),
 	inventory_image = "default_key_skeleton.png",
@@ -361,11 +338,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:book_written",
-	recipe = {"default:book", "default:book_written"}
-})
+default.register_craft_metadata_copy("default:book", "default:book_written")
 
 minetest.register_craft({
 	output = "default:bronze_ingot 9",
