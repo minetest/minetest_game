@@ -1,23 +1,28 @@
+-- dye/init.lua
+
 dye = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator() 
 
 -- Make dye names and descriptions available globally
 
 dye.dyes = {
-	{"white",      "White"},
-	{"grey",       "Grey"},
-	{"dark_grey",  "Dark grey"},
-	{"black",      "Black"},
-	{"violet",     "Violet"},
-	{"blue",       "Blue"},
-	{"cyan",       "Cyan"},
-	{"dark_green", "Dark green"},
-	{"green",      "Green"},
-	{"yellow",     "Yellow"},
-	{"brown",      "Brown"},
-	{"orange",     "Orange"},
-	{"red",        "Red"},
-	{"magenta",    "Magenta"},
-	{"pink",       "Pink"},
+	{"white",      S("White")},
+	{"grey",       S("Grey")},
+	{"dark_grey",  S("Dark grey")},
+	{"black",      S("Black")},
+	{"violet",     S("Violet")},
+	{"blue",       S("Blue")},
+	{"cyan",       S("Cyan")},
+	{"dark_green", S("Dark green")},
+	{"green",      S("Green")},
+	{"yellow",     S("Yellow")},
+	{"brown",      S("Brown")},
+	{"orange",     S("Orange")},
+	{"red",        S("Red")},
+	{"magenta",    S("Magenta")},
+	{"pink",       S("Pink")},
 }
 
 -- Define items
@@ -30,7 +35,7 @@ for _, row in ipairs(dye.dyes) do
 
 	minetest.register_craftitem("dye:" .. name, {
 		inventory_image = "dye_" .. name .. ".png",
-		description = description .. " Dye",
+		description = S("@1 Dye", description),
 		groups = groups
 	})
 

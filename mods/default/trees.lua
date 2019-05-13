@@ -1,3 +1,9 @@
+-- default/trees.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
+
 local random = math.random
 
 --
@@ -560,9 +566,12 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 			interval) then
 		minetest.record_protection_violation(pos, player_name)
 		-- Print extra information to explain
+--		minetest.chat_send_player(player_name,
+--			itemstack:get_definition().description .. " will intersect protection " ..
+--			"on growth")
 		minetest.chat_send_player(player_name,
-			itemstack:get_definition().description .. " will intersect protection " ..
-			"on growth")
+			S("@1 will intersect protection on growth.", 
+			  itemstack:get_definition().description))
 		return itemstack
 	end
 

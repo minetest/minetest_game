@@ -1,3 +1,8 @@
+-- xpanes/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 
 local function is_pane(pos)
 	return minetest.get_item_group(minetest.get_node(pos).name, "pane") > 0
@@ -148,7 +153,7 @@ function xpanes.register_pane(name, def)
 end
 
 xpanes.register_pane("pane", {
-	description = "Glass Pane",
+	description = S("Glass Pane"),
 	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_edge.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
@@ -161,7 +166,7 @@ xpanes.register_pane("pane", {
 })
 
 xpanes.register_pane("obsidian_pane", {
-	description = "Obsidian Glass Pane",
+	description = S("Obsidian Glass Pane"),
 	textures = {"default_obsidian_glass.png","xpanes_pane_half.png","xpanes_edge_obsidian.png"},
 	inventory_image = "default_obsidian_glass.png",
 	wield_image = "default_obsidian_glass.png",
@@ -174,7 +179,7 @@ xpanes.register_pane("obsidian_pane", {
 })
 
 xpanes.register_pane("bar", {
-	description = "Steel Bars",
+	description = S("Steel Bars"),
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_bar_top.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
