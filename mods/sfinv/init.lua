@@ -1,3 +1,5 @@
+-- sfinv/init.lua
+
 dofile(minetest.get_modpath("sfinv") .. "/api.lua")
 
 sfinv.register_page("sfinv:crafting", {

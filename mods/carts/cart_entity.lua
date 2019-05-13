@@ -1,3 +1,9 @@
+-- carts/cart_entity.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
+
 local cart_entity = {
 	initial_properties = {
 		physical = false, -- otherwise going uphill breaks
@@ -383,7 +389,7 @@ end
 minetest.register_entity("carts:cart", cart_entity)
 
 minetest.register_craftitem("carts:cart", {
-	description = "Cart (Sneak+Click to pick up)",
+	description = S("Cart (Sneak+Click to pick up)"),
 	inventory_image = minetest.inventorycube("carts_cart_top.png", "carts_cart_side.png", "carts_cart_side.png"),
 	wield_image = "carts_cart_side.png",
 	on_place = function(itemstack, placer, pointed_thing)

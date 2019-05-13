@@ -1,3 +1,9 @@
+-- creative/inventory.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
+
 local player_inventory = {}
 local inventory_cache = {}
 
@@ -176,10 +182,10 @@ function creative.register_tab(name, title, items)
 	})
 end
 
-creative.register_tab("all", "All", minetest.registered_items)
-creative.register_tab("nodes", "Nodes", minetest.registered_nodes)
-creative.register_tab("tools", "Tools", minetest.registered_tools)
-creative.register_tab("craftitems", "Items", minetest.registered_craftitems)
+creative.register_tab("all", S("All"), minetest.registered_items)
+creative.register_tab("nodes", S("Nodes"), minetest.registered_nodes)
+creative.register_tab("tools", S("Tools"), minetest.registered_tools)
+creative.register_tab("craftitems", S("Items"), minetest.registered_craftitems)
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)

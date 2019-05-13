@@ -1,6 +1,12 @@
+-- fire/init.lua
+
 -- Global namespace for functions
 
 fire = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 
 -- 'Enable fire' setting
 
@@ -82,7 +88,7 @@ minetest.register_node("fire:basic_flame", {
 })
 
 minetest.register_node("fire:permanent_flame", {
-	description = "Permanent Flame",
+	description = S("Permanent Flame"),
 	drawtype = "firelike",
 	tiles = {
 		{
@@ -113,7 +119,7 @@ minetest.register_node("fire:permanent_flame", {
 -- Flint and steel
 
 minetest.register_tool("fire:flint_and_steel", {
-	description = "Flint and Steel",
+	description = S("Flint and Steel"),
 	inventory_image = "fire_flint_steel.png",
 	sound = {breaks = "default_tool_breaks"},
 
@@ -320,7 +326,7 @@ if fire_enabled then
 		interval = 7,
 		chance = 12,
 		catch_up = false,
-		action = function(pos)
+		action = function(pos, node, active_object_count, active_object_count_wider)
 			local p = minetest.find_node_near(pos, 1, {"air"})
 			if p then
 				minetest.set_node(p, {name = "fire:basic_flame"})
@@ -337,7 +343,7 @@ if fire_enabled then
 		interval = 5,
 		chance = 18,
 		catch_up = false,
-		action = function(pos)
+		action = function(pos, node, active_object_count, active_object_count_wider)
 			local p = minetest.find_node_near(pos, 1, {"group:flammable"})
 			if not p then
 				return

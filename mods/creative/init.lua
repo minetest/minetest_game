@@ -1,3 +1,9 @@
+-- creative/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
+
 creative = {}
 
 local function update_sfinv(name)
@@ -14,7 +20,7 @@ local function update_sfinv(name)
 end
 
 minetest.register_privilege("creative", {
-	description = "Allow player to use creative inventory",
+	description = S("Allow player to use creative inventory"),
 	give_to_singleplayer = false,
 	give_to_admin = false,
 	on_grant = update_sfinv,

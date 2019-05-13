@@ -1,3 +1,8 @@
+-- boats/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 --
 -- Helper functions
 --
@@ -149,13 +154,13 @@ function boat.on_step(self, dtime)
 			if ctrl.up and ctrl.down then
 				if not self.auto then
 					self.auto = true
-					minetest.chat_send_player(self.driver, "[boats] Cruise on")
+					minetest.chat_send_player(self.driver, S("[boats] Cruise on"))
 				end
 			elseif ctrl.down then
 				self.v = self.v - dtime * 1.8
 				if self.auto then
 					self.auto = false
-					minetest.chat_send_player(self.driver, "[boats] Cruise off")
+					minetest.chat_send_player(self.driver, S("[boats] Cruise off"))
 				end
 			elseif ctrl.up or self.auto then
 				self.v = self.v + dtime * 1.8
@@ -242,7 +247,7 @@ minetest.register_entity("boats:boat", boat)
 
 
 minetest.register_craftitem("boats:boat", {
-	description = "Boat",
+	description = S("Boat"),
 	inventory_image = "boats_inventory.png",
 	wield_image = "boats_wield.png",
 	wield_scale = {x = 2, y = 2, z = 1},

@@ -1,3 +1,5 @@
+-- flowers/init.lua
+
 -- Minetest 0.4 mod: default
 -- See README.txt for licensing and other information.
 
@@ -6,6 +8,9 @@
 
 flowers = {}
 
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 
 -- Map Generation
 
@@ -46,6 +51,7 @@ local function add_simple_flower(name, desc, box, f_groups)
 		paramtype = "light",
 		walkable = false,
 		buildable_to = true,
+		stack_max = 99,
 		groups = f_groups,
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
@@ -58,49 +64,49 @@ end
 flowers.datas = {
 	{
 		"rose",
-		"Red Rose",
+		S("Red Rose"),
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 5 / 16, 2 / 16},
 		{color_red = 1, flammable = 1}
 	},
 	{
 		"tulip",
-		"Orange Tulip",
+		S("Orange Tulip"),
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
 		{color_orange = 1, flammable = 1}
 	},
 	{
 		"dandelion_yellow",
-		"Yellow Dandelion",
+		S("Yellow Dandelion"),
 		{-4 / 16, -0.5, -4 / 16, 4 / 16, -2 / 16, 4 / 16},
 		{color_yellow = 1, flammable = 1}
 	},
 	{
 		"chrysanthemum_green",
-		"Green Chrysanthemum",
+		S("Green Chrysanthemum"),
 		{-4 / 16, -0.5, -4 / 16, 4 / 16, -1 / 16, 4 / 16},
 		{color_green = 1, flammable = 1}
 	},
 	{
 		"geranium",
-		"Blue Geranium",
+		S("Blue Geranium"),
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 2 / 16, 2 / 16},
 		{color_blue = 1, flammable = 1}
 	},
 	{
 		"viola",
-		"Viola",
+		S("Viola"),
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -1 / 16, 5 / 16},
 		{color_violet = 1, flammable = 1}
 	},
 	{
 		"dandelion_white",
-		"White Dandelion",
+		S("White Dandelion"),
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -2 / 16, 5 / 16},
 		{color_white = 1, flammable = 1}
 	},
 	{
 		"tulip_black",
-		"Black Tulip",
+		S("Black Tulip"),
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
 		{color_black = 1, flammable = 1}
 	},
@@ -180,7 +186,7 @@ minetest.register_abm({
 --
 
 minetest.register_node("flowers:mushroom_red", {
-	description = "Red Mushroom",
+	description = S("Red Mushroom"),
 	tiles = {"flowers_mushroom_red.png"},
 	inventory_image = "flowers_mushroom_red.png",
 	wield_image = "flowers_mushroom_red.png",
@@ -199,7 +205,7 @@ minetest.register_node("flowers:mushroom_red", {
 })
 
 minetest.register_node("flowers:mushroom_brown", {
-	description = "Brown Mushroom",
+	description = S("Brown Mushroom"),
 	tiles = {"flowers_mushroom_brown.png"},
 	inventory_image = "flowers_mushroom_brown.png",
 	wield_image = "flowers_mushroom_brown.png",
@@ -221,10 +227,8 @@ minetest.register_node("flowers:mushroom_brown", {
 -- Mushroom spread and death
 
 function flowers.mushroom_spread(pos, node)
-	if minetest.get_node_light(pos, 0.5) > 3 then
-		if minetest.get_node_light(pos, nil) == 15 then
-			minetest.remove_node(pos)
-		end
+	if minetest.get_node_light(pos, nil) == 15 then
+		minetest.remove_node(pos)
 		return
 	end
 	local positions = minetest.find_nodes_in_area_under_air(
@@ -236,7 +240,8 @@ function flowers.mushroom_spread(pos, node)
 	end
 	local pos2 = positions[math.random(#positions)]
 	pos2.y = pos2.y + 1
-	if minetest.get_node_light(pos2, 0.5) <= 3 then
+	if minetest.get_node_light(pos, 0.5) <= 3 and
+			minetest.get_node_light(pos2, 0.5) <= 3 then
 		minetest.set_node(pos2, {name = node.name})
 	end
 end
@@ -267,7 +272,7 @@ minetest.register_alias("mushroom:red_natural", "flowers:mushroom_red")
 --
 
 minetest.register_node("flowers:waterlily", {
-	description = "Waterlily",
+	description = S("Waterlily"),
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
