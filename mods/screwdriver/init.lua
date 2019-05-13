@@ -4,7 +4,7 @@ screwdriver = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 screwdriver.ROTATE_FACE = 1
 screwdriver.ROTATE_AXIS = 2

@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 -- The hand
 minetest.register_item(":", {
 	type = "none",

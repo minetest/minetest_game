@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 local function is_pane(pos)
 	return minetest.get_item_group(minetest.get_node(pos).name, "pane") > 0

@@ -8,7 +8,7 @@ doors.registered_trapdoors = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 local function replace_old_owner_information(pos)
 	local meta = minetest.get_meta(pos)

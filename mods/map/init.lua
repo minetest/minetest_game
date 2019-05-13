@@ -7,7 +7,7 @@ map = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 -- Cache creative mode setting
 

@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 minetest.register_craftitem("default:stick", {
 	description = S("Stick"),
 	inventory_image = "default_stick.png",

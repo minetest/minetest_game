@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 -- register butterflies
 local butter_list = {
 	{"white", S("White")},
