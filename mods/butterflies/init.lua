@@ -1,8 +1,13 @@
+-- butrerflies/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 -- register butterflies
 local butter_list = {
-	{"white", "White"},
-	{"red", "Red"},
-	{"violet", "Violet"}
+	{"white", S("White")},
+	{"red", S("Red")},
+	{"violet", S("Violet")}
 }
 
 for i in ipairs (butter_list) do
@@ -10,7 +15,7 @@ for i in ipairs (butter_list) do
 	local desc = butter_list[i][2]
 
 	minetest.register_node("butterflies:butterfly_"..name, {
-		description = desc.." Butterfly",
+		description = S("@1 Butterfly", desc),
 		drawtype = "plantlike",
 		tiles = {{
 			name = "butterflies_butterfly_"..name.."_animated.png",
@@ -56,7 +61,7 @@ for i in ipairs (butter_list) do
 	})
 
 	minetest.register_node("butterflies:hidden_butterfly_"..name, {
-		description = "Hidden "..desc.." Butterfly",
+		description = S("Hidden @1 Butterfly", desc),
 		drawtype = "airlike",
 		inventory_image = "insects_butterfly_"..name..".png",
 		wield_image =  "insects_butterfly_"..name..".png",

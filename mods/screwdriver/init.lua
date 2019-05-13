@@ -1,4 +1,10 @@
+-- screwdriver/init.lua
+
 screwdriver = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 
 screwdriver.ROTATE_FACE = 1
 screwdriver.ROTATE_AXIS = 2
@@ -144,7 +150,7 @@ end
 
 -- Screwdriver
 minetest.register_tool("screwdriver:screwdriver", {
-	description = "Screwdriver (left-click rotates face, right-click rotates axis)",
+	description = S("Screwdriver (left-click rotates face, right-click rotates axis)"),
 	inventory_image = "screwdriver.png",
 	on_use = function(itemstack, user, pointed_thing)
 		screwdriver.handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE, 200)

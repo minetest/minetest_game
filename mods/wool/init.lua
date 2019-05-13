@@ -1,26 +1,32 @@
+-- wool/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
+
 local dyes = {
-	{"white",      "White"},
-	{"grey",       "Grey"},
-	{"black",      "Black"},
-	{"red",        "Red"},
-	{"yellow",     "Yellow"},
-	{"green",      "Green"},
-	{"cyan",       "Cyan"},
-	{"blue",       "Blue"},
-	{"magenta",    "Magenta"},
-	{"orange",     "Orange"},
-	{"violet",     "Violet"},
-	{"brown",      "Brown"},
-	{"pink",       "Pink"},
-	{"dark_grey",  "Dark Grey"},
-	{"dark_green", "Dark Green"},
+	{"white",      S("White")},
+	{"grey",       S("Grey")},
+	{"black",      S("Black")},
+	{"red",        S("Red")},
+	{"yellow",     S("Yellow")},
+	{"green",      S("Green")},
+	{"cyan",       S("Cyan")},
+	{"blue",       S("Blue")},
+	{"magenta",    S("Magenta")},
+	{"orange",     S("Orange")},
+	{"violet",     S("Violet")},
+	{"brown",      S("Brown")},
+	{"pink",       S("Pink")},
+	{"dark_grey",  S("Dark Grey")},
+	{"dark_green", S("Dark Green")},
 }
 
 for i = 1, #dyes do
 	local name, desc = unpack(dyes[i])
 
 	minetest.register_node("wool:" .. name, {
-		description = desc .. " Wool",
+		description = S("@1 Wool", desc),
 		tiles = {"wool_" .. name .. ".png"},
 		is_ground_content = false,
 		groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3,

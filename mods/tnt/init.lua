@@ -1,4 +1,10 @@
+-- tnt/init.lua
+
 tnt = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 
 -- Default to enabled when in singleplayer
 local enable_tnt = minetest.settings:get_bool("enable_tnt")
@@ -422,7 +428,7 @@ minetest.register_node("tnt:boom", {
 })
 
 minetest.register_node("tnt:gunpowder", {
-	description = "Gun Powder",
+	description = S("Gun Powder"),
 	drawtype = "raillike",
 	paramtype = "light",
 	is_ground_content = false,
@@ -547,7 +553,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("tnt:tnt_stick", {
-	description = "TNT Stick",
+	description = S("TNT Stick"),
 	inventory_image = "tnt_tnt_stick.png",
 	groups = {flammable = 5},
 })
@@ -675,6 +681,6 @@ end
 
 tnt.register_tnt({
 	name = "tnt:tnt",
-	description = "TNT",
+	description = S("TNT"),
 	radius = tnt_radius,
 })

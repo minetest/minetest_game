@@ -1,5 +1,11 @@
+-- bones/init.lua
+
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 
 bones = {}
 
@@ -24,7 +30,7 @@ local share_bones_time = tonumber(minetest.settings:get("share_bones_time")) or 
 local share_bones_time_early = tonumber(minetest.settings:get("share_bones_time_early")) or share_bones_time / 4
 
 minetest.register_node("bones:bones", {
-	description = "Bones",
+	description = S("Bones"),
 	tiles = {
 		"bones_top.png^[transform2",
 		"bones_bottom.png",
@@ -116,7 +122,7 @@ minetest.register_node("bones:bones", {
 		local meta = minetest.get_meta(pos)
 		local time = meta:get_int("time") + elapsed
 		if time >= share_bones_time then
-			meta:set_string("infotext", meta:get_string("owner") .. "'s old bones")
+			meta:set_string("infotext", S("@1's old bones", meta:get_string("owner")))
 			meta:set_string("owner", "")
 		else
 			meta:set_int("time", time)
@@ -194,7 +200,7 @@ minetest.register_on_dieplayer(function(player)
 		minetest.log("action", player_name .. " dies at " .. pos_string ..
 			". No bones placed")
 		if bones_position_message then
-			minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string .. ".")
+			minetest.chat_send_player(player_name, S("@1 died at @2.", player_name, pos_string))
 		end
 		return
 	end
@@ -204,7 +210,7 @@ minetest.register_on_dieplayer(function(player)
 		minetest.log("action", player_name .. " dies at " .. pos_string ..
 			". No bones placed")
 		if bones_position_message then
-			minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string .. ".")
+			minetest.chat_send_player(player_name, S("@1 died at @2.", player_name, pos_string))
 		end
 		return
 	end
@@ -230,8 +236,9 @@ minetest.register_on_dieplayer(function(player)
 		minetest.log("action", player_name .. " dies at " .. pos_string ..
 			". Inventory dropped")
 		if bones_position_message then
-			minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string ..
-				", and dropped their inventory.")
+			minetest.chat_send_player(player_name, 
+			    S("@1 died at @2, and dropped their inventory.", 
+			      player_name, pos_string))
 		end
 		return
 	end
@@ -242,8 +249,9 @@ minetest.register_on_dieplayer(function(player)
 	minetest.log("action", player_name .. " dies at " .. pos_string ..
 		". Bones placed")
 	if bones_position_message then
-		minetest.chat_send_player(player_name, player_name .. " died at " .. pos_string ..
-			", and bones were placed.")
+		minetest.chat_send_player(player_name, 
+			    S("@1 died at @2, and bones were placed.", 
+			      player_name, pos_string))
 	end
 
 	local meta = minetest.get_meta(pos)
@@ -266,7 +274,7 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_string("owner", player_name)
 
 	if share_bones_time ~= 0 then
-		meta:set_string("infotext", player_name .. "'s fresh bones")
+		meta:set_string("infotext", S("@1's fresh bones.", player_name))
 
 		if share_bones_time_early == 0 or not minetest.is_protected(pos, player_name) then
 			meta:set_int("time", 0)
@@ -276,6 +284,6 @@ minetest.register_on_dieplayer(function(player)
 
 		minetest.get_node_timer(pos):start(10)
 	else
-		meta:set_string("infotext", player_name.."'s bones")
+		meta:set_string("infotext", S("@1's bones.", player_name))
 	end
 end)

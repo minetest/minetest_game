@@ -1,3 +1,8 @@
+-- default/torch.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+ 
 local function on_flood(pos, oldnode, newnode)
 	minetest.add_item(pos, ItemStack("default:torch 1"))
 	-- Play flame-extinguish sound if liquid is not an 'igniter'
@@ -14,7 +19,7 @@ local function on_flood(pos, oldnode, newnode)
 end
 
 minetest.register_node("default:torch", {
-	description = "Torch",
+	description = S("Torch"),
 	drawtype = "mesh",
 	mesh = "torch_floor.obj",
 	inventory_image = "default_torch_on_floor.png",

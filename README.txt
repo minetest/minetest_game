@@ -15,7 +15,7 @@ The Minetest Game github master HEAD is generally compatible with the github
 master HEAD of the Minetest engine.
 
 Additionally, when the Minetest engine is tagged to be a certain version (eg.
-0.4.10), Minetest Game is tagged with the version too.
+5.0.1), Minetest Game is tagged with the version too.
 
 When stable releases are made, Minetest Game is packaged and made available in
 	http://minetest.net/downloads/
