@@ -3,7 +3,7 @@
 dye = {}
 
 -- Load support for MT game translation.
-local S = minetest.get_translator() 
+local S = minetest.get_translator()
 
 -- Make dye names and descriptions available globally
 
