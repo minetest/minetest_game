@@ -569,7 +569,9 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 --		minetest.chat_send_player(player_name,
 --			itemstack:get_definition().description .. " will intersect protection " ..
 --			"on growth")
-		minetest.chat_send_player(player_name, S("@1 will intersect protection on growth.", itemstack:get_definition().description))
+		minetest.chat_send_player(player_name,
+		    S("@1 will intersect protection on growth.",
+			itemstack:get_definition().description))
 		return itemstack
 	end
 
