@@ -5,7 +5,6 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
 
 bones = {}
 
@@ -236,9 +235,7 @@ minetest.register_on_dieplayer(function(player)
 		minetest.log("action", player_name .. " dies at " .. pos_string ..
 			". Inventory dropped")
 		if bones_position_message then
-			minetest.chat_send_player(player_name, 
-			    S("@1 died at @2, and dropped their inventory.", 
-			      player_name, pos_string))
+			minetest.chat_send_player(player_name, S("@1 died at @2, and dropped their inventory.", player_name, pos_string))
 		end
 		return
 	end
@@ -249,9 +246,7 @@ minetest.register_on_dieplayer(function(player)
 	minetest.log("action", player_name .. " dies at " .. pos_string ..
 		". Bones placed")
 	if bones_position_message then
-		minetest.chat_send_player(player_name, 
-			    S("@1 died at @2, and bones were placed.", 
-			      player_name, pos_string))
+		minetest.chat_send_player(player_name, S("@1 died at @2, and bones were placed.", player_name, pos_string))
 	end
 
 	local meta = minetest.get_meta(pos)

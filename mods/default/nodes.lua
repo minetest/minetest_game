@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 --[[ Node name convention:
 
@@ -2514,8 +2514,7 @@ local function update_bookshelf(pos)
 	else
 --		meta:set_string("infotext", "Bookshelf (" .. n_written ..
 --			" written, " .. n_empty .. " empty books)")
-		meta:set_string("infotext", S("Bookshelf (@1 written, @2 empty books)", 
-		    n_written, n_empty))
+		meta:set_string("infotext", S("Bookshelf (@1 written, @2 empty books)", n_written, n_empty))
 	end
 end
 

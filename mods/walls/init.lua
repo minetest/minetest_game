@@ -4,7 +4,7 @@ walls = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wall_sounds)
 	--make wall_texture_table paramenter backwards compatible for mods passing single texture

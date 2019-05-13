@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 carts:register_rail("carts:rail", {
 	description = S("Rail"),
 	tiles = {

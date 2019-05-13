@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 local cart_entity = {
 	initial_properties = {

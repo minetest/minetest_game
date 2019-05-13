@@ -5,7 +5,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 local vessels_shelf_formspec =
 	"size[8,7;]" ..

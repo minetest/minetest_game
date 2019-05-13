@@ -10,7 +10,7 @@ stairs = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 -- Register aliases for new pine node names
 

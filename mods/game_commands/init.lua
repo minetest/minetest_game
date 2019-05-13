@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 minetest.register_chatcommand("killme", {
 	description = S("Kill yourself to respawn"),

@@ -10,7 +10,7 @@ flowers = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 -- Map Generation
 

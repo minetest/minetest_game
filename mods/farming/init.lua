@@ -15,7 +15,7 @@ dofile(farming.path .. "/hoes.lua")
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 -- WHEAT
 
