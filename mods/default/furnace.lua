@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 
 --
 -- Formspecs
@@ -237,8 +237,7 @@ local function furnace_node_timer(pos, elapsed)
 
 --	local infotext = "Furnace " .. active .. "\n(Item: " .. item_state ..
 --		"; Fuel: " .. fuel_state .. ")"
-	local infotext = S("Furnace @1 \n(Item: @2; Fuel: @3)", active, 
-	    item_state, fuel_state)
+	local infotext = S("Furnace @1 \n(Item: @2; Fuel: @3)", active, item_state, fuel_state)
 
 	--
 	-- Set meta values

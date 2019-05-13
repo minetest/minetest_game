@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 local dyes = dye.dyes
+=======
+>>>>>>> ref luacheck whitespace warnings
 
 for i = 1, #dyes do
 	local name, desc = unpack(dyes[i])

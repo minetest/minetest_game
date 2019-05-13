@@ -2,7 +2,7 @@
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 -- Fancy shaped bed
 
 beds.register_bed("beds:fancy_bed", {

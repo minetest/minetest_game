@@ -2,7 +2,7 @@ default.chest = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator()
- 
+
 function default.chest.get_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec =
@@ -95,8 +95,7 @@ function default.chest.register_chest(name, d)
 		def.after_place_node = function(pos, placer)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("owner", placer:get_player_name() or "")
-			meta:set_string("infotext", S("Locked Chest (owned by @1)", 
-					meta:get_string("owner")))
+			meta:set_string("infotext", S("Locked Chest (owned by @1)", meta:get_string("owner")))
 		end
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
