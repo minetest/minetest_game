@@ -924,6 +924,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_water_top = "default:ice",
 		depth_water_top = 10,
+		node_cave_liquid = "default:water_source",
 		y_max = -9,
 		y_min = -255,
 		heat_point = 0,
@@ -932,6 +933,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "icesheet_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 0,
@@ -989,6 +991,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:gravel",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = -4,
 		y_min = -255,
@@ -998,6 +1001,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "tundra_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 0,
@@ -1030,6 +1034,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = 3,
 		y_min = -255,
@@ -1039,6 +1044,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "taiga_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 25,
@@ -1071,6 +1077,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = 3,
 		y_min = -255,
@@ -1080,6 +1087,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "snowy_grassland_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 20,
@@ -1125,6 +1133,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		y_max = 3,
 		y_min = -255,
 		heat_point = 50,
@@ -1133,6 +1142,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "grassland_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 50,
@@ -1178,6 +1188,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		y_max = 3,
 		y_min = -255,
 		heat_point = 45,
@@ -1186,6 +1197,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "coniferous_forest_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 45,
@@ -1230,6 +1242,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = -2,
 		y_min = -255,
@@ -1239,6 +1252,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "deciduous_forest_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 60,
@@ -1271,6 +1285,7 @@ function default.register_biomes(upper_limit)
 		node_stone = "default:desert_stone",
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = 3,
 		y_min = -255,
@@ -1280,6 +1295,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "desert_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 92,
@@ -1312,6 +1328,7 @@ function default.register_biomes(upper_limit)
 		node_stone = "default:sandstone",
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		y_max = 3,
 		y_min = -255,
 		heat_point = 60,
@@ -1320,6 +1337,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "sandstone_desert_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 60,
@@ -1350,6 +1368,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = 3,
 		y_min = -255,
@@ -1359,6 +1378,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "cold_desert_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 40,
@@ -1403,6 +1423,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = -2,
 		y_min = -255,
@@ -1412,6 +1433,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "savanna_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 89,
@@ -1456,6 +1478,7 @@ function default.register_biomes(upper_limit)
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
+		node_cave_liquid = "default:water_source",
 		vertical_blend = 1,
 		y_max = -2,
 		y_min = -255,
@@ -1465,6 +1488,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "rainforest_under",
+		node_cave_liquid = {"default:water_source", "default:lava_source"},
 		y_max = -256,
 		y_min = -31000,
 		heat_point = 86,
