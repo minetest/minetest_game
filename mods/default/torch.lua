@@ -1,7 +1,7 @@
 -- default/torch.lua
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
+-- support for MT game translation.
+local S = default.get_translator
 
 local function on_flood(pos, oldnode, newnode)
 	minetest.add_item(pos, ItemStack("default:torch 1"))

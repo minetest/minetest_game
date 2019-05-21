@@ -9,6 +9,7 @@ beds.player = {}
 beds.bed_position = {}
 beds.pos = {}
 beds.spawn = {}
+beds.get_translator = S
 
 beds.formspec = "size[8,11;true]" ..
 	"no_prepend[]" ..

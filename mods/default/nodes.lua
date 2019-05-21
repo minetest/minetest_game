@@ -1,8 +1,7 @@
 -- mods/default/nodes.lua
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
-
+-- support for MT game translation.
+local S = default.get_translator
 
 --[[ Node name convention:
 

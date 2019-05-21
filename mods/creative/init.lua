@@ -3,8 +3,8 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator()
 
-
 creative = {}
+creative.get_translator = S
 
 local function update_sfinv(name)
 	minetest.after(0, function()

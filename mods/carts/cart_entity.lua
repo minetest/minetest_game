@@ -1,8 +1,7 @@
 -- carts/cart_entity.lua
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
-
+-- support for MT game translation.
+local S = carts.get_translator
 
 local cart_entity = {
 	initial_properties = {
