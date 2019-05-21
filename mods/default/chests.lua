@@ -1,7 +1,7 @@
 default.chest = {}
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
+-- support for MT game translation.
+local S = default.get_translator
 
 function default.chest.get_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z

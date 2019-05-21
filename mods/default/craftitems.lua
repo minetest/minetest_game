@@ -1,7 +1,7 @@
 -- mods/default/craftitems.lua
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
+-- support for MT game translation.
+local S = default.get_translator
 
 minetest.register_craftitem("default:stick", {
 	description = S("Stick"),

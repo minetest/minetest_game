@@ -1,8 +1,7 @@
 -- creative/inventory.lua
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
-
+-- support for MT game translation.
+local S = creative.get_translator
 
 local player_inventory = {}
 local inventory_cache = {}

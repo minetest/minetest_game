@@ -1,7 +1,7 @@
 -- farming/hoes.lua
 
--- Load support for MT game translation.
-local S = minetest.get_translator()
+-- support for MT game translation.
+local S = farming.get_translator
 
 farming.register_hoe(":farming:hoe_wood", {
 	description = S("Wooden Hoe"),
