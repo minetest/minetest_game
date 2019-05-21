@@ -1,7 +1,12 @@
+-- carts/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
 
 carts = {}
 carts.modpath = minetest.get_modpath("carts")
 carts.railparams = {}
+carts.get_translator = S
 
 -- Maximal speed of the cart in m/s (min = -1)
 carts.speed_max = 7
