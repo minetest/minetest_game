@@ -2511,8 +2511,6 @@ local function update_bookshelf(pos)
 	if n_written + n_empty == 0 then
 		meta:set_string("infotext", S("Empty Bookshelf"))
 	else
---		meta:set_string("infotext", "Bookshelf (" .. n_written ..
---			" written, " .. n_empty .. " empty books)")
 		meta:set_string("infotext", S("Bookshelf (@1 written, @2 empty books)", n_written, n_empty))
 	end
 end
