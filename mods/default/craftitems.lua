@@ -243,8 +243,8 @@ minetest.register_craftitem("default:skeleton_key", {
 			local new_stack = ItemStack("default:key")
 			local meta = new_stack:get_meta()
 			meta:set_string("secret", secret)
-			meta:set_string("description", "Key to "..user:get_player_name().."'s "
-				..minetest.registered_nodes[node.name].description)
+			meta:set_string("description", S("Key to @1's @2", user:get_player_name(),
+				minetest.registered_nodes[node.name].description))
 
 			if itemstack:get_count() == 0 then
 				itemstack = new_stack

@@ -417,7 +417,7 @@ function doors.register(name, def)
 				meta:set_string("key_lock_secret", secret)
 			end
 
-			return secret, "a locked door", owner
+			return secret, S("a locked door"), owner
 		end
 		def.node_dig_prediction = ""
 	else
@@ -615,7 +615,7 @@ function doors.register_trapdoor(name, def)
 				meta:set_string("key_lock_secret", secret)
 			end
 
-			return secret, "a locked trapdoor", owner
+			return secret, S("a locked trapdoor"), owner
 		end
 		def.node_dig_prediction = ""
 	else
