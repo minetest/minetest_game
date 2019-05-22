@@ -242,7 +242,7 @@ function flowers.mushroom_spread(pos, node)
 	local pos2 = positions[math.random(#positions)]
 	pos2.y = pos2.y + 1
 	if minetest.get_node_light(pos2, 0.5) <= 3 then
-			minetest.set_node(pos2, {name = node.name})
+		minetest.set_node(pos2, {name = node.name})
 	end
 end
 
