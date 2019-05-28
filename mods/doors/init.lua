@@ -437,17 +437,26 @@ function doors.register(name, def)
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 
-	def.mesh = "door_a.obj"
-	minetest.register_node(":" .. name .. "_a", def)
+    if def.model == "new" then
+	    def.mesh = "door_new_a.obj"
+	    minetest.register_node(":" .. name .. "_a", def)
 
-	def.mesh = "door_b.obj"
-	minetest.register_node(":" .. name .. "_b", def)
+	    def.mesh = "door_new_b.obj"
+	    minetest.register_node(":" .. name .. "_b", def)
+    else
+	    def.mesh = "door_a.obj"
+	    minetest.register_node(":" .. name .. "_a", def)
 
-	doors.registered_doors[name .. "_a"] = true
-	doors.registered_doors[name .. "_b"] = true
+	    def.mesh = "door_b.obj"
+	    minetest.register_node(":" .. name .. "_b", def)
+    end
+
+    doors.registered_doors[name .. "_a"] = true
+    doors.registered_doors[name .. "_b"] = true
 end
 
 doors.register("door_wood", {
+        model = "new",
 		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
 		description = "Wooden Door",
 		inventory_image = "doors_item_wood.png",
@@ -460,6 +469,7 @@ doors.register("door_wood", {
 })
 
 doors.register("door_steel", {
+        model = "new",
 		tiles = {{name = "doors_door_steel.png", backface_culling = true}},
 		description = "Steel Door",
 		inventory_image = "doors_item_steel.png",
@@ -636,7 +646,15 @@ function doors.register_trapdoor(name, def)
 
 	def_closed.node_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
+		fixed = {
+                    {-0.5, -0.5, -0.5, 0.5, -6/16, -5/16},
+                    {-0.5, -0.5, 5/16, 0.5, -6/16, 0.5},
+                    {-0.5, -0.5, -5/16, -5/16, -6/16, 5/16},
+                    {5/16, -0.5, -5/16, 0.5, -6/16, 5/16},
+                    {-5/16, -0.5, -2/16, 5/16, -6/16, 2/16},
+                    {-2/16, -0.5, -5/16, 2/16, -6/16, 2/16},
+                    {-2/16, -0.5, 2/16, 2/16, -6/16, 6/16}
+		}
 	}
 	def_closed.selection_box = {
 		type = "fixed",
@@ -653,7 +671,15 @@ function doors.register_trapdoor(name, def)
 
 	def_opened.node_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
+		fixed = {
+                    {-0.5, -0.5, 6/16, -5/16, 0.5, 0.5},
+                    {5/16, -0.5, 6/16, 0.5, 0.5, 0.5},
+                    {-5/16, 5/16, 6/16, 5/16, 0.5, 0.5},
+                    {-5/16, -0.5, 6/16, 5/16, -5/16, 0.5},
+                    {-2/16, 2/16, 6/16, 2/16, 5/16, 0.5},
+                    {-2/16, -5/16, 6/16, 2/16, -2/16, 0.5},
+                    {-5/16, -2/16, 6/16, 5/16, 2/16, 0.5}
+		}
 	}
 	def_opened.selection_box = {
 		type = "fixed",
