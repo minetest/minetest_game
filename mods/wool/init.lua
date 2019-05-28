@@ -1,3 +1,8 @@
+-- wool/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator()
+
 local dyes = dye.dyes
 
 for i = 1, #dyes do
