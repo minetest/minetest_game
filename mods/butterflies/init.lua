@@ -131,3 +131,39 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		end
 	end
 end)
+-- bug net
+if not minetest.get_modpath("fireflies") then
+	minetest.register_tool("butterflies:bug_net", {
+		description = "Bug Net",
+		inventory_image = "butterflies_bugnet.png",
+		on_use = function(itemstack, player, pointed_thing)
+			if not pointed_thing or pointed_thing.type ~= "node" or
+					minetest.is_protected(pointed_thing.under, player:get_player_name()) then
+				return
+			end
+			local node_name = minetest.get_node(pointed_thing.under).name
+			local inv = player:get_inventory()
+			if minetest.get_item_group(node_name, "catchable") == 1 then
+				minetest.set_node(pointed_thing.under, {name = "air"})
+				local stack = ItemStack(node_name.." 1")
+				local leftover = inv:add_item("main", stack)
+				if leftover:get_count() > 0 then
+					minetest.add_item(pointed_thing.under, node_name.." 1")
+				end
+			end
+			if not (creative and creative.is_enabled_for(player:get_player_name())) then
+				itemstack:add_wear(256)
+				return itemstack
+			end
+		end
+	})
+	
+	minetest.register_craft( {
+		output = "butterflies:bug_net",
+		recipe = {
+			{"farming:string", "farming:string"},
+			{"farming:string", "farming:string"},
+			{"default:stick", ""}
+		}
+	})
+end
