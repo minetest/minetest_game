@@ -437,22 +437,22 @@ function doors.register(name, def)
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 
-    if def.model == "new" then
-	    def.mesh = "door_new_a.obj"
-	    minetest.register_node(":" .. name .. "_a", def)
+	if def.model == "new" then
+		def.mesh = "door_new_a.obj"
+		minetest.register_node(":" .. name .. "_a", def)
 
-	    def.mesh = "door_new_b.obj"
-	    minetest.register_node(":" .. name .. "_b", def)
-    else
-	    def.mesh = "door_a.obj"
-	    minetest.register_node(":" .. name .. "_a", def)
+		def.mesh = "door_new_b.obj"
+		minetest.register_node(":" .. name .. "_b", def)
+	else
+		def.mesh = "door_a.obj"
+		minetest.register_node(":" .. name .. "_a", def)
 
-	    def.mesh = "door_b.obj"
-	    minetest.register_node(":" .. name .. "_b", def)
-    end
+		def.mesh = "door_b.obj"
+		minetest.register_node(":" .. name .. "_b", def)
+	end
 
-    doors.registered_doors[name .. "_a"] = true
-    doors.registered_doors[name .. "_b"] = true
+	doors.registered_doors[name .. "_a"] = true
+	doors.registered_doors[name .. "_b"] = true
 end
 
 doors.register("door_wood", {
@@ -644,24 +644,24 @@ function doors.register_trapdoor(name, def)
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
 
-    if def.model == "new" then
-        def_closed.node_box = {
-            type = "fixed",
-            fixed = {
-                        {-0.5, -0.5, -0.5, 0.5, -6/16, -5/16},
-                        {-0.5, -0.5, 5/16, 0.5, -6/16, 0.5},
-                        {-0.5, -0.5, -5/16, -5/16, -6/16, 5/16},
-                        {5/16, -0.5, -5/16, 0.5, -6/16, 5/16},
-                        {-5/16, -0.5, -2/16, 5/16, -6/16, 2/16},
-                        {-2/16, -0.5, -5/16, 2/16, -6/16, 6/16}
-            }
-        }
-    else
-        def_closed.node_box = {
-            type = "fixed",
-            fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
-        }
-    end
+	if def.model == "new" then
+		def_closed.node_box = {
+		    type = "fixed",
+		    fixed = {
+		                {-0.5, -0.5, -0.5, 0.5, -6/16, -5/16},
+		                {-0.5, -0.5, 5/16, 0.5, -6/16, 0.5},
+		                {-0.5, -0.5, -5/16, -5/16, -6/16, 5/16},
+		                {5/16, -0.5, -5/16, 0.5, -6/16, 5/16},
+		                {-5/16, -0.5, -2/16, 5/16, -6/16, 2/16},
+		                {-2/16, -0.5, -5/16, 2/16, -6/16, 6/16}
+		    }
+		}
+	else
+		def_closed.node_box = {
+		    type = "fixed",
+		    fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
+		}
+	end
 	def_closed.selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
@@ -675,24 +675,24 @@ function doors.register_trapdoor(name, def)
 		def.tile_side
 	}
 
-    if def.model == "new" then
-        def_opened.node_box = {
-            type = "fixed",
-            fixed = {
-                        {-0.5, -0.5, 6/16, -5/16, 0.5, 0.5},
-                        {5/16, -0.5, 6/16, 0.5, 0.5, 0.5},
-                        {-5/16, 5/16, 6/16, 5/16, 0.5, 0.5},
-                        {-5/16, -0.5, 6/16, 5/16, -5/16, 0.5},
-                        {-2/16, -6/16, 6/16, 2/16, 5/16, 0.5},
-                        {-5/16, -2/16, 6/16, 5/16, 2/16, 0.5}
-            }
-        }
-    else
-        def_opened.node_box = {
-            type = "fixed",
-            fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
-        }
-    end
+	if def.model == "new" then
+		def_opened.node_box = {
+		    type = "fixed",
+		    fixed = {
+		                {-0.5, -0.5, 6/16, -5/16, 0.5, 0.5},
+		                {5/16, -0.5, 6/16, 0.5, 0.5, 0.5},
+		                {-5/16, 5/16, 6/16, 5/16, 0.5, 0.5},
+		                {-5/16, -0.5, 6/16, 5/16, -5/16, 0.5},
+		                {-2/16, -6/16, 6/16, 2/16, 5/16, 0.5},
+		                {-5/16, -2/16, 6/16, 5/16, 2/16, 0.5}
+		    }
+		}
+	else
+		def_opened.node_box = {
+		    type = "fixed",
+		    fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
+		}
+	end
 	def_opened.selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
