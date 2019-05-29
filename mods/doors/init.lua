@@ -456,7 +456,7 @@ function doors.register(name, def)
 end
 
 doors.register("door_wood", {
-		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
+		tiles = {{name = "doors_door_wood.png", backface_culling = true}},
 		description = "Wooden Door",
 		inventory_image = "doors_item_wood.png",
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -468,7 +468,7 @@ doors.register("door_wood", {
 })
 
 doors.register("door_steel", {
-		tiles = {{ name = "doors_door_steel.png", backface_culling = true }},
+		tiles = {{name = "doors_door_steel.png", backface_culling = true}},
 		description = "Steel Door",
 		inventory_image = "doors_item_steel.png",
 		protected = true,
