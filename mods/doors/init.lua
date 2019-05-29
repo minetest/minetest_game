@@ -719,7 +719,7 @@ end
 doors.register_trapdoor("doors:trapdoor", {
 	description = "Wooden Trapdoor",
 	inventory_image = "doors_trapdoor.png",
-    model = "new",
+	model = "new",
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
@@ -729,7 +729,7 @@ doors.register_trapdoor("doors:trapdoor", {
 doors.register_trapdoor("doors:trapdoor_steel", {
 	description = "Steel Trapdoor",
 	inventory_image = "doors_trapdoor_steel.png",
-    model = "new",
+	model = "new",
 	wield_image = "doors_trapdoor_steel.png",
 	tile_front = "doors_trapdoor_steel.png",
 	tile_side = "doors_trapdoor_steel_side.png",
