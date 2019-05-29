@@ -437,11 +437,19 @@ function doors.register(name, def)
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 
-	def.mesh = "door_a.obj"
-	minetest.register_node(":" .. name .. "_a", def)
+	if def.model then
+		def.mesh = def.model .. "_a.obj"
+		minetest.register_node(":" .. name .. "_a", def)
 
-	def.mesh = "door_b.obj"
-	minetest.register_node(":" .. name .. "_b", def)
+		def.mesh = def.model .. "_b.obj"
+		minetest.register_node(":" .. name .. "_b", def)
+	else
+		def.mesh = "door_a.obj"
+		minetest.register_node(":" .. name .. "_a", def)
+
+		def.mesh = "door_b.obj"
+		minetest.register_node(":" .. name .. "_b", def)
+	end
 
 	doors.registered_doors[name .. "_a"] = true
 	doors.registered_doors[name .. "_b"] = true
@@ -460,7 +468,7 @@ doors.register("door_wood", {
 })
 
 doors.register("door_steel", {
-		tiles = {{name = "doors_door_steel.png", backface_culling = true}},
+		tiles = {{ name = "doors_door_steel.png", backface_culling = true }},
 		description = "Steel Door",
 		inventory_image = "doors_item_steel.png",
 		protected = true,
@@ -634,10 +642,14 @@ function doors.register_trapdoor(name, def)
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
 
-	def_closed.node_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
-	}
+	if def.closed and def.opened then
+	    def_closed.node_box = def.closed
+	else
+		def_closed.node_box = {
+		    type = "fixed",
+		    fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
+		}
+	end
 	def_closed.selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
@@ -651,10 +663,14 @@ function doors.register_trapdoor(name, def)
 		def.tile_side
 	}
 
-	def_opened.node_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
-	}
+	if def.opened and def.closed then
+	    def_opened.node_box = def.opened
+	else
+		def_opened.node_box = {
+		    type = "fixed",
+		    fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
+		}
+	end
 	def_opened.selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
