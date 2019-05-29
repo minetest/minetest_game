@@ -232,7 +232,6 @@ The doors mod allows modders to register custom doors and trapdoors.
 	inventory_image = "mod_trapdoor_inv.png",
 	closed = {} -- Nodebox for closed model
 	opened = {} -- Nodebox for opened model
-	-- (see https://github.com/minetest/minetest_game/pull/2371 for furthur info)
 	groups = {choppy = 2},
 	tile_front = "doors_trapdoor.png", -- the texture for the front and back of the trapdoor
 	tile_side = "doors_trapdoor_side.png",
