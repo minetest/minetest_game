@@ -644,7 +644,7 @@ function doors.register_trapdoor(name, def)
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
 
-    if name == "doors:trapdoor" or name == "doors:trapdoor_steel" then
+    if def.model == "new" then
 	    def_closed.node_box = {
 	        type = "fixed",
 	        fixed = {
@@ -675,7 +675,7 @@ function doors.register_trapdoor(name, def)
 		def.tile_side
 	}
 
-    if name == "doors:trapdoor" or name == "doors:trapdoor_steel" then
+    if def.model == "new" then
 	    def_opened.node_box = {
 	        type = "fixed",
 	        fixed = {
@@ -717,6 +717,7 @@ function doors.register_trapdoor(name, def)
 end
 
 doors.register_trapdoor("doors:trapdoor", {
+    model = "new",
 	description = "Wooden Trapdoor",
 	inventory_image = "doors_trapdoor.png",
 	wield_image = "doors_trapdoor.png",
@@ -726,6 +727,7 @@ doors.register_trapdoor("doors:trapdoor", {
 })
 
 doors.register_trapdoor("doors:trapdoor_steel", {
+    model = "new",
 	description = "Steel Trapdoor",
 	inventory_image = "doors_trapdoor_steel.png",
 	wield_image = "doors_trapdoor_steel.png",
