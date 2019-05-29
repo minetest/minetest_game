@@ -644,8 +644,18 @@ function doors.register_trapdoor(name, def)
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
 
-    if def.closed and def.opened then
-	    def_closed.node_box = def.closed
+    if def.model == "new" then
+        def_closed.node_box = {
+            type = "fixed",
+            fixed = {
+                        {-0.5, -0.5, -0.5, 0.5, -6/16, -5/16},
+                        {-0.5, -0.5, 5/16, 0.5, -6/16, 0.5},
+                        {-0.5, -0.5, -5/16, -5/16, -6/16, 5/16},
+                        {5/16, -0.5, -5/16, 0.5, -6/16, 5/16},
+                        {-5/16, -0.5, -2/16, 5/16, -6/16, 2/16},
+                        {-2/16, -0.5, -5/16, 2/16, -6/16, 6/16}
+            }
+        }
     else
         def_closed.node_box = {
             type = "fixed",
@@ -665,8 +675,18 @@ function doors.register_trapdoor(name, def)
 		def.tile_side
 	}
 
-    if def.closed and def.opened then
-	    def_opened.node_box = def.opened
+    if def.model == "new" then
+        def_opened.node_box = {
+            type = "fixed",
+            fixed = {
+                        {-0.5, -0.5, 6/16, -5/16, 0.5, 0.5},
+                        {5/16, -0.5, 6/16, 0.5, 0.5, 0.5},
+                        {-5/16, 5/16, 6/16, 5/16, 0.5, 0.5},
+                        {-5/16, -0.5, 6/16, 5/16, -5/16, 0.5},
+                        {-2/16, -6/16, 6/16, 2/16, 5/16, 0.5},
+                        {-5/16, -2/16, 6/16, 5/16, 2/16, 0.5}
+            }
+        }
     else
         def_opened.node_box = {
             type = "fixed",
@@ -699,6 +719,7 @@ end
 doors.register_trapdoor("doors:trapdoor", {
 	description = "Wooden Trapdoor",
 	inventory_image = "doors_trapdoor.png",
+    model = "new",
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
@@ -706,30 +727,9 @@ doors.register_trapdoor("doors:trapdoor", {
 })
 
 doors.register_trapdoor("doors:trapdoor_steel", {
-    closed = {
-        type = "fixed",
-        fixed = {
-                    {-0.5, -0.5, -0.5, 0.5, -6/16, -5/16},
-                    {-0.5, -0.5, 5/16, 0.5, -6/16, 0.5},
-                    {-0.5, -0.5, -5/16, -5/16, -6/16, 5/16},
-                    {5/16, -0.5, -5/16, 0.5, -6/16, 5/16},
-                    {-5/16, -0.5, -2/16, 5/16, -6/16, 2/16},
-                    {-2/16, -0.5, -5/16, 2/16, -6/16, 6/16}
-        }
-    },
-    opened = {
-        type = "fixed",
-        fixed = {
-                    {-0.5, -0.5, 6/16, -5/16, 0.5, 0.5},
-                    {5/16, -0.5, 6/16, 0.5, 0.5, 0.5},
-                    {-5/16, 5/16, 6/16, 5/16, 0.5, 0.5},
-                    {-5/16, -0.5, 6/16, 5/16, -5/16, 0.5},
-                    {-2/16, -6/16, 6/16, 2/16, 5/16, 0.5},
-                    {-5/16, -2/16, 6/16, 5/16, 2/16, 0.5}
-        }
-    },
 	description = "Steel Trapdoor",
 	inventory_image = "doors_trapdoor_steel.png",
+    model = "new",
 	wield_image = "doors_trapdoor_steel.png",
 	tile_front = "doors_trapdoor_steel.png",
 	tile_side = "doors_trapdoor_steel_side.png",
