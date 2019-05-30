@@ -60,49 +60,49 @@ flowers.datas = {
 		"rose",
 		"Red Rose",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 5 / 16, 2 / 16},
-		{color_red = 1, flammable = 1}
+		{flower = 1, color_red = 1, flammable = 1}
 	},
 	{
 		"tulip",
 		"Orange Tulip",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
-		{color_orange = 1, flammable = 1}
+		{flower = 1, color_orange = 1, flammable = 1}
 	},
 	{
 		"dandelion_yellow",
 		"Yellow Dandelion",
 		{-4 / 16, -0.5, -4 / 16, 4 / 16, -2 / 16, 4 / 16},
-		{color_yellow = 1, flammable = 1}
+		{flower = 1, color_yellow = 1, flammable = 1}
 	},
 	{
 		"chrysanthemum_green",
 		"Green Chrysanthemum",
 		{-4 / 16, -0.5, -4 / 16, 4 / 16, -1 / 16, 4 / 16},
-		{color_green = 1, flammable = 1}
+		{flower = 1, color_green = 1, flammable = 1}
 	},
 	{
 		"geranium",
 		"Blue Geranium",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 2 / 16, 2 / 16},
-		{color_blue = 1, flammable = 1}
+		{flower = 1, color_blue = 1, flammable = 1}
 	},
 	{
 		"viola",
 		"Viola",
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -1 / 16, 5 / 16},
-		{color_violet = 1, flammable = 1}
+		{flower = 1, color_violet = 1, flammable = 1}
 	},
 	{
 		"dandelion_white",
 		"White Dandelion",
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -2 / 16, 5 / 16},
-		{color_white = 1, flammable = 1}
+		{flower = 1, color_white = 1, flammable = 1}
 	},
 	{
 		"tulip_black",
 		"Black Tulip",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
-		{color_black = 1, flammable = 1}
+		{flower = 1, color_black = 1, flammable = 1}
 	},
 }
 
@@ -189,7 +189,7 @@ minetest.register_node("flowers:mushroom_red", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, attached_node = 1, flammable = 1},
+	groups = {mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	on_use = minetest.item_eat(-5),
 	selection_box = {
@@ -208,7 +208,7 @@ minetest.register_node("flowers:mushroom_brown", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {food_mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
+	groups = {mushroom = 1, food_mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	on_use = minetest.item_eat(1),
 	selection_box = {
