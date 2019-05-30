@@ -167,3 +167,4 @@ if not minetest.get_modpath("fireflies") then
 		}
 	})
 end
+minetest.register_alias("butterflies:bug_net", "fireflies:bug_net")
