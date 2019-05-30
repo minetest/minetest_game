@@ -630,6 +630,10 @@ function doors.register_trapdoor(name, def)
 	if not def.sound_close then
 		def.sound_close = "doors_door_close"
 	end
+		
+	if not def.tile_back then
+		def.tile_back = "doors_trapdoor.png"
+	end
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
@@ -642,8 +646,9 @@ function doors.register_trapdoor(name, def)
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
 	}
+	
 	def_closed.tiles = {
-		def.tile_front,
+		def.tile_back,
 		def.tile_front .. '^[transformFY',
 		def.tile_side,
 		def.tile_side,
@@ -659,12 +664,13 @@ function doors.register_trapdoor(name, def)
 		type = "fixed",
 		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
 	}
+
 	def_opened.tiles = {
 		def.tile_side,
 		def.tile_side .. '^[transform2',
 		def.tile_side .. '^[transform3',
 		def.tile_side .. '^[transform1',
-		def.tile_front .. '^[transform46',
+		def.tile_back .. '^[transform2',
 		def.tile_front .. '^[transform6'
 	}
 
@@ -684,6 +690,7 @@ doors.register_trapdoor("doors:trapdoor", {
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
+	tile_back = "doors_trapdoor.png",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
 })
 
@@ -693,6 +700,7 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	wield_image = "doors_trapdoor_steel.png",
 	tile_front = "doors_trapdoor_steel.png",
 	tile_side = "doors_trapdoor_steel_side.png",
+	tile_back = "doors_trapdoor_steel.png",
 	protected = true,
 	sounds = default.node_sound_metal_defaults(),
 	sound_open = "doors_steel_door_open",
