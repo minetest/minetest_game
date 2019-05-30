@@ -213,8 +213,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	description = "Door description",
 	inventory_image = "mod_door_inv.png",
 	groups = {choppy = 2},
-	model = "NAME", -- (optional)
-	-- Model name without prefix ("big_door" not "big_door_a.obj", "big_door_b.obj")
+	model = "mod_door", -- (optional)
+	-- Model name without a suffix ("big_door" not "big_door_a.obj", "big_door_b.obj")
 	tiles = {"mod_door.png"}, -- UV map.
 	-- The front and back of the door must be identical in appearence as they swap on
 	-- open/close.
