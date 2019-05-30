@@ -630,7 +630,7 @@ function doors.register_trapdoor(name, def)
 	if not def.sound_close then
 		def.sound_close = "doors_door_close"
 	end
-		
+
 	if not def.tile_back then
 		def.tile_back = def.tile_front
 	end
@@ -646,7 +646,7 @@ function doors.register_trapdoor(name, def)
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
 	}
-	
+
 	def_closed.tiles = {
 		def.tile_back,
 		def.tile_front .. '^[transformFY',
