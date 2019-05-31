@@ -1,7 +1,7 @@
 # Blender v2.79 (sub 0) OBJ File: ''
 # www.blender.org
 mtllib door_b.mtl
-o Cube_Cube.008
+o Cube
 v -0.499000 1.499000 -0.499000
 v -0.499000 -0.499000 -0.499000
 v -0.499000 -0.499000 -0.375000
