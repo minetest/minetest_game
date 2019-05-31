@@ -437,17 +437,11 @@ function doors.register(name, def)
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 
-	if def.model then
+	if def.model == def.model or "door" then
 		def.mesh = def.model .. "_a.obj"
 		minetest.register_node(":" .. name .. "_a", def)
 
 		def.mesh = def.model .. "_b.obj"
-		minetest.register_node(":" .. name .. "_b", def)
-	else
-		def.mesh = "door_a.obj"
-		minetest.register_node(":" .. name .. "_a", def)
-
-		def.mesh = "door_b.obj"
 		minetest.register_node(":" .. name .. "_b", def)
 	end
 
@@ -642,8 +636,8 @@ function doors.register_trapdoor(name, def)
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
 
-	if def.closed and def.opened then
-	    def_closed.node_box = def.closed
+	if def.nodebox_closed and def.nodebox_opened then
+		def_closed.node_box = def.nodebox_closed
 	else
 		def_closed.node_box = {
 		    type = "fixed",
@@ -663,8 +657,8 @@ function doors.register_trapdoor(name, def)
 		def.tile_side
 	}
 
-	if def.opened and def.closed then
-	    def_opened.node_box = def.opened
+	if def.nodebox_opened and def.nodebox_closed then
+		def_opened.node_box = def.nodebox_opened
 	else
 		def_opened.node_box = {
 		    type = "fixed",

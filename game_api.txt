@@ -230,8 +230,9 @@ The doors mod allows modders to register custom doors and trapdoors.
 
 	description = "Trapdoor description",
 	inventory_image = "mod_trapdoor_inv.png",
-	closed = {} -- Nodebox for closed model
-	opened = {} -- Nodebox for opened model
+	nodebox_closed = {} -- Nodebox for closed model
+	nodebox_opened = {} -- Nodebox for opened model
+	-- (optional) both nodeboxes must be used, not one only
 	groups = {choppy = 2},
 	tile_front = "doors_trapdoor.png", -- the texture for the front and back of the trapdoor
 	tile_side = "doors_trapdoor_side.png",
