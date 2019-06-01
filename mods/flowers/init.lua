@@ -60,49 +60,49 @@ flowers.datas = {
 		"rose",
 		"Red Rose",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 5 / 16, 2 / 16},
-		{flower = 1, color_red = 1, flammable = 1}
+		{color_red = 1, flammable = 1}
 	},
 	{
 		"tulip",
 		"Orange Tulip",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
-		{flower = 1, color_orange = 1, flammable = 1}
+		{color_orange = 1, flammable = 1}
 	},
 	{
 		"dandelion_yellow",
 		"Yellow Dandelion",
 		{-4 / 16, -0.5, -4 / 16, 4 / 16, -2 / 16, 4 / 16},
-		{flower = 1, color_yellow = 1, flammable = 1}
+		{color_yellow = 1, flammable = 1}
 	},
 	{
 		"chrysanthemum_green",
 		"Green Chrysanthemum",
 		{-4 / 16, -0.5, -4 / 16, 4 / 16, -1 / 16, 4 / 16},
-		{flower = 1, color_green = 1, flammable = 1}
+		{color_green = 1, flammable = 1}
 	},
 	{
 		"geranium",
 		"Blue Geranium",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 2 / 16, 2 / 16},
-		{flower = 1, color_blue = 1, flammable = 1}
+		{color_blue = 1, flammable = 1}
 	},
 	{
 		"viola",
 		"Viola",
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -1 / 16, 5 / 16},
-		{flower = 1, color_violet = 1, flammable = 1}
+		{color_violet = 1, flammable = 1}
 	},
 	{
 		"dandelion_white",
 		"White Dandelion",
 		{-5 / 16, -0.5, -5 / 16, 5 / 16, -2 / 16, 5 / 16},
-		{flower = 1, color_white = 1, flammable = 1}
+		{color_white = 1, flammable = 1}
 	},
 	{
 		"tulip_black",
 		"Black Tulip",
 		{-2 / 16, -0.5, -2 / 16, 2 / 16, 3 / 16, 2 / 16},
-		{flower = 1, color_black = 1, flammable = 1}
+		{color_black = 1, flammable = 1}
 	},
 }
 

@@ -262,20 +262,17 @@ minetest.register_craftitem("default:coal_lump", {
 
 minetest.register_craftitem("default:iron_lump", {
 	description = "Iron Lump",
-	inventory_image = "default_iron_lump.png",
-	groups = {ore = 1}
+	inventory_image = "default_iron_lump.png"
 })
 
 minetest.register_craftitem("default:copper_lump", {
 	description = "Copper Lump",
-	inventory_image = "default_copper_lump.png",
-	groups = {ore = 1}
+	inventory_image = "default_copper_lump.png"
 })
 
 minetest.register_craftitem("default:tin_lump", {
 	description = "Tin Lump",
-	inventory_image = "default_tin_lump.png",
-	groups = {ore = 1}
+	inventory_image = "default_tin_lump.png"
 })
 
 minetest.register_craftitem("default:mese_crystal", {
@@ -285,8 +282,7 @@ minetest.register_craftitem("default:mese_crystal", {
 
 minetest.register_craftitem("default:gold_lump", {
 	description = "Gold Lump",
-	inventory_image = "default_gold_lump.png",
-	groups = {ore = 1}
+	inventory_image = "default_gold_lump.png"
 })
 
 minetest.register_craftitem("default:diamond", {
@@ -301,32 +297,27 @@ minetest.register_craftitem("default:clay_lump", {
 
 minetest.register_craftitem("default:steel_ingot", {
 	description = "Steel Ingot",
-	inventory_image = "default_steel_ingot.png",
-	groups = {ingot = 1}
+	inventory_image = "default_steel_ingot.png"
 })
 
 minetest.register_craftitem("default:copper_ingot", {
 	description = "Copper Ingot",
-	inventory_image = "default_copper_ingot.png",
-	groups = {ingot = 1}
+	inventory_image = "default_copper_ingot.png"
 })
 
 minetest.register_craftitem("default:tin_ingot", {
 	description = "Tin Ingot",
-	inventory_image = "default_tin_ingot.png",
-	groups = {ingot = 1}
+	inventory_image = "default_tin_ingot.png"
 })
 
 minetest.register_craftitem("default:bronze_ingot", {
 	description = "Bronze Ingot",
-	inventory_image = "default_bronze_ingot.png",
-	groups = {ingot = 1}
+	inventory_image = "default_bronze_ingot.png"
 })
 
 minetest.register_craftitem("default:gold_ingot", {
 	description = "Gold Ingot",
-	inventory_image = "default_gold_ingot.png",
-	groups = {ingot = 1}
+	inventory_image = "default_gold_ingot.png"
 })
 
 minetest.register_craftitem("default:mese_crystal_fragment", {
