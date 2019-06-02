@@ -560,7 +560,9 @@ minetest.register_abm({
 	catch_up = false,
 	action = function(pos, node)
 		node.name = moss_correspondences[node.name]
-		minetest.set_node(pos, node)
+		if node.name then
+			minetest.set_node(pos, node)
+		end
 	end
 })
 
