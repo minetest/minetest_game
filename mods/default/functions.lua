@@ -563,7 +563,7 @@ minetest.register_abm({
 		if node.name then
 			minetest.set_node(pos, node)
 		end
-    end
+	end
 })
 
 
