@@ -1986,6 +1986,46 @@ minetest.register_node("default:sand_with_kelp", {
 -- Corals
 --
 
+local function coral_on_place(itemstack, placer, pointed_thing)
+	if pointed_thing.type ~= "node" or not placer then
+		return itemstack
+	end
+
+	local player_name = placer:get_player_name()
+	local pos_under = pointed_thing.under
+	local pos_above = pointed_thing.above
+	local node_under = minetest.get_node(pos_under)
+	local def_under = minetest.registered_nodes[node_under.name]
+
+	if def_under and def_under.on_rightclick and not placer:get_player_control().sneak then
+		return def_under.on_rightclick(pos_under, node_under.name,
+				placer, itemstack, pointed_thing) or itemstack
+	end
+
+	if node_under.name ~= "default:coral_skeleton" or
+			minetest.get_node(pos_above).name ~= "default:water_source" then
+		return itemstack
+	end
+
+	if minetest.is_protected(pos_under, player_name) or
+			minetest.is_protected(pos_above, player_name) then
+		minetest.log("action", player_name
+			.. " tried to place " .. itemstack:get_name()
+			.. " at protected position "
+			.. minetest.pos_to_string(pos_under))
+		minetest.record_protection_violation(pos_under, player_name)
+		return itemstack
+	end
+
+	node_under.name = itemstack:get_name()
+	minetest.set_node(pos_under, node_under)
+	if not (creative and creative.is_enabled_for(player_name)) then
+		itemstack:take_item()
+	end
+
+	return itemstack
+end
+
 minetest.register_node("default:coral_green", {
 	description = "Green Coral",
 	drawtype = "plantlike_rooted",
@@ -2009,34 +2049,7 @@ minetest.register_node("default:coral_green", {
 		dug = {name = "default_grass_footstep", gain = 0.25},
 	}),
 
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" or not placer then
-			return itemstack
-		end
-
-		local player_name = placer:get_player_name()
-		local pos_under = pointed_thing.under
-		local pos_above = pointed_thing.above
-
-		if minetest.get_node(pos_under).name ~= "default:coral_skeleton" or
-				minetest.get_node(pos_above).name ~= "default:water_source" then
-			return itemstack
-		end
-
-		if minetest.is_protected(pos_under, player_name) or
-				minetest.is_protected(pos_above, player_name) then
-			minetest.chat_send_player(player_name, "Node is protected")
-			minetest.record_protection_violation(pos_under, player_name)
-			return itemstack
-		end
-
-		minetest.set_node(pos_under, {name = "default:coral_green"})
-		if not (creative and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-
-		return itemstack
-	end,
+	on_place = coral_on_place,
 
 	after_destruct  = function(pos, oldnode)
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
@@ -2066,34 +2079,7 @@ minetest.register_node("default:coral_pink", {
 		dug = {name = "default_grass_footstep", gain = 0.25},
 	}),
 
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" or not placer then
-			return itemstack
-		end
-
-		local player_name = placer:get_player_name()
-		local pos_under = pointed_thing.under
-		local pos_above = pointed_thing.above
-
-		if minetest.get_node(pos_under).name ~= "default:coral_skeleton" or
-				minetest.get_node(pos_above).name ~= "default:water_source" then
-			return itemstack
-		end
-
-		if minetest.is_protected(pos_under, player_name) or
-				minetest.is_protected(pos_above, player_name) then
-			minetest.chat_send_player(player_name, "Node is protected")
-			minetest.record_protection_violation(pos_under, player_name)
-			return itemstack
-		end
-
-		minetest.set_node(pos_under, {name = "default:coral_pink"})
-		if not (creative and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-
-		return itemstack
-	end,
+	on_place = coral_on_place,
 
 	after_destruct  = function(pos, oldnode)
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
@@ -2123,34 +2109,7 @@ minetest.register_node("default:coral_cyan", {
 		dug = {name = "default_grass_footstep", gain = 0.25},
 	}),
 
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" or not placer then
-			return itemstack
-		end
-
-		local player_name = placer:get_player_name()
-		local pos_under = pointed_thing.under
-		local pos_above = pointed_thing.above
-
-		if minetest.get_node(pos_under).name ~= "default:coral_skeleton" or
-				minetest.get_node(pos_above).name ~= "default:water_source" then
-			return itemstack
-		end
-
-		if minetest.is_protected(pos_under, player_name) or
-				minetest.is_protected(pos_above, player_name) then
-			minetest.chat_send_player(player_name, "Node is protected")
-			minetest.record_protection_violation(pos_under, player_name)
-			return itemstack
-		end
-
-		minetest.set_node(pos_under, {name = "default:coral_cyan"})
-		if not (creative and creative.is_enabled_for(player_name)) then
-			itemstack:take_item()
-		end
-
-		return itemstack
-	end,
+	on_place = coral_on_place,
 
 	after_destruct  = function(pos, oldnode)
 		minetest.set_node(pos, {name = "default:coral_skeleton"})
