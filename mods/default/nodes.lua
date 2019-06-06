@@ -1668,6 +1668,9 @@ minetest.register_node("default:bush_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
+	on_timer = function(...)
+		return default.grow_sapling(...)
+	end,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
