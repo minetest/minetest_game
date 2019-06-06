@@ -225,8 +225,9 @@ default:cloud
 
 --]]
 
+-- Required wrapper to allow customization of default.after_place_leaves
 local function after_place_leaves(...)
-	default.after_place_leaves(...)
+	return default.after_place_leaves(...)
 end
 
 --
@@ -1667,7 +1668,6 @@ minetest.register_node("default:bush_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
