@@ -225,6 +225,10 @@ default:cloud
 
 --]]
 
+local function after_place_leaves(...)
+	default.after_place_leaves(...)
+end
+
 --
 -- Stone
 --
@@ -724,7 +728,7 @@ minetest.register_node("default:leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:apple", {
@@ -820,7 +824,7 @@ minetest.register_node("default:jungleleaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:junglesapling", {
@@ -934,7 +938,7 @@ minetest.register_node("default:pine_needles",{
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:pine_sapling", {
@@ -1014,7 +1018,7 @@ minetest.register_node("default:acacia_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:acacia_sapling", {
@@ -1092,7 +1096,7 @@ minetest.register_node("default:aspen_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:aspen_sapling", {
@@ -1651,7 +1655,7 @@ minetest.register_node("default:bush_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:bush_sapling", {
@@ -1801,7 +1805,7 @@ minetest.register_node("default:acacia_bush_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:acacia_bush_sapling", {
