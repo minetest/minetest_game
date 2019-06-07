@@ -225,6 +225,16 @@ default:cloud
 
 --]]
 
+-- Required wrapper to allow customization of default.after_place_leaves
+local function after_place_leaves(...)
+	return default.after_place_leaves(...)
+end
+
+-- Required wrapper to allow customization of default.grow_sapling
+local function grow_sapling(...)
+	return default.grow_sapling(...)
+end
+
 --
 -- Stone
 --
@@ -671,7 +681,7 @@ minetest.register_node("default:sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -724,7 +734,7 @@ minetest.register_node("default:leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:apple", {
@@ -820,7 +830,7 @@ minetest.register_node("default:jungleleaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:junglesapling", {
@@ -832,7 +842,7 @@ minetest.register_node("default:junglesapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -868,7 +878,7 @@ minetest.register_node("default:emergent_jungle_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -934,7 +944,7 @@ minetest.register_node("default:pine_needles",{
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:pine_sapling", {
@@ -946,7 +956,7 @@ minetest.register_node("default:pine_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -1014,7 +1024,7 @@ minetest.register_node("default:acacia_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:acacia_sapling", {
@@ -1026,7 +1036,7 @@ minetest.register_node("default:acacia_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -1092,7 +1102,7 @@ minetest.register_node("default:aspen_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:aspen_sapling", {
@@ -1104,7 +1114,7 @@ minetest.register_node("default:aspen_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 0.5, 3 / 16}
@@ -1651,7 +1661,7 @@ minetest.register_node("default:bush_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:bush_sapling", {
@@ -1663,7 +1673,7 @@ minetest.register_node("default:bush_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
@@ -1730,7 +1740,7 @@ minetest.register_node("default:blueberry_bush_leaves", {
 		end
 	end,
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:blueberry_bush_sapling", {
@@ -1742,7 +1752,7 @@ minetest.register_node("default:blueberry_bush_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
@@ -1801,7 +1811,7 @@ minetest.register_node("default:acacia_bush_leaves", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:acacia_bush_sapling", {
@@ -1813,7 +1823,7 @@ minetest.register_node("default:acacia_bush_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 2 / 16, 3 / 16}
@@ -1872,7 +1882,7 @@ minetest.register_node("default:pine_bush_needles", {
 	},
 	sounds = default.node_sound_leaves_defaults(),
 
-	after_place_node = default.after_place_leaves,
+	after_place_node = after_place_leaves,
 })
 
 minetest.register_node("default:pine_bush_sapling", {
@@ -1884,7 +1894,7 @@ minetest.register_node("default:pine_bush_sapling", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
-	on_timer = default.grow_sapling,
+	on_timer = grow_sapling,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
