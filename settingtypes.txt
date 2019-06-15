@@ -64,3 +64,6 @@ enable_stairs_replace_abm (Replace old stairs) bool false
 #    If enabled, use the engine's spawn search which does not check for a
 #    suitable starting biome.
 engine_spawn (Use engine spawn search) bool false
+
+#    Enable locked chests/doors
+enable_locking (Enable locked chests/doors) bool true

@@ -511,7 +511,9 @@ function doors.register_door(name, def)
 		def.protected = true
 	end
 	def.only_placer_can_open = nil
-
+	if minetest.settings:get_bool("enable_locking") == false and def.protected then
+		return --  Locking is disabled quit registration
+	end
 	local i = name:find(":")
 	local modname = name:sub(1, i - 1)
 	if not def.tiles then

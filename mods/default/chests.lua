@@ -81,6 +81,10 @@ function default.chest.register_chest(name, d)
 	def.legacy_facedir_simple = true
 	def.is_ground_content = false
 
+	if minetest.settings:get_bool("enable_locking") == false and def.protected then
+		return --  Locking is disabled quit registration
+	end
+
 	if def.protected then
 		def.on_construct = function(pos)
 			local meta = minetest.get_meta(pos)

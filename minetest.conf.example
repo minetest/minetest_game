@@ -64,3 +64,6 @@ default:torch 99,default:cobble 99
 # starting biome, is used.
 # Default value is false.
 #engine_spawn = false
+
+# Wheather locked chests and doors are enabled
+#enable_locking = true
