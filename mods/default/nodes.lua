@@ -586,29 +586,117 @@ minetest.register_node("default:snow", {
 	inventory_image = "default_snowball.png",
 	wield_image = "default_snowball.png",
 	paramtype = "light",
+	paramtype2 = "leveled",
 	buildable_to = true,
 	floodable = true,
+	walkable = true,
 	drawtype = "nodebox",
+	leveled = 7,
 	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
-		},
+		type = "leveled",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.5, 0.5},
 	},
 	collision_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -7 / 16, 0.5},
-		},
+		type = "leveled",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.5, 0.5},
+	},
+	selection_box = {
+		type = "leveled",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.5, 0.5},
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
 	sounds = default.node_sound_snow_defaults(),
 
 	on_construct = function(pos)
-		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "default:dirt_with_grass" then
-			minetest.set_node(pos, {name = "default:dirt_with_snow"})
+		pos.y = pos.y-1
+		local node = minetest.get_node(pos)
+		if node.name == "default:dirt_with_grass"
+		or node.name == "default:dirt" then
+			node.name = "default:dirt_with_snow"
+			minetest.set_node(pos, node)
 		end
+	end,
+
+	--Handle node drops due to node level.
+	on_dig = function(pos, node, digger)
+		local level = minetest.get_node_level(pos)
+		minetest.node_dig(pos, node, digger)
+		if minetest.get_node(pos).name ~= node.name then
+			local inv = digger:get_inventory()
+			if not inv then
+				return
+			end
+			local left = inv:add_item("main", "default:snow "..tostring(level/7-1))
+			if not left:is_empty() then
+				minetest.add_item({
+					x = pos.x + math.random()/2-0.25,
+					y = pos.y + math.random()/2-0.25,
+					z = pos.z + math.random()/2-0.25,
+				}, left)
+			end
+		end
+	end,
+
+	--Manage snow levels.
+	on_place = function(itemstack, player, pt)
+		local oldnode_under = minetest.get_node_or_nil(pt.under)
+		if not oldnode_under then
+			return itemstack, false
+		end
+
+		local olddef_under = minetest.registered_nodes[oldnode_under.name]
+		if not olddef_under then
+			return itemstack, false
+		end
+
+		-- If node under is buildable_to, place into it instead (eg. snow)
+		local pos, node
+		if olddef_under.buildable_to then
+			pos = pt.under
+			node = oldnode_under
+		else
+			pos = pt.above
+			node = minetest.get_node(pos)
+			local def = minetest.registered_nodes[node.name]
+			if not def
+			or not def.buildable_to then
+				return itemstack, false
+			end
+		end
+
+		if node.name ~= "default:snow" then
+			if minetest.get_node{x=pos.x, y=pos.y-1, z=pos.z}.name ==
+					"default:snow" then
+				-- grow the snow below (fixes levelled problem)
+				pos.y = pos.y - 1
+			else
+				-- place a snow
+				return minetest.item_place_node(itemstack, player, pt)
+			end
+		end
+
+		-- grow the snow
+		local level = minetest.get_node_level(pos)
+		level = level + 7
+		if level < 64 then
+			minetest.set_node_level(pos, level)
+		else
+			-- place a snowblock and snow onto it if possible
+			local p = {x=pos.x, y=pos.y+1, z=pos.z}
+			local def = minetest.registered_nodes[minetest.get_node(p).name]
+			if not def
+			or not def.buildable_to then
+				return itemstack, false
+			end
+
+			minetest.set_node(pos, {name="default:snowblock"})
+			minetest.set_node(p, {name="default:snow"})
+			level = math.max(level - 64, 7)
+			minetest.set_node_level(p, level)
+		end
+
+		itemstack:take_item()
+		return itemstack, true
 	end,
 })
 
