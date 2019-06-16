@@ -1,0 +1,25 @@
+# textdomain: craftguide
+
+Craft Guide=книга рецептов крафта
+Crafting Guide=книга рецептов крафта
+Crafting Guide Sign=Знак с книгой рецептов
+Search=Поиск
+Reset=Сброс
+Previous page=Предыдущая страница
+Next page=Следущая страница
+Usage @1 of @2=использование  @1 из @2
+Recipe @1 of @2=Рецепт @1 из @2
+Burning time: @1=Время горения: @1
+Cooking time: @1=Время преготовления: @1
+Any item belonging to the group(s): @1=Любой элемент из группы: @1
+Recipe is too big to be displayed (@1x@2)=Рецепт слишком большой для показа (@1x@2)
+Shapeless=Бесформенный
+Cooking=Приготовление
+Increase window size=Увеличить окно
+Decrease window size=Уменьшить окно
+No item to show=Нет элемента для показа
+Collect items to reveal more recipes=Собирайте предметы, чтобы раскрыть больше рецептов
+Show recipe(s) of the pointed node=Показать рецепт(ы) выбранной ноды
+No node pointed=Не указана нода
+You don't know a recipe for this node=Вы не знаете рецепт для этой ноды
+No recipe for this node=Нет рецептов для этой ноды

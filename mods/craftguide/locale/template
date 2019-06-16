@@ -1,0 +1,25 @@
+# textdomain: craftguide
+
+Craft Guide=
+Crafting Guide=
+Crafting Guide Sign=
+Search=
+Reset=
+Previous page=
+Next page=
+Usage @1 of @2=
+Recipe @1 of @2=
+Burning time: @1=
+Cooking time: @1=
+Any item belonging to the group(s): @1=
+Recipe is too big to be displayed (@1x@2)=
+Shapeless=
+Cooking=
+Increase window size=
+Decrease window size=
+No item to show=
+Collect items to reveal more recipes=
+Show recipe(s) of the pointed node=
+No node pointed=
+You don't know a recipe for this node=
+No recipe for this node=

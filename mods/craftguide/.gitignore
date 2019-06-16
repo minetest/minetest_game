@@ -1,0 +1,22 @@
+## Files related to minetest development cycle
+/*.patch
+# GNU Patch reject file
+*.rej
+
+## Editors and Development environments
+*~
+*.swp
+*.bak*
+*.orig
+# Vim
+*.vim
+# Kate
+.*.kate-swp
+.swp.*
+# Eclipse (LDT)
+.project
+.settings/
+.buildpath
+.metadata
+# Idea IDE
+.idea/*
