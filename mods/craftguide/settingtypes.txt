@@ -1,0 +1,2 @@
+# The progressive mode shows recipes you can craft from items you ever had in your inventory.
+craftguide_progressive_mode	(Progressive Mode)	bool false

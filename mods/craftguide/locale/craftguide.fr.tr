@@ -1,0 +1,24 @@
+# textdomain: craftguide
+
+Craft Guide=Guide de recettes
+Crafting Guide=Guide de recettes
+Search=Rechercher
+Reset=Réinitialiser
+Previous page=Page précédente
+Next page=Page suivante
+Usage @1 of @2=Usage @1 de @2
+Recipe @1 of @2=Recette @1 de @2
+Burning time: @1=Temps de combustion : @1
+Cooking time: @1=Temps de cuisson : @1
+Any item belonging to the group(s): @1=Tout item appartenant au(x) groupe(s) : @1
+Recipe is too big to be displayed (@1x@2)=La recette est trop grande pour être affichée (@1x@2)
+Shapeless=Sans forme
+Cooking=Cuisson
+Increase window size=Agrandir la fenêtre
+Decrease window size=Réduire la fenêtre
+No item to show=Aucun item à afficher
+Collect items to reveal more recipes=Collecte des items pour révéler plus de recettes
+Show recipe(s) of the pointed node=Affiche les recettes du bloc visé
+No node pointed=Aucun bloc visé
+You don't know a recipe for this node=Tu ne connais aucune recette pour ce bloc
+No recipe for this node=Aucune recette pour ce bloc
