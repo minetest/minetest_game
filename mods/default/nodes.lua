@@ -612,15 +612,15 @@ minetest.register_node("default:snow", {
 		local node = minetest.get_node(pos)
 		if node.name == "default:dirt"
 		or node.name == "default:dirt_with_grass"
-        or node.name == "default:dirt_with_grass_footsteps"
-        or node.name == "default:dirt_with_rainforest_litter"
-        or node.name == "default:dirt_with_coniferous_litter" then
+		or node.name == "default:dirt_with_grass_footsteps"
+		or node.name == "default:dirt_with_rainforest_litter"
+		or node.name == "default:dirt_with_coniferous_litter" then
 			node.name = "default:dirt_with_snow"
 			minetest.set_node(pos, node)
 		end
 	end,
 
-	--Handle node drops due to node level.
+	-- Handle node drops due to node level.
 	on_dig = function(pos, node, digger)
 		local level = minetest.get_node_level(pos)
 		minetest.node_dig(pos, node, digger)
@@ -640,9 +640,9 @@ minetest.register_node("default:snow", {
 		end
 	end,
 
-	--Manage snow levels.
+	-- Manage snow levels.
 	on_place = function(itemstack, player, pt)
-		local oldnode_under = minetest.get_node_or_nil(pt.under)
+		local oldnode_under = minetest.get_node(pt.under)
 		if not oldnode_under then
 			return itemstack, false
 		end
