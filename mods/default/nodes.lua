@@ -610,8 +610,11 @@ minetest.register_node("default:snow", {
 	on_construct = function(pos)
 		pos.y = pos.y-1
 		local node = minetest.get_node(pos)
-		if node.name == "default:dirt_with_grass"
-		or node.name == "default:dirt" then
+		if node.name == "default:dirt"
+		or node.name == "default:dirt_with_grass"
+        or node.name == "default:dirt_with_grass_footsteps"
+        or node.name == "default:dirt_with_rainforest_litter"
+        or node.name == "default:dirt_with_coniferous_litter" then
 			node.name = "default:dirt_with_snow"
 			minetest.set_node(pos, node)
 		end
