@@ -64,3 +64,9 @@ enable_stairs_replace_abm (Replace old stairs) bool false
 #    If enabled, use the engine's spawn search which does not check for a
 #    suitable starting biome.
 engine_spawn (Use engine spawn search) bool false
+
+# The craftguide only shows recipes you can craft with items you've had in your inventory.
+craftguide_progressive_mode (Progressive Craftguide) bool false
+
+# Adds a craftguide tab in the minetest inventory.
+craftguide_sfinv_tab (Craftguide Tab) bool true

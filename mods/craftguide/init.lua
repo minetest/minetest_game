@@ -11,7 +11,9 @@ local usages_cache  = {}
 local fuel_cache    = {}
 
 local progressive_mode = M.settings:get_bool("craftguide_progressive_mode")
-local sfinv_only = M.settings:get_bool("craftguide_sfinv_only") and rawget(_G, "sfinv")
+local sfinv_only = M.settings:get_bool("craftguide_sfinv_tab") and rawget(_G, "sfinv")
+
+if not sfinv_only then sfinv_only = true end
 
 local after = M.after
 local colorize = M.colorize
