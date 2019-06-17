@@ -647,7 +647,8 @@ minetest.register_node("default:snow", {
 			return itemstack, false
 		end
 
-		local olddef_under = minetest.registered_nodes[oldnode_under.name]
+        -- Dummy def used for olddef_under (unknown nodes treated as solid nodes)
+		local olddef_under = olddef_under or {}
 		if not olddef_under then
 			return itemstack, false
 		end
