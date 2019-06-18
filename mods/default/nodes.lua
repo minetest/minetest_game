@@ -612,6 +612,7 @@ minetest.register_node("default:snow", {
 		local node = minetest.get_node(pos)
 		if node.name == "default:dirt"
 		or node.name == "default:dirt_with_grass"
+		or node.name == "default:dirt_with_dry_grass"
 		or node.name == "default:dirt_with_grass_footsteps"
 		or node.name == "default:dirt_with_rainforest_litter"
 		or node.name == "default:dirt_with_coniferous_litter" then
@@ -647,9 +648,16 @@ minetest.register_node("default:snow", {
 			return itemstack, false
 		end
 
-        -- Dummy def used for olddef_under (unknown nodes treated as solid nodes)
-		local olddef_under = olddef_under or {}
+		-- Dummy def used for olddef_under (unknown nodes treated as solid nodes)
+		local olddef_under = olddef_under or {buildable_to = false}
 		if not olddef_under then
+			return itemstack, false
+		end
+
+		-- Check if area is protected
+		local playername = player and player:get_player_name() or ""
+		if minetest.is_protected(pos, playername) then
+			minetest.record_protection_violation(pos, playername)
 			return itemstack, false
 		end
 
@@ -681,10 +689,10 @@ minetest.register_node("default:snow", {
 
 		-- grow the snow
 		local level = minetest.get_node_level(pos)
-		level = level + 7
-		if level < 64 then
+		level = level + 8
+		if level < 63 then
 			minetest.set_node_level(pos, level)
-		else
+		elseif level == 63 then
 			-- place a snowblock and snow onto it if possible
 			local p = {x=pos.x, y=pos.y+1, z=pos.z}
 			local def = minetest.registered_nodes[minetest.get_node(p).name]
