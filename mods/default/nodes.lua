@@ -591,7 +591,7 @@ minetest.register_node("default:snow", {
 	floodable = true,
 	walkable = true,
 	drawtype = "nodebox",
-	leveled = 7,
+	leveled = 8,
 	node_box = {
 		type = "leveled",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.5, 0.5},
@@ -654,13 +654,6 @@ minetest.register_node("default:snow", {
 			return itemstack, false
 		end
 
-		-- Check if area is protected
-		local playername = player and player:get_player_name() or ""
-		if minetest.is_protected(pos, playername) then
-			minetest.record_protection_violation(pos, playername)
-			return itemstack, false
-		end
-
 		-- If node under is buildable_to, place into it instead (eg. snow)
 		local pos, node
 		if olddef_under.buildable_to then
@@ -685,6 +678,13 @@ minetest.register_node("default:snow", {
 				-- place a snow
 				return minetest.item_place_node(itemstack, player, pt)
 			end
+		end
+
+		-- Check if area is protected
+		local playername = player and player:get_player_name() or ""
+		if minetest.is_protected(pos, playername) then
+			minetest.record_protection_violation(pos, playername)
+			return itemstack, false
 		end
 
 		-- grow the snow
