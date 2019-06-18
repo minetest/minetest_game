@@ -351,7 +351,13 @@ local function rail_on_step(self, dtime)
 		yaw = 1
 	end
 	self.object:set_yaw(yaw * math.pi)
-
+	if self.driver then
+		player = minetest.get_player_by_name(self.driver)
+		if player then
+			player:set_look_horizontal(yaw * math.pi)
+		end
+	end
+	
 	local anim = {x=0, y=0}
 	if dir.y == -1 then
 		anim = {x=1, y=1}
