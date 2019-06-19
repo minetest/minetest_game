@@ -687,24 +687,14 @@ minetest.register_node("default:snow", {
 			return itemstack, false
 		end
 
-		-- grow the snow
+		-- make snow thicker
 		local level = minetest.get_node_level(pos)
 		level = level + 8
-		if level < 63 then
+		if level < 64 then
 			minetest.set_node_level(pos, level)
-		elseif level == 63 then
-			-- place a snowblock and snow onto it if possible
-			local p = {x=pos.x, y=pos.y+1, z=pos.z}
-			local def = minetest.registered_nodes[minetest.get_node(p).name]
-			if not def
-			or not def.buildable_to then
-				return itemstack, false
-			end
-
+		elseif level == 64 then
+			-- full cube, replace with snowblock
 			minetest.set_node(pos, {name="default:snowblock"})
-			minetest.set_node(p, {name="default:snow"})
-			level = math.max(level - 64, 7)
-			minetest.set_node_level(p, level)
 		end
 
 		itemstack:take_item()
