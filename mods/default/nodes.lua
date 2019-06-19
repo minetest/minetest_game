@@ -690,10 +690,10 @@ minetest.register_node("default:snow", {
 
 		-- make snow thicker
 		local level = minetest.get_node_level(pos)
-		level = level + 8
+		level = level + 16
 		if level < 64 then
 			minetest.set_node_level(pos, level)
-		elseif level == 64 then
+		else
 			-- full cube, replace with snowblock
 			minetest.set_node(pos, {name="default:snowblock"})
 		end
