@@ -25,3 +25,5 @@ files["mods/player_api/api.lua"].globals = { "minetest" }
 
 -- Don't report on legacy definitions of globals.
 files["mods/default/legacy.lua"].global = false
+
+files["mods/craftguide/init.lua"].read_globals = { "sfinv" }
