@@ -1,5 +1,12 @@
 minetest.set_gen_notify({dungeon = true, temple = true})
 
+local biome_id_sandstone_desert = minetest.get_biome_id("sandstone_desert")
+local biome_id_sandstone_desert_ocean = minetest.get_biome_id("sandstone_desert_ocean")
+local biome_id_sandstone_desert_under = minetest.get_biome_id("sandstone_desert_under")
+local biome_id_desert = minetest.get_biome_id("desert")
+local biome_id_desert_ocean = minetest.get_biome_id("desert_ocean")
+local biome_id_desert_under = minetest.get_biome_id("desert_under")
+
 local function noise3d_integer(noise, pos)
 	return math.abs(math.floor(noise:get_3d(pos) * 0x7fffffff))
 end
@@ -15,12 +22,13 @@ local function random_sample(rand, list, count)
 end
 
 local function find_walls(cpos)
-	local wall = minetest.registered_aliases["mapgen_cobble"]
-	local wall_alt = minetest.registered_aliases["mapgen_mossycobble"]
-	local wall_ss = minetest.registered_aliases["mapgen_sandstonebrick"]
-	local wall_ds = minetest.registered_aliases["mapgen_desert_stone"]
 	local is_wall = function(node)
-		return table.indexof({wall, wall_alt, wall_ss, wall_ds}, node.name) ~= -1
+		local nodedef = minetest.registered_nodes[node.name]
+		if nodedef and nodedef.walkable then
+			return true
+		end
+
+		return false
 	end
 
 	local dirs = {{x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1}}
@@ -29,7 +37,6 @@ local function find_walls(cpos)
 	local ret = {}
 	local mindist = {x=0, z=0}
 	local min = function(a, b) return a ~= 0 and math.min(a, b) or b end
-	local wallnode
 	for _, dir in ipairs(dirs) do
 		for i = 1, 9 do -- 9 = max room size / 2
 			local pos = vector.add(cpos, {x=dir.x*i, y=0, z=dir.z*i})
@@ -50,7 +57,6 @@ local function find_walls(cpos)
 					else
 						mindist.z = min(mindist.z, i-1)
 					end
-					wallnode = node.name
 				end
 				-- abort even if it wasn't a wall cause something is in the way
 				break
@@ -58,20 +64,33 @@ local function find_walls(cpos)
 		end
 	end
 
-	local mapping = {
-		[wall_ss] = "sandstone",
-		[wall_ds] = "desert"
-	}
+	local biome_data = minetest.get_biome_data(cpos)
+	-- Sometimes biome_data is nil
+	local biome_id = biome_data and biome_data.biome
+	local biome_type = "normal"
+	if biome_id == biome_id_sandstone_desert or
+			biome_id == biome_id_sandstone_desert_ocean or
+			biome_id == biome_id_sandstone_desert_under then
+		biome_type = "sandstone"
+	elseif biome_id == biome_id_desert or
+			biome_id == biome_id_desert_ocean or
+			biome_id == biome_id_desert_under then
+		biome_type = "desert"
+	end
+
 	return {
 		walls = ret,
 		size = {x=mindist.x*2, z=mindist.z*2},
-		type = mapping[wallnode] or "normal"
+		type = biome_type
 	}
 end
 
 local function populate_chest(pos, rand, dungeontype)
-	--minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) .. " [" .. dungeontype .. "]")
-	--minetest.add_node(vector.add(pos, {x=0, y=1, z=0}), {name="default:torch", param2=1})
+	-- debugging code
+	--minetest.chat_send_all("chest placed at " .. minetest.pos_to_string(pos) ..
+	--" [" .. dungeontype .. "]")
+	--minetest.add_node(vector.add(pos, {x=0, y=1, z=0}),
+	--{name="default:torch", param2=1})
 
 	local item_list = dungeon_loot._internal_get_loot(pos.y, dungeontype)
 	-- take random (partial) sample of all possible items
@@ -91,7 +110,8 @@ local function populate_chest(pos, rand, dungeontype)
 			if itemdef then
 				if itemdef.tool_capabilities then
 					for n = 1, amount do
-						local wear = rand:next(0.20 * 65535, 0.75 * 65535) -- 20% to 75% wear
+						-- 20% to 75% wear
+						local wear = rand:next(0.20 * 65535, 0.75 * 65535)
 						table.insert(items, ItemStack({name = loot.name, wear = wear}))
 					end
 				elseif itemdef.stack_max == 1 then
@@ -164,7 +184,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			-- make it face inwards to the room
 			local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
 			minetest.add_node(chestpos, {name = "default:chest", param2 = facedir})
-			populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
+			populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)),
+				room.type)
 		end
 	end
 end)

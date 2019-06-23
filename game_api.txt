@@ -286,7 +286,10 @@ The mod that places chests with loot in dungeons provides an API to register add
 	--   optional, defaults to no height restrictions
 	types = {"desert"},
 	-- ^ table with types of dungeons this item can be found in
-	--   supported types: "normal" (the cobble/mossycobble one), "sandstone", "desert"
+	--   supported types:
+	--   "sandstone", dungeons in 'sandstone_desert(_ocean/_under)' biomes
+	--   "desert", dungeons in 'desert(_ocean/_under)' biomes
+	--   "normal", dungeons in all other biomes
 	--   optional, defaults to no type restrictions
 
 
