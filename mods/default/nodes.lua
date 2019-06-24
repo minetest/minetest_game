@@ -591,7 +591,7 @@ minetest.register_node("default:snow", {
 	floodable = true,
 	walkable = true,
 	drawtype = "nodebox",
-	leveled = 8,
+	leveled = 16,
 	node_box = {
 		type = "leveled",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.5, 0.5},
