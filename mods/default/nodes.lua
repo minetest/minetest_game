@@ -606,6 +606,7 @@ minetest.register_node("default:snow", {
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
 	sounds = default.node_sound_snow_defaults(),
+	node_placement_prediction = nil,
 
 	on_construct = function(pos)
 		pos.y = pos.y-1
@@ -671,14 +672,8 @@ minetest.register_node("default:snow", {
 		end
 
 		if node.name ~= "default:snow" then
-			if minetest.get_node{x=pos.x, y=pos.y-1, z=pos.z}.name ==
-					"default:snow" then
-				-- grow the snow below (fixes levelled problem)
-				pos.y = pos.y - 1
-			else
-				-- place a snow
-				return minetest.item_place_node(itemstack, player, pt)
-			end
+			-- place a snow
+			return minetest.item_place_node(itemstack, player, pt)
 		end
 
 		-- Check if area is protected
