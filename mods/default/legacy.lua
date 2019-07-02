@@ -45,5 +45,5 @@ default.register_chest = default.chest.register_chest
 function default.intersects_protection(minp, maxp, player_name, interval)
 	minetest.log("warning", "default.intersects_protection() is " ..
 		"deprecated, use minetest.is_area_protected() instead.")
-	minetest.is_area_protected(minp, maxp, player_name, interval)
+	return minetest.is_area_protected(minp, maxp, player_name, interval)
 end
