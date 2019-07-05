@@ -626,6 +626,12 @@ minetest.register_node("default:snow", {
 	on_dig = function(pos, node, digger)
 		local level = minetest.get_node_level(pos)
 		minetest.node_dig(pos, node, digger)
+
+		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") or
+				minetest.get_node(pos).name == node.name then
+			return
+		end
+
 		if minetest.get_node(pos).name ~= node.name then
 			local inv = digger:get_inventory()
 			if not inv then
