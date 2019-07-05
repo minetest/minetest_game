@@ -631,7 +631,7 @@ minetest.register_node("default:snow", {
 			if not inv then
 				return
 			end
-			local left = inv:add_item("main", "default:snow "..tostring(level/16))
+			local left = inv:add_item("main", "default:snow "..tostring(level/16-1))
 			if not left:is_empty() then
 				minetest.add_item({
 					x = pos.x + math.random()/2-0.25,
