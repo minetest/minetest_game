@@ -624,27 +624,11 @@ minetest.register_node("default:snow", {
 
 	-- Handle node drops due to node level.
 	on_dig = function(pos, node, digger)
-		local level = minetest.get_node_level(pos)
 		minetest.node_dig(pos, node, digger)
 
 		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") or
 				minetest.get_node(pos).name == node.name then
 			return
-		end
-
-		if minetest.get_node(pos).name ~= node.name then
-			local inv = digger:get_inventory()
-			if not inv then
-				return
-			end
-			local left = inv:add_item("main", "default:snow "..tostring(level/16-1))
-			if not left:is_empty() then
-				minetest.add_item({
-					x = pos.x + math.random()/2-0.25,
-					y = pos.y + math.random()/2-0.25,
-					z = pos.z + math.random()/2-0.25,
-				}, left)
-			end
 		end
 	end,
 
@@ -652,14 +636,14 @@ minetest.register_node("default:snow", {
 	on_place = function(itemstack, player, pt)
 		local oldnode_under = minetest.get_node_or_nil(pt.under)
 		if not oldnode_under then
-			return itemstack, false
+			return itemstack
 		end
 
 		-- Dummy def used for olddef_under (unknown nodes treated as solid nodes)
 		local olddef_under = minetest.registered_nodes[oldnode_under.name]
 		olddef_under = olddef_under or {buildable_to = false}
 		if not olddef_under then
-			return itemstack, false
+			return itemstack
 		end
 
 		-- If node under is buildable_to, place into it instead (eg. snow)
@@ -673,20 +657,20 @@ minetest.register_node("default:snow", {
 			local def = minetest.registered_nodes[node.name]
 			if not def
 			or not def.buildable_to then
-				return itemstack, false
+				return itemstack
 			end
 		end
 
 		if node.name ~= "default:snow" then
 			-- place a snow
-			return minetest.item_place_node(itemstack, player, pt)
+			return minetest.item_place(itemstack, player, pt)
 		end
 
 		-- Check if area is protected
 		local playername = player and player:get_player_name() or ""
 		if minetest.is_protected(pos, playername) then
 			minetest.record_protection_violation(pos, playername)
-			return itemstack, false
+			return itemstack
 		end
 
 		-- make snow thicker
@@ -699,8 +683,10 @@ minetest.register_node("default:snow", {
 			minetest.set_node(pos, {name="default:snowblock"})
 		end
 
-		itemstack:take_item()
-		return itemstack, true
+		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") then
+			itemstack:take_item()
+		end
+		return itemstack
 	end,
 })
 
