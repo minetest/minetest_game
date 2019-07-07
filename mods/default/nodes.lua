@@ -609,7 +609,7 @@ minetest.register_node("default:snow", {
 	node_placement_prediction = nil,
 
 	on_construct = function(pos)
-		pos.y = pos.y-1
+		pos.y = pos.y - 1
 		local node = minetest.get_node(pos)
 		if node.name == "default:dirt"
 		or node.name == "default:dirt_with_grass"
@@ -642,9 +642,6 @@ minetest.register_node("default:snow", {
 		-- Dummy def used for olddef_under (unknown nodes treated as solid nodes)
 		local olddef_under = minetest.registered_nodes[oldnode_under.name]
 		olddef_under = olddef_under or {buildable_to = false}
-		if not olddef_under then
-			return itemstack
-		end
 
 		-- If node under is buildable_to, place into it instead (eg. snow)
 		local pos, node
@@ -657,13 +654,19 @@ minetest.register_node("default:snow", {
 			local def = minetest.registered_nodes[node.name]
 			if not def
 			or not def.buildable_to then
-				return itemstack
+				return minetest.item_place(itemstack, player, pt)
 			end
 		end
 
 		if node.name ~= "default:snow" then
 			-- place a snow
 			return minetest.item_place(itemstack, player, pt)
+		end
+
+		-- Call on_rightclick if the pointed node defines it
+		if olddef_under.on_rightclick and player and not player:get_player_control().sneak then
+			return olddef_under.on_rightclick(pt.under, oldnode_under,
+					player, itemstack, pt) or itemstack
 		end
 
 		-- Check if area is protected
