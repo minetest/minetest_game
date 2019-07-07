@@ -683,7 +683,7 @@ minetest.register_node("default:snow", {
 			minetest.set_node(pos, {name="default:snowblock"})
 		end
 
-		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") then
+		if not (creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "")) then
 			itemstack:take_item()
 		end
 		return itemstack
