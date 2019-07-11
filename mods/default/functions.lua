@@ -608,3 +608,59 @@ function default.can_interact_with_node(player, pos)
 
 	return false
 end
+
+
+-- 
+-- Simple clones a given table to a new one
+--
+
+function default.table_clone(c_table)
+  local table_clone = {}
+  for key,value in pairs(c_table) do
+    table_clone[key] = value
+    
+  end
+  
+  return table_clone
+  
+end -- function table_clone
+
+
+--
+-- Add groups to already registered nodes, items or tools.
+--
+    
+function default.add_group(node, entry)
+    
+    local newgroup = {}
+    
+    if(type(node) ~= "string") then return end -- Not a real node, do nothing
+    
+    -- Check the item and get the group
+    if(minetest.registered_nodes[node] ~= nil) then
+        newgroup = default.table_clone(minetest.registered_nodes[node].groups)
+    
+    elseif(minetest.registered_items[node] ~= nil) then
+        newgroup = default.table_clone(minetest.registered_items[node].groups)
+        
+    elseif(minetest.registered_craftitems[node] ~= nil) then
+        newgroup = default.table_clone(minetest.registered_craftitems[node].groups)
+    
+    elseif(minetest.registered_tools[node] ~= nil) then
+        newgroup = default.table_clone(minetest.registered_tools[node].groups)
+        
+    end -- if(minetest.registered_nodes
+    
+    -- add the new groups to the item
+    local key, value
+    for key,value in pairs(entry) do
+        newgroup[key] = value
+        
+    end
+        
+    minetest.override_item(node, {
+                                  groups = newgroup
+                                 })
+
+end -- function add_group()
+
