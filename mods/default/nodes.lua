@@ -609,6 +609,11 @@ minetest.register_node("default:snow", {
 	node_placement_prediction = nil,
 
 	on_construct = function(pos)
+		local level = minetest.get_node_level(pos)
+		if level >= 64 then
+			minetest.set_node(pos, {name="default:snowblock"})
+		end
+
 		pos.y = pos.y - 1
 		local node = minetest.get_node(pos)
 		if node.name == "default:dirt"
@@ -633,7 +638,7 @@ minetest.register_node("default:snow", {
 	end,
 
 	-- Manage snow levels.
-	on_place = function(itemstack, player, pt)
+	on_place = function(itemstack, player, pt, digger)
 		local oldnode_under = minetest.get_node_or_nil(pt.under)
 		if not oldnode_under then
 			return itemstack
@@ -686,7 +691,9 @@ minetest.register_node("default:snow", {
 			minetest.set_node(pos, {name="default:snowblock"})
 		end
 
-		if not (creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "")) then
+		if not (creative and creative.is_enabled_for
+		and creative.is_enabled_for(digger
+		and digger:get_player_name() or "")) then
 			itemstack:take_item()
 		end
 		return itemstack
