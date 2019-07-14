@@ -129,6 +129,7 @@ TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
   default_coniferous_litter.png
   default_coniferous_litter_side.png
+  default_dry_dirt.png
 
 BlockMen (CC BY-SA 3.0):
   default_aspen_leaves.png -- Derived from Sofar's texture
