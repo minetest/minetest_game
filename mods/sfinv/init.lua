@@ -9,14 +9,6 @@ sfinv.register_page("sfinv:crafting", {
 				image[4.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]
 				listring[current_player;main]
 				listring[current_player;craft]
-				image[0,4.7;1,1;gui_hb_bg.png]
-				image[1,4.7;1,1;gui_hb_bg.png]
-				image[2,4.7;1,1;gui_hb_bg.png]
-				image[3,4.7;1,1;gui_hb_bg.png]
-				image[4,4.7;1,1;gui_hb_bg.png]
-				image[5,4.7;1,1;gui_hb_bg.png]
-				image[6,4.7;1,1;gui_hb_bg.png]
-				image[7,4.7;1,1;gui_hb_bg.png]
 			]], true)
 	end
 })
