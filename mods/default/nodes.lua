@@ -48,6 +48,7 @@ Soft / Non-Stone
 default:dirt
 default:dirt_with_grass
 default:dirt_with_grass_footsteps
+default:dry_dirt
 default:dry_dirt_with_dry_grass
 default:dirt_with_snow
 default:dirt_with_rainforest_litter
@@ -435,7 +436,7 @@ minetest.register_node("default:dirt_with_grass", {
 		{name = "default_dirt.png^default_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -447,27 +448,27 @@ minetest.register_node("default:dirt_with_grass_footsteps", {
 		{name = "default_dirt.png^default_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, not_in_creative_inventory = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
 })
 
 minetest.register_node("default:dry_dirt", {
-	description = "Savanna Dirt",
+	description = "Dry Dirt",
 	tiles = {"default_dry_dirt.png"},
 	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults(),
 })
 
 minetest.register_node("default:dry_dirt_with_dry_grass", {
-	description = "Savanna Dirt with Dry Grass",
+	description = "Dry Dirt with Dry Grass",
 	tiles = {"default_dry_grass.png",
 		"default_dry_dirt.png",
 		{name = "default_dry_dirt.png^default_dry_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = 'default:dry_dirt',
+	drop = "default:dry_dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.4},
 	}),
@@ -479,7 +480,7 @@ minetest.register_node("default:dirt_with_snow", {
 		{name = "default_dirt.png^default_snow_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_snow_footstep", gain = 0.2},
 	}),

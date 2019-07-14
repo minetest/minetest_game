@@ -113,27 +113,6 @@ function default.register_mgv6_ores()
 		},
 	})
 
-	-- Dry Dirt
-
-	minetest.register_ore({
-		ore_type        = "blob",
-		ore             = "default:dry_dirt",
-		wherein         = {"default:stone"},
-		clust_scarcity  = 16 * 16 * 16,
-		clust_size      = 5,
-		y_max           = 31000,
-		y_min           = -31,
-		noise_threshold = 0.0,
-		noise_params    = {
-			offset = 0.5,
-			scale = 0.2,
-			spread = {x = 5, y = 5, z = 5},
-			seed = 16676,
-			octaves = 1,
-			persist = 0.0
-		},
-	})
-
 	-- Gravel
 
 	minetest.register_ore({
@@ -597,7 +576,8 @@ function default.register_ores()
 		},
 		-- Only where default:dirt is present as surface material
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-			"deciduous_forest", "deciduous_forest_shore", "rainforest", "rainforest_swamp", "floatland_coniferous_forest"}
+				"deciduous_forest", "deciduous_forest_shore", "rainforest",
+				"rainforest_swamp", "floatland_coniferous_forest"}
 	})
 
 	minetest.register_ore({
