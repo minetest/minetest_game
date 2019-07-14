@@ -113,6 +113,27 @@ function default.register_mgv6_ores()
 		},
 	})
 
+	-- Dry Dirt
+
+	minetest.register_ore({
+		ore_type        = "blob",
+		ore             = "default:dry_dirt",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_max           = 31000,
+		y_min           = -31,
+		noise_threshold = 0.0,
+		noise_params    = {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = 16676,
+			octaves = 1,
+			persist = 0.0
+		},
+	})
+
 	-- Gravel
 
 	minetest.register_ore({
@@ -576,8 +597,28 @@ function default.register_ores()
 		},
 		-- Only where default:dirt is present as surface material
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-			"deciduous_forest", "deciduous_forest_shore", "savanna", "savanna_shore",
-			"rainforest", "rainforest_swamp", "floatland_coniferous_forest"}
+			"deciduous_forest", "deciduous_forest_shore", "rainforest", "rainforest_swamp", "floatland_coniferous_forest"}
+	})
+
+	minetest.register_ore({
+		ore_type        = "blob",
+		ore             = "default:dry_dirt",
+		wherein         = {"default:stone"},
+		clust_scarcity  = 16 * 16 * 16,
+		clust_size      = 5,
+		y_max           = 31000,
+		y_min           = -31,
+		noise_threshold = 0.0,
+		noise_params    = {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = 16676,
+			octaves = 1,
+			persist = 0.0
+		},
+		-- Only where default:dry_dirt is present as surface material
+		biomes = {"savanna", "savanna_shore"}
 	})
 
 	-- Gravel
@@ -1488,9 +1529,9 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "savanna",
-		node_top = "default:dirt_with_dry_grass",
+		node_top = "default:dry_dirt_with_dry_grass",
 		depth_top = 1,
-		node_filler = "default:dirt",
+		node_filler = "default:dry_dirt",
 		depth_filler = 1,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
@@ -1505,9 +1546,9 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "savanna_shore",
-		node_top = "default:dirt",
+		node_top = "default:dry_dirt",
 		depth_top = 1,
-		node_filler = "default:dirt",
+		node_filler = "default:dry_dirt",
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,

@@ -14,9 +14,9 @@ minetest.override_item("default:dirt_with_grass", {
 	}
 })
 
-minetest.override_item("default:dirt_with_dry_grass", {
+minetest.override_item("default:dry_dirt_with_dry_grass", {
 	soil = {
-		base = "default:dirt_with_dry_grass",
+		base = "default:dry_dirt_with_dry_grass",
 		dry = "farming:soil",
 		wet = "farming:soil_wet"
 	}
