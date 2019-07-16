@@ -1488,7 +1488,7 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "savanna",
-		node_top = "default:dry_dirt_with_dry_grass",
+		node_top = "default:dirt_with_dry_grass",
 		depth_top = 1,
 		node_filler = "default:dry_dirt",
 		depth_filler = 1,
@@ -1799,7 +1799,7 @@ local function register_dry_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
 		name = "default:dry_grass_" .. length,
 		deco_type = "simple",
-		place_on = {"default:dirt_with_dry_grass", "default:dry_dirt_with_dry_grass"},
+		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = offset,
