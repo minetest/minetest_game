@@ -76,8 +76,8 @@ local function populate_chest(pos, rand, dungeontype)
 
 	local item_list = dungeon_loot._internal_get_loot(pos.y, dungeontype)
 	-- take random (partial) sample of all possible items
-	assert(#item_list >= dungeon_loot.STACKS_PER_CHEST_MAX)
-	item_list = random_sample(rand, item_list, dungeon_loot.STACKS_PER_CHEST_MAX)
+	local sample_n = math.min(#item_list, dungeon_loot.STACKS_PER_CHEST_MAX)
+	item_list = random_sample(rand, item_list, sample_n)
 
 	-- apply chances / randomized amounts and collect resulting items
 	local items = {}
