@@ -576,8 +576,8 @@ function default.register_ores()
 		},
 		-- Only where default:dirt is present as surface material
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-			"deciduous_forest", "deciduous_forest_shore", "savanna", "savanna_shore",
-			"rainforest", "rainforest_swamp", "floatland_coniferous_forest"}
+				"deciduous_forest", "deciduous_forest_shore", "rainforest",
+				"rainforest_swamp", "floatland_coniferous_forest"}
 	})
 
 	-- Gravel
@@ -1488,9 +1488,9 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "savanna",
-		node_top = "default:dirt_with_dry_grass",
+		node_top = "default:dry_dirt_with_dry_grass",
 		depth_top = 1,
-		node_filler = "default:dirt",
+		node_filler = "default:dry_dirt",
 		depth_filler = 1,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
@@ -1505,9 +1505,9 @@ function default.register_biomes(upper_limit)
 
 	minetest.register_biome({
 		name = "savanna_shore",
-		node_top = "default:dirt",
+		node_top = "default:dry_dirt",
 		depth_top = 1,
-		node_filler = "default:dirt",
+		node_filler = "default:dry_dirt",
 		depth_filler = 3,
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
