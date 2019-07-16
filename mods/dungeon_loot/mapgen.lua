@@ -53,7 +53,7 @@ local function find_walls(cpos)
 	end
 
 	local biome = minetest.get_biome_data(cpos)
-	local biome = biome and minetest.get_biome_name(biome.biome) or ""
+	biome = biome and minetest.get_biome_name(biome.biome) or ""
 	local type = "normal"
 	if biome:find("desert") == 1 then
 		type = "desert"
