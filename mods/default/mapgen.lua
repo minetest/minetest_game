@@ -1816,6 +1816,27 @@ local function register_dry_grass_decoration(offset, scale, length)
 	})
 end
 
+local function register_dry_grass_decoration(offset, scale, length)
+	minetest.register_decoration({
+		name = "default:dry_grass_" .. length,
+		deco_type = "simple",
+		place_on = {"default:dry_dirt_with_dry_grass"},
+		sidelen = 16,
+		noise_params = {
+			offset = offset,
+			scale = scale,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 329,
+			octaves = 3,
+			persist = 0.6
+		},
+		biomes = {"savanna"},
+		y_max = 31000,
+		y_min = 1,
+		decoration = "default:dry_grass_" .. length,
+	})
+end
+
 local function register_fern_decoration(seed, length)
 	minetest.register_decoration({
 		name = "default:fern_" .. length,
