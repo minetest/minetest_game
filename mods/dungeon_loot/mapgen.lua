@@ -59,6 +59,8 @@ local function find_walls(cpos)
 		type = "desert"
 	elseif biome:find("sandstone_desert") == 1 then
 		type = "sandstone"
+	elseif biome:find("icesheet") == 1 then
+		type = "ice"
 	end
 
 	return {
