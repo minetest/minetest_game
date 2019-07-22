@@ -477,7 +477,6 @@ minetest.register_abm({
 	neighbors = {
 		"air",
 		"group:grass",
-		"group:dry_grass",
 		"default:snow",
 	},
 	interval = 6,
@@ -507,8 +506,6 @@ minetest.register_abm({
 		-- Most likely case first
 		elseif minetest.get_item_group(name, "grass") ~= 0 then
 			minetest.set_node(pos, {name = "default:dirt_with_grass"})
-		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
-			minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
 		end
 	end
 })
@@ -520,7 +517,7 @@ minetest.register_abm({
 
 minetest.register_abm({
 	label = "Grass covered",
-	nodenames = {"group:spreading_dirt_type"},
+	nodenames = {"group:spreading_dirt_type", "default:dry_dirt_with_dry_grass"},
 	interval = 8,
 	chance = 50,
 	catch_up = false,
@@ -531,7 +528,11 @@ minetest.register_abm({
 		if name ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
 				nodedef.paramtype == "light") and
 				nodedef.liquidtype == "none") then
-			minetest.set_node(pos, {name = "default:dirt"})
+			if node.name == "default:dry_dirt_with_dry_grass" then
+				minetest.set_node(pos, {name = "default:dry_dirt"})
+			else
+				minetest.set_node(pos, {name = "default:dirt"})
+			end
 		end
 	end
 })

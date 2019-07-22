@@ -52,6 +52,8 @@ default:dirt_with_dry_grass
 default:dirt_with_snow
 default:dirt_with_rainforest_litter
 default:dirt_with_coniferous_litter
+default:dry_dirt
+default:dry_dirt_with_dry_grass
 
 default:permafrost
 default:permafrost_with_stones
@@ -459,7 +461,7 @@ minetest.register_node("default:dirt_with_dry_grass", {
 		"default_dirt.png",
 		{name = "default_dirt.png^default_dry_grass_side.png",
 			tileable_vertical = false}},
-	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+	groups = {crumbly = 3, soil = 1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.4},
@@ -503,6 +505,25 @@ minetest.register_node("default:dirt_with_coniferous_litter", {
 	},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
 	drop = "default:dirt",
+	sounds = default.node_sound_dirt_defaults({
+		footstep = {name = "default_grass_footstep", gain = 0.4},
+	}),
+})
+
+minetest.register_node("default:dry_dirt", {
+	description = "Dry Dirt",
+	tiles = {"default_dry_dirt.png"},
+	groups = {crumbly = 3, soil = 1},
+	sounds = default.node_sound_dirt_defaults(),
+})
+
+minetest.register_node("default:dry_dirt_with_dry_grass", {
+	description = "Dry Dirt with Dry Grass",
+	tiles = {"default_dry_grass.png", "default_dry_dirt.png",
+		{name = "default_dry_dirt.png^default_dry_grass_side.png",
+			tileable_vertical = false}},
+	groups = {crumbly = 3, soil = 1},
+	drop = "default:dry_dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.4},
 	}),
