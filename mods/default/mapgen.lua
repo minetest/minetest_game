@@ -576,8 +576,8 @@ function default.register_ores()
 		},
 		-- Only where default:dirt is present as surface material
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-	"deciduous_forest", "deciduous_forest_shore", "rainforest",
-	"rainforest_swamp", "floatland_coniferous_forest"}
+				"deciduous_forest", "deciduous_forest_shore", "rainforest",
+				"rainforest_swamp", "floatland_coniferous_forest"}
 	})
 
 	-- Gravel
@@ -1799,7 +1799,7 @@ local function register_dry_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
 		name = "default:dry_grass_" .. length,
 		deco_type = "simple",
-		place_on = {"default:dirt_with_dry_grass", "default:dry_dirt_with_dry_grass"},
+		place_on = {"default:dry_dirt_with_dry_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = offset,
