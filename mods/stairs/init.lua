@@ -44,6 +44,12 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	return minetest.item_place(itemstack, placer, pointed_thing, param2)
 end
 
+local function warn_if_exists(nodename)
+	if minetest.registered_nodes[nodename] then
+		minetest.log("warning", "Overwriting stairs node: " .. nodename)
+	end
+end
+
 
 -- Register stair
 -- Node will be called stairs:stair_<subname>
@@ -73,6 +79,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	end
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
+	warn_if_exists("stairs:stair_" .. subname)
 	minetest.register_node(":stairs:stair_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -167,6 +174,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 	end
 	local new_groups = table.copy(groups)
 	new_groups.slab = 1
+	warn_if_exists("stairs:slab_" .. subname)
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
@@ -307,6 +315,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 	end
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
+	warn_if_exists("stairs:stair_inner_" .. subname)
 	minetest.register_node(":stairs:stair_inner_" .. subname, {
 		description = "Inner " .. description,
 		drawtype = "nodebox",
@@ -388,6 +397,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 	end
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
+	warn_if_exists("stairs:stair_outer_" .. subname)
 	minetest.register_node(":stairs:stair_outer_" .. subname, {
 		description = "Outer " .. description,
 		drawtype = "nodebox",
