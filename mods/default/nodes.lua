@@ -245,7 +245,7 @@ minetest.register_node("default:stone", {
 	description = "Stone",
 	tiles = {"default_stone.png"},
 	groups = {cracky = 3, stone = 1},
-	drop = 'default:cobble',
+	drop = "default:cobble",
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -289,7 +289,7 @@ minetest.register_node("default:desert_stone", {
 	description = "Desert Stone",
 	tiles = {"default_desert_stone.png"},
 	groups = {cracky = 3, stone = 1},
-	drop = 'default:desert_cobble',
+	drop = "default:desert_cobble",
 	legacy_mineral = true,
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -437,7 +437,7 @@ minetest.register_node("default:dirt_with_grass", {
 		{name = "default_dirt.png^default_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -449,7 +449,7 @@ minetest.register_node("default:dirt_with_grass_footsteps", {
 		{name = "default_dirt.png^default_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, not_in_creative_inventory = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.25},
 	}),
@@ -462,7 +462,7 @@ minetest.register_node("default:dirt_with_dry_grass", {
 		{name = "default_dirt.png^default_dry_grass_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_grass_footstep", gain = 0.4},
 	}),
@@ -474,7 +474,7 @@ minetest.register_node("default:dirt_with_snow", {
 		{name = "default_dirt.png^default_snow_side.png",
 			tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
-	drop = 'default:dirt',
+	drop = "default:dirt",
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name = "default_snow_footstep", gain = 0.2},
 	}),
@@ -586,8 +586,8 @@ minetest.register_node("default:gravel", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {'default:flint'}, rarity = 16},
-			{items = {'default:gravel'}}
+			{items = {"default:flint"}, rarity = 16},
+			{items = {"default:gravel"}}
 		}
 	}
 })
@@ -596,7 +596,7 @@ minetest.register_node("default:clay", {
 	description = "Clay",
 	tiles = {"default_clay.png"},
 	groups = {crumbly = 3},
-	drop = 'default:clay_lump 4',
+	drop = "default:clay_lump 4",
 	sounds = default.node_sound_dirt_defaults(),
 })
 
@@ -743,13 +743,13 @@ minetest.register_node("default:leaves", {
 		items = {
 			{
 				-- player will get sapling with 1/20 chance
-				items = {'default:sapling'},
+				items = {"default:sapling"},
 				rarity = 20,
 			},
 			{
 				-- player will get leaves only if he get no saplings,
 				-- this is because max_items is 1
-				items = {'default:leaves'},
+				items = {"default:leaves"},
 			}
 		}
 	},
@@ -845,8 +845,8 @@ minetest.register_node("default:jungleleaves", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {'default:junglesapling'}, rarity = 20},
-			{items = {'default:jungleleaves'}}
+			{items = {"default:junglesapling"}, rarity = 20},
+			{items = {"default:jungleleaves"}}
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
@@ -1170,7 +1170,7 @@ minetest.register_node("default:stone_with_coal", {
 	description = "Coal Ore",
 	tiles = {"default_stone.png^default_mineral_coal.png"},
 	groups = {cracky = 3},
-	drop = 'default:coal_lump',
+	drop = "default:coal_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1187,7 +1187,7 @@ minetest.register_node("default:stone_with_iron", {
 	description = "Iron Ore",
 	tiles = {"default_stone.png^default_mineral_iron.png"},
 	groups = {cracky = 2},
-	drop = 'default:iron_lump',
+	drop = "default:iron_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -1204,7 +1204,7 @@ minetest.register_node("default:stone_with_copper", {
 	description = "Copper Ore",
 	tiles = {"default_stone.png^default_mineral_copper.png"},
 	groups = {cracky = 2},
-	drop = 'default:copper_lump',
+	drop = "default:copper_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
 
