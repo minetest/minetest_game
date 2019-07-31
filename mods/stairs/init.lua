@@ -109,7 +109,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 	if recipeitem then
 		-- Recipe matches appearence in inventory
 		minetest.register_craft({
-			output = 'stairs:stair_' .. subname .. ' 8',
+			output = "stairs:stair_" .. subname .. " 8",
 			recipe = {
 				{"", "", recipeitem},
 				{"", recipeitem, recipeitem},
@@ -119,10 +119,10 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 
 		-- Use stairs to craft full blocks again (1:1)
 		minetest.register_craft({
-			output = recipeitem .. ' 3',
+			output = recipeitem .. " 3",
 			recipe = {
-				{'stairs:stair_' .. subname, 'stairs:stair_' .. subname},
-				{'stairs:stair_' .. subname, 'stairs:stair_' .. subname},
+				{"stairs:stair_" .. subname, "stairs:stair_" .. subname},
+				{"stairs:stair_" .. subname, "stairs:stair_" .. subname},
 			},
 		})
 
@@ -135,7 +135,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		if baseburntime > 0 then
 			minetest.register_craft({
 				type = "fuel",
-				recipe = 'stairs:stair_' .. subname,
+				recipe = "stairs:stair_" .. subname,
 				burntime = math.floor(baseburntime * 0.75),
 			})
 		end
@@ -224,7 +224,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 
 	if recipeitem then
 		minetest.register_craft({
-			output = 'stairs:slab_' .. subname .. ' 6',
+			output = "stairs:slab_" .. subname .. " 6",
 			recipe = {
 				{recipeitem, recipeitem, recipeitem},
 			},
@@ -234,8 +234,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		minetest.register_craft({
 			output = recipeitem,
 			recipe = {
-				{'stairs:slab_' .. subname},
-				{'stairs:slab_' .. subname},
+				{"stairs:slab_" .. subname},
+				{"stairs:slab_" .. subname},
 			},
 		})
 
@@ -248,7 +248,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		if baseburntime > 0 then
 			minetest.register_craft({
 				type = "fuel",
-				recipe = 'stairs:slab_' .. subname,
+				recipe = "stairs:slab_" .. subname,
 				burntime = math.floor(baseburntime * 0.5),
 			})
 		end
@@ -335,7 +335,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 
 	if recipeitem then
 		minetest.register_craft({
-			output = 'stairs:stair_inner_' .. subname .. ' 7',
+			output = "stairs:stair_inner_" .. subname .. " 7",
 			recipe = {
 				{"", recipeitem, ""},
 				{recipeitem, "", recipeitem},
@@ -352,7 +352,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		if baseburntime > 0 then
 			minetest.register_craft({
 				type = "fuel",
-				recipe = 'stairs:stair_inner_' .. subname,
+				recipe = "stairs:stair_inner_" .. subname,
 				burntime = math.floor(baseburntime * 0.875),
 			})
 		end
@@ -415,7 +415,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 
 	if recipeitem then
 		minetest.register_craft({
-			output = 'stairs:stair_outer_' .. subname .. ' 6',
+			output = "stairs:stair_outer_" .. subname .. " 6",
 			recipe = {
 				{"", recipeitem, ""},
 				{recipeitem, recipeitem, recipeitem},
@@ -431,7 +431,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		if baseburntime > 0 then
 			minetest.register_craft({
 				type = "fuel",
-				recipe = 'stairs:stair_outer_' .. subname,
+				recipe = "stairs:stair_outer_" .. subname,
 				burntime = math.floor(baseburntime * 0.625),
 			})
 		end

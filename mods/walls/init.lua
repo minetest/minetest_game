@@ -31,7 +31,7 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 	minetest.register_craft({
 		output = wall_name .. " 6",
 		recipe = {
-			{ '', '', '' },
+			{ "", "", "" },
 			{ wall_mat, wall_mat, wall_mat},
 			{ wall_mat, wall_mat, wall_mat},
 		}
