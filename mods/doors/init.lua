@@ -701,19 +701,19 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 })
 
 minetest.register_craft({
-	output = 'doors:trapdoor 2',
+	output = "doors:trapdoor 2",
 	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'', '', ''},
+		{"group:wood", "group:wood", "group:wood"},
+		{"group:wood", "group:wood", "group:wood"},
+		{"", "", ""},
 	}
 })
 
 minetest.register_craft({
-	output = 'doors:trapdoor_steel',
+	output = "doors:trapdoor_steel",
 	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot'},
-		{'default:steel_ingot', 'default:steel_ingot'},
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"},
 	}
 })
 

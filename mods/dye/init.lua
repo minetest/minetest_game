@@ -94,7 +94,7 @@ local dye_recipes = {
 for _, mix in pairs(dye_recipes) do
 	minetest.register_craft({
 		type = "shapeless",
-		output = 'dye:' .. mix[3] .. ' 2',
-		recipe = {'dye:' .. mix[1], 'dye:' .. mix[2]},
+		output = "dye:" .. mix[3] .. " 2",
+		recipe = {"dye:" .. mix[1], "dye:" .. mix[2]},
 	})
 end

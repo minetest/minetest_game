@@ -6,10 +6,10 @@ minetest.register_alias("bucket_water", "bucket:bucket_water")
 minetest.register_alias("bucket_lava", "bucket:bucket_lava")
 
 minetest.register_craft({
-	output = 'bucket:bucket_empty 1',
+	output = "bucket:bucket_empty 1",
 	recipe = {
-		{'default:steel_ingot', '', 'default:steel_ingot'},
-		{'', 'default:steel_ingot', ''},
+		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"", "default:steel_ingot", ""},
 	}
 })
 
