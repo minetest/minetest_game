@@ -98,7 +98,7 @@ end
 
 local function furnace_node_timer(pos, elapsed)
 	--
-	-- Inizialize metadata
+	-- Initialize metadata
 	--
 	local meta = minetest.get_meta(pos)
 	local fuel_time = meta:get_float("fuel_time") or 0
@@ -166,6 +166,16 @@ local function furnace_node_timer(pos, elapsed)
 				else
 					-- Take fuel from fuel list
 					inv:set_stack("fuel", 1, afterfuel.items[1])
+					-- Put replacements in dst list or drop them on the furnace.
+					local replacements = fuel.replacements
+					if replacements[1] then
+						local leftover = inv:add_item("dst", replacements[1])
+						if not leftover:is_empty() then
+							local above = vector.new(pos.x, pos.y + 1, pos.z)
+							local drop_pos = minetest.find_node_near(above, 1, {"air"}) or above
+							minetest.item_drop(replacements[1], nil, drop_pos)
+						end
+					end
 					update = true
 					fuel_totaltime = fuel.time + (fuel_totaltime - fuel_time)
 				end
