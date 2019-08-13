@@ -505,6 +505,21 @@ doors.register("door_obsidian_glass", {
 		},
 })
 
+doors.register("door_bar", {
+		tiles = {{ name = "doors_door_bar.png", backface_culling = true }},
+		description = "Steel Bar Door",
+		inventory_image = "doors_item_bar.png",
+		groups = {cracky = 1, level = 2},
+		sounds = default.node_sound_metal_defaults(),
+		sound_open = "doors_steel_door_open",
+		sound_close = "doors_steel_door_close",
+		recipe = {
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+		},
+})
+
 -- Capture mods using the old API as best as possible.
 function doors.register_door(name, def)
 	if def.only_placer_can_open then
@@ -700,6 +715,19 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	groups = {cracky = 1, level = 2, door = 1},
 })
 
+doors.register_trapdoor("doors:trapdoor_bar", {
+	description = "Steel Bar Trapdoor",
+	inventory_image = "doors_trapdoor_bar.png",
+	wield_image = "doors_trapdoor_bar.png",
+	tile_front = "doors_trapdoor_bar.png",
+	tile_side = "doors_trapdoor_bar_side.png",
+	protected = true,
+	sounds = default.node_sound_metal_defaults(),
+	sound_open = "doors_steel_door_open",
+	sound_close = "doors_steel_door_close",
+	groups = {cracky = 1, level = 2, door = 1},
+})
+
 minetest.register_craft({
 	output = "doors:trapdoor 2",
 	recipe = {
@@ -714,6 +742,14 @@ minetest.register_craft({
 	recipe = {
 		{"default:steel_ingot", "default:steel_ingot"},
 		{"default:steel_ingot", "default:steel_ingot"},
+	}
+})
+
+minetest.register_craft({
+	output = 'doors:trapdoor_bar',
+	recipe = {
+		{'xpanes:bar_flat', 'xpanes:bar_flat'},
+		{'xpanes:bar_flat', 'xpanes:bar_flat'},
 	}
 })
 
