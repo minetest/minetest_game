@@ -746,10 +746,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'doors:trapdoor_bar',
+	output = "doors:trapdoor_bar",
 	recipe = {
-		{'xpanes:bar_flat', 'xpanes:bar_flat'},
-		{'xpanes:bar_flat', 'xpanes:bar_flat'},
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
 	}
 })
 
