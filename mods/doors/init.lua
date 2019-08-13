@@ -506,7 +506,7 @@ doors.register("door_obsidian_glass", {
 })
 
 doors.register("door_bar", {
-		tiles = {{ name = "doors_door_bar.png", backface_culling = true }},
+	tiles = {{name = "doors_door_bar.png", backface_culling = true}},
 		description = "Steel Bar Door",
 		inventory_image = "doors_item_bar.png",
 		groups = {cracky = 1, level = 2},
