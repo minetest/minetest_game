@@ -52,6 +52,12 @@ Glass door textures by Krock and paramat based on textures by VanessaE (CC BY-SA
   doors_door_glass.png
   doors_item_glass.png
 
+Steel Bar door textures by TumeniNodes based on textures by Gambit (CC BY-SA 3.0):
+ doors_door_bar.png
+ doors_item_bar.png
+ doors_trapdoor_bar.png
+ doors_trapdoor_bar_side.png: derived from doors_trapdoor_steel_side.png by paramat (CC BY-SA 3.0)
+
 All other textures (created by PilzAdam) (CC BY-SA 3.0):
 
 Door textures were converted to the new texture map by sofar, paramat and

@@ -448,61 +448,77 @@ function doors.register(name, def)
 end
 
 doors.register("door_wood", {
-		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
-		description = "Wooden Door",
-		inventory_image = "doors_item_wood.png",
-		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-		recipe = {
-			{"group:wood", "group:wood"},
-			{"group:wood", "group:wood"},
-			{"group:wood", "group:wood"},
-		}
+	tiles = {{name = "doors_door_wood.png", backface_culling = true}},
+	description = "Wooden Door",
+	inventory_image = "doors_item_wood.png",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	recipe = {
+		{"group:wood", "group:wood"},
+		{"group:wood", "group:wood"},
+		{"group:wood", "group:wood"},
+	}
 })
 
 doors.register("door_steel", {
-		tiles = {{name = "doors_door_steel.png", backface_culling = true}},
-		description = "Steel Door",
-		inventory_image = "doors_item_steel.png",
-		protected = true,
-		groups = {cracky = 1, level = 2},
-		sounds = default.node_sound_metal_defaults(),
-		sound_open = "doors_steel_door_open",
-		sound_close = "doors_steel_door_close",
-		recipe = {
-			{"default:steel_ingot", "default:steel_ingot"},
-			{"default:steel_ingot", "default:steel_ingot"},
-			{"default:steel_ingot", "default:steel_ingot"},
-		}
+	tiles = {{name = "doors_door_steel.png", backface_culling = true}},
+	description = "Steel Door",
+	inventory_image = "doors_item_steel.png",
+	protected = true,
+	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_metal_defaults(),
+	sound_open = "doors_steel_door_open",
+	sound_close = "doors_steel_door_close",
+	recipe = {
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"},
+	}
 })
 
 doors.register("door_glass", {
-		tiles = {"doors_door_glass.png"},
-		description = "Glass Door",
-		inventory_image = "doors_item_glass.png",
-		groups = {cracky=3, oddly_breakable_by_hand=3},
-		sounds = default.node_sound_glass_defaults(),
-		sound_open = "doors_glass_door_open",
-		sound_close = "doors_glass_door_close",
-		recipe = {
-			{"default:glass", "default:glass"},
-			{"default:glass", "default:glass"},
-			{"default:glass", "default:glass"},
-		}
+	tiles = {"doors_door_glass.png"},
+	description = "Glass Door",
+	inventory_image = "doors_item_glass.png",
+	groups = {cracky=3, oddly_breakable_by_hand=3},
+	sounds = default.node_sound_glass_defaults(),
+	sound_open = "doors_glass_door_open",
+	sound_close = "doors_glass_door_close",
+	recipe = {
+		{"default:glass", "default:glass"},
+		{"default:glass", "default:glass"},
+		{"default:glass", "default:glass"},
+	}
 })
 
 doors.register("door_obsidian_glass", {
-		tiles = {"doors_door_obsidian_glass.png"},
-		description = "Obsidian Glass Door",
-		inventory_image = "doors_item_obsidian_glass.png",
-		groups = {cracky=3},
-		sounds = default.node_sound_glass_defaults(),
-		sound_open = "doors_glass_door_open",
-		sound_close = "doors_glass_door_close",
-		recipe = {
-			{"default:obsidian_glass", "default:obsidian_glass"},
-			{"default:obsidian_glass", "default:obsidian_glass"},
-			{"default:obsidian_glass", "default:obsidian_glass"},
-		},
+	tiles = {"doors_door_obsidian_glass.png"},
+	description = "Obsidian Glass Door",
+	inventory_image = "doors_item_obsidian_glass.png",
+	groups = {cracky=3},
+	sounds = default.node_sound_glass_defaults(),
+	sound_open = "doors_glass_door_open",
+	sound_close = "doors_glass_door_close",
+	recipe = {
+		{"default:obsidian_glass", "default:obsidian_glass"},
+		{"default:obsidian_glass", "default:obsidian_glass"},
+		{"default:obsidian_glass", "default:obsidian_glass"},
+	}
+})
+
+doors.register("door_bar", {
+	tiles = {{name = "doors_door_bar.png", backface_culling = true}},
+	description = "Steel Bar Door",
+	inventory_image = "doors_item_bar.png",
+	protected = true,
+	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_metal_defaults(),
+	sound_open = "doors_steel_door_open",
+	sound_close = "doors_steel_door_close",
+	recipe = {
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"default:tin_ingot", "default:tin_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"},
+	},
 })
 
 -- Capture mods using the old API as best as possible.
@@ -700,6 +716,18 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	groups = {cracky = 1, level = 2, door = 1},
 })
 
+doors.register_trapdoor("doors:trapdoor_bar", {
+	description = "Steel Bar Trapdoor",
+	inventory_image = "doors_trapdoor_bar.png",
+	wield_image = "doors_trapdoor_bar.png",
+	tile_front = "doors_trapdoor_bar.png",
+	tile_side = "doors_trapdoor_bar_side.png",
+	sounds = default.node_sound_metal_defaults(),
+	sound_open = "doors_steel_door_open",
+	sound_close = "doors_steel_door_close",
+	groups = {cracky = 1, level = 2, door = 1},
+})
+
 minetest.register_craft({
 	output = "doors:trapdoor 2",
 	recipe = {
@@ -717,6 +745,13 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'doors:trapdoor_bar',
+	recipe = {
+		{"default:tin_ingot", "default:tin_ingot"},
+		{"default:steel_ingot", "default:steel_ingot"},
+	}
+})
 
 ----fence gate----
 
