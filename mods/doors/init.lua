@@ -516,7 +516,7 @@ doors.register("door_bar", {
 	sound_close = "doors_steel_door_close",
 	recipe = {
 		{"default:steel_ingot", "default:steel_ingot"},
-		{"default:tin_ingot", "default:tin_ingot"},
+		{"", ""},
 		{"default:steel_ingot", "default:steel_ingot"},
 	},
 })
@@ -748,8 +748,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'doors:trapdoor_bar',
 	recipe = {
-		{"default:tin_ingot", "default:tin_ingot"},
-		{"default:steel_ingot", "default:steel_ingot"},
+		{"", "default:steel_ingot"},
+		{"default:steel_ingot", ""},
 	}
 })
 
