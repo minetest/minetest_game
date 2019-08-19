@@ -573,7 +573,7 @@ minetest.register_abm({
 --
 
 function default.can_interact_with_node(player, pos)
-	if player then
+	if player and player:is_player() then
 		if minetest.check_player_privs(player, "protection_bypass") then
 			return true
 		end
