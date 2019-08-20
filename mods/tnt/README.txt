@@ -34,6 +34,10 @@ theneedle.tv (CC0 1.0)
 tnt_ignite.ogg renamed and converted to .ogg from sparkler_fuse_nm.wav
 <https://freesound.org/s/316682/>
 
+frankelmedico (CC0 1.0)
+tnt_gunpowder_burning.ogg renamed, edited, and converted to .ogg from road flare ignite burns.wav
+<https://freesound.org/s/348767/>
+
 
 Introduction
 ------------
