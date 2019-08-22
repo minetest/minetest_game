@@ -26,16 +26,20 @@ tnt_blast.png
 paramat (CC BY-SA 3.0)
 tnt_tnt_stick.png - Derived from a texture by benrob0329.
 
-steveygos93 (CC0 1.0)
-tnt_explode.ogg - renamed, edited, and converted to .ogg from Explosion2.wav
+TumeniNodes (CC0 1.0)
+tnt_explode.ogg
+renamed, edited, and converted to .ogg from Explosion2.wav
+by steveygos93 (CC0 1.0)
 <https://freesound.org/s/80401/>
 
-theneedle.tv (CC0 1.0)
-tnt_ignite.ogg renamed and converted to .ogg from sparkler_fuse_nm.wav
+tnt_ignite.ogg
+renamed, edited, and converted to .ogg from sparkler_fuse_nm.wav
+by theneedle.tv (CC0 1.0)
 <https://freesound.org/s/316682/>
 
-frankelmedico (CC0 1.0)
-tnt_gunpowder_burning.ogg renamed, edited, and converted to .ogg from road flare ignite burns.wav
+tnt_gunpowder_burning.ogg
+renamed, edited, and converted to .ogg from road flare ignite burns.wav
+by frankelmedico (CC0 1.0)
 <https://freesound.org/s/348767/>
 
 
