@@ -40,10 +40,8 @@ if creative_mode_cache then
 	local digtime = 42
 	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
 
-	minetest.register_item(":", {
-		type = "none",
-		wield_image = "wieldhand.png",
-		wield_scale = {x = 1, y = 1, z = 2.5},
+	-- Override the hand tool
+	minetest.override_item("", {
 		range = 10,
 		tool_capabilities = {
 			full_punch_interval = 0.5,
