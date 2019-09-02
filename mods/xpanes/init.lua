@@ -27,7 +27,7 @@ local function swap(pos, node, name, param2)
 		return
 	end
 
-	minetest.set_node(pos, {name = name, param2 = param2})
+	minetest.swap_node(pos, {name = name, param2 = param2})
 end
 
 local function update_pane(pos)
@@ -54,10 +54,10 @@ local function update_pane(pos)
 	if count == 0 then
 		swap(pos, node, name .. "_flat", any)
 	elseif count == 1 then
-		swap(pos, node, name .. "_flat", (any + 1) % 4)
+		swap(pos, node, name .. "_flat", (any + 1) % 2)
 	elseif count == 2 then
 		if (c[0] and c[2]) or (c[1] and c[3]) then
-			swap(pos, node, name .. "_flat", (any + 1) % 4)
+			swap(pos, node, name .. "_flat", (any + 1) % 2)
 		else
 			swap(pos, node, name, 0)
 		end
