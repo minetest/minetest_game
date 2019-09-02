@@ -7,12 +7,11 @@ Authors of source code
 Originally by PilzAdam (MIT)
 Various Minetest developers and contributors (MIT)
 
-Authors of media (textures and model)
--------------------------------------
-Textures: Zeg9 (CC BY-SA 3.0)
-Model: thetoon and Zeg9 (CC BY-SA 3.0),
-  modified by PavelS(SokolovPavel) (CC BY-SA 3.0),
-  modified by sofar (CC BY-SA 3.0)
+Authors of nodebox design and media
+-----------------------------------
+paramat (CC BY-SA 3.0):
+  Boat nodebox
+  boats_boat_inv.png
 
 Controls
 --------

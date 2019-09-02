@@ -37,10 +37,11 @@ local boat = {
 		physical = true,
 		-- Warning: Do not change the position of the collisionbox top surface,
 		-- lowering it causes the boat to fall through the world if underwater
-		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
-		visual = "mesh",
-		mesh = "boats_boat.obj",
-		textures = {"default_wood.png"},
+		collisionbox = {-0.625, -0.35, -0.625, 0.625, 0.375, 0.625},
+		visual = "item",
+		-- visual_scale = 2 is necessary for correct attached player size.
+		visual_size = {x = 2.0, y = 2.0},
+		wield_item = "boats:boat_nodebox",
 	},
 
 	driver = nil,
@@ -63,7 +64,7 @@ function boat.on_rightclick(self, clicker)
 		player_api.player_attached[name] = false
 		player_api.set_animation(clicker, "stand" , 30)
 		local pos = clicker:get_pos()
-		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
+		pos = {x = pos.x, y = pos.y + 0.4, z = pos.z}
 		minetest.after(0.1, function()
 			clicker:set_pos(pos)
 		end)
@@ -77,8 +78,12 @@ function boat.on_rightclick(self, clicker)
 			clicker:set_detach()
 		end
 		self.driver = name
-		clicker:set_attach(self.object, "",
-			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
+		clicker:set_attach(self.object,
+			"",
+			{x = 0, y = 0.5, z = 3},
+			-- Player sits backwards in boat
+			{x = 0, y = 180, z = 0}
+		)
 		player_api.player_attached[name] = true
 		minetest.after(0.2, function()
 			player_api.set_animation(clicker, "sit" , 30)
@@ -243,8 +248,8 @@ minetest.register_entity("boats:boat", boat)
 
 minetest.register_craftitem("boats:boat", {
 	description = "Boat",
-	inventory_image = "boats_inventory.png",
-	wield_image = "boats_wield.png",
+	inventory_image = "boats_boat_inv.png",
+	wield_image = "boats_boat_inv.png",
 	wield_scale = {x = 2, y = 2, z = 1},
 	liquids_pointable = true,
 	groups = {flammable = 2},
@@ -296,4 +301,31 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "boats:boat",
 	burntime = 20,
+})
+
+
+-- Boat nodebox
+
+minetest.register_node("boats:boat_nodebox", {
+	description = "Boat Nodebox",
+	tiles = {"default_wood.png"},
+	paramtype = "light",
+	drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			-- Scale up of nodebox is entity visual_scale * 1.5 = 3. Node = 0.333.
+			fixed = {
+				-- widmin, heimin, lenmin, widmax, heimax, lenmax
+				{-0.206, -0.042, -0.333,    0.206, 0.005,  0.333}, -- Base
+				{-0.206, -0.042,  0.291,    0.206, 0.125,  0.333}, -- Front
+				{-0.206, -0.042, -0.333,    0.206, 0.125, -0.291}, -- Back
+				{-0.206, -0.042, -0.333,   -0.164, 0.125,  0.333}, -- Left
+				{ 0.164, -0.042, -0.333,    0.206, 0.125,  0.333}, -- Right
+				{-0.25,   0.083, -0.021,   -0.042, 0.125,  0.021}, -- Left oar handle
+				{-0.42,   0.042, -0.021,   -0.25,  0.167,  0.021}, -- Left oar blade
+				{ 0.042,  0.083, -0.021,    0.25,  0.125,  0.021}, -- Right oar handle
+				{ 0.25,   0.042, -0.021,    0.42,  0.167,  0.021}, -- Right oar blade
+			},
+		},
+	groups = {not_in_creative_inventory = 1},
 })
