@@ -1,12 +1,14 @@
 # Minetest Game
 
 The default game bundled in the Minetest engine.  
-For information about the game, click [here](https://forum.minetest.net/viewtopic.php?f=15&t=9724#p148074).
+
+For further information, check [this forum topic](https://forum.minetest.net/viewtopic.php?f=15&t=9724).   
+Also see the [Minetest Wiki](https://wiki.minetest.net/Subgames/Minetest_Game) for more information.
 
 ## Installation
 
 - Unzip the archive, rename the folder to minetest_game and
-place it in ..minetest/games/
+place it in .. minetest/games/ ..
 
 - GNU/Linux: If you use a system-wide installation place
     it in ~/.minetest/games/.
