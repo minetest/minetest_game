@@ -273,6 +273,7 @@ end
 --
 -- Fence registration helper
 --
+local fence_collision_extra = minetest.settings:get_bool("enable_fence_tall") and 3/8 or 0
 
 function default.register_fence(name, def)
 	minetest.register_craft({
@@ -302,6 +303,16 @@ function default.register_fence(name, def)
 				{-1/16,-5/16,1/8,1/16,-3/16,1/2}},
 			connect_right = {{1/8,3/16,-1/16,1/2,5/16,1/16},
 				{1/8,-5/16,-1/16,1/2,-3/16,1/16}},
+		},
+		collision_box = {
+			type = "connected",
+			fixed = {-1/8, -1/2, -1/8, 1/8, 1/2 + fence_collision_extra, 1/8},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {-1/8,-1/2,-1/2,1/8,1/2 + fence_collision_extra,-1/8},
+			connect_left = {-1/2,-1/2,-1/8,-1/8,1/2 + fence_collision_extra,1/8},
+			connect_back = {-1/8,-1/2,1/8,1/8,1/2 + fence_collision_extra,1/2},
+			connect_right = {1/8,-1/2,-1/8,1/2,1/2 + fence_collision_extra,1/8},
 		},
 		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
 		inventory_image = fence_texture,
@@ -367,6 +378,16 @@ function default.register_fence_rail(name, def)
 			connect_right = {
 				{1/16,  3/16, -1/16, 1/2,  5/16, 1/16},
 				{1/16, -5/16, -1/16, 1/2, -3/16, 1/16}},
+		},
+		collision_box = {
+			type = "connected",
+			fixed = {-1/8, -1/2, -1/8, 1/8, 1/2 + fence_collision_extra, 1/8},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {-1/8,-1/2,-1/2,1/8,1/2 + fence_collision_extra,-1/8},
+			connect_left = {-1/2,-1/2,-1/8,-1/8,1/2 + fence_collision_extra,1/8},
+			connect_back = {-1/8,-1/2,1/8,1/8,1/2 + fence_collision_extra,1/2},
+			connect_right = {1/8,-1/2,-1/8,1/2,1/2 + fence_collision_extra,1/8},
 		},
 		connects_to = {"group:fence", "group:wall"},
 		inventory_image = fence_rail_texture,
