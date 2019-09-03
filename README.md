@@ -8,7 +8,7 @@ Also see the [Minetest Wiki](https://wiki.minetest.net/Subgames/Minetest_Game) f
 ## Installation
 
 - Unzip the archive, rename the folder to minetest_game and
-place it in .. minetest/games/ ..
+place it in .. minetest/games/
 
 - GNU/Linux: If you use a system-wide installation place
     it in ~/.minetest/games/.
