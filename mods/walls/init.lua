@@ -14,7 +14,6 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 		node_box = {
 			type = "connected",
 			fixed = {-1/4, -1/2, -1/4, 1/4, 1/2, 1/4},
-			-- connect_top =
 			-- connect_bottom =
 			connect_front = {-3/16, -1/2, -1/2,  3/16, 3/8, -1/4},
 			connect_left = {-1/2, -1/2, -3/16, -1/4, 3/8,  3/16},
