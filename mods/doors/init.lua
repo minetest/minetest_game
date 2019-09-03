@@ -719,6 +719,7 @@ minetest.register_craft({
 
 
 ----fence gate----
+local fence_collision_extra = minetest.settings:get_bool("enable_fence_tall") and 3/8 or 0
 
 function doors.register_fencegate(name, def)
 	local fence = {
@@ -768,7 +769,7 @@ function doors.register_fencegate(name, def)
 	fence_closed.sound = "doors_fencegate_open"
 	fence_closed.collision_box = {
 		type = "fixed",
-		fixed = {-1/2, -1/2, -1/4, 1/2, 1/2, 1/4},
+		fixed = {-1/2, -1/2, -1/4, 1/2, 1/2 + fence_collision_extra, 1/4},
 	}
 
 	local fence_open = table.copy(fence)
@@ -778,7 +779,7 @@ function doors.register_fencegate(name, def)
 	fence_open.groups.not_in_creative_inventory = 1
 	fence_open.collision_box = {
 		type = "fixed",
-		fixed = {{-1/2, -1/2, -1/4, -3/8, 1/2, 1/4},
+		fixed = {{-1/2, -1/2, -1/4, -3/8, 1/2 + fence_collision_extra, 1/4},
 			{-1/2, -3/8, -1/2, -3/8, 3/8, 0}},
 	}
 
