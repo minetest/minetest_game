@@ -54,10 +54,10 @@ local function update_pane(pos)
 	if count == 0 then
 		swap(pos, node, name .. "_flat", any)
 	elseif count == 1 then
-		swap(pos, node, name .. "_flat", (any + 1) % 2)
+		swap(pos, node, name .. "_flat", (any + 1) % 4)
 	elseif count == 2 then
 		if (c[0] and c[2]) or (c[1] and c[3]) then
-			swap(pos, node, name .. "_flat", (any + 1) % 2)
+			swap(pos, node, name .. "_flat", (any + 1) % 4)
 		else
 			swap(pos, node, name, 0)
 		end
