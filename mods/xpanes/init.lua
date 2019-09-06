@@ -27,7 +27,7 @@ local function swap(pos, node, name, param2)
 		return
 	end
 
-	minetest.set_node(pos, {name = name, param2 = param2})
+	minetest.swap_node(pos, {name = name, param2 = param2})
 end
 
 local function update_pane(pos)
