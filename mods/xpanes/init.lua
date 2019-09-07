@@ -1,7 +1,7 @@
 -- xpanes/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("xpanes")
 
 
 local function is_pane(pos)

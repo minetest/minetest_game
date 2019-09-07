@@ -1,7 +1,7 @@
 -- firefly/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("fireflies")
 
 
 minetest.register_node("fireflies:firefly", {

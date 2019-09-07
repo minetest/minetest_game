@@ -4,7 +4,7 @@
 -- See README.txt for licensing and other information.
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("vessels")
 
 
 local vessels_shelf_formspec =

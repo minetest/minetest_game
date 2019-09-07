@@ -2,7 +2,7 @@
 -- See README.txt for licensing and other information.
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("bucket")
 
 
 minetest.register_alias("bucket", "bucket:bucket_empty")

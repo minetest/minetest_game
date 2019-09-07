@@ -3,7 +3,7 @@
 sethome = {}
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("sethome")
 
 
 local homes_file = minetest.get_worldpath() .. "/homes"

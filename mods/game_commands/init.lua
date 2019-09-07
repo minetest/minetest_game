@@ -1,7 +1,7 @@
 -- game_commands/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("game_commands")
 
 
 minetest.register_chatcommand("killme", {

@@ -4,7 +4,7 @@
 -- The API documentation in here was moved into game_api.txt
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("default")
 
 -- Definitions made by this mod that other mods can use too
 default = {}

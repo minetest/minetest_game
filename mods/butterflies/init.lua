@@ -1,7 +1,7 @@
 -- butrerflies/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_translator()
+local S = minetest.get_translator("butterflies")
 
 -- register butterflies
 local butter_list = {
