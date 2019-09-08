@@ -370,6 +370,14 @@ farming.register_plant = function(name, def)
 			on_timer = farming.grow_plant,
 			minlight = def.minlight,
 			maxlight = def.maxlight,
+			floodable = true,
+			on_flood = function(pos, oldnode, newnode)
+				local items = minetest.get_node_drops(oldnode.name, nil)
+				for j=1, #items do
+					minetest.add_item(pos, ItemStack(items[j]))
+				end
+				return false
+			end,
 		})
 	end
 
