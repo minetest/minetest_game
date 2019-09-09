@@ -14,7 +14,7 @@ local river_source_sounds = minetest.settings:get_bool("river_source_sounds")
 local function update_sound(player)
 	local player_name = player:get_player_name()
 	-- Search for water nodes in radius around player
-	local ppos = player:getpos()
+	local ppos = player:get_pos()
 	local areamin = vector.subtract(ppos, radius)
 	local areamax = vector.add(ppos, radius)
 	local wpos, num
@@ -39,54 +39,30 @@ local function update_sound(player)
 		)
 	end
 	-- Total number of waters in radius
-	local waters = (num["default:water_flowing"] or 0) +
-		(num["default:river_water_source"] or 0) +
-		(num["default:river_water_flowing"] or 0)
-	-- If waters
-	if waters > 0 then
-		-- Find centre of water positions
-		local wposmid = wpos[1]
-		-- If more than 1 water
-		if #wpos > 1 then
-			local wposmin = areamax
-			local wposmax = areamin
-			for i = 1, #wpos do
-				local wposi = wpos[i]
-				if wposi.x > wposmax.x then
-					wposmax.x = wposi.x
-				end
-				if wposi.y > wposmax.y then
-					wposmax.y = wposi.y
-				end
-				if wposi.z > wposmax.z then
-					wposmax.z = wposi.z
-				end
-				if wposi.x < wposmin.x then
-					wposmin.x = wposi.x
-				end
-				if wposi.y < wposmin.y then
-					wposmin.y = wposi.y
-				end
-				if wposi.z < wposmin.z then
-					wposmin.z = wposi.z
-				end
-			end
-			wposmid = vector.divide(vector.add(wposmin, wposmax), 2)
-		end
-		-- Play sound
-		local handle = minetest.sound_play(
-			"env_sounds_water",
-			{
-				pos = wposmid,
-				to_player = player_name,
-				gain = math.min(0.04 + waters * 0.004, 0.4),
-				max_hear_distance = 32,
-			}
-		)
-		-- Store sound handle for this player
-		if handle then
-			handles[player_name] = handle
-		end
+	local waters = #wpos
+	if waters == 0 then
+		return
+	end
+
+	-- Find average position of water positions
+	local wposav = vector.new()
+	for i, pos in ipairs(wpos) do
+		wposav = vector.add(wposav, pos)
+	end
+	wposav = vector.divide(wposav, waters)
+	-- Play sound
+	local handle = minetest.sound_play(
+		"env_sounds_water",
+		{
+			pos = wposav,
+			to_player = player_name,
+			gain = math.min(0.04 + waters * 0.004, 0.4),
+			max_hear_distance = 32,
+		}
+	)
+	-- Store sound handle for this player
+	if handle then
+		handles[player_name] = handle
 	end
 end
 
