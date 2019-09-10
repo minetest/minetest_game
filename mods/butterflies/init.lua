@@ -5,9 +5,9 @@ local S = minetest.get_translator("butterflies")
 
 -- register butterflies
 local butter_list = {
-	{"white", S("White")},
-	{"red", S("Red")},
-	{"violet", S("Violet")}
+	{"white",  "White"},
+	{"red",    "Red"},
+	{"violet", "Violet"}
 }
 
 for i in ipairs (butter_list) do
@@ -15,7 +15,7 @@ for i in ipairs (butter_list) do
 	local desc = butter_list[i][2]
 
 	minetest.register_node("butterflies:butterfly_"..name, {
-		description = S("@1 Butterfly", desc),
+		description = S(desc .. " Butterfly"),
 		drawtype = "plantlike",
 		tiles = {{
 			name = "butterflies_butterfly_"..name.."_animated.png",
@@ -61,7 +61,7 @@ for i in ipairs (butter_list) do
 	})
 
 	minetest.register_node("butterflies:hidden_butterfly_"..name, {
-		description = S("Hidden @1 Butterfly", desc),
+		description = S("Hidden " .. desc .. " Butterfly"),
 		drawtype = "airlike",
 		inventory_image = "insects_butterfly_"..name..".png",
 		wield_image =  "insects_butterfly_"..name..".png",
