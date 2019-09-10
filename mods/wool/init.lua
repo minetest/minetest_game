@@ -9,7 +9,7 @@ for i = 1, #dyes do
 	local name, desc = unpack(dyes[i])
 
 	minetest.register_node("wool:" .. name, {
-		description = S("@1 Wool", desc),
+		description = S(desc .. " Wool"),
 		tiles = {"wool_" .. name .. ".png"},
 		is_ground_content = false,
 		groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3,
