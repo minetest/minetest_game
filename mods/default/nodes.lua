@@ -513,14 +513,14 @@ minetest.register_node("default:dirt_with_coniferous_litter", {
 })
 
 minetest.register_node("default:dry_dirt", {
-	description = "Dry Dirt",
+	description = S("Dry Dirt"),
 	tiles = {"default_dry_dirt.png"},
 	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults(),
 })
 
 minetest.register_node("default:dry_dirt_with_dry_grass", {
-	description = "Dry Dirt with Dry Grass",
+	description = S("Dry Dirt with Dry Grass"),
 	tiles = {"default_dry_grass.png", "default_dry_dirt.png",
 		{name = "default_dry_dirt.png^default_dry_grass_side.png",
 			tileable_vertical = false}},
@@ -2556,7 +2556,7 @@ minetest.register_node("default:bookshelf", {
 
 local function register_sign(material, desc, def)
 	minetest.register_node("default:sign_wall_" .. material, {
-		description = S("@1 Sign", desc),
+		description = desc,
 		drawtype = "nodebox",
 		tiles = {"default_sign_wall_" .. material .. ".png"},
 		inventory_image = "default_sign_" .. material .. ".png",
@@ -2605,12 +2605,12 @@ local function register_sign(material, desc, def)
 	})
 end
 
-register_sign("wood", S("Wooden"), {
+register_sign("wood", S("Wooden Sign"), {
 	sounds = default.node_sound_wood_defaults(),
 	groups = {choppy = 2, attached_node = 1, flammable = 2, oddly_breakable_by_hand = 3}
 })
 
-register_sign("steel", S("Steel"), {
+register_sign("steel", S("Steel Sign"), {
 	sounds = default.node_sound_metal_defaults(),
 	groups = {cracky = 2, attached_node = 1}
 })
