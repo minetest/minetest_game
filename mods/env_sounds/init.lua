@@ -5,7 +5,6 @@ local radius = 8 -- Water node search radius around player
 -- End of parameters
 
 
-local handles = {}
 local river_source_sounds = minetest.settings:get_bool("river_source_sounds")
 
 
@@ -29,7 +28,9 @@ local function update_sound(player)
 	-- Find average position of water positions
 	local wposav = vector.new()
 	for _, pos in ipairs(wpos) do
-		wposav = vector.add(wposav, pos)
+		wposav.x = wposav.x + pos.x
+		wposav.y = wposav.y + pos.y
+		wposav.z = wposav.z + pos.z
 	end
 	wposav = vector.divide(wposav, waters)
 
@@ -41,10 +42,6 @@ local function update_sound(player)
 			gain = math.min(0.04 + waters * 0.004, 0.4),
 		}
 	)
-	-- Store sound handle for this player
-	if handle then
-		handles[player_name] = handle
-	end
 end
 
 
@@ -65,14 +62,3 @@ local function cyclic_update()
 end
 
 minetest.after(0, cyclic_update)
-
-
--- Stop sound and clear handle on player leave
-
-minetest.register_on_leaveplayer(function(player)
-	local player_name = player:get_player_name()
-	if handles[player_name] then
-		minetest.sound_stop(handles[player_name])
-		handles[player_name] = nil
-	end
-end)
