@@ -1,10 +1,15 @@
+-- wool/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("wool")
+
 local dyes = dye.dyes
 
 for i = 1, #dyes do
 	local name, desc = unpack(dyes[i])
 
 	minetest.register_node("wool:" .. name, {
-		description = desc .. " Wool",
+		description = S("@1 Wool", desc),
 		tiles = {"wool_" .. name .. ".png"},
 		is_ground_content = false,
 		groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3,
