@@ -269,7 +269,7 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_string("owner", player_name)
 
 	if share_bones_time ~= 0 then
-		meta:set_string("infotext", S("@1's fresh bones.", player_name))
+		meta:set_string("infotext", S("@1's fresh bones", player_name))
 
 		if share_bones_time_early == 0 or not minetest.is_protected(pos, player_name) then
 			meta:set_int("time", 0)
@@ -279,6 +279,6 @@ minetest.register_on_dieplayer(function(player)
 
 		minetest.get_node_timer(pos):start(10)
 	else
-		meta:set_string("infotext", S("@1's bones.", player_name))
+		meta:set_string("infotext", S("@1's bones", player_name))
 	end
 end)
