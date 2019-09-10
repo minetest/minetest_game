@@ -13,32 +13,14 @@ local river_source_sounds = minetest.settings:get_bool("river_source_sounds")
 
 local function update_sound(player)
 	local player_name = player:get_player_name()
-	-- Search for water nodes in radius around player
 	local ppos = player:get_pos()
 	local areamin = vector.subtract(ppos, radius)
 	local areamax = vector.add(ppos, radius)
-	local wpos, num
+	local water_nodes = {"default:water_flowing", "default:river_water_flowing"}
 	if river_source_sounds then
-		wpos, num = minetest.find_nodes_in_area(
-			areamin,
-			areamax,
-			{
-				"default:water_flowing",
-				"default:river_water_source",
-				"default:river_water_flowing"
-			}
-		)
-	else
-		wpos, num = minetest.find_nodes_in_area(
-			areamin,
-			areamax,
-			{
-				"default:water_flowing",
-				"default:river_water_flowing"
-			}
-		)
+		table.insert(water_nodes, "default:river_water_source")
 	end
-	-- Total number of waters in radius
+	local wpos, _ = minetest.find_nodes_in_area(areamin, areamax, water_nodes)
 	local waters = #wpos
 	if waters == 0 then
 		return
@@ -46,18 +28,17 @@ local function update_sound(player)
 
 	-- Find average position of water positions
 	local wposav = vector.new()
-	for i, pos in ipairs(wpos) do
+	for _, pos in ipairs(wpos) do
 		wposav = vector.add(wposav, pos)
 	end
 	wposav = vector.divide(wposav, waters)
-	-- Play sound
+
 	local handle = minetest.sound_play(
 		"env_sounds_water",
 		{
 			pos = wposav,
 			to_player = player_name,
 			gain = math.min(0.04 + waters * 0.004, 0.4),
-			max_hear_distance = 32,
 		}
 	)
 	-- Store sound handle for this player
