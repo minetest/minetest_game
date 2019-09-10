@@ -64,3 +64,7 @@ enable_stairs_replace_abm (Replace old stairs) bool false
 #    If enabled, use the engine's spawn search which does not check for a
 #    suitable starting biome.
 engine_spawn (Use engine spawn search) bool false
+
+#    Whether river water source nodes create flowing sounds.
+#    Helps rivers create more sound, especially on level sections.
+river_source_sounds (River source node sounds) bool false
