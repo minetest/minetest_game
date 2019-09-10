@@ -154,13 +154,13 @@ function boat.on_step(self, dtime)
 			if ctrl.up and ctrl.down then
 				if not self.auto then
 					self.auto = true
-					minetest.chat_send_player(self.driver, S("[boats] Cruise on"))
+					minetest.chat_send_player(self.driver, S("Boat cruise mode on"))
 				end
 			elseif ctrl.down then
 				self.v = self.v - dtime * 1.8
 				if self.auto then
 					self.auto = false
-					minetest.chat_send_player(self.driver, S("[boats] Cruise off"))
+					minetest.chat_send_player(self.driver, S("Boat cruise mode off"))
 				end
 			elseif ctrl.up or self.auto then
 				self.v = self.v + dtime * 1.8
