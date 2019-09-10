@@ -8,21 +8,21 @@ local S = minetest.get_translator("dye")
 -- Make dye names and descriptions available globally
 
 dye.dyes = {
-	{"white",      S("White")},
-	{"grey",       S("Grey")},
-	{"dark_grey",  S("Dark Grey")},
-	{"black",      S("Black")},
-	{"violet",     S("Violet")},
-	{"blue",       S("Blue")},
-	{"cyan",       S("Cyan")},
-	{"dark_green", S("Dark Green")},
-	{"green",      S("Green")},
-	{"yellow",     S("Yellow")},
-	{"brown",      S("Brown")},
-	{"orange",     S("Orange")},
-	{"red",        S("Red")},
-	{"magenta",    S("Magenta")},
-	{"pink",       S("Pink")},
+	{"white",      "White"},
+	{"grey",       "Grey"},
+	{"dark_grey",  "Dark Grey"},
+	{"black",      "Black"},
+	{"violet",     "Violet"},
+	{"blue",       "Blue"},
+	{"cyan",       "Cyan"},
+	{"dark_green", "Dark Green"},
+	{"green",      "Green"},
+	{"yellow",     "Yellow"},
+	{"brown",      "Brown"},
+	{"orange",     "Orange"},
+	{"red",        "Red"},
+	{"magenta",    "Magenta"},
+	{"pink",       "Pink"},
 }
 
 -- Define items
@@ -35,7 +35,7 @@ for _, row in ipairs(dye.dyes) do
 
 	minetest.register_craftitem("dye:" .. name, {
 		inventory_image = "dye_" .. name .. ".png",
-		description = S("@1 Dye", description),
+		description = S(description .. " Dye"),
 		groups = groups
 	})
 
