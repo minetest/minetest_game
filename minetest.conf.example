@@ -64,3 +64,7 @@ default:torch 99,default:cobble 99
 # starting biome, is used.
 # Default value is false.
 #engine_spawn = false
+
+# Whether river water source nodes create flowing sounds.
+# Helps rivers create more sound, especially on level sections.
+#river_source_sounds = false
