@@ -34,7 +34,7 @@ local function update_sound(player)
 	end
 	wposav = vector.divide(wposav, waters)
 
-	local handle = minetest.sound_play(
+	minetest.sound_play(
 		"env_sounds_water",
 		{
 			pos = wposav,
