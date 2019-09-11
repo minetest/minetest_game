@@ -103,3 +103,25 @@ for _, mix in pairs(dye_recipes) do
 		recipe = {"dye:" .. mix[1], "dye:" .. mix[2]},
 	})
 end
+
+-- Dummy calls to S() to allow translation scripts to detect the strings.
+-- To update this run:
+-- for _,e in ipairs(dye.dyes) do print(("S(%q)"):format(e[2].." Dye")) end
+
+--[[
+S("White Dye")
+S("Grey Dye")
+S("Dark Grey Dye")
+S("Black Dye")
+S("Violet Dye")
+S("Blue Dye")
+S("Cyan Dye")
+S("Dark Green Dye")
+S("Green Dye")
+S("Yellow Dye")
+S("Brown Dye")
+S("Orange Dye")
+S("Red Dye")
+S("Magenta Dye")
+S("Pink Dye")
+--]]

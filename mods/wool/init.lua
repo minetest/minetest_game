@@ -28,3 +28,25 @@ end
 -- Backwards compatibility with jordach's 16-color wool mod
 minetest.register_alias("wool:dark_blue", "wool:blue")
 minetest.register_alias("wool:gold", "wool:yellow")
+
+-- Dummy calls to S() to allow translation scripts to detect the strings.
+-- To update this run:
+-- for _,e in ipairs(dye.dyes) do print(("S(%q)"):format(e[2].." Wool")) end
+
+--[[
+S("White Wool")
+S("Grey Wool")
+S("Dark Grey Wool")
+S("Black Wool")
+S("Violet Wool")
+S("Blue Wool")
+S("Cyan Wool")
+S("Dark Green Wool")
+S("Green Wool")
+S("Yellow Wool")
+S("Brown Wool")
+S("Orange Wool")
+S("Red Wool")
+S("Magenta Wool")
+S("Pink Wool")
+--]]
