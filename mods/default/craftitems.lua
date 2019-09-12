@@ -165,7 +165,7 @@ minetest.register_craftitem("default:book", {
 })
 
 minetest.register_craftitem("default:book_written", {
-	description = S("Book With Text"),
+	description = S("Book with Text"),
 	inventory_image = "default_book_written.png",
 	groups = {book = 1, not_in_creative_inventory = 1, flammable = 3},
 	stack_max = 1,

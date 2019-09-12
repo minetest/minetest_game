@@ -226,20 +226,20 @@ local function furnace_node_timer(pos, elapsed)
 	end
 
 	local fuel_state = S("Empty")
-	local active = "inactive"
+	local active = false
 	local result = false
 
 	if fuel_totaltime ~= 0 then
-		active = "active"
+		active = true
 		local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
-		fuel_state = fuel_percent .. "%"
+		fuel_state = S("@1%", fuel_percent)
 		formspec = default.get_furnace_active_formspec(fuel_percent, item_percent)
 		swap_node(pos, "default:furnace_active")
 		-- make sure timer restarts automatically
 		result = true
 	else
 		if not fuellist[1]:is_empty() then
-			fuel_state = "0%"
+			fuel_state = S("@1%", 0)
 		end
 		formspec = default.get_furnace_inactive_formspec()
 		swap_node(pos, "default:furnace")
@@ -247,9 +247,14 @@ local function furnace_node_timer(pos, elapsed)
 		minetest.get_node_timer(pos):stop()
 	end
 
---	local infotext = "Furnace " .. active .. "\n(Item: " .. item_state ..
---		"; Fuel: " .. fuel_state .. ")"
-	local infotext = S("Furnace @1 \n(Item: @2; Fuel: @3)", active, item_state, fuel_state)
+
+	local infotext
+	if active then
+		infotext = S("Furnace active")
+	else
+		infotext = S("Furnace inactive")
+	end
+	infotext = infotext .. "\n" .. S("(Item: @1; Fuel: @2)", item_state, fuel_state)
 
 	--
 	-- Set meta values
