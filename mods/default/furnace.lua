@@ -292,6 +292,7 @@ minetest.register_node("default:furnace", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", default.get_furnace_inactive_formspec())
+		meta:set_string("infotext", 'Furnace inactive\n(Item: Empty; Fuel: Empty)')
 		local inv = meta:get_inventory()
 		inv:set_size('src', 1)
 		inv:set_size('fuel', 1)
