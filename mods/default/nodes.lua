@@ -2180,6 +2180,7 @@ minetest.register_node("default:coral_skeleton", {
 minetest.register_node("default:water_source", {
 	description = S("Water Source"),
 	drawtype = "liquid",
+	waving = 3,
 	tiles = {
 		{
 			name = "default_water_source_animated.png",
@@ -2223,6 +2224,7 @@ minetest.register_node("default:water_source", {
 minetest.register_node("default:water_flowing", {
 	description = S("Flowing Water"),
 	drawtype = "flowingliquid",
+	waving = 3,
 	tiles = {"default_water.png"},
 	special_tiles = {
 		{
