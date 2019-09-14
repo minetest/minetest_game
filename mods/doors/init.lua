@@ -745,11 +745,7 @@ function doors.register_fencegate(name, def)
 			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.3,
 				max_hear_distance = 8})
 			return itemstack
-		end,
-		selection_box = {
-			type = "fixed",
-			fixed = {-1/2, -1/2, -1/4, 1/2, 1/2, 1/4},
-		},
+		end
 	}
 
 
@@ -774,7 +770,19 @@ function doors.register_fencegate(name, def)
 	fence_closed.sound = "doors_fencegate_open"
 	fence_closed.collision_box = {
 		type = "fixed",
-		fixed = {-1/2, -1/2, -1/4, 1/2, 1/2, 1/4},
+		fixed = {
+			{-5/8, -1/2, -1/8, -3/8, 1/2, 1/8},
+			{-3/8, -1/2, -1/16, 3/8, 5/16, 1/16},
+			{3/8, -1/2, -1/8, 5/8, 1/2, 1/8}
+		},
+	}
+	fence_closed.selection_box = {
+		type = "fixed",
+		fixed = {
+			{-5/8, -1/2, -1/8, -3/8, 1/2, 1/8},
+			{-3/8, -1/2, -1/16, 3/8, 5/16, 1/16},
+			{3/8, -1/2, -1/8, 5/8, 1/2, 1/8}
+		},
 	}
 
 	local fence_open = table.copy(fence)
@@ -782,10 +790,21 @@ function doors.register_fencegate(name, def)
 	fence_open.gate = name .. "_closed"
 	fence_open.sound = "doors_fencegate_close"
 	fence_open.groups.not_in_creative_inventory = 1
+	fence_open.selection_box = {
+		type = "fixed",
+		fixed = {
+			{-5/8, -1/2, -1/8, -3/8, 1/2, 1/8},
+			{-9/16, -1/2, -14/16, -7/16, 5/16, 0},
+			{3/8, -1/2, -1/8, 5/8, 1/2, 1/8}
+		},
+	}
 	fence_open.collision_box = {
 		type = "fixed",
-		fixed = {{-1/2, -1/2, -1/4, -3/8, 1/2, 1/4},
-			{-1/2, -3/8, -1/2, -3/8, 3/8, 0}},
+		fixed = {
+			{-5/8, -1/2, -1/8, -3/8, 1/2, 1/8},
+			{-9/16, -1/2, -14/16, -7/16, 5/16, 0},
+			{3/8, -1/2, -1/8, 5/8, 1/2, 1/8}
+		},
 	}
 
 	minetest.register_node(":" .. name .. "_closed", fence_closed)
