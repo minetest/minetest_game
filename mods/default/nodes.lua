@@ -2601,7 +2601,7 @@ local function register_sign(material, desc, def)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("text", text)
 
-			if string.len(text) > 0 then
+			if #text > 0 then
 				meta:set_string("infotext", '"' .. text .. '"')
 			else
 				meta:set_string("infotext", '')

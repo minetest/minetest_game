@@ -333,7 +333,7 @@ function doors.register(name, def)
 
 			if def.protected then
 				meta:set_string("owner", pn)
-				meta:set_string("infotext", S("Steel Door\nOwned by @1", pn))
+				meta:set_string("infotext", S("Steel Door") .. "\n" .. S("Owned by @1", pn))
 			end
 
 			if not (creative and creative.is_enabled_for and creative.is_enabled_for(pn)) then
@@ -586,7 +586,7 @@ function doors.register_trapdoor(name, def)
 			local pn = placer:get_player_name()
 			local meta = minetest.get_meta(pos)
 			meta:set_string("owner", pn)
-			meta:set_string("infotext", S("Steel Trapdoor\nOwned by @1", pn))
+			meta:set_string("infotext", S("Steel Trapdoor") .. "\n" .. S("Owned by @1", pn))
 
 			return (creative and creative.is_enabled_for and creative.is_enabled_for(pn))
 		end
