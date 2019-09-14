@@ -2602,7 +2602,12 @@ local function register_sign(material, desc, def)
 				text .. "\" to sign at " .. minetest.pos_to_string(pos))
 			local meta = minetest.get_meta(pos)
 			meta:set_string("text", text)
-			meta:set_string("infotext", '"' .. text .. '"')
+
+			if #text > 0 then
+				meta:set_string("infotext", '"' .. text .. '"')
+			else
+				meta:set_string("infotext", '')
+			end
 		end,
 	})
 end

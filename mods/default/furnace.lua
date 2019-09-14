@@ -200,7 +200,7 @@ local function furnace_node_timer(pos, elapsed)
 	if fuel and fuel_totaltime > fuel.time then
 		fuel_totaltime = fuel.time
 	end
-	if srclist[1]:is_empty() then
+	if srclist and srclist[1]:is_empty() then
 		src_time = 0
 	end
 
@@ -218,10 +218,10 @@ local function furnace_node_timer(pos, elapsed)
 			item_state = S("@1%", item_percent)
 		end
 	else
-		if srclist[1]:is_empty() then
-			item_state = S("Empty")
-		else
+		if srclist and not srclist[1]:is_empty() then
 			item_state = S("Not cookable")
+		else
+			item_state = S("Empty")
 		end
 	end
 
@@ -238,7 +238,7 @@ local function furnace_node_timer(pos, elapsed)
 		-- make sure timer restarts automatically
 		result = true
 	else
-		if not fuellist[1]:is_empty() then
+		if fuellist and not fuellist[1]:is_empty() then
 			fuel_state = S("@1%", 0)
 		end
 		formspec = default.get_furnace_inactive_formspec()
@@ -291,11 +291,11 @@ minetest.register_node("default:furnace", {
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", default.get_furnace_inactive_formspec())
 		local inv = meta:get_inventory()
 		inv:set_size('src', 1)
 		inv:set_size('fuel', 1)
 		inv:set_size('dst', 4)
+		furnace_node_timer(pos, 0)
 	end,
 
 	on_metadata_inventory_move = function(pos)
