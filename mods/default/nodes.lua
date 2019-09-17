@@ -2604,7 +2604,7 @@ local function register_sign(material, desc, def)
 			meta:set_string("text", text)
 
 			if #text > 0 then
-				meta:set_string("infotext", '"' .. text .. '"')
+				meta:set_string("infotext", S('"@1"', text))
 			else
 				meta:set_string("infotext", '')
 			end
