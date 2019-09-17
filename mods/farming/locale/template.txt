@@ -1,0 +1,25 @@
+# textdomain: farming
+Wooden Hoe=
+Stone Hoe=
+Steel Hoe=
+Bronze Hoe=
+Mese Hoe=
+Diamond Hoe=
+Wheat Seed=
+Flour=
+Bread=
+Cotton Seed=
+String=
+Soil=
+Wet Soil=
+Dry Soil=
+Wet Dry Soil=
+Desert Sand Soil=
+Wet Desert Sand Soil=
+Straw=
+Straw Stair=
+Inner Straw Stair=
+Outer Straw Stair=
+Straw Slab=
+Wheat=
+Cotton=
