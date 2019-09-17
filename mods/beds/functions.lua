@@ -5,6 +5,9 @@ if enable_respawn == nil then
 	enable_respawn = true
 end
 
+-- support for MT game translation.
+local S = beds.get_translator
+
 -- Helper functions
 
 local function get_look_yaw(pos)
@@ -108,17 +111,19 @@ end
 
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
-	local form_n
 	local player_in_bed = get_player_in_bed_count()
 	local is_majority = (ges / 2) < player_in_bed
 
+	local form_n
+	local esc = minetest.formspec_escape
 	if finished then
-		form_n = beds.formspec .. "label[2.7,9; Good morning.]"
+		form_n = beds.formspec .. "label[2.7,9;" .. esc(S("Good morning.")) .. "]"
 	else
-		form_n = beds.formspec .. "label[2.2,9;" .. tostring(player_in_bed) ..
-			" of " .. tostring(ges) .. " players are in bed]"
+		form_n = beds.formspec .. "label[2.2,9;" ..
+			esc(S("@1 of @2 players are in bed", player_in_bed, ges)) .. "]"
 		if is_majority and is_night_skip_enabled() then
-			form_n = form_n .. "button_exit[2,6;4,0.75;force;Force night skip]"
+			form_n = form_n .. "button_exit[2,6;4,0.75;force;" ..
+				esc(S("Force night skip")) .. "]"
 		end
 	end
 
@@ -150,7 +155,7 @@ function beds.on_rightclick(pos, player)
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
 		end
-		minetest.chat_send_player(name, "You can only sleep at night.")
+		minetest.chat_send_player(name, S("You can only sleep at night."))
 		return
 	end
 

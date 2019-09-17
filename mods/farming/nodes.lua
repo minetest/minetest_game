@@ -153,16 +153,21 @@ minetest.register_node("farming:straw", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-stairs.register_stair_and_slab(
-	"straw",
-	"farming:straw",
-	{snappy = 3, flammable = 4},
-	{"farming_straw.png"},
-	S("Straw Stair"),
-	S("Straw Slab"),
-	default.node_sound_leaves_defaults(),
-	true
-)
+do
+	local recipe = "farming:straw"
+	local groups = {snappy = 3, flammable = 4}
+	local images = {"farming_straw.png"}
+	local sounds = default.node_sound_leaves_defaults()
+
+	stairs.register_stair("straw", recipe, groups, images, S("Straw Stair"),
+		sounds, true)
+	stairs.register_stair_inner("straw", recipe, groups, images, "",
+		sounds, true, S("Inner Straw Stair"))
+	stairs.register_stair_outer("straw", recipe, groups, images, "",
+		sounds, true, S("Outer Straw Stair"))
+	stairs.register_slab("straw", recipe, groups, images, S("Straw Slab"),
+		sounds, true)
+end
 
 minetest.register_abm({
 	label = "Farming soil",

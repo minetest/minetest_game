@@ -108,6 +108,7 @@ function creative.register_tab(name, title, items)
 			local start_i = inv.start_i or 0
 			local pagenum = math.floor(start_i / (3*8) + 1)
 			local pagemax = math.ceil(inv.size / (3*8))
+			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
 				"label[6.2,3.35;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
 				[[
@@ -119,14 +120,14 @@ function creative.register_tab(name, title, items)
 					image_button[7.2,3.25;0.8,0.8;creative_next_icon.png;creative_next;]
 					image_button[2.1,3.25;0.8,0.8;creative_search_icon.png;creative_search;]
 					image_button[2.75,3.25;0.8,0.8;creative_clear_icon.png;creative_clear;]
-					tooltip[creative_search;S("Search")]
-					tooltip[creative_clear;S("Reset")]
-					tooltip[creative_prev;S("Previous page")]
-					tooltip[creative_next;S("Next page")]
-					listring[current_player;main]
-					field_close_on_enter[creative_filter;false]
 				]] ..
-				"field[0.3,3.5;2.2,1;creative_filter;;" .. minetest.formspec_escape(inv.filter) .. "]" ..
+				"tooltip[creative_search;" .. esc(S("Search")) .. "]" ..
+				"tooltip[creative_clear;" .. esc(S("Reset")) .. "]" ..
+				"tooltip[creative_prev;" .. esc(S("Previous page")) .. "]" ..
+				"tooltip[creative_next;" .. esc(S("Next page")) .. "]" ..
+				"listring[current_player;main]" ..
+				"field_close_on_enter[creative_filter;false]" ..
+				"field[0.3,3.5;2.2,1;creative_filter;;" .. esc(inv.filter) .. "]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
 				"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
 				creative.formspec_add, true)

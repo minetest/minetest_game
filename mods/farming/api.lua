@@ -257,6 +257,9 @@ farming.register_plant = function(name, def)
 	if not def.description then
 		def.description = S("Seed")
 	end
+	if not def.harvest_description then
+		def.harvest_description = pname:gsub("^%l", string.upper)
+	end
 	if not def.inventory_image then
 		def.inventory_image = "unknown_item.png"
 	end
@@ -325,7 +328,7 @@ farming.register_plant = function(name, def)
 
 	-- Register harvest
 	minetest.register_craftitem(":" .. mname .. ":" .. pname, {
-		description = pname:gsub("^%l", string.upper),
+		description = def.harvest_description,
 		inventory_image = mname .. "_" .. pname .. ".png",
 		groups = def.groups or {flammable = 2},
 	})
