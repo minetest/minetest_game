@@ -20,6 +20,7 @@ dofile(farming.path .. "/hoes.lua")
 
 farming.register_plant("farming:wheat", {
 	description = S("Wheat Seed"),
+	harvest_description = S("Wheat"),
 	paramtype2 = "meshoptions",
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
@@ -61,6 +62,7 @@ minetest.register_craft({
 
 farming.register_plant("farming:cotton", {
 	description = S("Cotton Seed"),
+	harvest_description = S("Cotton"),
 	inventory_image = "farming_cotton_seed.png",
 	steps = 8,
 	minlight = 13,
