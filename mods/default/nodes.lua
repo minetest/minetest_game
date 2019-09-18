@@ -1092,7 +1092,7 @@ minetest.register_node("default:aspen_tree", {
 		"default_aspen_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 1, flammable = 3, hardwood = 1},
+	groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 1, flammable = 3, softwood = 1},
 	sounds = default.node_sound_wood_defaults(),
 
 	on_place = minetest.rotate_node
