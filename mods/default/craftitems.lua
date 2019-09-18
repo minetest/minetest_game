@@ -55,9 +55,9 @@ local function book_on_use(itemstack, user)
 	local esc = minetest.formspec_escape
 	if owner == player_name then
 		formspec = "size[8,8]" ..
-			"field[0.5,1;7.5,0;title;" .. esc(S("Title")) .. ":;" ..
+			"field[0.5,1;7.5,0;title;" .. esc(S("Title:")) .. ";" ..
 				esc(title) .. "]" ..
-			"textarea[0.5,1.5;7.5,7;text;" .. esc(S("Contents")) .. ":;" ..
+			"textarea[0.5,1.5;7.5,7;text;" .. esc(S("Contents:")) .. ";" ..
 				esc(text) .. "]" ..
 			"button_exit[2.5,7.5;3,1;save;" .. esc(S("Save")) .. "]"
 	else
