@@ -877,6 +877,19 @@ minetest.register_craft({
 	cooktime = 5,
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = "default:softwood_charcoal",
+	recipe = "group:softwood",
+	cooktime = 10,
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:hardwood_charcoal",
+	recipe = "group:hardwood",
+	cooktime = 10,
+})
 
 --
 -- Fuels
@@ -1247,4 +1260,16 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:sword_wood",
 	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:softwood_charcoal",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:hardwood_charcoal",
+	burntime = 35,
 })
