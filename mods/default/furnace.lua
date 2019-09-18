@@ -12,7 +12,7 @@ function default.get_furnace_active_formspec(fuel_percent, item_percent)
 		"list[context;src;2.75,0.5;1,1;]"..
 		"list[context;fuel;2.75,2.5;1,1;]"..
 		"image[2.75,1.5;1,1;default_furnace_fire_bg.png^[lowpart:"..
-		(100-fuel_percent)..":default_furnace_fire_fg.png]"..
+		(fuel_percent)..":default_furnace_fire_fg.png]"..
 		"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[lowpart:"..
 		(item_percent)..":gui_furnace_arrow_fg.png^[transformR270]"..
 		"list[context;dst;4.75,0.96;2,2;]"..
@@ -231,7 +231,7 @@ local function furnace_node_timer(pos, elapsed)
 
 	if fuel_totaltime ~= 0 then
 		active = true
-		local fuel_percent = math.floor(fuel_time / fuel_totaltime * 100)
+		local fuel_percent = 100 - math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = S("@1%", fuel_percent)
 		formspec = default.get_furnace_active_formspec(fuel_percent, item_percent)
 		swap_node(pos, "default:furnace_active")
