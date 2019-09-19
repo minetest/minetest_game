@@ -200,10 +200,10 @@ minetest.register_lbm({
 
 -- Register steel bar doors and trapdoors
 
-doors.register("door_steel_bar", {
-	tiles = {{name = "doors_door_steel_bar.png", backface_culling = true}},
+doors.register("xpanes:door_steel_bar", {
+	tiles = {{name = "xpanes_door_steel_bar.png", backface_culling = true}},
 	description = "Steel Bar Door",
-	inventory_image = "doors_item_steel_bar.png",
+	inventory_image = "xpanes_item_steel_bar.png",
 	protected = true,
 	groups = {cracky = 1, level = 2},
 	sounds = default.node_sound_metal_defaults(),
@@ -216,20 +216,16 @@ doors.register("door_steel_bar", {
 	},
 })
 
-doors.register_trapdoor("doors:trapdoor_steel_bar", {
+doors.register_trapdoor("xpanes:trapdoor_steel_bar", {
 	description = "Steel Bar Trapdoor",
-	inventory_image = "doors_trapdoor_steel_bar.png",
-	wield_image = "doors_trapdoor_steel_bar.png",
-	tile_front = "doors_trapdoor_steel_bar.png",
-	tile_side = "doors_trapdoor_steel_bar_side.png",
+	inventory_image = "xpanes_trapdoor_steel_bar.png",
+	wield_image = "xpanes_trapdoor_steel_bar.png",
+	tile_front = "xpanes_trapdoor_steel_bar.png",
+	tile_side = "xpanes_trapdoor_steel_bar_side.png",
+	groups = {cracky = 1, level = 2, door = 1},
 	sounds = default.node_sound_metal_defaults(),
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
-	groups = {cracky = 1, level = 2, door = 1},
-})
-
-minetest.register_craft({
-	output = "doors:trapdoor_steel_bar",
 	recipe = {
 		{"xpanes:bar_flat", "xpanes:bar_flat"},
 		{"xpanes:bar_flat", "xpanes:bar_flat"},
