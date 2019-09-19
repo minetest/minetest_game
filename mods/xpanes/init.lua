@@ -226,6 +226,10 @@ doors.register_trapdoor("xpanes:trapdoor_steel_bar", {
 	sounds = default.node_sound_metal_defaults(),
 	sound_open = "doors_steel_door_open",
 	sound_close = "doors_steel_door_close",
+})
+
+minetest.register_craft({
+	output = "xpanes:trapdoor_steel_bar",
 	recipe = {
 		{"xpanes:bar_flat", "xpanes:bar_flat"},
 		{"xpanes:bar_flat", "xpanes:bar_flat"},
