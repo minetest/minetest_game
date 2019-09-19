@@ -148,7 +148,7 @@ function xpanes.register_pane(name, def)
 end
 
 xpanes.register_pane("pane", {
-	description = S("Glass Pane"),
+	description = "Glass Pane",
 	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_edge.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
@@ -161,7 +161,7 @@ xpanes.register_pane("pane", {
 })
 
 xpanes.register_pane("obsidian_pane", {
-	description = S("Obsidian Glass Pane"),
+	description = "Obsidian Glass Pane",
 	textures = {"default_obsidian_glass.png","xpanes_pane_half.png","xpanes_edge_obsidian.png"},
 	inventory_image = "default_obsidian_glass.png",
 	wield_image = "default_obsidian_glass.png",
@@ -174,7 +174,7 @@ xpanes.register_pane("obsidian_pane", {
 })
 
 xpanes.register_pane("bar", {
-	description = S("Steel Bars"),
+	description = "Steel Bars",
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_bar_top.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
@@ -202,7 +202,7 @@ minetest.register_lbm({
 
 doors.register("door_steel_bar", {
 	tiles = {{name = "doors_door_steel_bar.png", backface_culling = true}},
-	description = S("Steel Bar Door"),
+	description = "Steel Bar Door",
 	inventory_image = "doors_item_steel_bar.png",
 	protected = true,
 	groups = {cracky = 1, level = 2},
@@ -217,7 +217,7 @@ doors.register("door_steel_bar", {
 })
 
 doors.register_trapdoor("doors:trapdoor_steel_bar", {
-	description = S("Steel Bar Trapdoor"),
+	description = "Steel Bar Trapdoor",
 	inventory_image = "doors_trapdoor_steel_bar.png",
 	wield_image = "doors_trapdoor_steel_bar.png",
 	tile_front = "doors_trapdoor_steel_bar.png",
