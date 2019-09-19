@@ -887,8 +887,8 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:hardwood_charcoal",
-	recipe = "group:hardwood",
+	output = "default:charcoal",
+	recipe = "group:tree",
 	cooktime = 10,
 })
 
@@ -1265,6 +1265,6 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:hardwood_charcoal",
+	recipe = "default:charcoal",
 	burntime = 35,
 })
