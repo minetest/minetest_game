@@ -92,7 +92,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "default:torch 3",
 	recipe = {
-		{"default:hardwood_charcoal"},
+		{"default:charcoal"},
 		{"group:stick"},
 	}
 })
