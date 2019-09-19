@@ -350,13 +350,9 @@ minetest.register_craftitem("default:blueberries", {
 	groups = {food_blueberries = 1, food_berry = 1},
 	on_use = minetest.item_eat(2),
 })
+
 minetest.register_craftitem("default:hardwood_charcoal", {
 	description = S("Hardwood Charcoal"),
 	inventory_image = "default_hardwood_charcoal.png",
-	groups = {coal = 1, flammable = 1}
-})
-minetest.register_craftitem("default:softwood_charcoal", {
-	description = S("Softwoodwood Charcoal"),
-	inventory_image = "default_softwood_charcoal.png",
 	groups = {coal = 1, flammable = 1}
 })
