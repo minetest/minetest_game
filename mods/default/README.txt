@@ -248,7 +248,7 @@ Topywo (CC BY-SA 3.0)
 
 Extex101 (CC BY-SA 3.0)
   default_large_cactus_seedling.png
-  default_hardwood_charcoal.png
+  default_charcoal.png
 
 Sounds
 ------
