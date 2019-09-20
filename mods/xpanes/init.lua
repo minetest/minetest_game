@@ -202,3 +202,41 @@ minetest.register_lbm({
 		end
 	end
 })
+
+-- Register steel bar doors and trapdoors
+
+doors.register("xpanes:door_steel_bar", {
+	tiles = {{name = "xpanes_door_steel_bar.png", backface_culling = true}},
+	description = S("Steel Bar Door"),
+	inventory_image = "xpanes_item_steel_bar.png",
+	protected = true,
+	groups = {cracky = 1, level = 2},
+	sounds = default.node_sound_metal_defaults(),
+	sound_open = "doors_steel_door_open",
+	sound_close = "doors_steel_door_close",
+	recipe = {
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
+	},
+})
+
+doors.register_trapdoor("xpanes:trapdoor_steel_bar", {
+	description = S("Steel Bar Trapdoor"),
+	inventory_image = "xpanes_trapdoor_steel_bar.png",
+	wield_image = "xpanes_trapdoor_steel_bar.png",
+	tile_front = "xpanes_trapdoor_steel_bar.png",
+	tile_side = "xpanes_trapdoor_steel_bar_side.png",
+	groups = {cracky = 1, level = 2, door = 1},
+	sounds = default.node_sound_metal_defaults(),
+	sound_open = "doors_steel_door_open",
+	sound_close = "doors_steel_door_close",
+})
+
+minetest.register_craft({
+	output = "xpanes:trapdoor_steel_bar",
+	recipe = {
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
+		{"xpanes:bar_flat", "xpanes:bar_flat"},
+	}
+})
