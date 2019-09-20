@@ -205,7 +205,7 @@ minetest.register_lbm({
 
 -- Register steel bar doors and trapdoors
 
-if minetest.get_modpath( "doors") then
+if minetest.get_modpath("doors") then
 
 doors.register("xpanes:door_steel_bar", {
 	tiles = {{name = "xpanes_door_steel_bar.png", backface_culling = true}},
