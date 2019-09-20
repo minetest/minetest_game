@@ -333,7 +333,7 @@ function doors.register(name, def)
 
 			if def.protected then
 				meta:set_string("owner", pn)
-				meta:set_string("infotext", S("Steel Door") .. "\n" .. S("Owned by @1", pn))
+				meta:set_string("infotext", def.description .. "\n" .. S("Owned by @1", pn))
 			end
 
 			if not (creative and creative.is_enabled_for and creative.is_enabled_for(pn)) then
