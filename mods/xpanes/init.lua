@@ -229,6 +229,7 @@ doors.register_trapdoor("xpanes:trapdoor_steel_bar", {
 	wield_image = "xpanes_trapdoor_steel_bar.png",
 	tile_front = "xpanes_trapdoor_steel_bar.png",
 	tile_side = "xpanes_trapdoor_steel_bar_side.png",
+	protected = true,
 	groups = {cracky = 1, level = 2, door = 1},
 	sounds = default.node_sound_metal_defaults(),
 	sound_open = "doors_steel_door_open",
