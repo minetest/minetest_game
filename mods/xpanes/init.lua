@@ -221,8 +221,8 @@ if minetest.get_modpath("doors") then
 		protected = true,
 		groups = {cracky = 1, level = 2},
 		sounds = default.node_sound_metal_defaults(),
-		sound_open = "doors_steel_door_open",
-		sound_close = "doors_steel_door_close",
+		sound_open = "xpanes_steel_bar_door_open",
+		sound_close = "xpanes_steel_bar_door_close",
 		recipe = {
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
@@ -239,8 +239,8 @@ if minetest.get_modpath("doors") then
 		protected = true,
 		groups = {cracky = 1, level = 2, door = 1},
 		sounds = default.node_sound_metal_defaults(),
-		sound_open = "doors_steel_door_open",
-		sound_close = "doors_steel_door_close",
+		sound_open = "xpanes_steel_bar_door_open",
+		sound_close = "xpanes_steel_bar_door_close",
 	})
 
 	minetest.register_craft({
