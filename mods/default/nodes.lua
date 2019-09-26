@@ -2789,20 +2789,22 @@ default.register_fence_rail("default:fence_rail_aspen_wood", {
 
 minetest.register_node("default:glass", {
 	description = S("Glass"),
-	drawtype = "glasslike_framed_optional",
-	tiles = {"default_glass.png", "default_glass_detail.png"},
+	drawtype = "mesh",
+	mesh = "glass.obj",
+	tiles = {"default_glass.png"},
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
-	sunlight_propagates = true,
 	is_ground_content = false,
+	sunlight_propagates = true,
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
 	sounds = default.node_sound_glass_defaults(),
 })
 
 minetest.register_node("default:obsidian_glass", {
 	description = S("Obsidian Glass"),
-	drawtype = "glasslike_framed_optional",
-	tiles = {"default_obsidian_glass.png", "default_obsidian_glass_detail.png"},
+	drawtype = "mesh",
+	mesh = "glass.obj",
+	tiles = {"default_obsidian_glass.png"},
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	is_ground_content = false,
