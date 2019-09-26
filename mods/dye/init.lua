@@ -1,16 +1,21 @@
+-- dye/init.lua
+
 dye = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("dye")
 
 -- Make dye names and descriptions available globally
 
 dye.dyes = {
 	{"white",      "White"},
 	{"grey",       "Grey"},
-	{"dark_grey",  "Dark grey"},
+	{"dark_grey",  "Dark Grey"},
 	{"black",      "Black"},
 	{"violet",     "Violet"},
 	{"blue",       "Blue"},
 	{"cyan",       "Cyan"},
-	{"dark_green", "Dark green"},
+	{"dark_green", "Dark Green"},
 	{"green",      "Green"},
 	{"yellow",     "Yellow"},
 	{"brown",      "Brown"},
@@ -30,7 +35,7 @@ for _, row in ipairs(dye.dyes) do
 
 	minetest.register_craftitem("dye:" .. name, {
 		inventory_image = "dye_" .. name .. ".png",
-		description = description .. " Dye",
+		description = S(description .. " Dye"),
 		groups = groups
 	})
 
@@ -94,7 +99,29 @@ local dye_recipes = {
 for _, mix in pairs(dye_recipes) do
 	minetest.register_craft({
 		type = "shapeless",
-		output = 'dye:' .. mix[3] .. ' 2',
-		recipe = {'dye:' .. mix[1], 'dye:' .. mix[2]},
+		output = "dye:" .. mix[3] .. " 2",
+		recipe = {"dye:" .. mix[1], "dye:" .. mix[2]},
 	})
 end
+
+-- Dummy calls to S() to allow translation scripts to detect the strings.
+-- To update this run:
+-- for _,e in ipairs(dye.dyes) do print(("S(%q)"):format(e[2].." Dye")) end
+
+--[[
+S("White Dye")
+S("Grey Dye")
+S("Dark Grey Dye")
+S("Black Dye")
+S("Violet Dye")
+S("Blue Dye")
+S("Cyan Dye")
+S("Dark Green Dye")
+S("Green Dye")
+S("Yellow Dye")
+S("Brown Dye")
+S("Orange Dye")
+S("Red Dye")
+S("Magenta Dye")
+S("Pink Dye")
+--]]

@@ -1,6 +1,12 @@
+-- map/init.lua
+
 -- Mod global namespace
 
 map = {}
+
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("map")
 
 
 -- Cache creative mode setting
@@ -49,7 +55,7 @@ minetest.after(5.3, cyclic_update)
 -- Mapping kit item
 
 minetest.register_craftitem("map:mapping_kit", {
-	description = "Mapping Kit\nUse with 'Minimap' key",
+	description = S("Mapping Kit") .. "\n" .. S("Use with 'Minimap' key"),
 	inventory_image = "map_mapping_kit.png",
 	stack_max = 1,
 	groups = {flammable = 3},

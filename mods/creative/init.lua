@@ -1,4 +1,10 @@
+-- creative/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("creative")
+
 creative = {}
+creative.get_translator = S
 
 local function update_sfinv(name)
 	minetest.after(0, function()
@@ -14,7 +20,7 @@ local function update_sfinv(name)
 end
 
 minetest.register_privilege("creative", {
-	description = "Allow player to use creative inventory",
+	description = S("Allow player to use creative inventory"),
 	give_to_singleplayer = false,
 	give_to_admin = false,
 	on_grant = update_sfinv,
@@ -40,10 +46,8 @@ if creative_mode_cache then
 	local digtime = 42
 	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
 
-	minetest.register_item(":", {
-		type = "none",
-		wield_image = "wieldhand.png",
-		wield_scale = {x = 1, y = 1, z = 2.5},
+	-- Override the hand tool
+	minetest.override_item("", {
 		range = 10,
 		tool_capabilities = {
 			full_punch_interval = 0.5,
@@ -54,6 +58,9 @@ if creative_mode_cache then
 				snappy  = caps,
 				choppy  = caps,
 				oddly_breakable_by_hand = caps,
+				-- dig_immediate group doesn't use value 1. Value 3 is instant dig
+				dig_immediate =
+					{times = {[2] = digtime, [3] = 0}, uses = 0, maxlevel = 256},
 			},
 			damage_groups = {fleshy = 10},
 		}

@@ -15,12 +15,8 @@ local function random_sample(rand, list, count)
 end
 
 local function find_walls(cpos)
-	local wall = minetest.registered_aliases["mapgen_cobble"]
-	local wall_alt = minetest.registered_aliases["mapgen_mossycobble"]
-	local wall_ss = minetest.registered_aliases["mapgen_sandstonebrick"]
-	local wall_ds = minetest.registered_aliases["mapgen_desert_stone"]
 	local is_wall = function(node)
-		return table.indexof({wall, wall_alt, wall_ss, wall_ds}, node.name) ~= -1
+		return node.name ~= "air" and node.name ~= "ignore"
 	end
 
 	local dirs = {{x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1}}
@@ -29,7 +25,6 @@ local function find_walls(cpos)
 	local ret = {}
 	local mindist = {x=0, z=0}
 	local min = function(a, b) return a ~= 0 and math.min(a, b) or b end
-	local wallnode
 	for _, dir in ipairs(dirs) do
 		for i = 1, 9 do -- 9 = max room size / 2
 			local pos = vector.add(cpos, {x=dir.x*i, y=0, z=dir.z*i})
@@ -50,7 +45,6 @@ local function find_walls(cpos)
 					else
 						mindist.z = min(mindist.z, i-1)
 					end
-					wallnode = node.name
 				end
 				-- abort even if it wasn't a wall cause something is in the way
 				break
@@ -58,14 +52,21 @@ local function find_walls(cpos)
 		end
 	end
 
-	local mapping = {
-		[wall_ss] = "sandstone",
-		[wall_ds] = "desert"
-	}
+	local biome = minetest.get_biome_data(cpos)
+	biome = biome and minetest.get_biome_name(biome.biome) or ""
+	local type = "normal"
+	if biome:find("desert") == 1 then
+		type = "desert"
+	elseif biome:find("sandstone_desert") == 1 then
+		type = "sandstone"
+	elseif biome:find("icesheet") == 1 then
+		type = "ice"
+	end
+
 	return {
 		walls = ret,
 		size = {x=mindist.x*2, z=mindist.z*2},
-		type = mapping[wallnode] or "normal"
+		type = type,
 	}
 end
 
@@ -75,8 +76,8 @@ local function populate_chest(pos, rand, dungeontype)
 
 	local item_list = dungeon_loot._internal_get_loot(pos.y, dungeontype)
 	-- take random (partial) sample of all possible items
-	assert(#item_list >= dungeon_loot.STACKS_PER_CHEST_MAX)
-	item_list = random_sample(rand, item_list, dungeon_loot.STACKS_PER_CHEST_MAX)
+	local sample_n = math.min(#item_list, dungeon_loot.STACKS_PER_CHEST_MAX)
+	item_list = random_sample(rand, item_list, sample_n)
 
 	-- apply chances / randomized amounts and collect resulting items
 	local items = {}

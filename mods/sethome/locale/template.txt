@@ -1,0 +1,8 @@
+# textdomain: sethome
+Can use /sethome and /home=
+Teleport you to your home point=
+Teleported to home!=
+Set a home using /sethome=
+Set your home point=
+Home set!=
+Player not found!=
