@@ -159,7 +159,7 @@ end
 -- Node will be called stairs:slab_<subname>
 
 function stairs.register_slab(subname, recipeitem, groups, images, description,
-		sounds, worldaligntex)
+		sounds, worldaligntex, drawtype)
 	-- Set world-aligned textures
 	local slab_images = {}
 	for i, image in ipairs(images) do
@@ -182,7 +182,8 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 	warn_if_exists("stairs:slab_" .. subname)
 	minetest.register_node(":stairs:slab_" .. subname, {
 		description = description,
-		drawtype = "nodebox",
+		drawtype = drawtype or "nodebox",
+		mesh = "glass_slab.obj",
 		tiles = slab_images,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -190,6 +191,10 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		groups = new_groups,
 		sounds = sounds,
 		node_box = {
+			type = "fixed",
+			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+		},
+		selection_box = {
 			type = "fixed",
 			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
 		},
@@ -887,10 +892,11 @@ stairs.register_slab(
 	"glass",
 	"default:glass",
 	{cracky = 3},
-	{"default_glass.png", "default_glass.png", "stairs_glass_split.png"},
+	{"stairs_glass.png"},
 	S("Glass Slab"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	"mesh"
 )
 
 stairs.register_stair_inner(
@@ -935,10 +941,11 @@ stairs.register_slab(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
+	{"stairs_obsidian_glass.png"},
 	S("Obsidian Glass Slab"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	"mesh"
 )
 
 stairs.register_stair_inner(
