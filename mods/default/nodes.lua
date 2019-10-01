@@ -2871,9 +2871,9 @@ minetest.register_node("default:cloud", {
 minetest.register_node("default:barrier", {
 	description = S("Barrier"),
 	tiles = {"default_barrier.png"},
+	drawtype = "airlike",
 	inventory_image = "default_cloud.png",
 	is_ground_content = false,
-	sounds = default.node_sound_defaults(),
 	groups = {not_in_creative_inventory = 1, cracky = 1},
 
 	on_blast = function() end,
