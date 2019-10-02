@@ -1,4 +1,4 @@
-# textdomain: default
+fcian# textdomain: default
 Locked Chest=Cofre cerrado
 Locked Chest (owned by @1)=Cofre cerrado (propiedad de @1)
 You do not own this chest.=Este cofre no te pertenece.
@@ -10,7 +10,7 @@ Paper=Papel
 Book=Libro
 Book with Text=Libro escrito
 Skeleton Key=Llave esqueleto
-Key to @1's @2=Llave para @1's @2
+Key to @1's @2=Llave para @2 de @1
 Coal Lump=Fragmento de carbón
 Iron Lump=Pepita de hierro
 Copper Lump=Pepita de cobre
@@ -142,7 +142,7 @@ Pine Bush Sapling=Retoño de arbusto de pino
 Kelp=Alga marina
 Green Coral=Coral verde
 Pink Coral=Coral rosa
-Cyan Coral=Coral cian
+Cyan Coral=Coral cián
 Brown Coral=Coral café
 Orange Coral=Coral naranja
 Coral Skeleton=Esqueleto de coral
