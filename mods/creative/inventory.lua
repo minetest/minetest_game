@@ -120,20 +120,20 @@ function creative.register_tab(name, title, items)
 			creative.update_creative_inventory(player_name, items)
 			local inv = player_inventory[player_name]
 			local start_i = inv.start_i or 0
-			local pagenum = math.floor(start_i / (3*8) + 1)
-			local pagemax = math.ceil(inv.size / (3*8))
+			local pagenum = math.floor(start_i / (4*8) + 1)
+			local pagemax = math.ceil(inv.size / (4*8))
 			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
-				"label[6.2,3.35;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
+				"label[5.8,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
 				[[
-					image[4.06,3.4;0.8,0.8;creative_trash_icon.png]
+					image[4.08,4.2;0.8,0.8;creative_trash_icon.png]
 					listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]
-					list[detached:creative_trash;main;4,3.3;1,1;]
+					list[detached:creative_trash;main;4.02,4.1;1,1;]
 					listring[]
-					image_button[5.4,3.25;0.8,0.8;creative_prev_icon.png;creative_prev;]
-					image_button[7.2,3.25;0.8,0.8;creative_next_icon.png;creative_next;]
-					image_button[2.1,3.25;0.8,0.8;creative_search_icon.png;creative_search;]
-					image_button[2.75,3.25;0.8,0.8;creative_clear_icon.png;creative_clear;]
+					image_button[5,4.05;0.8,0.8;creative_prev_icon.png;creative_prev;]
+					image_button[7.2,4.05;0.8,0.8;creative_next_icon.png;creative_next;]
+					image_button[2.63,4.05;0.8,0.8;creative_search_icon.png;creative_search;]
+					image_button[3.25,4.05;0.8,0.8;creative_clear_icon.png;creative_clear;]
 				]] ..
 				"tooltip[creative_search;" .. esc(S("Search")) .. "]" ..
 				"tooltip[creative_clear;" .. esc(S("Reset")) .. "]" ..
@@ -141,9 +141,9 @@ function creative.register_tab(name, title, items)
 				"tooltip[creative_next;" .. esc(S("Next page")) .. "]" ..
 				"listring[current_player;main]" ..
 				"field_close_on_enter[creative_filter;false]" ..
-				"field[0.3,3.5;2.2,1;creative_filter;;" .. esc(inv.filter) .. "]" ..
+				"field[0.3,4.2;2.8,1.2;creative_filter;;" .. esc(inv.filter) .. "]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
-				"list[detached:creative_" .. player_name .. ";main;0,0;8,3;" .. tostring(start_i) .. "]" ..
+				"list[detached:creative_" .. player_name .. ";main;0,0;8,4;" .. tostring(start_i) .. "]" ..
 				creative.formspec_add, true)
 		end,
 		on_enter = function(self, player, context)
@@ -173,15 +173,15 @@ function creative.register_tab(name, title, items)
 				local start_i = inv.start_i or 0
 
 				if fields.creative_prev then
-					start_i = start_i - 3*8
+					start_i = start_i - 4*8
 					if start_i < 0 then
-						start_i = inv.size - (inv.size % (3*8))
+						start_i = inv.size - (inv.size % (4*8))
 						if inv.size == start_i then
-							start_i = math.max(0, inv.size - (3*8))
+							start_i = math.max(0, inv.size - (4*8))
 						end
 					end
 				elseif fields.creative_next then
-					start_i = start_i + 3*8
+					start_i = start_i + 4*8
 					if start_i >= inv.size then
 						start_i = 0
 					end
