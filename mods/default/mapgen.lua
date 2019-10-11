@@ -2348,13 +2348,13 @@ function default.register_decorations()
 		place_on = {"default:sand"},
 		sidelen = 4,
 		noise_params = {
-			offset = -0.4,
-			scale = 3.0,
+			offset = -0.7,
+			scale = 4.0,
 			spread = {x = 16, y = 16, z = 16},
 			seed = 513337,
 			octaves = 1,
-			persist = 0.5,
-			flags = "absvalue"
+			persist = 0.0,
+			flags = "absvalue, eased"
 		},
 		biomes = {"coniferous_forest_dunes", "grassland_dunes"},
 		y_max = 6,

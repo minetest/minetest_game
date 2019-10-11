@@ -43,9 +43,9 @@ local function update_vessels_shelf(pos)
 	end
 	meta:set_string("formspec", formspec)
 	if n_items == 0 then
-		meta:set_string("infotext", S("Empty Vessel Shelf"))
+		meta:set_string("infotext", S("Empty Vessels Shelf"))
 	else
-		meta:set_string("infotext", S("Vessel Shelf (@1 items)", n_items))
+		meta:set_string("infotext", S("Vessels Shelf (@1 items)", n_items))
 	end
 end
 

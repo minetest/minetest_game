@@ -105,7 +105,14 @@ function xpanes.register_pane(name, def)
 		inventory_image = def.inventory_image,
 		wield_image = def.wield_image,
 		paramtype2 = "facedir",
-		tiles = {def.textures[3], def.textures[3], def.textures[1]},
+		tiles = {
+				def.textures[3],
+				def.textures[3],
+				def.textures[3],
+				def.textures[3],
+				def.textures[1],
+				def.textures[1]
+		},
 		groups = flatgroups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
@@ -202,3 +209,45 @@ minetest.register_lbm({
 		end
 	end
 })
+
+-- Register steel bar doors and trapdoors
+
+if minetest.get_modpath("doors") then
+
+	doors.register("xpanes:door_steel_bar", {
+		tiles = {{name = "xpanes_door_steel_bar.png", backface_culling = true}},
+		description = S("Steel Bar Door"),
+		inventory_image = "xpanes_item_steel_bar.png",
+		protected = true,
+		groups = {cracky = 1, level = 2},
+		sounds = default.node_sound_metal_defaults(),
+		sound_open = "xpanes_steel_bar_door_open",
+		sound_close = "xpanes_steel_bar_door_close",
+		recipe = {
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+		},
+	})
+
+	doors.register_trapdoor("xpanes:trapdoor_steel_bar", {
+		description = S("Steel Bar Trapdoor"),
+		inventory_image = "xpanes_trapdoor_steel_bar.png",
+		wield_image = "xpanes_trapdoor_steel_bar.png",
+		tile_front = "xpanes_trapdoor_steel_bar.png",
+		tile_side = "xpanes_trapdoor_steel_bar_side.png",
+		protected = true,
+		groups = {cracky = 1, level = 2, door = 1},
+		sounds = default.node_sound_metal_defaults(),
+		sound_open = "xpanes_steel_bar_door_open",
+		sound_close = "xpanes_steel_bar_door_close",
+	})
+
+	minetest.register_craft({
+		output = "xpanes:trapdoor_steel_bar",
+		recipe = {
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+		}
+	})
+end

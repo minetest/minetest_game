@@ -1,0 +1,8 @@
+# textdomain: vessels
+Vessels Shelf=
+Empty Glass Bottle=
+Empty Drinking Glass=
+Empty Heavy Steel Bottle=
+Glass Fragments=
+Empty Vessels Shelf=
+Vessels Shelf (@1 items)=
