@@ -1,13 +1,16 @@
 -- mods/default/craftitems.lua
 
+-- support for MT game translation.
+local S = default.get_translator
+
 minetest.register_craftitem("default:stick", {
-	description = "Stick",
+	description = S("Stick"),
 	inventory_image = "default_stick.png",
 	groups = {stick = 1, flammable = 2},
 })
 
 minetest.register_craftitem("default:paper", {
-	description = "Paper",
+	description = S("Paper"),
 	inventory_image = "default_paper.png",
 	groups = {flammable = 3},
 })
@@ -49,23 +52,24 @@ local function book_on_use(itemstack, user)
 	end
 
 	local formspec
+	local esc = minetest.formspec_escape
 	if owner == player_name then
 		formspec = "size[8,8]" ..
-			"field[0.5,1;7.5,0;title;Title:;" ..
-				minetest.formspec_escape(title) .. "]" ..
-			"textarea[0.5,1.5;7.5,7;text;Contents:;" ..
-				minetest.formspec_escape(text) .. "]" ..
-			"button_exit[2.5,7.5;3,1;save;Save]"
+			"field[0.5,1;7.5,0;title;" .. esc(S("Title:")) .. ";" ..
+				esc(title) .. "]" ..
+			"textarea[0.5,1.5;7.5,7;text;" .. esc(S("Contents:")) .. ";" ..
+				esc(text) .. "]" ..
+			"button_exit[2.5,7.5;3,1;save;" .. esc(S("Save")) .. "]"
 	else
 		formspec = "size[8,8]" ..
-			"label[0.5,0.5;by " .. owner .. "]" ..
+			"label[0.5,0.5;" .. esc(S("by @1", owner)) .. "]" ..
 			"tablecolumns[color;text]" ..
 			"tableoptions[background=#00000000;highlight=#00000000;border=false]" ..
-			"table[0.4,0;7,0.5;title;#FFFF00," .. minetest.formspec_escape(title) .. "]" ..
+			"table[0.4,0;7,0.5;title;#FFFF00," .. esc(title) .. "]" ..
 			"textarea[0.5,1.5;7.5,7;;" ..
 				minetest.formspec_escape(string ~= "" and string or text) .. ";]" ..
 			"button[2.4,7.6;0.8,0.8;book_prev;<]" ..
-			"label[3.2,7.7;Page " .. page .. " of " .. page_max .. "]" ..
+			"label[3.2,7.7;" .. esc(S("Page @1 of @2", page, page_max)) .. "]" ..
 			"button[4.9,7.6;0.8,0.8;book_next;>]"
 	end
 
@@ -108,7 +112,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if #short_title > short_title_size + 3 then
 			short_title = short_title:sub(1, short_title_size) .. "..."
 		end
-		data.description = "\""..short_title.."\" by "..data.owner
+		data.description = S("\"@1\" by @2", short_title, data.owner)
 		data.text = fields.text:sub(1, max_text_size)
 		data.text = data.text:gsub("\r\n", "\n"):gsub("\r", "\n")
 		data.page = 1
@@ -155,14 +159,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.register_craftitem("default:book", {
-	description = "Book",
+	description = S("Book"),
 	inventory_image = "default_book.png",
 	groups = {book = 1, flammable = 3},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("default:book_written", {
-	description = "Book With Text",
+	description = S("Book with Text"),
 	inventory_image = "default_book_written.png",
 	groups = {book = 1, not_in_creative_inventory = 1, flammable = 3},
 	stack_max = 1,
@@ -199,7 +203,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 minetest.register_craftitem("default:skeleton_key", {
-	description = "Skeleton Key",
+	description = S("Skeleton Key"),
 	inventory_image = "default_key_skeleton.png",
 	groups = {key = 1},
 	on_use = function(itemstack, user, pointed_thing)
@@ -238,8 +242,8 @@ minetest.register_craftitem("default:skeleton_key", {
 			local new_stack = ItemStack("default:key")
 			local meta = new_stack:get_meta()
 			meta:set_string("secret", secret)
-			meta:set_string("description", "Key to "..user:get_player_name().."'s "
-				..minetest.registered_nodes[node.name].description)
+			meta:set_string("description", S("Key to @1's @2", user:get_player_name(),
+				minetest.registered_nodes[node.name].description))
 
 			if itemstack:get_count() == 0 then
 				itemstack = new_stack
@@ -255,93 +259,94 @@ minetest.register_craftitem("default:skeleton_key", {
 })
 
 minetest.register_craftitem("default:coal_lump", {
-	description = "Coal Lump",
+	description = S("Coal Lump"),
 	inventory_image = "default_coal_lump.png",
 	groups = {coal = 1, flammable = 1}
 })
 
 minetest.register_craftitem("default:iron_lump", {
-	description = "Iron Lump",
-	inventory_image = "default_iron_lump.png",
+	description = S("Iron Lump"),
+	inventory_image = "default_iron_lump.png"
 })
 
 minetest.register_craftitem("default:copper_lump", {
-	description = "Copper Lump",
-	inventory_image = "default_copper_lump.png",
+	description = S("Copper Lump"),
+	inventory_image = "default_copper_lump.png"
 })
 
 minetest.register_craftitem("default:tin_lump", {
-	description = "Tin Lump",
-	inventory_image = "default_tin_lump.png",
+	description = S("Tin Lump"),
+	inventory_image = "default_tin_lump.png"
 })
 
 minetest.register_craftitem("default:mese_crystal", {
-	description = "Mese Crystal",
+	description = S("Mese Crystal"),
 	inventory_image = "default_mese_crystal.png",
 })
 
 minetest.register_craftitem("default:gold_lump", {
-	description = "Gold Lump",
-	inventory_image = "default_gold_lump.png",
+	description = S("Gold Lump"),
+	inventory_image = "default_gold_lump.png"
 })
 
 minetest.register_craftitem("default:diamond", {
-	description = "Diamond",
+	description = S("Diamond"),
 	inventory_image = "default_diamond.png",
 })
 
 minetest.register_craftitem("default:clay_lump", {
-	description = "Clay Lump",
+	description = S("Clay Lump"),
 	inventory_image = "default_clay_lump.png",
 })
 
 minetest.register_craftitem("default:steel_ingot", {
-	description = "Steel Ingot",
-	inventory_image = "default_steel_ingot.png",
+	description = S("Steel Ingot"),
+	inventory_image = "default_steel_ingot.png"
 })
 
 minetest.register_craftitem("default:copper_ingot", {
-	description = "Copper Ingot",
-	inventory_image = "default_copper_ingot.png",
+	description = S("Copper Ingot"),
+	inventory_image = "default_copper_ingot.png"
 })
 
 minetest.register_craftitem("default:tin_ingot", {
-	description = "Tin Ingot",
-	inventory_image = "default_tin_ingot.png",
+	description = S("Tin Ingot"),
+	inventory_image = "default_tin_ingot.png"
 })
 
 minetest.register_craftitem("default:bronze_ingot", {
-	description = "Bronze Ingot",
-	inventory_image = "default_bronze_ingot.png",
+	description = S("Bronze Ingot"),
+	inventory_image = "default_bronze_ingot.png"
 })
 
 minetest.register_craftitem("default:gold_ingot", {
-	description = "Gold Ingot",
+	description = S("Gold Ingot"),
 	inventory_image = "default_gold_ingot.png"
 })
 
 minetest.register_craftitem("default:mese_crystal_fragment", {
-	description = "Mese Crystal Fragment",
+	description = S("Mese Crystal Fragment"),
 	inventory_image = "default_mese_crystal_fragment.png",
 })
 
 minetest.register_craftitem("default:clay_brick", {
-	description = "Clay Brick",
+	description = S("Clay Brick"),
 	inventory_image = "default_clay_brick.png",
 })
 
 minetest.register_craftitem("default:obsidian_shard", {
-	description = "Obsidian Shard",
+	description = S("Obsidian Shard"),
 	inventory_image = "default_obsidian_shard.png",
 })
 
 minetest.register_craftitem("default:flint", {
-	description = "Flint",
+	description = S("Flint"),
 	inventory_image = "default_flint.png"
 })
 
 minetest.register_craftitem("default:blueberries", {
-	description = "Blueberries",
+	description = S("Blueberries"),
 	inventory_image = "default_blueberries.png",
+	groups = {food_blueberries = 1, food_berry = 1},
 	on_use = minetest.item_eat(2),
 })

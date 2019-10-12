@@ -1,8 +1,13 @@
+-- farming/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("farming")
+
 -- Global farming namespace
 
 farming = {}
 farming.path = minetest.get_modpath("farming")
-
+farming.get_translator = S
 
 -- Load files
 
@@ -14,7 +19,8 @@ dofile(farming.path .. "/hoes.lua")
 -- WHEAT
 
 farming.register_plant("farming:wheat", {
-	description = "Wheat Seed",
+	description = S("Wheat Seed"),
+	harvest_description = S("Wheat"),
 	paramtype2 = "meshoptions",
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
@@ -26,13 +32,13 @@ farming.register_plant("farming:wheat", {
 })
 
 minetest.register_craftitem("farming:flour", {
-	description = "Flour",
+	description = S("Flour"),
 	inventory_image = "farming_flour.png",
 	groups = {food_flour = 1, flammable = 1},
 })
 
 minetest.register_craftitem("farming:bread", {
-	description = "Bread",
+	description = S("Bread"),
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
 	groups = {food_bread = 1, flammable = 2},
@@ -55,7 +61,8 @@ minetest.register_craft({
 -- Cotton
 
 farming.register_plant("farming:cotton", {
-	description = "Cotton Seed",
+	description = S("Cotton Seed"),
+	harvest_description = S("Cotton"),
 	inventory_image = "farming_cotton_seed.png",
 	steps = 8,
 	minlight = 13,
@@ -65,7 +72,7 @@ farming.register_plant("farming:cotton", {
 })
 
 minetest.register_craftitem("farming:string", {
-	description = "String",
+	description = S("String"),
 	inventory_image = "farming_string.png",
 	groups = {flammable = 2},
 })

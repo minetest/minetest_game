@@ -273,6 +273,7 @@ end
 --
 -- Fence registration helper
 --
+local fence_collision_extra = minetest.settings:get_bool("enable_fence_tall") and 3/8 or 0
 
 function default.register_fence(name, def)
 	minetest.register_craft({
@@ -291,17 +292,27 @@ function default.register_fence(name, def)
 		drawtype = "nodebox",
 		node_box = {
 			type = "connected",
-			fixed = {{-1/8, -1/2, -1/8, 1/8, 1/2, 1/8}},
+			fixed = {-1/8, -1/2, -1/8, 1/8, 1/2, 1/8},
 			-- connect_top =
 			-- connect_bottom =
-			connect_front = {{-1/16,3/16,-1/2,1/16,5/16,-1/8},
-				{-1/16,-5/16,-1/2,1/16,-3/16,-1/8}},
-			connect_left = {{-1/2,3/16,-1/16,-1/8,5/16,1/16},
-				{-1/2,-5/16,-1/16,-1/8,-3/16,1/16}},
-			connect_back = {{-1/16,3/16,1/8,1/16,5/16,1/2},
-				{-1/16,-5/16,1/8,1/16,-3/16,1/2}},
-			connect_right = {{1/8,3/16,-1/16,1/2,5/16,1/16},
-				{1/8,-5/16,-1/16,1/2,-3/16,1/16}},
+			connect_front = {{-1/16,  3/16, -1/2,   1/16,  5/16, -1/8 },
+				         {-1/16, -5/16, -1/2,   1/16, -3/16, -1/8 }},
+			connect_left =  {{-1/2,   3/16, -1/16, -1/8,   5/16,  1/16},
+				         {-1/2,  -5/16, -1/16, -1/8,  -3/16,  1/16}},
+			connect_back =  {{-1/16,  3/16,  1/8,   1/16,  5/16,  1/2 },
+				         {-1/16, -5/16,  1/8,   1/16, -3/16,  1/2 }},
+			connect_right = {{ 1/8,   3/16, -1/16,  1/2,   5/16,  1/16},
+				         { 1/8,  -5/16, -1/16,  1/2,  -3/16,  1/16}}
+		},
+		collision_box = {
+			type = "connected",
+			fixed = {-1/8, -1/2, -1/8, 1/8, 1/2 + fence_collision_extra, 1/8},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {-1/8, -1/2, -1/2,  1/8, 1/2 + fence_collision_extra, -1/8},
+			connect_left =  {-1/2, -1/2, -1/8, -1/8, 1/2 + fence_collision_extra,  1/8},
+			connect_back =  {-1/8, -1/2,  1/8,  1/8, 1/2 + fence_collision_extra,  1/2},
+			connect_right = { 1/8, -1/2, -1/8,  1/2, 1/2 + fence_collision_extra,  1/8}
 		},
 		connects_to = {"group:fence", "group:wood", "group:tree", "group:wall"},
 		inventory_image = fence_texture,
@@ -349,24 +360,28 @@ function default.register_fence_rail(name, def)
 		drawtype = "nodebox",
 		node_box = {
 			type = "connected",
-			fixed = {
-				{-1/16,  3/16, -1/16, 1/16,  5/16, 1/16},
-				{-1/16, -3/16, -1/16, 1/16, -5/16, 1/16}
-			},
+			fixed = {{-1/16,  3/16, -1/16, 1/16,  5/16, 1/16},
+				 {-1/16, -3/16, -1/16, 1/16, -5/16, 1/16}},
 			-- connect_top =
 			-- connect_bottom =
-			connect_front = {
-				{-1/16,  3/16, -1/2, 1/16,  5/16, -1/16},
-				{-1/16, -5/16, -1/2, 1/16, -3/16, -1/16}},
-			connect_left = {
-				{-1/2,  3/16, -1/16, -1/16,  5/16, 1/16},
-				{-1/2, -5/16, -1/16, -1/16, -3/16, 1/16}},
-			connect_back = {
-				{-1/16,  3/16, 1/16, 1/16,  5/16, 1/2},
-				{-1/16, -5/16, 1/16, 1/16, -3/16, 1/2}},
-			connect_right = {
-				{1/16,  3/16, -1/16, 1/2,  5/16, 1/16},
-				{1/16, -5/16, -1/16, 1/2, -3/16, 1/16}},
+			connect_front = {{-1/16,  3/16, -1/2,   1/16,  5/16, -1/16},
+				         {-1/16, -5/16, -1/2,   1/16, -3/16, -1/16}},
+			connect_left =  {{-1/2,   3/16, -1/16, -1/16,  5/16,  1/16},
+				         {-1/2,  -5/16, -1/16, -1/16, -3/16,  1/16}},
+			connect_back =  {{-1/16,  3/16,  1/16,  1/16,  5/16,  1/2 },
+				         {-1/16, -5/16,  1/16,  1/16, -3/16,  1/2 }},
+			connect_right = {{ 1/16,  3/16, -1/16,  1/2,   5/16,  1/16},
+		                         { 1/16, -5/16, -1/16,  1/2,  -3/16,  1/16}}
+		},
+		collision_box = {
+			type = "connected",
+			fixed = {-1/8, -1/2, -1/8, 1/8, 1/2 + fence_collision_extra, 1/8},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {-1/8, -1/2, -1/2,  1/8, 1/2 + fence_collision_extra, -1/8},
+			connect_left =  {-1/2, -1/2, -1/8, -1/8, 1/2 + fence_collision_extra,  1/8},
+			connect_back =  {-1/8, -1/2,  1/8,  1/8, 1/2 + fence_collision_extra,  1/2},
+			connect_right = { 1/8, -1/2, -1/8,  1/2, 1/2 + fence_collision_extra,  1/8}
 		},
 		connects_to = {"group:fence", "group:wall"},
 		inventory_image = fence_rail_texture,
@@ -399,7 +414,7 @@ end
 -- Prevent decay of placed leaves
 
 default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
-	if placer and placer:is_player() and not placer:get_player_control().sneak then
+	if placer and placer:is_player() then
 		local node = minetest.get_node(pos)
 		node.param2 = 1
 		minetest.set_node(pos, node)
@@ -412,7 +427,7 @@ local function leafdecay_after_destruct(pos, oldnode, def)
 			vector.add(pos, def.radius), def.leaves)) do
 		local node = minetest.get_node(v)
 		local timer = minetest.get_node_timer(v)
-		if node.param2 == 0 and not timer:is_started() then
+		if node.param2 ~= 1 and not timer:is_started() then
 			timer:start(math.random(20, 120) / 10)
 		end
 	end
@@ -477,7 +492,6 @@ minetest.register_abm({
 	neighbors = {
 		"air",
 		"group:grass",
-		"group:dry_grass",
 		"default:snow",
 	},
 	interval = 6,
@@ -504,11 +518,8 @@ minetest.register_abm({
 		-- Snow check is cheapest, so comes first
 		if name == "default:snow" then
 			minetest.set_node(pos, {name = "default:dirt_with_snow"})
-		-- Most likely case first
 		elseif minetest.get_item_group(name, "grass") ~= 0 then
 			minetest.set_node(pos, {name = "default:dirt_with_grass"})
-		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
-			minetest.set_node(pos, {name = "default:dirt_with_dry_grass"})
 		end
 	end
 })
@@ -520,7 +531,7 @@ minetest.register_abm({
 
 minetest.register_abm({
 	label = "Grass covered",
-	nodenames = {"group:spreading_dirt_type"},
+	nodenames = {"group:spreading_dirt_type", "default:dry_dirt_with_dry_grass"},
 	interval = 8,
 	chance = 50,
 	catch_up = false,
@@ -531,7 +542,11 @@ minetest.register_abm({
 		if name ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
 				nodedef.paramtype == "light") and
 				nodedef.liquidtype == "none") then
-			minetest.set_node(pos, {name = "default:dirt"})
+			if node.name == "default:dry_dirt_with_dry_grass" then
+				minetest.set_node(pos, {name = "default:dry_dirt"})
+			else
+				minetest.set_node(pos, {name = "default:dirt"})
+			end
 		end
 	end
 })
@@ -541,22 +556,27 @@ minetest.register_abm({
 -- Moss growth on cobble near water
 --
 
+local moss_correspondences = {
+	["default:cobble"] = "default:mossycobble",
+	["stairs:slab_cobble"] = "stairs:slab_mossycobble",
+	["stairs:stair_cobble"] = "stairs:stair_mossycobble",
+	["stairs:stair_inner_cobble"] = "stairs:stair_inner_mossycobble",
+	["stairs:stair_outer_cobble"] = "stairs:stair_outer_mossycobble",
+	["walls:cobble"] = "walls:mossycobble",
+}
 minetest.register_abm({
 	label = "Moss growth",
-	nodenames = {"default:cobble", "stairs:slab_cobble", "stairs:stair_cobble", "walls:cobble"},
+	nodenames = {"default:cobble", "stairs:slab_cobble", "stairs:stair_cobble",
+		"stairs:stair_inner_cobble", "stairs:stair_outer_cobble",
+		"walls:cobble"},
 	neighbors = {"group:water"},
 	interval = 16,
 	chance = 200,
 	catch_up = false,
 	action = function(pos, node)
-		if node.name == "default:cobble" then
-			minetest.set_node(pos, {name = "default:mossycobble"})
-		elseif node.name == "stairs:slab_cobble" then
-			minetest.set_node(pos, {name = "stairs:slab_mossycobble", param2 = node.param2})
-		elseif node.name == "stairs:stair_cobble" then
-			minetest.set_node(pos, {name = "stairs:stair_mossycobble", param2 = node.param2})
-		elseif node.name == "walls:cobble" then
-			minetest.set_node(pos, {name = "walls:mossycobble", param2 = node.param2})
+		node.name = moss_correspondences[node.name]
+		if node.name then
+			minetest.set_node(pos, node)
 		end
 	end
 })
@@ -568,7 +588,7 @@ minetest.register_abm({
 --
 
 function default.can_interact_with_node(player, pos)
-	if player then
+	if player and player:is_player() then
 		if minetest.check_player_privs(player, "protection_bypass") then
 			return true
 		end

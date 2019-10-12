@@ -40,8 +40,10 @@ Following textures created by PenguinDad (CC BY-SA 4.0):
 
 Following textures created by sofar (CC-BY-SA-3.0):
   doors_trapdoor_steel.png
-  doors_trapdoor_steel_side.png
+
+Following textures created by paramat (CC-BY-SA-3.0):
   door_trapdoor_side.png
+  doors_trapdoor_steel_side.png
 
 Obsidian door textures by red-001 based on textures by Pilzadam and BlockMen (CC BY-SA 3.0):
   door_obsidian_glass.png

@@ -1,10 +1,12 @@
 local pi = math.pi
-local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
 local enable_respawn = minetest.settings:get_bool("enable_bed_respawn")
 if enable_respawn == nil then
 	enable_respawn = true
 end
+
+-- support for MT game translation.
+local S = beds.get_translator
 
 -- Helper functions
 
@@ -59,11 +61,8 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	-- stand up
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
-		if beds.player[name] ~= nil then
-			beds.player[name] = nil
-			beds.bed_position[name] = nil
-			player_in_bed = player_in_bed - 1
-		end
+		beds.player[name] = nil
+		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
 			return
@@ -82,10 +81,9 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- lay down
 	else
-		beds.player[name] = 1
 		beds.pos[name] = pos
 		beds.bed_position[name] = bed_pos
-		player_in_bed = player_in_bed + 1
+		beds.player[name] = 1
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
@@ -103,18 +101,29 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	player:hud_set_flags(hud_flags)
 end
 
+local function get_player_in_bed_count()
+	local c = 0
+	for _, _ in pairs(beds.player) do
+		c = c + 1
+	end
+	return c
+end
+
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
-	local form_n
+	local player_in_bed = get_player_in_bed_count()
 	local is_majority = (ges / 2) < player_in_bed
 
+	local form_n
+	local esc = minetest.formspec_escape
 	if finished then
-		form_n = beds.formspec .. "label[2.7,9; Good morning.]"
+		form_n = beds.formspec .. "label[2.7,9;" .. esc(S("Good morning.")) .. "]"
 	else
-		form_n = beds.formspec .. "label[2.2,9;" .. tostring(player_in_bed) ..
-			" of " .. tostring(ges) .. " players are in bed]"
+		form_n = beds.formspec .. "label[2.2,9;" ..
+			esc(S("@1 of @2 players are in bed", player_in_bed, ges)) .. "]"
 		if is_majority and is_night_skip_enabled() then
-			form_n = form_n .. "button_exit[2,6;4,0.75;force;Force night skip]"
+			form_n = form_n .. "button_exit[2,6;4,0.75;force;" ..
+				esc(S("Force night skip")) .. "]"
 		end
 	end
 
@@ -146,7 +155,7 @@ function beds.on_rightclick(pos, player)
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
 		end
-		minetest.chat_send_player(name, "You can only sleep at night.")
+		minetest.chat_send_player(name, S("You can only sleep at night."))
 		return
 	end
 
@@ -223,7 +232,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	-- Because "Force night skip" button is a button_exit, it will set fields.quit
 	-- and lay_down call will change value of player_in_bed, so it must be taken
 	-- earlier.
-	local last_player_in_bed = player_in_bed
+	local last_player_in_bed = get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
 		lay_down(player, nil, nil, false)

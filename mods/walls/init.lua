@@ -1,4 +1,11 @@
+-- walls/init.lua
+
 walls = {}
+
+local fence_collision_extra = minetest.settings:get_bool("enable_fence_tall") and 3/8 or 0
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("walls")
 
 walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wall_sounds)
 	--make wall_texture_table paramenter backwards compatible for mods passing single texture
@@ -11,12 +18,22 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 		drawtype = "nodebox",
 		node_box = {
 			type = "connected",
-			fixed = {{-1/4, -1/2, -1/4, 1/4, 1/2, 1/4}},
+			fixed = {-1/4, -1/2, -1/4, 1/4, 1/2, 1/4},
 			-- connect_bottom =
-			connect_front = {{-3/16, -1/2, -1/2,  3/16, 3/8, -1/4}},
-			connect_left = {{-1/2, -1/2, -3/16, -1/4, 3/8,  3/16}},
-			connect_back = {{-3/16, -1/2,  1/4,  3/16, 3/8,  1/2}},
-			connect_right = {{ 1/4, -1/2, -3/16,  1/2, 3/8,  3/16}},
+			connect_front = {-3/16, -1/2, -1/2,  3/16, 3/8, -1/4},
+			connect_left = {-1/2, -1/2, -3/16, -1/4, 3/8,  3/16},
+			connect_back = {-3/16, -1/2,  1/4,  3/16, 3/8,  1/2},
+			connect_right = { 1/4, -1/2, -3/16,  1/2, 3/8,  3/16},
+		},
+		collision_box = {
+			type = "connected",
+			fixed = {-1/4, -1/2, -1/4, 1/4, 1/2 + fence_collision_extra, 1/4},
+			-- connect_top =
+			-- connect_bottom =
+			connect_front = {-1/4,-1/2,-1/2,1/4,1/2 + fence_collision_extra,-1/4},
+			connect_left = {-1/2,-1/2,-1/4,-1/4,1/2 + fence_collision_extra,1/4},
+			connect_back = {-1/4,-1/2,1/4,1/4,1/2 + fence_collision_extra,1/2},
+			connect_right = {1/4,-1/2,-1/4,1/2,1/2 + fence_collision_extra,1/4},
 		},
 		connects_to = { "group:wall", "group:stone", "group:fence" },
 		paramtype = "light",
@@ -31,7 +48,7 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 	minetest.register_craft({
 		output = wall_name .. " 6",
 		recipe = {
-			{ '', '', '' },
+			{ "", "", "" },
 			{ wall_mat, wall_mat, wall_mat},
 			{ wall_mat, wall_mat, wall_mat},
 		}
@@ -39,12 +56,12 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 
 end
 
-walls.register("walls:cobble", "Cobblestone Wall", {"default_cobble.png"},
+walls.register("walls:cobble", S("Cobblestone Wall"), {"default_cobble.png"},
 		"default:cobble", default.node_sound_stone_defaults())
 
-walls.register("walls:mossycobble", "Mossy Cobblestone Wall", {"default_mossycobble.png"},
+walls.register("walls:mossycobble", S("Mossy Cobblestone Wall"), {"default_mossycobble.png"},
 		"default:mossycobble", default.node_sound_stone_defaults())
 
-walls.register("walls:desertcobble", "Desert Cobblestone Wall", {"default_desert_cobble.png"},
+walls.register("walls:desertcobble", S("Desert Cobblestone Wall"), {"default_desert_cobble.png"},
 		"default:desert_cobble", default.node_sound_stone_defaults())
 

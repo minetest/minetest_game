@@ -1,5 +1,11 @@
+-- vessels/init.lua
+
 -- Minetest 0.4 mod: vessels
 -- See README.txt for licensing and other information.
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("vessels")
+
 
 local vessels_shelf_formspec =
 	"size[8,7;]" ..
@@ -10,11 +16,15 @@ local vessels_shelf_formspec =
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0, 2.85)
 
-local function get_vessels_shelf_formspec(inv)
+local function update_vessels_shelf(pos)
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
+	local invlist = inv:get_list("vessels")
+
 	local formspec = vessels_shelf_formspec
-	local invlist = inv and inv:get_list("vessels")
 	-- Inventory slots overlay
 	local vx, vy = 0, 0.3
+	local n_items = 0
 	for i = 1, 16 do
 		if i == 9 then
 			vx = 0
@@ -23,14 +33,24 @@ local function get_vessels_shelf_formspec(inv)
 		if not invlist or invlist[i]:is_empty() then
 			formspec = formspec ..
 				"image[" .. vx .. "," .. vy .. ";1,1;vessels_shelf_slot.png]"
+		else
+			local stack = invlist[i]
+			if not stack:is_empty() then
+				n_items = n_items + stack:get_count()
+			end
 		end
 		vx = vx + 1
 	end
-	return formspec
+	meta:set_string("formspec", formspec)
+	if n_items == 0 then
+		meta:set_string("infotext", S("Empty Vessels Shelf"))
+	else
+		meta:set_string("infotext", S("Vessels Shelf (@1 items)", n_items))
+	end
 end
 
 minetest.register_node("vessels:shelf", {
-	description = "Vessels Shelf",
+	description = S("Vessels Shelf"),
 	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
 		"default_wood.png", "vessels_shelf.png", "vessels_shelf.png"},
 	paramtype2 = "facedir",
@@ -40,7 +60,7 @@ minetest.register_node("vessels:shelf", {
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", get_vessels_shelf_formspec(nil))
+		update_vessels_shelf(pos)
 		local inv = meta:get_inventory()
 		inv:set_size("vessels", 8 * 2)
 	end,
@@ -57,20 +77,17 @@ minetest.register_node("vessels:shelf", {
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name() ..
 			   " moves stuff in vessels shelf at ".. minetest.pos_to_string(pos))
-		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", get_vessels_shelf_formspec(meta:get_inventory()))
+		update_vessels_shelf(pos)
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			   " moves stuff to vessels shelf at ".. minetest.pos_to_string(pos))
-		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", get_vessels_shelf_formspec(meta:get_inventory()))
+		update_vessels_shelf(pos)
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
 			   " takes stuff from vessels shelf at ".. minetest.pos_to_string(pos))
-		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", get_vessels_shelf_formspec(meta:get_inventory()))
+		update_vessels_shelf(pos)
 	end,
 	on_blast = function(pos)
 		local drops = {}
@@ -91,7 +108,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("vessels:glass_bottle", {
-	description = "Empty Glass Bottle",
+	description = S("Empty Glass Bottle"),
 	drawtype = "plantlike",
 	tiles = {"vessels_glass_bottle.png"},
 	inventory_image = "vessels_glass_bottle.png",
@@ -117,7 +134,7 @@ minetest.register_craft( {
 })
 
 minetest.register_node("vessels:drinking_glass", {
-	description = "Empty Drinking Glass",
+	description = S("Empty Drinking Glass"),
 	drawtype = "plantlike",
 	tiles = {"vessels_drinking_glass.png"},
 	inventory_image = "vessels_drinking_glass_inv.png",
@@ -143,7 +160,7 @@ minetest.register_craft( {
 })
 
 minetest.register_node("vessels:steel_bottle", {
-	description = "Empty Heavy Steel Bottle",
+	description = S("Empty Heavy Steel Bottle"),
 	drawtype = "plantlike",
 	tiles = {"vessels_steel_bottle.png"},
 	inventory_image = "vessels_steel_bottle.png",
@@ -172,7 +189,7 @@ minetest.register_craft( {
 -- Glass and steel recycling
 
 minetest.register_craftitem("vessels:glass_fragments", {
-	description = "Glass Fragments",
+	description = S("Glass Fragments"),
 	inventory_image = "vessels_glass_fragments.png",
 })
 

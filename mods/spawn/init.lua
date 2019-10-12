@@ -1,3 +1,5 @@
+-- spawn/init.lua
+
 -- Disable by mapgen, setting or if 'static_spawnpoint' is set
 --------------------------------------------------------------
 
@@ -56,6 +58,15 @@ local success = false
 local spawn_pos = {}
 
 
+-- Get world 'mapgen_limit' and 'chunksize' to calculate 'spawn_limit'.
+-- This accounts for how mapchunks are not generated if they or their shell exceed
+-- 'mapgen_limit'.
+
+local mapgen_limit = tonumber(minetest.get_mapgen_setting("mapgen_limit"))
+local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
+local spawn_limit = math.max(mapgen_limit - (chunksize + 1) * 16, 0)
+
+
 --Functions
 -----------
 
@@ -100,6 +111,10 @@ local function search()
 		end
 
 		pos = next_pos()
+		-- Check for position being outside world edge
+		if math.abs(pos.x) > spawn_limit or math.abs(pos.z) > spawn_limit then
+			return false
+		end
 	end
 
 	return false

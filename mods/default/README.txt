@@ -101,8 +101,7 @@ paramat (CC BY-SA 3.0):
   default_dry_grass.png
   default_dry_grass_side.png
   default_dry_grass_*.png
-  default_grass.png
-  default_grass_side.png
+  default_grass_side.png -- Derived from a texture by TumeniNodes (CC-BY-SA 3.0)
   default_mese_block.png
   default_silver_sand.png
   default_mese_post_light_side.png
@@ -129,6 +128,8 @@ TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
   default_coniferous_litter.png
   default_coniferous_litter_side.png
+  default_grass.png
+  default_dry_dirt.png
 
 BlockMen (CC BY-SA 3.0):
   default_aspen_leaves.png -- Derived from Sofar's texture

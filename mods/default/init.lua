@@ -3,16 +3,21 @@
 
 -- The API documentation in here was moved into game_api.txt
 
+-- Load support for MT game translation.
+local S = minetest.get_translator("default")
+
 -- Definitions made by this mod that other mods can use too
 default = {}
 
 default.LIGHT_MAX = 14
+default.get_translator = S
 
 -- GUI related stuff
 minetest.register_on_joinplayer(function(player)
 	player:set_formspec_prepend([[
 			bgcolor[#080808BB;true]
 			background[5,5;1,1;gui_formbg.png;true]
+			background9[5,5;1,1;gui_formbg.png;true;10]
 			listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF] ]])
 end)
 

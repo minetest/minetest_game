@@ -1,4 +1,10 @@
+-- tnt/init.lua
+
 tnt = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("tnt")
+
 
 -- Default to enabled when in singleplayer
 local enable_tnt = minetest.settings:get_bool("enable_tnt")
@@ -396,7 +402,7 @@ function tnt.boom(pos, def)
 		minetest.set_node(pos, {name = "tnt:boom"})
 	end
 	local sound = def.sound or "tnt_explode"
-	minetest.sound_play(sound, {pos = pos, gain = 1.5,
+	minetest.sound_play(sound, {pos = pos, gain = 2.5,
 			max_hear_distance = math.min(def.radius * 20, 128)})
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast, owner, def.explode_center)
@@ -422,7 +428,7 @@ minetest.register_node("tnt:boom", {
 })
 
 minetest.register_node("tnt:gunpowder", {
-	description = "Gun Powder",
+	description = S("Gun Powder"),
 	drawtype = "raillike",
 	paramtype = "light",
 	is_ground_content = false,
@@ -547,7 +553,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("tnt:tnt_stick", {
-	description = "TNT Stick",
+	description = S("TNT Stick"),
 	inventory_image = "tnt_tnt_stick.png",
 	groups = {flammable = 5},
 })
@@ -675,6 +681,6 @@ end
 
 tnt.register_tnt({
 	name = "tnt:tnt",
-	description = "TNT",
+	description = S("TNT"),
 	radius = tnt_radius,
 })

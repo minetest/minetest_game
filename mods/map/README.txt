@@ -20,7 +20,7 @@ map:mapping_kit
 
 default:glass G
 default:paper P
-default:stick S
+group:stick S
 default:steel_ingot I
 group:wood W
 dye:black D

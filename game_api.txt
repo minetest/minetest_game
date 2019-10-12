@@ -214,6 +214,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	inventory_image = "mod_door_inv.png",
 	groups = {choppy = 2},
 	tiles = {"mod_door.png"}, -- UV map.
+	-- The front and back of the door must be identical in appearence as they swap on
+	-- open/close.
 	recipe = craftrecipe,
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
@@ -228,7 +230,12 @@ The doors mod allows modders to register custom doors and trapdoors.
 	inventory_image = "mod_trapdoor_inv.png",
 	groups = {choppy = 2},
 	tile_front = "doors_trapdoor.png", -- the texture for the front and back of the trapdoor
-	tile_side = "doors_trapdoor_side.png", -- the tiles of the four side parts of the trapdoor
+	tile_side = "doors_trapdoor_side.png",
+	-- The texture for the four sides of the trapdoor.
+	-- The texture should have the trapdoor side drawn twice, in the lowest and highest
+	-- 1/8ths of the texture, both upright. The area between is not used.
+	-- The lower 1/8th will be used for the closed trapdoor, the higher 1/8th will be used
+	-- for the open trapdoor.
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
@@ -269,7 +276,7 @@ The mod that places chests with loot in dungeons provides an API to register add
 	name = "item:name",
 	chance = 0.5,
 	-- ^ chance value from 0.0 to 1.0 that the item will appear in the chest when chosen
-	--   due to an extra step in the selection process, 0.5 does not(!) mean that
+	--   Due to an extra step in the selection process, 0.5 does not(!) mean that
 	--   on average every second chest will have this item
 	count = {1, 4},
 	-- ^ table with minimum and maximum amounts of this item
@@ -279,7 +286,8 @@ The mod that places chests with loot in dungeons provides an API to register add
 	--   optional, defaults to no height restrictions
 	types = {"desert"},
 	-- ^ table with types of dungeons this item can be found in
-	--   supported types: "normal" (the cobble/mossycobble one), "sandstone", "desert"
+	--   supported types: "normal" (the cobble/mossycobble one), "sandstone"
+	--   "desert" and "ice"
 	--   optional, defaults to no type restrictions
 
 
@@ -351,6 +359,8 @@ The farming API allows you to easily register plants and hoes.
 
 	{
 		description = "",                      -- Description of seed item
+		harvest_description = "",              -- Description of harvest item
+		                                       -- (optional, derived automatically if not provided)
 		inventory_image = "unknown_item.png",  -- Image to be used as seed's wield- and inventory image
 		steps = 8,                             -- How many steps the plant has to grow, until it can be harvested
 		-- ^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
@@ -362,6 +372,8 @@ The farming API allows you to easily register plants and hoes.
 Fire API
 --------
 
+Add group flammable when registering a node to make fire seek for it.
+Add it to an item to make it burn up when dropped in lava or fire.
 New node def property:
 
 `on_burn(pos)`
@@ -716,27 +728,29 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
 
-`stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
+`stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds, worldaligntex, full_description)`
 
  * Registers an inner corner stair
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_inner_subname"
  * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble", may be `nil`
  * `groups`: See [Known damage and digging time defining groups]
  * `images`: See [Tile definition]
- * `description`: Used for the description field in the stair's definition
+ * `description`: Used for the description field in the stair's definition with "Inner" prepended
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
+ * `full_description`: Overrides the description, bypassing string concatenation. This is useful for translation. (optional)
 
-`stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
+`stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds, worldaligntex, full_description)`
 
  * Registers an outer corner stair
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_outer_subname"
  * `recipeitem`: Item used in the craft recipe, e.g. "default:cobble", may be `nil`
  * `groups`: See [Known damage and digging time defining groups]
  * `images`: See [Tile definition]
- * `description`: Used for the description field in the stair's definition
+ * `description`: Used for the description field in the stair's definition with "Outer" prepended
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
+ * `full_description`: Overrides the description, bypassing string concatenation. This is useful for translation. (optional)
 
 `stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds, worldaligntex)`
 
@@ -759,7 +773,11 @@ Creates panes that automatically connect to each other
 ### Pane definition
 
 	{
-		textures = {"texture for sides", (unused), "texture for top and bottom"}, -- More tiles aren't supported
+		textures = {
+			"texture for front and back",
+			(unused),
+			"texture for the 4 edges"
+		}, -- More tiles aren't supported
 		groups = {group = rating}, -- Uses the known node groups, see [Known damage and digging time defining groups]
 		sounds = SoundSpec,        -- See [#Default sounds]
 		recipe = {{"","","","","","","","",""}}, -- Recipe field only

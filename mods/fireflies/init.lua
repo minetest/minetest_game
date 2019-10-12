@@ -1,6 +1,11 @@
--- firefly
+-- firefly/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("fireflies")
+
+
 minetest.register_node("fireflies:firefly", {
-	description = "Firefly",
+	description = S("Firefly"),
 	drawtype = "plantlike",
 	tiles = {{
 		name = "fireflies_firefly_animated.png",
@@ -47,7 +52,7 @@ minetest.register_node("fireflies:firefly", {
 })
 
 minetest.register_node("fireflies:hidden_firefly", {
-	description = "Hidden Firefly",
+	description = S("Hidden Firefly"),
 	drawtype = "airlike",
 	inventory_image = "fireflies_firefly.png",
 	wield_image =  "fireflies_firefly.png",
@@ -84,7 +89,7 @@ minetest.register_node("fireflies:hidden_firefly", {
 
 -- bug net
 minetest.register_tool("fireflies:bug_net", {
-	description = "Bug Net",
+	description = S("Bug Net"),
 	inventory_image = "fireflies_bugnet.png",
 	on_use = function(itemstack, player, pointed_thing)
 		if not pointed_thing or pointed_thing.type ~= "node" or
@@ -113,14 +118,14 @@ minetest.register_craft( {
 	recipe = {
 		{"farming:string", "farming:string"},
 		{"farming:string", "farming:string"},
-		{"default:stick", ""}
+		{"group:stick", ""}
 	}
 })
 
 
 -- firefly in a bottle
 minetest.register_node("fireflies:firefly_bottle", {
-	description = "Firefly in a Bottle",
+	description = S("Firefly in a Bottle"),
 	inventory_image = "fireflies_bottle.png",
 	wield_image = "fireflies_bottle.png",
 	tiles = {{
@@ -137,7 +142,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 	sunlight_propagates = true,
 	light_source = 9,
 	walkable = false,
-	groups = {dig_immediate = 3, attached_node = 1},
+	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
