@@ -65,6 +65,10 @@ local nobj_speedz = nil
 
 -- Update clouds function
 
+local function rangelim(value, lower, upper)
+	return math.min(math.max(value, lower), upper)
+end
+
 local os_time_0 = os.time()
 local t_offset = math.random(0, 300000)
 
@@ -86,9 +90,9 @@ local function update_clouds()
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local humid = minetest.get_humidity(player:get_pos())
 		player:set_clouds({
-			density = math.min(math.max(humid / 100, 0.25), 1.0) * n_density,
+			density = rangelim(humid / 100, 0.25, 1.0) * n_density,
 			thickness = math.max(math.floor(
-				math.min(math.max(32 * humid / 100, 8), 32) * n_thickness
+				rangelim(32 * humid / 100, 8, 32) * n_thickness
 				), 1),
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		})
