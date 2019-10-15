@@ -1,13 +1,13 @@
 # textdomain: doors
 Hidden Door Segment=Спрятанная часть двери
 Owned by @1=Владеет - @1
-You do not own this locked door.=Вы не владелец этой заблокированной двери
+You do not own this locked door.=Вы не владелец этой заблокированной двери.
 a locked door=заблокированная дверь
 Wooden Door=Деревянная дверь
 Steel Door=Стальная дверь
 Glass Door=Стеклянная дверь
 Obsidian Glass Door=Дверь из обсидианового стекла
-You do not own this trapdoor.=Вы не владелец этого люка
+You do not own this trapdoor.=Вы не владелец этого люка.
 a locked trapdoor=заблокированный люк
 Wooden Trapdoor=Древянный люк
 Steel Trapdoor=Стальной люк
