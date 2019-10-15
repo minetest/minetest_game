@@ -2,7 +2,7 @@
 Bones=Кости
 @1's old bones=Старые кости @1
 @1 died at @2.=@1 умер в @2
-@1 died at @2, and dropped their inventory.=@1 умер в @2 и потеряли содержимое своих инвентарей 
-@1 died at @2, and bones were placed.=@1 умер в @2 и помещены кости
+@1 died at @2, and dropped their inventory.=@1 умер в @2 и потерял содержимое своего инвентаря. 
+@1 died at @2, and bones were placed.=@1 умер в @2, и помещены кости
 @1's fresh bones=новые кости @1
 @1's bones=кости @1
