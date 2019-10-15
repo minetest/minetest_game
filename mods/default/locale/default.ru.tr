@@ -1,12 +1,12 @@
 # textdomain: default
 Locked Chest=Заблокированный сундук
 Locked Chest (owned by @1)=Заблокированный сундук (владеет - @1)
-You do not own this chest.=Вы не владелец этого сундука
+You do not own this chest.=Вы не владелец этого сундука.
 a locked chest=заблокированный сундук
 Chest=Сундук
 Stick=Палка
 Paper=Бумага
-"@1" by @2=
+"@1" by @2="@1" @2
 Book=Книга
 Book with Text=Книга с текстом
 Skeleton Key=Ключ скелета
