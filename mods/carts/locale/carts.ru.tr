@@ -1,6 +1,6 @@
 # textdomain: carts
 Cart=Вагонетка
-(Sneak+Click to pick up)=(Зажмите Shift и кликнете по вагонетке чтобы забрать)
+(Sneak+Click to pick up)=(Зажмите Shift и кликните по вагонетке, чтобы забрать)
 Rail=Рельса
 Powered Rail=Механизированная рельса
 Brake Rail=Рельса с тормозом
