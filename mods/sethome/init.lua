@@ -9,6 +9,14 @@ local S = minetest.get_translator("sethome")
 local homes_file = minetest.get_worldpath() .. "/homes"
 local homepos = {}
 
+local formspec =
+        "size[8,4]" ..
+        "real_coordinates[true]" ..
+        "label[3,0.5;" .. S("Are you sure?") .. "]" ..
+        "label[0.5,1;" .. S("(This will override your previous home coordinates!)") .. "]" ..
+        "button_exit[0.2,2.75;2,1;yes;Yes]" ..
+        "button_exit[5.6,2.75;2,1;no;No]"
+
 local function loadhomes()
 	local input = io.open(homes_file, "r")
 	if not input then
@@ -29,20 +37,29 @@ sethome.set = function(name, pos)
 	if not player or not pos then
 		return false
 	end
-	player:set_attribute("sethome:home", minetest.pos_to_string(pos))
 
-	-- remove `name` from the old storage file
-	local data = {}
-	local output = io.open(homes_file, "w")
-	if output then
-		homepos[name] = nil
-		for i, v in pairs(homepos) do
-			table.insert(data, string.format("%.1f %.1f %.1f %s\n", v.x, v.y, v.z, i))
+	minetest.show_formspec(player:get_player_name(), "sethome:sethomedialog", formspec)
+	minetest.register_on_player_receive_fields(function(player, formname, fields)
+		if formname == "sethome:sethomedialog" then -- This is your form name
+			if fields.yes then
+				player:set_attribute("sethome:home", minetest.pos_to_string(pos))
+
+				-- remove `name` from the old storage file
+				local data = {}
+				local output = io.open(homes_file, "w")
+				if output then
+					homepos[name] = nil
+					for i, v in pairs(homepos) do
+						table.insert(data, string.format("%.1f %.1f %.1f %s\n", v.x, v.y, v.z, i))
+					end
+					output:write(table.concat(data))
+					io.close(output)
+					return true
+				end
+			end
 		end
-		output:write(table.concat(data))
-		io.close(output)
-		return true
-	end
+	end)
+
 	return true -- if the file doesn't exist - don't return an error.
 end
 
