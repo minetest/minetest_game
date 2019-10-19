@@ -11,7 +11,7 @@ local homepos = {}
 
 local formspec =
         "size[8,4]" ..
-        "real_coordinates[true]" ..
+        "formspec_version[2]" ..
         "label[3,0.5;" .. S("Are you sure?") .. "]" ..
         "label[0.65,1;" .. S("(This will override your previous home coordinates!)") .. "]" ..
         "button_exit[0.2,2.75;2,1;yes;Yes]" ..
@@ -35,7 +35,7 @@ loadhomes()
 sethome.set = function(name, pos)
 	local player = minetest.get_player_by_name(name)
 	if not player or not pos then
-		minetest.chat_send_player(player:get_player_name(), "Player not found!")
+		minetest.chat_send_player(name, S("Player not found!"))
 	end
 	player:set_attribute("sethome:home", minetest.pos_to_string(pos))
 
@@ -56,7 +56,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "sethome:sethomedialog" then
 		if fields.yes then
 			sethome.set(player:get_player_name(), player:get_pos())
-			minetest.chat_send_player(player:get_player_name(), "Home set!")
+			minetest.chat_send_player(player:get_player_name(), S("Home set!"))
 		end
 	end
 end)
@@ -108,7 +108,6 @@ minetest.register_chatcommand("sethome", {
 	privs = {home = true},
 	func = function(name)
 		name = name or "" -- fallback to blank name if nil
-		local player = minetest.get_player_by_name(name)
-		minetest.show_formspec(player:get_player_name(), "sethome:sethomedialog", formspec)
+		minetest.show_formspec(name, "sethome:sethomedialog", formspec)
 	end,
 })
