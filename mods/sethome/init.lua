@@ -11,11 +11,10 @@ local homepos = {}
 
 local formspec =
         "size[8,4]" ..
-        "formspec_version[2]" ..
         "label[3,0.5;" .. S("Are you sure?") .. "]" ..
-        "label[0.65,1;" .. S("(This will override your previous home coordinates!)") .. "]" ..
-        "button_exit[0.2,2.75;2,1;yes;Yes]" ..
-        "button_exit[5.6,2.75;2,1;no;No]"
+        "label[0.4,1;" .. S("(This will override your previous home coordinates!)") .. "]" ..
+        "button_exit[-0.2,3;3,2;yes;" .. S("Yes") .. "]" ..
+        "button_exit[5.2,3;3,2;no;" .. S("No") .. "]"
 
 local function loadhomes()
 	local input = io.open(homes_file, "r")
@@ -35,7 +34,7 @@ loadhomes()
 sethome.set = function(name, pos)
 	local player = minetest.get_player_by_name(name)
 	if not player or not pos then
-		minetest.chat_send_player(name, S("Player not found!"))
+		return true
 	end
 	player:set_attribute("sethome:home", minetest.pos_to_string(pos))
 
