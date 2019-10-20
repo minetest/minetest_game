@@ -34,7 +34,7 @@ loadhomes()
 sethome.set = function(name, pos)
 	local player = minetest.get_player_by_name(name)
 	if not player or not pos then
-		return true
+		minetest.chat_send_player(player:get_player_name(), S("Player not found!"))
 	end
 	player:set_attribute("sethome:home", minetest.pos_to_string(pos))
 
@@ -52,10 +52,11 @@ sethome.set = function(name, pos)
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
+	local name = player:get_player_name()
 	if formname == "sethome:sethomedialog" then
 		if fields.yes then
-			sethome.set(player:get_player_name(), player:get_pos())
-			minetest.chat_send_player(player:get_player_name(), S("Home set!"))
+			sethome.set(name, player:get_pos())
+			minetest.chat_send_player(name, S("Home set!"))
 		end
 	end
 end)
