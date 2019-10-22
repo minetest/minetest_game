@@ -59,22 +59,36 @@ function creative.init_creative_inventory(player)
 	return player_inventory[player_name]
 end
 
+local function match(s, filter)
+	if filter == "" then
+		return 0
+	end
+	if s:lower():find(filter, 1, true) then
+		return #s - #filter
+	end
+	return nil
+end
+
 function creative.update_creative_inventory(player_name, tab_content)
-	local creative_list = {}
 	local inv = player_inventory[player_name] or
 			creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
 
 	local items = inventory_cache[tab_content] or init_creative_cache(tab_content)
 
+	local creative_list = {}
+	local order = {}
 	for name, def in pairs(items) do
-		if def.name:find(inv.filter, 1, true) or
-				def.description:lower():find(inv.filter, 1, true) then
+		local m = match(def.description, inv.filter) or match(def.name, inv.filter)
+		if m then
 			creative_list[#creative_list+1] = name
+			-- Sort by description length first so closer matches appear earlier
+			order[name] = string.format("%02d", m) .. name
 		end
 	end
 
-	table.sort(creative_list)
+	table.sort(creative_list, function(a, b) return order[a] < order[b] end)
+
 	player_inv:set_size("main", #creative_list)
 	player_inv:set_list("main", creative_list)
 	inv.size = #creative_list
