@@ -1944,11 +1944,35 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:jungle_tree",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.1,
-		biomes = {"rainforest", "rainforest_swamp"},
+		biomes = {"rainforest"},
 		y_max = 31000,
+		y_min = 1,
+		schematic = minetest.get_modpath("default") .. "/schematics/jungle_tree.mts",
+		flags = "place_center_x, place_center_z",
+		rotation = "random",
+	})
+
+	-- Swamp jungle trees
+
+	minetest.register_decoration({
+		name = "default:jungle_tree(swamp)",
+		deco_type = "schematic",
+		place_on = {"default:dirt"},
+		sidelen = 16,
+		-- Noise tuned to place swamp trees where papyrus is absent
+		noise_params = {
+			offset = 0.0,
+			scale = -0.1,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 354,
+			octaves = 1,
+			persist = 0.5
+		},
+		biomes = {"rainforest_swamp"},
+		y_max = 0,
 		y_min = -1,
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_tree.mts",
 		flags = "place_center_x, place_center_z",
@@ -1962,7 +1986,7 @@ function default.register_decorations()
 		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.005,
-		biomes = {"rainforest", "rainforest_swamp"},
+		biomes = {"rainforest"},
 		y_max = 31000,
 		y_min = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_log.mts",
@@ -2185,7 +2209,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"savanna_shore"},
+		biomes = {"savanna_shore", "rainforest_swamp"},
 		y_max = 0,
 		y_min = 0,
 		schematic = minetest.get_modpath("default") .. "/schematics/papyrus.mts",
