@@ -82,10 +82,10 @@ local function update_clouds()
 	nobj_speedx = nobj_speedx or minetest.get_perlin(np_speedx)
 	nobj_speedz = nobj_speedz or minetest.get_perlin(np_speedz)
 
-	local n_density = nobj_density:get2d({x = time, y = 0})
-	local n_thickness = nobj_thickness:get2d({x = time, y = 0})
-	local n_speedx = nobj_speedx:get2d({x = time, y = 0})
-	local n_speedz = nobj_speedz:get2d({x = time, y = 0})
+	local n_density = nobj_density:get_2d({x = time, y = 0})
+	local n_thickness = nobj_thickness:get_2d({x = time, y = 0})
+	local n_speedx = nobj_speedx:get_2d({x = time, y = 0})
+	local n_speedz = nobj_speedz:get_2d({x = time, y = 0})
 
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local humid = minetest.get_humidity(player:get_pos())
