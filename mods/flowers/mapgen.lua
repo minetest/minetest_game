@@ -100,7 +100,7 @@ local function register_flower(seed, flower_name)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
+		biomes = {"grassland", "deciduous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "flowers:"..flower_name,
@@ -121,8 +121,7 @@ local function register_mushroom(mushroom_name)
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest", "coniferous_forest",
-			"floatland_coniferous_forest"},
+		biomes = {"deciduous_forest", "coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "flowers:"..mushroom_name,
