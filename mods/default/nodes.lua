@@ -641,6 +641,8 @@ minetest.register_node("default:snow", {
 
 	-- Manage snow levels.
 	on_place = function(itemstack, player, pt, digger)
+		minetest.sound_play("default_place_node", {pos = pos})
+
 		local oldnode_under = minetest.get_node_or_nil(pt.under)
 		if not oldnode_under then
 			return itemstack
