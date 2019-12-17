@@ -630,19 +630,31 @@ minetest.register_node("default:snow", {
 
 	-- Handle node drops due to node level.
 	on_dig = function(pos, node, digger)
+		local level = minetest.get_node_level(pos)
 		minetest.sound_play("default_dig", {pos = pos})
 		minetest.node_dig(pos, node, digger)
 
 		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") or
 				minetest.get_node(pos).name == node.name then
 			return
+		else
+			local inv = digger:get_inventory()
+			if not inv then
+				return
+			end
+			local left = inv:add_item("main", "default:snow "..tostring(level/15-1))
+			if not left:is_empty() then
+				minetest.add_item({
+					x = pos.x + math.random()/2-0.25,
+					y = pos.y + math.random()/2-0.25,
+					z = pos.z + math.random()/2-0.25,
+				}, left)
+			end
 		end
 	end,
 
 	-- Manage snow levels.
 	on_place = function(itemstack, player, pt, digger)
-		minetest.sound_play("default_place_node", {pos = pos})
-
 		local oldnode_under = minetest.get_node_or_nil(pt.under)
 		if not oldnode_under then
 			return itemstack
@@ -693,6 +705,7 @@ minetest.register_node("default:snow", {
 		else
 			-- full cube, replace with snowblock
 			minetest.set_node(pos, {name="default:snowblock"})
+			minetest.sound_play("default_place_node", {pos = pos})
 		end
 
 		if not (creative and creative.is_enabled_for
