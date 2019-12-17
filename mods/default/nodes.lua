@@ -606,9 +606,10 @@ minetest.register_node("default:snow", {
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
 	sounds = default.node_sound_snow_defaults(),
-	node_placement_prediction = nil,
+	node_placement_prediction = "",
 
 	on_construct = function(pos)
+		minetest.sound_play("default_place_node", {pos = pos})
 		local level = minetest.get_node_level(pos)
 		if level >= 64 then
 			minetest.set_node(pos, {name="default:snowblock"})
@@ -629,6 +630,7 @@ minetest.register_node("default:snow", {
 
 	-- Handle node drops due to node level.
 	on_dig = function(pos, node, digger)
+		minetest.sound_play("default_dig", {pos = pos})
 		minetest.node_dig(pos, node, digger)
 
 		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") or
