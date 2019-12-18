@@ -72,6 +72,6 @@ engine_spawn (Use engine spawn search) bool false
 #    Helps rivers create more sound, especially on level sections.
 river_source_sounds (River source node sounds) bool false
 
-#    Enable cloud variation.
+#    Enable cloud variation by the 'weather' mod.
 #    Non-functional in V6 or Singlenode mapgens.
 enable_weather (Enable weather) bool true
