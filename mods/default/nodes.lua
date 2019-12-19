@@ -637,19 +637,12 @@ minetest.register_node("default:snow", {
 		if creative and creative.is_enabled_for and creative.is_enabled_for(digger and digger:get_player_name() or "") or
 				minetest.get_node(pos).name == node.name then
 			return
-		else
-			local inv = digger:get_inventory()
-			if not inv then
-				return
-			end
-			local left = inv:add_item("main", "default:snow "..tostring(level/15-1))
-			if not left:is_empty() then
-				minetest.add_item({
-					x = pos.x + math.random()/2-0.25,
-					y = pos.y + math.random()/2-0.25,
-					z = pos.z + math.random()/2-0.25,
-				}, left)
-			end
+		end
+
+		-- Handle node drops due to node level.
+		local remaining = ItemStack("default:snow " .. tostring(level / 16 - 1))
+		if not remaining:is_empty() then
+			minetest.handle_node_drops(pos, {remaining}, digger)
 		end
 	end,
 
