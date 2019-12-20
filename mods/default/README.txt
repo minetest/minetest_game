@@ -101,8 +101,7 @@ paramat (CC BY-SA 3.0):
   default_dry_grass.png
   default_dry_grass_side.png
   default_dry_grass_*.png
-  default_grass.png
-  default_grass_side.png
+  default_grass_side.png -- Derived from a texture by TumeniNodes (CC-BY-SA 3.0)
   default_mese_block.png
   default_silver_sand.png
   default_mese_post_light_side.png
@@ -124,11 +123,15 @@ paramat (CC BY-SA 3.0):
   default_fence_rail_junglewood
   default_fence_rail_pine_wood
   default_fence_rail_wood -- Derived from a texture by BlockMen (CC BY-SA 3.0)
+  gui_hotbar.png
+  gui_hotbar_selected.png
 
 TumeniNodes (CC BY-SA 3.0):
   default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
   default_coniferous_litter.png
   default_coniferous_litter_side.png
+  default_grass.png
+  default_dry_dirt.png
 
 BlockMen (CC BY-SA 3.0):
   default_aspen_leaves.png -- Derived from Sofar's texture
@@ -149,7 +152,10 @@ BlockMen (CC BY-SA 3.0):
   default_mineral_mese.png
   default_meselamp.png
   bubble.png
-  gui_*.png
+  gui_formbg.png
+  gui_furnace_arrow_bg.png
+  gui_furnace_arrow_fg.png
+  gui_hb_bg.png
 
 sofar (CC BY-SA 3.0):
   default_aspen_sapling
@@ -328,6 +334,10 @@ http://freesound.org/people/Ryding/sounds/94337/
 
 Ferk (CC0 1.0):
   default_item_smoke.ogg, based on a sound by http://opengameart.org/users/bart
+
+sonictechtonic (CC BY 3.0):
+https://www.freesound.org/people/sonictechtonic/sounds/241872/
+  player_damage.ogg
 
 
 Models

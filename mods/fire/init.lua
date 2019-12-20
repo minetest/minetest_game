@@ -1,6 +1,12 @@
+-- fire/init.lua
+
 -- Global namespace for functions
 
 fire = {}
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("fire")
+
 
 -- 'Enable fire' setting
 
@@ -82,7 +88,7 @@ minetest.register_node("fire:basic_flame", {
 })
 
 minetest.register_node("fire:permanent_flame", {
-	description = "Permanent Flame",
+	description = S("Permanent Flame"),
 	drawtype = "firelike",
 	tiles = {
 		{
@@ -113,7 +119,7 @@ minetest.register_node("fire:permanent_flame", {
 -- Flint and steel
 
 minetest.register_tool("fire:flint_and_steel", {
-	description = "Flint and Steel",
+	description = S("Flint and Steel"),
 	inventory_image = "fire_flint_steel.png",
 	sound = {breaks = "default_tool_breaks"},
 

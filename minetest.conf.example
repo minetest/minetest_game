@@ -60,7 +60,18 @@ default:torch 99,default:cobble 99
 # Default value is true.
 #enable_bed_night_skip = true
 
+# If enabled, fences and walls cannot be jumped over.
+#enable_fence_tall = false
+
 # Whether the engine's spawn search, which does not check for a suitable
 # starting biome, is used.
 # Default value is false.
 #engine_spawn = false
+
+# Whether river water source nodes create flowing sounds.
+# Helps rivers create more sound, especially on level sections.
+#river_source_sounds = false
+
+# Enable cloud variation by the 'weather' mod.
+# Non-functional in V6 or Singlenode mapgens.
+#enable_weather = true

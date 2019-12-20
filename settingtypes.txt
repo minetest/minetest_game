@@ -32,6 +32,9 @@ enable_bed_respawn (Respawn at bed) bool true
 #    in beds.
 enable_bed_night_skip (Skip night when sleeping) bool true
 
+#    If enabled, fences and walls cannot be jumped over.
+enable_fence_tall (Tall fences and walls) bool false
+
 #    When TNT explodes, it destroys nearby nodes and damages nearby players.
 #    This setting is disabled by default on servers.
 enable_tnt (TNT) bool true
@@ -64,3 +67,11 @@ enable_stairs_replace_abm (Replace old stairs) bool false
 #    If enabled, use the engine's spawn search which does not check for a
 #    suitable starting biome.
 engine_spawn (Use engine spawn search) bool false
+
+#    Whether river water source nodes create flowing sounds.
+#    Helps rivers create more sound, especially on level sections.
+river_source_sounds (River source node sounds) bool false
+
+#    Enable cloud variation by the 'weather' mod.
+#    Non-functional in V6 or Singlenode mapgens.
+enable_weather (Enable weather) bool true

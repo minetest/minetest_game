@@ -1,8 +1,13 @@
+-- butterflies/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("butterflies")
+
 -- register butterflies
 local butter_list = {
-	{"white", "White"},
-	{"red", "Red"},
-	{"violet", "Violet"}
+	{"white",  S("White Butterfly")},
+	{"red",    S("Red Butterfly")},
+	{"violet", S("Violet Butterfly")}
 }
 
 for i in ipairs (butter_list) do
@@ -10,7 +15,7 @@ for i in ipairs (butter_list) do
 	local desc = butter_list[i][2]
 
 	minetest.register_node("butterflies:butterfly_"..name, {
-		description = desc.." Butterfly",
+		description = desc,
 		drawtype = "plantlike",
 		tiles = {{
 			name = "butterflies_butterfly_"..name.."_animated.png",
@@ -56,10 +61,9 @@ for i in ipairs (butter_list) do
 	})
 
 	minetest.register_node("butterflies:hidden_butterfly_"..name, {
-		description = "Hidden "..desc.." Butterfly",
 		drawtype = "airlike",
-		inventory_image = "insects_butterfly_"..name..".png",
-		wield_image =  "insects_butterfly_"..name..".png",
+		inventory_image = "butterflies_butterfly_"..name..".png",
+		wield_image =  "butterflies_butterfly_"..name..".png",
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
@@ -98,7 +102,7 @@ minetest.register_decoration({
 	place_offset_y = 2,
 	sidelen = 80,
 	fill_ratio = 0.005,
-	biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
+	biomes = {"grassland", "deciduous_forest"},
 	y_max = 31000,
 	y_min = 1,
 	decoration = {

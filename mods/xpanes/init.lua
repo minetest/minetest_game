@@ -1,3 +1,8 @@
+-- xpanes/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("xpanes")
+
 
 local function is_pane(pos)
 	return minetest.get_item_group(minetest.get_node(pos).name, "pane") > 0
@@ -27,7 +32,7 @@ local function swap(pos, node, name, param2)
 		return
 	end
 
-	minetest.set_node(pos, {name = name, param2 = param2})
+	minetest.swap_node(pos, {name = name, param2 = param2})
 end
 
 local function update_pane(pos)
@@ -100,7 +105,14 @@ function xpanes.register_pane(name, def)
 		inventory_image = def.inventory_image,
 		wield_image = def.wield_image,
 		paramtype2 = "facedir",
-		tiles = {def.textures[3], def.textures[3], def.textures[1]},
+		tiles = {
+				def.textures[3],
+				def.textures[3],
+				def.textures[3],
+				def.textures[3],
+				def.textures[1],
+				def.textures[1]
+		},
 		groups = flatgroups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
@@ -148,7 +160,7 @@ function xpanes.register_pane(name, def)
 end
 
 xpanes.register_pane("pane", {
-	description = "Glass Pane",
+	description = S("Glass Pane"),
 	textures = {"default_glass.png","xpanes_pane_half.png","xpanes_edge.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
@@ -161,7 +173,7 @@ xpanes.register_pane("pane", {
 })
 
 xpanes.register_pane("obsidian_pane", {
-	description = "Obsidian Glass Pane",
+	description = S("Obsidian Glass Pane"),
 	textures = {"default_obsidian_glass.png","xpanes_pane_half.png","xpanes_edge_obsidian.png"},
 	inventory_image = "default_obsidian_glass.png",
 	wield_image = "default_obsidian_glass.png",
@@ -174,7 +186,7 @@ xpanes.register_pane("obsidian_pane", {
 })
 
 xpanes.register_pane("bar", {
-	description = "Steel Bars",
+	description = S("Steel Bars"),
 	textures = {"xpanes_bar.png","xpanes_bar.png","xpanes_bar_top.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
@@ -197,3 +209,45 @@ minetest.register_lbm({
 		end
 	end
 })
+
+-- Register steel bar doors and trapdoors
+
+if minetest.get_modpath("doors") then
+
+	doors.register("xpanes:door_steel_bar", {
+		tiles = {{name = "xpanes_door_steel_bar.png", backface_culling = true}},
+		description = S("Steel Bar Door"),
+		inventory_image = "xpanes_item_steel_bar.png",
+		protected = true,
+		groups = {cracky = 1, level = 2},
+		sounds = default.node_sound_metal_defaults(),
+		sound_open = "xpanes_steel_bar_door_open",
+		sound_close = "xpanes_steel_bar_door_close",
+		recipe = {
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+		},
+	})
+
+	doors.register_trapdoor("xpanes:trapdoor_steel_bar", {
+		description = S("Steel Bar Trapdoor"),
+		inventory_image = "xpanes_trapdoor_steel_bar.png",
+		wield_image = "xpanes_trapdoor_steel_bar.png",
+		tile_front = "xpanes_trapdoor_steel_bar.png",
+		tile_side = "xpanes_trapdoor_steel_bar_side.png",
+		protected = true,
+		groups = {cracky = 1, level = 2, door = 1},
+		sounds = default.node_sound_metal_defaults(),
+		sound_open = "xpanes_steel_bar_door_open",
+		sound_close = "xpanes_steel_bar_door_close",
+	})
+
+	minetest.register_craft({
+		output = "xpanes:trapdoor_steel_bar",
+		recipe = {
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+			{"xpanes:bar_flat", "xpanes:bar_flat"},
+		}
+	})
+end
