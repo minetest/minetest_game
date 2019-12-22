@@ -3,7 +3,7 @@ allow_defined_top = true
 
 read_globals = {
 	"DIR_DELIM",
-	"minetest", "core",
+	"minetest",
 	"dump",
 	"vector",
 	"VoxelManip", "VoxelArea",
