@@ -453,7 +453,6 @@ for name, mat in pairs(craft_ingreds) do
 	})
 end
 
-
 minetest.register_tool("default:key", {
 	description = S("Key"),
 	inventory_image = "default_key.png",
@@ -492,4 +491,11 @@ minetest.register_tool("default:key", {
 
 		return nil
 	end
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:gold_ingot",
+	recipe = "default:key",
+	cooktime = 5,
 })
