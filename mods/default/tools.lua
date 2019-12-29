@@ -494,8 +494,25 @@ minetest.register_tool("default:key", {
 })
 
 minetest.register_craft({
-	type = "cooking",
-	output = "default:gold_ingot",
-	recipe = "default:key",
-	cooktime = 5,
+	type = "fuel",
+	recipe = "default:pick_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:shovel_wood",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:axe_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:sword_wood",
+	burntime = 5,
 })
