@@ -191,7 +191,7 @@ local function get_recipe_formspec(data)
 			"Cooking time: "..minetest.colorize("yellow", cooktime)
 		table.insert(fs, "tooltip[3.2,6.1;0.5,0.5;"..tooltip.."]")
 	end
-	table.insert(fs, "image[3,6.6;1,1;gui_furnace_arrow_bg.png^[transformR270]")
+	table.insert(fs, "image[3,6.6;1,1;sfinv_crafting_arrow.png]")
 
 	local output_name = recipe.output:match("%S*")
 	table.insert(fs, ("item_image_button[4,6.6;1.05,1.05;%s;%s;]")
