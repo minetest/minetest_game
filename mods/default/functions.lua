@@ -141,7 +141,7 @@ default.cool_lava = function(pos, node)
 		minetest.set_node(pos, {name = "default:stone"})
 	end
 	minetest.sound_play("default_cool_lava",
-		{pos = pos, max_hear_distance = 16, gain = 0.25})
+		{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
 end
 
 if minetest.settings:get_bool("enable_lavacooling") ~= false then

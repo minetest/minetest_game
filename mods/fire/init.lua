@@ -34,7 +34,7 @@ local function flood_flame(pos, oldnode, newnode)
 	if not (nodedef and nodedef.groups and
 			nodedef.groups.igniter and nodedef.groups.igniter > 0) then
 		minetest.sound_play("fire_extinguish_flame",
-			{pos = pos, max_hear_distance = 16, gain = 0.15})
+			{pos = pos, max_hear_distance = 16, gain = 0.15}, true)
 	end
 	-- Remove the flame
 	return false
@@ -127,7 +127,8 @@ minetest.register_tool("fire:flint_and_steel", {
 		local sound_pos = pointed_thing.above or user:get_pos()
 		minetest.sound_play(
 			"fire_flint_and_steel",
-			{pos = sound_pos, gain = 0.5, max_hear_distance = 8}
+			{pos = sound_pos, gain = 0.5, max_hear_distance = 8},
+			true
 		)
 		local player_name = user:get_player_name()
 		if pointed_thing.type == "node" then
@@ -154,7 +155,8 @@ minetest.register_tool("fire:flint_and_steel", {
 			itemstack:add_wear(1000)
 			-- Tool break sound
 			if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then
-				minetest.sound_play(wdef.sound.breaks, {pos = sound_pos, gain = 0.5})
+				minetest.sound_play(wdef.sound.breaks, {pos = sound_pos,
+					gain = 0.5}, true)
 			end
 			return itemstack
 		end

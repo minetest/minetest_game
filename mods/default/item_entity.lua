@@ -20,7 +20,7 @@ local item = {
 		minetest.sound_play("default_item_smoke", {
 			pos = p,
 			max_hear_distance = 8,
-		})
+		}, true)
 		minetest.add_particlespawner({
 			amount = 3,
 			time = 0.1,

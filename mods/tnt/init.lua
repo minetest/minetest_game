@@ -274,7 +274,7 @@ function tnt.burn(pos, nodename)
 		def.on_ignite(pos)
 	elseif minetest.get_item_group(name, "tnt") > 0 then
 		minetest.swap_node(pos, {name = name .. "_burning"})
-		minetest.sound_play("tnt_ignite", {pos = pos})
+		minetest.sound_play("tnt_ignite", {pos = pos}, true)
 		minetest.get_node_timer(pos):start(1)
 	end
 end
@@ -403,7 +403,7 @@ function tnt.boom(pos, def)
 	end
 	local sound = def.sound or "tnt_explode"
 	minetest.sound_play(sound, {pos = pos, gain = 2.5,
-			max_hear_distance = math.min(def.radius * 20, 128)})
+			max_hear_distance = math.min(def.radius * 20, 128)}, true)
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
 			def.ignore_on_blast, owner, def.explode_center)
 	-- append entity drops
@@ -541,7 +541,8 @@ minetest.register_node("tnt:gunpowder_burning", {
 	-- unaffected by explosions
 	on_blast = function() end,
 	on_construct = function(pos)
-		minetest.sound_play("tnt_gunpowder_burning", {pos = pos, gain = 2})
+		minetest.sound_play("tnt_gunpowder_burning", {pos = pos,
+			gain = 2}, true)
 		minetest.get_node_timer(pos):start(1)
 	end,
 })
@@ -672,7 +673,7 @@ function tnt.register_tnt(def)
 		-- unaffected by explosions
 		on_blast = function() end,
 		on_construct = function(pos)
-			minetest.sound_play("tnt_ignite", {pos = pos})
+			minetest.sound_play("tnt_ignite", {pos = pos}, true)
 			minetest.get_node_timer(pos):start(4)
 			minetest.check_for_falling(pos)
 		end,
