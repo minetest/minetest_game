@@ -414,7 +414,7 @@ minetest.register_craftitem("carts:cart", {
 		end
 
 		minetest.sound_play({name = "default_place_node_metal", gain = 0.5},
-			{pos = pointed_thing.above})
+			{pos = pointed_thing.above}, true)
 
 		if not (creative and creative.is_enabled_for
 				and creative.is_enabled_for(placer:get_player_name())) then

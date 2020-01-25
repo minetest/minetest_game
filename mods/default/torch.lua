@@ -11,7 +11,8 @@ local function on_flood(pos, oldnode, newnode)
 			nodedef.groups.igniter and nodedef.groups.igniter > 0) then
 		minetest.sound_play(
 			"default_cool_lava",
-			{pos = pos, max_hear_distance = 16, gain = 0.1}
+			{pos = pos, max_hear_distance = 16, gain = 0.1},
+			true
 		)
 	end
 	-- Remove the torch node
