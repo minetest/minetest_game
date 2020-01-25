@@ -239,6 +239,32 @@ local function grow_sapling(...)
 	return default.grow_sapling(...)
 end
 
+-- Global sounds for place and dug
+function playSound(pos, actor, sound)
+    for _, player in pairs(minetest.get_connected_players()) do
+        local name = player:get_player_name()
+        if name ~= actor:get_player_name() then
+            minetest.sound_play(sound, {to_player = name, pos = pos, max_hear_distance = 8})
+        end
+    end
+end
+
+minetest.register_on_placenode(function(pos, newnode, placer)
+    local nodedef = minetest.registered_nodes[newnode.name]
+
+    if nodedef.sounds then
+        playSound(pos, placer, nodedef.sounds.place)
+    end
+end)
+
+minetest.register_on_dignode(function(pos, oldnode, digger)
+    local nodedef = minetest.registered_nodes[oldnode.name]
+
+    if nodedef.sounds then
+        playSound(pos, digger, nodedef.sounds.dug)
+    end
+end)
+
 --
 -- Stone
 --
