@@ -58,6 +58,20 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		return
 	end
 
+	if bed_pos then
+		for _, other_pos in pairs(beds.bed_position) do
+			if vector.distance(bed_pos, other_pos) < 0.1 then
+				minetest.chat_send_player(name, S("This bed is already occupied!"))
+				return false
+			end
+		end
+
+		if vector.length(player:get_player_velocity()) > 0.001 then
+			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			return false
+		end
+	end
+
 	-- stand up
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
@@ -223,6 +237,37 @@ minetest.register_on_leaveplayer(function(player)
 		end)
 	end
 end)
+
+minetest.register_on_dieplayer(function(player)
+	local pos = player:get_pos()
+	local yaw = get_look_yaw(pos)
+
+	lay_down(player, nil, pos, false)
+	player:set_look_horizontal(yaw)
+	player:set_pos(pos)
+
+	minetest.chat_send_all(player:get_player_name().." died.")
+end)
+
+function minetest.calculate_knockback(player, hitter, time_from_last_punch, tool_capabilities, dir, distance, damage)
+	local in_bed = beds.player
+
+	if damage == 0 or player:get_armor_groups().immortal or in_bed[player] then
+		return 0.0
+	end
+
+	local m = 8
+	-- solve m - m*e^(k*4) = 4 for k
+	local k = -0.17328
+	local res = m - m * math.exp(k * damage)
+
+	if distance < 2.0 then
+		res = res * 1.1 -- more knockback when closer
+	elseif distance > 4.0 then
+		res = res * 0.9 -- less when far away
+	end
+	return res
+end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "beds_form" then
