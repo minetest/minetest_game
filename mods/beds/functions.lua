@@ -240,7 +240,6 @@ end)
 
 minetest.register_on_dieplayer(function(player)
 	local name = player:get_player_name()
-	local player = minetest.get_player_by_name(name)
 	local in_bed = beds.player
 	local pos = player:get_pos()
 	local yaw = get_look_yaw(pos)
