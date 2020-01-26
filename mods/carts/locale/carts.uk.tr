@@ -1,6 +1,6 @@
 # textdomain: carts
 Cart = Вагонетка
-(Sneak+Click to pick up) = (Пригніться + Щиглик по вагонетці аби її забрати)
-Rail = Рейки
-Powered Rail = Розгінні рейки
-Brake Rail = Сповільнюючі рейки
+(Sneak+Click to pick up)=(Пригніться + Щиглик по вагонетці аби її забрати)
+Rail=Рейки
+Powered Rail=Розгінні рейки
+Brake Rail=Сповільнюючі рейки
