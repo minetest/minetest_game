@@ -140,6 +140,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 
 	local under = minetest.get_node(pt.under)
 	local above = minetest.get_node(pt.above)
+	local place_to = {x = pt.above.x, y = pt.above.y, z = pt.above.z}
 
 	local player_name = placer and placer:get_player_name() or ""
 
@@ -176,6 +177,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- add the node and remove 1 item from the itemstack
+	minetest.log("action", player_name .. " places node " .. plantname .. " at " .. minetest.pos_to_string(place_to))
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
 	if not (creative and creative.is_enabled_for
