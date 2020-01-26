@@ -65,11 +65,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 				return false
 			end
 		end
+	end
 
-		if vector.length(player:get_player_velocity()) > 0.001 then
-			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
-			return false
-		end
+	if vector.length(player:get_player_velocity()) > 0.001 then
+		minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+		return false
 	end
 
 	-- stand up
@@ -239,20 +239,26 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 minetest.register_on_dieplayer(function(player)
+	local name = player:get_player_name()
+	local player = minetest.get_player_by_name(name)
+	local in_bed = beds.player
 	local pos = player:get_pos()
 	local yaw = get_look_yaw(pos)
 
-	lay_down(player, nil, pos, false)
-	player:set_look_horizontal(yaw)
-	player:set_pos(pos)
+	if in_bed[name] then
+		lay_down(player, nil, pos, false)
+		player:set_look_horizontal(yaw)
+		player:set_pos(pos)
+	end
 
 	minetest.chat_send_all(player:get_player_name().." died.")
 end)
 
 function minetest.calculate_knockback(player, hitter, time_from_last_punch, tool_capabilities, dir, distance, damage)
 	local in_bed = beds.player
+	local name = player:get_player_name()
 
-	if damage == 0 or player:get_armor_groups().immortal or in_bed[player] then
+	if damage == 0 or player:get_armor_groups().immortal or in_bed[name] then
 		return 0.0
 	end
 
@@ -295,3 +301,4 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
+
