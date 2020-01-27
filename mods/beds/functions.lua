@@ -249,29 +249,14 @@ minetest.register_on_dieplayer(function(player)
 		player:set_look_horizontal(yaw)
 		player:set_pos(pos)
 	end
-
-	minetest.chat_send_all(player:get_player_name().." died.")
 end)
 
-function minetest.calculate_knockback(player, hitter, time_from_last_punch, tool_capabilities, dir, distance, damage)
-	local in_bed = beds.player
-	local name = player:get_player_name()
-
-	if damage == 0 or player:get_armor_groups().immortal or in_bed[name] then
-		return 0.0
-	end
-
-	local m = 8
-	-- solve m - m*e^(k*4) = 4 for k
-	local k = -0.17328
-	local res = m - m * math.exp(k * damage)
-
-	if distance < 2.0 then
-		res = res * 1.1 -- more knockback when closer
-	elseif distance > 4.0 then
-		res = res * 0.9 -- less when far away
-	end
-	return res
+local old_calculate_knockback = minetest.calculate_knockback
+function minetest.calculate_knockback(player, ...)
+    if beds.player[player:get_player_name()] then
+        return 0
+    end
+    return old_calculate_knockback(player, ...)
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
