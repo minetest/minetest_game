@@ -58,12 +58,10 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		return
 	end
 
-	if bed_pos then
-		for _, other_pos in pairs(beds.bed_position) do
-			if vector.distance(bed_pos, other_pos) < 0.1 then
-				minetest.chat_send_player(name, S("This bed is already occupied!"))
-				return false
-			end
+	for _, other_pos in pairs(beds.bed_position) do
+		if vector.distance(bed_pos, other_pos) < 0.1 then
+			minetest.chat_send_player(name, S("This bed is already occupied!"))
+			return false
 		end
 	end
 
