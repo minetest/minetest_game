@@ -254,7 +254,7 @@ local function furnace_node_timer(pos, elapsed)
 	if active then
 		infotext = S("Furnace active")
         -- Play sound while the furnace is active
-		minetest.sound_play("fire_fire", {pos = pos, max_hear_distance = 16, gain = 0.1})
+		minetest.sound_play("default_furnace_active", {pos = pos, max_hear_distance = 16, gain = 0.1})
 	else
 		infotext = S("Furnace inactive")
 	end
