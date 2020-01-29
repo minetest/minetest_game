@@ -155,7 +155,8 @@ local function furnace_node_timer(pos, elapsed)
 						dst_full = true
 					end
 					-- Play cooling sound
-					minetest.sound_play("default_cool_lava", {pos = pos, max_hear_distance = 16, gain = 0.05})
+					minetest.sound_play("default_cool_lava",
+						{pos = pos, max_hear_distance = 16, gain = 0.05})
 				else
 					-- Item could not be cooked: probably missing fuel
 					update = true
@@ -239,6 +240,9 @@ local function furnace_node_timer(pos, elapsed)
 		swap_node(pos, "default:furnace_active")
 		-- make sure timer restarts automatically
 		result = true
+		-- Play sound while the furnace is active
+		minetest.sound_play("default_furnace_active",
+			{pos = pos, max_hear_distance = 16, gain = 0.1})
 	else
 		if fuellist and not fuellist[1]:is_empty() then
 			fuel_state = S("@1%", 0)
@@ -253,8 +257,6 @@ local function furnace_node_timer(pos, elapsed)
 	local infotext
 	if active then
 		infotext = S("Furnace active")
-        -- Play sound while the furnace is active
-		minetest.sound_play("default_furnace_active", {pos = pos, max_hear_distance = 16, gain = 0.1})
 	else
 		infotext = S("Furnace inactive")
 	end
