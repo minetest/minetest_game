@@ -109,6 +109,14 @@ minetest.register_lbm({
 	end
 })
 
+minetest.register_lbm({
+	name = "default:remove_torch_ceiling",
+	nodenames = {"default:torch_ceiling"},
+	action = function(pos, node)
+		minetest.set_node(pos, {name = "default:torch"})
+	end,
+})
+
 minetest.register_craft({
 	output = "default:torch 4",
 	recipe = {
