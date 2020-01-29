@@ -58,18 +58,6 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		return
 	end
 
-	for _, other_pos in pairs(beds.bed_position) do
-		if vector.distance(bed_pos, other_pos) < 0.1 then
-			minetest.chat_send_player(name, S("This bed is already occupied!"))
-			return false
-		end
-	end
-
-	if vector.length(player:get_player_velocity()) > 0.001 then
-		minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
-		return false
-	end
-
 	-- stand up
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
@@ -93,6 +81,21 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- lay down
 	else
+
+		-- Check if bed is occupied
+		for _, other_pos in pairs(beds.bed_position) do
+			if vector.distance(bed_pos, other_pos) < 0.1 then
+				minetest.chat_send_player(name, S("This bed is already occupied!"))
+				return false
+			end
+		end
+
+		-- Check if player is moving
+		if vector.length(player:get_player_velocity()) > 0.001 then
+			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			return false
+		end
+
 		beds.pos[name] = pos
 		beds.bed_position[name] = bed_pos
 		beds.player[name] = 1
