@@ -581,6 +581,40 @@ minetest.register_abm({
 	end
 })
 
+--
+-- Register a craft to copy the metadata of items
+--
+
+function default.register_craft_metadata_copy(ingredient, result)
+	minetest.register_craft({
+		type = "shapeless",
+		output = result,
+		recipe = {ingredient, result}
+	})
+
+	minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+		if itemstack:get_name() ~= result then
+			return
+		end
+
+		local original
+		local index
+		for i = 1, #old_craft_grid do
+			if old_craft_grid[i]:get_name() == result then
+				original = old_craft_grid[i]
+				index = i
+			end
+		end
+		if not original then
+			return
+		end
+		local copymeta = original:get_meta():to_table()
+		itemstack:get_meta():from_table(copymeta)
+		-- put the book with metadata back in the craft grid
+		craft_inv:set_stack("craft", index, original)
+	end)
+end
+
 
 --
 -- NOTICE: This method is not an official part of the API yet.
@@ -605,7 +639,7 @@ function default.can_interact_with_node(player, pos)
 
 	-- Is player wielding the right key?
 	local item = player:get_wielded_item()
-	if item:get_name() == "default:key" then
+	if minetest.get_item_group(item:get_name(), "key") == 1 then
 		local key_meta = item:get_meta()
 
 		if key_meta:get_string("secret") == "" then

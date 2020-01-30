@@ -402,6 +402,57 @@ minetest.register_tool("default:sword_diamond", {
 	groups = {sword = 1}
 })
 
+--
+-- Register Craft Recipies
+--
+
+local craft_ingreds = {
+	wood = "group:wood",
+	stone = "group:stone",
+	steel = "default:steel_ingot",
+	bronze = "default:bronze_ingot",
+	mese = "default:mese_crystal",
+	diamond = "default:diamond"
+}
+
+for name, mat in pairs(craft_ingreds) do
+	minetest.register_craft({
+		output = "default:pick_".. name,
+		recipe = {
+			{mat, mat, mat},
+			{"", "group:stick", ""},
+			{"", "group:stick", ""}
+		}
+	})
+
+	minetest.register_craft({
+		output = "default:shovel_".. name,
+		recipe = {
+			{mat},
+			{"group:stick"},
+			{"group:stick"}
+		}
+	})
+
+	minetest.register_craft({
+		output = "default:axe_".. name,
+		recipe = {
+			{mat, mat},
+			{mat, "group:stick"},
+			{"", "group:stick"}
+		}
+	})
+
+	minetest.register_craft({
+		output = "default:sword_".. name,
+		recipe = {
+			{mat},
+			{mat},
+			{"group:stick"}
+		}
+	})
+end
+
 minetest.register_tool("default:key", {
 	description = S("Key"),
 	inventory_image = "default_key.png",
@@ -440,4 +491,28 @@ minetest.register_tool("default:key", {
 
 		return nil
 	end
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pick_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:shovel_wood",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:axe_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:sword_wood",
+	burntime = 5,
 })

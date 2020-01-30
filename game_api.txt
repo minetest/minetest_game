@@ -1055,3 +1055,11 @@ for the wielded skeleton key.
 
 if `nil` is returned, it is assumed that the wielder did not have
 permissions to create a key for this node, and no key is created.
+
+`default.register_craft_metadata_copy(ingredient, result)`
+----------------------------------------------------------
+
+This function registers a shapeless recipe that takes `ingredient`
+and `result` as input and outputs `result`.
+
+The metadata of the input `result` is copied to the output `result`.

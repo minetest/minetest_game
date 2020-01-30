@@ -2031,7 +2031,7 @@ local function coral_on_place(itemstack, placer, pointed_thing)
 	local def_under = minetest.registered_nodes[node_under.name]
 
 	if def_under and def_under.on_rightclick and not placer:get_player_control().sneak then
-		return def_under.on_rightclick(pos_under, node_under.name,
+		return def_under.on_rightclick(pos_under, node_under,
 				placer, itemstack, pointed_thing) or itemstack
 	end
 

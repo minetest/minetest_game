@@ -17,6 +17,8 @@ local function destruct_bed(pos, n)
 		reverse = not reverse
 		minetest.remove_node(other)
 		minetest.check_for_falling(other)
+		beds.remove_spawns_at(pos)
+		beds.remove_spawns_at(other)
 	else
 		reverse = not reverse
 	end

@@ -4,6 +4,7 @@ See license.txt for license information.
 
 Provides an API to allow multiple mods to set player models and textures.
 Also sets the default model, texture, and player flags.
+This mod is only for content related to the Player API and the player object.
 
 Authors of source code
 ----------------------
@@ -16,17 +17,13 @@ stujones11 (CC BY-SA 3.0):
   character.b3d
   character.blend -- Both derived from a model by MirceaKitsune (CC BY-SA 3.0)
 
+An0n3m0us (CC BY-SA 3.0):
+  character.b3d
+  character.blend -- Player animation improvement
+
 Jordach (CC BY-SA 3.0):
   character.png
-
-paramat (CC BY-SA 3.0):
-  gui_hotbar.png
-  gui_hotbar_selected.png
 
 celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0):
   player.png
   player_back.png
-
-sonictechtonic (CC BY 3.0):
-https://www.freesound.org/people/sonictechtonic/sounds/241872/
-  player_damage.ogg
