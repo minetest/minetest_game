@@ -339,9 +339,9 @@ sonictechtonic (CC BY 3.0):
 https://www.freesound.org/people/sonictechtonic/sounds/241872/
   player_damage.ogg
 
-Dynamicell (CC BY 3.0)
-http://www.freesound.org/people/Dynamicell/sounds/17548/
-  default_furnace_active.*.ogg
+laurent (Attribution 3.0 Unported)
+https://freesound.org/people/laurent/sounds/21109/
+  default_furnace_active.ogg
 
 
 Models
