@@ -9,7 +9,7 @@ for i = 1, #dyes do
 	local name, desc = unpack(dyes[i])
 
 	minetest.register_node("wool:" .. name, {
-		description = S(desc .. " Wool"),
+		description = S(desc .. " Fabric"),
 		tiles = {"wool_" .. name .. ".png"},
 		is_ground_content = false,
 		groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3,
@@ -31,22 +31,22 @@ minetest.register_alias("wool:gold", "wool:yellow")
 
 -- Dummy calls to S() to allow translation scripts to detect the strings.
 -- To update this run:
--- for _,e in ipairs(dye.dyes) do print(("S(%q)"):format(e[2].." Wool")) end
+-- for _,e in ipairs(dye.dyes) do print(("S(%q)"):format(e[2].." Fabric")) end
 
 --[[
-S("White Wool")
-S("Grey Wool")
-S("Dark Grey Wool")
-S("Black Wool")
-S("Violet Wool")
-S("Blue Wool")
-S("Cyan Wool")
-S("Dark Green Wool")
-S("Green Wool")
-S("Yellow Wool")
-S("Brown Wool")
-S("Orange Wool")
-S("Red Wool")
-S("Magenta Wool")
-S("Pink Wool")
+S("White Fabric")
+S("Grey Fabric")
+S("Dark Grey Fabric")
+S("Black Fabric")
+S("Violet Fabric")
+S("Blue Fabric")
+S("Cyan Fabric")
+S("Dark Green Fabric")
+S("Green Fabric")
+S("Yellow Fabric")
+S("Brown Fabric")
+S("Orange Fabric")
+S("Red Fabric")
+S("Magenta Fabric")
+S("Pink Fabric")
 --]]
