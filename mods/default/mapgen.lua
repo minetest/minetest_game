@@ -2146,7 +2146,7 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:papyrus",
 		deco_type = "schematic",
-		place_on = {"default:dirt"},
+		place_on = {"default:dirt", "default:dry_dirt"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.3,
