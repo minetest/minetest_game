@@ -22,3 +22,6 @@ files["mods/creative/init.lua"].globals = { "minetest" }
 
 -- Don't report on legacy definitions of globals.
 files["mods/default/legacy.lua"].global = false
+
+-- Overwrites minetest.calculate_knockback
+files["mods/beds/functions.lua"].globals = { "minetest" }
