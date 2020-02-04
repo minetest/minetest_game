@@ -3,6 +3,9 @@
 -- support for MT game translation.
 local S = farming.get_translator
 
+-- optional support for toolranks mod
+local use_toolranks = minetest.get_modpath("toolranks")
+
 -- Wear out hoes, place soil
 -- TODO Ignore group:flower
 farming.registered_plants = {}
@@ -100,6 +103,15 @@ farming.register_hoe = function(name, def)
 		groups = def.groups,
 		sound = {breaks = "default_tool_breaks"},
 	})
+	-- toolranks optional support
+	if use_toolranks then
+		minetest.override_item(name:sub(2), {
+			original_description = def.description,
+			description = toolranks.create_description(def.description, 0, 1),
+			after_use = toolranks.new_afteruse
+		})
+	end
+
 	-- Register its recipe
 	if def.recipe then
 		minetest.register_craft({
