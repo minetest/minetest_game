@@ -9,23 +9,25 @@ paramat (MIT)
 Authors of media (textures)
 ---------------------------
 paramat (CC BY-SA 3.0):
-  binoculars_binoculars.png
+- binoculars_binoculars.png
 
 Crafting
 --------
 binoculars:binoculars
 
-default:obsidian_glass O
+default:obsidian_glass O<br>
 default:bronze_ingot B
 
+```
+O_O<br>
+BBB<br>
 O_O
-BBB
-O_O
+```
 
 Usage
 -----
 In survival mode, use of zoom requires the binoculars item in your inventory,
-they will allow a 10 degree field of view.
+they will allow a 10 degree field of view.<br>
 It can take up to 5 seconds for adding to or removal from inventory to have an
 effect, however to instantly allow the use of this zoom 'use' (leftclick) the
 item.

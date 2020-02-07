@@ -4,7 +4,7 @@ See license.txt for license information.
 
 Authors of source code
 ----------------------
-Originally by PilzAdam (MIT)
+Originally by PilzAdam (MIT)<br>
 Various Minetest developers and contributors (MIT)
 
 Authors of media (textures)
