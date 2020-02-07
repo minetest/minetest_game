@@ -90,7 +90,13 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local yaw, param2 = get_look_yaw(bed_pos)
 		player:set_look_horizontal(yaw)
 		local dir = minetest.facedir_to_dir(param2)
-		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
+		-- p.y is just above the nodebox height of the 'Simple Bed' (the highest bed),
+		-- to avoid sinking down through the bed.
+		local p = {
+			x = bed_pos.x + dir.x / 2,
+			y = bed_pos.y + 0.07,
+			z = bed_pos.z + dir.z / 2
+		}
 		player:set_physics_override(0, 0, 0)
 		player:set_pos(p)
 		default.player_attached[name] = true
