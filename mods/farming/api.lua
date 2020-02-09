@@ -112,8 +112,8 @@ farming.register_hoe = function(name, def)
 			output = name:sub(2),
 			recipe = {
 				{def.material, def.material},
-				{"", "group:stick"},
-				{"", "group:stick"}
+				{"group:stick", ""},
+				{"group:stick", ""}
 			}
 		})
 	end
@@ -144,7 +144,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 
 	local player_name = placer and placer:get_player_name() or ""
 
-	if minetest.is_protected(pt.under, player_name) then
+	if minetest.is_protected(pt.under, player_name) then﻿
 		minetest.record_protection_violation(pt.under, player_name)
 		return
 	end
