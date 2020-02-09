@@ -120,8 +120,8 @@ farming.register_hoe = function(name, def)
 			output = name:sub(2),
 			recipe = {
 				{def.material, def.material},
-				{"group:stick"},
-				{"group:stick"}
+				{"", "group:stick"},
+				{"", "group:stick"}
 			}
 		})
 	end
