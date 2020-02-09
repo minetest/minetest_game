@@ -19,6 +19,23 @@ local function on_flood(pos, oldnode, newnode)
 	return false
 end
 
+local function on_rotate(pos, node, user, _, new_param2)
+	if minetest.is_protected(pos, user:get_player_name()) then
+		minetest.record_protection_violation(pos, user:get_player_name())
+		return false
+	end
+
+	minetest.set_node(pos, {name = "air"})
+	if new_param2 == 0 then
+		minetest.set_node(pos, {name = "default:torch_ceiling", param2 = new_param2})
+	elseif new_param2 == 1 then
+		minetest.set_node(pos, {name = "default:torch", param2 = new_param2})
+	else
+		minetest.set_node(pos, {name = "default:torch_wall", param2 = new_param2})
+	end
+	return true
+end
+
 minetest.register_node("default:torch", {
 	description = S("Torch"),
 	drawtype = "mesh",
@@ -71,6 +88,7 @@ minetest.register_node("default:torch", {
 	end,
 	floodable = true,
 	on_flood = on_flood,
+	on_rotate = on_rotate
 })
 
 minetest.register_node("default:torch_wall", {
@@ -94,6 +112,7 @@ minetest.register_node("default:torch_wall", {
 	sounds = default.node_sound_wood_defaults(),
 	floodable = true,
 	on_flood = on_flood,
+	on_rotate = on_rotate
 })
 
 minetest.register_node("default:torch_ceiling", {
@@ -117,6 +136,7 @@ minetest.register_node("default:torch_ceiling", {
 	sounds = default.node_sound_wood_defaults(),
 	floodable = true,
 	on_flood = on_flood,
+	on_rotate = on_rotate
 })
 
 minetest.register_lbm({
