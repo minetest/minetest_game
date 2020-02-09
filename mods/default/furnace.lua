@@ -71,7 +71,11 @@ local function allow_metadata_inventory_put(pos, listname, index, stack, player)
 			return 0
 		end
 	elseif listname == "src" then
-		return stack:get_count()
+		if minetest.get_craft_result({method="cooking", width=1, items={stack}}).time ~= 0 then
+			return stack:get_count()
+		else
+			return 0
+		end
 	elseif listname == "dst" then
 		return 0
 	end
