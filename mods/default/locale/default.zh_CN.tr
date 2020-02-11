@@ -1,8 +1,8 @@
 # textdomain: default
-Locked Chest=锁着的箱子
+Locked Chest=已上锁的箱子
 Locked Chest (owned by @1)=锁着的箱子（由@1拥有）
-You do not own this chest.=您不拥有该箱子。
-a locked chest=一个已锁定的箱子
+You do not own this chest.=您不拥有这个箱子。
+a locked chest=一个已上锁的箱子
 Chest=箱子
 Stick=棒
 Paper=纸
@@ -42,7 +42,7 @@ Stone=石
 Cobblestone=鹅卵石
 Stone Brick=石砖
 Stone Block=石块
-Mossy Cobblestone=生苔的鹅卵石
+Mossy Cobblestone=苔藓覆盖的鹅卵石
 Desert Stone=沙漠石
 Desert Cobblestone=沙漠鹅卵石
 Desert Stone Brick=沙漠鹅卵石砖
