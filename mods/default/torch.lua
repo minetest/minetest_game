@@ -71,6 +71,7 @@ minetest.register_node("default:torch", {
 	end,
 	floodable = true,
 	on_flood = on_flood,
+	on_rotate = false
 })
 
 minetest.register_node("default:torch_wall", {
@@ -94,6 +95,7 @@ minetest.register_node("default:torch_wall", {
 	sounds = default.node_sound_wood_defaults(),
 	floodable = true,
 	on_flood = on_flood,
+	on_rotate = false
 })
 
 minetest.register_node("default:torch_ceiling", {
@@ -117,6 +119,7 @@ minetest.register_node("default:torch_ceiling", {
 	sounds = default.node_sound_wood_defaults(),
 	floodable = true,
 	on_flood = on_flood,
+	on_rotate = false
 })
 
 minetest.register_lbm({
