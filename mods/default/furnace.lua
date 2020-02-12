@@ -113,6 +113,9 @@ local function furnace_node_timer(pos, elapsed)
 	local srclist, fuellist
 	local dst_full = false
 
+	local timer_elapsed = meta:get_int("timer_elapsed") or 0
+	meta:set_int("timer_elapsed", timer_elapsed + 1)
+
 	local cookable, cooked
 	local fuel
 
@@ -240,9 +243,12 @@ local function furnace_node_timer(pos, elapsed)
 		swap_node(pos, "default:furnace_active")
 		-- make sure timer restarts automatically
 		result = true
-		-- Play sound while the furnace is active
-		minetest.sound_play("default_furnace_active",
-			{pos = pos, max_hear_distance = 16, gain = 1})
+
+		-- Play sound every 5 seconds while the furnace is active
+		if timer_elapsed == 0 or (timer_elapsed+1) % 5 == 0 then
+			minetest.sound_play("default_furnace_active",
+				{pos = pos, max_hear_distance = 16, gain = 1})
+		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
 			fuel_state = S("@1%", 0)
@@ -251,6 +257,7 @@ local function furnace_node_timer(pos, elapsed)
 		swap_node(pos, "default:furnace")
 		-- stop timer on the inactive furnace
 		minetest.get_node_timer(pos):stop()
+		meta:set_int("timer_elapsed", 0)
 	end
 
 
