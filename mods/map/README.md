@@ -9,25 +9,25 @@ paramat (MIT)
 Authors of media (textures)
 ---------------------------
 TumeniNodes (CC BY-SA 3.0):
-- map_mapping_kit.png (map)
+- `map_mapping_kit.png (map)`
 
 paramat (CC BY-SA 3.0):
-- map_mapping_kit.png (compass and pen)
+- `map_mapping_kit.png (compass and pen)`
 
 Crafting
 --------
 map:mapping_kit
 
-default:glass G<br>
-default:paper P<br>
-group:stick S<br>
-default:steel_ingot I<br>
-group:wood W<br>
-dye:black D<br>
+`default:glass G`<br>
+`default:paper P`<br>
+`group:stick S`<br>
+`default:steel_ingot I`<br>
+`group:wood W`<br>
+`dye:black D`<br>
 
 ```
-GPS<br>
-IPI<br>
+GPS
+IPI
 WPD
 ```
 
@@ -42,5 +42,5 @@ Minimap radar mode is always disallowed in survival mode.
 Minimap and minimap radar mode are automatically allowed in creative mode and<br>
 for any player with the 'creative' privilege.
 
-The 'map.update_hud_flags()' function is global so can be redefined by a mod for<br>
+The `map.update_hud_flags()` function is global so can be redefined by a mod for<br>
 alternative behaviour.

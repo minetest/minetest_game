@@ -10,4 +10,4 @@ Various Minetest developers and contributors (LGPLv2.1+)
 License of media (textures)
 ---------------------------
 Created by Gambit (CC BY-SA 3.0):
-- screwdriver.png
+- `screwdriver.png`

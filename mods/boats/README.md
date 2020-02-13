@@ -1,6 +1,6 @@
 Minetest Game mod: boats
 ========================
-See license.txt for license information.
+See `license.txt` for license information.
 
 Authors of source code
 ----------------------

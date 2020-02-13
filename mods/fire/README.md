@@ -13,23 +13,23 @@ Everything not listed in here:<br>
 Copyright (C) 2012 Perttu Ahola (celeron55) <celeron55@gmail.com> (CC BY-SA 3.0)
 
 Muadtralk (CC BY-SA 3.0)
-- fire_basic_flame_animated.png
+- `fire_basic_flame_animated.png`
 
 Gambit (CC BY-SA 3.0)
-- fire_flint_steel.png
+- `fire_flint_steel.png`
 
 dobroide (CC BY 3.0)<br>
 http://www.freesound.org/people/dobroide/sounds/4211/
-- fire_small.ogg
+- `fire_small.ogg`
 
 Dynamicell (CC BY 3.0)<br>
 http://www.freesound.org/people/Dynamicell/sounds/17548/
-- fire_large.ogg
-- fire_fire.*.ogg
+- `fire_large.ogg`
+- `fire_fire.*.ogg`
 
-fire_small.ogg and fire_large.ogg are unused but kept temporarily to not break<br>
+`fire_small.ogg` and `fire_large.ogg` are unused but kept temporarily to not break<br>
 other mods that may use them.
 
 Benboncan (CC BY 3.0)<br>
 https://www.freesound.org/people/Benboncan/sounds/66457/
-- fire_flint_and_steel.ogg
+- `fire_flint_and_steel.ogg`

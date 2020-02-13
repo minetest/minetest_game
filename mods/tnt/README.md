@@ -15,30 +15,30 @@ BlockMen (CC BY-SA 3.0):<br>
 All textures not mentioned below.
 
 ShadowNinja (CC BY-SA 3.0):
-- tnt_smoke.png
+- `tnt_smoke.png`
 
 Wuzzy (CC BY-SA 3.0):
-- All gunpowder textures except tnt_gunpowder_inventory.png.
+- All gunpowder textures except `tnt_gunpowder_inventory.png`.
 
 sofar (sofar@foo-projects.org) (CC BY-SA 3.0):
-- tnt_blast.png
+- `tnt_blast.png`
 
 paramat (CC BY-SA 3.0)
-- tnt_tnt_stick.png - Derived from a texture by benrob0329.
+- `tnt_tnt_stick.png - Derived from a texture by benrob0329.`
 
 TumeniNodes (CC0 1.0)
-- tnt_explode.ogg<br>
-renamed, edited, and converted to .ogg from Explosion2.wav<br>
+- `tnt_explode.ogg`<br>
+renamed, edited, and converted to .ogg from `Explosion2.wav`<br>
 by steveygos93 (CC0 1.0)<br>
 <https://freesound.org/s/80401/>
 
-- tnt_ignite.ogg<br>
-renamed, edited, and converted to .ogg from sparkler_fuse_nm.wav<br>
+- `tnt_ignite.ogg`<br>
+renamed, edited, and converted to .ogg from `sparkler_fuse_nm.wav`<br>
 by theneedle.tv (CC0 1.0)<br>
 <https://freesound.org/s/316682/>
 
-- tnt_gunpowder_burning.ogg<br>
-renamed, edited, and converted to .ogg from road flare ignite burns.wav<br>
+- `tnt_gunpowder_burning.ogg`<br>
+renamed, edited, and converted to .ogg from road flare ignite `burns.wav`<br>
 by frankelmedico (CC0 1.0)<br>
 <https://freesound.org/s/348767/>
 
@@ -59,8 +59,8 @@ G_G
 GPG
 G_G
 ```
-G = gunpowder<br>
-P = paper<br>
+`G = gunpowder`<br>
+`P = paper`<br>
 The sticks are not usable as an explosive.
 
 Craft TNT from 9 TNT sticks.

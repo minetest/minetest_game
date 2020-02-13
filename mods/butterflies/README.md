@@ -10,5 +10,5 @@ Shara RedCat (MIT)
 Authors of media (textures)
 ---------------------------
 Shara RedCat (CC BY-SA 3.0):
-- butterflies_butterfly_*.png
-- butterflies_butterfly_*_animated.png
+- `butterflies_butterfly_*.png`
+- `butterflies_butterfly_*_animated.png`

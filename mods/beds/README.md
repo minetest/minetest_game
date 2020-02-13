@@ -13,7 +13,7 @@ BlockMen (CC BY-SA 3.0)
 - All textures unless otherwise noted
 
 TumeniNodes (CC BY-SA 3.0)
-- beds_bed_under.png
+- `beds_bed_under.png`
 
 This mod adds a bed to Minetest which allows players to skip the night.
 To sleep, right click on the bed. If playing in singleplayer mode the night gets skipped
@@ -24,7 +24,7 @@ than half of the players are lying in bed and use this option.
 Another feature is a controlled respawning. If you have slept in bed (not just lying in
 it) your respawn point is set to the beds location and you will respawn there after
 death.<br>
-You can disable the respawn at beds by setting "enable_bed_respawn = false" in
-minetest.conf.<br>
-You can disable the night skip feature by setting "enable_bed_night_skip = false" in
-minetest.conf or by using the /set command in-game.
+You can disable the respawn at beds by setting `enable_bed_respawn = false` in
+`minetest.conf`.<br>
+You can disable the night skip feature by setting `enable_bed_night_skip = false` in
+`minetest.conf` or by using the `/set` command in-game.
