@@ -85,14 +85,14 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		-- Check if bed is occupied
 		for _, other_pos in pairs(beds.bed_position) do
 			if vector.distance(bed_pos, other_pos) < 0.1 then
-				minetest.chat_send_player(name, S("This bed is already occupied!"))
+				minetest.chat_send_player(name, S("This bed is already occupied."))
 				return false
 			end
 		end
 
 		-- Check if player is moving
 		if vector.length(player:get_player_velocity()) > 0.001 then
-			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			minetest.chat_send_player(name, S("You have to stop moving before going to bed."))
 			return false
 		end
 
@@ -254,10 +254,10 @@ end)
 
 local old_calculate_knockback = minetest.calculate_knockback
 function minetest.calculate_knockback(player, ...)
-    if beds.player[player:get_player_name()] then
-        return 0
-    end
-    return old_calculate_knockback(player, ...)
+	if beds.player[player:get_player_name()] then
+		return 0
+	end
+	return old_calculate_knockback(player, ...)
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
