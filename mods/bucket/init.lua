@@ -227,7 +227,7 @@ minetest.register_craft({
 
 -- Register buckets as dungeon loot
 if dungeon_loot and dungeon_loot.register then
-	local loot_list = {
+	dungeon_loot.register({
 		{name = "bucket:bucket_empty", chance = 0.55},
 		-- water in deserts/ice or above ground, lava otherwise
 		{name = "bucket:bucket_water", chance = 0.45,
@@ -236,8 +236,5 @@ if dungeon_loot and dungeon_loot.register then
 			types = {"normal"}},
 		{name = "bucket:bucket_lava", chance = 0.45, y = {-32768, -1},
 			types = {"normal"}},
-	}
-	for _,loot in pairs(loot_list) do
-		dungeon_loot.register(loot)
-	end
+	})
 end

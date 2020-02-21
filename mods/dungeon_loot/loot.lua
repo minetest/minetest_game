@@ -1,3 +1,6 @@
+-- Loot from the `default` mod is registered here,
+-- with the rest being registered in the respective mods
+
 dungeon_loot.registered_loot = {
 	-- various items
 	{name = "default:stick", chance = 0.6, count = {3, 6}},
