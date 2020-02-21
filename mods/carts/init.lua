@@ -21,7 +21,7 @@ dofile(carts.modpath.."/rails.lua")
 dofile(carts.modpath.."/cart_entity.lua")
 
 -- Register rails as dungeon loot
-if dungeon_loot and dungeon_loot.register then
+if minetest.global_exists("dungeon_loot") and dungeon_loot.register then
 	dungeon_loot.register({
 		name = "carts:rail", chance = 0.35, count = {1, 6}
 	})
