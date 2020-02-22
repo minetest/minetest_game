@@ -146,7 +146,7 @@ minetest.register_craft({
 })
 
 -- Register farming items as dungeon loot
-if minetest.global_exists("dungeon_loot") and dungeon_loot.register then
+if minetest.global_exists("dungeon_loot") then
 	dungeon_loot.register({
 		{name = "farming:string", chance = 0.5, count = {1, 8}},
 		{name = "farming:wheat", chance = 0.5, count = {2, 5}},

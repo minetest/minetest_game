@@ -226,7 +226,7 @@ minetest.register_craft({
 })
 
 -- Register buckets as dungeon loot
-if minetest.global_exists("dungeon_loot") and dungeon_loot.register then
+if minetest.global_exists("dungeon_loot") then
 	dungeon_loot.register({
 		{name = "bucket:bucket_empty", chance = 0.55},
 		-- water in deserts/ice or above ground, lava otherwise
