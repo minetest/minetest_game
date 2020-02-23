@@ -1,26 +1,13 @@
-dungeon_loot.registered_loot = {
-	-- buckets
-	{name = "bucket:bucket_empty", chance = 0.55},
-	-- water in deserts/ice or above ground, lava otherwise
-	{name = "bucket:bucket_water", chance = 0.45,
-		types = {"sandstone", "desert", "ice"}},
-	{name = "bucket:bucket_water", chance = 0.45, y = {0, 32768},
-		types = {"normal"}},
-	{name = "bucket:bucket_lava", chance = 0.45, y = {-32768, -1},
-		types = {"normal"}},
+-- Loot from the `default` mod is registered here,
+-- with the rest being registered in the respective mods
 
+dungeon_loot.registered_loot = {
 	-- various items
 	{name = "default:stick", chance = 0.6, count = {3, 6}},
 	{name = "default:flint", chance = 0.4, count = {1, 3}},
-	{name = "vessels:glass_fragments", chance = 0.35, count = {1, 4}},
-	{name = "carts:rail", chance = 0.35, count = {1, 6}},
 
 	-- farming / consumable
-	{name = "farming:string", chance = 0.5, count = {1, 8}},
-	{name = "farming:wheat", chance = 0.5, count = {2, 5}},
 	{name = "default:apple", chance = 0.4, count = {1, 4}},
-	{name = "farming:seed_cotton", chance = 0.4, count = {1, 4},
-		types = {"normal"}},
 	{name = "default:cactus", chance = 0.4, count = {1, 4},
 		types = {"sandstone", "desert"}},
 
