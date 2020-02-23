@@ -1,7 +1,7 @@
 # textdomain: default
 Locked Chest=已上鎖的箱子
-Locked Chest (owned by @1)=鎖著的箱子（由@1擁有）
-You do not own this chest.=您不擁有這個箱子。
+Locked Chest (owned by @1)=已上鎖的箱子（屬於@1擁有）
+You do not own this chest.=這個箱子不屬於你所有。
 a locked chest=一個已上鎖的箱子
 Chest=箱子
 Stick=棒
@@ -146,11 +146,11 @@ Cyan Coral=青珊瑚
 Brown Coral=棕珊瑚
 Orange Coral=橙珊瑚
 Coral Skeleton=珊瑚骨架
-Water Source=水源
+Water Source=水方塊
 Flowing Water=流動的水
-River Water Source=河流水源
+River Water Source=河流水方塊
 Flowing River Water=流動的河流水
-Lava Source=岩漿源
+Lava Source=岩漿方塊
 Flowing Lava=流動的岩漿
 Empty Bookshelf=空書架
 Bookshelf (@1 written, @2 empty books)=書架（@1本有字的書，@2本空書）
