@@ -30,3 +30,5 @@ TumeniNodes (CC BY-SA 3.0):
   xpanes_trapdoor_steel_bar_side.png
   xpanes_steel_bar_door_close.ogg
   xpanes_steel_bar_door_open.ogg
+  xpanes_connect.png
+  xpanes_connect_obsidian.png
