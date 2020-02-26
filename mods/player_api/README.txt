@@ -19,7 +19,7 @@ stujones11 (CC BY-SA 3.0):
 
 An0n3m0us (CC BY-SA 3.0):
   character.b3d
-  character.blend -- Player animation improvement
+  character.blend -- Player animation improvement, Updated model & added second layer
 
 Jordach (CC BY-SA 3.0):
   character.png
