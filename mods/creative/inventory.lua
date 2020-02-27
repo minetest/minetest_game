@@ -194,10 +194,31 @@ function creative.register_tab(name, title, items)
 	})
 end
 
+-- Sort registered items
+registered_nodes = {}
+registered_tools = {}
+registered_craftitems = {}
+
+for registered in pairs(minetest.registered_items) do
+	group = minetest.registered_items[registered].groups
+
+	if group.node or minetest.registered_nodes[registered] then
+		registered_nodes[registered] = minetest.registered_items[registered]
+	end
+
+	if group.tool or minetest.registered_tools[registered] then
+		registered_tools[registered] = minetest.registered_items[registered]
+	end
+
+	if group.craftitem or minetest.registered_craftitems[registered] then
+		registered_craftitems[registered] = minetest.registered_items[registered]
+	end
+end
+
 creative.register_tab("all", S("All"), minetest.registered_items)
-creative.register_tab("nodes", S("Nodes"), minetest.registered_nodes)
-creative.register_tab("tools", S("Tools"), minetest.registered_tools)
-creative.register_tab("craftitems", S("Items"), minetest.registered_craftitems)
+creative.register_tab("nodes", S("Nodes"), registered_nodes)
+creative.register_tab("tools", S("Tools"), registered_tools)
+creative.register_tab("craftitems", S("Items"), registered_craftitems)
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)
