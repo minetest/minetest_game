@@ -43,7 +43,7 @@ end
 -- Flame nodes
 
 minetest.register_node("fire:basic_flame", {
-	description = S("Basic Flame"),
+	description = S("Fire"),
 	drawtype = "firelike",
 	tiles = {
 		{
