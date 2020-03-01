@@ -26,8 +26,8 @@ function creative.init_creative_inventory(player)
 		size = 0,
 		filter = "",
 		start_i = 0,
-		_old_filter = nil,
-		_old_content = nil
+		old_filter = nil, -- use only for caching in update_creative_inventory
+		old_content = nil
 	}
 
 	minetest.create_detached_inventory("creative_" .. player_name, {
@@ -76,11 +76,11 @@ function creative.update_creative_inventory(player_name, tab_content)
 			creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
 
-	if inv.filter == inv._old_filter and tab_content == inv._old_content then
+	if inv.filter == inv.old_filter and tab_content == inv.old_content then
 		return
 	end
-	inv._old_filter = inv.filter
-	inv._old_content = tab_content
+	inv.old_filter = inv.filter
+	inv.old_content = tab_content
 
 	local items = inventory_cache[tab_content] or init_creative_cache(tab_content)
 
