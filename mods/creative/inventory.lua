@@ -100,7 +100,6 @@ function creative.update_creative_inventory(player_name, tab_content)
 	player_inv:set_size("main", #creative_list)
 	player_inv:set_list("main", creative_list)
 	inv.size = #creative_list
-	print("update", inv.size)
 end
 
 -- Create the trash field
