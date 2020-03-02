@@ -775,7 +775,7 @@ Creates panes that automatically connect to each other
 	{
 		textures = {
 			"texture for front and back",
-			(unused),
+			"texture for connecting node",
 			"texture for the 4 edges"
 		}, -- More tiles aren't supported
 		groups = {group = rating}, -- Uses the known node groups, see [Known damage and digging time defining groups]
