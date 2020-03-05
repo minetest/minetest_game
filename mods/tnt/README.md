@@ -24,7 +24,7 @@ sofar (sofar@foo-projects.org) (CC BY-SA 3.0):
 - `tnt_blast.png`
 
 paramat (CC BY-SA 3.0)
-- `tnt_tnt_stick.png - Derived from a texture by benrob0329.`
+- `tnt_tnt_stick.png`, derived from a texture by benrob0329.
 
 TumeniNodes (CC0 1.0)
 - `tnt_explode.ogg`<br>

@@ -70,7 +70,7 @@ Zeg9 (CC BY-SA 3.0):
 - `default_coal_block.png`
 
 paramat (CC BY-SA 3.0):
-- `wieldhand.png -- Copied from character.png by Jordach (CC BY-SA 3.0)`
+- `wieldhand.png`, copied from character.png by Jordach (CC BY-SA 3.0)
 - `default_pinetree.png`
 - `default_pinetree_top.png`
 - `default_pinewood.png`
@@ -101,40 +101,40 @@ paramat (CC BY-SA 3.0):
 - `default_dry_grass.png`
 - `default_dry_grass_side.png`
 - `default_dry_grass_*.png`
-- `default_grass_side.png -- Derived from a texture by TumeniNodes (CC-BY-SA 3.0)`
+- `default_grass_side.png`, derived from a texture by TumeniNodes (CC-BY-SA 3.0)
 - `default_mese_block.png`
 - `default_silver_sand.png`
 - `default_mese_post_light_side.png`
 - `default_mese_post_light_side_dark.png`
 - `default_mese_post_light_top.png`
-- `default_silver_sandstone.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)`
-- `default_silver_sandstone_brick.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)`
-- `default_silver_sandstone_block.png -- Derived from a texture by GreenXenith (CC-BY-SA 3.0)`
-- `default_bookshelf_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)`
-- `default_marram_grass_*.png -- Derived from textures by TumeniNodes (CC-BY-SA 3.0)`
+- `default_silver_sandstone.png`, derived from a texture by GreenXenith (CC-BY-SA 3.0)
+- `default_silver_sandstone_brick.png`, derived from a texture by GreenXenith (CC-BY-SA 3.0)
+- `default_silver_sandstone_block.png`, derived from a texture by GreenXenith (CC-BY-SA 3.0)
+- `default_bookshelf_slot.png`, derived from a texture by Gambit (CC-BY-SA 3.0)
+- `default_marram_grass_*.png`, derived from textures by TumeniNodes (CC-BY-SA 3.0)
 - `default_emergent_jungle_sapling.png`
-- `default_permafrost.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)`
-- `default_stones.png -- Derived from a texture by sofar (CC0 1.0)`
-- `default_stones_side.png -- Derived from a texture by sofar (CC0 1.0)`
+- `default_permafrost.png`, derived from a texture by Neuromancer (CC BY-SA 3.0)
+- `default_stones.png`, derived from a texture by sofar (CC0 1.0)
+- `default_stones_side.png`, derived from a texture by sofar (CC0 1.0)
 - `default_moss.png`
 - `default_moss_side.png`
 - `default_fence_rail_acacia_wood`
-- `default_fence_rail_aspen_wood -- Derived from a texture by sofar (CC BY-SA 3.0)`
+- `default_fence_rail_aspen_wood`, derived from a texture by sofar (CC BY-SA 3.0)
 - `default_fence_rail_junglewood`
 - `default_fence_rail_pine_wood`
-- `default_fence_rail_wood -- Derived from a texture by BlockMen (CC BY-SA 3.0)`
+- `default_fence_rail_wood`, derived from a texture by BlockMen (CC BY-SA 3.0)
 - `gui_hotbar.png`
 - `gui_hotbar_selected.png`
 
 TumeniNodes (CC BY-SA 3.0):
-- `default_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)`
+- `default_desert_cobble.png`, derived from a texture by brunob.santos (CC BY-SA 3.0)
 - `default_coniferous_litter.png`
 - `default_coniferous_litter_side.png`
 - `default_grass.png`
 - `default_dry_dirt.png`
 
 BlockMen (CC BY-SA 3.0):
-- `default_aspen_leaves.png -- Derived from Sofar's texture`
+- `default_aspen_leaves.png`, derived from Sofar's texture
 - `default_wood.png`
 - `default_clay_brick.png`
 - `default_iron_ingot.png`
@@ -160,16 +160,16 @@ BlockMen (CC BY-SA 3.0):
 sofar (CC BY-SA 3.0):
 - `default_aspen_sapling`
 - `default_aspen_tree`
-- `default_aspen_tree_top, derived from default_pine_tree_top (by paramat)`
-- `default_aspen_wood, derived from default_pine_wood (by paramat)`
+- `default_aspen_tree_top`, derived from default_pine_tree_top (by paramat)
+- `default_aspen_wood`, derived from default_pine_wood (by paramat)
 - `default_chest_inside`
 
 sofar (CC0 1.0):
-- `default_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel`
+- `default_gravel.png`, derived from Gambit's PixelBOX texture pack light gravel
 
 Neuromancer (CC BY-SA 3.0):
-- `default_cobble.png, based on texture by Brane praefect`
-- `default_mossycobble.png, based on texture by Brane praefect`
+- `default_cobble.png`, based on texture by Brane praefect
+- `default_mossycobble.png`, based on texture by Brane praefect
 - `default_furnace_*.png`
 
 Gambit (CC BY-SA 3.0):
@@ -230,7 +230,7 @@ tobyplowy (CC BY-SA 3.0):
 - `default_kelp.png`
 
 CloudyProton (CC BY-SA 3.0):
-- `default_book_written.png, based on default_book.png by Gambit`
+- `default_book_written.png`, based on default_book.png by Gambit
 
 Mossmanikin (CC BY-SA 3.0):
 - `default_fern_*.png`
@@ -238,9 +238,9 @@ Mossmanikin (CC BY-SA 3.0):
 random-geek (CC BY-SA 3.0):
 - `default_blueberries.png`
 - `default_blueberry_overlay.png`
-- `default_blueberry_bush_leaves.png, derived from default_bush_leaves (by paramat)`
+- `default_blueberry_bush_leaves.png`, derived from default_bush_leaves (by paramat)
 - `default_blueberry_bush_sapling.png`
-- `default_dirt.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)`
+- `default_dirt.png`, derived from a texture by Neuromancer (CC BY-SA 3.0)
 
 Krock (CC0 1.0):
 - `default_glass.png`
@@ -296,17 +296,18 @@ Mito551 (sounds) (CC BY-SA 3.0):
 - `default_glass_footstep.ogg`
 
 Metal sounds:
-- `default_dig_metal.ogg - yadronoff - CC-BY-3.0`
+- `default_dig_metal.ogg`, yadronoff - CC-BY-3.0
   - `https://www.freesound.org/people/yadronoff/sounds/320397/`
-- `default_dug_metal.*.ogg - Iwan Gabovitch - qubodup - CC0`
+- `default_dug_metal.*.ogg`, Iwan Gabovitch - qubodup - CC0
   - `http://opengameart.org/users/qubodup`
-- `default_metal_footstep.*.ogg - Ottomaani138 - CC0`
+- `default_metal_footstep.*.ogg`, Ottomaani138 - CC0
   - `https://www.freesound.org/people/Ottomaani138/sounds/232692/`
-- `default_place_node_metal.*.ogg - Ogrebane - CC0`
+- `default_place_node_metal.*.ogg`, Ogrebane - CC0
   - `http://opengameart.org/content/wood-and-metal-sound-effects-volume-2`
 
 Tool breaking sounds added by sofar: CC-BY-3.0
-- `default_tool_breaks.* - http://www.freesound.org/people/HerbertBoland/sounds/33206/`
+- `default_tool_breaks.*`
+  - `http://www.freesound.org/people/HerbertBoland/sounds/33206/`
 
 AGFX (CC BY 3.0):
 https://www.freesound.org/people/AGFX/packs/1253/
@@ -333,7 +334,7 @@ http://freesound.org/people/Ryding/sounds/94337/
 - `default_snow_footstep.*.ogg`
 
 Ferk (CC0 1.0):
-- `default_item_smoke.ogg, based on a sound by http://opengameart.org/users/bart`
+- `default_item_smoke.ogg`, based on a sound by http://opengameart.org/users/bart
 
 sonictechtonic (CC BY 3.0):
 https://www.freesound.org/people/sonictechtonic/sounds/241872/
