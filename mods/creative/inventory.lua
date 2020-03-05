@@ -195,25 +195,23 @@ function creative.register_tab(name, title, items)
 end
 
 -- Sort registered items
-registered_nodes = {}
-registered_tools = {}
-registered_craftitems = {}
+local registered_nodes = {}
+local registered_tools = {}
+local registered_craftitems = {}
 
-for registered in pairs(minetest.registered_items) do
-	group = minetest.registered_items[registered].groups
+minetest.register_on_mods_loaded(function()
+	for name, def in pairs(minetest.registered_items) do
+		local group = def.groups or {}
 
-	if group.node or minetest.registered_nodes[registered] then
-		registered_nodes[registered] = minetest.registered_items[registered]
+		if group.node or minetest.registered_nodes[name] then
+			registered_nodes[name] = def
+		elseif group.tool or minetest.registered_tools[name] then
+			registered_tools[name] = def
+		elseif group.craftitem or minetest.registered_craftitems[name] then
+			registered_craftitems[name] = def
+		end
 	end
-
-	if group.tool or minetest.registered_tools[registered] then
-		registered_tools[registered] = minetest.registered_items[registered]
-	end
-
-	if group.craftitem or minetest.registered_craftitems[registered] then
-		registered_craftitems[registered] = minetest.registered_items[registered]
-	end
-end
+end)
 
 creative.register_tab("all", S("All"), minetest.registered_items)
 creative.register_tab("nodes", S("Nodes"), registered_nodes)
