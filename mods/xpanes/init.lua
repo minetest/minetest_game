@@ -138,9 +138,9 @@ function xpanes.register_pane(name, def)
 		sunlight_propagates = true,
 		description = def.description,
 		tiles = {
-				def.textures[3],
-				def.textures[3],
-				def.textures[1]
+			def.textures[3],
+			def.textures[3],
+			def.textures[1]
 		},
 		groups = groups,
 		drop = "xpanes:" .. name .. "_flat",
@@ -165,7 +165,7 @@ end
 
 xpanes.register_pane("pane", {
 	description = S("Glass Pane"),
-	textures = {"default_glass.png","","xpanes_edge.png"},
+	textures = {"default_glass.png", "", "xpanes_edge.png"},
 	inventory_image = "default_glass.png",
 	wield_image = "default_glass.png",
 	sounds = default.node_sound_glass_defaults(),
@@ -178,7 +178,7 @@ xpanes.register_pane("pane", {
 
 xpanes.register_pane("obsidian_pane", {
 	description = S("Obsidian Glass Pane"),
-	textures = {"default_obsidian_glass.png","","xpanes_edge_obsidian.png"},
+	textures = {"default_obsidian_glass.png", "", "xpanes_edge_obsidian.png"},
 	inventory_image = "default_obsidian_glass.png",
 	wield_image = "default_obsidian_glass.png",
 	sounds = default.node_sound_glass_defaults(),
@@ -191,7 +191,7 @@ xpanes.register_pane("obsidian_pane", {
 
 xpanes.register_pane("bar", {
 	description = S("Steel Bars"),
-	textures = {"xpanes_bar.png","","xpanes_bar_top.png"},
+	textures = {"xpanes_bar.png", "", "xpanes_bar_top.png"},
 	inventory_image = "xpanes_bar.png",
 	wield_image = "xpanes_bar.png",
 	groups = {cracky=2},
