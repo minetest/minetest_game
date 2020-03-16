@@ -424,7 +424,7 @@ Give Initial Stuff API
 Players API
 -----------
 
-The player API can register player models and update the player's appearence
+The player API can register player models and update the player's appearance.
 
 * `player_api.register_model(name, def)`
 	* Register a new model to be used by players
@@ -457,6 +457,12 @@ The player API can register player models and update the player's appearence
 	* Any of the fields of the returned table may be nil.
 	* player: PlayerRef
 
+* `player_api.player_attached`
+	* A table that maps a player name to a boolean.
+	* If the value for a given player is set to true, the default player
+	animations (walking, digging, ...) will no longer be updated.
+	Knockback from damage is also prevented for that player.
+
 ### Model Definition
 
 	{
@@ -467,7 +473,7 @@ The player API can register player models and update the player's appearence
 			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
 			foo = {x = 0, y = 19},
 			bar = {x = 20, y = 39},
-		-- ...
+			-- ...
 		},
 		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
 		stepheight = 0.6, -- In nodes
