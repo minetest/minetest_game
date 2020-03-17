@@ -252,14 +252,6 @@ minetest.register_on_dieplayer(function(player)
 	end
 end)
 
-local old_calculate_knockback = minetest.calculate_knockback
-function minetest.calculate_knockback(player, ...)
-	if beds.player[player:get_player_name()] then
-		return 0
-	end
-	return old_calculate_knockback(player, ...)
-end
-
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "beds_form" then
 		return
