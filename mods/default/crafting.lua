@@ -301,51 +301,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "default:mese_post_light 3",
-	recipe = {
-		{"", "default:glass", ""},
-		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
-		{"", "default:wood", ""},
-	}
-})
-
-minetest.register_craft({
-	output = "default:mese_post_light_acaciawood 3",
-	recipe = {
-		{"", "default:glass", ""},
-		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
-		{"", "default:acacia_wood", ""},
-	}
-})
-
-minetest.register_craft({
-	output = "default:mese_post_light_junglewood 3",
-	recipe = {
-		{"", "default:glass", ""},
-		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
-		{"", "default:junglewood", ""},
-	}
-})
-
-minetest.register_craft({
-	output = "default:mese_post_light_pine_wood 3",
-	recipe = {
-		{"", "default:glass", ""},
-		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
-		{"", "default:pine_wood", ""},
-	}
-})
-
-minetest.register_craft({
-	output = "default:mese_post_light_aspen_wood 3",
-	recipe = {
-		{"", "default:glass", ""},
-		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
-		{"", "default:aspen_wood", ""},
-	}
-})
-
-minetest.register_craft({
 	output = "default:obsidian",
 	recipe = {
 		{"default:obsidian_shard", "default:obsidian_shard", "default:obsidian_shard"},
