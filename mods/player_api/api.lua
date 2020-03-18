@@ -106,7 +106,7 @@ function minetest.calculate_knockback(player, ...)
 end
 
 -- Check each player and apply animations
-minetest.register_globalstep(function(dtime)
+minetest.register_globalstep(function()
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		local model_name = player_model[name]
@@ -134,13 +134,13 @@ minetest.register_globalstep(function(dtime)
 					player_anim[name] = nil
 					player_sneak[name] = controls.sneak
 				end
-				if controls.LMB then
+				if controls.LMB or controls.RMB then
 					player_set_animation(player, "walk_mine", animation_speed_mod)
 				else
 					player_set_animation(player, "walk", animation_speed_mod)
 				end
-			elseif controls.LMB then
-				player_set_animation(player, "mine")
+			elseif controls.LMB or controls.RMB then
+				player_set_animation(player, "mine", animation_speed_mod)
 			else
 				player_set_animation(player, "stand", animation_speed_mod)
 			end
