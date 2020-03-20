@@ -209,15 +209,15 @@ local function get_formspec(name)
 	data.pagemax = math.max(1, math.ceil(#data.items / 32))
 
 	local fs = {}
-	table.insert(fs, ("field[0.3,0.32;2.5,1;filter;;%s]")
+	table.insert(fs, ("field[0.3,4.2;2.8,1.2;filter;;%s]")
 		:format(minetest.formspec_escape(data.filter)))
-	table.insert(fs, ("label[6.2,0.22;%s / %d]")
+	table.insert(fs, ("label[5.8,4.15;%s / %d]")
 		:format(minetest.colorize("yellow", data.pagenum), data.pagemax))
 	table.insert(fs, [[
-		image_button[2.4,0.12;0.8,0.8;craftguide_search_icon.png;search;]
-		image_button[3.05,0.12;0.8,0.8;craftguide_clear_icon.png;clear;]
-		image_button[5.4,0.12;0.8,0.8;craftguide_prev_icon.png;prev;]
-		image_button[7.2,0.12;0.8,0.8;craftguide_next_icon.png;next;]
+		image_button[2.63,4.05;0.8,0.8;craftguide_search_icon.png;search;]
+		image_button[3.25,4.05;0.8,0.8;craftguide_clear_icon.png;clear;]
+		image_button[5,4.05;0.8,0.8;craftguide_prev_icon.png;prev;]
+		image_button[7.25,4.05;0.8,0.8;craftguide_next_icon.png;next;]
 		tooltip[search;Search]
 		tooltip[clear;Reset]
 		tooltip[prev;Previous page]
@@ -235,7 +235,7 @@ local function get_formspec(name)
 				break
 			end
 			local x = i % 8
-			local y = (i % 32 - x) / 8 + 1
+			local y = (i % 32 - x) / 8
 			table.insert(fs, ("item_image_button[%d,%d;1.05,1.05;%s;%s_inv;]")
 				:format(x, y, item, item))
 		end
