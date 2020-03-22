@@ -58,7 +58,7 @@ local function groups_item_in_recipe(item, recipe)
 	end
 end
 
-local function get_item_usages(item)
+local function get_usages(item)
 	local usages = {}
 
 	for _, recipes in pairs(recipes_cache) do
@@ -85,7 +85,7 @@ minetest.register_on_mods_loaded(function()
 	end
 	for name, def in pairs(minetest.registered_items) do
 		if def.groups.not_in_craft_guide ~= 1 and def.description ~= "" then
-			usages_cache[name] = get_item_usages(name)
+			usages_cache[name] = get_usages(name)
 			if recipes_cache[name] or usages_cache[name] then
 				table.insert(init_items, name)
 			end
@@ -113,11 +113,18 @@ local function groups_to_item(groups)
 	return ":unknown"
 end
 
-local function get_burntime(item)
-	return minetest.get_craft_result({method="fuel", width=1, items={item}}).time
+local function is_fuel(item)
+	return minetest.get_craft_result({
+		method = "fuel",
+		width = 1,
+		items = {item}
+	}).time > 0
 end
 
-local function get_tooltip(item, groups, burntime)
+local function item_button_fs(fs, x, y, item, element_name, groups)
+	table.insert(fs, ("item_image_button[%s,%s;1.05,1.05;%s;%s;%s]")
+		:format(x, y, item, element_name, groups and "\nG" or ""))
+
 	local tooltip
 	if groups then
 		local groupstr = {}
@@ -126,20 +133,17 @@ local function get_tooltip(item, groups, burntime)
 		end
 		groupstr = table.concat(groupstr, ", ")
 		tooltip = "Any item belonging to the group(s): "..groupstr
-	else
+	elseif is_fuel(item) then
 		local itemdef = minetest.registered_items[item]
-		tooltip = itemdef and itemdef.description or "Unknown Item"
+		local desc = itemdef and itemdef.description or "Unknown Item"
+		tooltip = desc.."\n"..minetest.colorize("orange", "Fuel")
 	end
-
-	if burntime > 0 then
-		tooltip = tooltip.."\nBurning time: "..minetest.colorize("yellow", burntime)
+	if tooltip then
+		table.insert(fs, ("tooltip[%s;%s]"):format(element_name, tooltip))
 	end
-
-	return ("tooltip[%s;%s]"):format(item, tooltip)
 end
 
-local function get_recipe_formspec(data)
-	local fs = {}
+local function recipe_fs(fs, data)
 	local recipe = data.recipes[data.rnum]
 	local width = recipe.width
 	local cooktime, shapeless
@@ -155,33 +159,26 @@ local function get_recipe_formspec(data)
 		:format(data.show_usages and "Usage" or "Recipe", data.rnum, #data.recipes))
 
 	if #data.recipes > 1 then
-		table.insert(fs, [[
-			image_button[5.5,7.2;0.8,0.8;craftguide_prev_icon.png;recipe_prev;]
-			image_button[6.2,7.2;0.8,0.8;craftguide_next_icon.png;recipe_next;]
-		]])
+		table.insert(fs,
+			"image_button[5.5,7.2;0.8,0.8;craftguide_prev_icon.png;recipe_prev;]"..
+			"image_button[6.2,7.2;0.8,0.8;craftguide_next_icon.png;recipe_next;]")
 	end
 
 	local rows = math.ceil(table.maxn(recipe.items) / width)
 	if width > 3 or rows > 3 then
 		table.insert(fs, "label[0,6.6;Recipe is too big to be displayed.]")
-		return table.concat(fs)
+		return
 	end
 
 	for i, item in pairs(recipe.items) do
 		local x = (i - 1) % width + 3 - width
 		local y = math.ceil(i / width + 6 - math.min(2, rows)) + 0.6
 
-		local burntime = get_burntime(item)
 		local groups = extract_groups(item)
 		if groups then
 			item = groups_to_item(groups)
 		end
-		table.insert(fs, ("item_image_button[%d,%f;1.05,1.05;%s;%s;%s]")
-			:format(x, y, item, item, groups and "\nG" or ""))
-
-		if groups or burntime > 0 then
-			table.insert(fs, get_tooltip(item, groups, burntime))
-		end
+		item_button_fs(fs, x, y, item, item, groups)
 	end
 
 	if shapeless or recipe.method == "cooking" then
@@ -193,18 +190,11 @@ local function get_recipe_formspec(data)
 	end
 	table.insert(fs, "image[3,6.6;1,1;sfinv_crafting_arrow.png]")
 
-	local output_name = recipe.output:match("%S*")
-	table.insert(fs, ("item_image_button[4,6.6;1.05,1.05;%s;%s;]")
-		:format(recipe.output, output_name))
-	local burntime = get_burntime(output_name)
-	if burntime > 0 then
-		table.insert(fs, get_tooltip(output_name, nil, burntime))
-	end
-
-	return table.concat(fs)
+	item_button_fs(fs, 4, 6.6, recipe.output, recipe.output:match("%S*"))
 end
 
-local function get_formspec(name)
+local function get_formspec(player)
+	local name = player:get_player_name()
 	local data = player_data[name]
 	data.pagemax = math.max(1, math.ceil(#data.items / 32))
 
@@ -213,17 +203,16 @@ local function get_formspec(name)
 		:format(minetest.formspec_escape(data.filter)))
 	table.insert(fs, ("label[5.8,4.15;%s / %d]")
 		:format(minetest.colorize("yellow", data.pagenum), data.pagemax))
-	table.insert(fs, [[
-		image_button[2.63,4.05;0.8,0.8;craftguide_search_icon.png;search;]
-		image_button[3.25,4.05;0.8,0.8;craftguide_clear_icon.png;clear;]
-		image_button[5,4.05;0.8,0.8;craftguide_prev_icon.png;prev;]
-		image_button[7.25,4.05;0.8,0.8;craftguide_next_icon.png;next;]
-		tooltip[search;Search]
-		tooltip[clear;Reset]
-		tooltip[prev;Previous page]
-		tooltip[next;Next page]
-		field_close_on_enter[filter;false]
-	]])
+	table.insert(fs,
+		"image_button[2.63,4.05;0.8,0.8;craftguide_search_icon.png;search;]"..
+		"image_button[3.25,4.05;0.8,0.8;craftguide_clear_icon.png;clear;]"..
+		"image_button[5,4.05;0.8,0.8;craftguide_prev_icon.png;prev;]"..
+		"image_button[7.25,4.05;0.8,0.8;craftguide_next_icon.png;next;]"..
+		"tooltip[search;Search]"..
+		"tooltip[clear;Reset]"..
+		"tooltip[prev;Previous page]"..
+		"tooltip[next;Next page]"..
+		"field_close_on_enter[filter;false]")
 
 	if #data.items == 0 then
 		table.insert(fs, "label[3,2;No items to show.]")
@@ -236,14 +225,13 @@ local function get_formspec(name)
 			end
 			local x = i % 8
 			local y = (i % 32 - x) / 8
-			table.insert(fs, ("item_image_button[%d,%d;1.05,1.05;%s;%s_inv;]")
-				:format(x, y, item, item))
+			item_button_fs(fs, x, y, item, item.."_inv")
 		end
 	end
 
 	if data.recipes then
 		if #data.recipes > 0 then
-			table.insert(fs, get_recipe_formspec(data))
+			recipe_fs(fs, data)
 		elseif data.show_usages then
 			table.insert(fs, "label[2,6.6;No usages.\nClick again to show recipes.]")
 		else
@@ -367,8 +355,7 @@ end)
 sfinv.register_page("craftguide:craftguide", {
 	title = "Craft Guide",
 	get = function(self, player, context)
-		local name = player:get_player_name()
-		return sfinv.make_formspec(player, context, get_formspec(name))
+		return sfinv.make_formspec(player, context, get_formspec(player))
 	end,
 	on_player_receive_fields = function(self, player, context, fields)
 		if on_receive_fields(player, fields) then
