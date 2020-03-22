@@ -19,15 +19,6 @@ local function table_replace(t, val, new)
 	end
 end
 
-local function item_in_recipe(item, recipe)
-	for _, recipe_item in pairs(recipe.items) do
-		if recipe_item == item then
-			return true
-		end
-	end
-	return false
-end
-
 local function extract_groups(str)
 	if str:sub(1, 6) == "group:" then
 		return str:sub(7):split()
@@ -41,6 +32,53 @@ local function item_has_groups(item_groups, groups)
 		end
 	end
 	return true
+end
+
+local function groups_to_item(groups)
+	if #groups == 1 then
+		local group = groups[1]
+		if group_stereotypes[group] then
+			return group_stereotypes[group]
+		elseif minetest.registered_items["default:"..group] then
+			return "default:"..group
+		end
+	end
+
+	for name, def in pairs(minetest.registered_items) do
+		if item_has_groups(def.groups, groups) then
+			return name
+		end
+	end
+
+	return ":unknown"
+end
+
+local function get_craftable_recipes(output)
+	local recipes = minetest.get_all_craft_recipes(output) or {}
+
+	for i = #recipes, 1, -1 do
+		for _, item in pairs(recipes[i].items) do
+			local groups = extract_groups(item)
+			if groups then
+				item = groups_to_item(groups)
+			end
+			if not minetest.registered_items[item] then
+				table.remove(recipes, i)
+				break
+			end
+		end
+	end
+
+	return recipes
+end
+
+local function item_in_recipe(item, recipe)
+	for _, recipe_item in pairs(recipe.items) do
+		if recipe_item == item then
+			return true
+		end
+	end
+	return false
 end
 
 -- If item can be used in recipe because recipe takes a `group:` item that item
@@ -74,44 +112,25 @@ local function get_usages(item)
 		end
 	end
 
-	return #usages > 0 and usages
+	return usages
 end
 
 minetest.register_on_mods_loaded(function()
 	for name, def in pairs(minetest.registered_items) do
 		if def.groups.not_in_craft_guide ~= 1 and def.description ~= "" then
-			recipes_cache[name] = minetest.get_all_craft_recipes(name)
+			recipes_cache[name] = get_craftable_recipes(name)
 		end
 	end
 	for name, def in pairs(minetest.registered_items) do
 		if def.groups.not_in_craft_guide ~= 1 and def.description ~= "" then
 			usages_cache[name] = get_usages(name)
-			if recipes_cache[name] or usages_cache[name] then
+			if #recipes_cache[name] > 0 or #usages_cache[name] > 0 then
 				table.insert(init_items, name)
 			end
 		end
 	end
 	table.sort(init_items)
 end)
-
-local function groups_to_item(groups)
-	if #groups == 1 then
-		local group = groups[1]
-		if group_stereotypes[group] then
-			return group_stereotypes[group]
-		elseif minetest.registered_items["default:"..group] then
-			return "default:"..group
-		end
-	end
-
-	for name, def in pairs(minetest.registered_items) do
-		if item_has_groups(def.groups, groups) then
-			return name
-		end
-	end
-
-	return ":unknown"
-end
 
 local function is_fuel(item)
 	return minetest.get_craft_result({
@@ -330,9 +349,9 @@ local function on_receive_fields(player, fields)
 			data.show_usages = nil
 		end
 		if data.show_usages then
-			data.recipes = usages_cache[item] or {}
+			data.recipes = usages_cache[item]
 		else
-			data.recipes = recipes_cache[item] or {}
+			data.recipes = recipes_cache[item]
 		end
 		data.prev_item = item
 		data.rnum = 1
