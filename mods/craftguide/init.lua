@@ -161,7 +161,9 @@ local function recipe_fs(fs, data)
 	if #data.recipes > 1 then
 		table.insert(fs,
 			"image_button[5.5,7.2;0.8,0.8;craftguide_prev_icon.png;recipe_prev;]"..
-			"image_button[6.2,7.2;0.8,0.8;craftguide_next_icon.png;recipe_next;]")
+			"image_button[6.2,7.2;0.8,0.8;craftguide_next_icon.png;recipe_next;]"..
+			"tooltip[recipe_prev;Previous recipe]"..
+			"tooltip[recipe_next;Next recipe]")
 	end
 
 	local rows = math.ceil(table.maxn(recipe.items) / width)
