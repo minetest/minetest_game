@@ -373,7 +373,7 @@ minetest.register_on_leaveplayer(function(player)
 	player_data[name] = nil
 end)
 
-sfinv.register_page("craftguide:craftguide", {
+sfinv.register_page("mtg_craftguide:craftguide", {
 	title = "Craft Guide",
 	get = function(self, player, context)
 		return sfinv.make_formspec(player, context, get_formspec(player))
