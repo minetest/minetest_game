@@ -101,7 +101,10 @@ minetest.register_node("farming:dry_soil", {
 minetest.register_node("farming:dry_soil_wet", {
 	description = S("Wet Dry Soil"),
 	tiles = {"default_dry_dirt.png^farming_soil_wet.png", "default_dry_dirt.png^farming_soil_wet_side.png"},
-	drop = "default:dry_dirt",
+	drop = {max_items = 1, items = {
+		{rarity = 2, items = {"default:dry_dirt"}}, -- chance 0.5 for dry dirt
+		{rarity = 1, items = {"default:dirt"}}, -- otherwise dirt
+	}},
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=3, wet = 1, grassland = 1, field = 1},
 	sounds = default.node_sound_dirt_defaults(),
 	soil = {
