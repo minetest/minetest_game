@@ -1,3 +1,6 @@
+local S = minetest.get_translator("mtg_craftguide")
+local esc = minetest.formspec_escape
+
 local player_data = {}
 local init_items = {}
 local recipes_cache = {}
@@ -9,6 +12,41 @@ local group_stereotypes = {
 	coal = "default:coal_lump",
 	vessel = "vessels:glass_bottle",
 	flower = "flowers:dandelion_yellow"
+}
+
+local group_names = {
+	coal = S("Any coal"),
+	wool = S("Any wool"),
+	wood = S("Any wood planks"),
+	sand = S("Any sand"),
+	stick = S("Any stick"),
+	stone = S("Any kind of stone block"),
+	vessel = S("Any vessel"),
+
+	["color_red,flower"] = S("Any red flower"),
+	["color_blue,flower"] = S("Any blue flower"),
+	["color_black,flower"] = S("Any black flower"),
+	["color_white,flower"] = S("Any white flower"),
+	["color_green,flower"] = S("Any green flower"),
+	["color_orange,flower"] = S("Any orange flower"),
+	["color_yellow,flower"] = S("Any yellow flower"),
+	["color_violet,flower"] = S("Any violet flower"),
+
+	["color_red,dye"] = S("Any red dye"),
+	["color_blue,dye"] = S("Any blue dye"),
+	["color_grey,dye"] = S("Any grey dye"),
+	["color_pink,dye"] = S("Any pink dye"),
+	["color_cyan,dye"] = S("Any cyan dye"),
+	["color_black,dye"] = S("Any black dye"),
+	["color_white,dye"] = S("Any white dye"),
+	["color_brown,dye"] = S("Any brown dye"),
+	["color_green,dye"] = S("Any green dye"),
+	["color_orange,dye"] = S("Any orange dye"),
+	["color_yellow,dye"] = S("Any yellow dye"),
+	["color_violet,dye"] = S("Any violet dye"),
+	["color_magenta,dye"] = S("Any magenta dye"),
+	["color_dark_grey,dye"] = S("Any dark grey dye"),
+	["color_dark_green,dye"] = S("Any dark green dye")
 }
 
 local function table_replace(t, val, new)
@@ -146,12 +184,16 @@ local function item_button_fs(fs, x, y, item, element_name, groups)
 
 	local tooltip
 	if groups then
-		local groupstr = {}
-		for _, group in ipairs(groups) do
-			table.insert(groupstr, minetest.colorize("yellow", group))
+		table.sort(groups)
+		tooltip = group_names[table.concat(groups, ",")]
+		if not tooltip then
+			local groupstr = {}
+			for _, group in ipairs(groups) do
+				table.insert(groupstr, minetest.colorize("yellow", group))
+			end
+			groupstr = table.concat(groupstr, ", ")
+			tooltip = "Any item belonging to the group(s): "..groupstr
 		end
-		groupstr = table.concat(groupstr, ", ")
-		tooltip = "Any item belonging to the group(s): "..groupstr
 	elseif is_fuel(item) then
 		local itemdef = minetest.registered_items[item]
 		local desc = itemdef and itemdef.description or "Unknown Item"
