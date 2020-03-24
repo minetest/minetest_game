@@ -180,7 +180,7 @@ end
 
 local function item_button_fs(fs, x, y, item, element_name, groups)
 	table.insert(fs, ("item_image_button[%s,%s;1.05,1.05;%s;%s;%s]")
-		:format(x, y, item, element_name, groups and "\nG" or ""))
+		:format(x, y, item, element_name, groups and "\n"..esc(S("G")) or ""))
 
 	local tooltip
 	if groups then
@@ -192,15 +192,15 @@ local function item_button_fs(fs, x, y, item, element_name, groups)
 				table.insert(groupstr, minetest.colorize("yellow", group))
 			end
 			groupstr = table.concat(groupstr, ", ")
-			tooltip = "Any item belonging to the group(s): "..groupstr
+			tooltip = S("Any item belonging to the group(s): @1", groupstr)
 		end
 	elseif is_fuel(item) then
 		local itemdef = minetest.registered_items[item]
-		local desc = itemdef and itemdef.description or "Unknown Item"
-		tooltip = desc.."\n"..minetest.colorize("orange", "Fuel")
+		local desc = itemdef and itemdef.description or S("Unknown Item")
+		tooltip = desc.."\n"..minetest.colorize("orange", S("Fuel"))
 	end
 	if tooltip then
-		table.insert(fs, ("tooltip[%s;%s]"):format(element_name, tooltip))
+		table.insert(fs, ("tooltip[%s;%s]"):format(element_name, esc(tooltip)))
 	end
 end
 
@@ -216,20 +216,22 @@ local function recipe_fs(fs, data)
 		width = #recipe.items <= 4 and 2 or math.min(3, #recipe.items)
 	end
 
-	table.insert(fs, ("label[5.5,6.6;%s %d of %d]")
-		:format(data.show_usages and "Usage" or "Recipe", data.rnum, #data.recipes))
+	table.insert(fs, ("label[5.5,6.6;%s]"):format(esc(data.show_usages
+		and S("Usage @1 of @2", data.rnum, #data.recipes)
+		or S("Recipe @1 of @2", data.rnum, #data.recipes))))
 
 	if #data.recipes > 1 then
 		table.insert(fs,
 			"image_button[5.5,7.2;0.8,0.8;craftguide_prev_icon.png;recipe_prev;]"..
 			"image_button[6.2,7.2;0.8,0.8;craftguide_next_icon.png;recipe_next;]"..
-			"tooltip[recipe_prev;Previous recipe]"..
-			"tooltip[recipe_next;Next recipe]")
+			"tooltip[recipe_prev;"..esc(S("Previous recipe")).."]"..
+			"tooltip[recipe_next;"..esc(S("Next recipe")).."]")
 	end
 
 	local rows = math.ceil(table.maxn(recipe.items) / width)
 	if width > 3 or rows > 3 then
-		table.insert(fs, "label[0,6.6;Recipe is too big to be displayed.]")
+		table.insert(fs, ("label[0,6.6;%s]")
+			:format(esc(S("Recipe is too big to be displayed."))))
 		return
 	end
 
@@ -247,9 +249,9 @@ local function recipe_fs(fs, data)
 	if shapeless or recipe.method == "cooking" then
 		table.insert(fs, ("image[3.2,6.1;0.5,0.5;craftguide_%s.png]")
 			:format(shapeless and "shapeless" or "furnace"))
-		local tooltip = shapeless and "Shapeless" or
-			"Cooking time: "..minetest.colorize("yellow", cooktime)
-		table.insert(fs, "tooltip[3.2,6.1;0.5,0.5;"..tooltip.."]")
+		local tooltip = shapeless and S("Shapeless") or
+			S("Cooking time: @1", minetest.colorize("yellow", cooktime))
+		table.insert(fs, "tooltip[3.2,6.1;0.5,0.5;"..esc(tooltip).."]")
 	end
 	table.insert(fs, "image[3,6.6;1,1;sfinv_crafting_arrow.png]")
 
@@ -262,8 +264,7 @@ local function get_formspec(player)
 	data.pagemax = math.max(1, math.ceil(#data.items / 32))
 
 	local fs = {}
-	table.insert(fs, ("field[0.3,4.2;2.8,1.2;filter;;%s]")
-		:format(minetest.formspec_escape(data.filter)))
+	table.insert(fs, "field[0.3,4.2;2.8,1.2;filter;;"..esc(data.filter).."]")
 	table.insert(fs, ("label[5.8,4.15;%s / %d]")
 		:format(minetest.colorize("yellow", data.pagenum), data.pagemax))
 	table.insert(fs,
@@ -271,14 +272,14 @@ local function get_formspec(player)
 		"image_button[3.25,4.05;0.8,0.8;craftguide_clear_icon.png;clear;]"..
 		"image_button[5,4.05;0.8,0.8;craftguide_prev_icon.png;prev;]"..
 		"image_button[7.25,4.05;0.8,0.8;craftguide_next_icon.png;next;]"..
-		"tooltip[search;Search]"..
-		"tooltip[clear;Reset]"..
-		"tooltip[prev;Previous page]"..
-		"tooltip[next;Next page]"..
+		"tooltip[search;"..esc(S("Search")).."]"..
+		"tooltip[clear;"..esc(S("Reset")).."]"..
+		"tooltip[prev;"..esc(S("Previous page")).."]"..
+		"tooltip[next;"..esc(S("Next page")).."]"..
 		"field_close_on_enter[filter;false]")
 
 	if #data.items == 0 then
-		table.insert(fs, "label[3,2;No items to show.]")
+		table.insert(fs, "label[3,2;"..esc(S("No items to show.")).."]")
 	else
 		local first_item = (data.pagenum - 1) * 32
 		for i = first_item, first_item + 31 do
@@ -292,14 +293,12 @@ local function get_formspec(player)
 		end
 	end
 
-	if data.recipes then
-		if #data.recipes > 0 then
-			recipe_fs(fs, data)
-		elseif data.show_usages then
-			table.insert(fs, "label[2,6.6;No usages.\nClick again to show recipes.]")
-		else
-			table.insert(fs, "label[2,6.6;No recipes.\nClick again to show usages.]")
-		end
+	if #data.recipes > 0 then
+		recipe_fs(fs, data)
+	elseif data.prev_item then
+		table.insert(fs, ("label[2,6.6;%s]"):format(esc(data.show_usages
+			and S("No usages.\nClick again to show recipes.")
+			or S("No recipes.\nClick again to show usages."))))
 	end
 
 	return table.concat(fs)
@@ -327,7 +326,7 @@ local function reset_data(data)
 	data.filter = ""
 	data.pagenum = 1
 	data.prev_item = nil
-	data.recipes = nil
+	data.recipes = {}
 	data.items = init_items
 end
 
@@ -406,6 +405,7 @@ minetest.register_on_joinplayer(function(player)
 	player_data[name] = {
 		filter = "",
 		pagenum = 1,
+		recipes = {},
 		items = init_items
 	}
 end)
@@ -416,7 +416,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 sfinv.register_page("mtg_craftguide:craftguide", {
-	title = "Craft Guide",
+	title = esc(S("Craft Guide")),
 	get = function(self, player, context)
 		return sfinv.make_formspec(player, context, get_formspec(player))
 	end,
