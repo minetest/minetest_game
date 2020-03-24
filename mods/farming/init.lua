@@ -113,6 +113,22 @@ minetest.register_craft({
 })
 
 
+-- Rapeseed
+
+farming.register_plant("farming:rapeseed", {
+	description = S("Rapeseed"),
+	inventory_image = "farming_rapeseed.png",
+	steps = 8,
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	only_seed = true,
+	fertility = {"grassland", "desert"},
+	groups = {flammable = 4},
+})
+
+dofile(farming.path .. "/rapeseed_oil.lua")
+
+
 -- Straw
 
 minetest.register_craft({

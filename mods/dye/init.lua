@@ -45,25 +45,61 @@ for _, row in ipairs(dye.dyes) do
 			{"group:flower,color_" .. name}
 		},
 	})
+
+	minetest.register_craft({
+		type = "shapeless",
+		output = "dye:" .. name .. " 8",
+		recipe = {
+			"group:flower,color_" .. name,
+			"farming:glass_bottle_with_rapeseed_oil"
+		},
+		replacements = {{"farming:glass_bottle_with_rapeseed_oil",
+				"vessels:glass_bottle"}},
+	})
 end
 
--- Manually add coal -> black dye
+if minetest.get_modpath("default") then
+	-- Manually add coal -> black dye
 
-minetest.register_craft({
-	output = "dye:black 4",
-	recipe = {
-		{"group:coal"}
-	},
-})
+	minetest.register_craft({
+		output = "dye:black 4",
+		recipe = {
+			{"group:coal"}
+		},
+	})
 
--- Manually add blueberries->violet dye
+	minetest.register_craft({
+		type = "shapeless",
+		output = "dye:black 8",
+		recipe = {
+			"group:coal",
+			"farming:glass_bottle_with_rapeseed_oil"
+		},
+		replacements = {{"farming:glass_bottle_with_rapeseed_oil",
+				"vessels:glass_bottle"}},
+	})
 
-minetest.register_craft({
-	output = "dye:violet 2",
-	recipe = {
-		{"default:blueberries"}
-	},
-})
+	-- Manually add blueberries->violet dye
+
+	minetest.register_craft({
+		output = "dye:violet 2",
+		recipe = {
+			{"default:blueberries"}
+		},
+	})
+
+	minetest.register_craft({
+		type = "shapeless",
+		output = "dye:violet 8",
+		recipe = {
+			"default:blueberries",
+			"default:blueberries",
+			"farming:glass_bottle_with_rapeseed_oil"
+		},
+		replacements = {{"farming:glass_bottle_with_rapeseed_oil",
+				"vessels:glass_bottle"}},
+	})
+end
 
 -- Mix recipes
 

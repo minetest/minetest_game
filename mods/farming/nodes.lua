@@ -233,7 +233,7 @@ minetest.register_abm({
 -- Make default:grass_* occasionally drop wheat seed
 
 for i = 1, 5 do
-	minetest.override_item("default:grass_"..i, {drop = {
+	minetest.override_item("default:grass_" .. i, {drop = {
 		max_items = 1,
 		items = {
 			{items = {"farming:seed_wheat"}, rarity = 5},
@@ -280,3 +280,14 @@ minetest.register_node("farming:cotton_wild", {
 		fixed = {-6 / 16, -8 / 16, -6 / 16, 6 / 16, 5 / 16, 6 / 16},
 	},
 })
+
+
+-- Make default:dry_shrub occasionally drop rapeseed.
+
+minetest.override_item("default:dry_shrub", {drop = {
+	max_items = 1,
+	items = {
+		{items = {"farming:rapeseed"}, rarity = 10},
+		{items = {"default:dry_shrub"}},
+	}
+}})

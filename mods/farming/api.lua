@@ -253,8 +253,7 @@ end
 
 -- Register plants
 farming.register_plant = function(name, def)
-	local mname = name:split(":")[1]
-	local pname = name:split(":")[2]
+	local mname, pname = unpack(name:split(":"))
 
 	-- Check def table
 	if not def.description then
@@ -278,16 +277,22 @@ farming.register_plant = function(name, def)
 	if not def.fertility then
 		def.fertility = {}
 	end
+	if not def.only_seed then
+		def.only_seed = false
+	end
 
 	farming.registered_plants[pname] = def
 
+	local seed_name = def.only_seed and mname .. ":" .. pname
+			or mname .. ":seed_" .. pname
+
 	-- Register seed
-	local lbm_nodes = {mname .. ":seed_" .. pname}
+	local lbm_nodes = {seed_name}
 	local g = {seed = 1, snappy = 3, attached_node = 1, flammable = 2}
 	for k, v in pairs(def.fertility) do
 		g[v] = 1
 	end
-	minetest.register_node(":" .. mname .. ":seed_" .. pname, {
+	minetest.register_node(":" .. seed_name, {
 		description = def.description,
 		tiles = {def.inventory_image},
 		inventory_image = def.inventory_image,
@@ -321,7 +326,7 @@ farming.register_plant = function(name, def)
 					pointed_thing) or itemstack
 			end
 
-			return farming.place_seed(itemstack, placer, pointed_thing, mname .. ":seed_" .. pname)
+			return farming.place_seed(itemstack, placer, pointed_thing, seed_name)
 		end,
 		next_plant = mname .. ":" .. pname .. "_1",
 		on_timer = farming.grow_plant,
@@ -330,11 +335,13 @@ farming.register_plant = function(name, def)
 	})
 
 	-- Register harvest
-	minetest.register_craftitem(":" .. mname .. ":" .. pname, {
-		description = def.harvest_description,
-		inventory_image = mname .. "_" .. pname .. ".png",
-		groups = def.groups or {flammable = 2},
-	})
+	if not def.only_seed then
+		minetest.register_craftitem(":" .. mname .. ":" .. pname, {
+			description = def.harvest_description,
+			inventory_image = mname .. "_" .. pname .. ".png",
+			groups = def.groups or {flammable = 2},
+		})
+	end
 
 	-- Register growing steps
 	for i = 1, def.steps do
@@ -343,11 +350,15 @@ farming.register_plant = function(name, def)
 			base_rarity =  8 - (i - 1) * 7 / (def.steps - 1)
 		end
 		local drop = {
-			items = {
+			items = def.only_seed and {
+				{items = {seed_name}, rarity = base_rarity},
+				{items = {seed_name}, rarity = base_rarity * 2},
+				{items = {seed_name}, rarity = base_rarity * 2},
+			} or {
 				{items = {mname .. ":" .. pname}, rarity = base_rarity},
 				{items = {mname .. ":" .. pname}, rarity = base_rarity * 2},
-				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity},
-				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity * 2},
+				{items = {seed_name}, rarity = base_rarity},
+				{items = {seed_name}, rarity = base_rarity * 2},
 			}
 		}
 		local nodegroups = {snappy = 3, flammable = 2, plant = 1, not_in_creative_inventory = 1, attached_node = 1}
@@ -393,9 +404,8 @@ farming.register_plant = function(name, def)
 	})
 
 	-- Return
-	local r = {
-		seed = mname .. ":seed_" .. pname,
+	return {
+		seed = seed_name,
 		harvest = mname .. ":" .. pname
 	}
-	return r
 end
