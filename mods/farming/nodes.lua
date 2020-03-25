@@ -153,6 +153,13 @@ minetest.register_node("farming:straw", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
+-- Registered before the stairs so the stairs get fuel recipes.
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:straw",
+	burntime = 3,
+})
+
 do
 	local recipe = "farming:straw"
 	local groups = {snappy = 3, flammable = 4}
