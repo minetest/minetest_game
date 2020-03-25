@@ -1,8 +1,8 @@
 # textdomain: sethome
 Can use /sethome and /home=可以使用/sethome和/home
-Teleport you to your home point=传送您到您的家
-Teleported to home!=传送到家了！
+Teleport you to your home point=传送您到您家的地点
+Teleported to home!=已传送到家！
 Set a home using /sethome=使用/sethome设定家
-Set your home point=设定您的家
-Home set!=家设定了！
-Player not found!=找不到玩家！
+Set your home point=设定您家的地点
+Home set!=已设定家！
+Player not found!=未找到玩家！

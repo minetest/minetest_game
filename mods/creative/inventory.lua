@@ -25,7 +25,9 @@ function creative.init_creative_inventory(player)
 	player_inventory[player_name] = {
 		size = 0,
 		filter = "",
-		start_i = 0
+		start_i = 0,
+		old_filter = nil, -- use only for caching in update_creative_inventory
+		old_content = nil
 	}
 
 	minetest.create_detached_inventory("creative_" .. player_name, {
@@ -74,6 +76,12 @@ function creative.update_creative_inventory(player_name, tab_content)
 			creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
 
+	if inv.filter == inv.old_filter and tab_content == inv.old_content then
+		return
+	end
+	inv.old_filter = inv.filter
+	inv.old_content = tab_content
+
 	local items = inventory_cache[tab_content] or init_creative_cache(tab_content)
 
 	local creative_list = {}
@@ -119,8 +127,7 @@ function creative.register_tab(name, title, items)
 			local player_name = player:get_player_name()
 			creative.update_creative_inventory(player_name, items)
 			local inv = player_inventory[player_name]
-			local start_i = inv.start_i or 0
-			local pagenum = math.floor(start_i / (4*8) + 1)
+			local pagenum = math.floor(inv.start_i / (4*8) + 1)
 			local pagemax = math.ceil(inv.size / (4*8))
 			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
@@ -143,7 +150,7 @@ function creative.register_tab(name, title, items)
 				"field_close_on_enter[creative_filter;false]" ..
 				"field[0.3,4.2;2.8,1.2;creative_filter;;" .. esc(inv.filter) .. "]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
-				"list[detached:creative_" .. player_name .. ";main;0,0;8,4;" .. tostring(start_i) .. "]" ..
+				"list[detached:creative_" .. player_name .. ";main;0,0;8,4;" .. tostring(inv.start_i) .. "]" ..
 				creative.formspec_add, true)
 		end,
 		on_enter = function(self, player, context)
@@ -161,13 +168,11 @@ function creative.register_tab(name, title, items)
 			if fields.creative_clear then
 				inv.start_i = 0
 				inv.filter = ""
-				creative.update_creative_inventory(player_name, items)
 				sfinv.set_player_inventory_formspec(player, context)
 			elseif fields.creative_search or
 					fields.key_enter_field == "creative_filter" then
 				inv.start_i = 0
 				inv.filter = fields.creative_filter:lower()
-				creative.update_creative_inventory(player_name, items)
 				sfinv.set_player_inventory_formspec(player, context)
 			elseif not fields.quit then
 				local start_i = inv.start_i or 0
