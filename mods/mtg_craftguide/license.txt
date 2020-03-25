@@ -29,9 +29,9 @@ Licenses of media (textures)
 ----------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+
 Copyright (C) 2018 paramat
 Copyright (C) Neuromancer
-Copyright (C) Jean-Patrick Guerrero
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
