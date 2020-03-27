@@ -458,7 +458,7 @@ minetest.register_node("default:dirt_with_grass_footsteps", {
 })
 
 minetest.register_node("default:dirt_with_dry_grass", {
-	description = S("Dirt with Dry Grass"),
+	description = S("Dirt with Savanna Grass"),
 	tiles = {"default_dry_grass.png",
 		"default_dirt.png",
 		{name = "default_dirt.png^default_dry_grass_side.png",
@@ -513,14 +513,14 @@ minetest.register_node("default:dirt_with_coniferous_litter", {
 })
 
 minetest.register_node("default:dry_dirt", {
-	description = S("Dry Dirt"),
+	description = S("Savanna Dirt"),
 	tiles = {"default_dry_dirt.png"},
 	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults(),
 })
 
 minetest.register_node("default:dry_dirt_with_dry_grass", {
-	description = S("Dry Dirt with Dry Grass"),
+	description = S("Savanna Dirt with Savanna Grass"),
 	tiles = {"default_dry_grass.png", "default_dry_dirt.png",
 		{name = "default_dry_dirt.png^default_dry_grass_side.png",
 			tileable_vertical = false}},
@@ -1497,7 +1497,7 @@ end
 
 
 minetest.register_node("default:dry_grass_1", {
-	description = S("Dry Grass"),
+	description = S("Savanna Grass"),
 	drawtype = "plantlike",
 	waving = 1,
 	tiles = {"default_dry_grass_1.png"},
@@ -1526,7 +1526,7 @@ minetest.register_node("default:dry_grass_1", {
 
 for i = 2, 5 do
 	minetest.register_node("default:dry_grass_" .. i, {
-		description = S("Dry Grass"),
+		description = S("Savanna Grass"),
 		drawtype = "plantlike",
 		waving = 1,
 		tiles = {"default_dry_grass_" .. i .. ".png"},
