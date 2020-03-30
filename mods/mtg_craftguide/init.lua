@@ -297,8 +297,8 @@ local function get_formspec(player)
 		recipe_fs(fs, data)
 	elseif data.prev_item then
 		table.insert(fs, ("label[2,6.6;%s]"):format(esc(data.show_usages
-			and S("No usages.\nClick again to show recipes.")
-			or S("No recipes.\nClick again to show usages."))))
+			and S("No usages.").."\n"..S("Click again to show recipes.")
+			or S("No recipes.").."\n"..S("Click again to show usages."))))
 	end
 
 	return table.concat(fs)
