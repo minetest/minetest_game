@@ -2816,7 +2816,10 @@ minetest.register_node("default:brick", {
 	description = S("Brick Block"),
 	paramtype2 = "facedir",
 	place_param2 = 0,
-	tiles = {"default_brick.png"},
+	tiles = {
+		"default_brick.png^[transformFX",
+		"default_brick.png",
+	},
 	is_ground_content = false,
 	groups = {cracky = 3},
 	sounds = default.node_sound_stone_defaults(),
