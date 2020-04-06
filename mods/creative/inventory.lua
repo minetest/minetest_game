@@ -208,11 +208,12 @@ minetest.register_on_mods_loaded(function()
 	for name, def in pairs(minetest.registered_items) do
 		local group = def.groups or {}
 
-		if group.node or minetest.registered_nodes[name] then
+		local nogroup = not (group.node or group.tool or group.craftitem)
+		if group.node or (nogroup and minetest.registered_nodes[name]) then
 			registered_nodes[name] = def
-		elseif group.tool or minetest.registered_tools[name] then
+		elseif group.tool or (nogroup and minetest.registered_tools[name]) then
 			registered_tools[name] = def
-		elseif group.craftitem or minetest.registered_craftitems[name] then
+		elseif group.craftitem or (nogroup and minetest.registered_craftitems[name]) then
 			registered_craftitems[name] = def
 		end
 	end
