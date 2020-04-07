@@ -16,9 +16,7 @@ function default.can_grow(pos)
 	if not node_under then
 		return false
 	end
-	local name_under = node_under.name
-	local is_soil = minetest.get_item_group(name_under, "soil")
-	if is_soil == 0 then
+	if minetest.get_item_group(node_under.name, "soil") == 0 then
 		return false
 	end
 	local light_level = minetest.get_node_light(pos)
