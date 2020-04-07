@@ -62,6 +62,7 @@ local fire_node = {
 
 -- Basic flame node
 local flame_fire_node = table.copy(fire_node)
+flame_fire_node.description = S("Fire")
 flame_fire_node.groups.not_in_creative_inventory = 1
 flame_fire_node.on_timer = function(pos)
 	if not minetest.find_node_near(pos, 1, {"group:flammable"}) then
