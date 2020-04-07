@@ -199,10 +199,29 @@ function creative.register_tab(name, title, items)
 	})
 end
 
+-- Sort registered items
+local registered_nodes = {}
+local registered_tools = {}
+local registered_craftitems = {}
+
+minetest.register_on_mods_loaded(function()
+	for name, def in pairs(minetest.registered_items) do
+		local group = def.groups or {}
+
+		if group.node or minetest.registered_nodes[name] then
+			registered_nodes[name] = def
+		elseif group.tool or minetest.registered_tools[name] then
+			registered_tools[name] = def
+		elseif group.craftitem or minetest.registered_craftitems[name] then
+			registered_craftitems[name] = def
+		end
+	end
+end)
+
 creative.register_tab("all", S("All"), minetest.registered_items)
-creative.register_tab("nodes", S("Nodes"), minetest.registered_nodes)
-creative.register_tab("tools", S("Tools"), minetest.registered_tools)
-creative.register_tab("craftitems", S("Items"), minetest.registered_craftitems)
+creative.register_tab("nodes", S("Nodes"), registered_nodes)
+creative.register_tab("tools", S("Tools"), registered_tools)
+creative.register_tab("craftitems", S("Items"), registered_craftitems)
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)

@@ -103,6 +103,13 @@ The contents of `creative.formspec_add` is appended to every creative inventory
 page. Mods can use it to add additional formspec elements onto the default
 creative inventory formspec to be drawn after each update.
 
+Group overrides can be used for any registered item, node or tool. Use one of
+the groups stated below to pick which category it will appear in.
+
+	node = 1      -- Appears in the Nodes category
+	tool = 1      -- Appears in the Tools category
+	craftitem = 1 -- Appears in the Items category
+
 
 Chests API
 ----------
