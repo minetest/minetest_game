@@ -113,13 +113,7 @@ minetest.register_globalstep(function()
 		local model = model_name and models[model_name]
 		if model and not player_attached[name] then
 			local controls = player:get_player_control()
-			local walking = false
 			local animation_speed_mod = model.animation_speed or 30
-
-			-- Determine if the player is walking
-			if controls.up or controls.down or controls.left or controls.right then
-				walking = true
-			end
 
 			-- Determine if the player is sneaking, and reduce animation speed if so
 			if controls.sneak then
@@ -129,7 +123,8 @@ minetest.register_globalstep(function()
 			-- Apply animations based on what the player is doing
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
-			elseif walking then
+			-- Determine if the player is walking
+			elseif controls.up or controls.down or controls.left or controls.right then
 				if player_sneak[name] ~= controls.sneak then
 					player_anim[name] = nil
 					player_sneak[name] = controls.sneak
