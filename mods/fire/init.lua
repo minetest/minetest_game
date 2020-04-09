@@ -35,7 +35,6 @@ local function flood_flame(pos, _, newnode)
 end
 
 -- Flame nodes
-
 local fire_node = {
 	drawtype = "firelike",
 	tiles = {{
@@ -80,7 +79,7 @@ minetest.register_node("fire:basic_flame", flame_fire_node)
 
 -- Permanent flame node
 local permanent_fire_node = table.copy(fire_node)
-permanent_fire_node.description = S("Permanent Flame")
+permanent_fire_node.description = S("Permanent Fire")
 
 minetest.register_node("fire:permanent_flame", permanent_fire_node)
 
