@@ -202,6 +202,8 @@ end
 
 function stairs.register_stair(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
+	minetest.log("warning", "stairs.register_stair() is " ..
+		"deprecated, use stairs.register_stair_type() instead.")
 	return stairs.register_stair_type(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, nil, nil)
 end
@@ -348,6 +350,8 @@ end
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
+	minetest.log("warning", "stairs.register_stair_inner() is " ..
+		"deprecated, use stairs.register_stair_type() instead.")
 	return stairs.register_stair_type(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description, "inner")
 end
@@ -358,6 +362,8 @@ end
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
+	minetest.log("warning", "stairs.register_stair_outer() is " ..
+		"deprecated, use stairs.register_stair_type() instead.")
 	return stairs.register_stair_type(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description, "outer")
 end
