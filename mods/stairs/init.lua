@@ -368,12 +368,12 @@ end
 
 function stairs.register_stair_and_slab(subname, recipeitem, groups, images,
 		desc_stair, desc_slab, sounds, worldaligntex)
-	stairs.register_stair(subname, recipeitem, groups, images, desc_stair,
+	stairs.register_stair_type(subname, recipeitem, groups, images, desc_stair,
 		sounds, worldaligntex)
-	stairs.register_stair_inner(subname, recipeitem, groups, images, desc_stair,
-		sounds, worldaligntex)
-	stairs.register_stair_outer(subname, recipeitem, groups, images, desc_stair,
-		sounds, worldaligntex)
+	stairs.register_stair_type(subname, recipeitem, groups, images, desc_stair,
+		sounds, worldaligntex, "inner")
+	stairs.register_stair_type(subname, recipeitem, groups, images, desc_stair,
+		sounds, worldaligntex, "outer")
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab,
 		sounds, worldaligntex)
 end
@@ -381,12 +381,12 @@ end
 -- Local function so we can apply translations
 local function my_register_stair_and_slab(subname, recipeitem, groups, images,
 		desc_stair, desc_slab, sounds, worldaligntex)
-	stairs.register_stair(subname, recipeitem, groups, images, S(desc_stair),
+	stairs.register_stair_type(subname, recipeitem, groups, images, S(desc_stair),
 		sounds, worldaligntex)
-	stairs.register_stair_inner(subname, recipeitem, groups, images, "",
-		sounds, worldaligntex, S("Inner " .. desc_stair))
-	stairs.register_stair_outer(subname, recipeitem, groups, images, "",
-		sounds, worldaligntex, S("Outer " .. desc_stair))
+	stairs.register_stair_type(subname, recipeitem, groups, images, "",
+		sounds, worldaligntex, S("Inner " .. desc_stair), "inner")
+	stairs.register_stair_type(subname, recipeitem, groups, images, "",
+		sounds, worldaligntex, S("Outer " .. desc_stair), "outer")
 	stairs.register_slab(subname, recipeitem, groups, images, S(desc_slab),
 		sounds, worldaligntex)
 end
@@ -770,7 +770,7 @@ my_register_stair_and_slab(
 
 -- Glass stair nodes need to be registered individually to utilize specialized textures.
 
-stairs.register_stair(
+stairs.register_stair_type(
 	"glass",
 	"default:glass",
 	{cracky = 3},
@@ -792,7 +792,7 @@ stairs.register_slab(
 	false
 )
 
-stairs.register_stair_inner(
+stairs.register_stair_type(
 	"glass",
 	"default:glass",
 	{cracky = 3},
@@ -802,10 +802,11 @@ stairs.register_stair_inner(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Inner Glass Stair")
+	S("Inner Glass Stair"),
+	"inner"
 )
 
-stairs.register_stair_outer(
+stairs.register_stair_type(
 	"glass",
 	"default:glass",
 	{cracky = 3},
@@ -815,10 +816,11 @@ stairs.register_stair_outer(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Outer Glass Stair")
+	S("Outer Glass Stair"),
+	"outer"
 )
 
-stairs.register_stair(
+stairs.register_stair_type(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
@@ -840,7 +842,7 @@ stairs.register_slab(
 	false
 )
 
-stairs.register_stair_inner(
+stairs.register_stair_type(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
@@ -850,10 +852,11 @@ stairs.register_stair_inner(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Inner Obsidian Glass Stair")
+	S("Inner Obsidian Glass Stair"),
+	"inner"
 )
 
-stairs.register_stair_outer(
+stairs.register_stair_type(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
@@ -863,7 +866,8 @@ stairs.register_stair_outer(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Outer Obsidian Glass Stair")
+	S("Outer Obsidian Glass Stair"),
+	"outer"
 )
 
 -- Dummy calls to S() to allow translation scripts to detect the strings.
