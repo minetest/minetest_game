@@ -159,12 +159,12 @@ do
 	local images = {"farming_straw.png"}
 	local sounds = default.node_sound_leaves_defaults()
 
-	stairs.register_stair("straw", recipe, groups, images, S("Straw Stair"),
+	stairs.register_stair_type("straw", recipe, groups, images, S("Straw Stair"),
 		sounds, true)
-	stairs.register_stair_inner("straw", recipe, groups, images, "",
-		sounds, true, S("Inner Straw Stair"))
-	stairs.register_stair_outer("straw", recipe, groups, images, "",
-		sounds, true, S("Outer Straw Stair"))
+	stairs.register_stair_type("straw", recipe, groups, images, "",
+		sounds, true, S("Inner Straw Stair"), "inner")
+	stairs.register_stair_type("straw", recipe, groups, images, "",
+		sounds, true, S("Outer Straw Stair"), "outer")
 	stairs.register_slab("straw", recipe, groups, images, S("Straw Slab"),
 		sounds, true)
 end
