@@ -136,12 +136,12 @@ The chests API allows the creation of chests, which have their own inventories f
  * A table indexed by player name to keep track of who opened what chest.
  * Key: The name of the player.
  * Value: A table containing information about the chest the player is looking at.
-   e.g `{ pos = {1, 1, 1}, sound = null, swap = "chest" }`
+   e.g `{ pos = {1, 1, 1}, sound = null, swap = "default:chest" }`
 
 `default.chest.register_chest(name, def)`
 
  * Registers new chest
- * `name` Name for chest
+ * `name` Name for chest e.g "default:chest"
  * `def`  See [#Chest Definition]
 
 ### Chest Definition
