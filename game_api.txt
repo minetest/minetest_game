@@ -863,15 +863,20 @@ GUI and formspecs
 
  * Entire formspec for the survival inventory
 
+`default.get_furnace_formspec(fuel_percent, item_percent)`
+
+ * Get the furnace formspec using the defined GUI elements
+ * fuel_percent: Percent of how much the fuel is used
+    * Note: Defines the inactive furnace formspec when nil.
+ * item_percent: Percent of how much the item is cooked
+
 `default.get_furnace_active_formspec(fuel_percent, item_percent)`
 
- * Get the active furnace formspec using the defined GUI elements
- * fuel_percent: Percent of how much the fuel is used
- * item_percent: Percent of how much the item is cooked
+ * Deprecated, remove from mods.
 
 `default.get_furnace_inactive_formspec()`
 
- * Get the inactive furnace formspec using the defined GUI elements
+ * Deprecated, remove from mods.
 
 
 Leafdecay
