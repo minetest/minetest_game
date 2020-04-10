@@ -36,10 +36,14 @@ function default.get_furnace_formspec(fuel_percent, item_percent)
 end
 
 function default.get_furnace_active_formspec(fuel_percent, item_percent)
+	minetest.log("warning", "default.get_furnace_active_formspec() is " ..
+		"deprecated, use default.get_furnace_formspec() instead.")
 	return default.get_furnace_formspec(fuel_percent, item_percent)
 end
 
 function default.get_furnace_inactive_formspec()
+	minetest.log("warning", "default.get_furnace_inactive_formspec() is " ..
+		"deprecated, use default.get_furnace_formspec() instead.")
 	return default.get_furnace_formspec()
 end
 
