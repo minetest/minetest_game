@@ -19,8 +19,8 @@ local function book_on_use(itemstack, user)
 	local data = meta:to_table().fields
 
 	if data.owner then
-		title = data.title
-		text = data.text
+		title = data.title or ""
+		text = data.text or ""
 		owner = data.owner
 
 		for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
@@ -40,7 +40,7 @@ local function book_on_use(itemstack, user)
 
 	local formspec
 	local esc = minetest.formspec_escape
-	if owner == player_name then
+	if owner == player_name or (title == "" and text == "") then
 		formspec = "size[8,8]" ..
 			"field[0.5,1;7.5,0;title;" .. esc(S("Title:")) .. ";" ..
 				esc(title) .. "]" ..
@@ -72,8 +72,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
-	if fields.save and fields.title and fields.text
-			and fields.title ~= "" and fields.text ~= "" then
+	if fields.save and fields.title and fields.text then
 		local new_stack, data
 		if stack:get_name() ~= "default:book_written" then
 			local count = stack:get_count()
@@ -87,7 +86,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			data = stack:get_meta():to_table().fields
 		end
 
-		if data and data.owner and data.owner ~= player:get_player_name() then
+		if data and data.owner and data.owner ~= player:get_player_name()
+				and fields.title ~= "" and fields.text ~= "" then
 			return
 		end
 
@@ -95,8 +95,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		data.title = fields.title:sub(1, max_title_size)
 		data.owner = player:get_player_name()
 		local short_title = data.title
+		if short_title == "" then
+			short_title = "Book"
 		-- Don't bother triming the title if the trailing dots would make it longer
-		if #short_title > short_title_size + 3 then
+		elseif #short_title > short_title_size + 3 then
 			short_title = short_title:sub(1, short_title_size) .. "..."
 		end
 		data.description = S("\"@1\" by @2", short_title, data.owner)
