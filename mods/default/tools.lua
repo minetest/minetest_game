@@ -493,26 +493,21 @@ minetest.register_tool("default:key", {
 	end
 })
 
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:pick_wood",
-	burntime = 6,
-})
+--
+-- Fuel
+--
 
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:shovel_wood",
-	burntime = 4,
-})
+local wood_tool_fuel = {
+	pick = 6,
+	shovel = 4,
+	axe = 6,
+	sword = 5
+}
 
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:axe_wood",
-	burntime = 6,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:sword_wood",
-	burntime = 5,
-})
+for tool, burn in pairs(wood_tool_fuel) do
+	minetest.register_craft({
+		type = "fuel",
+		recipe = "default:".. tool .."_wood",
+		burntime = burn,
+	})
+end
