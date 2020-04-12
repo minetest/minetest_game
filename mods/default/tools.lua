@@ -24,383 +24,230 @@ minetest.register_item(":", {
 -- Picks
 --
 
-minetest.register_tool("default:pick_wood", {
-	description = S("Wooden Pickaxe"),
-	inventory_image = "default_tool_woodpick.png",
-	tool_capabilities = {
-		full_punch_interval = 1.2,
-		max_drop_level=0,
-		groupcaps={
-			cracky = {times={[3]=1.60}, uses=10, maxlevel=1},
-		},
-		damage_groups = {fleshy=2},
+local tool_pick = {
+	wood = {
+		desc = "Wooden Pickaxe",
+		punch = 1.2, drop = 0, damage = 2,
+		cap = {times={[3]=1.60}, uses=10, maxlevel=1},
+		groups = {flammable = 2},
 	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1, flammable = 2}
-})
+	stone = {
+		desc = "Stone Pickaxe",
+		punch = 1.3, drop = 0, damage = 3,
+		cap = {times={[2]=2.0, [3]=1.00}, uses=20, maxlevel=1},
+	},
+	bronze = {
+		desc = "Bronze Pickaxe",
+		punch = 1.0, drop = 1, damage = 4,
+		cap = {times={[1]=4.50, [2]=1.80, [3]=0.90}, uses=20, maxlevel=2},
+	},
+	steel = {
+		desc = "Steel Pickaxe",
+		punch = 1.0, drop = 1, damage = 4,
+		cap = {times={[1]=4.00, [2]=1.60, [3]=0.80}, uses=20, maxlevel=2},
+	},
+	mese = {
+		desc = "Mese Pickaxe",
+		punch = 0.9, drop = 3, damage = 5,
+		cap = {times={[1]=2.4, [2]=1.2, [3]=0.60}, uses=20, maxlevel=3},
+	},
+	diamond = {
+		desc = "Diamond Pickaxe",
+		punch = 0.9, drop = 3, damage = 5,
+		cap = {times={[1]=2.0, [2]=1.0, [3]=0.50}, uses=30, maxlevel=3},
+	}
+}
 
-minetest.register_tool("default:pick_stone", {
-	description = S("Stone Pickaxe"),
-	inventory_image = "default_tool_stonepick.png",
-	tool_capabilities = {
-		full_punch_interval = 1.3,
-		max_drop_level=0,
-		groupcaps={
-			cracky = {times={[2]=2.0, [3]=1.00}, uses=20, maxlevel=1},
+for mat, tool in pairs(tool_pick) do
+	tool.groups = tool.groups or {}
+	tool.groups.pickaxe = 1
+	minetest.register_tool("default:pick_".. mat, {
+		description = S(tool.desc),
+		inventory_image = "default_tool_".. mat .."pick.png",
+		tool_capabilities = {
+			full_punch_interval = tool.punch,
+			max_drop_level = tool.drop,
+			groupcaps={
+				cracky = tool.cap,
+			},
+			damage_groups = {fleshy = tool.damage},
 		},
-		damage_groups = {fleshy=3},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1}
-})
-
-minetest.register_tool("default:pick_bronze", {
-	description = S("Bronze Pickaxe"),
-	inventory_image = "default_tool_bronzepick.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			cracky = {times={[1]=4.50, [2]=1.80, [3]=0.90}, uses=20, maxlevel=2},
-		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1}
-})
-
-minetest.register_tool("default:pick_steel", {
-	description = S("Steel Pickaxe"),
-	inventory_image = "default_tool_steelpick.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			cracky = {times={[1]=4.00, [2]=1.60, [3]=0.80}, uses=20, maxlevel=2},
-		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1}
-})
-
-minetest.register_tool("default:pick_mese", {
-	description = S("Mese Pickaxe"),
-	inventory_image = "default_tool_mesepick.png",
-	tool_capabilities = {
-		full_punch_interval = 0.9,
-		max_drop_level=3,
-		groupcaps={
-			cracky = {times={[1]=2.4, [2]=1.2, [3]=0.60}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=5},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1}
-})
-
-minetest.register_tool("default:pick_diamond", {
-	description = S("Diamond Pickaxe"),
-	inventory_image = "default_tool_diamondpick.png",
-	tool_capabilities = {
-		full_punch_interval = 0.9,
-		max_drop_level=3,
-		groupcaps={
-			cracky = {times={[1]=2.0, [2]=1.0, [3]=0.50}, uses=30, maxlevel=3},
-		},
-		damage_groups = {fleshy=5},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1}
-})
+		sound = {breaks = "default_tool_breaks"},
+		groups = tool.groups
+	})
+end
 
 --
 -- Shovels
 --
 
-minetest.register_tool("default:shovel_wood", {
-	description = S("Wooden Shovel"),
-	inventory_image = "default_tool_woodshovel.png",
-	wield_image = "default_tool_woodshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.2,
-		max_drop_level=0,
-		groupcaps={
-			crumbly = {times={[1]=3.00, [2]=1.60, [3]=0.60}, uses=10, maxlevel=1},
-		},
-		damage_groups = {fleshy=2},
+local tool_shovel = {
+	wood = {
+		desc = "Wooden Shovel",
+		punch = 1.2, drop = 0, damage = 2,
+		cap = {times={[1]=3.00, [2]=1.60, [3]=0.60}, uses=10, maxlevel=1},
+		groups = {flammable = 2},
 	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1, flammable = 2}
-})
+	stone = {
+		desc = "Stone Shovel",
+		punch = 1.4, drop = 0, damage = 2,
+		cap = {times={[1]=1.80, [2]=1.20, [3]=0.50}, uses=20, maxlevel=1},
+	},
+	bronze = {
+		desc = "Bronze Shovel",
+		punch = 1.2, drop = 1, damage = 3,
+		cap = {times={[1]=1.65, [2]=1.05, [3]=0.45}, uses=25, maxlevel=2},
+	},
+	steel = {
+		desc = "Steel Shovel",
+		punch = 1.1, drop = 1, damage = 3,
+		cap = {times={[1]=1.50, [2]=0.90, [3]=0.40}, uses=30, maxlevel=2},
+	},
+	mese = {
+		desc = "Mese Shovel",
+		punch = 1.0, drop = 3, damage = 4,
+		cap = {times={[1]=1.20, [2]=0.60, [3]=0.30}, uses=20, maxlevel=3},
+	},
+	diamond = {
+		desc = "Diamond Shovel",
+		punch = 1.0, drop = 1, damage = 4,
+		cap = {times={[1]=1.10, [2]=0.50, [3]=0.30}, uses=30, maxlevel=3},
+	}
+}
 
-minetest.register_tool("default:shovel_stone", {
-	description = S("Stone Shovel"),
-	inventory_image = "default_tool_stoneshovel.png",
-	wield_image = "default_tool_stoneshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.4,
-		max_drop_level=0,
-		groupcaps={
-			crumbly = {times={[1]=1.80, [2]=1.20, [3]=0.50}, uses=20, maxlevel=1},
+for mat, tool in pairs(tool_shovel) do
+	tool.groups = tool.groups or {}
+	tool.groups.shovel = 1
+	minetest.register_tool("default:shovel_".. mat, {
+		description = S(tool.desc),
+		inventory_image = "default_tool_".. mat .."shovel.png",
+		wield_image = "default_tool_".. mat .."shovel.png^[transformR90",
+		tool_capabilities = {
+			full_punch_interval = tool.punch,
+			max_drop_level = tool.drop,
+			groupcaps={
+				crumbly = tool.cap,
+			},
+			damage_groups = {fleshy = tool.damage},
 		},
-		damage_groups = {fleshy=2},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1}
-})
-
-minetest.register_tool("default:shovel_bronze", {
-	description = S("Bronze Shovel"),
-	inventory_image = "default_tool_bronzeshovel.png",
-	wield_image = "default_tool_bronzeshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.1,
-		max_drop_level=1,
-		groupcaps={
-			crumbly = {times={[1]=1.65, [2]=1.05, [3]=0.45}, uses=25, maxlevel=2},
-		},
-		damage_groups = {fleshy=3},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1}
-})
-
-minetest.register_tool("default:shovel_steel", {
-	description = S("Steel Shovel"),
-	inventory_image = "default_tool_steelshovel.png",
-	wield_image = "default_tool_steelshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.1,
-		max_drop_level=1,
-		groupcaps={
-			crumbly = {times={[1]=1.50, [2]=0.90, [3]=0.40}, uses=30, maxlevel=2},
-		},
-		damage_groups = {fleshy=3},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1}
-})
-
-minetest.register_tool("default:shovel_mese", {
-	description = S("Mese Shovel"),
-	inventory_image = "default_tool_meseshovel.png",
-	wield_image = "default_tool_meseshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=3,
-		groupcaps={
-			crumbly = {times={[1]=1.20, [2]=0.60, [3]=0.30}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1}
-})
-
-minetest.register_tool("default:shovel_diamond", {
-	description = S("Diamond Shovel"),
-	inventory_image = "default_tool_diamondshovel.png",
-	wield_image = "default_tool_diamondshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			crumbly = {times={[1]=1.10, [2]=0.50, [3]=0.30}, uses=30, maxlevel=3},
-		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1}
-})
+		sound = {breaks = "default_tool_breaks"},
+		groups = tool.groups
+	})
+end
 
 --
 -- Axes
 --
 
-minetest.register_tool("default:axe_wood", {
-	description = S("Wooden Axe"),
-	inventory_image = "default_tool_woodaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=0,
-		groupcaps={
-			choppy = {times={[2]=3.00, [3]=1.60}, uses=10, maxlevel=1},
-		},
-		damage_groups = {fleshy=2},
+local tool_axe = {
+	wood = {
+		desc = "Wooden Axe",
+		punch = 1.0, drop = 0, damage = 2,
+		cap = {times={[2]=3.00, [3]=1.60}, uses=10, maxlevel=1},
+		groups = {flammable = 2},
 	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1, flammable = 2}
-})
+	stone = {
+		desc = "Stone Axe",
+		punch = 1.2, drop = 0, damage = 3,
+		cap = {times={[1]=3.00, [2]=2.00, [3]=1.30}, uses=20, maxlevel=1},
+	},
+	bronze = {
+		desc = "Bronze Axe",
+		punch = 1.0, drop = 1, damage = 4,
+		cap = {times={[1]=2.75, [2]=1.70, [3]=1.15}, uses=20, maxlevel=2},
+	},
+	steel = {
+		desc = "Steel Axe",
+		punch = 1.0, drop = 1, damage = 4,
+		cap = {times={[1]=2.50, [2]=1.40, [3]=1.00}, uses=20, maxlevel=2},
+	},
+	mese = {
+		desc = "Mese Axe",
+		punch = 0.9, drop = 1, damage = 6,
+		cap = {times={[1]=2.20, [2]=1.00, [3]=0.60}, uses=20, maxlevel=3},
+	},
+	diamond = {
+		desc = "Diamond Axe",
+		punch = 0.9, drop = 1, damage = 7,
+		cap = {times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=3},
+	}
+}
 
-minetest.register_tool("default:axe_stone", {
-	description = S("Stone Axe"),
-	inventory_image = "default_tool_stoneaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.2,
-		max_drop_level=0,
-		groupcaps={
-			choppy={times={[1]=3.00, [2]=2.00, [3]=1.30}, uses=20, maxlevel=1},
+for mat, tool in pairs(tool_axe) do
+	tool.groups = tool.groups or {}
+	tool.groups.axe = 1
+	minetest.register_tool("default:axe_".. mat, {
+		description = S(tool.desc),
+		inventory_image = "default_tool_".. mat .."axe.png",
+		tool_capabilities = {
+			full_punch_interval = tool.punch,
+			max_drop_level = tool.drop,
+			groupcaps={
+				choppy = tool.cap,
+			},
+			damage_groups = {fleshy = tool.damage},
 		},
-		damage_groups = {fleshy=3},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1}
-})
-
-minetest.register_tool("default:axe_bronze", {
-	description = S("Bronze Axe"),
-	inventory_image = "default_tool_bronzeaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.75, [2]=1.70, [3]=1.15}, uses=20, maxlevel=2},
-		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1}
-})
-
-minetest.register_tool("default:axe_steel", {
-	description = S("Steel Axe"),
-	inventory_image = "default_tool_steelaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.50, [2]=1.40, [3]=1.00}, uses=20, maxlevel=2},
-		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1}
-})
-
-minetest.register_tool("default:axe_mese", {
-	description = S("Mese Axe"),
-	inventory_image = "default_tool_meseaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 0.9,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.20, [2]=1.00, [3]=0.60}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=6},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1}
-})
-
-minetest.register_tool("default:axe_diamond", {
-	description = S("Diamond Axe"),
-	inventory_image = "default_tool_diamondaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 0.9,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=3},
-		},
-		damage_groups = {fleshy=7},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1}
-})
+		sound = {breaks = "default_tool_breaks"},
+		groups = tool.groups
+	})
+end
 
 --
 -- Swords
 --
 
-minetest.register_tool("default:sword_wood", {
-	description = S("Wooden Sword"),
-	inventory_image = "default_tool_woodsword.png",
-	tool_capabilities = {
-		full_punch_interval = 1,
-		max_drop_level=0,
-		groupcaps={
-			snappy={times={[2]=1.6, [3]=0.40}, uses=10, maxlevel=1},
-		},
-		damage_groups = {fleshy=2},
+local tool_sword = {
+	wood = {
+		desc = "Wooden Sword",
+		punch = 1.0, drop = 0, damage = 2,
+		cap = {times={[2]=1.6, [3]=0.40}, uses=10, maxlevel=1},
+		groups = {flammable = 2},
 	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1, flammable = 2}
-})
+	stone = {
+		desc = "Stone Sword",
+		punch = 1.2, drop = 0, damage = 4,
+		cap = {times={[2]=1.4, [3]=0.40}, uses=20, maxlevel=1},
+	},
+	bronze = {
+		desc = "Bronze Sword",
+		punch = 0.8, drop = 1, damage = 6,
+		cap = {times={[1]=2.75, [2]=1.30, [3]=0.375}, uses=25, maxlevel=2},
+	},
+	steel = {
+		desc = "Steel Sword",
+		punch = 0.8, drop = 1, damage = 6,
+		cap = {times={[1]=2.5, [2]=1.20, [3]=0.35}, uses=30, maxlevel=2},
+	},
+	mese = {
+		desc = "Mese Sword",
+		punch = 0.7, drop = 1, damage = 7,
+		cap = {times={[1]=2.0, [2]=1.00, [3]=0.35}, uses=30, maxlevel=3},
+	},
+	diamond = {
+		desc = "Diamond Sword",
+		punch = 0.7, drop = 1, damage = 8,
+		cap = {times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
+	}
+}
 
-minetest.register_tool("default:sword_stone", {
-	description = S("Stone Sword"),
-	inventory_image = "default_tool_stonesword.png",
-	tool_capabilities = {
-		full_punch_interval = 1.2,
-		max_drop_level=0,
-		groupcaps={
-			snappy={times={[2]=1.4, [3]=0.40}, uses=20, maxlevel=1},
+for mat, tool in pairs(tool_sword) do
+	tool.groups = tool.groups or {}
+	tool.groups.sword = 1
+	minetest.register_tool("default:sword_".. mat, {
+		description = S(tool.desc),
+		inventory_image = "default_tool_".. mat .."sword.png",
+		tool_capabilities = {
+			full_punch_interval = tool.punch,
+			max_drop_level = tool.drop,
+			groupcaps={
+				snappy = tool.cap,
+			},
+			damage_groups = {fleshy = tool.damage},
 		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1}
-})
-
-minetest.register_tool("default:sword_bronze", {
-	description = S("Bronze Sword"),
-	inventory_image = "default_tool_bronzesword.png",
-	tool_capabilities = {
-		full_punch_interval = 0.8,
-		max_drop_level=1,
-		groupcaps={
-			snappy={times={[1]=2.75, [2]=1.30, [3]=0.375}, uses=25, maxlevel=2},
-		},
-		damage_groups = {fleshy=6},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1}
-})
-
-minetest.register_tool("default:sword_steel", {
-	description = S("Steel Sword"),
-	inventory_image = "default_tool_steelsword.png",
-	tool_capabilities = {
-		full_punch_interval = 0.8,
-		max_drop_level=1,
-		groupcaps={
-			snappy={times={[1]=2.5, [2]=1.20, [3]=0.35}, uses=30, maxlevel=2},
-		},
-		damage_groups = {fleshy=6},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1}
-})
-
-minetest.register_tool("default:sword_mese", {
-	description = S("Mese Sword"),
-	inventory_image = "default_tool_mesesword.png",
-	tool_capabilities = {
-		full_punch_interval = 0.7,
-		max_drop_level=1,
-		groupcaps={
-			snappy={times={[1]=2.0, [2]=1.00, [3]=0.35}, uses=30, maxlevel=3},
-		},
-		damage_groups = {fleshy=7},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1}
-})
-
-minetest.register_tool("default:sword_diamond", {
-	description = S("Diamond Sword"),
-	inventory_image = "default_tool_diamondsword.png",
-	tool_capabilities = {
-		full_punch_interval = 0.7,
-		max_drop_level=1,
-		groupcaps={
-			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
-		},
-		damage_groups = {fleshy=8},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1}
-})
+		sound = {breaks = "default_tool_breaks"},
+		groups = tool.groups
+	})
+end
 
 --
 -- Register Craft Recipies
