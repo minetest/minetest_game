@@ -621,7 +621,7 @@ minetest.register_node("default:snow", {
 	collision_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -7 / 16, 0.5},
+			{-0.5, -0.5, -0.5, 0.5, -6 / 16, 0.5},
 		},
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
