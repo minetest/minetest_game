@@ -39,8 +39,8 @@ local item = {
 		})
 	end,
 
-	on_step = function(self, dtime)
-		builtin_item.on_step(self, dtime)
+	on_step = function(self, dtime, ...)
+		builtin_item.on_step(self, dtime, ...)
 
 		if self.flammable then
 			-- flammable, check for igniters
