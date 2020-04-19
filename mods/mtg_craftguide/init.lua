@@ -92,7 +92,10 @@ local function groups_to_item(groups)
 end
 
 local function get_craftable_recipes(output)
-	local recipes = minetest.get_all_craft_recipes(output) or {}
+	local recipes = minetest.get_all_craft_recipes(output)
+	if not recipes then
+		return
+	end
 
 	for i = #recipes, 1, -1 do
 		for _, item in pairs(recipes[i].items) do
@@ -110,72 +113,57 @@ local function get_craftable_recipes(output)
 	return recipes
 end
 
-local function item_in_recipe(item, recipe)
-	for _, recipe_item in pairs(recipe.items) do
-		if recipe_item == item then
-			return true
-		end
-	end
-	return false
+local function show_item(def)
+	return def.groups.not_in_craft_guide ~= 1 and def.description ~= ""
 end
 
--- If item can be used in recipe because recipe takes a `group:` item that item
--- matches, return a copy of recipe with the `group:` item replaced with item.
-local function groups_item_in_recipe(item, recipe)
-	local item_groups = minetest.registered_items[item].groups
-
-	for _, recipe_item in pairs(recipe.items) do
-		local groups = extract_groups(recipe_item)
-		if groups and item_has_groups(item_groups, groups) then
-			local usage = table.copy(recipe)
-			table_replace(usage.items, recipe_item, item)
-			return usage
-		end
-	end
-end
-
-local function get_usages(item)
-	local usages = {}
-
-	for _, recipes in pairs(recipes_cache) do
-		for _, recipe in ipairs(recipes) do
-			if item_in_recipe(item, recipe) then
-				table.insert(usages, recipe)
-			else
-				recipe = groups_item_in_recipe(item, recipe)
-				if recipe then
-					table.insert(usages, recipe)
+local function cache_usages(recipe)
+	local added = {}
+	for _, item in pairs(recipe.items) do
+		if not added[item] then
+			local groups = extract_groups(item)
+			if groups then
+				for name, def in pairs(minetest.registered_items) do
+					if not added[name] and show_item(def)
+							and item_has_groups(def.groups, groups) then
+						local usage = table.copy(recipe)
+						table_replace(usage.items, item, name)
+						usages_cache[name] = usages_cache[name] or {}
+						table.insert(usages_cache[name], usage)
+						added[name] = true
+					end
 				end
+			elseif show_item(minetest.registered_items[item]) then
+				usages_cache[item] = usages_cache[item] or {}
+				table.insert(usages_cache[item], recipe)
 			end
+			added[item] = true
 		end
 	end
-
-	return usages
 end
 
 minetest.register_on_mods_loaded(function()
 	for name, def in pairs(minetest.registered_items) do
-		if def.groups.not_in_craft_guide ~= 1 and def.description ~= "" then
-			recipes_cache[name] = get_craftable_recipes(name)
+		if show_item(def) then
+			local recipes = get_craftable_recipes(name)
+			if recipes then
+				recipes_cache[name] = recipes
+				for _, recipe in ipairs(recipes) do
+					cache_usages(recipe)
+				end
+			end
 		end
 	end
 	for name, def in pairs(minetest.registered_items) do
-		if def.groups.not_in_craft_guide ~= 1 and def.description ~= "" then
-			usages_cache[name] = get_usages(name)
-			if #recipes_cache[name] > 0 or #usages_cache[name] > 0 then
-				table.insert(init_items, name)
-			end
+		if recipes_cache[name] or usages_cache[name] then
+			table.insert(init_items, name)
 		end
 	end
 	table.sort(init_items)
 end)
 
 local function is_fuel(item)
-	return minetest.get_craft_result({
-		method = "fuel",
-		width = 1,
-		items = {item}
-	}).time > 0
+	return minetest.get_craft_result({method="fuel", items={item}}).time > 0
 end
 
 local function item_button_fs(fs, x, y, item, element_name, groups)
@@ -195,7 +183,7 @@ local function item_button_fs(fs, x, y, item, element_name, groups)
 			tooltip = S("Any item belonging to the group(s): @1", groupstr)
 		end
 	elseif is_fuel(item) then
-		local itemdef = minetest.registered_items[item]
+		local itemdef = minetest.registered_items[item:match("%S*")]
 		local desc = itemdef and itemdef.description or S("Unknown Item")
 		tooltip = desc.."\n"..minetest.colorize("orange", S("Fuel"))
 	end
@@ -264,10 +252,11 @@ local function get_formspec(player)
 	data.pagemax = math.max(1, math.ceil(#data.items / 32))
 
 	local fs = {}
-	table.insert(fs, "field[0.3,4.2;2.8,1.2;filter;;"..esc(data.filter).."]")
-	table.insert(fs, ("label[5.8,4.15;%s / %d]")
-		:format(minetest.colorize("yellow", data.pagenum), data.pagemax))
 	table.insert(fs,
+		"style_type[item_image_button;padding=2]"..
+		"field[0.3,4.2;2.8,1.2;filter;;"..esc(data.filter).."]"..
+		"label[5.8,4.15;"..minetest.colorize("yellow", data.pagenum).." / "..
+			data.pagemax.."]"..
 		"image_button[2.63,4.05;0.8,0.8;craftguide_search_icon.png;search;]"..
 		"image_button[3.25,4.05;0.8,0.8;craftguide_clear_icon.png;clear;]"..
 		"image_button[5,4.05;0.8,0.8;craftguide_prev_icon.png;prev;]"..
@@ -293,7 +282,7 @@ local function get_formspec(player)
 		end
 	end
 
-	if #data.recipes > 0 then
+	if data.recipes then
 		recipe_fs(fs, data)
 	elseif data.prev_item then
 		table.insert(fs, ("label[2,6.6;%s]"):format(esc(data.show_usages
@@ -326,7 +315,7 @@ local function reset_data(data)
 	data.filter = ""
 	data.pagenum = 1
 	data.prev_item = nil
-	data.recipes = {}
+	data.recipes = nil
 	data.items = init_items
 end
 
@@ -405,7 +394,6 @@ minetest.register_on_joinplayer(function(player)
 	player_data[name] = {
 		filter = "",
 		pagenum = 1,
-		recipes = {},
 		items = init_items
 	}
 end)
