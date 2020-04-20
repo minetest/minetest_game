@@ -159,14 +159,18 @@ function boat.on_step(self, dtime)
 			if ctrl.left then
 				if self.v < -0.001 then
 					self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+					driver_objref:set_look_horizontal(driver_objref:get_look_horizontal() - dtime * 0.9)
 				else
 					self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
+					driver_objref:set_look_horizontal(driver_objref:get_look_horizontal() + dtime * 0.9)
 				end
 			elseif ctrl.right then
 				if self.v < -0.001 then
 					self.object:set_yaw(self.object:get_yaw() + dtime * 0.9)
+					driver_objref:set_look_horizontal(driver_objref:get_look_horizontal() + dtime * 0.9)
 				else
 					self.object:set_yaw(self.object:get_yaw() - dtime * 0.9)
+					driver_objref:set_look_horizontal(driver_objref:get_look_horizontal() - dtime * 0.9)
 				end
 			end
 		end
