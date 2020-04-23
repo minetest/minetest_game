@@ -576,7 +576,7 @@ function default.register_ores()
 		-- Only where default:dirt is present as surface material
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
 				"deciduous_forest", "deciduous_forest_shore", "rainforest",
-				"rainforest_swamp", "floatland_coniferous_forest"}
+				"rainforest_swamp"}
 	})
 
 	-- Gravel
@@ -890,7 +890,7 @@ end
 
 -- All mapgens except mgv6
 
-function default.register_biomes(upper_limit)
+function default.register_biomes()
 
 	-- Icesheet
 
@@ -909,7 +909,7 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		node_dungeon = "default:ice",
 		node_dungeon_stair = "stairs:stair_ice",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = -8,
 		heat_point = 0,
 		humidity_point = 73,
@@ -956,7 +956,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 47,
 		heat_point = 0,
 		humidity_point = 40,
@@ -1043,7 +1043,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 4,
 		heat_point = 25,
 		humidity_point = 70,
@@ -1095,7 +1095,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 4,
 		heat_point = 20,
 		humidity_point = 35,
@@ -1146,7 +1146,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 6,
 		heat_point = 50,
 		humidity_point = 35,
@@ -1213,7 +1213,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 6,
 		heat_point = 45,
 		humidity_point = 70,
@@ -1280,7 +1280,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 1,
 		heat_point = 60,
 		humidity_point = 68,
@@ -1347,7 +1347,7 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		node_dungeon = "default:desert_stone",
 		node_dungeon_stair = "stairs:stair_desert_stone",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 4,
 		heat_point = 92,
 		humidity_point = 16,
@@ -1397,7 +1397,7 @@ function default.register_biomes(upper_limit)
 		depth_riverbed = 2,
 		node_dungeon = "default:sandstonebrick",
 		node_dungeon_stair = "stairs:stair_sandstone_block",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 4,
 		heat_point = 60,
 		humidity_point = 0,
@@ -1446,7 +1446,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 4,
 		heat_point = 40,
 		humidity_point = 0,
@@ -1496,7 +1496,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 1,
 		heat_point = 89,
 		humidity_point = 42,
@@ -1563,7 +1563,7 @@ function default.register_biomes(upper_limit)
 		node_dungeon = "default:cobble",
 		node_dungeon_alt = "default:mossycobble",
 		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = upper_limit,
+		y_max = 31000,
 		y_min = 1,
 		heat_point = 86,
 		humidity_point = 65,
@@ -1615,59 +1615,6 @@ function default.register_biomes(upper_limit)
 		y_min = -31000,
 		heat_point = 86,
 		humidity_point = 65,
-	})
-end
-
-
--- Biomes for floatlands
-
--- TODO Temporary simple biomes to be replaced by special floatland biomes later.
-
-function default.register_floatland_biomes(floatland_level, shadow_limit)
-
-	minetest.register_biome({
-		name = "floatland_grassland",
-		node_top = "default:dirt_with_grass",
-		depth_top = 1,
-		node_filler = "default:dirt",
-		depth_filler = 1,
-		node_dungeon = "default:cobble",
-		node_dungeon_alt = "default:mossycobble",
-		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = 31000,
-		y_min = floatland_level + 2,
-		heat_point = 50,
-		humidity_point = 25,
-	})
-
-	minetest.register_biome({
-		name = "floatland_coniferous_forest",
-		node_top = "default:dirt_with_coniferous_litter",
-		depth_top = 1,
-		node_filler = "default:dirt",
-		depth_filler = 3,
-		node_dungeon = "default:cobble",
-		node_dungeon_alt = "default:mossycobble",
-		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = 31000,
-		y_min = floatland_level + 2,
-		heat_point = 50,
-		humidity_point = 75,
-	})
-
-	minetest.register_biome({
-		name = "floatland_ocean",
-		node_top = "default:sand",
-		depth_top = 1,
-		node_filler = "default:sand",
-		depth_filler = 3,
-		node_dungeon = "default:cobble",
-		node_dungeon_alt = "default:mossycobble",
-		node_dungeon_stair = "stairs:stair_cobble",
-		y_max = floatland_level + 1,
-		y_min = shadow_limit,
-		heat_point = 50,
-		humidity_point = 50,
 	})
 end
 
@@ -1787,7 +1734,7 @@ local function register_grass_decoration(offset, scale, length)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
+		biomes = {"grassland", "deciduous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "default:grass_" .. length,
@@ -1829,7 +1776,7 @@ local function register_fern_decoration(seed, length)
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"coniferous_forest", "floatland_coniferous_forest"},
+		biomes = {"coniferous_forest"},
 		y_max = 31000,
 		y_min = 6,
 		decoration = "default:fern_" .. length,
@@ -1944,11 +1891,35 @@ function default.register_decorations()
 	minetest.register_decoration({
 		name = "default:jungle_tree",
 		deco_type = "schematic",
-		place_on = {"default:dirt_with_rainforest_litter", "default:dirt"},
+		place_on = {"default:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.1,
-		biomes = {"rainforest", "rainforest_swamp"},
+		biomes = {"rainforest"},
 		y_max = 31000,
+		y_min = 1,
+		schematic = minetest.get_modpath("default") .. "/schematics/jungle_tree.mts",
+		flags = "place_center_x, place_center_z",
+		rotation = "random",
+	})
+
+	-- Swamp jungle trees
+
+	minetest.register_decoration({
+		name = "default:jungle_tree(swamp)",
+		deco_type = "schematic",
+		place_on = {"default:dirt"},
+		sidelen = 16,
+		-- Noise tuned to place swamp trees where papyrus is absent
+		noise_params = {
+			offset = 0.0,
+			scale = -0.1,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 354,
+			octaves = 1,
+			persist = 0.5
+		},
+		biomes = {"rainforest_swamp"},
+		y_max = 0,
 		y_min = -1,
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_tree.mts",
 		flags = "place_center_x, place_center_z",
@@ -1962,7 +1933,7 @@ function default.register_decorations()
 		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.005,
-		biomes = {"rainforest", "rainforest_swamp"},
+		biomes = {"rainforest"},
 		y_max = 31000,
 		y_min = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/jungle_log.mts",
@@ -1987,7 +1958,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
+		biomes = {"taiga", "coniferous_forest"},
 		y_max = 31000,
 		y_min = 4,
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_tree.mts",
@@ -2007,7 +1978,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
+		biomes = {"taiga", "coniferous_forest"},
 		y_max = 31000,
 		y_min = 4,
 		schematic = minetest.get_modpath("default") .. "/schematics/small_pine_tree.mts",
@@ -2021,7 +1992,7 @@ function default.register_decorations()
 		place_offset_y = 1,
 		sidelen = 80,
 		fill_ratio = 0.0018,
-		biomes = {"taiga", "coniferous_forest", "floatland_coniferous_forest"},
+		biomes = {"taiga", "coniferous_forest"},
 		y_max = 31000,
 		y_min = 4,
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_log.mts",
@@ -2172,10 +2143,33 @@ function default.register_decorations()
 
 	-- Papyrus
 
+	-- Dirt version for rainforest swamp
+
 	minetest.register_decoration({
-		name = "default:papyrus",
+		name = "default:papyrus_on_dirt",
 		deco_type = "schematic",
 		place_on = {"default:dirt"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.3,
+			scale = 0.7,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 354,
+			octaves = 3,
+			persist = 0.7
+		},
+		biomes = {"rainforest_swamp"},
+		y_max = 0,
+		y_min = 0,
+		schematic = minetest.get_modpath("default") .. "/schematics/papyrus_on_dirt.mts",
+	})
+
+	-- Dry dirt version for savanna shore
+
+	minetest.register_decoration({
+		name = "default:papyrus_on_dry_dirt",
+		deco_type = "schematic",
+		place_on = {"default:dry_dirt"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.3,
@@ -2188,7 +2182,8 @@ function default.register_decorations()
 		biomes = {"savanna_shore"},
 		y_max = 0,
 		y_min = 0,
-		schematic = minetest.get_modpath("default") .. "/schematics/papyrus.mts",
+		schematic = minetest.get_modpath("default") ..
+			"/schematics/papyrus_on_dry_dirt.mts",
 	})
 
 	-- Bush
@@ -2206,8 +2201,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"grassland", "deciduous_forest",
-			"floatland_grassland"},
+		biomes = {"grassland", "deciduous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		schematic = minetest.get_modpath("default") .. "/schematics/bush.mts",
@@ -2479,21 +2473,8 @@ end
 
 
 --
--- Detect mapgen, flags and parameters to select functions
+-- Detect mapgen to select functions
 --
-
--- Get setting or default
-local mgv7_spflags = minetest.get_mapgen_setting("mgv7_spflags") or
-	"mountains, ridges, nofloatlands, caverns"
-local captures_float = string.match(mgv7_spflags, "floatlands")
-local captures_nofloat = string.match(mgv7_spflags, "nofloatlands")
-
--- Get setting or default
--- Make global for mods to use to register floatland biomes
-default.mgv7_floatland_level =
-	minetest.get_mapgen_setting("mgv7_floatland_level") or 1280
-default.mgv7_shadow_limit =
-	minetest.get_mapgen_setting("mgv7_shadow_limit") or 1024
 
 minetest.clear_registered_biomes()
 minetest.clear_registered_ores()
@@ -2504,19 +2485,8 @@ local mg_name = minetest.get_mapgen_setting("mg_name")
 if mg_name == "v6" then
 	default.register_mgv6_ores()
 	default.register_mgv6_decorations()
--- Need to check for 'nofloatlands' because that contains
--- 'floatlands' which makes the second condition true.
-elseif mg_name == "v7" and
-		captures_float == "floatlands" and
-		captures_nofloat ~= "nofloatlands" then
-	-- Mgv7 with floatlands and floatland biomes
-	default.register_biomes(default.mgv7_shadow_limit - 1)
-	default.register_floatland_biomes(
-		default.mgv7_floatland_level, default.mgv7_shadow_limit)
-	default.register_ores()
-	default.register_decorations()
 else
-	default.register_biomes(31000)
+	default.register_biomes()
 	default.register_ores()
 	default.register_decorations()
 end

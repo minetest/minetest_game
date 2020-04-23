@@ -20,7 +20,7 @@ local item = {
 		minetest.sound_play("default_item_smoke", {
 			pos = p,
 			max_hear_distance = 8,
-		})
+		}, true)
 		minetest.add_particlespawner({
 			amount = 3,
 			time = 0.1,
@@ -39,8 +39,8 @@ local item = {
 		})
 	end,
 
-	on_step = function(self, dtime)
-		builtin_item.on_step(self, dtime)
+	on_step = function(self, dtime, ...)
+		builtin_item.on_step(self, dtime, ...)
 
 		if self.flammable then
 			-- flammable, check for igniters

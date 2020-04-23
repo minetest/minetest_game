@@ -71,3 +71,7 @@ default:torch 99,default:cobble 99
 # Whether river water source nodes create flowing sounds.
 # Helps rivers create more sound, especially on level sections.
 #river_source_sounds = false
+
+# Enable cloud variation by the 'weather' mod.
+# Non-functional in V6 or Singlenode mapgens.
+#enable_weather = true

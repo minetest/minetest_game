@@ -13,7 +13,7 @@ minetest.register_chatcommand("killme", {
 				player:set_hp(0)
 				return true
 			else
-				for _, callback in pairs(core.registered_on_respawnplayers) do
+				for _, callback in pairs(minetest.registered_on_respawnplayers) do
 					if callback(player) then
 						return true
 					end

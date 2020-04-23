@@ -86,7 +86,7 @@ minetest.register_node("farming:soil_wet", {
 })
 
 minetest.register_node("farming:dry_soil", {
-	description = S("Dry Soil"),
+	description = S("Savanna Soil"),
 	tiles = {"default_dry_dirt.png^farming_soil.png", "default_dry_dirt.png"},
 	drop = "default:dry_dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=2, grassland = 1, field = 1},
@@ -99,7 +99,7 @@ minetest.register_node("farming:dry_soil", {
 })
 
 minetest.register_node("farming:dry_soil_wet", {
-	description = S("Wet Dry Soil"),
+	description = S("Wet Savanna Soil"),
 	tiles = {"default_dry_dirt.png^farming_soil_wet.png", "default_dry_dirt.png^farming_soil_wet_side.png"},
 	drop = "default:dry_dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=3, wet = 1, grassland = 1, field = 1},
@@ -151,6 +151,13 @@ minetest.register_node("farming:straw", {
 	is_ground_content = false,
 	groups = {snappy=3, flammable=4, fall_damage_add_percent=-30},
 	sounds = default.node_sound_leaves_defaults(),
+})
+
+-- Registered before the stairs so the stairs get fuel recipes.
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:straw",
+	burntime = 3,
 })
 
 do

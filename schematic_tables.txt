@@ -2100,11 +2100,28 @@ mts_save("large_cactus", {
 
 -- Papyrus
 
-mts_save("papyrus", {
+mts_save("papyrus_on_dirt", {
 	size = {x = 1, y = 7, z = 1},
 	data = {
 		{name = "default:dirt", prob = 255, force_place = true},
 		{name = "default:dirt", prob = 255, force_place = true},
+		{name = "default:papyrus", prob = 255},
+		{name = "default:papyrus", prob = 255},
+		{name = "default:papyrus", prob = 255},
+		{name = "default:papyrus", prob = 255},
+		{name = "default:papyrus", prob = 255},
+	},
+	yslice_prob = {
+		{ypos = 2, prob = 127},
+		{ypos = 3, prob = 127},
+	},
+})
+
+mts_save("papyrus_on_dry_dirt", {
+	size = {x = 1, y = 7, z = 1},
+	data = {
+		{name = "default:dry_dirt", prob = 255, force_place = true},
+		{name = "default:dry_dirt", prob = 255, force_place = true},
 		{name = "default:papyrus", prob = 255},
 		{name = "default:papyrus", prob = 255},
 		{name = "default:papyrus", prob = 255},

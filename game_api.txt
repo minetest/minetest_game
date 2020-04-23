@@ -103,6 +103,13 @@ The contents of `creative.formspec_add` is appended to every creative inventory
 page. Mods can use it to add additional formspec elements onto the default
 creative inventory formspec to be drawn after each update.
 
+Group overrides can be used for any registered item, node or tool. Use one of
+the groups stated below to pick which category it will appear in.
+
+	node = 1      -- Appears in the Nodes category
+	tool = 1      -- Appears in the Tools category
+	craftitem = 1 -- Appears in the Items category
+
 
 Chests API
 ----------
@@ -129,12 +136,12 @@ The chests API allows the creation of chests, which have their own inventories f
  * A table indexed by player name to keep track of who opened what chest.
  * Key: The name of the player.
  * Value: A table containing information about the chest the player is looking at.
-   e.g `{ pos = {1, 1, 1}, sound = null, swap = "chest" }`
+   e.g `{ pos = {1, 1, 1}, sound = null, swap = "default:chest" }`
 
 `default.chest.register_chest(name, def)`
 
  * Registers new chest
- * `name` Name for chest
+ * `name` Name for chest e.g. "default:chest"
  * `def`  See [#Chest Definition]
 
 ### Chest Definition
@@ -424,7 +431,7 @@ Give Initial Stuff API
 Players API
 -----------
 
-The player API can register player models and update the player's appearence
+The player API can register player models and update the player's appearance.
 
 * `player_api.register_model(name, def)`
 	* Register a new model to be used by players
@@ -457,6 +464,12 @@ The player API can register player models and update the player's appearence
 	* Any of the fields of the returned table may be nil.
 	* player: PlayerRef
 
+* `player_api.player_attached`
+	* A table that maps a player name to a boolean.
+	* If the value for a given player is set to true, the default player
+	animations (walking, digging, ...) will no longer be updated.
+	Knockback from damage is also prevented for that player.
+
 ### Model Definition
 
 	{
@@ -467,7 +480,7 @@ The player API can register player models and update the player's appearence
 			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
 			foo = {x = 0, y = 19},
 			bar = {x = 20, y = 39},
-		-- ...
+			-- ...
 		},
 		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
 		stepheight = 0.6, -- In nodes
@@ -1055,3 +1068,11 @@ for the wielded skeleton key.
 
 if `nil` is returned, it is assumed that the wielder did not have
 permissions to create a key for this node, and no key is created.
+
+`default.register_craft_metadata_copy(ingredient, result)`
+----------------------------------------------------------
+
+This function registers a shapeless recipe that takes `ingredient`
+and `result` as input and outputs `result`.
+
+The metadata of the input `result` is copied to the output `result`.

@@ -176,10 +176,10 @@ function doors.door_toggle(pos, node, clicker)
 
 	if state % 2 == 0 then
 		minetest.sound_play(def.door.sounds[1],
-			{pos = pos, gain = 0.3, max_hear_distance = 10})
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 	else
 		minetest.sound_play(def.door.sounds[2],
-			{pos = pos, gain = 0.3, max_hear_distance = 10})
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 	end
 
 	minetest.swap_node(pos, {
@@ -340,7 +340,7 @@ function doors.register(name, def)
 				itemstack:take_item()
 			end
 
-			minetest.sound_play(def.sounds.place, {pos = pos})
+			minetest.sound_play(def.sounds.place, {pos = pos}, true)
 
 			on_place_node(pos, minetest.get_node(pos),
 				placer, node, itemstack, pointed_thing)
@@ -457,7 +457,7 @@ doors.register("door_wood", {
 		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
 		description = S("Wooden Door"),
 		inventory_image = "doors_item_wood.png",
-		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+		groups = {node = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 		recipe = {
 			{"group:wood", "group:wood"},
 			{"group:wood", "group:wood"},
@@ -470,7 +470,7 @@ doors.register("door_steel", {
 		description = S("Steel Door"),
 		inventory_image = "doors_item_steel.png",
 		protected = true,
-		groups = {cracky = 1, level = 2},
+		groups = {node = 1, cracky = 1, level = 2},
 		sounds = default.node_sound_metal_defaults(),
 		sound_open = "doors_steel_door_open",
 		sound_close = "doors_steel_door_close",
@@ -485,7 +485,7 @@ doors.register("door_glass", {
 		tiles = {"doors_door_glass.png"},
 		description = S("Glass Door"),
 		inventory_image = "doors_item_glass.png",
-		groups = {cracky=3, oddly_breakable_by_hand=3},
+		groups = {node = 1, cracky=3, oddly_breakable_by_hand=3},
 		sounds = default.node_sound_glass_defaults(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
@@ -500,7 +500,7 @@ doors.register("door_obsidian_glass", {
 		tiles = {"doors_door_obsidian_glass.png"},
 		description = S("Obsidian Glass Door"),
 		inventory_image = "doors_item_obsidian_glass.png",
-		groups = {cracky=3},
+		groups = {node = 1, cracky=3},
 		sounds = default.node_sound_glass_defaults(),
 		sound_open = "doors_glass_door_open",
 		sound_close = "doors_glass_door_close",
@@ -550,12 +550,12 @@ function doors.trapdoor_toggle(pos, node, clicker)
 
 	if string.sub(node.name, -5) == "_open" then
 		minetest.sound_play(def.sound_close,
-			{pos = pos, gain = 0.3, max_hear_distance = 10})
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 		minetest.swap_node(pos, {name = string.sub(node.name, 1,
 			string.len(node.name) - 5), param1 = node.param1, param2 = node.param2})
 	else
 		minetest.sound_play(def.sound_open,
-			{pos = pos, gain = 0.3, max_hear_distance = 10})
+			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 		minetest.swap_node(pos, {name = node.name .. "_open",
 			param1 = node.param1, param2 = node.param2})
 	end
@@ -744,7 +744,7 @@ function doors.register_fencegate(name, def)
 			local node_def = minetest.registered_nodes[node.name]
 			minetest.swap_node(pos, {name = node_def.gate, param2 = node.param2})
 			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.3,
-				max_hear_distance = 8})
+				max_hear_distance = 8}, true)
 			return itemstack
 		end,
 		selection_box = {

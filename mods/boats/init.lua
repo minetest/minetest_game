@@ -13,15 +13,6 @@ local function is_water(pos)
 end
 
 
-local function get_sign(i)
-	if i == 0 then
-		return 0
-	else
-		return i / math.abs(i)
-	end
-end
-
-
 local function get_velocity(v, yaw, y)
 	local x = -math.sin(yaw) * v
 	local z =  math.cos(yaw) * v
@@ -146,7 +137,7 @@ end
 
 
 function boat.on_step(self, dtime)
-	self.v = get_v(self.object:get_velocity()) * get_sign(self.v)
+	self.v = get_v(self.object:get_velocity()) * math.sign(self.v)
 	if self.driver then
 		local driver_objref = minetest.get_player_by_name(self.driver)
 		if driver_objref then
@@ -157,13 +148,13 @@ function boat.on_step(self, dtime)
 					minetest.chat_send_player(self.driver, S("Boat cruise mode on"))
 				end
 			elseif ctrl.down then
-				self.v = self.v - dtime * 1.8
+				self.v = self.v - dtime * 2.0
 				if self.auto then
 					self.auto = false
 					minetest.chat_send_player(self.driver, S("Boat cruise mode off"))
 				end
 			elseif ctrl.up or self.auto then
-				self.v = self.v + dtime * 1.8
+				self.v = self.v + dtime * 2.0
 			end
 			if ctrl.left then
 				if self.v < -0.001 then
@@ -185,15 +176,14 @@ function boat.on_step(self, dtime)
 		self.object:set_pos(self.object:get_pos())
 		return
 	end
-	local s = get_sign(self.v)
-	self.v = self.v - dtime * 0.6 * s
-	if s ~= get_sign(self.v) then
-		self.object:set_velocity({x = 0, y = 0, z = 0})
+	-- We need to preserve velocity sign to properly apply drag force
+	-- while moving backward
+	local drag = dtime * math.sign(self.v) * (0.01 + 0.0796 * self.v * self.v)
+	-- If drag is larger than velocity, then stop horizontal movement
+	if math.abs(self.v) <= math.abs(drag) then
 		self.v = 0
-		return
-	end
-	if math.abs(self.v) > 5 then
-		self.v = 5 * get_sign(self.v)
+	else
+		self.v = self.v - drag
 	end
 
 	local p = self.object:get_pos()
