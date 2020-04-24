@@ -1,7 +1,7 @@
 # Blender v2.76 (sub 0) OBJ File: 'door_a.blend'
 # www.blender.org
 mtllib door_a.mtl
-o Cube_Cube.001
+o door_a
 v 0.499000 -0.499000 -0.499000
 v 0.499000 1.499000 -0.499000
 v 0.499000 -0.499000 -0.375000

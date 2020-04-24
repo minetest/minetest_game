@@ -115,10 +115,10 @@ local transform = {
 		{v = "_a", param2 = 2},
 	},
 	{
-		{v = "_b", param2 = 1},
-		{v = "_b", param2 = 2},
-		{v = "_b", param2 = 3},
-		{v = "_b", param2 = 0},
+		{v = "_c", param2 = 1},
+		{v = "_c", param2 = 2},
+		{v = "_c", param2 = 3},
+		{v = "_c", param2 = 0},
 	},
 	{
 		{v = "_b", param2 = 1},
@@ -127,10 +127,10 @@ local transform = {
 		{v = "_b", param2 = 0},
 	},
 	{
-		{v = "_a", param2 = 3},
-		{v = "_a", param2 = 0},
-		{v = "_a", param2 = 1},
-		{v = "_a", param2 = 2},
+		{v = "_d", param2 = 3},
+		{v = "_d", param2 = 0},
+		{v = "_d", param2 = 1},
+		{v = "_d", param2 = 2},
 	},
 }
 
@@ -449,8 +449,16 @@ function doors.register(name, def)
 	def.mesh = "door_b.obj"
 	minetest.register_node(":" .. name .. "_b", def)
 
+	def.mesh = "door_a2.obj"
+	minetest.register_node(":" .. name .. "_c", def)
+
+	def.mesh = "door_b2.obj"
+	minetest.register_node(":" .. name .. "_d", def)
+
 	doors.registered_doors[name .. "_a"] = true
 	doors.registered_doors[name .. "_b"] = true
+	doors.registered_doors[name .. "_c"] = true
+	doors.registered_doors[name .. "_d"] = true
 end
 
 doors.register("door_wood", {
