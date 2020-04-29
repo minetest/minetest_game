@@ -2579,12 +2579,10 @@ local function register_sign(material, desc, def)
 		sounds = def.sounds,
 
 		on_construct = function(pos)
-			--local n = minetest.get_node(pos)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("formspec", "field[text;;${text}]")
 		end,
 		on_receive_fields = function(pos, formname, fields, sender)
-			--print("Sign at "..minetest.pos_to_string(pos).." got "..dump(fields))
 			local player_name = sender:get_player_name()
 			if minetest.is_protected(pos, player_name) then
 				minetest.record_protection_violation(pos, player_name)
@@ -2598,8 +2596,8 @@ local function register_sign(material, desc, def)
 				minetest.chat_send_player(player_name, S("Text too long"))
 				return
 			end
-			minetest.log("action", (player_name or "") .. " wrote \"" ..
-				text .. "\" to sign at " .. minetest.pos_to_string(pos))
+			minetest.log("action", player_name .. " wrote \"" .. text ..
+				"\" to the sign at " .. minetest.pos_to_string(pos))
 			local meta = minetest.get_meta(pos)
 			meta:set_string("text", text)
 
