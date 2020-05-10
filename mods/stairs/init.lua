@@ -874,7 +874,7 @@ my_register_stair_and_slab(
 stairs.register_stair(
 	"glass",
 	"default:glass",
-	{cracky = 3},
+	{cracky = 3, oddly_breakable_by_hand = 3},
 	{"stairs_glass_split.png", "default_glass.png",
 	"stairs_glass_stairside.png^[transformFX", "stairs_glass_stairside.png",
 	"default_glass.png", "stairs_glass_split.png"},
@@ -886,7 +886,7 @@ stairs.register_stair(
 stairs.register_slab(
 	"glass",
 	"default:glass",
-	{cracky = 3},
+	{cracky = 3, oddly_breakable_by_hand = 3},
 	{"default_glass.png", "default_glass.png", "stairs_glass_split.png"},
 	S("Glass Slab"),
 	default.node_sound_glass_defaults(),
@@ -896,7 +896,7 @@ stairs.register_slab(
 stairs.register_stair_inner(
 	"glass",
 	"default:glass",
-	{cracky = 3},
+	{cracky = 3, oddly_breakable_by_hand = 3},
 	{"stairs_glass_stairside.png^[transformR270", "default_glass.png",
 	"stairs_glass_stairside.png^[transformFX", "default_glass.png",
 	"default_glass.png", "stairs_glass_stairside.png"},
@@ -909,7 +909,7 @@ stairs.register_stair_inner(
 stairs.register_stair_outer(
 	"glass",
 	"default:glass",
-	{cracky = 3},
+	{cracky = 3, oddly_breakable_by_hand = 3},
 	{"stairs_glass_stairside.png^[transformR90", "default_glass.png",
 	"stairs_glass_outer_stairside.png", "stairs_glass_stairside.png",
 	"stairs_glass_stairside.png^[transformR90","stairs_glass_outer_stairside.png"},
