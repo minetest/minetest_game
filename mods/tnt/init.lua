@@ -22,7 +22,7 @@ local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
 
 -- Fill a list with data for content IDs, after all nodes are registered
 local cid_data = {}
-minetest.after(0, function()
+minetest.register_on_mods_loaded(function()
 	for name, def in pairs(minetest.registered_nodes) do
 		cid_data[minetest.get_content_id(name)] = {
 			name = name,
@@ -163,13 +163,9 @@ local function entity_physics(pos, radius, drops)
 
 		local damage = (4 / dist) * radius
 		if obj:is_player() then
-			-- we knock the player back 1.0 node, and slightly upwards
-			-- TODO: switch to add_player_velocity() introduced in 5.1
 			local dir = vector.normalize(vector.subtract(obj_pos, pos))
-			local moveoff = vector.multiply(dir, dist + 1.0)
-			local newpos = vector.add(pos, moveoff)
-			newpos = vector.add(newpos, {x = 0, y = 0.2, z = 0})
-			obj:set_pos(newpos)
+			local moveoff = vector.multiply(dir, 2 / dist * radius)
+			obj:add_player_velocity(moveoff)
 
 			obj:set_hp(obj:get_hp() - damage)
 		else
