@@ -253,6 +253,7 @@ Topywo (CC BY-SA 3.0)
 
 Extex101 (CC BY-SA 3.0)
   default_large_cactus_seedling.png
+  default_dry_shrub.png -- Derived from the original texture by celeron55
 
 
 Sounds
