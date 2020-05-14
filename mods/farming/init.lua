@@ -16,7 +16,7 @@ dofile(farming.path .. "/nodes.lua")
 dofile(farming.path .. "/hoes.lua")
 
 
--- WHEAT
+-- Wheat
 
 farming.register_plant("farming:wheat", {
 	description = S("Wheat Seed"),
@@ -69,6 +69,25 @@ farming.register_plant("farming:cotton", {
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland", "desert"},
 	groups = {flammable = 4},
+})
+
+minetest.register_decoration({
+	name = "farming:cotton_wild",
+	deco_type = "simple",
+	place_on = {"default:dry_dirt_with_dry_grass"},
+	sidelen = 16,
+	noise_params = {
+		offset = -0.1,
+		scale = 0.1,
+		spread = {x = 50, y = 50, z = 50},
+		seed = 4242,
+		octaves = 3,
+		persist = 0.7
+	},
+	biomes = {"savanna"},
+	y_max = 31000,
+	y_min = 1,
+	decoration = "farming:cotton_wild",
 })
 
 minetest.register_craftitem("farming:string", {
@@ -139,7 +158,9 @@ minetest.register_craft({
 	burntime = 5,
 })
 
+
 -- Register farming items as dungeon loot
+
 if minetest.global_exists("dungeon_loot") then
 	dungeon_loot.register({
 		{name = "farming:string", chance = 0.5, count = {1, 8}},

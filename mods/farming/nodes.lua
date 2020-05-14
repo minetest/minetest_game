@@ -230,20 +230,53 @@ minetest.register_abm({
 })
 
 
+-- Make default:grass_* occasionally drop wheat seed
+
 for i = 1, 5 do
 	minetest.override_item("default:grass_"..i, {drop = {
 		max_items = 1,
 		items = {
-			{items = {"farming:seed_wheat"},rarity = 5},
+			{items = {"farming:seed_wheat"}, rarity = 5},
 			{items = {"default:grass_1"}},
 		}
 	}})
 end
 
+
+-- Make default:junglegrass occasionally drop cotton seed.
+
+-- This is the old source of cotton seeds that makes no sense. It is a leftover
+-- from Mapgen V6 where junglegrass was the only plant available to be a source.
+-- This source is kept for now to avoid disruption but should probably be
+-- removed in future as players get used to the new source.
+
 minetest.override_item("default:junglegrass", {drop = {
 	max_items = 1,
 	items = {
-		{items = {"farming:seed_cotton"},rarity = 8},
+		{items = {"farming:seed_cotton"}, rarity = 8},
 		{items = {"default:junglegrass"}},
 	}
 }})
+
+
+-- Wild cotton as a source of cotton seed
+
+minetest.register_node("farming:cotton_wild", {
+	description = S("Wild Cotton"),
+	drawtype = "plantlike",
+	waving = 1,
+	tiles = {"farming_cotton_wild.png"},
+	inventory_image = "farming_cotton_wild.png",
+	wield_image = "farming_cotton_wild.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, attached_node = 1, flammable = 4},
+	drop = "farming:seed_cotton",
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-6 / 16, -8 / 16, -6 / 16, 6 / 16, 5 / 16, 6 / 16},
+	},
+})
