@@ -1,11 +1,30 @@
 -- Parameters
 
-local radius = 8 -- Water node search radius around player
+-- Node search radius around player
+local radius = 8
 
--- End of parameters
+local allsounds = {
+	["env_sounds_water"] = {
+		trigger = {"default:water_flowing", "default:river_water_flowing"},
+		base_volume = 0.04,
+		max_volume = 0.4,
+		per_node = 0.004,
+	},
+	["env_sounds_lava"] = {
+		trigger = {"default:lava_source", "default:lava_flowing"},
+		base_volume = 0,
+		max_volume = 0.6,
+		per_node = {
+			["default:lava_source"] = 0.008,
+			["default:lava_flowing"] = 0.002,
+		},
+	},
+}
 
-
-local river_source_sounds = minetest.settings:get_bool("river_source_sounds")
+if minetest.settings:get_bool("river_source_sounds") then
+	table.insert(allsounds["env_sounds_water"].trigger,
+		"default:river_water_source")
+end
 
 
 -- Update sound for player
@@ -13,39 +32,44 @@ local river_source_sounds = minetest.settings:get_bool("river_source_sounds")
 local function update_sound(player)
 	local player_name = player:get_player_name()
 	local ppos = player:get_pos()
+	ppos = vector.add(ppos, player:get_properties().eye_height)
 	local areamin = vector.subtract(ppos, radius)
 	local areamax = vector.add(ppos, radius)
-	local water_nodes = {"default:water_flowing", "default:river_water_flowing"}
-	if river_source_sounds then
-		table.insert(water_nodes, "default:river_water_source")
-	end
-	local wpos, _ = minetest.find_nodes_in_area(areamin, areamax, water_nodes)
-	local waters = #wpos
-	if waters == 0 then
-		return
-	end
 
-	-- Find average position of water positions
-	local wposav = vector.new()
-	for _, pos in ipairs(wpos) do
-		wposav.x = wposav.x + pos.x
-		wposav.y = wposav.y + pos.y
-		wposav.z = wposav.z + pos.z
-	end
-	wposav = vector.divide(wposav, waters)
+	for sound, def in pairs(allsounds) do
+		local pos, counts = minetest.find_nodes_in_area(areamin, areamax,
+			def.trigger)
+		if #pos > 0 then
+			-- Find average position
+			local posav = vector.new()
+			for _, p in ipairs(pos) do
+				posav.x = posav.x + p.x
+				posav.y = posav.y + p.y
+				posav.z = posav.z + p.z
+			end
+			posav = vector.divide(posav, #pos)
 
-	minetest.sound_play(
-		"env_sounds_water",
-		{
-			pos = wposav,
-			to_player = player_name,
-			gain = math.min(0.04 + waters * 0.004, 0.4),
-		}
-	)
+			-- Calculate gain
+			local gain = def.base_volume
+			if type(def.per_node) == 'table' then
+				for nodename, n in pairs(counts) do
+					gain = gain + n * def.per_node[nodename]
+				end
+			else
+				gain = gain + #pos * def.per_node
+			end
+			gain = math.min(gain, def.max_volume)
+			minetest.sound_play(sound, {
+				pos = posav,
+				to_player = player_name,
+				gain = gain,
+			}, true)
+		end
+	end
 end
 
 
--- Update sound 'on joinplayer'
+-- Update sound when player joins
 
 minetest.register_on_joinplayer(function(player)
 	update_sound(player)
