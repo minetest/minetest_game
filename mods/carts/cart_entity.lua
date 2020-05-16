@@ -66,6 +66,7 @@ end
 -- 0.5.x and later: When the driver leaves
 function cart_entity:on_detach_child(child)
 	if child and child:get_player_name() == self.driver then
+		self.driver = nil
 		carts:manage_attachment(child, nil)
 	end
 end
