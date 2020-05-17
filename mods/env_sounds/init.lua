@@ -27,6 +27,17 @@ if minetest.settings:get_bool("river_source_sounds") then
 end
 
 
+-- Cache the union of all trigger nodes
+
+local cache_triggers = {}
+
+for sound, def in pairs(allsounds) do
+	for _, name in ipairs(def.trigger) do
+		table.insert(cache_triggers, name)
+	end
+end
+
+
 -- Update sound for player
 
 local function update_sound(player)
@@ -36,29 +47,42 @@ local function update_sound(player)
 	local areamin = vector.subtract(ppos, radius)
 	local areamax = vector.add(ppos, radius)
 
+	local pos = minetest.find_nodes_in_area(areamin, areamax, cache_triggers, true)
+	if next(pos) == nil then -- If table empty
+		return
+	end
 	for sound, def in pairs(allsounds) do
-		local pos, counts = minetest.find_nodes_in_area(areamin, areamax,
-			def.trigger)
-		if #pos > 0 then
-			-- Find average position
-			local posav = vector.new()
-			for _, p in ipairs(pos) do
-				posav.x = posav.x + p.x
-				posav.y = posav.y + p.y
-				posav.z = posav.z + p.z
+		-- Find average position
+		local posav = {0, 0, 0}
+		local count = 0
+		for _, name in ipairs(def.trigger) do
+			if pos[name] then
+				for _, p in ipairs(pos[name]) do
+					posav[1] = posav[1] + p.x
+					posav[2] = posav[2] + p.y
+					posav[3] = posav[3] + p.z
+				end
+				count = count + #pos[name]
 			end
-			posav = vector.divide(posav, #pos)
+		end
+
+		if count > 0 then
+			posav = vector.new(posav[1] / count, posav[2] / count,
+				posav[3] / count)
 
 			-- Calculate gain
 			local gain = def.base_volume
 			if type(def.per_node) == 'table' then
-				for nodename, n in pairs(counts) do
-					gain = gain + n * def.per_node[nodename]
+				for name, multiplier in pairs(def.per_node) do
+					if pos[name] then
+						gain = gain + #pos[name] * multiplier
+					end
 				end
 			else
-				gain = gain + #pos * def.per_node
+				gain = gain + count * def.per_node
 			end
 			gain = math.min(gain, def.max_volume)
+
 			minetest.sound_play(sound, {
 				pos = posav,
 				to_player = player_name,
