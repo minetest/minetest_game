@@ -1,0 +1,20 @@
+## The registered skin requires at least one texture file that can appiled to player.
+
+name               Skin technical name as registered (always set by player_api.register_skin())
+model_name         Player model to be used with the skin. If not set, the default model is used
+texture            Single file texture, will be used as `textures = { texture }`
+textures           Skin textures table
+
+## Other mods require or use additional attirubes that can be added in registration
+format             Skins format. "1.0" (default) or "1.8"
+
+## formspecs related
+description        Descriptive skin name to be shown in formspecs
+preview            Skin preview image to be shown in formspecs
+author             Skin author to be shown in formspecs
+license            Skin texture license to be shown in formspecs
+
+## Skins list related
+playername         Private skin, to be used only by given player
+in_inventory_list  If set to false the skin is not visible in inventory skins selection but can be still applied to the player
+sort_id            Sort order in skins lists. If not given, the skin name or key is used
