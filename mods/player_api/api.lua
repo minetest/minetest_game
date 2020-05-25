@@ -89,8 +89,9 @@ function player_api.set_textures(player, textures)
 	local model = models[player_model[name]]
 	local skin = skins[player_skin[name]]
 
-	local textures
-	if skin.textures then
+	if textures then
+		skin_textures[name] = textures
+	elseif skin.textures then
 		textures = table.copy(skin.textures)
 		skin_textures[name] = skin.textures
 	elseif skin.texture then
@@ -134,7 +135,7 @@ function player_api.set_skin(player, skin_name, is_default, is_force)
 	player_api.set_textures(player)
 
 	if not is_default then
-		player:set_attribute("player_api:skin", skin_name)
+		player:get_meta():set_string("player_api:skin", skin_name)
 	end
 
 	for _, modifier_func in ipairs(registered_on_skin_change) do
@@ -144,7 +145,7 @@ end
 
 -- Get current assigned or default skin for player
 function player_api.get_skin(player)
-	local assigned_skin = player:get_attribute("player_api:skin")
+	local assigned_skin = player:get_meta():get_string("player_api:skin")
 	if assigned_skin then
 		return assigned_skin, false
 	end

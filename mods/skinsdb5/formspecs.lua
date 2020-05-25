@@ -116,7 +116,7 @@ end
 
 function skinsdb5.on_skin_selection_receive_fields(player, context, fields)
 	for field, _ in pairs(fields) do
-		local current = string.split(field, "$", 2)
+		local current = field:split("$", 2)
 		if current[1] == "skins_set" then
 			player_api.set_skin(player, context.skins_list[tonumber(current[2])].name)
 			return 'set'
