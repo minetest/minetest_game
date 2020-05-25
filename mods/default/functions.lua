@@ -433,6 +433,9 @@ local function leafdecay_after_destruct(pos, oldnode, def)
 	end
 end
 
+local movement_gravity = tonumber(
+	minetest.settings:get("movement_gravity")) or 9.81
+
 local function leafdecay_on_timer(pos, def)
 	if minetest.find_node_near(pos, def.radius, def.trunks) then
 		return false
@@ -459,6 +462,21 @@ local function leafdecay_on_timer(pos, def)
 
 	minetest.remove_node(pos)
 	minetest.check_for_falling(pos)
+
+	-- spawn a few particles for the removed node
+	minetest.add_particlespawner({
+		amount = 8,
+		time = 0.001,
+		minpos = vector.subtract(pos, {x=0.5, y=0.5, z=0.5}),
+		maxpos = vector.add(pos, {x=0.5, y=0.5, z=0.5}),
+		minvel = vector.new(-0.5, -1, -0.5),
+		maxvel = vector.new(0.5, 0, 0.5),
+		minacc = vector.new(0, -movement_gravity, 0),
+		maxacc = vector.new(0, -movement_gravity, 0),
+		minsize = 0,
+		maxsize = 0,
+		node = node,
+	})
 end
 
 function default.register_leafdecay(def)
