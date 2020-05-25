@@ -1,0 +1,20 @@
+# textdomain: skinsdb
+#Translation by IFRFSX(BingFengFSX)
+
+Raw texture=自然状态的纹理
+Name=名称
+Author=作者
+Change=更换
+Page=页面
+License=许可证
+Description=说明
+Show, list or set player's skin=显示，列出或者设置玩家的皮肤
+Player not found=玩家未找到
+unknown command=未知命令
+see /help skinsdb for supported parameters=有关skinsdb支持的参数，参见 /help
+skin set to=皮肤设置为
+invalid skin=无效皮肤
+unknown parameter=未知参数
+unknown skin=未知皮肤
+Downloads the specified range of skins and shuts down the server=下载指定范围的皮肤并关闭服务器
+Skins=皮肤

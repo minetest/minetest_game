@@ -1,0 +1,18 @@
+# textdomain: skinsdb
+# Malay translation by muhdnurhidayat
+
+Raw texture=Tekstur mentah
+Name=Nama
+Author=Pencipta
+Change=Ubah
+Page=Halaman
+License=Lesen
+Description=Keterangan
+Show, list or set player's skin=Tunjukkan, senaraikan atau tetapkan kulit pemain
+Player not found=Pemain tidak dijumpai
+unknown command=perintah tidak diketahui
+see /help skinsdb for supported parameters=lihat /help skinsdb untuk parameter yang disokong
+skin set to=kulit ditetapkan kepada
+invalid skin=kulit tidak sah
+unknown parameter=parameter tidak diketahui
+unknown skin=kulit tidak diketahui

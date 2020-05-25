@@ -1,0 +1,20 @@
+# textdomain: skinsdb
+
+Raw texture=
+Name=
+Author=
+Change=
+Page=
+License=
+Description=
+Show, list or set player's skin=
+Player not found=
+unknown command=
+see /help skinsdb for supported parameters=
+skin set to=
+invalid skin=
+requires skin key=
+unknown parameter=
+unknown skin=
+Downloads the specified range of skins and shuts down the server=
+Skins=

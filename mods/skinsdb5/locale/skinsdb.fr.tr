@@ -1,0 +1,18 @@
+# textdomain: skinsdb
+
+Raw texture=Texture
+Name=Nom
+Author=Auteur
+Change=Changer
+Page=Page
+License=Licence
+Description=Description
+Show, list or set player's skin=Afficher, lister ou définir le skin du joueur
+Player not found=Joueur non trouvé
+unknown command=commande inconnue
+see /help skinsdb for supported parameters=voir /help skinsdb pour les paramètres supportés
+skin set to=skin définie sur
+invalid skin=skin peau invalide
+unknown parameter=paramètre inconnu
+unknown skin=skin inconnue
+
