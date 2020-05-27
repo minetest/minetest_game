@@ -251,8 +251,8 @@ Extex101 (CC BY-SA 3.0)
   default_large_cactus_seedling.png
 
 An0n3m0us (CC BY-SA 3.0):
-  heart.png, derived from texture by KevDoy (CC BY-SA 3.0)
-  bubble.png, derived from texture by BlockMen (CC BY-SA 3.0)
+  heart.png -- Derived from a texture by KevDoy (CC BY-SA 3.0)
+  bubble.png -- Derived from a texture by BlockMen (CC BY-SA 3.0)
 
 
 Sounds
