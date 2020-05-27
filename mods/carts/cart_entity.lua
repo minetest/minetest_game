@@ -328,11 +328,10 @@ local function rail_on_step(self, dtime)
 	if self.punched then
 		-- Collect dropped items
 		for _, obj_ in pairs(minetest.get_objects_inside_radius(pos, 1)) do
-			if not obj_:is_player() and
-					obj_:get_luaentity() and
-					not obj_:get_luaentity().physical_state and
-					obj_:get_luaentity().name == "__builtin:item" then
-
+			local ent = obj_:get_luaentity()
+			-- Careful here: physical_state and disable_physics are item-internal APIs
+			if ent and ent.name == "__builtin:item" and ent.physical_state then
+				ent:disable_physics()
 				obj_:set_attach(self.object, "", {x=0, y=0, z=0}, {x=0, y=0, z=0})
 				self.attached_items[#self.attached_items + 1] = obj_
 			end
