@@ -151,7 +151,6 @@ BlockMen (CC BY-SA 3.0):
   default_chest_top.png
   default_mineral_mese.png
   default_meselamp.png
-  bubble.png
   gui_formbg.png
   gui_furnace_arrow_bg.png
   gui_furnace_arrow_fg.png
@@ -195,9 +194,6 @@ Gambit (CC BY-SA 3.0):
 
 asl97 (CC BY-SA 3.0):
   default_ice.png
-
-KevDoy (CC BY-SA 3.0):
-  heart.png
 
 Pithydon (CC BY-SA 3.0)
   default_coral_brown.png
@@ -254,6 +250,10 @@ Topywo (CC BY-SA 3.0)
 Extex101 (CC BY-SA 3.0)
   default_large_cactus_seedling.png
   default_dry_shrub.png -- Derived from the original texture by celeron55
+
+An0n3m0us (CC BY-SA 3.0):
+  heart.png -- Derived from a texture by KevDoy (CC BY-SA 3.0)
+  bubble.png -- Derived from a texture by BlockMen (CC BY-SA 3.0)
 
 
 Sounds
