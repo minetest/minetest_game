@@ -182,7 +182,6 @@ Gambit (CC BY-SA 3.0):
   default_grass_*.png
   default_paper.png
   default_diamond_block.png
-  default_ladder_steel.png
   default_sign_wall_wood.png
   default_flint.png
   default_snow.png
@@ -255,6 +254,10 @@ An0n3m0us (CC BY-SA 3.0):
   heart.png -- Derived from a texture by KevDoy (CC BY-SA 3.0)
   bubble.png -- Derived from a texture by BlockMen (CC BY-SA 3.0)
 
+IFRFSX (CC BY-SA 4.0):
+  default_ladder_steel.png
+  default_ladder_wood.png
+  default_brick.png
 
 Sounds
 ------
