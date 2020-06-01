@@ -13,6 +13,7 @@ Authors of media
 ----------------
 BlockMen (CC BY-SA 3.0):
 All textures not mentioned below.
+Improvements by IFRFSX
 
 ShadowNinja (CC BY-SA 3.0):
 tnt_smoke.png
@@ -25,6 +26,10 @@ tnt_blast.png
 
 paramat (CC BY-SA 3.0)
 tnt_tnt_stick.png - Derived from a texture by benrob0329.
+Improvements by IFRFSX
+
+IFRFSX (CC BY-SA 4.0):
+tnt_side.png
 
 TumeniNodes (CC0 1.0)
 tnt_explode.ogg
