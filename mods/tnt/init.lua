@@ -234,12 +234,16 @@ local function add_effects(pos, radius, drops)
 	-- we just dropped some items. Look at the items entities and pick
 	-- one of them to use as texture
 	local texture = "tnt_blast.png" --fallback texture
+	local node
 	local most = 0
 	for name, stack in pairs(drops) do
 		local count = stack:get_count()
 		if count > most then
 			most = count
 			local def = minetest.registered_nodes[name]
+			if def then
+				node = { name = name }
+			end
 			if def and def.tiles and def.tiles[1] then
 				texture = def.tiles[1]
 			end
@@ -257,9 +261,11 @@ local function add_effects(pos, radius, drops)
 		maxacc = {x = 0, y = -10, z = 0},
 		minexptime = 0.8,
 		maxexptime = 2.0,
-		minsize = radius * 0.66,
-		maxsize = radius * 2,
+		minsize = radius * 0.33,
+		maxsize = radius,
 		texture = texture,
+		-- ^ only as fallback for clients without support for `node` parameter
+		node = node,
 		collisiondetection = true,
 	})
 end
