@@ -13,7 +13,7 @@ Authors of media
 ----------------
 BlockMen (CC BY-SA 3.0):
 All textures not mentioned below.
-[tnt_top.png, tnt_top_burning.png, tnt_top_burning_animated.png, tnt_bottom.png] Improvements by IFRFSX
+tnt_top.png, tnt_top_burning.png, tnt_top_burning_animated.png and tnt_bottom.png Improvements by IFRFSX
 
 ShadowNinja (CC BY-SA 3.0):
 tnt_smoke.png
