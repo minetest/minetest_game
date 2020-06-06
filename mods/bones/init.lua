@@ -159,6 +159,13 @@ local function may_replace(pos, player)
 end
 
 local drop = function(pos, itemstack)
+
+	local def = minetest.registered_items[itemstack:get_name()]
+	-- do not drop items with drops set to ""
+	if not def or (def.drops and def.drops == "") then
+		return
+	end
+
 	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
 	if obj then
 		obj:set_velocity({
