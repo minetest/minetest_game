@@ -31,4 +31,7 @@ minetest.register_on_joinplayer(function(player)
 		{x = 200, y = 219},
 		30
 	)
+	-- Remove old player controls when they join
+	local meta = player:get_meta()
+	meta:set_string("player_api_old_controls", "")
 end)

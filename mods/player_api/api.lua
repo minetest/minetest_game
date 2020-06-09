@@ -108,36 +108,55 @@ end
 -- Check each player and apply animations
 minetest.register_globalstep(function()
 	for _, player in pairs(minetest.get_connected_players()) do
-		local name = player:get_player_name()
-		local model_name = player_model[name]
-		local model = model_name and models[model_name]
-		if model and not player_attached[name] then
-			local controls = player:get_player_control()
-			local animation_speed_mod = model.animation_speed or 30
-
-			-- Determine if the player is sneaking, and reduce animation speed if so
-			if controls.sneak then
-				animation_speed_mod = animation_speed_mod / 2
+		-- Check if the player's control state has changed
+		local meta = player:get_meta()
+		local controls = player:get_player_control()
+		local control_table = meta:get_string("player_api_old_controls")
+		local player_input_changed = false
+		if control_table ~= "" then
+			control_table = minetest.deserialize(control_table)
+			for index,boolean in pairs(control_table) do
+				if controls[index] ~= boolean then
+					player_input_changed = true
+					break
+				end
 			end
+		else
+			player_input_changed = true
+		end
 
-			-- Apply animations based on what the player is doing
-			if player:get_hp() == 0 then
-				player_set_animation(player, "lay")
-			-- Determine if the player is walking
-			elseif controls.up or controls.down or controls.left or controls.right then
-				if player_sneak[name] ~= controls.sneak then
-					player_anim[name] = nil
-					player_sneak[name] = controls.sneak
+		if player_input_changed then
+			-- Serialize old control state to be used in next server step
+			meta:set_string("player_api_old_controls",minetest.serialize(controls))
+			local name = player:get_player_name()
+			local model_name = player_model[name]
+			local model = model_name and models[model_name]
+			if model and not player_attached[name] then
+				local controls = player:get_player_control()
+				local animation_speed_mod = model.animation_speed or 30
+				-- Determine if the player is sneaking, and reduce animation speed if so
+				if controls.sneak then
+					animation_speed_mod = animation_speed_mod / 2
 				end
-				if controls.LMB or controls.RMB then
-					player_set_animation(player, "walk_mine", animation_speed_mod)
+				-- Apply animations based on what the player is doing
+				if player:get_hp() == 0 then
+					player_set_animation(player, "lay")
+				-- Determine if the player is walking
+				elseif controls.up or controls.down or controls.left or controls.right then
+					if player_sneak[name] ~= controls.sneak then
+						player_anim[name] = nil
+						player_sneak[name] = controls.sneak
+					end
+					if controls.LMB or controls.RMB then
+						player_set_animation(player, "walk_mine", animation_speed_mod)
+					else
+						player_set_animation(player, "walk", animation_speed_mod)
+					end
+				elseif controls.LMB or controls.RMB then
+					player_set_animation(player, "mine", animation_speed_mod)
 				else
-					player_set_animation(player, "walk", animation_speed_mod)
+					player_set_animation(player, "stand", animation_speed_mod)
 				end
-			elseif controls.LMB or controls.RMB then
-				player_set_animation(player, "mine", animation_speed_mod)
-			else
-				player_set_animation(player, "stand", animation_speed_mod)
 			end
 		end
 	end
