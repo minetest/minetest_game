@@ -32,6 +32,9 @@ sethome.set = function(name, pos)
 	player:set_attribute("sethome:home", minetest.pos_to_string(pos))
 
 	-- remove `name` from the old storage file
+	if not homepos[name] then
+		return true
+	end
 	local data = {}
 	local output = io.open(homes_file, "w")
 	if output then
