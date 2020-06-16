@@ -719,7 +719,7 @@ Stairs API
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
 delivered with Minetest Game, to keep them compatible with other mods.
 
-`stairs.register_stair(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
+`stairs.register_stair(subname, recipeitem, groups, images, description, sounds, worldaligntex, sunlight_propagates)`
 
  * Registers a stair
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_subname"
@@ -729,8 +729,9 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `description`: Used for the description field in the stair's definition
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
+ * `sunlight_propagates`: A bool to set the sunlight_propagates field in the stair's definition. Default false.
 
-`stairs.register_slab(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
+`stairs.register_slab(subname, recipeitem, groups, images, description, sounds, worldaligntex, sunlight_propagates)`
 
  * Registers a slab
  * `subname`: Basically the material name (e.g. cobble) used for the slab name. Nodename pattern: "stairs:slab_subname"
@@ -740,8 +741,9 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `description`: Used for the description field in the slab's definition
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
+ * `sunlight_propagates`: A bool to set the sunlight_propagates field in the slab's definition. Default false.
 
-`stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds, worldaligntex, full_description)`
+`stairs.register_stair_inner(subname, recipeitem, groups, images, description, sounds, worldaligntex, full_description, sunlight_propagates)`
 
  * Registers an inner corner stair
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_inner_subname"
@@ -752,8 +754,9 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
  * `full_description`: Overrides the description, bypassing string concatenation. This is useful for translation. (optional)
+ * `sunlight_propagates`: A bool to set the sunlight_propagates field in the stair's definition. Default false.
 
-`stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds, worldaligntex, full_description)`
+`stairs.register_stair_outer(subname, recipeitem, groups, images, description, sounds, worldaligntex, full_description, sunlight_propagates)`
 
  * Registers an outer corner stair
  * `subname`: Basically the material name (e.g. cobble) used for the stair name. Nodename pattern: "stairs:stair_outer_subname"
@@ -764,6 +767,7 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `sounds`: See [#Default sounds]
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
  * `full_description`: Overrides the description, bypassing string concatenation. This is useful for translation. (optional)
+ * `sunlight_propagates`: A bool to set the sunlight_propagates field in the stair's definition. Default false.
 
 ```
 stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab,

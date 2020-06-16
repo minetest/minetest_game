@@ -62,7 +62,7 @@ end
 -- Node will be called stairs:stair_<subname>
 
 function stairs.register_stair(subname, recipeitem, groups, images, description,
-		sounds, worldaligntex)
+		sounds, worldaligntex, sunlight_propagates)
 	local src_def = minetest.registered_nodes[recipeitem]
 
 	-- Set backface culling and world-aligned textures
@@ -96,6 +96,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		sunlight_propagates = sunlight_propagates,
 		is_ground_content = false,
 		groups = new_groups,
 		sounds = sounds,
@@ -164,7 +165,7 @@ end
 -- Node will be called stairs:slab_<subname>
 
 function stairs.register_slab(subname, recipeitem, groups, images, description,
-		sounds, worldaligntex)
+		sounds, worldaligntex, sunlight_propagates)
 	local src_def = minetest.registered_nodes[recipeitem]
 
 	-- Set world-aligned textures
@@ -194,6 +195,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		sunlight_propagates = sunlight_propagates,
 		is_ground_content = false,
 		groups = new_groups,
 		sounds = sounds,
@@ -302,7 +304,7 @@ end
 -- Node will be called stairs:stair_inner_<subname>
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images,
-		description, sounds, worldaligntex, full_description)
+		description, sounds, worldaligntex, full_description, sunlight_propagates)
 	local src_def = minetest.registered_nodes[recipeitem]
 
 	-- Set backface culling and world-aligned textures
@@ -341,6 +343,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		sunlight_propagates = sunlight_propagates,
 		is_ground_content = false,
 		groups = new_groups,
 		sounds = sounds,
@@ -392,7 +395,7 @@ end
 -- Node will be called stairs:stair_outer_<subname>
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images,
-		description, sounds, worldaligntex, full_description)
+		description, sounds, worldaligntex, full_description, sunlight_propagates)
 	local src_def = minetest.registered_nodes[recipeitem]
 
 	-- Set backface culling and world-aligned textures
@@ -431,6 +434,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		sunlight_propagates = sunlight_propagates,
 		is_ground_content = false,
 		groups = new_groups,
 		sounds = sounds,
@@ -893,7 +897,8 @@ stairs.register_stair(
 	"default_glass.png", "stairs_glass_split.png"},
 	S("Glass Stair"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	true
 )
 
 stairs.register_slab(
@@ -903,7 +908,8 @@ stairs.register_slab(
 	{"default_glass.png", "default_glass.png", "stairs_glass_split.png"},
 	S("Glass Slab"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	true
 )
 
 stairs.register_stair_inner(
@@ -916,7 +922,8 @@ stairs.register_stair_inner(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Inner Glass Stair")
+	S("Inner Glass Stair"),
+	true
 )
 
 stairs.register_stair_outer(
@@ -929,7 +936,8 @@ stairs.register_stair_outer(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Outer Glass Stair")
+	S("Outer Glass Stair"),
+	true
 )
 
 stairs.register_stair(
@@ -941,7 +949,8 @@ stairs.register_stair(
 	"default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
 	S("Obsidian Glass Stair"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	true
 )
 
 stairs.register_slab(
@@ -951,7 +960,8 @@ stairs.register_slab(
 	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
 	S("Obsidian Glass Slab"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	true
 )
 
 stairs.register_stair_inner(
@@ -964,7 +974,8 @@ stairs.register_stair_inner(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Inner Obsidian Glass Stair")
+	S("Inner Obsidian Glass Stair"),
+	true
 )
 
 stairs.register_stair_outer(
@@ -977,7 +988,8 @@ stairs.register_stair_outer(
 	"",
 	default.node_sound_glass_defaults(),
 	false,
-	S("Outer Obsidian Glass Stair")
+	S("Outer Obsidian Glass Stair"),
+	true
 )
 
 -- Dummy calls to S() to allow translation scripts to detect the strings.
