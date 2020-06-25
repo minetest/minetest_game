@@ -16,34 +16,34 @@ local group_stereotypes = {
 
 local group_names = {
 	coal = S("Any coal"),
-	wool = S("Any wool"),
-	wood = S("Any wood planks"),
 	sand = S("Any sand"),
+	wool = S("Any wool"),
 	stick = S("Any stick"),
-	stone = S("Any kind of stone block"),
 	vessel = S("Any vessel"),
+	wood = S("Any wood planks"),
+	stone = S("Any kind of stone block"),
 
 	["color_red,flower"] = S("Any red flower"),
 	["color_blue,flower"] = S("Any blue flower"),
 	["color_black,flower"] = S("Any black flower"),
-	["color_white,flower"] = S("Any white flower"),
 	["color_green,flower"] = S("Any green flower"),
+	["color_white,flower"] = S("Any white flower"),
 	["color_orange,flower"] = S("Any orange flower"),
-	["color_yellow,flower"] = S("Any yellow flower"),
 	["color_violet,flower"] = S("Any violet flower"),
+	["color_yellow,flower"] = S("Any yellow flower"),
 
 	["color_red,dye"] = S("Any red dye"),
 	["color_blue,dye"] = S("Any blue dye"),
+	["color_cyan,dye"] = S("Any cyan dye"),
 	["color_grey,dye"] = S("Any grey dye"),
 	["color_pink,dye"] = S("Any pink dye"),
-	["color_cyan,dye"] = S("Any cyan dye"),
 	["color_black,dye"] = S("Any black dye"),
-	["color_white,dye"] = S("Any white dye"),
 	["color_brown,dye"] = S("Any brown dye"),
 	["color_green,dye"] = S("Any green dye"),
+	["color_white,dye"] = S("Any white dye"),
 	["color_orange,dye"] = S("Any orange dye"),
-	["color_yellow,dye"] = S("Any yellow dye"),
 	["color_violet,dye"] = S("Any violet dye"),
+	["color_yellow,dye"] = S("Any yellow dye"),
 	["color_magenta,dye"] = S("Any magenta dye"),
 	["color_dark_grey,dye"] = S("Any dark grey dye"),
 	["color_dark_green,dye"] = S("Any dark green dye")
@@ -61,6 +61,7 @@ local function extract_groups(str)
 	if str:sub(1, 6) == "group:" then
 		return str:sub(7):split()
 	end
+	return nil
 end
 
 local function item_has_groups(item_groups, groups)
@@ -94,7 +95,7 @@ end
 local function get_craftable_recipes(output)
 	local recipes = minetest.get_all_craft_recipes(output)
 	if not recipes then
-		return
+		return nil
 	end
 
 	for i = #recipes, 1, -1 do
@@ -201,7 +202,13 @@ local function recipe_fs(fs, data)
 		cooktime, width = width, 1
 	elseif width == 0 then
 		shapeless = true
-		width = #recipe.items <= 4 and 2 or math.min(3, #recipe.items)
+		if #recipe.items == 1 then
+			width = 1
+		elseif #recipe.items <= 4 then
+			width = 2
+		else
+			width = 3
+		end
 	end
 
 	table.insert(fs, ("label[5.5,6.6;%s]"):format(esc(data.show_usages
@@ -278,7 +285,7 @@ local function get_formspec(player)
 			end
 			local x = i % 8
 			local y = (i % 32 - x) / 8
-			item_button_fs(fs, x, y, item, item.."_inv")
+			item_button_fs(fs, x, y, item, item)
 		end
 	end
 
@@ -311,20 +318,16 @@ local function execute_search(data)
 	end
 end
 
-local function reset_data(data)
-	data.filter = ""
-	data.pagenum = 1
-	data.prev_item = nil
-	data.recipes = nil
-	data.items = init_items
-end
-
 local function on_receive_fields(player, fields)
 	local name = player:get_player_name()
 	local data = player_data[name]
 
 	if fields.clear then
-		reset_data(data)
+		data.filter = ""
+		data.pagenum = 1
+		data.prev_item = nil
+		data.recipes = nil
+		data.items = init_items
 		return true
 
 	elseif fields.key_enter_field == "filter" or fields.search then
@@ -368,9 +371,6 @@ local function on_receive_fields(player, fields)
 		end
 		if not item then
 			return
-		end
-		if item:sub(-4) == "_inv" then
-			item = item:sub(1, -5)
 		end
 
 		if item == data.prev_item then

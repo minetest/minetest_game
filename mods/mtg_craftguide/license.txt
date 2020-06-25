@@ -4,7 +4,7 @@ License of source code
 The MIT License (MIT)
 
 Copyright (C) 2015-2019 Jean-Patrick Guerrero and contributors.
-Copyright (C) 2019 pauloue
+Copyright (C) 2020 pauloue
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,7 @@ Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 
 Copyright (C) 2018 paramat
 Copyright (C) Neuromancer
+Copyright (C) 2017 Wuzzy
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
