@@ -1,5 +1,4 @@
 # textdomain: creative
-Allow player to use creative inventory=Bolehkan pemain memakai inventaris kreatif
 Search=Cari
 Reset=Atur ulang
 Previous page=Halaman sebelumnya
@@ -8,3 +7,4 @@ All=Semua
 Nodes=Nodus
 Tools=Perkakas
 Items=Barang
+Allow player to use creative inventory=Bolehkan pemain memakai inventaris kreatif
