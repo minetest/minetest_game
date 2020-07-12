@@ -12,8 +12,6 @@ Save=保存
 by @1=由@1
 Page @1 of @2=第@1页，共@2页。
 "@1" by @2="@1" by @2
-Skeleton Key=万能钥匙
-Key to @1's @2=@1的@2的钥匙
 Blueberries=蓝莓
 Book=书
 Book with Text=带文字的书
@@ -212,7 +210,6 @@ Bronze Sword=青铜剑
 Steel Sword=铁剑
 Mese Sword=黄石剑
 Diamond Sword=钻石剑
-Key=钥匙
 Torch=火把
 @1 will intersect protection on growth.=@1生长时将与保护区域相交。
 

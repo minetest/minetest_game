@@ -12,8 +12,6 @@ Save=Sauvegarder
 by @1=de @1
 Page @1 of @2=Page @1 sur @2
 "@1" by @2=« @1 » de @2
-Skeleton Key=Squelette
-Key to @1's @2=Clé pour @2 de @1
 Blueberries=Myrtille
 Book=Livre
 Book with Text=Livre avec du texte
@@ -212,7 +210,6 @@ Bronze Sword=Epée en bronze
 Steel Sword=Epée en acier
 Mese Sword=Epée en Mese
 Diamond Sword=Epée en diamant
-Key=Clé
 Torch=Torche
 @1 will intersect protection on growth.=@1 chevauchera la zone protégée avec la croissance.
 

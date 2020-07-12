@@ -12,8 +12,6 @@ Save=Сохранить
 by @1=@1
 Page @1 of @2=Страница @1 из @2
 "@1" by @2="@1" @2
-Skeleton Key=Ключ Скелета
-Key to @1's @2=Ключ к @2 от @1
 Blueberries=Черника
 Book=Книга
 Book with Text=Книга с Текстом
@@ -212,7 +210,6 @@ Bronze Sword=Бронзовый Меч
 Steel Sword=Стальной Меч
 Mese Sword=Месе Меч
 Diamond Sword=Алмазный Меч
-Key=Ключ
 Torch=Факел
 @1 will intersect protection on growth.=@1 пересечёт защиту по росту.
 
