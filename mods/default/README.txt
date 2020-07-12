@@ -188,8 +188,6 @@ Gambit (CC BY-SA 3.0):
   default_snow.png
   default_snow_side.png
   default_snowball.png
-  default_key.png
-  default_key_skeleton.png
   default_book.png
 
 asl97 (CC BY-SA 3.0):

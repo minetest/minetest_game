@@ -12,8 +12,6 @@ Save=Konservu
 by @1=per @1
 Page @1 of @2=Paĝo @1 el @2
 "@1" by @2="@1" per @2
-Skeleton Key=Skeleta Ŝlosilo
-Key to @1's @2=Ŝlosilo por la @2 de @1
 Blueberries=Mirteloj
 Book=Libro
 Book with Text=Libro kun Teksto
@@ -212,7 +210,6 @@ Bronze Sword=Bronza Glavo
 Steel Sword=Ŝtala Glavo
 Mese Sword=Mesea Glavo
 Diamond Sword=Diamanta Glavo
-Key=Ŝlosilo
 Torch=Torĉo
 @1 will intersect protection on growth.=@1 sekcos protekto ĉe vegeto.
 

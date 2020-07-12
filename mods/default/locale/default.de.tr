@@ -12,8 +12,6 @@ Save=Speichern
 by @1=von @1
 Page @1 of @2=Seite @1 von @2
 "@1" by @2=„@1“ von @2
-Skeleton Key=Skelettschlüssel
-Key to @1's @2=Schlüssel für @2 von @1
 Blueberries=Blaubeeren
 Book=Buch
 Book with Text=Buch mit Text
@@ -212,7 +210,6 @@ Bronze Sword=Bronzeschwert
 Steel Sword=Stahlschwert
 Mese Sword=Meseschwert
 Diamond Sword=Diamantschwert
-Key=Schlüssel
 Torch=Fackel
 @1 will intersect protection on growth.=@1 wird bei Wachstum mit geschützter Zone überlappen.
 
