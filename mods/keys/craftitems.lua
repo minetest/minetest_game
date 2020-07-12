@@ -61,11 +61,10 @@ minetest.register_craftitem("keys:skeleton_key", {
 	end
 })
 
-minetest.register_tool("keys:key", {
+minetest.register_craftitem("keys:key", {
 	description = S("Key"),
 	inventory_image = "keys_key.png",
 	groups = {key = 1, not_in_creative_inventory = 1},
-	stack_max = 1,
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = pointed_thing.under
 		local node = minetest.get_node(under)
