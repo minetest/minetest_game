@@ -163,6 +163,10 @@ minetest.register_on_mods_loaded(function()
 	table.sort(init_items)
 end)
 
+local function coords(i, cols)
+	return i % cols, math.floor(i / cols)
+end
+
 local function is_fuel(item)
 	return minetest.get_craft_result({method="fuel", items={item}}).time > 0
 end
@@ -211,46 +215,48 @@ local function recipe_fs(fs, data)
 		end
 	end
 
-	table.insert(fs, ("label[5.5,6.6;%s]"):format(esc(data.show_usages
+	table.insert(fs, ("label[5.5,1;%s]"):format(esc(data.show_usages
 		and S("Usage @1 of @2", data.rnum, #data.recipes)
 		or S("Recipe @1 of @2", data.rnum, #data.recipes))))
 
 	if #data.recipes > 1 then
 		table.insert(fs,
-			"image_button[5.5,7.2;0.8,0.8;craftguide_prev_icon.png;recipe_prev;]"..
-			"image_button[6.2,7.2;0.8,0.8;craftguide_next_icon.png;recipe_next;]"..
+			"image_button[5.5,1.6;0.8,0.8;craftguide_prev_icon.png;recipe_prev;]"..
+			"image_button[6.2,1.6;0.8,0.8;craftguide_next_icon.png;recipe_next;]"..
 			"tooltip[recipe_prev;"..esc(S("Previous recipe")).."]"..
 			"tooltip[recipe_next;"..esc(S("Next recipe")).."]")
 	end
 
 	local rows = math.ceil(table.maxn(recipe.items) / width)
 	if width > 3 or rows > 3 then
-		table.insert(fs, ("label[0,6.6;%s]")
+		table.insert(fs, ("label[0,1;%s]")
 			:format(esc(S("Recipe is too big to be displayed."))))
 		return
 	end
 
+	local base_x = 3 - width
+	local base_y = rows == 1 and 1 or 0
+
 	for i, item in pairs(recipe.items) do
-		local x = (i - 1) % width + 3 - width
-		local y = math.ceil(i / width + 6 - math.min(2, rows)) + 0.6
+		local x, y = coords(i - 1, width)
 
 		local groups = extract_groups(item)
 		if groups then
 			item = groups_to_item(groups)
 		end
-		item_button_fs(fs, x, y, item, item, groups)
+		item_button_fs(fs, base_x + x, base_y + y, item, item, groups)
 	end
 
 	if shapeless or recipe.method == "cooking" then
-		table.insert(fs, ("image[3.2,6.1;0.5,0.5;craftguide_%s.png]")
+		table.insert(fs, ("image[3.2,0.5;0.5,0.5;craftguide_%s.png]")
 			:format(shapeless and "shapeless" or "furnace"))
 		local tooltip = shapeless and S("Shapeless") or
 			S("Cooking time: @1", minetest.colorize("yellow", cooktime))
-		table.insert(fs, "tooltip[3.2,6.1;0.5,0.5;"..esc(tooltip).."]")
+		table.insert(fs, "tooltip[3.2,0.5;0.5,0.5;"..esc(tooltip).."]")
 	end
-	table.insert(fs, "image[3,6.6;1,1;sfinv_crafting_arrow.png]")
+	table.insert(fs, "image[3,1;1,1;sfinv_crafting_arrow.png]")
 
-	item_button_fs(fs, 4, 6.6, recipe.output, recipe.output:match("%S*"))
+	item_button_fs(fs, 4, 1, recipe.output, recipe.output:match("%S*"))
 end
 
 local function get_formspec(player)
@@ -283,19 +289,20 @@ local function get_formspec(player)
 			if not item then
 				break
 			end
-			local x = i % 8
-			local y = (i % 32 - x) / 8
+			local x, y = coords(i % 32, 8)
 			item_button_fs(fs, x, y, item, item)
 		end
 	end
 
+	table.insert(fs, "container[0,5.6]")
 	if data.recipes then
 		recipe_fs(fs, data)
 	elseif data.prev_item then
-		table.insert(fs, ("label[2,6.6;%s]"):format(esc(data.show_usages
+		table.insert(fs, ("label[2,1;%s]"):format(esc(data.show_usages
 			and S("No usages.").."\n"..S("Click again to show recipes.")
 			or S("No recipes.").."\n"..S("Click again to show usages."))))
 	end
+	table.insert(fs, "container_end[]")
 
 	return table.concat(fs)
 end
@@ -336,7 +343,7 @@ local function on_receive_fields(player, fields)
 
 	elseif fields.key_enter_field == "filter" or fields.search then
 		local new = fields.filter:lower()
-		if new ~= "" and data.filter == new then
+		if data.filter == new then
 			return
 		end
 		data.filter = new
