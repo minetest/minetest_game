@@ -37,7 +37,6 @@ Any yellow flower=
 Click again to show recipes.=
 Click again to show usages.=
 Cooking time: @1=
-Craft Guide=
 Fuel=
 # Label for group ingredients
 G=
@@ -50,6 +49,7 @@ Previous page=
 Previous recipe=
 Recipe @1 of @2=
 Recipe is too big to be displayed.=
+Recipes=
 Reset=
 Search=
 Shapeless=

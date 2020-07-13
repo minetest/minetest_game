@@ -1,7 +1,7 @@
 Minetest Game mod: mtg_craftguide
 =================================
 
-Adds a craft guide tab to the inventory. Click an item to see it's recipes.
+Adds a "Recipes" tab to the inventory. Click an item to see it's recipes.
 Click again to show usages.
 
 Based on [craftguide](https://github.com/minetest-mods/craftguide).

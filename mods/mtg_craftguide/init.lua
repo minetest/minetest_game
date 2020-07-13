@@ -411,7 +411,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 sfinv.register_page("mtg_craftguide:craftguide", {
-	title = esc(S("Craft Guide")),
+	title = esc(S("Recipes")),
 	get = function(self, player, context)
 		return sfinv.make_formspec(player, context, get_formspec(player))
 	end,
