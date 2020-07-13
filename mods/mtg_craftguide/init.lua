@@ -300,6 +300,10 @@ local function get_formspec(player)
 	return table.concat(fs)
 end
 
+local function imatch(str, filter)
+	return str:lower():find(filter, 1, true) ~= nil
+end
+
 local function execute_search(data)
 	local filter = data.filter
 	if filter == "" then
@@ -309,10 +313,10 @@ local function execute_search(data)
 	data.items = {}
 
 	for _, item in ipairs(init_items) do
-		local itemdef = minetest.registered_items[item]
-		local desc = itemdef and itemdef.description:lower() or ""
+		local def = minetest.registered_items[item]
+		local desc = def and minetest.get_translated_string(data.lang_code, def.description)
 
-		if item:find(filter, 1, true) or desc:find(filter, 1, true) then
+		if imatch(item, filter) or desc and imatch(desc, filter) then
 			table.insert(data.items, item)
 		end
 	end
@@ -391,10 +395,13 @@ end
 
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
+	local info = minetest.get_player_information(name)
+
 	player_data[name] = {
 		filter = "",
 		pagenum = 1,
-		items = init_items
+		items = init_items,
+		lang_code = info.lang_code
 	}
 end)
 
