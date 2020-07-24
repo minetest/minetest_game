@@ -390,7 +390,7 @@ minetest.register_entity("carts:cart", cart_entity)
 minetest.register_craftitem("carts:cart", {
 	description = S("Cart") .. "\n" .. S("(Sneak+Click to pick up)"),
 	inventory_image = minetest.inventorycube("carts_cart_top.png", "carts_cart_front.png", "carts_cart_side.png"),
-	wield_image = "carts_cart_side.png",
+	wield_image = "carts_cart_front.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = pointed_thing.under
 		local node = minetest.get_node(under)
