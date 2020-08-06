@@ -247,7 +247,7 @@ local function furnace_node_timer(pos, elapsed)
 		-- Play sound every 5 seconds while the furnace is active
 		if timer_elapsed == 0 or (timer_elapsed+1) % 5 == 0 then
 			minetest.sound_play("default_furnace_active",
-				{pos = pos, max_hear_distance = 16, gain = 1}, true)
+				{pos = pos, max_hear_distance = 16, gain = 0.5}, true)
 		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
