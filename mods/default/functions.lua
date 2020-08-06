@@ -420,8 +420,8 @@ function default.register_mesepost(name, def)
 		}
 	})
 
-	local post_texture = def.texture .. "^default_mese_post_light_side.png^[makealpha:255,126,126"
-	local post_texture_dark = def.texture .. "^default_mese_post_light_side_dark.png^[makealpha:255,126,126"
+	local post_texture = def.texture .. "^default_mese_post_light_side.png^[makealpha:0,0,0"
+	local post_texture_dark = def.texture .. "^default_mese_post_light_side_dark.png^[makealpha:0,0,0"
 	-- Allow almost everything to be overridden
 	local default_fields = {
 		wield_image = post_texture,
