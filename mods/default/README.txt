@@ -340,6 +340,10 @@ sonictechtonic (CC BY 3.0):
 https://www.freesound.org/people/sonictechtonic/sounds/241872/
   player_damage.ogg
 
+iankath (CC0 1.0)
+https://freesound.org/people/iankath/sounds/173991/
+  default_furnace_active.ogg
+
 
 Models
 ------
