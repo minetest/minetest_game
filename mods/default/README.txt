@@ -357,10 +357,6 @@ Angel_Perez_Grandi (CC BY 3.0):
 https://freesound.org/people/Angel_Perez_Grandi/sounds/49190/
   default_ice_dug.ogg
 
-iankath (CC0 1.0)
-https://freesound.org/people/iankath/sounds/173991/
-  default_furnace_active.ogg
-
 
 Models
 ------
