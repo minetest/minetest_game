@@ -666,10 +666,18 @@ function default.can_interact_with_node(player, pos)
 		return false
 	end
 
+	local player_name = player:get_player_name()
 	local meta = minetest.get_meta(pos)
-	local owner = meta:get_string("owner")
+	local owner = meta:get_string("owner") or ""
+	local prot = meta:get_string("protector") or ""
 
-	if not owner or owner == "" or owner == player:get_player_name() then
+	-- Interaction with protected node
+	if prot ~= "" and owner == "" and not minetest.is_protected(pos, player_name) then
+		return true
+	end
+
+	-- Interaction with owned node
+	if prot = "" and (owner == "" or owner == player_name) then
 		return true
 	end
 
