@@ -677,7 +677,7 @@ function default.can_interact_with_node(player, pos)
 	end
 
 	-- Interaction with owned node
-	if prot = "" and (owner == "" or owner == player_name) then
+	if prot == "" and (owner == "" or owner == player_name) then
 		return true
 	end
 
