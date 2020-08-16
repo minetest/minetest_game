@@ -221,6 +221,10 @@ default:brick
 
 default:meselamp
 default:mese_post_light
+default:mese_post_light_acacia_wood
+default:mese_post_light_junglewood
+default:mese_post_light_pine_wood
+default:mese_post_light_aspen_wood
 
 Misc
 ----
@@ -2836,25 +2840,34 @@ minetest.register_node("default:meselamp", {
 	light_source = default.LIGHT_MAX,
 })
 
-minetest.register_node("default:mese_post_light", {
-	description = S("Mese Post Light"),
-	tiles = {"default_mese_post_light_top.png", "default_mese_post_light_top.png",
-		"default_mese_post_light_side_dark.png", "default_mese_post_light_side_dark.png",
-		"default_mese_post_light_side.png", "default_mese_post_light_side.png"},
-	wield_image = "default_mese_post_light_side.png",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-2 / 16, -8 / 16, -2 / 16, 2 / 16, 8 / 16, 2 / 16},
-		},
-	},
-	paramtype = "light",
-	light_source = default.LIGHT_MAX,
-	sunlight_propagates = true,
-	is_ground_content = false,
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-	sounds = default.node_sound_wood_defaults(),
+default.register_mesepost("default:mese_post_light", {
+	description = S("Apple Wood Mese Post Light"),
+	texture = "default_fence_wood.png",
+	material = "default:wood",
+})
+
+default.register_mesepost("default:mese_post_light_acacia", {
+	description = S("Acacia Wood Mese Post Light"),
+	texture = "default_fence_acacia_wood.png",
+	material = "default:acacia_wood",
+})
+
+default.register_mesepost("default:mese_post_light_junglewood", {
+	description = S("Jungle Wood Mese Post Light"),
+	texture = "default_fence_junglewood.png",
+	material = "default:junglewood",
+})
+
+default.register_mesepost("default:mese_post_light_pine_wood", {
+	description = S("Pine Wood Mese Post Light"),
+	texture = "default_fence_pine_wood.png",
+	material = "default:pine_wood",
+})
+
+default.register_mesepost("default:mese_post_light_aspen_wood", {
+	description = S("Aspen Wood Mese Post Light"),
+	texture = "default_fence_aspen_wood.png",
+	material = "default:aspen_wood",
 })
 
 --

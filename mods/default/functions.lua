@@ -421,6 +421,51 @@ function default.register_fence_rail(name, def)
 	minetest.register_node(name, def)
 end
 
+--
+-- Mese post registration helper
+--
+
+function default.register_mesepost(name, def)
+	minetest.register_craft({
+		output = name .. " 4",
+		recipe = {
+			{'', 'default:glass', ''},
+			{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
+			{' ', def.material, ''},
+		}
+	})
+
+	local post_texture = def.texture .. "^default_mese_post_light_side.png^[makealpha:0,0,0"
+	local post_texture_dark = def.texture .. "^default_mese_post_light_side_dark.png^[makealpha:0,0,0"
+	-- Allow almost everything to be overridden
+	local default_fields = {
+		wield_image = post_texture,
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-2 / 16, -8 / 16, -2 / 16, 2 / 16, 8 / 16, 2 / 16},
+			},
+		},
+		paramtype = "light",
+		tiles = {def.texture, def.texture, post_texture_dark, post_texture_dark, post_texture, post_texture},
+		light_source = default.LIGHT_MAX,
+		sunlight_propagates = true,
+		is_ground_content = false,
+		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+		sounds = default.node_sound_wood_defaults(),
+	}
+	for k, v in pairs(default_fields) do
+		if def[k] == nil then
+			def[k] = v
+		end
+	end
+
+	def.texture = nil
+	def.material = nil
+
+	minetest.register_node(name, def)
+end
 
 --
 -- Leafdecay
