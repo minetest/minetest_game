@@ -160,8 +160,8 @@ minetest.register_craftitem("default:skeleton_key", {
 			return itemstack
 		end
 
-		local on_skeleton_key_use = minetest.registered_nodes[node.name].on_skeleton_key_use
-		if not on_skeleton_key_use then
+		local def = minetest.registered_nodes[node.name]
+		if not def or not def.on_skeleton_key_use then
 			return itemstack
 		end
 
@@ -172,7 +172,7 @@ minetest.register_craftitem("default:skeleton_key", {
 			random(2^16) - 1, random(2^16) - 1,
 			random(2^16) - 1, random(2^16) - 1)
 
-		local secret, _, _ = on_skeleton_key_use(pos, user, newsecret)
+		local secret, _, _ = def.on_skeleton_key_use(pos, user, newsecret)
 
 		if secret then
 			local inv = minetest.get_inventory({type="player", name=user:get_player_name()})
@@ -185,7 +185,7 @@ minetest.register_craftitem("default:skeleton_key", {
 			local meta = new_stack:get_meta()
 			meta:set_string("secret", secret)
 			meta:set_string("description", S("Key to @1's @2", user:get_player_name(),
-				minetest.registered_nodes[node.name].description))
+				def.description))
 
 			if itemstack:get_count() == 0 then
 				itemstack = new_stack
