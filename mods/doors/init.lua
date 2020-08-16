@@ -428,6 +428,7 @@ function doors.register(name, def)
 	def.drawtype = "mesh"
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
+	def.use_texture_alpha = true
 	def.sunlight_propagates = true
 	def.walkable = true
 	def.is_ground_content = false
@@ -578,6 +579,7 @@ function doors.register_trapdoor(name, def)
 	def.drawtype = "nodebox"
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
+	def.use_texture_alpha = true
 	def.is_ground_content = false
 
 	if def.protected then

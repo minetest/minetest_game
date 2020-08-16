@@ -61,6 +61,8 @@ end
 
 function stairs.register_stair(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -82,6 +84,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			end
 		end
 	end
+
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
 	warn_if_exists("stairs:stair_" .. subname)
@@ -89,6 +92,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -160,6 +164,8 @@ end
 
 function stairs.register_slab(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set world-aligned textures
 	local slab_images = {}
 	for i, image in ipairs(images) do
@@ -184,6 +190,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		description = description,
 		drawtype = "nodebox",
 		tiles = slab_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -297,6 +304,8 @@ end
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -330,6 +339,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -384,6 +394,8 @@ end
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -417,6 +429,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,

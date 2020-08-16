@@ -277,6 +277,7 @@ local waterlily_def = {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"flowers_waterlily.png", "flowers_waterlily_bottom.png"},
+	use_texture_alpha = true,
 	inventory_image = "flowers_waterlily.png",
 	wield_image = "flowers_waterlily.png",
 	liquids_pointable = true,

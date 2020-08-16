@@ -792,7 +792,9 @@ Creates panes that automatically connect to each other
 		groups = {group = rating}, -- Uses the known node groups, see [Known damage and digging time defining groups]
 		sounds = SoundSpec,        -- See [#Default sounds]
 		recipe = {{"","","","","","","","",""}}, -- Recipe field only
-		use_texture_alpha = true, -- Optional boolean (default: `false`) for colored glass panes
+		use_texture_alpha = true,
+		-- ^ Set to 'false' for opaque panes, to increase rendering
+		-- performance. Default is 'true'
 	}
 
 
