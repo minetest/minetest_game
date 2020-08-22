@@ -1,0 +1,42 @@
+# textdomain: mtg_craftguide
+
+
+### init.lua ###
+
+Any black dye=Beliebiger schwarzer Farbstoff
+Any black flower=Beliebige schwarze Blume
+Any blue dye=Beliebiger blauer Farbstoff
+Any blue flower=Beliebige blaue Blume
+Any brown dye=Beliebiger brauner Farbstoff
+Any coal=Beliebige Kohle
+Any cyan dye=Beliebiger türkiser Farbstoff
+Any dark green dye=Beliebiger dunkelgrüner Farbstoff
+Any dark grey dye=Beliebiger dunkelgrauer Farbstoff
+Any green dye=Beliebiger grüner Farbstoff
+Any green flower=Beliebige grüne Blume
+Any grey dye=Beliebiger grauer Farbstoff
+Any item belonging to the group(s): @1=Beliebiger Gegenstand aus Gruppe(n): @1
+Any kind of stone block=Beliebiger Steinblock
+Any magenta dye=Beliebiger magenta Farbstoff
+Any orange dye=Beliebiger orange Farbstoff
+Any orange flower=Beliebige orange Blume
+Any pink dye=Beliebiger rosa Farbstoff
+Any red dye=Beliebiger roter Farbstoff
+Any red flower=Beliebige rote Blume
+Any sand=Beliebiger Sand
+Any stick=Beliebiger Stock
+Any vessel=Beliebiger Behälter
+Any violet dye=Beliebiger violetter Farbstoff
+Any violet flower=Beliebige violette Blume
+Any white dye=Beliebiger weißer Farbstoff
+Any white flower=Beliebige weiße Blume
+Any wood planks=Beliebige Holzplanken
+Any wool=Beliebige Wolle
+Any yellow dye=Beliebiger gelber Farbstoff
+Any yellow flower=Beliebige gelbe Blume
+Cooking time: @1=Kochzeit: @1
+No recipes.=Keine Rezepte.
+No usages.=Keine Verwendungen.
+Recipe @1 of @2=Rezept @1 von @2
+Shapeless=Formlos
+Usage @1 of @2=Verwendung @1 von @2

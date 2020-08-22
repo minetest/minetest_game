@@ -1,0 +1,11 @@
+# textdomain: mtg_craftguide
+
+
+### init.lua ###
+
+Any item belonging to the group(s): @1=Любой элемент из группы: @1
+Cooking time: @1=Время преготовления: @1
+Recipe @1 of @2=Рецепт @1 из @2
+Recipes=Рецепты
+Shapeless=Бесформенный
+Usage @1 of @2=использование @1 из @2

@@ -1,0 +1,42 @@
+# textdomain: mtg_craftguide
+
+
+### init.lua ###
+
+Any black dye=Qualunque tintura nera
+Any black flower=Qualunque fiore nero
+Any blue dye=Qualunque tintura blu
+Any blue flower=Qualunque fiore blu
+Any brown dye=Qualunque tintura marrone
+Any coal=Qualunque carbone
+Any cyan dye=Qualunque tintura ciano
+Any dark green dye=Qualunque tintura verde scura
+Any dark grey dye=Qualunque tintura grigio scura
+Any green dye=Qualunque tintura verde
+Any green flower=Qualunque fiore verde
+Any grey dye=Qualunque tintura grigia
+Any item belonging to the group(s): @1=Qualunque oggetto appartenente al/ai gruppo/i: @1
+Any kind of stone block=Qualunque tipo di blocco di pietra
+Any magenta dye=Qualunque tintura magenta
+Any orange dye=Qualunque tintura arancione
+Any orange flower=Qualunque fiore arancione
+Any pink dye=Qualunque tintura rosa
+Any red dye=Qualunque tintura rossa
+Any red flower=Qualunque fiore rosso
+Any sand=Qualunque sabbia
+Any stick=Qualunque bastone
+Any vessel=Qualunque contenitore
+Any violet dye=Qualunque tintura viola
+Any violet flower=Qualunque fiore viola
+Any white dye=Qualunque tintura bianca
+Any white flower=Qualunque fiore bianco
+Any wood planks=Qualunque asse di legno
+Any wool=Qualunque lana
+Any yellow dye=Qualunque tintura gialla
+Any yellow flower=Qualunque fiore giallo
+Cooking time: @1=Tempo di cottura: @1
+No recipes.=Nessuna ricetta.
+No usages.=Nessun utilizzo.
+Recipe @1 of @2=Ricetta @1 di @2
+Shapeless=Senza forma
+Usage @1 of @2=Utilizzo @1 di @2
