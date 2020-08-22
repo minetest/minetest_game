@@ -111,7 +111,9 @@ local function get_craftable_recipes(output)
 		end
 	end
 
-	return recipes
+	if #recipes > 0 then
+		return recipes
+	end
 end
 
 local function show_item(def)
