@@ -1,0 +1,57 @@
+# textdomain: mtg_craftguide
+
+
+### init.lua ###
+
+Any black dye=任何黑染料
+Any black flower=任何黑花
+Any blue dye=任何蓝染料
+Any blue flower=任何蓝花
+Any brown dye=任何棕染料
+Any coal=任何煤炭
+Any cyan dye=任何青染料
+Any dark green dye=任何暗绿染料
+Any dark grey dye=任何暗灰染料
+Any green dye=任何绿染料
+Any green flower=任何绿花
+Any grey dye=任何灰染料
+Any item belonging to the group(s): @1=任何属于@1组别的物品
+Any kind of stone block=任何石方块
+Any magenta dye=任何品红染料
+Any orange dye=任何橙染料
+Any orange flower=任何橙花
+Any pink dye=任何粉红染料
+Any red dye=任何红染料
+Any red flower=任何红花
+Any sand=任何沙
+Any stick=任何棒
+Any vessel=任何容器
+Any violet dye=任何紫染料
+Any violet flower=任何紫花
+Any white dye=任何白染料
+Any white flower=任何白花
+Any wood planks=任何木板
+Any wool=任何羊毛
+Any yellow dye=任何黄染料
+Any yellow flower=任何黄花
+Click again to show recipes.=再次单击以显示配方。
+Click again to show usages.=再次单击以显示用法。
+Cooking time: @1=熔炼时间为：@1
+Fuel=燃料
+# Label for group ingredients
+G=G
+Next page=下一页
+Next recipe=下一个配方
+No items to show.=没有可显示的项目。
+No recipes.=没有配方。
+No usages.=没有用法。
+Previous page=上一页
+Previous recipe=上一个配方
+Recipe @1 of @2=第@1个配方，共@2个
+Recipe is too big to be displayed.=配方太大，无法显示。
+Recipes=配方
+Reset=重设
+Search=搜索
+Shapeless=无序配方
+Unknown Item=不明物品
+Usage @1 of @2=第@1个用法，共@2个
