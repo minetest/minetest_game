@@ -82,18 +82,26 @@ local function update_clouds()
 	nobj_speedx = nobj_speedx or minetest.get_perlin(np_speedx)
 	nobj_speedz = nobj_speedz or minetest.get_perlin(np_speedz)
 
-	local n_density = nobj_density:get_2d({x = time, y = 0})
-	local n_thickness = nobj_thickness:get_2d({x = time, y = 0})
-	local n_speedx = nobj_speedx:get_2d({x = time, y = 0})
-	local n_speedz = nobj_speedz:get_2d({x = time, y = 0})
+	local n_density = nobj_density:get_2d({x = time, y = 0}) -- 0 to 1
+	local n_thickness = nobj_thickness:get_2d({x = time, y = 0}) -- 0 to 1
+	local n_speedx = nobj_speedx:get_2d({x = time, y = 0}) -- -1 to 1
+	local n_speedz = nobj_speedz:get_2d({x = time, y = 0}) -- -1 to 1
 
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local humid = minetest.get_humidity(player:get_pos())
+		-- Default and classic density value is 0.4, make this happen
+		-- at humidity midvalue 50 when n_density is at midvalue 0.5.
+		-- density_max = 0.25 at humid = 0.
+		-- density_max = 0.8 at humid = 50.
+		-- density_max = 1.35 at humid = 100.
+		local density_max = 0.8 + ((humid - 50) / 50) * 0.55
 		player:set_clouds({
-			density = rangelim(humid / 100, 0.25, 1.0) * n_density,
+			-- Range limit density_max to always have occasional
+			-- small scattered clouds at extreme low humidity.
+			density = rangelim(density_max, 0.2, 1.0) * n_density,
 			thickness = math.max(math.floor(
 				rangelim(32 * humid / 100, 8, 32) * n_thickness
-				), 1),
+				), 2),
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		})
 	end

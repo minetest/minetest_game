@@ -1,5 +1,4 @@
 # textdomain: creative
-Allow player to use creative inventory=
 Search=
 Reset=
 Previous page=
@@ -8,3 +7,4 @@ All=
 Nodes=
 Tools=
 Items=
+Allow player to use creative inventory=
