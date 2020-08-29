@@ -660,7 +660,7 @@ minetest.register_node("default:ice", {
 	is_ground_content = false,
 	paramtype = "light",
 	groups = {cracky = 3, cools_lava = 1, slippery = 3},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = default.node_sound_ice_defaults(),
 })
 
 -- Mapgen-placed ice with 'is ground content = true' to contain tunnels
@@ -671,7 +671,7 @@ minetest.register_node("default:cave_ice", {
 	groups = {cracky = 3, cools_lava = 1, slippery = 3,
 		not_in_creative_inventory = 1},
 	drop = "default:ice",
-	sounds = default.node_sound_glass_defaults(),
+	sounds = default.node_sound_ice_defaults(),
 })
 
 --
