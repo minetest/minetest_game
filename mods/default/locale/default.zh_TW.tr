@@ -59,15 +59,18 @@ Silver Sandstone Block=銀砂岩方塊
 Obsidian=黑曜石
 Obsidian Brick=黑曜石磚
 Obsidian Block=黑曜石方塊
-Dirt=土
-Dirt with Grass=帶草的土
-Dirt with Grass and Footsteps=帶草的土及腳印
-Dirt with Dry Grass=帶乾草的土
-Dirt with Snow=帶雪的土
+
+Dirt=土方塊
+Dirt with Grass=草方塊
+Dirt with Grass and Footsteps=草方塊及腳印
+Dirt with Dry Grass=乾草土方塊
+Dirt with Snow=雪土方塊
 Dirt with Rainforest Litter=雨林腐土
 Dirt with Coniferous Litter=針葉林腐土
-Dry Dirt=乾土
-Dry Dirt with Dry Grass=乾土和乾草
+Savanna Dirt=草原土
+Dirt with Savanna Grass=草原草方塊
+Savanna Dirt with Savanna Grass=草原草方塊（草原土）
+
 Permafrost=多年凍土
 Permafrost with Stones=帶石頭的多年凍土
 Permafrost with Moss=生苔的多年凍土
@@ -174,7 +177,13 @@ Glass=玻璃
 Obsidian Glass=黑曜石玻璃
 Brick Block=磚方塊
 Mese Lamp=黃石燈
-Mese Post Light=黃石柱燈
+
+Apple Wood Mese Post Light=蘋果木黃石燈柱
+Acacia Wood Mese Post Light=金合歡木黃石燈柱
+Aspen Wood Mese Post Light=白楊木黃石燈柱
+Jungle Wood Mese Post Light=叢林木黃石燈柱
+Pine Wood Mese Post Light=松木黃石燈柱
+
 Cloud=雲
 Wooden Pickaxe=木鎬
 Stone Pickaxe=石鎬
