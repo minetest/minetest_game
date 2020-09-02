@@ -81,6 +81,21 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- lay down
 	else
+
+		-- Check if bed is occupied
+		for _, other_pos in pairs(beds.bed_position) do
+			if vector.distance(bed_pos, other_pos) < 0.1 then
+				minetest.chat_send_player(name, S("This bed is already occupied!"))
+				return false
+			end
+		end
+
+		-- Check if player is moving
+		if vector.length(player:get_player_velocity()) > 0.001 then
+			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			return false
+		end
+
 		beds.pos[name] = pos
 		beds.bed_position[name] = bed_pos
 		beds.player[name] = 1
@@ -230,6 +245,19 @@ minetest.register_on_leaveplayer(function(player)
 	end
 end)
 
+minetest.register_on_dieplayer(function(player)
+	local name = player:get_player_name()
+	local in_bed = beds.player
+	local pos = player:get_pos()
+	local yaw = get_look_yaw(pos)
+
+	if in_bed[name] then
+		lay_down(player, nil, pos, false)
+		player:set_look_horizontal(yaw)
+		player:set_pos(pos)
+	end
+end)
+
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "beds_form" then
 		return
@@ -256,3 +284,4 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
+
