@@ -7,13 +7,15 @@ player_api = {}
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
 
-player_api.registered_models = { }
-player_api.registered_skins = { }
+player_api.registered_models = {}
+player_api.registered_skins = {}
+
 -- Local for speed.
 local models = player_api.registered_models
 local skins = player_api.registered_skins
 local registered_skin_modifiers = {}
 local registered_on_skin_change = {}
+local registered_skin_dyn_values = {}
 
 function player_api.register_model(name, def)
 	-- compatibility defaults
@@ -29,17 +31,42 @@ function player_api.register_model(name, def)
 	models[name] = def
 end
 
+local skin_meta = { __index = function( skin, key )
+	local dyn_values = registered_skin_dyn_values[key]
+	if not dyn_values then
+		return
+	end
+	local return_value
+	for _, hook in ipairs(dyn_values) do
+		return_value = hook(skin, return_value)
+	end
+	return return_value
+end }
+
+-- Add new skin
 function player_api.register_skin(name, def)
 	def.name = name
-	skins[name] = def
+	if not def.textures and def.texture then
+		def.textures = { def.texture }
+		def.texture = nil
+	end
+	skins[name] = setmetatable(def, skin_meta)
 end
 
+-- Modifier function is called before a skin is applied to the player
 function player_api.register_skin_modifier(modifier_func)
 	table.insert(registered_skin_modifiers, modifier_func)
 end
 
+-- Modifier is called after the skin was applied to the player
 function player_api.register_on_skin_change(modifier_func)
 	table.insert(registered_on_skin_change, modifier_func)
+end
+
+-- Modifer is called if a skin attribute "key" was requrested but does not exists for the skin
+function player_api.register_skin_dyn_values(key, hook)
+	registered_skin_dyn_values[key] = registered_skin_dyn_values[key] or {}
+	table.insert(registered_skin_dyn_values[key], hook)
 end
 
 -- Player stats and animations
@@ -63,13 +90,8 @@ end
 
 -- Called when a player's appearance needs to be updated
 function player_api.set_model(player, model_name)
-	local default_model = models[player_api.default_model]
 	local name = player:get_player_name()
-	local model = model_name and models[model_name]
-	if not model then
-		model_name = player_api.default_model
-		model = default_model
-	end
+	local model = models[model_name]
 
 	player:set_properties({
 		mesh = model.mesh,
@@ -94,9 +116,6 @@ function player_api.set_textures(player, textures)
 	elseif skin.textures then
 		textures = table.copy(skin.textures)
 		skin_textures[name] = skin.textures
-	elseif skin.texture then
-		textures = { skin.texture }
-		skin_textures[name] = { skin.texture }
 	else
 		textures = table.copy(model.textures)
 		skin_textures[name] = model.textures
@@ -163,7 +182,7 @@ local textures_skin_suffix_blacklist = {
 player_api.textures_skin_suffix_blacklist = textures_skin_suffix_blacklist
 
 -- Read and analyze data in textures and metadata folder and register them
-function player_api.read_textures_and_meta(hook)
+function player_api.read_textures_and_meta()
 	local modpath = minetest.get_modpath(minetest.get_current_modname())
 	for _, fn in pairs(minetest.get_dir_list(modpath..'/textures/')) do
 		local nameparts = fn:sub(1, -5):split("_")
@@ -171,8 +190,12 @@ function player_api.read_textures_and_meta(hook)
 		if ( prefix == 'player' and nameparts[2] or prefix == 'character' ) then
 			if not textures_skin_suffix_blacklist[nameparts[#nameparts]] then
 
-				local skin = {texture = fn}
 				local skin_id = table.concat(nameparts,'_')
+
+				local skin = {
+					texture = fn,
+					filename = modpath.."/textures/"..skin_id..".png"
+				}
 
 				-- get metadata from file
 				local file = io.open(modpath.."/meta/"..skin_id..".txt", "r")
@@ -208,10 +231,6 @@ function player_api.read_textures_and_meta(hook)
 					skin.description = table.concat(nameparts,' ')
 				end
 
-				-- process hook
-				if hook then
-					hook(modpath..'/textures/'..fn, skin)
-				end
 				player_api.register_skin(skin_id, skin)
 			end
 		end

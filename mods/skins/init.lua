@@ -20,7 +20,7 @@ local skins_formspec_main = function(name, context)
 	local selected = 1
 	for i = 1, #skins_list do
 		local skin = skins_list[i]
-		formspec = formspec .. (skin.description or skin.name)
+		formspec = formspec .. minetest.formspec_escape(skin.description or skin.name)
 		if i < #skins_list then
 			formspec = formspec .. ","
 		end
@@ -31,13 +31,16 @@ local skins_formspec_main = function(name, context)
 	formspec = formspec .. ";" .. selected .. ";false]"
 	if selected_skin then
 		if selected_skin.description then
-			formspec = formspec .. "label[0.0,0.0;" .. "Current skin: " .. selected_skin.description .. "]"
+			formspec = formspec .. "label[0.0,0.0;" .. "Current skin: " ..
+					minetest.formspec_escape(selected_skin.description) .. "]"
 		end
 		if selected_skin.author then
-			formspec = formspec .. "label[0.0,0.5;" .. "Author: " .. selected_skin.author .. "]"
+			formspec = formspec .. "label[0.0,0.5;" .. "Author: " ..
+					minetest.formspec_escape(selected_skin.author) .. "]"
 		end
 		if selected_skin.license then
-			formspec = formspec .. "label[0.0,1;" .. "License: " .. selected_skin.license .. "]"
+			formspec = formspec .. "label[0.0,1;" .. "License: " ..
+					minetest.formspec_escape(selected_skin.license) .. "]"
 		end
 	end
 	return formspec

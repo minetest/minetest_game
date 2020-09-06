@@ -36,3 +36,13 @@ player_api.register_skin("sprite", {
 
 player_api.default_model = "character.b3d"
 player_api.default_skin = "character"
+
+-- Apply default model to all skins
+player_api.register_skin_dyn_values("model_name", function(skin, othermod_value)
+	return othermod_value or player_api.default_model
+end )
+
+-- Some compatibility bits
+player_api.register_skin_dyn_values("texture", function(skin, othermod_value)
+	return othermod_value or ( skin.textures and skin.textures[1] )
+end )

@@ -7,6 +7,8 @@ textures           Skin textures table
 
 ## Other mods require or use additional attirubes that can be added in registration
 format             Skins format. "1.0" (default) or "1.8"
+filename           Full path to the skin file
+hand_node          Node name stored in players "hand" inventory to skin the hand
 
 ## formspecs related
 description        Descriptive skin name to be shown in formspecs
