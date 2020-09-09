@@ -68,7 +68,7 @@ function player_api.set_textures(player, textures)
 	local model = models[player_model[name]]
 	local model_textures = model and model.textures or nil
 	player_textures[name] = textures or model_textures
-	player:set_properties({textures = textures or model_textures,})
+	player:set_properties({textures = textures or model_textures})
 end
 
 function player_api.set_animation(player, anim_name, speed)
@@ -90,6 +90,8 @@ minetest.register_on_leaveplayer(function(player)
 	player_model[name] = nil
 	player_anim[name] = nil
 	player_textures[name] = nil
+	player_sneak[name] = nil
+	player_api.player_attached[name] = nil
 end)
 
 -- Localize for better performance.
