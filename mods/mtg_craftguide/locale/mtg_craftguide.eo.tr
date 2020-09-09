@@ -1,0 +1,57 @@
+# textdomain: mtg_craftguide
+
+
+### init.lua ###
+
+Any black dye=Ajna nigra tinkturo
+Any black flower=Ajna nigra floro
+Any blue dye=Ajna blua tinkturo
+Any blue flower=Ajna blua floro
+Any brown dye=Ajna bruna tinkturo
+Any coal=Ajna karbo
+Any cyan dye=Ajna bluverda tinkturo
+Any dark green dye=Ajna malhela verda tinkturo
+Any dark grey dye=Ajna malhela graja tinkturo
+Any green dye=Ajna verda tinkturo
+Any green flower=Ajna verda floro
+Any grey dye=Ajna graja tinkturo
+Any item belonging to the group(s): @1=Ajna objekto de la aro(j)
+Any kind of stone block=Ia ŝtona ŝtipo
+Any magenta dye=Ajna fuksina tinkturo
+Any orange dye=Ajna oranĝa tinkturo
+Any orange flower=Ajna oranĝa floro
+Any pink dye=Ajna rosa tinkturo
+Any red dye=Ajna ruĝa tinkturo
+Any red flower=Ajna ruĝa floro
+Any sand=Ajna sablo
+Any stick=Ajna bastono
+Any vessel=Ajna vazo
+Any violet dye=Ajna viola tinkturo
+Any violet flower=Ajna viola floro
+Any white dye=Ajna blanka tinkturo
+Any white flower=Ajna blanka floro
+Any wood planks=Ajna ligna tabulo
+Any wool=Ajna lano
+Any yellow dye=Ajna flava tinkturo
+Any yellow flower=Ajna flava floro
+Click again to show recipes.=Anklaku ankoraŭ por prezenti receptojn
+Click again to show usages.=Anklaku ankoraŭ por prezenti utiloj
+Cooking time: @1=Tempo por kuirado: @1
+Fuel=Brulaĵo
+# Label for group ingredients
+G=A
+Next page=Sekvinta paĝo
+Next recipe=Sekvinta recepto
+No items to show.=Ne estas objektoj por prezenti
+No recipes.=Ne estas receptoj
+No usages.=Ne estas utiloj
+Previous page=Pasinta paĝo
+Previous recipe=Pasinta recepto
+Recipe @1 of @2=Recepto @1 el @2
+Recipe is too big to be displayed.=La recepto estas tro granda por prezenti
+Recipes=Receptoj
+Reset=Rekomincigu
+Search=Ŝerĉu
+Shapeless=Senforma
+Unknown Item=Obskura Objekto
+Usage @1 of @2=Utilo @1 el @2
