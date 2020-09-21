@@ -765,12 +765,18 @@ delivered with Minetest Game, to keep them compatible with other mods.
  * `worldaligntex`: A bool to set all textures world-aligned. Default false. See [Tile definition]
  * `full_description`: Overrides the description, bypassing string concatenation. This is useful for translation. (optional)
 
-`stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab, sounds, worldaligntex)`
+```
+stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab,
+	sounds, worldaligntex, desc_stair_inner, desc_stair_outer)
+```
 
  * A wrapper for stairs.register_stair, stairs.register_slab, stairs.register_stair_inner, stairs.register_stair_outer
  * Uses almost the same arguments as stairs.register_stair
- * `desc_stair`: Description for stair nodes. For corner stairs 'Inner' or 'Outer' will be prefixed
+ * `desc_stair`: Description for stair nodes. For corner stairs 'Inner' or 'Outer' will be prefixed unless
+ 	`desc_stair_inner` or `desc_stair_outer` are specified, which are used instead.
  * `desc_slab`: Description for slab node
+ * `desc_stair_inner`: Description for inner stair node
+ * `desc_stair_outer`: Description for outer stair node
 
 
 Xpanes API
