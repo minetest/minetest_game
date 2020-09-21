@@ -2,8 +2,8 @@ License of source code
 ----------------------
 
 GNU Lesser General Public License, version 2.1
-Copyright (C) 2011-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
-Copyright (C) 2011-2018 Various Minetest developers and contributors
+Copyright (C) 2011 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2011 Various Minetest developers and contributors
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU Lesser General Public License as published by the Free Software Foundation;
@@ -19,8 +19,15 @@ Licenses of media (textures, models and sounds)
 -----------------------------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-Copyright (C) 2011-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
-Copyright (C) 2012-2018 Jordach
+Copyright (C) 2011 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2012 MirceaKitsune
+Copyright (C) 2012 Jordach
+Copyright (C) 2015 kilbith
+Copyright (C) 2016 sofar
+Copyright (C) 2016 xunto
+Copyright (C) 2016 Rogier-5
+Copyright (C) 2017 TeTpaAka
+Copyright (C) 2017 Desour
 Copyright (C) 2018 stujones11
 Copyright (C) 2019 An0n3m0us
 
