@@ -469,7 +469,7 @@ end
 
 function stairs.register_stair_and_slab(subname, recipeitem, groups, images,
 		desc_stair, desc_slab, sounds, worldaligntex,
-		desc_stair_outer, desc_stair_inner)
+		desc_stair_inner, desc_stair_outer)
 	stairs.register_stair(subname, recipeitem, groups, images, desc_stair,
 		sounds, worldaligntex)
 	stairs.register_stair_inner(subname, recipeitem, groups, images,
