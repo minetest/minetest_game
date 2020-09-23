@@ -318,6 +318,10 @@ minetest.register_node("default:furnace", {
 		-- start timer function, it will sort out whether furnace can burn or not.
 		minetest.get_node_timer(pos):start(1.0)
 	end,
+	on_metadata_inventory_take = function(pos)
+		-- check whether the furnace is empty or not.
+		minetest.get_node_timer(pos):start(1.0)
+	end,
 	on_blast = function(pos)
 		local drops = {}
 		default.get_inventory_drops(pos, "src", drops)
