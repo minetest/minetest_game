@@ -476,15 +476,48 @@ The player API can register player models and update the player's appearance.
 		animation_speed = 30,           -- Default animation speed, in FPS
 		textures = {"character.png", }, -- Default array of textures
 		visual_size = {x = 1, y = 1},   -- Used to scale the model
+		stepheight = 0.6,               -- In nodes
 		animations = {
 			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
-			foo = {x = 0, y = 19},
-			bar = {x = 20, y = 39},
-			-- ...
+			-- The first 5 animations are required by the API
+			stand     = {x = 0,   y = 79},
+			lay       = {x = 162, y = 166},
+			walk      = {x = 168, y = 187},
+			mine      = {x = 189, y = 198},
+			walk_mine = {x = 200, y = 219},
+			-- The `sit` animation is only required by other Minetest Game mods
+			sit       = {x = 81,  y = 160},
+			-- More animations can be added
 		},
-		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
-		stepheight = 0.6,                                -- In nodes
-		eye_height = 1.47,                               -- In nodes above feet position
+		collisionbox = {
+			-- Defined for each animation
+			-- <anim_name> = {<xmin>, <ymin>, <zmin>, <xmax>, <ymax>, <zmax>},
+			-- Min/max positions are in nodes from feet position
+			stand     = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+			walk      = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+			mine      = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+			walk_mine = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+			lay       = {-0.6, 0.0, -0.6, 0.6, 0.3, 0.6},
+			sit       = {-0.3, 0.0, -0.3, 0.3, 1.0, 0.3},
+		},
+		eye_height = {
+			-- Defined for each animation
+			-- In nodes above feet position
+			stand     = 1.47,
+			walk      = 1.47,
+			mine      = 1.47,
+			walk_mine = 1.47,
+			lay       = 0.3,
+			sit       = 0.8,
+		},
+	}
+
+Alternatively, `collisionbox` and `eye_height` can be defined as single values applied
+to all animations:
+
+	{
+		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		eye_height = 1.47,
 	}
 
 

@@ -1,13 +1,10 @@
--- Minetest 0.4 mod: player
--- See README.txt for licensing and other information.
-
 player_api = {}
 
 -- Player animation blending
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
 
-player_api.registered_models = { }
+player_api.registered_models = {}
 
 -- Local for speed.
 local models = player_api.registered_models
@@ -40,14 +37,13 @@ function player_api.set_model(player, model_name)
 		if player_model[name] == model_name then
 			return
 		end
+		-- collisionbox and eye_height are set in set_animation()
 		player:set_properties({
 			mesh = model_name,
 			textures = player_textures[name] or model.textures,
 			visual = "mesh",
 			visual_size = model.visual_size or {x = 1, y = 1},
-			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 			stepheight = model.stepheight or 0.6,
-			eye_height = model.eye_height or 1.47,
 		})
 		player_api.set_animation(player, "stand")
 	else
@@ -72,6 +68,7 @@ function player_api.set_textures(player, textures)
 end
 
 function player_api.set_animation(player, anim_name, speed)
+	-- Return if animation already applied to player
 	local name = player:get_player_name()
 	if player_anim[name] == anim_name then
 		return
@@ -83,6 +80,17 @@ function player_api.set_animation(player, anim_name, speed)
 	local anim = model.animations[anim_name]
 	player_anim[name] = anim_name
 	player:set_animation(anim, speed or model.animation_speed, animation_blend)
+	-- Set animation-dependent properties
+	local eyeh
+	if type(model.eye_height) == "table" then
+		eyeh = model.eye_height[anim_name]
+	else -- number
+		eyeh = model.eye_height
+	end
+	player:set_properties({
+		collisionbox = model.collisionbox[anim_name] or model.collisionbox,
+		eye_height = eyeh,
+	})
 end
 
 minetest.register_on_leaveplayer(function(player)

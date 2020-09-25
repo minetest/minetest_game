@@ -1,13 +1,11 @@
--- player/init.lua
-
 dofile(minetest.get_modpath("player_api") .. "/api.lua")
 
 -- Default player appearance
 player_api.register_model("character.b3d", {
 	animation_speed = 30,
 	textures = {"character.png"},
+	stepheight = 0.6,
 	animations = {
-		-- Standard animations.
 		stand     = {x = 0,   y = 79},
 		lay       = {x = 162, y = 166},
 		walk      = {x = 168, y = 187},
@@ -15,9 +13,22 @@ player_api.register_model("character.b3d", {
 		walk_mine = {x = 200, y = 219},
 		sit       = {x = 81,  y = 160},
 	},
-	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
-	stepheight = 0.6,
-	eye_height = 1.47,
+	collisionbox = {
+		stand     = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		walk      = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		mine      = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		walk_mine = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		lay       = {-0.6, 0.0, -0.6, 0.6, 0.3, 0.6},
+		sit       = {-0.3, 0.0, -0.3, 0.3, 1.0, 0.3},
+	},
+	eye_height = {
+		stand     = 1.47,
+		walk      = 1.47,
+		mine      = 1.47,
+		walk_mine = 1.47,
+		lay       = 0.3,
+		sit       = 0.8,
+	},
 })
 
 -- Update appearance when the player joins
