@@ -61,7 +61,6 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	-- stand up
 	if state ~= nil and not state then
 		local p = beds.pos[name] or nil
-		beds.player[name] = nil
 		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
@@ -72,10 +71,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		end
 
 		-- physics, eye_offset, etc
+		player:set_physics_override(assert(beds.player[name]))
+		beds.player[name] = nil
 		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
 		player:set_look_horizontal(math.random(1, 180) / 100)
 		player_api.player_attached[name] = false
-		player:set_physics_override(1, 1, 1)
 		hud_flags.wielditem = true
 		player_api.set_animation(player, "stand" , 30)
 
@@ -98,7 +98,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 		beds.pos[name] = pos
 		beds.bed_position[name] = bed_pos
-		beds.player[name] = 1
+		beds.player[name] = player:get_physics_override()
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
