@@ -71,8 +71,6 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			player:set_pos(p)
 		end
 
-		-- physics, eye_offset, etc
-		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
 		player:set_look_horizontal(math.random(1, 180) / 100)
 		player_api.player_attached[name] = false
 		player:set_physics_override(1, 1, 1)
@@ -100,8 +98,6 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		beds.bed_position[name] = bed_pos
 		beds.player[name] = 1
 
-		-- physics, eye_offset, etc
-		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
 		local yaw, param2 = get_look_yaw(bed_pos)
 		player:set_look_horizontal(yaw)
 		local dir = minetest.facedir_to_dir(param2)
