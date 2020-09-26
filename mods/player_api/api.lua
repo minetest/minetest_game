@@ -1,13 +1,10 @@
--- Minetest 0.4 mod: player
--- See README.txt for licensing and other information.
-
 player_api = {}
 
 -- Player animation blending
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
 
-player_api.registered_models = { }
+player_api.registered_models = {}
 
 -- Local for speed.
 local models = player_api.registered_models
@@ -17,80 +14,90 @@ function player_api.register_model(name, def)
 end
 
 -- Player stats and animations
-local player_model = {}
-local player_textures = {}
-local player_anim = {}
-local player_sneak = {}
+-- model, textures, animation
+local players = {}
 player_api.player_attached = {}
 
 function player_api.get_animation(player)
-	local name = player:get_player_name()
-	return {
-		model = player_model[name],
-		textures = player_textures[name],
-		animation = player_anim[name],
-	}
+	return players[player:get_player_name()]
 end
 
 -- Called when a player's appearance needs to be updated
 function player_api.set_model(player, model_name)
-	local name = player:get_player_name()
+	local player_data = players[player:get_player_name()]
+	if player_data.model == model_name then
+		return
+	end
 	local model = models[model_name]
 	if model then
-		if player_model[name] == model_name then
-			return
-		end
-		player:set_properties({
+		player:set_properties{
 			mesh = model_name,
-			textures = player_textures[name] or model.textures,
+			textures = player_data.textures or model.textures,
 			visual = "mesh",
 			visual_size = model.visual_size or {x = 1, y = 1},
 			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 			stepheight = model.stepheight or 0.6,
 			eye_height = model.eye_height or 1.47,
-		})
+		}
+		local animations = model.animations
+		player:set_local_animation(
+			animations.stand,
+			animations.walk,
+			animations.mine,
+			animations.walk_mine,
+			model.animation_speed or 30
+		)
 		player_api.set_animation(player, "stand")
 	else
-		player:set_properties({
+		player:set_properties{
 			textures = {"player.png", "player_back.png"},
 			visual = "upright_sprite",
 			visual_size = {x = 1, y = 2},
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.75, 0.3},
 			stepheight = 0.6,
 			eye_height = 1.625,
-		})
+		}
 	end
-	player_model[name] = model_name
+	player_data.model = model_name
 end
 
 function player_api.set_textures(player, textures)
-	local name = player:get_player_name()
-	local model = models[player_model[name]]
-	local model_textures = model and model.textures or nil
-	player_textures[name] = textures or model_textures
-	player:set_properties({textures = textures or model_textures})
+	local player_data = players[player:get_player_name()]
+	local model = models[player_data.model]
+	local new_textures = model and model.textures or textures
+	player_data.textures = new_textures
+	player:set_properties{textures = new_textures}
 end
 
 function player_api.set_animation(player, anim_name, speed)
-	local name = player:get_player_name()
-	if player_anim[name] == anim_name then
-		return
-	end
-	local model = player_model[name] and models[player_model[name]]
+	local player_data = players[player:get_player_name()]
+	local model = models[player_data.model]
 	if not (model and model.animations[anim_name]) then
 		return
 	end
+	speed = speed or model.animation_speed
+	if player_data.animation == anim_name and player_data.animation_speed == speed then
+		return
+	end
 	local anim = model.animations[anim_name]
-	player_anim[name] = anim_name
-	player:set_animation(anim, speed or model.animation_speed, animation_blend)
+	player_data.animation = anim_name
+	player_data.animation_speed = speed
+	player:set_animation(anim, speed, animation_blend)
+	player:set_properties{
+		collisionbox = anim.collisionbox or model.collisionbox,
+		eye_height = anim.eye_height or model.eye_height
+	}
 end
+
+minetest.register_on_joinplayer(function(player)
+	local name = player:get_player_name()
+	players[name] = {}
+	player_api.player_attached[name] = false
+end)
 
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
-	player_model[name] = nil
-	player_anim[name] = nil
-	player_textures[name] = nil
-	player_sneak[name] = nil
+	players[name] = nil
 	player_api.player_attached[name] = nil
 end)
 
@@ -111,8 +118,8 @@ end
 minetest.register_globalstep(function()
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
-		local model_name = player_model[name]
-		local model = model_name and models[model_name]
+		local player_data = players[name]
+		local model = models[player_data.model]
 		if model and not player_attached[name] then
 			local controls = player:get_player_control()
 			local animation_speed_mod = model.animation_speed or 30
@@ -125,12 +132,7 @@ minetest.register_globalstep(function()
 			-- Apply animations based on what the player is doing
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
-			-- Determine if the player is walking
 			elseif controls.up or controls.down or controls.left or controls.right then
-				if player_sneak[name] ~= controls.sneak then
-					player_anim[name] = nil
-					player_sneak[name] = controls.sneak
-				end
 				if controls.LMB or controls.RMB then
 					player_set_animation(player, "walk_mine", animation_speed_mod)
 				else
