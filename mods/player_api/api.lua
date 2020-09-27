@@ -68,9 +68,10 @@ function player_api.set_textures(player, textures)
 end
 
 function player_api.set_animation(player, anim_name, speed)
-	-- Return if animation already applied to player
+	-- Return if no change of animation
 	local name = player:get_player_name()
-	if player_anim[name] == anim_name then
+	local old_anim_name = player_anim[name]
+	if anim_name == old_anim_name then
 		return
 	end
 	local model = player_model[name] and models[player_model[name]]
@@ -80,16 +81,23 @@ function player_api.set_animation(player, anim_name, speed)
 	local anim = model.animations[anim_name]
 	player_anim[name] = anim_name
 	player:set_animation(anim, speed or model.animation_speed, animation_blend)
-	-- Set animation-dependent properties
-	local eyeh
+	-- Set animation-dependent collisionbox and eye_height
+	local old_cbox = model.collisionbox[old_anim_name] or model.collisionbox
+	local new_cbox = model.collisionbox[anim_name] or model.collisionbox
+	-- Return if no change of collisionbox
+	-- Assumes eye_height does not change if collisionbox does not change
+	if table.concat(new_cbox) == table.concat(old_cbox) then
+		return
+	end
+	local new_eyeh
 	if type(model.eye_height) == "table" then
-		eyeh = model.eye_height[anim_name]
+		new_eyeh = model.eye_height[anim_name]
 	else -- number
-		eyeh = model.eye_height
+		new_eyeh = model.eye_height
 	end
 	player:set_properties({
-		collisionbox = model.collisionbox[anim_name] or model.collisionbox,
-		eye_height = eyeh,
+		collisionbox = new_cbox,
+		eye_height = new_eyeh,
 	})
 end
 
