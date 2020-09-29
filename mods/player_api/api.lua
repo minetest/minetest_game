@@ -30,7 +30,7 @@ function player_api.set_model(player, model_name)
 	end
 	local model = models[model_name]
 	if model then
-		player:set_properties{
+		player:set_properties({
 			mesh = model_name,
 			textures = player_data.textures or model.textures,
 			visual = "mesh",
@@ -38,7 +38,7 @@ function player_api.set_model(player, model_name)
 			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 			stepheight = model.stepheight or 0.6,
 			eye_height = model.eye_height or 1.47,
-		}
+		})
 		local animations = model.animations
 		player:set_local_animation(
 			animations.stand,
@@ -49,14 +49,14 @@ function player_api.set_model(player, model_name)
 		)
 		player_api.set_animation(player, "stand")
 	else
-		player:set_properties{
+		player:set_properties({
 			textures = {"player.png", "player_back.png"},
 			visual = "upright_sprite",
 			visual_size = {x = 1, y = 2},
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.75, 0.3},
 			stepheight = 0.6,
 			eye_height = 1.625,
-		}
+		})
 	end
 	player_data.model = model_name
 end
@@ -83,10 +83,10 @@ function player_api.set_animation(player, anim_name, speed)
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
 	player:set_animation(anim, speed, animation_blend)
-	player:set_properties{
+	player:set_properties({
 		collisionbox = anim.collisionbox or model.collisionbox,
 		eye_height = anim.eye_height or model.eye_height
-	}
+	})
 end
 
 minetest.register_on_joinplayer(function(player)
