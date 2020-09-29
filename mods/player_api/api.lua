@@ -66,7 +66,7 @@ function player_api.set_textures(player, textures)
 	local model = models[player_data.model]
 	local new_textures = model and model.textures or textures
 	player_data.textures = new_textures
-	player:set_properties{textures = new_textures}
+	player:set_properties({textures = new_textures})
 end
 
 function player_api.set_animation(player, anim_name, speed)
