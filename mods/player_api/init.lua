@@ -8,12 +8,12 @@ player_api.register_model("character.b3d", {
 	textures = {"character.png"},
 	animations = {
 		-- Standard animations.
-		stand     = {x = 0,   y = 79},
-		lay       = {x = 162, y = 166},
-		walk      = {x = 168, y = 187},
-		mine      = {x = 189, y = 198},
-		walk_mine = {x = 200, y = 219},
-		sit       = {x = 81,  y = 160},
+		stand     = {x = 0,   y = 159},
+		lay       = {x = 161, y = 320},
+		walk      = {x = 322, y = 326},
+		mine      = {x = 328, y = 347},
+		walk_mine = {x = 349, y = 358},
+		sit       = {x = 360, y = 379},
 	},
 	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 	stepheight = 0.6,
@@ -25,10 +25,10 @@ minetest.register_on_joinplayer(function(player)
 	player_api.player_attached[player:get_player_name()] = false
 	player_api.set_model(player, "character.b3d")
 	player:set_local_animation(
-		{x = 0,   y = 79},
-		{x = 168, y = 187},
-		{x = 189, y = 198},
-		{x = 200, y = 219},
+		{x = 0,   y = 159},
+		{x = 328, y = 347},
+		{x = 349, y = 358},
+		{x = 360, y = 379},
 		30
 	)
 end)
