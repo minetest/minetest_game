@@ -429,6 +429,8 @@ end
 
 minetest.register_node("tnt:boom", {
 	drawtype = "airlike",
+	inventory_image = "tnt_boom.png",
+	wield_image = "tnt_boom.png",
 	light_source = default.LIGHT_MAX,
 	walkable = false,
 	drop = "",

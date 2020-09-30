@@ -796,6 +796,8 @@ minetest.register_node("default:apple", {
 
 minetest.register_node("default:apple_mark", {
 	description = S("Apple Marker"),
+	inventory_image = "default_apple.png^default_invisible_node_overlay.png",
+	wield_image = "default_apple.png^default_invisible_node_overlay.png",
 	drawtype = "airlike",
 	paramtype = "light",
 	sunlight_propagates = true,
