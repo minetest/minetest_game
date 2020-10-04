@@ -1,3 +1,15 @@
+This is a fork of the minetest game. The unmodified license of the game is locaated below the spererator.
+All modifications made are licensed under the GNU Lesser General Public License.
+
+Modifications by Samarth R, wsor (wsor4035) and others.
+Any media added is under the CC0 license or if they are sourced from elsewhere, under their respective licenses.
+
+<END OF THE LICENSING OF THIS FORK>
+------------------------------------------
+<BEGIN ORIGINAL LICENSE>
+------------------------------------------
+
+
 License of media (textures and sounds)
 --------------------------------------
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
