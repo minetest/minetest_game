@@ -9,8 +9,36 @@ player_api.registered_models = {}
 -- Local for speed.
 local models = player_api.registered_models
 
+local function collisionbox_equals(collisionbox, other_collisionbox)
+	if collisionbox == other_collisionbox then
+		return true
+	end
+	for index = 1, 6 do
+		if collisionbox[index] ~= other_collisionbox[index] then
+			return false
+		end
+	end
+	return true
+end
+
 function player_api.register_model(name, def)
 	models[name] = def
+	local collisionboxes = {}
+	for _, animation in pairs(def.animations) do
+		if animation.eye_height == def.eye_height then
+			animation.eye_height = nil
+		end
+		if collisionbox_equals(animation.collisionbox, def.collisionbox) then
+			animation.collisionbox = nil
+		else
+			for collisionbox in pairs(collisionboxes) do
+				if collisionbox_equals(collisionbox, def.collisionbox) then
+					animation.collisionbox = collisionbox
+					break
+				end
+			end
+		end
+	end
 end
 
 -- Player stats and animations
@@ -79,14 +107,18 @@ function player_api.set_animation(player, anim_name, speed)
 	if player_data.animation == anim_name and player_data.animation_speed == speed then
 		return
 	end
+	local previous_anim = model.animations[player_data.animation]
 	local anim = model.animations[anim_name]
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
 	player:set_animation(anim, speed, animation_blend)
-	player:set_properties{
-		collisionbox = anim.collisionbox or model.collisionbox,
-		eye_height = anim.eye_height or model.eye_height
-	}
+	-- reference comparison for tables works because register_model ensures same references for same collisionboxes
+	if previous_anim.eye_height ~= anim.eye_height or previous_anim.collisionbox ~= anim.collisionbox then
+		player:set_properties{
+			collisionbox = anim.collisionbox or model.collisionbox,
+			eye_height = anim.eye_height or model.eye_height
+		}
+	end
 end
 
 minetest.register_on_joinplayer(function(player)
