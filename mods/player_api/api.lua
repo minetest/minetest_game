@@ -71,6 +71,13 @@ function player_api.set_textures(player, textures)
 	player:set_properties({textures = textures or model_textures})
 end
 
+function player_api.set_texture(player, texture, texture_ID)
+	local ID = not texture_ID and 1 or texture_ID
+	local new_textures = player:get_properties().textures
+	new_textures[ID] = texture
+	player:set_properties({textures = new_textures})
+end
+
 function player_api.set_animation(player, anim_name, speed)
 	local name = player:get_player_name()
 	if player_anim[name] == anim_name then
