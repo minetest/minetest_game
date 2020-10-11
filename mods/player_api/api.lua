@@ -32,7 +32,8 @@ function player_api.register_model(name, def)
 		animation.collisionbox = animation.collisionbox or def.collisionbox
 		for _, other_animation in pairs(def.animations) do
 			if other_animation._equals then
-				if collisionbox_equals(animation.collisionbox, other_animation.collisionbox) and animation.eye_height == other_animation.eye_height then
+				if collisionbox_equals(animation.collisionbox, other_animation.collisionbox)
+						and animation.eye_height == other_animation.eye_height then
 					animation._equals = other_animation._equals
 					break
 				end
