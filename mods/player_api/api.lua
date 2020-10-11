@@ -108,7 +108,7 @@ function player_api.set_animation(player, anim_name, speed)
 	if player_data.animation == anim_name and player_data.animation_speed == speed then
 		return
 	end
-	local previous_anim_equals = model.animations[player_data.animation]._equals
+	local previous_anim_equals = (model.animations[player_data.animation] or {})._equals
 	local anim = model.animations[anim_name]
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
