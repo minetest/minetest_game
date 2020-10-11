@@ -48,13 +48,17 @@ end
 local players = {}
 player_api.player_attached = {}
 
+local function get_player_data(player)
+	return assert(players[player:get_player_name()], "offline_player")
+end
+
 function player_api.get_animation(player)
-	return players[player:get_player_name()]
+	return get_player_data(player)
 end
 
 -- Called when a player's appearance needs to be updated
 function player_api.set_model(player, model_name)
-	local player_data = players[player:get_player_name()]
+	local player_data = get_player_data(player)
 	if player_data.model == model_name then
 		return
 	end
@@ -91,7 +95,7 @@ function player_api.set_model(player, model_name)
 end
 
 function player_api.set_textures(player, textures)
-	local player_data = players[player:get_player_name()]
+	local player_data = get_player_data(player)
 	local model = models[player_data.model]
 	local new_textures = model and model.textures or textures
 	player_data.textures = new_textures
@@ -99,7 +103,7 @@ function player_api.set_textures(player, textures)
 end
 
 function player_api.set_animation(player, anim_name, speed)
-	local player_data = players[player:get_player_name()]
+	local player_data = get_player_data(player)
 	local model = models[player_data.model]
 	if not (model and model.animations[anim_name]) then
 		return
@@ -178,3 +182,23 @@ minetest.register_globalstep(function()
 		end
 	end
 end)
+
+-- HACK for keeping backwards compatibility
+for _, api_function in pairs({"get_animation", "set_animation", "set_model", "set_textures"}) do
+	local original_function = player_api[api_function]
+	player_api[api_function] = function(...)
+		local arguments = {...}
+		local ret -- single value works because get_animation returns only one value
+		local status, err = pcall(function()
+			ret = original_function(unpack(arguments))
+		end)
+		if not status then
+			if err == "offline_player" then
+				minetest.log("warning", api_function .. " called on offline player")
+				return
+			end
+			error(err)
+		end
+		return ret
+	end
+end
