@@ -23,21 +23,22 @@ end
 
 function player_api.register_model(name, def)
 	models[name] = def
-	local collisionboxes = {}
-	for _, animation in pairs(def.animations) do
-		if animation.eye_height == def.eye_height then
-			animation.eye_height = nil
-		end
-		if collisionbox_equals(animation.collisionbox, def.collisionbox) then
-			animation.collisionbox = nil
-		else
-			for collisionbox in pairs(collisionboxes) do
-				if collisionbox_equals(collisionbox, def.collisionbox) then
-					animation.collisionbox = collisionbox
+	def.visual_size = def.visual_size or {x = 1, y = 1}
+	def.collisionbox = def.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}
+	def.stepheight = def.stepheight or 0.6
+	def.eye_height = def.eye_height or 1.47
+	for animation_name, animation in pairs(def.animations) do
+		animation.eye_height = animation.eye_height or def.eye_height
+		animation.collisionbox = animation.collisionbox or def.collisionbox
+		for _, other_animation in pairs(def.animations) do
+			if other_animation._equals then
+				if collisionbox_equals(animation.collisionbox, other_animation.collisionbox) and animation.eye_height == other_animation.eye_height then
+					animation._equals = other_animation._equals
 					break
 				end
 			end
 		end
+		animation._equals = animation._equals or animation_name
 	end
 end
 
@@ -62,10 +63,8 @@ function player_api.set_model(player, model_name)
 			mesh = model_name,
 			textures = player_data.textures or model.textures,
 			visual = "mesh",
-			visual_size = model.visual_size or {x = 1, y = 1},
-			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
-			stepheight = model.stepheight or 0.6,
-			eye_height = model.eye_height or 1.47,
+			visual_size = model.visual_size,
+			stepheight = model.stepheight
 		})
 		local animations = model.animations
 		player:set_local_animation(
@@ -75,6 +74,7 @@ function player_api.set_model(player, model_name)
 			animations.walk_mine,
 			model.animation_speed or 30
 		)
+		-- sets collisionbox & eye_height
 		player_api.set_animation(player, "stand")
 	else
 		player:set_properties({
@@ -107,16 +107,15 @@ function player_api.set_animation(player, anim_name, speed)
 	if player_data.animation == anim_name and player_data.animation_speed == speed then
 		return
 	end
-	local previous_anim = model.animations[player_data.animation]
+	local previous_anim_equals = model.animations[player_data.animation]._equals
 	local anim = model.animations[anim_name]
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
 	player:set_animation(anim, speed, animation_blend)
-	-- reference comparison for tables works because register_model ensures same references for same collisionboxes
-	if previous_anim.eye_height ~= anim.eye_height or previous_anim.collisionbox ~= anim.collisionbox then
+	if anim._equals == previous_anim_equals then
 		player:set_properties({
-			collisionbox = anim.collisionbox or model.collisionbox,
-			eye_height = anim.eye_height or model.eye_height
+			collisionbox = anim.collisionbox,
+			eye_height = anim.eye_height
 		})
 	end
 end

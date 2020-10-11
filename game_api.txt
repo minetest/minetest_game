@@ -476,7 +476,7 @@ The player API can register player models and update the player's appearance.
 		animation_speed = 30,           -- Default animation speed, in keyframes per second
 		textures = {"character.png"},   -- Default array of textures
 		animations = {
-			-- [anim_name] = {x = <start_frame>, y = <end_frame>, collisionbox = default collisionbox, eye_height = default eye height},
+			-- [anim_name] = {x = <start_frame>, y = <end_frame>, collisionbox = model collisionbox, eye_height = model eye height},
 			stand = ..., lay = ..., walk = ..., mine = ..., walk_mine = ..., -- required animations
 			sit = ... -- used by boats and other MTG mods
 		},
