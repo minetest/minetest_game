@@ -1,10 +1,12 @@
 # Minetest Game
 
+![](https://github.com/mt-mods/jumpdrive/workflows/luacheck/badge.svg)
+
 The default game bundled in the Minetest engine.  
 
-For further information, check 
+For further information, check
 [this forum topic](https://forum.minetest.net/viewtopic.php?f=15&t=9724).   
-Also see the [Minetest Wiki](https://wiki.minetest.net/Subgames/Minetest_Game) 
+Also see the [Minetest Wiki](https://wiki.minetest.net/Subgames/Minetest_Game)
 for more information.
 
 ## Installation
@@ -27,7 +29,7 @@ master HEAD of the Minetest engine.
 Additionally, when the Minetest engine is tagged to be a certain version (e.g.
 0.4.10), Minetest Game is tagged with the version too.
 
-When stable releases are made, Minetest Game and the Minetest engine is packaged 
+When stable releases are made, Minetest Game and the Minetest engine is packaged
 and made available at [www.minetest.net](https://www.minetest.net/downloads/).
 
 ## Licensing
