@@ -227,6 +227,8 @@ if minetest.get_modpath("doors") then
 		sounds = default.node_sound_metal_defaults(),
 		sound_open = "xpanes_steel_bar_door_open",
 		sound_close = "xpanes_steel_bar_door_close",
+		gain_open = 0.15,
+		gain_close = 0.13,
 		recipe = {
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
@@ -245,6 +247,8 @@ if minetest.get_modpath("doors") then
 		sounds = default.node_sound_metal_defaults(),
 		sound_open = "xpanes_steel_bar_door_open",
 		sound_close = "xpanes_steel_bar_door_close",
+		gain_open = 0.15,
+		gain_close = 0.13,
 	})
 
 	minetest.register_craft({
