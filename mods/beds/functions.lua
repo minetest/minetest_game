@@ -75,7 +75,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
 		player:set_look_horizontal(math.random(1, 180) / 100)
 		player_api.player_attached[name] = false
-		player:set_physics_override({speed = 1, jump=1, gravity=1})
+		player:set_physics_override({speed = 1, jump = 1, gravity = 1})
 		hud_flags.wielditem = true
 		player_api.set_animation(player, "stand" , 30)
 
@@ -284,4 +284,3 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
-
