@@ -2406,7 +2406,7 @@ minetest.register_node("default:lava_source", {
 	liquid_alternative_flowing = "default:lava_flowing",
 	liquid_alternative_source = "default:lava_source",
 	liquid_viscosity = 7,
-	liquid_renewable = false,
+	liquid_renewable = minetest.settings:get_bool("renewable_lava") or false,
 	damage_per_second = 4 * 2,
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
 	groups = {lava = 3, liquid = 2, igniter = 1},
