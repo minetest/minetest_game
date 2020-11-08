@@ -16,7 +16,7 @@ end
 function default.node_sound_stone_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_hard_footstep", gain = 0.3}
+			{name = "default_hard_footstep", gain = 0.2}
 	table.dug = table.dug or
 			{name = "default_hard_footstep", gain = 1.0}
 	default.node_sound_defaults(table)
@@ -26,7 +26,9 @@ end
 function default.node_sound_dirt_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_dirt_footstep", gain = 0.4}
+			{name = "default_dirt_footstep", gain = 0.25}
+	table.dig = table.dig or
+			{name = "default_dig_crumbly", gain = 0.4}
 	table.dug = table.dug or
 			{name = "default_dirt_footstep", gain = 1.0}
 	table.place = table.place or
@@ -50,7 +52,7 @@ end
 function default.node_sound_gravel_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_gravel_footstep", gain = 0.1}
+			{name = "default_gravel_footstep", gain = 0.25}
 	table.dig = table.dig or
 			{name = "default_gravel_dig", gain = 0.35}
 	table.dug = table.dug or
@@ -64,7 +66,9 @@ end
 function default.node_sound_wood_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_wood_footstep", gain = 0.3}
+			{name = "default_wood_footstep", gain = 0.15}
+	table.dig = table.dig or
+			{name = "default_dig_choppy", gain = 0.4}
 	table.dug = table.dug or
 			{name = "default_wood_footstep", gain = 1.0}
 	default.node_sound_defaults(table)
@@ -98,7 +102,7 @@ end
 function default.node_sound_ice_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_ice_footstep", gain = 0.3}
+			{name = "default_ice_footstep", gain = 0.15}
 	table.dig = table.dig or
 			{name = "default_ice_dig", gain = 0.5}
 	table.dug = table.dug or
@@ -110,7 +114,7 @@ end
 function default.node_sound_metal_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "default_metal_footstep", gain = 0.4}
+			{name = "default_metal_footstep", gain = 0.2}
 	table.dig = table.dig or
 			{name = "default_dig_metal", gain = 0.5}
 	table.dug = table.dug or
@@ -155,7 +159,7 @@ default.cool_lava = function(pos, node)
 		minetest.set_node(pos, {name = "default:stone"})
 	end
 	minetest.sound_play("default_cool_lava",
-		{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
+		{pos = pos, max_hear_distance = 16, gain = 0.2}, true)
 end
 
 if minetest.settings:get_bool("enable_lavacooling") ~= false then
