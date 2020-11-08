@@ -60,7 +60,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
-		gain = 0.5,
+		gain = 0.3,
 	}, true)
 
 	if not minetest.is_creative_enabled(player_name) then
