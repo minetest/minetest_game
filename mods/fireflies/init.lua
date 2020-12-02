@@ -61,7 +61,7 @@ minetest.register_node("fireflies:hidden_firefly", {
 	walkable = false,
 	pointable = false,
 	diggable = false,
-	buildable_to = true,
+	buildable_to = false,
 	drop = "",
 	groups = {not_in_creative_inventory = 1},
 	floodable = true,
@@ -83,6 +83,12 @@ minetest.register_node("fireflies:hidden_firefly", {
 			minetest.set_node(pos, {name = "fireflies:firefly"})
 		end
 		minetest.get_node_timer(pos):start(30)
+	end,
+	on_rightclick = function(...)
+		return false
+	end,
+	on_punch = function(pos, ...)
+		minetest.remove_node(pos)
 	end
 })
 

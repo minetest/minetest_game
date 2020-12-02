@@ -31,7 +31,7 @@ for i in ipairs (butter_list) do
 		waving = 1,
 		paramtype = "light",
 		sunlight_propagates = true,
-		buildable_to = true,
+		buildable_to = false,
 		walkable = false,
 		groups = {catchable = 1},
 		selection_box = {
@@ -57,6 +57,12 @@ for i in ipairs (butter_list) do
 				minetest.set_node(pos, {name = "butterflies:hidden_butterfly_"..name})
 			end
 			minetest.get_node_timer(pos):start(30)
+		end,
+		on_rightclick = function(...)
+			return false
+		end,
+		on_punch = function(pos, ...)
+			minetest.remove_node(pos)
 		end
 	})
 
