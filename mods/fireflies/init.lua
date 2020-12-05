@@ -85,7 +85,7 @@ minetest.register_node("fireflies:hidden_firefly", {
 		minetest.get_node_timer(pos):start(30)
 	end,
 	on_rightclick = function(...)
-		return false
+		return nil
 	end,
 	on_punch = function(pos, ...)
 		minetest.remove_node(pos)
