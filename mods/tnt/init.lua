@@ -165,7 +165,7 @@ local function entity_physics(pos, radius, drops)
 		if obj:is_player() then
 			local dir = vector.normalize(vector.subtract(obj_pos, pos))
 			local moveoff = vector.multiply(dir, 2 / dist * radius)
-			obj:add_player_velocity(moveoff)
+			obj:add_velocity(moveoff)
 
 			obj:set_hp(obj:get_hp() - damage)
 		else
@@ -429,10 +429,12 @@ end
 
 minetest.register_node("tnt:boom", {
 	drawtype = "airlike",
+	inventory_image = "tnt_boom.png",
+	wield_image = "tnt_boom.png",
 	light_source = default.LIGHT_MAX,
 	walkable = false,
 	drop = "",
-	groups = {dig_immediate = 3},
+	groups = {dig_immediate = 3, not_in_creative_inventory = 1},
 	-- unaffected by explosions
 	on_blast = function() end,
 })
@@ -529,7 +531,8 @@ minetest.register_node("tnt:gunpowder_burning", {
 	groups = {
 		dig_immediate = 2,
 		attached_node = 1,
-		connect_to_raillike = minetest.raillike_group("gunpowder")
+		connect_to_raillike = minetest.raillike_group("gunpowder"),
+		not_in_creative_inventory = 1
 	},
 	sounds = default.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
@@ -676,7 +679,7 @@ function tnt.register_tnt(def)
 		light_source = 5,
 		drop = "",
 		sounds = default.node_sound_wood_defaults(),
-		groups = {falling_node = 1},
+		groups = {falling_node = 1, not_in_creative_inventory = 1},
 		on_timer = function(pos, elapsed)
 			tnt.boom(pos, def)
 		end,
