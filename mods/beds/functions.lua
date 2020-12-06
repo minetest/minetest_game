@@ -71,12 +71,16 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		end
 
 		-- physics, eye_offset, etc
-		player:set_physics_override(assert(beds.player[name]))
+		local physics_override = assert(beds.player[name].physics_override)
 		beds.player[name] = nil
+		player:set_physics_override({
+			speed = physics_override.speed,
+			jump = physics_override.jump,
+			gravity = physics_override.gravity
+		})
 		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
 		player:set_look_horizontal(math.random(1, 180) / 100)
 		player_api.player_attached[name] = false
-		player:set_physics_override({speed = 1, jump = 1, gravity = 1})
 		hud_flags.wielditem = true
 		player_api.set_animation(player, "stand" , 30)
 
@@ -99,7 +103,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 		beds.pos[name] = pos
 		beds.bed_position[name] = bed_pos
-		beds.player[name] = player:get_physics_override()
+		beds.player[name] = {physics_override = player:get_physics_override()}
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
