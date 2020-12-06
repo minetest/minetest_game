@@ -27,6 +27,8 @@ function player_api.register_model(name, def)
 	def.collisionbox = def.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}
 	def.stepheight = def.stepheight or 0.6
 	def.eye_height = def.eye_height or 1.47
+	-- Sort animations into property classes:
+	-- Animations with same properties have the same _equals value
 	for animation_name, animation in pairs(def.animations) do
 		animation.eye_height = animation.eye_height or def.eye_height
 		animation.collisionbox = animation.collisionbox or def.collisionbox
