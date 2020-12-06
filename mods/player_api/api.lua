@@ -49,7 +49,7 @@ local players = {}
 player_api.player_attached = {}
 
 local function get_player_data(player)
-	return assert(players[player:get_player_name()], "offline_player")
+	return assert(players[player:get_player_name()])
 end
 
 function player_api.get_animation(player)
@@ -183,22 +183,14 @@ minetest.register_globalstep(function()
 	end
 end)
 
--- HACK for keeping backwards compatibility
 for _, api_function in pairs({"get_animation", "set_animation", "set_model", "set_textures"}) do
 	local original_function = player_api[api_function]
-	player_api[api_function] = function(...)
-		local arguments = {...}
-		local ret -- single value works because get_animation returns only one value
-		local status, err = pcall(function()
-			ret = original_function(unpack(arguments))
-		end)
-		if not status then
-			if err == "offline_player" then
-				minetest.log("warning", api_function .. " called on offline player")
-				return
-			end
-			error(err)
+	player_api[api_function] = function(player, ...)
+		if not players[player:get_player_name()] then
+			-- HACK for keeping backwards compatibility
+			minetest.log("warning", api_function .. " called on offline player")
+			return
 		end
-		return ret
+		original_function(player, ...)
 	end
 end

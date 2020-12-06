@@ -73,7 +73,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 		player:set_look_horizontal(math.random(1, 180) / 100)
 		player_api.player_attached[name] = false
-		player:set_physics_override(1, 1, 1)
+		--player:set_physics_override(1, 1, 1)
 		hud_flags.wielditem = true
 		player_api.set_animation(player, "stand" , 30)
 
@@ -108,7 +108,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			y = bed_pos.y + 0.07,
 			z = bed_pos.z + dir.z / 2
 		}
-		player:set_physics_override(0, 0, 0)
+		--player:set_physics_override(0, 0, 0)
 		player:set_pos(p)
 		player_api.player_attached[name] = true
 		hud_flags.wielditem = false
