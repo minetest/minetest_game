@@ -54,8 +54,8 @@ minetest.register_node("fireflies:firefly", {
 minetest.register_node("fireflies:hidden_firefly", {
 	description = S("Hidden Firefly"),
 	drawtype = "airlike",
-	inventory_image = "fireflies_firefly.png",
-	wield_image =  "fireflies_firefly.png",
+	inventory_image = "fireflies_firefly.png^default_invisible_node_overlay.png",
+	wield_image =  "fireflies_firefly.png^default_invisible_node_overlay.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
