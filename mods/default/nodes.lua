@@ -2621,6 +2621,16 @@ register_sign("steel", S("Steel Sign"), {
 	groups = {cracky = 2, attached_node = 1}
 })
 
+local place_ladder = function(itemstack, placer, pointed_thing)
+	local under = minetest.get_node(pointed_thing.under)
+	local sneaking = placer and placer:get_player_control().sneak
+	if sneaking and under and under.name:find("^default:ladder_") then
+		return minetest.item_place(itemstack, placer, pointed_thing, under.param2)
+	else
+		return minetest.item_place(itemstack, placer, pointed_thing)
+	end
+end
+
 minetest.register_node("default:ladder_wood", {
 	description = S("Wooden Ladder"),
 	drawtype = "signlike",
@@ -2639,6 +2649,7 @@ minetest.register_node("default:ladder_wood", {
 		--wall_bottom = = <default>
 		--wall_side = = <default>
 	},
+	on_place = place_ladder,
 	groups = {choppy = 2, oddly_breakable_by_hand = 3, flammable = 2},
 	legacy_wallmounted = true,
 	sounds = default.node_sound_wood_defaults(),
@@ -2662,6 +2673,7 @@ minetest.register_node("default:ladder_steel", {
 		--wall_bottom = = <default>
 		--wall_side = = <default>
 	},
+	on_place = place_ladder,
 	groups = {cracky = 2},
 	sounds = default.node_sound_metal_defaults(),
 })
