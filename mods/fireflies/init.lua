@@ -92,8 +92,9 @@ minetest.register_tool("fireflies:bug_net", {
 	description = S("Bug Net"),
 	inventory_image = "fireflies_bugnet.png",
 	on_use = function(itemstack, player, pointed_thing)
+		local player_name = player and player:get_player_name() or ""
 		if not pointed_thing or pointed_thing.type ~= "node" or
-				minetest.is_protected(pointed_thing.under, player:get_player_name()) then
+				minetest.is_protected(pointed_thing.under, player_name) then
 			return
 		end
 		local node_name = minetest.get_node(pointed_thing.under).name
