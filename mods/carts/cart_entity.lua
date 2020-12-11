@@ -108,8 +108,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		end
 		-- Pick up cart
 		local inv = puncher:get_inventory()
-		if not (creative and creative.is_enabled_for
-				and creative.is_enabled_for(puncher:get_player_name()))
+		if not minetest.is_creative_enabled(puncher:get_player_name())
 				or not inv:contains_item("main", "carts:cart") then
 			local leftover = inv:add_item("main", "carts:cart")
 			-- If no room in inventory add a replacement cart to the world
@@ -416,8 +415,7 @@ minetest.register_craftitem("carts:cart", {
 		minetest.sound_play({name = "default_place_node_metal", gain = 0.5},
 			{pos = pointed_thing.above}, true)
 
-		if not (creative and creative.is_enabled_for
-				and creative.is_enabled_for(placer:get_player_name())) then
+		if not minetest.is_creative_enabled(placer:get_player_name()) then
 			itemstack:take_item()
 		end
 		return itemstack

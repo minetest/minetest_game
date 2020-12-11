@@ -1998,8 +1998,7 @@ minetest.register_node("default:sand_with_kelp", {
 					not minetest.is_protected(pos_top, player_name) then
 				minetest.set_node(pos, {name = "default:sand_with_kelp",
 					param2 = height * 16})
-				if not (creative and creative.is_enabled_for
-						and creative.is_enabled_for(player_name)) then
+				if not minetest.is_creative_enabled(player_name) then
 					itemstack:take_item()
 				end
 			else
@@ -2054,7 +2053,7 @@ local function coral_on_place(itemstack, placer, pointed_thing)
 
 	node_under.name = itemstack:get_name()
 	minetest.set_node(pos_under, node_under)
-	if not (creative and creative.is_enabled_for(player_name)) then
+	if not minetest.is_creative_enabled(player_name) then
 		itemstack:take_item()
 	end
 
