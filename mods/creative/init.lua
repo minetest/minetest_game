@@ -79,7 +79,7 @@ end
 -- Unlimited node placement
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
 	if placer and placer:is_player() then
-		return creative.is_enabled_for(placer:get_player_name())
+		return minetest.is_creative_enabled(placer:get_player_name())
 	end
 end)
 
@@ -87,7 +87,7 @@ end)
 local old_handle_node_drops = minetest.handle_node_drops
 function minetest.handle_node_drops(pos, drops, digger)
 	if not digger or not digger:is_player() or
-		not creative.is_enabled_for(digger:get_player_name()) then
+		not minetest.is_creative_enabled(digger:get_player_name()) then
 		return old_handle_node_drops(pos, drops, digger)
 	end
 	local inv = digger:get_inventory()
