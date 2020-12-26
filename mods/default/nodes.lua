@@ -183,6 +183,9 @@ Corals
 default:coral_brown
 default:coral_orange
 default:coral_skeleton
+default:coral_green
+default:coral_pink
+default:coral_cyan
 
 Liquids
 -------
@@ -214,6 +217,12 @@ default:fence_junglewood
 default:fence_pine_wood
 default:fence_aspen_wood
 
+default:fence_rail_wood
+default:fence_rail_acacia_wood
+default:fence_rail_junglewood
+default:fence_rail_pine_wood
+default:fence_rail_aspen_wood
+
 default:glass
 default:obsidian_glass
 
@@ -221,7 +230,7 @@ default:brick
 
 default:meselamp
 default:mese_post_light
-default:mese_post_light_acacia_wood
+default:mese_post_light_acacia
 default:mese_post_light_junglewood
 default:mese_post_light_pine_wood
 default:mese_post_light_aspen_wood
