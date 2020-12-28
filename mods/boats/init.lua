@@ -171,7 +171,8 @@ function boat.on_step(self, dtime)
 		end
 	end
 	local velo = self.object:get_velocity()
-	if self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
+	if not self.driver and
+			self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
 		self.object:set_pos(self.object:get_pos())
 		return
 	end
