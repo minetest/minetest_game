@@ -180,12 +180,12 @@ default:sand_with_kelp
 Corals
 ------
 
-default:coral_brown
-default:coral_orange
-default:coral_skeleton
 default:coral_green
 default:coral_pink
 default:coral_cyan
+default:coral_brown
+default:coral_orange
+default:coral_skeleton
 
 Liquids
 -------
