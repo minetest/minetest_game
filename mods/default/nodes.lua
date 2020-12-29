@@ -230,7 +230,7 @@ default:brick
 
 default:meselamp
 default:mese_post_light
-default:mese_post_light_acacia
+default:mese_post_light_acacia_wood
 default:mese_post_light_junglewood
 default:mese_post_light_pine_wood
 default:mese_post_light_aspen_wood
