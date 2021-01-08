@@ -410,7 +410,7 @@ minetest.register_on_joinplayer(function(player)
 		filter = "",
 		pagenum = 1,
 		items = init_items,
-		lang_code = info.lang_code
+		lang_code = info and info.lang_code or "en"
 	}
 end)
 
