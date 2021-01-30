@@ -2852,7 +2852,7 @@ default.register_mesepost("default:mese_post_light", {
 	material = "default:wood",
 })
 
-default.register_mesepost("default:mese_post_light_acacia", {
+default.register_mesepost("default:mese_post_light_acacia_wood", {
 	description = S("Acacia Wood Mese Post Light"),
 	texture = "default_fence_acacia_wood.png",
 	material = "default:acacia_wood",
