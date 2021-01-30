@@ -180,6 +180,9 @@ default:sand_with_kelp
 Corals
 ------
 
+default:coral_green
+default:coral_pink
+default:coral_cyan
 default:coral_brown
 default:coral_orange
 default:coral_skeleton
@@ -213,6 +216,12 @@ default:fence_acacia_wood
 default:fence_junglewood
 default:fence_pine_wood
 default:fence_aspen_wood
+
+default:fence_rail_wood
+default:fence_rail_acacia_wood
+default:fence_rail_junglewood
+default:fence_rail_pine_wood
+default:fence_rail_aspen_wood
 
 default:glass
 default:obsidian_glass
