@@ -10,6 +10,8 @@ stairs = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator("stairs")
+-- Same as S, but will be ignored by translation file update scripts
+local T = S
 
 
 -- Register aliases for new pine node names
@@ -484,9 +486,9 @@ local function my_register_stair_and_slab(subname, recipeitem, groups, images,
 	stairs.register_stair(subname, recipeitem, groups, images, S(desc_stair),
 		sounds, worldaligntex)
 	stairs.register_stair_inner(subname, recipeitem, groups, images, "",
-		sounds, worldaligntex, S("Inner " .. desc_stair))
+		sounds, worldaligntex, T("Inner " .. desc_stair))
 	stairs.register_stair_outer(subname, recipeitem, groups, images, "",
-		sounds, worldaligntex, S("Outer " .. desc_stair))
+		sounds, worldaligntex, T("Outer " .. desc_stair))
 	stairs.register_slab(subname, recipeitem, groups, images, S(desc_slab),
 		sounds, worldaligntex)
 end
