@@ -1,4 +1,5 @@
 # textdomain: default
+
 Locked Chest=Cofre cerrado
 Locked Chest (owned by @1)=Cofre cerrado (propiedad de @1)
 You do not own this chest.=Este cofre no te pertenece.
@@ -17,8 +18,8 @@ Book=Libro
 Book with Text=Libro escrito
 Bronze Ingot=Lingote de bronce
 Clay Brick=Ladrillo de arcilla
-Clay Lump=Fragmento de arcilla
-Coal Lump=Fragmento de carbón
+Clay Lump=Bola de arcilla
+Coal Lump=Carbón
 Copper Ingot=Lingote de cobre
 Copper Lump=Pepita de cobre
 Diamond=Diamante
@@ -67,7 +68,7 @@ Obsidian Block=Bloque de obsidiana
 Dirt=Tierra
 Dirt with Grass=Tierra con pasto
 Dirt with Grass and Footsteps=Tierra con pasto y pisadas
-Dirt with Savanna Grass=
+Dirt with Savanna Grass=Tierra con hierba de sabana
 Dirt with Snow=Tierra con nieve
 Dirt with Rainforest Litter=Tierra con hojarasca de selva tropical
 Dirt with Coniferous Litter=Tierra con hojarasca de coníferas
@@ -79,7 +80,7 @@ Permafrost with Moss=Permafrost musgoso
 Sand=Arena
 Desert Sand=Arena desértica
 Silver Sand=Arena plateada
-Gravel=Gravilla
+Gravel=Grava
 Clay=Arcilla
 Snow=Nieve
 Snow Block=Bloque de nieve
