@@ -279,6 +279,7 @@ local waterlily_def = {
 	tiles = {"flowers_waterlily.png", "flowers_waterlily_bottom.png"},
 	inventory_image = "flowers_waterlily.png",
 	wield_image = "flowers_waterlily.png",
+	use_texture_alpha = "clip",
 	liquids_pointable = true,
 	walkable = false,
 	buildable_to = true,
