@@ -2800,6 +2800,7 @@ minetest.register_node("default:glass", {
 	description = S("Glass"),
 	drawtype = "glasslike_framed_optional",
 	tiles = {"default_glass.png", "default_glass_detail.png"},
+	use_texture_alpha = "clip", -- only needed for stairs API
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	sunlight_propagates = true,
@@ -2812,6 +2813,7 @@ minetest.register_node("default:obsidian_glass", {
 	description = S("Obsidian Glass"),
 	drawtype = "glasslike_framed_optional",
 	tiles = {"default_obsidian_glass.png", "default_obsidian_glass_detail.png"},
+	use_texture_alpha = "clip", -- only needed for stairs API
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	is_ground_content = false,
