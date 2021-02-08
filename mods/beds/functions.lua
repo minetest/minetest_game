@@ -60,6 +60,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- stand up
 	if state ~= nil and not state then
+		assert(beds.player[name], "player " .. name .. " not in bed")
 		local p = beds.pos[name] or nil
 		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
@@ -71,7 +72,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		end
 
 		-- physics, eye_offset, etc
-		local physics_override = assert(beds.player[name].physics_override)
+		local physics_override = beds.player[name].physics_override
 		beds.player[name] = nil
 		player:set_physics_override({
 			speed = physics_override.speed,
@@ -274,7 +275,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local last_player_in_bed = get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
-		lay_down(player, nil, nil, false)
+		if beds.player[player:get_player_name()] then
+			-- make player stand up only if they were in bed
+			lay_down(player, nil, nil, false)
+		end
 		update_formspecs(false)
 	end
 
