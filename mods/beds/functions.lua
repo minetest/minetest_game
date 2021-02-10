@@ -60,16 +60,16 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- stand up
 	if state ~= nil and not state then
-		assert(beds.player[name], "player " .. name .. " not in bed")
-		local p = beds.pos[name] or nil
+		if not beds.player[name] then
+			-- player not in bed, do nothing
+			return false
+		end
 		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
 			return
 		end
-		if p then
-			player:set_pos(p)
-		end
+		player:set_pos(beds.pos[name])
 
 		-- physics, eye_offset, etc
 		local physics_override = beds.player[name].physics_override
@@ -99,6 +99,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		-- Check if player is moving
 		if vector.length(player:get_velocity()) > 0.001 then
 			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			return false
+		end
+
+		if beds.player[name] then
+			-- player already in bed, do nothing
 			return false
 		end
 
@@ -275,10 +280,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local last_player_in_bed = get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
-		if beds.player[player:get_player_name()] then
-			-- make player stand up only if they were in bed
-			lay_down(player, nil, nil, false)
-		end
+		lay_down(player, nil, nil, false)
 		update_formspecs(false)
 	end
 
