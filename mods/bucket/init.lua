@@ -4,6 +4,8 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("bucket")
 
+-- create Bucket privilege to allow Player use the bucket
+minetest.register_privilege("bucket",   {description = "Can use bucket" })
 
 minetest.register_alias("bucket", "bucket:bucket_empty")
 minetest.register_alias("bucket_water", "bucket:bucket_water")
@@ -30,6 +32,13 @@ local function check_protection(pos, name, text)
 		minetest.record_protection_violation(pos, name)
 		return true
 	end
+	
+	-- require Bucket privilege for using a Bucket, as bucket is known to damage protected areas if used by griefers
+	if not minetest.check_player_privs(user:get_player_name(), {bucket=true}) then
+		minetest.chat_send_player(user:get_player_name(), "You dont have the bucket privilege!")
+		return
+	end
+	
 	return false
 end
 
