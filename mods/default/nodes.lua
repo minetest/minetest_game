@@ -2077,6 +2077,7 @@ minetest.register_node("default:coral_green", {
 	tiles = {"default_coral_skeleton.png"},
 	special_tiles = {{name = "default_coral_green.png", tileable_vertical = true}},
 	inventory_image = "default_coral_green.png",
+	wield_image = "default_coral_green.png",
 	groups = {snappy = 3},
 	selection_box = {
 		type = "fixed",
@@ -2107,6 +2108,7 @@ minetest.register_node("default:coral_pink", {
 	tiles = {"default_coral_skeleton.png"},
 	special_tiles = {{name = "default_coral_pink.png", tileable_vertical = true}},
 	inventory_image = "default_coral_pink.png",
+	wield_image = "default_coral_pink.png",
 	groups = {snappy = 3},
 	selection_box = {
 		type = "fixed",
@@ -2137,6 +2139,7 @@ minetest.register_node("default:coral_cyan", {
 	tiles = {"default_coral_skeleton.png"},
 	special_tiles = {{name = "default_coral_cyan.png", tileable_vertical = true}},
 	inventory_image = "default_coral_cyan.png",
+	wield_image = "default_coral_cyan.png",
 	groups = {snappy = 3},
 	selection_box = {
 		type = "fixed",
