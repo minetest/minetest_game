@@ -51,7 +51,7 @@ minetest.register_craftitem("map:mapping_kit", {
 	description = S("Mapping Kit") .. "\n" .. S("Use with 'Minimap' key"),
 	inventory_image = "map_mapping_kit.png",
 	stack_max = 1,
-	groups = {flammable = 3},
+	groups = {flammable = 3, tool = 1},
 
 	on_use = function(itemstack, user, pointed_thing)
 		map.update_hud_flags(user)

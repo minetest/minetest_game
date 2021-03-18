@@ -53,6 +53,7 @@ minetest.register_craftitem("binoculars:binoculars", {
 	description = S("Binoculars") .. "\n" .. S("Use with 'Zoom' key"),
 	inventory_image = "binoculars_binoculars.png",
 	stack_max = 1,
+	groups = {tool = 1},
 
 	on_use = function(itemstack, user, pointed_thing)
 		binoculars.update_player_property(user)
