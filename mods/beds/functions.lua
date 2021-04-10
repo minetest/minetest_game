@@ -101,6 +101,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
 			return false
 		end
+		
+		-- Check if player is attached to an object
+		if player:get_attach() then
+			return false
+		end
 
 		if beds.player[name] then
 			-- player already in bed, do nothing
