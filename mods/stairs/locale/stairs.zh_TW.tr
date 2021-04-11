@@ -27,10 +27,6 @@ Aspen Wood Stair=白楊木樓梯
 Inner Aspen Wood Stair=白楊木樓梯(內)
 Outer Aspen Wood Stair=白楊木樓梯(外)
 Aspen Wood Slab=白楊木臺階
-Blue Stained Stair=藍木樓梯
-Inner Blue Stained Stair=藍木樓梯(內)
-Outer Blue Stained Stair=藍木樓梯(外)
-Blue Stained Slab=藍木臺階
 Stone Stair=石樓梯
 Inner Stone Stair=石樓梯(內)
 Outer Stone Stair=石樓梯(外)
@@ -147,3 +143,11 @@ Snow Block Stair=雪塊樓梯
 Inner Snow Block Stair=雪塊樓梯(內)
 Outer Snow Block Stair=雪塊樓梯(外)
 Snow Block Slab=雪塊臺階
+
+
+##### not used anymore #####
+
+Blue Stained Stair=藍木樓梯
+Inner Blue Stained Stair=藍木樓梯(內)
+Outer Blue Stained Stair=藍木樓梯(外)
+Blue Stained Slab=藍木臺階

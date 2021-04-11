@@ -10,6 +10,8 @@ stairs = {}
 
 -- Load support for MT game translation.
 local S = minetest.get_translator("stairs")
+-- Same as S, but will be ignored by translation file update scripts
+local T = S
 
 
 -- Register aliases for new pine node names
@@ -61,6 +63,8 @@ end
 
 function stairs.register_stair(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -89,6 +93,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -160,6 +165,8 @@ end
 
 function stairs.register_slab(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set world-aligned textures
 	local slab_images = {}
 	for i, image in ipairs(images) do
@@ -184,6 +191,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		description = description,
 		drawtype = "nodebox",
 		tiles = slab_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -197,8 +205,6 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 			local under = minetest.get_node(pointed_thing.under)
 			local wield_item = itemstack:get_name()
 			local player_name = placer and placer:get_player_name() or ""
-			local creative_enabled = (creative and creative.is_enabled_for
-					and creative.is_enabled_for(player_name))
 
 			if under and under.name:find("^stairs:slab_") then
 				-- place slab using under node orientation
@@ -217,7 +223,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 
 				-- else attempt to place node with proper param2
 				minetest.item_place_node(ItemStack(wield_item), placer, pointed_thing, p2)
-				if not creative_enabled then
+				if not minetest.is_creative_enabled(player_name) then
 					itemstack:take_item()
 				end
 				return itemstack
@@ -297,6 +303,8 @@ end
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -330,6 +338,7 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -384,6 +393,8 @@ end
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
+	local src_def = minetest.registered_nodes[recipeitem]
+
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -417,6 +428,7 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = src_def and src_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -486,9 +498,9 @@ local function my_register_stair_and_slab(subname, recipeitem, groups, images,
 	stairs.register_stair(subname, recipeitem, groups, images, S(desc_stair),
 		sounds, worldaligntex)
 	stairs.register_stair_inner(subname, recipeitem, groups, images, "",
-		sounds, worldaligntex, S("Inner " .. desc_stair))
+		sounds, worldaligntex, T("Inner " .. desc_stair))
 	stairs.register_stair_outer(subname, recipeitem, groups, images, "",
-		sounds, worldaligntex, S("Outer " .. desc_stair))
+		sounds, worldaligntex, T("Outer " .. desc_stair))
 	stairs.register_slab(subname, recipeitem, groups, images, S(desc_slab),
 		sounds, worldaligntex)
 end

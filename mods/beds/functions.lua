@@ -60,18 +60,19 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- stand up
 	if state ~= nil and not state then
-		local p = beds.pos[name] or nil
+		if not beds.player[name] then
+			-- player not in bed, do nothing
+			return false
+		end
 		beds.bed_position[name] = nil
 		-- skip here to prevent sending player specific changes (used for leaving players)
 		if skip then
 			return
 		end
-		if p then
-			player:set_pos(p)
-		end
+		player:set_pos(beds.pos[name])
 
 		-- physics, eye_offset, etc
-		local physics_override = assert(beds.player[name].physics_override)
+		local physics_override = beds.player[name].physics_override
 		beds.player[name] = nil
 		player:set_physics_override({
 			speed = physics_override.speed,
@@ -98,6 +99,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		-- Check if player is moving
 		if vector.length(player:get_velocity()) > 0.001 then
 			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			return false
+		end
+
+		if beds.player[name] then
+			-- player already in bed, do nothing
 			return false
 		end
 

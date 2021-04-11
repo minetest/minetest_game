@@ -160,7 +160,8 @@ minetest.register_craftitem("default:skeleton_key", {
 			return itemstack
 		end
 
-		local on_skeleton_key_use = minetest.registered_nodes[node.name].on_skeleton_key_use
+		local node_reg = minetest.registered_nodes[node.name]
+		local on_skeleton_key_use = node_reg and node_reg.on_skeleton_key_use
 		if not on_skeleton_key_use then
 			return itemstack
 		end

@@ -8,25 +8,16 @@ binoculars = {}
 local S = minetest.get_translator("binoculars")
 
 
--- Detect creative mod
-local creative_mod = minetest.get_modpath("creative")
--- Cache creative mode setting as fallback if creative mod not present
-local creative_mode_cache = minetest.settings:get_bool("creative_mode")
-
-
 -- Update player property
 -- Global to allow overriding
 
 function binoculars.update_player_property(player)
-	local creative_enabled =
-		(creative_mod and creative.is_enabled_for(player:get_player_name())) or
-		creative_mode_cache
 	local new_zoom_fov = 0
 
 	if player:get_inventory():contains_item(
 			"main", "binoculars:binoculars") then
 		new_zoom_fov = 10
-	elseif creative_enabled then
+	elseif minetest.is_creative_enabled(player:get_player_name()) then
 		new_zoom_fov = 15
 	end
 

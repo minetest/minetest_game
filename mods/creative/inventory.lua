@@ -33,7 +33,7 @@ function creative.init_creative_inventory(player)
 	minetest.create_detached_inventory("creative_" .. player_name, {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player2)
 			local name = player2 and player2:get_player_name() or ""
-			if not creative.is_enabled_for(name) or
+			if not minetest.is_creative_enabled(name) or
 					to_list == "main" then
 				return 0
 			end
@@ -44,7 +44,7 @@ function creative.init_creative_inventory(player)
 		end,
 		allow_take = function(inv, listname, index, stack, player2)
 			local name = player2 and player2:get_player_name() or ""
-			if not creative.is_enabled_for(name) then
+			if not minetest.is_creative_enabled(name) then
 				return 0
 			end
 			return -1
@@ -143,7 +143,7 @@ function creative.register_tab(name, title, items)
 	sfinv.register_page("creative:" .. name, {
 		title = title,
 		is_in_nav = function(self, player, context)
-			return creative.is_enabled_for(player:get_player_name())
+			return minetest.is_creative_enabled(player:get_player_name())
 		end,
 		get = function(self, player, context)
 			local player_name = player:get_player_name()
@@ -248,7 +248,7 @@ creative.register_tab("craftitems", S("Items"), registered_craftitems)
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)
-	if creative.is_enabled_for(player:get_player_name()) then
+	if minetest.is_creative_enabled(player:get_player_name()) then
 		return "creative:all"
 	else
 		return old_homepage_name(player)

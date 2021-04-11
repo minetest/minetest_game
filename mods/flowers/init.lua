@@ -279,6 +279,7 @@ local waterlily_def = {
 	tiles = {"flowers_waterlily.png", "flowers_waterlily_bottom.png"},
 	inventory_image = "flowers_waterlily.png",
 	wield_image = "flowers_waterlily.png",
+	use_texture_alpha = "clip",
 	liquids_pointable = true,
 	walkable = false,
 	buildable_to = true,
@@ -312,8 +313,7 @@ local waterlily_def = {
 				minetest.set_node(pos, {name = "flowers:waterlily" ..
 					(def.waving == 3 and "_waving" or ""),
 					param2 = math.random(0, 3)})
-				if not (creative and creative.is_enabled_for
-						and creative.is_enabled_for(player_name)) then
+				if not minetest.is_creative_enabled(player_name) then
 					itemstack:take_item()
 				end
 			else
