@@ -53,10 +53,9 @@ function boat.on_rightclick(self, clicker)
 	end
 	local name = clicker:get_player_name()
 	if self.driver and name == self.driver then
-		self.driver = nil
-		self.auto = false
+		-- Cleanup happens in boat.on_detach_child
 		clicker:set_detach()
-		player_api.player_attached[name] = false
+
 		player_api.set_animation(clicker, "stand" , 30)
 		local pos = clicker:get_pos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
@@ -64,14 +63,6 @@ function boat.on_rightclick(self, clicker)
 			clicker:set_pos(pos)
 		end)
 	elseif not self.driver then
-		local attach = clicker:get_attach()
-		if attach and attach:get_luaentity() then
-			local luaentity = attach:get_luaentity()
-			if luaentity.driver then
-				luaentity.driver = nil
-			end
-			clicker:set_detach()
-		end
 		self.driver = name
 		clicker:set_attach(self.object, "",
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
@@ -86,6 +77,9 @@ end
 
 -- If driver leaves server while driving boat
 function boat.on_detach_child(self, child)
+	if child and child:get_player_name() == self.driver then
+		player_api.player_attached[child:get_player_name()] = false
+	end
 	self.driver = nil
 	self.auto = false
 end

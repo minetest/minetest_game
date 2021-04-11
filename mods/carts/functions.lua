@@ -12,7 +12,7 @@ function carts:manage_attachment(player, obj)
 	end
 	local status = obj ~= nil
 	local player_name = player:get_player_name()
-	if player_api.player_attached[player_name] == status then
+	if player:get_attach() == obj then
 		return
 	end
 	player_api.player_attached[player_name] = status
