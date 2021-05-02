@@ -134,7 +134,8 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 	end
 
 	local punch_interval = 1
-	if tool_capabilities and tool_capabilities.full_punch_interval then
+	-- Faulty tool registrations may cause the interval to be set to 0 !
+	if tool_capabilities and (tool_capabilities.full_punch_interval or 0) > 0 then
 		punch_interval = tool_capabilities.full_punch_interval
 	end
 	time_from_last_punch = math.min(time_from_last_punch or punch_interval, punch_interval)
