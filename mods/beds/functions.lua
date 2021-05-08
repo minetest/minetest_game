@@ -102,6 +102,11 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			return false
 		end
 
+		-- Check if player is attached to an object
+		if player:get_attach() then
+			return false
+		end
+
 		if beds.player[name] then
 			-- player already in bed, do nothing
 			return false
