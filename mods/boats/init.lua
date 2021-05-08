@@ -56,19 +56,21 @@ function boat.on_rightclick(self, clicker)
 		-- Cleanup happens in boat.on_detach_child
 		clicker:set_detach()
 
-		player_api.set_animation(clicker, "stand" , 30)
+		player_api.set_animation(clicker, "stand", 30)
 		local pos = clicker:get_pos()
 		pos = {x = pos.x, y = pos.y + 0.2, z = pos.z}
 		minetest.after(0.1, function()
 			clicker:set_pos(pos)
 		end)
 	elseif not self.driver then
-		self.driver = name
 		clicker:set_attach(self.object, "",
 			{x = 0.5, y = 1, z = -3}, {x = 0, y = 0, z = 0})
+
+		self.driver = name
 		player_api.player_attached[name] = true
+
 		minetest.after(0.2, function()
-			player_api.set_animation(clicker, "sit" , 30)
+			player_api.set_animation(clicker, "sit", 30)
 		end)
 		clicker:set_look_horizontal(self.object:get_yaw())
 	end
@@ -79,9 +81,10 @@ end
 function boat.on_detach_child(self, child)
 	if child and child:get_player_name() == self.driver then
 		player_api.player_attached[child:get_player_name()] = false
+
+		self.driver = nil
+		self.auto = false
 	end
-	self.driver = nil
-	self.auto = false
 end
 
 
