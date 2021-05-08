@@ -248,7 +248,7 @@ end
 
 minetest.register_abm({
 	label = "Mushroom spread",
-	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
+	nodenames = {"group:mushroom"},
 	interval = 11,
 	chance = 150,
 	action = function(...)
