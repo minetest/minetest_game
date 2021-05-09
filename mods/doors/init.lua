@@ -436,7 +436,7 @@ function doors.register(name, def)
 	def.buildable_to = false
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
-	def.use_texture_alpha = "clip"
+	def.use_texture_alpha = def.use_texture_alpha or "clip"
 
 	def.mesh = "door_a.obj"
 	minetest.register_node(":" .. name .. "_a", def)
