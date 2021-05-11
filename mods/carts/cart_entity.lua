@@ -29,15 +29,10 @@ function cart_entity:on_rightclick(clicker)
 	end
 	local player_name = clicker:get_player_name()
 	if self.driver and player_name == self.driver then
-		self.driver = nil
 		carts:manage_attachment(clicker, nil)
 	elseif not self.driver then
-		self.driver = player_name
 		carts:manage_attachment(clicker, self.object)
-
-		-- player_api does not update the animation
-		-- when the player is attached, reset to default animation
-		player_api.set_animation(clicker, "stand")
+		self.driver = player_name
 	end
 end
 
@@ -66,8 +61,9 @@ end
 -- 0.5.x and later: When the driver leaves
 function cart_entity:on_detach_child(child)
 	if child and child:get_player_name() == self.driver then
-		self.driver = nil
+		-- Clean up eye height
 		carts:manage_attachment(child, nil)
+		self.driver = nil
 	end
 end
 
