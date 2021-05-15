@@ -582,7 +582,7 @@ function doors.register_trapdoor(name, def)
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
 	def.is_ground_content = false
-	def.use_texture_alpha = "clip"
+	def.use_texture_alpha = def.use_texture_alpha or "clip"
 
 	if def.protected then
 		def.can_dig = can_dig_door
