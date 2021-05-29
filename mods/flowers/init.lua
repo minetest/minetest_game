@@ -160,9 +160,7 @@ function flowers.flower_spread(pos, node)
 			light = minetest.get_node_light(soil_above)
 			if light and light >= 13 and
 					-- Only spread to same surface node
-					soil_name == under.name and
-					-- Desert sand is in the soil group
-					soil_name ~= "default:desert_sand" then
+					soil_name == under.name then
 				minetest.set_node(soil_above, {name = node.name})
 			end
 		end
