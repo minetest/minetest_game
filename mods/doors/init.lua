@@ -439,16 +439,16 @@ function doors.register(name, def)
 	def.use_texture_alpha = "clip"
 
 	def.mesh = "door_a.obj"
-	minetest.register_node(":" .. name .. "_a", def)
+	minetest.register_node(":" .. name .. "_a", table.copy(def))
 
 	def.mesh = "door_b.obj"
-	minetest.register_node(":" .. name .. "_b", def)
+	minetest.register_node(":" .. name .. "_b", table.copy(def))
 
 	def.mesh = "door_a2.obj"
-	minetest.register_node(":" .. name .. "_c", def)
+	minetest.register_node(":" .. name .. "_c", table.copy(def))
 
 	def.mesh = "door_b2.obj"
-	minetest.register_node(":" .. name .. "_d", def)
+	minetest.register_node(":" .. name .. "_d", table.copy(def))
 
 	doors.registered_doors[name .. "_a"] = true
 	doors.registered_doors[name .. "_b"] = true
