@@ -147,9 +147,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		data.title = fields.title:sub(1, max_title_size)
 		data.owner = player:get_player_name()
 		local short_title = data.title
-		if short_title == "" then
-			short_title = S("Book")
-		end
 		-- Don't bother triming the title if the trailing dots would make it longer
 		if #short_title > short_title_size + 3 then
 			short_title = short_title:sub(1, short_title_size) .. "..."
