@@ -178,7 +178,7 @@ Gambit (CC BY-SA 3.0):
   default_iron_lump.png
   default_gold_lump.png
   default_clay_lump.png
-  default_coal.png
+  default_coal_lump.png
   default_grass_*.png
   default_paper.png
   default_diamond_block.png
