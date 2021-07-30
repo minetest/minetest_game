@@ -185,11 +185,10 @@ local function update_formspecs(force_morning)
 		end
 	end
 
-	if false then -- debug code disabled
-		form_n = form_n .. " " .. "label[2.2,8;" .. esc(tod*24) ..
-			" loop:" .. update_formspecs_loops ..
-			"]";
-	end
+	-- debug code disabled
+	--form_n = form_n .. " " .. "label[2.2,8;" .. esc(tod*24) ..
+	--	" loop:" .. update_formspecs_loops ..
+	--	"]";
 
 	for name,_ in pairs(beds.player) do
 		minetest.show_formspec(name, "beds_form", form_n)
