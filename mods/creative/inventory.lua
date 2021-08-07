@@ -125,7 +125,7 @@ function creative.update_creative_inventory(player_name, tab_content)
 end
 
 -- Create the trash field
-local trash = minetest.create_detached_inventory("creative_trash", {
+local trash = minetest.create_detached_inventory("trash", {
 	-- Allow the stack to be placed and remove it in on_put()
 	-- This allows the creative inventory to restore the stack
 	allow_put = function(inv, listname, index, stack, player)
@@ -157,7 +157,7 @@ function creative.register_tab(name, title, items)
 				[[
 					image[4.08,4.2;0.8,0.8;creative_trash_icon.png]
 					listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]
-					list[detached:creative_trash;main;4.02,4.1;1,1;]
+					list[detached:trash;main;4.02,4.1;1,1;]
 					listring[]
 					image_button[5,4.05;0.8,0.8;creative_prev_icon.png;creative_prev;]
 					image_button[7.2,4.05;0.8,0.8;creative_next_icon.png;creative_next;]
