@@ -775,8 +775,8 @@ function doors.register_fencegate(name, def)
 		sounds = def.sounds,
 		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 			local node_def = minetest.registered_nodes[node.name]
-			minetest.swap_node(pos, {name = node_def.gate, param2 = node.param2})
-			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.15,
+			minetest.swap_node(pos, {name = node_def._gate, param2 = node.param2})
+			minetest.sound_play(node_def._gate_sound, {pos = pos, gain = 0.15,
 				max_hear_distance = 8}, true)
 			return itemstack
 		end,
@@ -804,8 +804,8 @@ function doors.register_fencegate(name, def)
 
 	local fence_closed = table.copy(fence)
 	fence_closed.mesh = "doors_fencegate_closed.obj"
-	fence_closed.gate = name .. "_open"
-	fence_closed.sound = "doors_fencegate_open"
+	fence_closed._gate = name .. "_open"
+	fence_closed._gate_sound = "doors_fencegate_open"
 	fence_closed.collision_box = {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/8, 1/2, 1/2 + fence_collision_extra, 1/8}
@@ -813,8 +813,8 @@ function doors.register_fencegate(name, def)
 
 	local fence_open = table.copy(fence)
 	fence_open.mesh = "doors_fencegate_open.obj"
-	fence_open.gate = name .. "_closed"
-	fence_open.sound = "doors_fencegate_close"
+	fence_open._gate = name .. "_closed"
+	fence_open._gate_sound = "doors_fencegate_close"
 	fence_open.groups.not_in_creative_inventory = 1
 	fence_open.collision_box = {
 		type = "fixed",
