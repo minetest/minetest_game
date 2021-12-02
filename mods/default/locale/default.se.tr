@@ -1,10 +1,11 @@
 # textdomain: default
-## textdomain: default
 Locked Chest=Låst kista
 Locked Chest (owned by @1)=Låst kista (Ägd av @1)
 You do not own this chest.=Du äger inte denna kistan.
 a locked chest=en låst kista
 Chest=Kista
+Write=
+Read=
 Title:=Titel:
 Contents:=Innehåll:
 Save=Spara
