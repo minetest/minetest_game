@@ -723,6 +723,12 @@ Stairs API
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
 delivered with Minetest Game, to keep them compatible with other mods.
 
+The following node attributes are sourced from the recipeitem:
+ * use_texture_alpha
+ * sunlight_propagates
+ * light_source
+ * If the recipeitem is a fuel, the stair/slab is also registered as a fuel of proportionate burntime.
+
 `stairs.register_stair(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
 
  * Registers a stair
