@@ -448,16 +448,16 @@ function doors.register(name, def)
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.use_texture_alpha = "clip"
 
-	def.mesh = "door_a.obj"
+	def.mesh = "door_a.b3d"
 	minetest.register_node(":" .. name .. "_a", table.copy(def))
 
-	def.mesh = "door_b.obj"
+	def.mesh = "door_b.b3d"
 	minetest.register_node(":" .. name .. "_b", table.copy(def))
 
-	def.mesh = "door_a2.obj"
+	def.mesh = "door_b.b3d"
 	minetest.register_node(":" .. name .. "_c", table.copy(def))
 
-	def.mesh = "door_b2.obj"
+	def.mesh = "door_a.b3d"
 	minetest.register_node(":" .. name .. "_d", table.copy(def))
 
 	doors.registered_doors[name .. "_a"] = true
