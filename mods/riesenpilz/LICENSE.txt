@@ -1,0 +1,9 @@
+Sounds and textures
+	CC by 3.0
+Code
+	MIT
+
+Some source information:
+— glowshroom and lavashroom from bas080's plants mod (originally WTFPL)
+— parasol mushroom from a mod called mushrooms (originally WTFPL)
+— "45" mushrooms from r01922090's mush45 mod (originally WTFPL)
