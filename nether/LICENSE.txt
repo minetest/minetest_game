@@ -1,2 +1,0 @@
-GPLv3 (lkloel's version)
-MIT for the changes
