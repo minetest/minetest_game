@@ -1,0 +1,1 @@
+CC0, except for code copied from e.g. minetest's builtin
