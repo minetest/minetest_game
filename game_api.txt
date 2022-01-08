@@ -462,6 +462,12 @@ The player API can register player models and update the player's appearance.
 	* `player`: PlayerRef
 	* `textures`: array of textures. If nil, the default from the model def is used
 
+* `player_api.set_texture(player, texture[, texture_ID])`
+	* Sets a player texture
+	* `player`: PlayerRef
+	* `texture`: texture filename
+	* `texture_ID`: the ID of the texture to change
+
 * `player_api.get_animation(player)`
 	* Returns a table containing fields `model`, `textures` and `animation`
 	* Any of the fields of the returned table may be nil
