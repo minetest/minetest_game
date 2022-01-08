@@ -1,4 +1,6 @@
 # textdomain: farming
+Hoe=
+Seed=
 Wooden Hoe=Cangkul Kayu
 Stone Hoe=Cangkul Batu
 Steel Hoe=Cangkul Keluli
@@ -6,14 +8,16 @@ Bronze Hoe=Cangkul Gangsa
 Mese Hoe=Cangkul Mese
 Diamond Hoe=Cangkul Intan
 Wheat Seed=Benih Gandum
+Wheat=Gandum
 Flour=Tepung
 Bread=Roti
 Cotton Seed=Benih Kapas
+Cotton=Kapas
 String=Benang
 Soil=Tanih
 Wet Soil=Tanih Lembap
-Dry Soil=Tanih Kering
-Wet Dry Soil=Tanih Kering Lembap
+Savanna Soil=
+Wet Savanna Soil=
 Desert Sand Soil=Tanih Pasir Gurun
 Wet Desert Sand Soil=Tanih Pasir Gurun Lembap
 Straw=Jerami
@@ -21,5 +25,10 @@ Straw Stair=Tangga Jerami
 Inner Straw Stair=Tangga Jerami Dalaman
 Outer Straw Stair=Tangga Jerami Luaran
 Straw Slab=Papak Jerami
-Wheat=Gandum
-Cotton=Kapas
+Wild Cotton=
+
+
+##### not used anymore #####
+
+Dry Soil=Tanih Kering
+Wet Dry Soil=Tanih Kering Lembap

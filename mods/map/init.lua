@@ -9,18 +9,11 @@ map = {}
 local S = minetest.get_translator("map")
 
 
--- Cache creative mode setting
-
-local creative_mode_cache = minetest.settings:get_bool("creative_mode")
-
-
 -- Update HUD flags
 -- Global to allow overriding
 
 function map.update_hud_flags(player)
-	local creative_enabled =
-		(creative and creative.is_enabled_for(player:get_player_name())) or
-		creative_mode_cache
+	local creative_enabled = minetest.is_creative_enabled(player:get_player_name())
 
 	local minimap_enabled = creative_enabled or
 		player:get_inventory():contains_item("main", "map:mapping_kit")
@@ -58,7 +51,7 @@ minetest.register_craftitem("map:mapping_kit", {
 	description = S("Mapping Kit") .. "\n" .. S("Use with 'Minimap' key"),
 	inventory_image = "map_mapping_kit.png",
 	stack_max = 1,
-	groups = {flammable = 3},
+	groups = {flammable = 3, tool = 1},
 
 	on_use = function(itemstack, user, pointed_thing)
 		map.update_hud_flags(user)

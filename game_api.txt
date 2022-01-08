@@ -225,6 +225,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
+	gain_open = 0.3, -- optional, defaults to 0.3
+	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
 	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
@@ -244,6 +246,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	sounds = default.node_sound_wood_defaults(), -- optional
 	sound_open = sound play for open door, -- optional
 	sound_close = sound play for close door, -- optional
+	gain_open = 0.3, -- optional, defaults to 0.3
+	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
 	-- function containing the on_rightclick callback
@@ -718,6 +722,12 @@ Stairs API
 
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
 delivered with Minetest Game, to keep them compatible with other mods.
+
+The following node attributes are sourced from the recipeitem:
+ * use_texture_alpha
+ * sunlight_propagates
+ * light_source
+ * If the recipeitem is a fuel, the stair/slab is also registered as a fuel of proportionate burntime.
 
 `stairs.register_stair(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
 

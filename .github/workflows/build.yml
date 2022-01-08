@@ -1,0 +1,16 @@
+name: build
+on: [push, pull_request]
+
+jobs:
+  luacheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Luarocks
+      run: |
+        sudo apt-get update -qyy
+        sudo apt-get install luarocks -qyy
+    - name: Install Luacheck
+      run: luarocks install --local luacheck
+    - name: Run Luacheck
+      run: $HOME/.luarocks/bin/luacheck mods
