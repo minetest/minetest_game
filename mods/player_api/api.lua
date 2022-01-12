@@ -71,10 +71,10 @@ function player_api.set_textures(player, textures)
 	player:set_properties({textures = textures or model_textures})
 end
 
-function player_api.set_texture(player, texture, texture_ID)
-	local ID = not texture_ID and 1 or texture_ID
+function player_api.set_texture(player, texture, index)
 	local new_textures = player:get_properties().textures
-	new_textures[ID] = texture
+	index = index or 1
+	new_textures[index] = texture
 	player:set_properties({textures = new_textures})
 end
 
