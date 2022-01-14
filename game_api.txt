@@ -228,8 +228,9 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing), 
 	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
+	use_texture_alpha = "clip",
 
 ### Trapdoor definition
 
@@ -249,10 +250,9 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) ,
 	-- function containing the on_rightclick callback
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
-	-- function containing the on_rightclick callback
+	use_texture_alpha = "clip",
 
 ### Fence gate definition
 
@@ -262,7 +262,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	material = "default:wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(), -- optional
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 	-- function containing the on_rightclick callback
 
 
