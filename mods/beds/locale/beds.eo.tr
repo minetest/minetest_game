@@ -1,0 +1,10 @@
+# textdomain: beds
+Fancy Bed=Luksa Lito
+Simple Bed=Simpla Lito
+This bed is already occupied!=
+You have to stop moving before going to bed!=
+Good morning.=Bonan matenon.
+@1 of @2 players are in bed=@1 el @2 ludantoj estas en lito.
+Force night skip=Devigu nokta salton
+You can only sleep at night.=Vi povas nur dormi en la nokto. 
+Leave Bed=Ellitiĝu

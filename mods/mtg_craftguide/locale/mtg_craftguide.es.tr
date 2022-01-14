@@ -1,5 +1,4 @@
 # textdomain: mtg_craftguide
-
 Any coal=Carbón
 Any sand=Arena
 Any wool=Lana
@@ -30,10 +29,7 @@ Any yellow dye=Tinte amarillo
 Any magenta dye=Tinte magenta
 Any dark grey dye=Tinte gris oscuro
 Any dark green dye=Tinte verde oscuro
-
-
 # Label for group ingredients
-
 G=G
 Any item belonging to the group(s): @1=Objeto del grupo: @1
 Unknown Item=Objeto desconocido

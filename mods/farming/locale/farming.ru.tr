@@ -1,6 +1,6 @@
 # textdomain: farming
-Hoe=
-Seed=
+Hoe=Мотыга
+Seed=Семя
 Wooden Hoe=Деревянная Мотыга
 Stone Hoe=Каменная Мотыга
 Steel Hoe=Стальная Мотыга
@@ -16,8 +16,8 @@ Cotton=Хлопок
 String=Нить
 Soil=Почва
 Wet Soil=Влажная Почва
-Savanna Soil=
-Wet Savanna Soil=
+Savanna Soil=Саванная Почва
+Wet Savanna Soil=Влажная Саванная Почва
 Desert Sand Soil=Пустынная Песчаная Почва
 Wet Desert Sand Soil=Влажная Пустынная Песчаная Почва
 Straw=Солома
@@ -25,7 +25,7 @@ Straw Stair=Соломенная Ступень
 Inner Straw Stair=Угловая Соломенная Ступень (Внутренний Угол)
 Outer Straw Stair=Угловая Соломенная Ступень (Внешний Угол)
 Straw Slab=Соломенная Плита
-Wild Cotton=
+Wild Cotton=Неокультуренный Хлопок
 
 
 ##### not used anymore #####

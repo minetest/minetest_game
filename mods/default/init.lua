@@ -12,6 +12,20 @@ default = {}
 default.LIGHT_MAX = 14
 default.get_translator = S
 
+-- Check for engine features required by MTG
+-- This provides clear error behaviour when MTG is newer than the installed engine
+-- and avoids obscure, hard to debug runtime errors.
+-- This section should be updated before release and older checks can be dropped
+-- when newer ones are introduced.
+if not minetest.is_creative_enabled or not minetest.has_feature({
+		direct_velocity_on_players = true,
+		use_texture_alpha_string_modes = true,
+	}) then
+	error("\nThis version of Minetest Game is incompatible with your engine version "..
+		"(which is too old). You should download a version of Minetest Game that "..
+		"matches the installed engine version.\n")
+end
+
 -- GUI related stuff
 minetest.register_on_joinplayer(function(player)
 	-- Set formspec prepend
