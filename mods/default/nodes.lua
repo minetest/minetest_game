@@ -180,6 +180,9 @@ default:sand_with_kelp
 Corals
 ------
 
+default:coral_green
+default:coral_pink
+default:coral_cyan
 default:coral_brown
 default:coral_orange
 default:coral_skeleton
@@ -213,6 +216,12 @@ default:fence_acacia_wood
 default:fence_junglewood
 default:fence_pine_wood
 default:fence_aspen_wood
+
+default:fence_rail_wood
+default:fence_rail_acacia_wood
+default:fence_rail_junglewood
+default:fence_rail_pine_wood
+default:fence_rail_aspen_wood
 
 default:glass
 default:obsidian_glass
@@ -1441,7 +1450,7 @@ minetest.register_node("default:junglegrass", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flora = 1, attached_node = 1, flammable = 1},
+	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1, junglegrass = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1462,7 +1471,8 @@ minetest.register_node("default:grass_1", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1, flammable = 1},
+	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1,
+		normal_grass = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1492,7 +1502,8 @@ for i = 2, 5 do
 		buildable_to = true,
 		drop = "default:grass_1",
 		groups = {snappy = 3, flora = 1, attached_node = 1,
-			not_in_creative_inventory = 1, grass = 1, flammable = 1},
+			not_in_creative_inventory = 1, grass = 1,
+			normal_grass = 1, flammable = 1},
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
 			type = "fixed",
@@ -1514,7 +1525,7 @@ minetest.register_node("default:dry_grass_1", {
 	walkable = false,
 	buildable_to = true,
 	groups = {snappy = 3, flammable = 3, flora = 1,
-		attached_node = 1, dry_grass = 1},
+		attached_node = 1, grass = 1, dry_grass = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1543,7 +1554,7 @@ for i = 2, 5 do
 		walkable = false,
 		buildable_to = true,
 		groups = {snappy = 3, flammable = 3, flora = 1, attached_node = 1,
-			not_in_creative_inventory=1, dry_grass = 1},
+			not_in_creative_inventory = 1, grass = 1, dry_grass = 1},
 		drop = "default:dry_grass_1",
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
@@ -1565,7 +1576,8 @@ minetest.register_node("default:fern_1", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flammable = 3, flora = 1, attached_node = 1},
+	groups = {snappy = 3, flammable = 3, flora = 1, grass = 1,
+		fern = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1595,7 +1607,7 @@ for i = 2, 3 do
 		walkable = false,
 		buildable_to = true,
 		groups = {snappy = 3, flammable = 3, flora = 1, attached_node = 1,
-			not_in_creative_inventory=1},
+			grass = 1, fern = 1, not_in_creative_inventory = 1},
 		drop = "default:fern_1",
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
@@ -1617,7 +1629,8 @@ minetest.register_node("default:marram_grass_1", {
 	sunlight_propagates = true,
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy = 3, flammable = 3, attached_node = 1},
+	groups = {snappy = 3, flammable = 3, flora = 1, grass = 1, marram_grass = 1,
+		attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -1645,8 +1658,8 @@ for i = 2, 3 do
 		sunlight_propagates = true,
 		walkable = false,
 		buildable_to = true,
-		groups = {snappy = 3, flammable = 3, attached_node = 1,
-			not_in_creative_inventory=1},
+		groups = {snappy = 3, flammable = 3, flora = 1, attached_node = 1,
+			grass = 1, marram_grass = 1, not_in_creative_inventory = 1},
 		drop = "default:marram_grass_1",
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
@@ -1952,6 +1965,7 @@ minetest.register_node("default:sand_with_kelp", {
 	tiles = {"default_sand.png"},
 	special_tiles = {{name = "default_kelp.png", tileable_vertical = true}},
 	inventory_image = "default_kelp.png",
+	wield_image = "default_kelp.png",
 	paramtype = "light",
 	paramtype2 = "leveled",
 	groups = {snappy = 3},
@@ -1998,8 +2012,7 @@ minetest.register_node("default:sand_with_kelp", {
 					not minetest.is_protected(pos_top, player_name) then
 				minetest.set_node(pos, {name = "default:sand_with_kelp",
 					param2 = height * 16})
-				if not (creative and creative.is_enabled_for
-						and creative.is_enabled_for(player_name)) then
+				if not minetest.is_creative_enabled(player_name) then
 					itemstack:take_item()
 				end
 			else
@@ -2054,7 +2067,7 @@ local function coral_on_place(itemstack, placer, pointed_thing)
 
 	node_under.name = itemstack:get_name()
 	minetest.set_node(pos_under, node_under)
-	if not (creative and creative.is_enabled_for(player_name)) then
+	if not minetest.is_creative_enabled(player_name) then
 		itemstack:take_item()
 	end
 
@@ -2069,6 +2082,7 @@ minetest.register_node("default:coral_green", {
 	tiles = {"default_coral_skeleton.png"},
 	special_tiles = {{name = "default_coral_green.png", tileable_vertical = true}},
 	inventory_image = "default_coral_green.png",
+	wield_image = "default_coral_green.png",
 	groups = {snappy = 3},
 	selection_box = {
 		type = "fixed",
@@ -2099,6 +2113,7 @@ minetest.register_node("default:coral_pink", {
 	tiles = {"default_coral_skeleton.png"},
 	special_tiles = {{name = "default_coral_pink.png", tileable_vertical = true}},
 	inventory_image = "default_coral_pink.png",
+	wield_image = "default_coral_pink.png",
 	groups = {snappy = 3},
 	selection_box = {
 		type = "fixed",
@@ -2129,6 +2144,7 @@ minetest.register_node("default:coral_cyan", {
 	tiles = {"default_coral_skeleton.png"},
 	special_tiles = {{name = "default_coral_cyan.png", tileable_vertical = true}},
 	inventory_image = "default_coral_cyan.png",
+	wield_image = "default_coral_cyan.png",
 	groups = {snappy = 3},
 	selection_box = {
 		type = "fixed",
@@ -2172,292 +2188,6 @@ minetest.register_node("default:coral_skeleton", {
 	tiles = {"default_coral_skeleton.png"},
 	groups = {cracky = 3},
 	sounds = default.node_sound_stone_defaults(),
-})
-
-
---
--- Liquids
---
-
-minetest.register_node("default:water_source", {
-	description = S("Water Source"),
-	drawtype = "liquid",
-	waving = 3,
-	tiles = {
-		{
-			name = "default_water_source_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-		},
-		{
-			name = "default_water_source_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-		},
-	},
-	alpha = 191,
-	paramtype = "light",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "source",
-	liquid_alternative_flowing = "default:water_flowing",
-	liquid_alternative_source = "default:water_source",
-	liquid_viscosity = 1,
-	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
-	groups = {water = 3, liquid = 3, cools_lava = 1},
-	sounds = default.node_sound_water_defaults(),
-})
-
-minetest.register_node("default:water_flowing", {
-	description = S("Flowing Water"),
-	drawtype = "flowingliquid",
-	waving = 3,
-	tiles = {"default_water.png"},
-	special_tiles = {
-		{
-			name = "default_water_flowing_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 0.5,
-			},
-		},
-		{
-			name = "default_water_flowing_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 0.5,
-			},
-		},
-	},
-	alpha = 191,
-	paramtype = "light",
-	paramtype2 = "flowingliquid",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "flowing",
-	liquid_alternative_flowing = "default:water_flowing",
-	liquid_alternative_source = "default:water_source",
-	liquid_viscosity = 1,
-	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
-	groups = {water = 3, liquid = 3, not_in_creative_inventory = 1,
-		cools_lava = 1},
-	sounds = default.node_sound_water_defaults(),
-})
-
-
-minetest.register_node("default:river_water_source", {
-	description = S("River Water Source"),
-	drawtype = "liquid",
-	tiles = {
-		{
-			name = "default_river_water_source_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-		},
-		{
-			name = "default_river_water_source_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-		},
-	},
-	alpha = 160,
-	paramtype = "light",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "source",
-	liquid_alternative_flowing = "default:river_water_flowing",
-	liquid_alternative_source = "default:river_water_source",
-	liquid_viscosity = 1,
-	-- Not renewable to avoid horizontal spread of water sources in sloping
-	-- rivers that can cause water to overflow riverbanks and cause floods.
-	-- River water source is instead made renewable by the 'force renew'
-	-- option used in the 'bucket' mod by the river water bucket.
-	liquid_renewable = false,
-	liquid_range = 2,
-	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
-	groups = {water = 3, liquid = 3, cools_lava = 1},
-	sounds = default.node_sound_water_defaults(),
-})
-
-minetest.register_node("default:river_water_flowing", {
-	description = S("Flowing River Water"),
-	drawtype = "flowingliquid",
-	tiles = {"default_river_water.png"},
-	special_tiles = {
-		{
-			name = "default_river_water_flowing_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 0.5,
-			},
-		},
-		{
-			name = "default_river_water_flowing_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 0.5,
-			},
-		},
-	},
-	alpha = 160,
-	paramtype = "light",
-	paramtype2 = "flowingliquid",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "flowing",
-	liquid_alternative_flowing = "default:river_water_flowing",
-	liquid_alternative_source = "default:river_water_source",
-	liquid_viscosity = 1,
-	liquid_renewable = false,
-	liquid_range = 2,
-	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
-	groups = {water = 3, liquid = 3, not_in_creative_inventory = 1,
-		cools_lava = 1},
-	sounds = default.node_sound_water_defaults(),
-})
-
-
-minetest.register_node("default:lava_source", {
-	description = S("Lava Source"),
-	drawtype = "liquid",
-	tiles = {
-		{
-			name = "default_lava_source_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 3.0,
-			},
-		},
-		{
-			name = "default_lava_source_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 3.0,
-			},
-		},
-	},
-	paramtype = "light",
-	light_source = default.LIGHT_MAX - 1,
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "source",
-	liquid_alternative_flowing = "default:lava_flowing",
-	liquid_alternative_source = "default:lava_source",
-	liquid_viscosity = 7,
-	liquid_renewable = false,
-	damage_per_second = 4 * 2,
-	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-	groups = {lava = 3, liquid = 2, igniter = 1},
-})
-
-minetest.register_node("default:lava_flowing", {
-	description = S("Flowing Lava"),
-	drawtype = "flowingliquid",
-	tiles = {"default_lava.png"},
-	special_tiles = {
-		{
-			name = "default_lava_flowing_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 3.3,
-			},
-		},
-		{
-			name = "default_lava_flowing_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 3.3,
-			},
-		},
-	},
-	paramtype = "light",
-	paramtype2 = "flowingliquid",
-	light_source = default.LIGHT_MAX - 1,
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "flowing",
-	liquid_alternative_flowing = "default:lava_flowing",
-	liquid_alternative_source = "default:lava_source",
-	liquid_viscosity = 7,
-	liquid_renewable = false,
-	damage_per_second = 4 * 2,
-	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-	groups = {lava = 3, liquid = 2, igniter = 1,
-		not_in_creative_inventory = 1},
 })
 
 --
@@ -2570,6 +2300,7 @@ local function register_sign(material, desc, def)
 		sunlight_propagates = true,
 		is_ground_content = false,
 		walkable = false,
+		use_texture_alpha = "opaque",
 		node_box = {
 			type = "wallmounted",
 			wall_top    = {-0.4375, 0.4375, -0.3125, 0.4375, 0.5, 0.3125},
@@ -2791,6 +2522,7 @@ minetest.register_node("default:glass", {
 	description = S("Glass"),
 	drawtype = "glasslike_framed_optional",
 	tiles = {"default_glass.png", "default_glass_detail.png"},
+	use_texture_alpha = "clip", -- only needed for stairs API
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	sunlight_propagates = true,
@@ -2803,6 +2535,7 @@ minetest.register_node("default:obsidian_glass", {
 	description = S("Obsidian Glass"),
 	drawtype = "glasslike_framed_optional",
 	tiles = {"default_obsidian_glass.png", "default_obsidian_glass_detail.png"},
+	use_texture_alpha = "clip", -- only needed for stairs API
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	is_ground_content = false,
@@ -2844,7 +2577,7 @@ default.register_mesepost("default:mese_post_light", {
 	material = "default:wood",
 })
 
-default.register_mesepost("default:mese_post_light_acacia", {
+default.register_mesepost("default:mese_post_light_acacia_wood", {
 	description = S("Acacia Wood Mese Post Light"),
 	texture = "default_fence_acacia_wood.png",
 	material = "default:acacia_wood",

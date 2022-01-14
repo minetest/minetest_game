@@ -116,7 +116,7 @@ function xpanes.register_pane(name, def)
 		groups = flatgroups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
-		use_texture_alpha = def.use_texture_alpha or false,
+		use_texture_alpha = def.use_texture_alpha and "blend" or "clip",
 		node_box = {
 			type = "fixed",
 			fixed = {{-1/2, -1/2, -1/32, 1/2, 1/2, 1/32}},
@@ -145,7 +145,7 @@ function xpanes.register_pane(name, def)
 		groups = groups,
 		drop = "xpanes:" .. name .. "_flat",
 		sounds = def.sounds,
-		use_texture_alpha = def.use_texture_alpha or false,
+		use_texture_alpha = def.use_texture_alpha and "blend" or "clip",
 		node_box = {
 			type = "connected",
 			fixed = {{-1/32, -1/2, -1/32, 1/32, 1/2, 1/32}},
@@ -227,6 +227,8 @@ if minetest.get_modpath("doors") then
 		sounds = default.node_sound_metal_defaults(),
 		sound_open = "xpanes_steel_bar_door_open",
 		sound_close = "xpanes_steel_bar_door_close",
+		gain_open = 0.15,
+		gain_close = 0.13,
 		recipe = {
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
 			{"xpanes:bar_flat", "xpanes:bar_flat"},
@@ -245,6 +247,8 @@ if minetest.get_modpath("doors") then
 		sounds = default.node_sound_metal_defaults(),
 		sound_open = "xpanes_steel_bar_door_open",
 		sound_close = "xpanes_steel_bar_door_close",
+		gain_open = 0.15,
+		gain_close = 0.13,
 	})
 
 	minetest.register_craft({

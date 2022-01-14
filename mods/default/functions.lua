@@ -463,6 +463,7 @@ function default.register_mesepost(name, def)
 		},
 		paramtype = "light",
 		tiles = {def.texture, def.texture, post_texture_dark, post_texture_dark, post_texture, post_texture},
+		use_texture_alpha = "opaque",
 		light_source = default.LIGHT_MAX,
 		sunlight_propagates = true,
 		is_ground_content = false,

@@ -88,7 +88,8 @@ local function update_clouds()
 	local n_speedz = nobj_speedz:get_2d({x = time, y = 0}) -- -1 to 1
 
 	for _, player in ipairs(minetest.get_connected_players()) do
-		local humid = minetest.get_humidity(player:get_pos())
+		-- Fallback to mid-value 50 for very old worlds
+		local humid = minetest.get_humidity(player:get_pos()) or 50
 		-- Default and classic density value is 0.4, make this happen
 		-- at humidity midvalue 50 when n_density is at midvalue 0.5.
 		-- density_max = 0.25 at humid = 0.
