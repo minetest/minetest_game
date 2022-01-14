@@ -301,10 +301,10 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	end
 
 	-- don't double-count tnt @ the center
-	local v = a:index(pos.x, pos.y, pos.z)
-	local c = data[v]
-	if (c == c_tnt or c == c_tnt_boom or c == c_tnt_burning) then
-		data[v] = c_air
+	local vc = a:index(pos.x, pos.y, pos.z)
+	local ccid = data[vc]
+	if (ccid == c_tnt or ccid == c_tnt_boom or ccid == c_tnt_burning) then
+		data[vc] = c_air
 	end
 
 	for z = pos.z - 2, pos.z + 2 do
@@ -361,10 +361,22 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	end
 	end
 
+	-- make the center of the explosion flash, if it's safe
+	ccid = data[vc]
+	if ccid == c_air then
+		data[vc] = c_tnt_boom
+	end
+
 	vm:set_data(data)
 	vm:write_to_map()
 	vm:update_map()
 	vm:update_liquids()
+
+	-- make the center of the explosion flash, if it's safe
+	-- have to set the timer *after* data is written to the map
+	if ccid == c_air then
+		minetest.get_node_timer(pos):start(0)
+	end
 
 	-- call check_single_for_falling for everything within 1.5x blast radius
 	for y = -radius * 1.5, radius * 1.5 do
@@ -433,6 +445,13 @@ minetest.register_node("tnt:boom", {
 	groups = {dig_immediate = 3, not_in_creative_inventory = 1},
 	-- unaffected by explosions
 	on_blast = function() end,
+	on_timer = function(pos, elapsed)
+		if elapsed > 0 then
+			minetest.remove_node(pos)
+		else
+			return true
+		end
+	end,
 })
 
 minetest.register_node("tnt:gunpowder", {
