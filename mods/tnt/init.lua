@@ -300,6 +300,13 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		c_tnt = c_tnt_burning -- tnt is not registered if disabled
 	end
 
+	-- don't double-count tnt @ the center
+	local v = a:index(pos.x, pos.y, pos.z)
+	local c = data[v]
+	if (c == c_tnt or c == c_tnt_boom or c == c_tnt_burning) then
+		data[v] = c_air
+	end
+
 	for z = pos.z - 2, pos.z + 2 do
 	for y = pos.y - 2, pos.y + 2 do
 		local vi = a:index(pos.x - 2, y, z)
