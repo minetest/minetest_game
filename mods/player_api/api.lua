@@ -99,13 +99,13 @@ end
 function player_api.get_textures(player)
 	local player_data = get_player_data(player)
 	local model = models[player_data.model]
-	return model and model.textures or player_data.textures
+	return assert(player_data.textures or (model and model.textures))
 end
 
 function player_api.set_textures(player, textures)
 	local player_data = get_player_data(player)
 	local model = models[player_data.model]
-	local new_textures = model and model.textures or textures
+	local new_textures = assert(textures or (model and model.textures))
 	player_data.textures = new_textures
 	player:set_properties({textures = new_textures})
 end
