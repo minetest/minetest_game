@@ -72,10 +72,10 @@ function player_api.set_textures(player, textures)
 end
 
 function player_api.set_texture(player, texture, index)
-	local new_textures = player:get_properties().textures
+	local new_textures = table.copy(player_api.get_textures(player))
 	index = index or 1
 	new_textures[index] = texture
-	player:set_properties({textures = new_textures})
+	player_api.set_textures(player, new_textures)
 end
 
 function player_api.set_animation(player, anim_name, speed)
