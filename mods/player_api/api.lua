@@ -27,6 +27,7 @@ function player_api.register_model(name, def)
 	def.collisionbox = def.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}
 	def.stepheight = def.stepheight or 0.6
 	def.eye_height = def.eye_height or 1.47
+
 	-- Sort animations into property classes:
 	-- Animations with same properties have the same _equals value
 	for animation_name, animation in pairs(def.animations) do
@@ -131,7 +132,7 @@ function player_api.set_animation(player, anim_name, speed)
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
 	player:set_animation(anim, speed, animation_blend)
-	if anim._equals == previous_anim_equals then
+	if anim._equals ~= previous_anim_equals then
 		player:set_properties({
 			collisionbox = anim.collisionbox,
 			eye_height = anim.eye_height
