@@ -449,13 +449,13 @@ The player API can register player models and update the player's appearance.
 * `player_api.set_model(player, model_name)`
 	* Change a player's model
 	* `player`: PlayerRef
-	* `model_name`: model registered with player_api.register_model()
+	* `model_name`: model registered with `player_api.register_model`
 
 * `player_api.set_animation(player, anim_name, speed)`
-	* Applies an animation to a player
+	* Applies an animation to a player if speed or anim_name differ from the currently playing animation
 	* `player`: PlayerRef
 	* `anim_name`: name of the animation
-	* `speed`: frames per second. If nil, the default from the model def is used
+	* `speed`: keyframes per second. If nil, the default from the model def is used
 
 * `player_api.set_textures(player, textures)`
 	* Sets player textures
@@ -477,18 +477,18 @@ The player API can register player models and update the player's appearance.
 ### Model Definition
 
 	{
-		animation_speed = 30,           -- Default animation speed, in FPS
-		textures = {"character.png", }, -- Default array of textures
-		visual_size = {x = 1, y = 1},   -- Used to scale the model
+		animation_speed = 30,           -- Default animation speed, in keyframes per second
+		textures = {"character.png"},   -- Default array of textures
 		animations = {
-			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
-			foo = {x = 0, y = 19},
-			bar = {x = 20, y = 39},
-			-- ...
+			-- [anim_name] = {x = <start_frame>, y = <end_frame>, collisionbox = model collisionbox, eye_height = model eye height},
+			stand = ..., lay = ..., walk = ..., mine = ..., walk_mine = ..., -- required animations
+			sit = ... -- used by boats and other MTG mods
 		},
-		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
-		stepheight = 0.6,                                -- In nodes
-		eye_height = 1.47,                               -- In nodes above feet position
+		-- Default object properties, see lua_api.txt
+		visual_size = {x = 1, y = 1},
+		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		stepheight = 0.6,
+		eye_height = 1.47
 	}
 
 
