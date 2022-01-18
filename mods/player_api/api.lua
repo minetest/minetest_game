@@ -33,6 +33,8 @@ function player_api.register_model(name, def)
 	for animation_name, animation in pairs(def.animations) do
 		animation.eye_height = animation.eye_height or def.eye_height
 		animation.collisionbox = animation.collisionbox or def.collisionbox
+		animation.override_local = animation.override_local or false
+
 		for _, other_animation in pairs(def.animations) do
 			if other_animation._equals then
 				if collisionbox_equals(animation.collisionbox, other_animation.collisionbox)
@@ -65,6 +67,8 @@ function player_api.set_model(player, model_name)
 	if player_data.model == model_name then
 		return
 	end
+	player_data.model = model_name
+
 	local model = models[model_name]
 	if model then
 		player:set_properties({
@@ -74,15 +78,7 @@ function player_api.set_model(player, model_name)
 			visual_size = model.visual_size,
 			stepheight = model.stepheight
 		})
-		local animations = model.animations
-		player:set_local_animation(
-			animations.stand,
-			animations.walk,
-			animations.mine,
-			animations.walk_mine,
-			model.animation_speed or 30
-		)
-		-- sets collisionbox & eye_height
+		-- sets local_animation, collisionbox & eye_height
 		player_api.set_animation(player, "stand")
 	else
 		player:set_properties({
@@ -94,7 +90,6 @@ function player_api.set_model(player, model_name)
 			eye_height = 1.625,
 		})
 	end
-	player_data.model = model_name
 end
 
 function player_api.get_textures(player)
@@ -127,12 +122,29 @@ function player_api.set_animation(player, anim_name, speed)
 	if player_data.animation == anim_name and player_data.animation_speed == speed then
 		return
 	end
-	local previous_anim_equals = (model.animations[player_data.animation] or {})._equals
+	local previous_anim = model.animations[player_data.animation] or {}
 	local anim = model.animations[anim_name]
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
+	-- If necessary change the local animation (only seen by the client of *that* player)
+	-- `override_local` <=> suspend local animations while this one is active
+	-- (this is basically a hack, proper engine feature needed...)
+	if anim.override_local ~= previous_anim.override_local then
+		if anim.override_local then
+			local none = {x=0, y=0}
+			player:set_local_animation(none, none, none, none, 1)
+		else
+			local a = model.animations -- (not specific to the animation being set)
+			player:set_local_animation(
+				a.stand, a.walk, a.mine, a.walk_mine,
+				model.animation_speed or 30
+			)
+		end
+	end
+	-- Set the animation seen by everyone else
 	player:set_animation(anim, speed, animation_blend)
-	if anim._equals ~= previous_anim_equals then
+	-- Update related properties if they changed
+	if anim._equals ~= previous_anim._equals then
 		player:set_properties({
 			collisionbox = anim.collisionbox,
 			eye_height = anim.eye_height

@@ -462,6 +462,12 @@ The player API can register player models and update the player's appearance.
 	* `player`: PlayerRef
 	* `textures`: array of textures. If nil, the default from the model def is used
 
+* `player_api.set_textures(player, index, texture)`
+	* Sets one of the player textures
+	* `player`: PlayerRef
+	* `index`: Index into array of all textures
+	* `texture`: the texture string
+
 * `player_api.get_animation(player)`
 	* Returns a table containing fields `model`, `textures` and `animation`
 	* Any of the fields of the returned table may be nil
@@ -480,7 +486,14 @@ The player API can register player models and update the player's appearance.
 		animation_speed = 30,           -- Default animation speed, in keyframes per second
 		textures = {"character.png"},   -- Default array of textures
 		animations = {
-			-- [anim_name] = {x = <start_frame>, y = <end_frame>, collisionbox = model collisionbox, eye_height = model eye height},
+			-- [anim_name] = {
+			--   x = <start_frame>,
+			--   y = <end_frame>,
+			--   collisionbox = <model collisionbox>, -- (optional)
+			--   eye_height = <model eye height>,     -- (optional)
+			--   -- suspend client side animations while this one is active (optional)
+			--   override_local = <true/false>
+			-- },
 			stand = ..., lay = ..., walk = ..., mine = ..., walk_mine = ..., -- required animations
 			sit = ... -- used by boats and other MTG mods
 		},
