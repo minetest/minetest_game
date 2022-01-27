@@ -14,12 +14,12 @@ Bread=Хліб
 Cotton Seed=Насіння Бавовни
 Cotton=Бавовна
 String=Нитка
-Soil=Грунт
-Wet Soil=Вологий Грунт
-Savanna Soil=Савановий Грунт
-Wet Savanna Soil=Вологий Савановий Грунт
-Desert Sand Soil=Пустинний Піщаний Грунт
-Wet Desert Sand Soil=Вологий Пустельний Піщаний Грунт
+Soil=Ґрунт
+Wet Soil=Вологий Ґрунт
+Savanna Soil=Саванновий Ґрунт
+Wet Savanna Soil=Вологий Саванновий Ґрунт
+Desert Sand Soil=Пустинний Піщаний Ґрунт
+Wet Desert Sand Soil=Вологий Пустельний Піщаний Ґрунт
 Straw=Солома
 Straw Stair=Солом'яна Сходинка
 Inner Straw Stair=Кутова Солом'яна Сходинка (Внутрішній Кут)
@@ -30,5 +30,5 @@ Wild Cotton=Дика Бавовна
 
 ##### not used anymore #####
 
-Dry Soil=Сухий Грунт
-Wet Dry Soil=Влогий Сухий Грунт
+Dry Soil=Сухий Ґрунт
+Wet Dry Soil=Влогий Сухий Ґрунт
