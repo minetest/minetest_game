@@ -1,0 +1,34 @@
+# textdomain: farming
+Hoe=Мотига
+Seed=Насіння
+Wooden Hoe=Дерев'яна Мотига
+Stone Hoe=Кам'яна Мотига
+Steel Hoe=Сталева Мотига
+Bronze Hoe=Бронзова Мотига
+Mese Hoe=Месе Мотига
+Diamond Hoe=Алмазна Мотига
+Wheat Seed=Насіння Пшениці
+Wheat=Пшениця
+Flour=Мука
+Bread=Хліб
+Cotton Seed=Насіння Бавовни
+Cotton=Бавовна
+String=Нитка
+Soil=Грунт
+Wet Soil=Вологий Грунт
+Savanna Soil=Савановий Грунт
+Wet Savanna Soil=Вологий Савановий Грунт
+Desert Sand Soil=Пустинний Піщаний Грунт
+Wet Desert Sand Soil=Вологий Пустельний Піщаний Грунт
+Straw=Солома
+Straw Stair=Солом'яна Сходинка
+Inner Straw Stair=Кутова Солом'яна Сходинка (Внутрішній Кут)
+Outer Straw Stair=Кутова Солом'яна Сходинка (Зовнішній Кут)
+Straw Slab=Солом'яна Плита
+Wild Cotton=Дика Бавовна
+
+
+##### not used anymore #####
+
+Dry Soil=Сухий Грунт
+Wet Dry Soil=Влогий Сухий Грунт
