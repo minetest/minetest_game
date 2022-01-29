@@ -35,7 +35,7 @@ Stick=Палка
 Tin Ingot=Шматок Олова
 Tin Lump=Уламок Олова
 Furnace is empty=Пічка Порожня
-100% (output full)=100% (повне приготування) 
+100% (output full)=100% (повне приготування)
 @1%=@1%
 Not cookable=Не може бути приготовлено
 Empty=Порожньо
@@ -212,12 +212,3 @@ Mese Sword=Месе Меч
 Diamond Sword=Алмазний Меч
 Torch=Факел
 @1 will intersect protection on growth.=@1 перетне захист за зростанням.
-
-
-##### not used anymore #####
-
-Dirt with Dry Grass=Земля Із Сухою Травою
-Dry Dirt=Суха Земля
-Dry Dirt with Dry Grass=Суха Земля Із Сухою Травою
-Dry Grass=Суха Трава
-Mese Post Light=Стовп Із Месе Ліхтарем
