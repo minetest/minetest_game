@@ -1,6 +1,6 @@
 # textdomain: farming
-Hoe=
-Seed=
+Hoe=Houe
+Seed=Grain
 Wooden Hoe=Houe en bois
 Stone Hoe=Houe en pierre
 Steel Hoe=Houe en acier
@@ -16,8 +16,8 @@ Cotton=Coton
 String=Ficelle
 Soil=Sol
 Wet Soil=Sol humide
-Savanna Soil=
-Wet Savanna Soil=
+Savanna Soil=Sol de la savanne
+Wet Savanna Soil=Sol de la savanne humide
 Desert Sand Soil=Sol de sable du désert
 Wet Desert Sand Soil=Sol de sable du désert humide
 Straw=Paille
@@ -25,7 +25,7 @@ Straw Stair=Escalier de paille
 Inner Straw Stair=Escalier intérieur en paille
 Outer Straw Stair=Escalier extérieur en paille
 Straw Slab=Dalle de paille
-Wild Cotton=
+Wild Cotton=Coton sauvage
 
 
 ##### not used anymore #####

@@ -1,4 +1,5 @@
 # textdomain: mtg_craftguide
+
 Any coal=Quelconque charbon
 Any sand=Quelconque sable
 Any wool=Quelconque laine
@@ -30,24 +31,24 @@ Any magenta dye=Quelconque colorant magenta
 Any dark grey dye=Quelconque colorant gris foncé
 Any dark green dye=Quelconque colorant vert foncé
 # Label for group ingredients
-G=
+G=G
 Any item belonging to the group(s): @1=Tout item appartenant au(x) groupe(s) : @1
-Unknown Item=
-Fuel=
+Unknown Item=Object inconnu
+Fuel=Combustible
 Usage @1 of @2=Usage @1 sur @2
 Recipe @1 of @2=Recette @1 sur @2
-Previous recipe=
-Next recipe=
-Recipe is too big to be displayed.=
+Previous recipe=Recette précédente
+Next recipe=Prochaine recette
+Recipe is too big to be displayed.=Recette trop grande pour être affichée.
 Shapeless=Sans forme
 Cooking time: @1=Temps de cuisson : @1
-Search=
-Reset=
-Previous page=
-Next page=
-No items to show.=
-No usages.=
-Click again to show recipes.=
-No recipes.=
-Click again to show usages.=
+Search=Recherche
+Reset=Réinitialiser
+Previous page=Page précédente
+Next page=Prochaine page
+No items to show.=Aucun item à afficher.
+No usages.=Sans utilité.
+Click again to show recipes.=Cliquez encore pour afficher la recette.
+No recipes.=Aucune recette.
+Click again to show usages.=Cliquez encore pour afficher l'usage.
 Recipes=Recettes
