@@ -62,8 +62,8 @@ for i in ipairs (butter_list) do
 
 	minetest.register_node("butterflies:hidden_butterfly_"..name, {
 		drawtype = "airlike",
-		inventory_image = "butterflies_butterfly_"..name..".png",
-		wield_image =  "butterflies_butterfly_"..name..".png",
+		inventory_image = "butterflies_butterfly_"..name..".png^default_invisible_node_overlay.png",
+		wield_image =  "butterflies_butterfly_"..name..".png^default_invisible_node_overlay.png",
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
@@ -102,7 +102,7 @@ minetest.register_decoration({
 	place_offset_y = 2,
 	sidelen = 80,
 	fill_ratio = 0.005,
-	biomes = {"grassland", "deciduous_forest", "floatland_grassland"},
+	biomes = {"grassland", "deciduous_forest"},
 	y_max = 31000,
 	y_min = 1,
 	decoration = {

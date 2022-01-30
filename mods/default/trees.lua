@@ -16,9 +16,7 @@ function default.can_grow(pos)
 	if not node_under then
 		return false
 	end
-	local name_under = node_under.name
-	local is_soil = minetest.get_item_group(name_under, "soil")
-	if is_soil == 0 then
+	if minetest.get_item_group(node_under.name, "soil") == 0 then
 		return false
 	end
 	local light_level = minetest.get_node_light(pos)
@@ -577,8 +575,7 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 	minetest.log("action", player_name .. " places node "
 			.. sapling_name .. " at " .. minetest.pos_to_string(pos))
 
-	local take_item = not (creative and creative.is_enabled_for
-		and creative.is_enabled_for(player_name))
+	local take_item = not minetest.is_creative_enabled(player_name)
 	local newnode = {name = sapling_name}
 	local ndef = minetest.registered_nodes[sapling_name]
 	minetest.set_node(pos, newnode)

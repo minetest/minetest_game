@@ -45,12 +45,14 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		return
 	end
 
-	if minetest.is_protected(pt.under, user:get_player_name()) then
-		minetest.record_protection_violation(pt.under, user:get_player_name())
+	local player_name = user and user:get_player_name() or ""
+
+	if minetest.is_protected(pt.under, player_name) then
+		minetest.record_protection_violation(pt.under, player_name)
 		return
 	end
-	if minetest.is_protected(pt.above, user:get_player_name()) then
-		minetest.record_protection_violation(pt.above, user:get_player_name())
+	if minetest.is_protected(pt.above, player_name) then
+		minetest.record_protection_violation(pt.above, player_name)
 		return
 	end
 
@@ -58,17 +60,17 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
-		gain = 0.5,
-	})
+		gain = 0.3,
+	}, true)
 
-	if not (creative and creative.is_enabled_for
-			and creative.is_enabled_for(user:get_player_name())) then
+	if not minetest.is_creative_enabled(player_name) then
 		-- wear tool
 		local wdef = itemstack:get_definition()
 		itemstack:add_wear(65535/(uses-1))
 		-- tool break sound
 		if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then
-			minetest.sound_play(wdef.sound.breaks, {pos = pt.above, gain = 0.5})
+			minetest.sound_play(wdef.sound.breaks, {pos = pt.above,
+				gain = 0.5}, true)
 		end
 	end
 	return itemstack
@@ -176,10 +178,11 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- add the node and remove 1 item from the itemstack
+	minetest.log("action", player_name .. " places node " .. plantname .. " at " ..
+		minetest.pos_to_string(pt.above))
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
-	if not (creative and creative.is_enabled_for
-			and creative.is_enabled_for(player_name)) then
+	if not minetest.is_creative_enabled(player_name) then
 		itemstack:take_item()
 	end
 	return itemstack

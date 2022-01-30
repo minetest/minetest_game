@@ -4,9 +4,8 @@
 local S = default.get_translator
 
 -- The hand
-minetest.register_item(":", {
-	type = "none",
-	wield_image = "wieldhand.png",
+-- Override the hand item registered in the engine in builtin/game/register.lua
+minetest.override_item("", {
 	wield_scale = {x=1,y=1,z=2.5},
 	tool_capabilities = {
 		full_punch_interval = 0.9,
@@ -402,42 +401,77 @@ minetest.register_tool("default:sword_diamond", {
 	groups = {sword = 1}
 })
 
-minetest.register_tool("default:key", {
-	description = S("Key"),
-	inventory_image = "default_key.png",
-	groups = {key = 1, not_in_creative_inventory = 1},
-	stack_max = 1,
-	on_place = function(itemstack, placer, pointed_thing)
-		local under = pointed_thing.under
-		local node = minetest.get_node(under)
-		local def = minetest.registered_nodes[node.name]
-		if def and def.on_rightclick and
-				not (placer and placer:is_player() and
-				placer:get_player_control().sneak) then
-			return def.on_rightclick(under, node, placer, itemstack,
-				pointed_thing) or itemstack
-		end
-		if pointed_thing.type ~= "node" then
-			return itemstack
-		end
+--
+-- Register Craft Recipies
+--
 
-		local pos = pointed_thing.under
-		node = minetest.get_node(pos)
+local craft_ingreds = {
+	wood = "group:wood",
+	stone = "group:stone",
+	steel = "default:steel_ingot",
+	bronze = "default:bronze_ingot",
+	mese = "default:mese_crystal",
+	diamond = "default:diamond"
+}
 
-		if not node or node.name == "ignore" then
-			return itemstack
-		end
+for name, mat in pairs(craft_ingreds) do
+	minetest.register_craft({
+		output = "default:pick_".. name,
+		recipe = {
+			{mat, mat, mat},
+			{"", "group:stick", ""},
+			{"", "group:stick", ""}
+		}
+	})
 
-		local ndef = minetest.registered_nodes[node.name]
-		if not ndef then
-			return itemstack
-		end
+	minetest.register_craft({
+		output = "default:shovel_".. name,
+		recipe = {
+			{mat},
+			{"group:stick"},
+			{"group:stick"}
+		}
+	})
 
-		local on_key_use = ndef.on_key_use
-		if on_key_use then
-			on_key_use(pos, placer)
-		end
+	minetest.register_craft({
+		output = "default:axe_".. name,
+		recipe = {
+			{mat, mat},
+			{mat, "group:stick"},
+			{"", "group:stick"}
+		}
+	})
 
-		return nil
-	end
+	minetest.register_craft({
+		output = "default:sword_".. name,
+		recipe = {
+			{mat},
+			{mat},
+			{"group:stick"}
+		}
+	})
+end
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pick_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:shovel_wood",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:axe_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:sword_wood",
+	burntime = 5,
 })

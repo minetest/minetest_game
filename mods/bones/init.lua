@@ -141,8 +141,18 @@ local function may_replace(pos, player)
 		return false
 	end
 
-	-- allow replacing air and liquids
-	if node_name == "air" or node_definition.liquidtype ~= "none" then
+	-- allow replacing air
+	if node_name == "air" then
+		return true
+	end
+
+	-- don't replace nodes inside protections
+	if minetest.is_protected(pos, player:get_player_name()) then
+		return false
+	end
+
+	-- allow replacing liquids
+	if node_definition.liquidtype ~= "none" then
 		return true
 	end
 
@@ -154,8 +164,7 @@ local function may_replace(pos, player)
 
 	-- default to each nodes buildable_to; if a placed block would replace it, why shouldn't bones?
 	-- flowers being squished by bones are more realistical than a squished stone, too
-	-- exception are of course any protected buildable_to
-	return node_definition.buildable_to and not minetest.is_protected(pos, player:get_player_name())
+	return node_definition.buildable_to
 end
 
 local drop = function(pos, itemstack)
@@ -182,7 +191,6 @@ local function is_all_empty(player_inv)
 end
 
 minetest.register_on_dieplayer(function(player)
-
 	local bones_mode = minetest.settings:get("bones_mode") or "bones"
 	if bones_mode ~= "bones" and bones_mode ~= "drop" and bones_mode ~= "keep" then
 		bones_mode = "bones"
@@ -194,8 +202,7 @@ minetest.register_on_dieplayer(function(player)
 	local pos_string = minetest.pos_to_string(pos)
 
 	-- return if keep inventory set or in creative mode
-	if bones_mode == "keep" or (creative and creative.is_enabled_for
-			and creative.is_enabled_for(player:get_player_name())) then
+	if bones_mode == "keep" or minetest.is_creative_enabled(player_name) then
 		minetest.log("action", player_name .. " dies at " .. pos_string ..
 			". No bones placed")
 		if bones_position_message then

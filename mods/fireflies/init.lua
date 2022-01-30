@@ -54,8 +54,8 @@ minetest.register_node("fireflies:firefly", {
 minetest.register_node("fireflies:hidden_firefly", {
 	description = S("Hidden Firefly"),
 	drawtype = "airlike",
-	inventory_image = "fireflies_firefly.png",
-	wield_image =  "fireflies_firefly.png",
+	inventory_image = "fireflies_firefly.png^default_invisible_node_overlay.png",
+	wield_image =  "fireflies_firefly.png^default_invisible_node_overlay.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -92,8 +92,9 @@ minetest.register_tool("fireflies:bug_net", {
 	description = S("Bug Net"),
 	inventory_image = "fireflies_bugnet.png",
 	on_use = function(itemstack, player, pointed_thing)
+		local player_name = player and player:get_player_name() or ""
 		if not pointed_thing or pointed_thing.type ~= "node" or
-				minetest.is_protected(pointed_thing.under, player:get_player_name()) then
+				minetest.is_protected(pointed_thing.under, player_name) then
 			return
 		end
 		local node_name = minetest.get_node(pointed_thing.under).name
@@ -106,7 +107,7 @@ minetest.register_tool("fireflies:bug_net", {
 				minetest.add_item(pointed_thing.under, node_name.." 1")
 			end
 		end
-		if not (creative and creative.is_enabled_for(player:get_player_name())) then
+		if not minetest.is_creative_enabled(player_name) then
 			itemstack:add_wear(256)
 			return itemstack
 		end

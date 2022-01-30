@@ -38,3 +38,6 @@ Created by Gambit (CC BY 3.0):
 
 Created by Napiophelios (CC BY-SA 3.0):
   farming_cotton.png
+
+Created by Extex101 (CC BY-SA 3.0):
+  farming_cotton_wild.png
