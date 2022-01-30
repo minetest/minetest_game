@@ -3,15 +3,22 @@ default.chest = {}
 -- support for MT game translation.
 local S = default.get_translator
 
-function default.chest.get_chest_formspec(pos)
+function default.chest.get_chest_formspec(pos, size)
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
-	local formspec =
+    local fs_size = {
+        x = math.min(size.x, 8),
+        y = math.min(size.y, 4)
+    }
+    local x_chest = (fs_size.x - size.x) / 2
+    local x_player = (fs_size.x - 8) / 2
+	local formspec = (
 		"size[8,9]" ..
-		"list[nodemeta:" .. spos .. ";main;0,0.3;8,4;]" ..
+		"list[nodemeta:" .. spos .. ";main;0,0.3;%i,%i;]" ..
 		"list[current_player;main;0,4.85;8,1;]" ..
 		"list[current_player;main;0,6.08;8,3;8]" ..
 		"listring[nodemeta:" .. spos .. ";main]" ..
-		"listring[current_player;main]" ..
+		"listring[current_player;main]"):format(
+        fs_size.x, fs_size.y) ..
 		default.get_hotbar_bg(0,4.85)
 	return formspec
 end
@@ -85,6 +92,7 @@ function default.chest.register_chest(prefixed_name, d)
 	def.paramtype2 = "facedir"
 	def.legacy_facedir_simple = true
 	def.is_ground_content = false
+    def.size = def.size or {x = 8, y = 4}
 
 	if def.protected then
 		def.on_construct = function(pos)
@@ -92,7 +100,7 @@ function default.chest.register_chest(prefixed_name, d)
 			meta:set_string("infotext", S("Locked Chest"))
 			meta:set_string("owner", "")
 			local inv = meta:get_inventory()
-			inv:set_size("main", 8*4)
+			inv:set_size("main", def.size.x*def.size.y)
 		end
 		def.after_place_node = function(pos, placer)
 			local meta = minetest.get_meta(pos)
@@ -138,7 +146,7 @@ function default.chest.register_chest(prefixed_name, d)
 			end
 			minetest.after(0.2, minetest.show_formspec,
 					clicker:get_player_name(),
-					"default:chest", default.chest.get_chest_formspec(pos))
+					"default:chest", default.chest.get_chest_formspec(pos, def.size))
 			default.chest.open_chests[clicker:get_player_name()] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
@@ -164,7 +172,7 @@ function default.chest.register_chest(prefixed_name, d)
 			minetest.show_formspec(
 				player:get_player_name(),
 				"default:chest_locked",
-				default.chest.get_chest_formspec(pos)
+				default.chest.get_chest_formspec(pos, def.size)
 			)
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
@@ -192,7 +200,7 @@ function default.chest.register_chest(prefixed_name, d)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("infotext", S("Chest"))
 			local inv = meta:get_inventory()
-			inv:set_size("main", 8*4)
+			inv:set_size("main", def.size.x*def.size.y)
 		end
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
@@ -209,7 +217,7 @@ function default.chest.register_chest(prefixed_name, d)
 			end
 			minetest.after(0.2, minetest.show_formspec,
 					clicker:get_player_name(),
-					"default:chest", default.chest.get_chest_formspec(pos))
+					"default:chest", default.chest.get_chest_formspec(pos, def.size))
 			default.chest.open_chests[clicker:get_player_name()] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
@@ -225,7 +233,7 @@ function default.chest.register_chest(prefixed_name, d)
 	def.on_metadata_inventory_move = function(pos, from_list, from_index,
 			to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name() ..
-			" moves stuff in chest at " .. minetest.pos_to_string(pos))
+			" moves stuff in chest at " .. minetest.pos_to_string(pos, def.size.x*def.size.y))
 	end
 	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name() ..
@@ -281,7 +289,7 @@ function default.chest.register_chest(prefixed_name, d)
 				local inv = meta:get_inventory()
 				local list = inv:get_list("default:chest")
 				if list then
-					inv:set_size("main", 8*4)
+					inv:set_size("main", def.size.x*def.size.y)
 					inv:set_list("main", list)
 					inv:set_list("default:chest", nil)
 				end
@@ -304,6 +312,7 @@ default.chest.register_chest("default:chest", {
 	sound_open = "default_chest_open",
 	sound_close = "default_chest_close",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2},
+    size = {x = 2, y = 2}
 })
 
 default.chest.register_chest("default:chest_locked", {
