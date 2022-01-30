@@ -9,8 +9,8 @@ function default.chest.get_chest_formspec(pos, size)
         x = math.min(size.x, 8),
         y = math.min(size.y, 4)
     }
-    local x_chest = (fs_size.x - size.x) / 2
-    local x_player = (fs_size.x - 8) / 2
+    --local x_chest = (fs_size.x - size.x) / 2
+    --local x_player = (fs_size.x - 8) / 2
 	local formspec = (
 		"size[8,9]" ..
 		"list[nodemeta:" .. spos .. ";main;0,0.3;%i,%i;]" ..
