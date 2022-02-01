@@ -1,7 +1,7 @@
 # textdomain: default
 Locked Chest=Zablokowana skrzynia
 Locked Chest (owned by @1)=Zablokowana skrzynia (właściciel: @1)
-You do not own this chest.=Nie jesteś właścicielem tej skrzyni
+You do not own this chest.=Nie jesteś właścicielem tej skrzyni.
 a locked chest=zablokowana skrzynia
 Chest=Skrzynia
 Write=Zapis
@@ -211,4 +211,4 @@ Steel Sword=Stalowy miecz
 Mese Sword=Mesowy miecz
 Diamond Sword=Diamentowy miecz
 Torch=Pochodnia
-@1 will intersect protection on growth.=@1 będzie kolidować z ochroną terenu podczas rośnięcia
+@1 will intersect protection on growth.=@1 będzie kolidować z ochroną terenu podczas rośnięcia.
