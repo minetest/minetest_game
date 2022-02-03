@@ -218,6 +218,6 @@ for _, api_function in pairs({"get_animation", "set_animation", "set_model", "se
 			minetest.log("warning", api_function .. " called on offline player")
 			return
 		end
-		original_function(player, ...)
+		return original_function(player, ...)
 	end
 end
