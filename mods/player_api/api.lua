@@ -50,8 +50,11 @@ end
 
 -- Player stats and animations
 -- model, textures, animation
-local players = {}
+player_api.players = {}
 player_api.player_attached = {}
+
+-- Local for speed.
+local players = player_api.players
 
 local function get_player_data(player)
 	return assert(players[player:get_player_name()])
@@ -211,11 +214,8 @@ function player_api.globalstep()
 end
 
 -- Mods can modify the globalstep by overriding player_api.globalstep
-
--- local for speed
-local player_api_globalstep = player_api.globalstep
 minetest.register_globalstep(function(...)
-	player_api_globalstep(players, ...)
+	player_api.globalstep(...)
 end)
 
 for _, api_function in pairs({"get_animation", "set_animation", "set_model", "set_textures"}) do
