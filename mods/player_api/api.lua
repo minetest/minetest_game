@@ -50,11 +50,8 @@ end
 
 -- Player stats and animations
 -- model, textures, animation
-player_api.players = {}
+local players = {}
 player_api.player_attached = {}
-
--- Local for speed.
-local players = player_api.players
 
 local function get_player_data(player)
 	return assert(players[player:get_player_name()])
