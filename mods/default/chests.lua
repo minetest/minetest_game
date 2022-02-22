@@ -20,6 +20,9 @@ function default.chest.chest_lid_obstructed(pos)
 	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 	local def = minetest.registered_nodes[minetest.get_node(above).name]
 	-- allow ladders, signs, wallmounted things and torches to not obstruct
+	if def.drawtype == "mesh" then
+		minetest.remove_node(above)
+	end
 	if def and
 			(def.drawtype == "airlike" or
 			def.drawtype == "signlike" or
