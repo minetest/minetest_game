@@ -6,6 +6,10 @@ if mg_name == "v6" or mg_name == "singlenode" or
 	return
 end
 
+-- Public behavior flags
+weather = {
+	shadows_enabled = true,
+}
 
 -- Parameters
 
@@ -106,7 +110,9 @@ local function update_clouds()
 				), 2),
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		})
-		player:set_lighting({shadows = { intensity = 0.5 - density / 2.0} })
+		if weather.shadows_enabled then
+			player:set_lighting({shadows = { intensity = 0.5 - density / 2.0} })
+		end
 	end
 end
 
