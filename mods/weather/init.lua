@@ -110,7 +110,7 @@ local function update_clouds()
 				), 2),
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		})
-		if weather.shadows_enabled then
+		if weather.shadows_enabled and player.set_lighting ~= nil then
 			player:set_lighting({shadows = { intensity = 0.5 - density / 2.0} })
 		end
 	end
