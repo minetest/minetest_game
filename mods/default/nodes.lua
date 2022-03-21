@@ -2651,6 +2651,7 @@ minetest.register_node("default:ladder_wood", {
 	walkable = false,
 	climbable = true,
 	is_ground_content = false,
+	buildable_to = true,
 	selection_box = {
 		type = "wallmounted",
 		--wall_top = = <default>
@@ -2674,6 +2675,7 @@ minetest.register_node("default:ladder_steel", {
 	walkable = false,
 	climbable = true,
 	is_ground_content = false,
+	buildable_to = true,
 	selection_box = {
 		type = "wallmounted",
 		--wall_top = = <default>
