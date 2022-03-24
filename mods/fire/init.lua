@@ -92,7 +92,7 @@ minetest.register_tool("fire:flint_and_steel", {
 	on_use = function(itemstack, user, pointed_thing)
 		local sound_pos = pointed_thing.above or user:get_pos()
 		minetest.sound_play("fire_flint_and_steel",
-			{pos = sound_pos, gain = 0.5, max_hear_distance = 8}, true)
+			{pos = sound_pos, gain = 0.2, max_hear_distance = 8}, true)
 		local player_name = user:get_player_name()
 		if pointed_thing.type == "node" then
 			local node_under = minetest.get_node(pointed_thing.under).name

@@ -264,6 +264,7 @@ function doors.register(name, def)
 				return itemstack
 			end
 
+			local doorname = itemstack:get_name()
 			local node = minetest.get_node(pointed_thing.under)
 			local pdef = minetest.registered_nodes[node.name]
 			if pdef and pdef.on_rightclick and
@@ -315,10 +316,10 @@ function doors.register(name, def)
 			local state = 0
 			if minetest.get_item_group(minetest.get_node(aside).name, "door") == 1 then
 				state = state + 2
-				minetest.set_node(pos, {name = name .. "_b", param2 = dir})
+				minetest.set_node(pos, {name = doorname .. "_b", param2 = dir})
 				minetest.set_node(above, {name = "doors:hidden", param2 = (dir + 3) % 4})
 			else
-				minetest.set_node(pos, {name = name .. "_a", param2 = dir})
+				minetest.set_node(pos, {name = doorname .. "_a", param2 = dir})
 				minetest.set_node(above, {name = "doors:hidden", param2 = dir})
 			end
 
@@ -445,18 +446,18 @@ function doors.register(name, def)
 	def.buildable_to = false
 	def.selection_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
-	def.use_texture_alpha = "clip"
+	def.use_texture_alpha = def.use_texture_alpha or "clip"
 
-	def.mesh = "door_a.obj"
+	def.mesh = "door_a.b3d"
 	minetest.register_node(":" .. name .. "_a", table.copy(def))
 
-	def.mesh = "door_b.obj"
+	def.mesh = "door_b.b3d"
 	minetest.register_node(":" .. name .. "_b", table.copy(def))
 
-	def.mesh = "door_a2.obj"
+	def.mesh = "door_b.b3d"
 	minetest.register_node(":" .. name .. "_c", table.copy(def))
 
-	def.mesh = "door_b2.obj"
+	def.mesh = "door_a.b3d"
 	minetest.register_node(":" .. name .. "_d", table.copy(def))
 
 	doors.registered_doors[name .. "_a"] = true
@@ -599,7 +600,7 @@ function doors.register_trapdoor(name, def)
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
 	def.is_ground_content = false
-	def.use_texture_alpha = "clip"
+	def.use_texture_alpha = def.use_texture_alpha or "clip"
 
 	if def.protected then
 		def.can_dig = can_dig_door
@@ -669,10 +670,14 @@ function doors.register_trapdoor(name, def)
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
 
-	def_closed.node_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
-	}
+	if def.nodebox_closed and def.nodebox_opened then
+		def_closed.node_box = def.nodebox_closed
+	else
+		def_closed.node_box = {
+		    type = "fixed",
+		    fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
+		}
+	end
 	def_closed.selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
@@ -686,10 +691,14 @@ function doors.register_trapdoor(name, def)
 		def.tile_side
 	}
 
-	def_opened.node_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
-	}
+	if def.nodebox_opened and def.nodebox_closed then
+		def_opened.node_box = def.nodebox_opened
+	else
+		def_opened.node_box = {
+		    type = "fixed",
+		    fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
+		}
+	end
 	def_opened.selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
@@ -775,8 +784,8 @@ function doors.register_fencegate(name, def)
 		sounds = def.sounds,
 		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 			local node_def = minetest.registered_nodes[node.name]
-			minetest.swap_node(pos, {name = node_def.gate, param2 = node.param2})
-			minetest.sound_play(node_def.sound, {pos = pos, gain = 0.15,
+			minetest.swap_node(pos, {name = node_def._gate, param2 = node.param2})
+			minetest.sound_play(node_def._gate_sound, {pos = pos, gain = 0.15,
 				max_hear_distance = 8}, true)
 			return itemstack
 		end,
@@ -804,8 +813,8 @@ function doors.register_fencegate(name, def)
 
 	local fence_closed = table.copy(fence)
 	fence_closed.mesh = "doors_fencegate_closed.obj"
-	fence_closed.gate = name .. "_open"
-	fence_closed.sound = "doors_fencegate_open"
+	fence_closed._gate = name .. "_open"
+	fence_closed._gate_sound = "doors_fencegate_open"
 	fence_closed.collision_box = {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/8, 1/2, 1/2 + fence_collision_extra, 1/8}
@@ -813,8 +822,8 @@ function doors.register_fencegate(name, def)
 
 	local fence_open = table.copy(fence)
 	fence_open.mesh = "doors_fencegate_open.obj"
-	fence_open.gate = name .. "_closed"
-	fence_open.sound = "doors_fencegate_close"
+	fence_open._gate = name .. "_closed"
+	fence_open._gate_sound = "doors_fencegate_close"
 	fence_open.groups.not_in_creative_inventory = 1
 	fence_open.collision_box = {
 		type = "fixed",

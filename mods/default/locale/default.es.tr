@@ -1,18 +1,17 @@
 # textdomain: default
-
 Locked Chest=Cofre cerrado
 Locked Chest (owned by @1)=Cofre cerrado (propiedad de @1)
 You do not own this chest.=Este cofre no te pertenece.
 a locked chest=un cofre cerrado
 Chest=Cofre
+Write=
+Read=
 Title:=Título:
 Contents:=Contenidos:
 Save=Guardar
 by @1=por @1
 Page @1 of @2=Página @1 de @2
 "@1" by @2="@1" por @2
-Skeleton Key=Llave esqueleto
-Key to @1's @2=Llave para @2 de @1
 Blueberries=Arándanos
 Book=Libro
 Book with Text=Libro escrito
@@ -211,7 +210,6 @@ Bronze Sword=Espada de bronce
 Steel Sword=Espada de acero
 Mese Sword=Espada de mese
 Diamond Sword=Espada de diamante
-Key=Llave
 Torch=Antorcha
 @1 will intersect protection on growth.=@1 intersectará con protección cuando crezca.
 

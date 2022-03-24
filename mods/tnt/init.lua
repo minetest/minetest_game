@@ -279,7 +279,7 @@ function tnt.burn(pos, nodename)
 		def.on_ignite(pos)
 	elseif minetest.get_item_group(name, "tnt") > 0 then
 		minetest.swap_node(pos, {name = name .. "_burning"})
-		minetest.sound_play("tnt_ignite", {pos = pos}, true)
+		minetest.sound_play("tnt_ignite", {pos = pos, gain = 1.0}, true)
 		minetest.get_node_timer(pos):start(1)
 	end
 end
@@ -555,7 +555,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 	on_blast = function() end,
 	on_construct = function(pos)
 		minetest.sound_play("tnt_gunpowder_burning", {pos = pos,
-			gain = 2}, true)
+			gain = 1.0}, true)
 		minetest.get_node_timer(pos):start(1)
 	end,
 })

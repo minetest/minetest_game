@@ -1,0 +1,8 @@
+# textdomain: bones
+Bones=Кістки
+@1's old bones=старі кістки @1
+@1 died at @2.=@1 помер в @2.
+@1 died at @2, and dropped their inventory.=@1 помер в @2, та загубив вміст свого інвентарю.
+@1 died at @2, and bones were placed.=@1 помер в @2, розміщені кістки.
+@1's fresh bones=нові кістки @1
+@1's bones=кістки @1

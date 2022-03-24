@@ -1,13 +1,13 @@
 # textdomain: doors
 Hidden Door Segment=隐藏门段
-Owned by @1=由@1拥有
-You do not own this locked door.=这个门不属于你所有。
+Owned by @1=由@1所有
+You do not own this locked door.=这个门不属于你。
 a locked door=一扇已上锁的门
 Wooden Door=木门
 Steel Door=铁门
 Glass Door=玻璃门
 Obsidian Glass Door=黑曜石玻璃门
-You do not own this trapdoor.=这个活板门不属于你所有。
+You do not own this trapdoor.=这个活板门不属于你。
 a locked trapdoor=一扇已上锁的活板门
 Wooden Trapdoor=木活板门
 Steel Trapdoor=铁活板门

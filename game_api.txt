@@ -218,6 +218,8 @@ The doors mod allows modders to register custom doors and trapdoors.
 	description = "Door description",
 	inventory_image = "mod_door_inv.png",
 	groups = {choppy = 2},
+	model = "mod_door", -- (optional)
+	-- Model name without a suffix ("big_door" not "big_door_a.obj", "big_door_b.obj")
 	tiles = {"mod_door.png"}, -- UV map.
 	-- The front and back of the door must be identical in appearence as they swap on
 	-- open/close.
@@ -228,13 +230,17 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing), 
 	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
+	use_texture_alpha = "clip",
 
 ### Trapdoor definition
 
 	description = "Trapdoor description",
 	inventory_image = "mod_trapdoor_inv.png",
+	nodebox_closed = {} -- Nodebox for closed model
+	nodebox_opened = {} -- Nodebox for opened model
+	-- (optional) both nodeboxes must be used, not one only
 	groups = {choppy = 2},
 	tile_front = "doors_trapdoor.png", -- the texture for the front and back of the trapdoor
 	tile_side = "doors_trapdoor_side.png",
@@ -249,10 +255,9 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) ,
 	-- function containing the on_rightclick callback
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
-	-- function containing the on_rightclick callback
+	use_texture_alpha = "clip",
 
 ### Fence gate definition
 
@@ -262,7 +267,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	material = "default:wood",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(), -- optional
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 	-- function containing the on_rightclick callback
 
 
@@ -435,11 +440,16 @@ Player API
 
 The player API can register player models and update the player's appearance.
 
+* `player_api.globalstep(dtime, ...)`
+	* The function called by the globalstep that controls player animations.
+	  You can override this to replace the globalstep with your own implementation.
+	* Receives all args that minetest.register_globalstep() passes
+
 * `player_api.register_model(name, def)`
 	* Register a new model to be used by players
 	* `name`: model filename such as "character.x", "foo.b3d", etc.
 	* `def`: see [#Model definition]
-    * Saved to player_api.registered_models
+	* Saved to player_api.registered_models
 
 * `player_api.registered_models[name]`
 	* Get a model's definition
@@ -449,18 +459,24 @@ The player API can register player models and update the player's appearance.
 * `player_api.set_model(player, model_name)`
 	* Change a player's model
 	* `player`: PlayerRef
-	* `model_name`: model registered with player_api.register_model()
+	* `model_name`: model registered with `player_api.register_model`
 
 * `player_api.set_animation(player, anim_name, speed)`
-	* Applies an animation to a player
+	* Applies an animation to a player if speed or anim_name differ from the currently playing animation
 	* `player`: PlayerRef
 	* `anim_name`: name of the animation
-	* `speed`: frames per second. If nil, the default from the model def is used
+	* `speed`: keyframes per second. If nil, the default from the model def is used
 
 * `player_api.set_textures(player, textures)`
 	* Sets player textures
 	* `player`: PlayerRef
 	* `textures`: array of textures. If nil, the default from the model def is used
+
+* `player_api.set_textures(player, index, texture)`
+	* Sets one of the player textures
+	* `player`: PlayerRef
+	* `index`: Index into array of all textures
+	* `texture`: the texture string
 
 * `player_api.get_animation(player)`
 	* Returns a table containing fields `model`, `textures` and `animation`
@@ -477,18 +493,25 @@ The player API can register player models and update the player's appearance.
 ### Model Definition
 
 	{
-		animation_speed = 30,           -- Default animation speed, in FPS
-		textures = {"character.png", }, -- Default array of textures
-		visual_size = {x = 1, y = 1},   -- Used to scale the model
+		animation_speed = 30,           -- Default animation speed, in keyframes per second
+		textures = {"character.png"},   -- Default array of textures
 		animations = {
-			-- <anim_name> = {x = <start_frame>, y = <end_frame>},
-			foo = {x = 0, y = 19},
-			bar = {x = 20, y = 39},
-			-- ...
+			-- [anim_name] = {
+			--   x = <start_frame>,
+			--   y = <end_frame>,
+			--   collisionbox = <model collisionbox>, -- (optional)
+			--   eye_height = <model eye height>,     -- (optional)
+			--   -- suspend client side animations while this one is active (optional)
+			--   override_local = <true/false>
+			-- },
+			stand = ..., lay = ..., walk = ..., mine = ..., walk_mine = ..., -- required animations
+			sit = ... -- used by boats and other MTG mods
 		},
-		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3}, -- In nodes from feet position
-		stepheight = 0.6,                                -- In nodes
-		eye_height = 1.47,                               -- In nodes above feet position
+		-- Default object properties, see lua_api.txt
+		visual_size = {x = 1, y = 1},
+		collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		stepheight = 0.6,
+		eye_height = 1.47
 	}
 
 
@@ -722,6 +745,12 @@ Stairs API
 
 The stairs API lets you register stairs and slabs and ensures that they are registered the same way as those
 delivered with Minetest Game, to keep them compatible with other mods.
+
+The following node attributes are sourced from the recipeitem:
+ * use_texture_alpha
+ * sunlight_propagates
+ * light_source
+ * If the recipeitem is a fuel, the stair/slab is also registered as a fuel of proportionate burntime.
 
 `stairs.register_stair(subname, recipeitem, groups, images, description, sounds, worldaligntex)`
 

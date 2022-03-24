@@ -159,7 +159,7 @@ local function furnace_node_timer(pos, elapsed)
 					end
 					-- Play cooling sound
 					minetest.sound_play("default_cool_lava",
-						{pos = pos, max_hear_distance = 16, gain = 0.1}, true)
+						{pos = pos, max_hear_distance = 16, gain = 0.07}, true)
 				else
 					-- Item could not be cooked: probably missing fuel
 					update = true
@@ -177,8 +177,15 @@ local function furnace_node_timer(pos, elapsed)
 					fuel_totaltime = 0
 					src_time = 0
 				else
-					-- Take fuel from fuel list
-					inv:set_stack("fuel", 1, afterfuel.items[1])
+					-- prevent blocking of fuel inventory (for automatization mods)
+					local is_fuel = minetest.get_craft_result({method = "fuel", width = 1, items = {afterfuel.items[1]:to_string()}})
+					if is_fuel.time == 0 then
+						table.insert(fuel.replacements, afterfuel.items[1])
+						inv:set_stack("fuel", 1, "")
+					else
+						-- Take fuel from fuel list
+						inv:set_stack("fuel", 1, afterfuel.items[1])
+					end
 					-- Put replacements in dst list or drop them on the furnace.
 					local replacements = fuel.replacements
 					if replacements[1] then
@@ -245,9 +252,9 @@ local function furnace_node_timer(pos, elapsed)
 		result = true
 
 		-- Play sound every 5 seconds while the furnace is active
-		if timer_elapsed == 0 or (timer_elapsed+1) % 5 == 0 then
+		if timer_elapsed == 0 or (timer_elapsed + 1) % 5 == 0 then
 			minetest.sound_play("default_furnace_active",
-				{pos = pos, max_hear_distance = 16, gain = 0.5}, true)
+				{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
 		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
