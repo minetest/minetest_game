@@ -260,7 +260,7 @@ function doors.register(name, def)
 		on_place = function(itemstack, placer, pointed_thing)
 			local pos
 
-			if not pointed_thing.type == "node" then
+			if pointed_thing.type ~= "node" then
 				return itemstack
 			end
 
