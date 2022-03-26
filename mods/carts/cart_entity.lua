@@ -398,7 +398,7 @@ minetest.register_craftitem("carts:cart", {
 				pointed_thing) or itemstack
 		end
 
-		if not pointed_thing.type == "node" then
+		if pointed_thing.type ~= "node" then
 			return
 		end
 		if carts:is_rail(pointed_thing.under) then
