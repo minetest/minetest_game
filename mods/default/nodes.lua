@@ -2551,18 +2551,15 @@ minetest.register_node("default:bookshelf", {
 		return 0
 	end,
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		minetest.log("action", player:get_player_name() ..
-			" moves stuff in bookshelf at " .. minetest.pos_to_string(pos))
+		default.log_action(player, pos, "moves stuff in bookshelf")
 		update_bookshelf(pos)
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name() ..
-			" puts stuff to bookshelf at " .. minetest.pos_to_string(pos))
+		default.log_action(player, pos, "puts stuff to bookshelf")
 		update_bookshelf(pos)
 	end,
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name() ..
-			" takes stuff from bookshelf at " .. minetest.pos_to_string(pos))
+		default.log_action(player, pos, "takes stuff from bookshelf")
 		update_bookshelf(pos)
 	end,
 	on_blast = function(pos)

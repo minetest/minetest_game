@@ -717,8 +717,8 @@ end
 
 
 --
--- NOTICE: This method is not an official part of the API yet.
--- This method may change in future.
+-- NOTICE: This methods are not an official part of the API yet.
+-- This methods may change in future.
 --
 
 function default.can_interact_with_node(player, pos)
@@ -756,4 +756,12 @@ function default.can_interact_with_node(player, pos)
 	end
 
 	return false
+end
+
+function default.log_action(player, pos, message)
+	-- only log actions of real players
+	if player and not player.is_fake_player and player:is_player() then
+		minetest.log("action", player:get_player_name() ..
+			" " .. message .. " at " .. minetest.pos_to_string(pos))
+	end
 end
