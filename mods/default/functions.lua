@@ -717,8 +717,8 @@ end
 
 
 --
--- NOTICE: This methods are not an official part of the API yet.
--- This methods may change in future.
+-- NOTICE: These methods are not an official part of the API yet.
+-- These methods may change in future.
 --
 
 function default.can_interact_with_node(player, pos)
