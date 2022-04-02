@@ -715,10 +715,41 @@ function default.register_craft_metadata_copy(ingredient, result)
 	end)
 end
 
+--
+-- Log API / helpers
+--
+
+local non_player_action_log = minetest.settings:get_bool("enable_non_player_action_log") ~= false
+
+function default.log_action(player, pos, message)
+	local who = player:get_player_name()
+	if not player.is_fake_player and player:is_player() then
+		-- log action of real player
+		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
+	elseif non_player_action_log then
+		-- log action of non real player
+		who = who .. "(" .. (type(player.is_fake_player) == "string"
+			and player.is_fake_player or "*").. ")"
+		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
+	end
+end
+
+function default.set_inventory_action_loggers(def, name)
+	def.on_metadata_inventory_move = function(pos, from_list, from_index,
+			to_list, to_index, count, player)
+		default.log_action(player, pos, "moves stuff in " .. name)
+	end
+	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
+		default.log_action(player, pos, "moves " .. stack:get_name() .. " to " .. name)
+	end
+	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		default.log_action(player, pos, "takes " .. stack:get_name() .. " from " .. name)
+	end
+end
 
 --
--- NOTICE: These methods are not an official part of the API yet.
--- These methods may change in future.
+-- NOTICE: This methods are not an official part of the API yet.
+-- This methods may change in future.
 --
 
 function default.can_interact_with_node(player, pos)
@@ -756,32 +787,4 @@ function default.can_interact_with_node(player, pos)
 	end
 
 	return false
-end
-
-local non_player_action_log = minetest.settings:get_bool("enable_non_player_action_log") ~= false
-
-function default.log_action(player, pos, message)
-	local who = player:get_player_name()
-	if not player.is_fake_player and player:is_player() then
-		-- log action of real player
-		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
-	elseif non_player_action_log then
-		-- log action of non real player
-		who = who .. "(" .. (type(player.is_fake_player) == "string"
-			and player.is_fake_player or "*").. ")"
-		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
-	end
-end
-
-function default.set_inventory_action_loggers(def, name)
-	def.on_metadata_inventory_move = function(pos, from_list, from_index,
-			to_list, to_index, count, player)
-		default.log_action(player, pos, "moves stuff in " .. name)
-	end
-	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "moves " .. stack:get_name() .. " to " .. name)
-	end
-	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "takes " .. stack:get_name() .. " from " .. name)
-	end
 end
