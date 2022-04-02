@@ -75,3 +75,6 @@ default:torch 99,default:cobble 99
 # Enable cloud variation by the 'weather' mod.
 # Non-functional in V6 or Singlenode mapgens.
 #enable_weather = true
+
+# If enabled, non-player actions are logged
+#enable_non_player_action_log = false
