@@ -1115,3 +1115,26 @@ This function registers a shapeless recipe that takes `ingredient`
 and `result` as input and outputs `result`.
 
 The metadata of the input `result` is copied to the output `result`.
+
+
+Log API
+-------
+
+Logs action of the player with a node at a certain position.
+By default only actions of real players are logged.
+Actions of non-players (usually machines) are logged only when
+setting `enable_non_player_action_log` is enabled.
+
+`default.log_action(player, pos, message)`
+
+ * `player`  The player who performed the action, may be `nil`
+ * `pos`     Position of the node at which the action was performed
+ * `message` A message describing the action
+
+`default.set_inventory_action_loggers(def, name)`
+
+ * sets the callbacks `on_metadata_inventory_move`,
+   `on_metadata_inventory_put` and `on_metadata_inventory_take`
+   log corresponding actions
+ * `def`     See [Node definition]
+ * `name`    Description of the node in the log message
