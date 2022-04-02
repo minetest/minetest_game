@@ -176,6 +176,15 @@ if minetest.settings:get_bool("enable_lavacooling") ~= false then
 	})
 end
 
+--
+-- Drop items on flooding
+--
+
+function default.drop_on_flood(pos, oldnode, newnode)
+    for _, item in ipairs(minetest.get_node_drops(oldnode)) do
+        minetest.add_item(pos, item)
+    end
+end
 
 --
 -- Optimized helper to put all items in an inventory into a drops list

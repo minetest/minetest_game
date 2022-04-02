@@ -718,6 +718,8 @@ minetest.register_node("default:sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -881,6 +883,8 @@ minetest.register_node("default:junglesapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -917,6 +921,8 @@ minetest.register_node("default:emergent_jungle_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -995,6 +1001,8 @@ minetest.register_node("default:pine_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -1075,6 +1083,8 @@ minetest.register_node("default:acacia_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
@@ -1153,6 +1163,8 @@ minetest.register_node("default:aspen_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 0.5, 3 / 16}
@@ -1432,6 +1444,8 @@ minetest.register_node("default:dry_shrub", {
 	buildable_to = true,
 	groups = {snappy = 3, flammable = 3, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 4 / 16, 6 / 16},
@@ -1452,6 +1466,8 @@ minetest.register_node("default:junglegrass", {
 	buildable_to = true,
 	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1, junglegrass = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 0.5, 6 / 16},
@@ -1474,6 +1490,8 @@ minetest.register_node("default:grass_1", {
 	groups = {snappy = 3, flora = 1, attached_node = 1, grass = 1,
 		normal_grass = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -5 / 16, 6 / 16},
@@ -1505,6 +1523,8 @@ for i = 2, 5 do
 			not_in_creative_inventory = 1, grass = 1,
 			normal_grass = 1, flammable = 1},
 		sounds = default.node_sound_leaves_defaults(),
+		floodable = true,
+		on_flood = default.drop_on_flood,
 		selection_box = {
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -3 / 16, 6 / 16},
@@ -1527,6 +1547,8 @@ minetest.register_node("default:dry_grass_1", {
 	groups = {snappy = 3, flammable = 3, flora = 1,
 		attached_node = 1, grass = 1, dry_grass = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -3 / 16, 6 / 16},
@@ -1557,6 +1579,8 @@ for i = 2, 5 do
 			not_in_creative_inventory = 1, grass = 1, dry_grass = 1},
 		drop = "default:dry_grass_1",
 		sounds = default.node_sound_leaves_defaults(),
+		floodable = true,
+		on_flood = default.drop_on_flood,
 		selection_box = {
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -1 / 16, 6 / 16},
@@ -1579,6 +1603,8 @@ minetest.register_node("default:fern_1", {
 	groups = {snappy = 3, flammable = 3, flora = 1, grass = 1,
 		fern = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -0.25, 6 / 16},
@@ -1610,6 +1636,8 @@ for i = 2, 3 do
 			grass = 1, fern = 1, not_in_creative_inventory = 1},
 		drop = "default:fern_1",
 		sounds = default.node_sound_leaves_defaults(),
+		floodable = true,
+		on_flood = default.drop_on_flood,
 		selection_box = {
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -0.25, 6 / 16},
@@ -1632,6 +1660,8 @@ minetest.register_node("default:marram_grass_1", {
 	groups = {snappy = 3, flammable = 3, flora = 1, grass = 1, marram_grass = 1,
 		attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -0.25, 6 / 16},
@@ -1662,6 +1692,8 @@ for i = 2, 3 do
 			grass = 1, marram_grass = 1, not_in_creative_inventory = 1},
 		drop = "default:marram_grass_1",
 		sounds = default.node_sound_leaves_defaults(),
+		floodable = true,
+		on_flood = default.drop_on_flood,
 		selection_box = {
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -0.25, 6 / 16},
@@ -1715,6 +1747,8 @@ minetest.register_node("default:bush_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
@@ -1792,6 +1826,8 @@ minetest.register_node("default:blueberry_bush_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
@@ -1862,6 +1898,8 @@ minetest.register_node("default:acacia_bush_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 2 / 16, 3 / 16}
@@ -1932,6 +1970,8 @@ minetest.register_node("default:pine_bush_sapling", {
 	sunlight_propagates = true,
 	walkable = false,
 	on_timer = grow_sapling,
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}

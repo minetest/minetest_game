@@ -53,6 +53,8 @@ local function add_simple_flower(name, desc, box, f_groups)
 		buildable_to = true,
 		groups = f_groups,
 		sounds = default.node_sound_leaves_defaults(),
+		floodable = true,
+		on_flood = default.drop_on_flood,
 		selection_box = {
 			type = "fixed",
 			fixed = box
@@ -197,6 +199,8 @@ minetest.register_node("flowers:mushroom_red", {
 	groups = {mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	on_use = minetest.item_eat(-5),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, -1 / 16, 4 / 16},
@@ -216,6 +220,8 @@ minetest.register_node("flowers:mushroom_brown", {
 	groups = {mushroom = 1, food_mushroom = 1, snappy = 3, attached_node = 1, flammable = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	on_use = minetest.item_eat(1),
+	floodable = true,
+	on_flood = default.drop_on_flood,
 	selection_box = {
 		type = "fixed",
 		fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16},
