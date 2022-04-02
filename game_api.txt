@@ -1127,7 +1127,7 @@ setting `enable_non_player_action_log` is enabled.
 
 `default.log_action(player, pos, message)`
 
- * `player`  The player who performed the action, may be `nil`
+ * `player`  The player who performed the action
  * `pos`     Position of the node at which the action was performed
  * `message` A message describing the action
 

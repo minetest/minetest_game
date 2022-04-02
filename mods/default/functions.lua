@@ -758,20 +758,17 @@ function default.can_interact_with_node(player, pos)
 	return false
 end
 
-local non_player_action_log = minetest.settings:get_bool("enable_non_player_action_log") or false
+local non_player_action_log = minetest.settings:get_bool("enable_non_player_action_log") ~= false
 
 function default.log_action(player, pos, message)
-	local who = player and player:get_player_name() or "(something)"
-	if player and not player.is_fake_player and player:is_player() then
+	local who = player:get_player_name()
+	if not player.is_fake_player and player:is_player() then
 		-- log action of real player
 		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
-	elseif non_player_action_log ~= false then
+	elseif non_player_action_log then
 		-- log action of non real player
-		if player and player.is_fake_player and type(player.is_fake_player) == "string" then
-			who = who .. "(" .. player.is_fake_player .. ")"
-		else
-			who = who .. "(*)"
-		end
+		who = who .. "(" .. (type(player.is_fake_player) == "string"
+			and player.is_fake_player or "*").. ")"
 		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
 	end
 end
