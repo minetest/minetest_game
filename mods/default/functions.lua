@@ -765,3 +765,16 @@ function default.log_action(player, pos, message)
 			" " .. message .. " at " .. minetest.pos_to_string(pos))
 	end
 end
+
+function default.set_inventory_action_loggers(def, name)
+	def.on_metadata_inventory_move = function(pos, from_list, from_index,
+			to_list, to_index, count, player)
+		default.log_action(player, pos, "moves stuff in " .. name)
+	end
+	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
+		default.log_action(player, pos, "moves " .. stack:get_name() .. " to " .. name)
+	end
+	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		default.log_action(player, pos, "takes " .. stack:get_name() .. " from " .. name)
+	end
+end

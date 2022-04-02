@@ -49,7 +49,7 @@ local function update_vessels_shelf(pos)
 	end
 end
 
-minetest.register_node("vessels:shelf", {
+local vessels_shelf_def = {
 	description = S("Vessels Shelf"),
 	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
 		"default_wood.png", "vessels_shelf.png", "vessels_shelf.png"},
@@ -74,18 +74,6 @@ minetest.register_node("vessels:shelf", {
 		end
 		return 0
 	end,
-	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		default.log_action(player, pos, "moves stuff in vessels shelf")
-		update_vessels_shelf(pos)
-	end,
-	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "moves stuff to vessels shelf")
-		update_vessels_shelf(pos)
-	end,
-	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "takes stuff from vessels shelf")
-		update_vessels_shelf(pos)
-	end,
 	on_blast = function(pos)
 		local drops = {}
 		default.get_inventory_drops(pos, "vessels", drops)
@@ -93,7 +81,9 @@ minetest.register_node("vessels:shelf", {
 		minetest.remove_node(pos)
 		return drops
 	end,
-})
+}
+default.set_inventory_action_loggers(vessels_shelf_def, "vessels shelf")
+minetest.register_node("vessels:shelf", vessels_shelf_def)
 
 minetest.register_craft({
 	output = "vessels:shelf",

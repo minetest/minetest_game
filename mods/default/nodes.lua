@@ -2525,7 +2525,7 @@ local function update_bookshelf(pos)
 	end
 end
 
-minetest.register_node("default:bookshelf", {
+local default_bookshelf_def = {
 	description = S("Bookshelf"),
 	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
 		"default_wood.png", "default_bookshelf.png", "default_bookshelf.png"},
@@ -2550,18 +2550,6 @@ minetest.register_node("default:bookshelf", {
 		end
 		return 0
 	end,
-	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		default.log_action(player, pos, "moves stuff in bookshelf")
-		update_bookshelf(pos)
-	end,
-	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "puts stuff to bookshelf")
-		update_bookshelf(pos)
-	end,
-	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "takes stuff from bookshelf")
-		update_bookshelf(pos)
-	end,
 	on_blast = function(pos)
 		local drops = {}
 		default.get_inventory_drops(pos, "books", drops)
@@ -2569,7 +2557,9 @@ minetest.register_node("default:bookshelf", {
 		minetest.remove_node(pos)
 		return drops
 	end,
-})
+}
+default.set_inventory_action_loggers(default_bookshelf_def, "bookshelf")
+minetest.register_node("default:bookshelf", default_bookshelf_def)
 
 local function register_sign(material, desc, def)
 	minetest.register_node("default:sign_wall_" .. material, {
