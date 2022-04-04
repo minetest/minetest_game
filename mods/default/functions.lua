@@ -721,7 +721,7 @@ end
 
 local non_player_action_log = minetest.settings:get_bool("enable_non_player_action_log") ~= false
 
-function default.log_action(player, pos, message)
+function default.log_player_action(player, pos, message)
 	local who = player:get_player_name()
 	if not player.is_fake_player and player:is_player() then
 		-- log action of real player
@@ -737,13 +737,13 @@ end
 function default.set_inventory_action_loggers(def, name)
 	def.on_metadata_inventory_move = function(pos, from_list, from_index,
 			to_list, to_index, count, player)
-		default.log_action(player, pos, "moves stuff in " .. name)
+		default.log_player_action(player, pos, "moves stuff in " .. name)
 	end
 	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "moves " .. stack:get_name() .. " to " .. name)
+		default.log_player_action(player, pos, "moves " .. stack:get_name() .. " to " .. name)
 	end
 	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_action(player, pos, "takes " .. stack:get_name() .. " from " .. name)
+		default.log_player_action(player, pos, "takes " .. stack:get_name() .. " from " .. name)
 	end
 end
 

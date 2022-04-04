@@ -1127,7 +1127,7 @@ setting `enable_non_player_action_log` is enabled.
 A player is considered non-player if `player:is_player()` returns
 `false` or `player.is_fake_player` is truthy.
 
-`default.log_action(player, pos, message)`
+`default.log_player_action(player, pos, message)`
 
  * `player`  The player who performed the action
  * `pos`     Position of the node at which the action was performed
