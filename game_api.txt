@@ -153,6 +153,7 @@ The chests API allows the creation of chests, which have their own inventories f
 		"default_chest_front.png",
 		"default_chest_inside.png"
 	}, -- Textures which are applied to the chest model.
+	size = {x = 8, y = 4}, -- optional (defaults to {x = 8, y = 4})
 	sounds = default.node_sound_wood_defaults(),
 	sound_open = "default_chest_open",
 	sound_close = "default_chest_close",
