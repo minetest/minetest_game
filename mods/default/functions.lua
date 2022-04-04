@@ -748,8 +748,8 @@ function default.set_inventory_action_loggers(def, name)
 end
 
 --
--- NOTICE: This methods are not an official part of the API yet.
--- This methods may change in future.
+-- NOTICE: This method are not an official part of the API yet.
+-- This method may change in future.
 --
 
 function default.can_interact_with_node(player, pos)
