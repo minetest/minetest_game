@@ -1125,7 +1125,8 @@ By default only actions of real players are logged.
 Actions of non-players (usually machines) are logged only when
 setting `enable_non_player_action_log` is enabled.
 A player is considered non-player if `player:is_player()` returns
-`false` or `player.is_fake_player` is truthy.
+`false` or `player.is_fake_player` is truthy. The use of
+`is_fake_player` is an unofficial standard between mods.
 
 `default.log_player_action(player, pos, message)`
 
