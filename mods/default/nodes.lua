@@ -2057,10 +2057,10 @@ local function coral_on_place(itemstack, placer, pointed_thing)
 
 	if minetest.is_protected(pos_under, player_name) or
 			minetest.is_protected(pos_above, player_name) then
-		minetest.log("action", player_name
-			.. " tried to place " .. itemstack:get_name()
+		default.log_player_action(placer,
+			"tried to place " .. itemstack:get_name()
 			.. " at protected position "
-			.. minetest.pos_to_string(pos_under))
+			, pos_under)
 		minetest.record_protection_violation(pos_under, player_name)
 		return itemstack
 	end
@@ -2602,8 +2602,8 @@ local function register_sign(material, desc, def)
 				minetest.chat_send_player(player_name, S("Text too long"))
 				return
 			end
-			minetest.log("action", player_name .. " wrote \"" .. text ..
-				"\" to the sign at " .. minetest.pos_to_string(pos))
+			default.log_player_action(sender, "wrote \"" .. text ..
+				"\" to the sign", pos)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("text", text)
 
