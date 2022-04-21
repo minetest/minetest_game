@@ -748,7 +748,7 @@ function default.set_inventory_action_loggers(def, name)
 end
 
 --
--- NOTICE: This method are not an official part of the API yet.
+-- NOTICE: This method is not an official part of the API yet.
 -- This method may change in future.
 --
 
