@@ -1131,11 +1131,11 @@ These non-players are marked by the content of `is_fake_player`
 (if it is a string) or a "*" in brackets after the player name in
 the log.
 
-`default.log_player_action(player, pos, message)`
+`default.log_player_action(player, message, pos)`
 
  * `player`  The player who performed the action
- * `pos`     Position of the node at which the action was performed
  * `message` A message describing the action in 3rd person singular present tense.
+ * `pos`     Position of the node at which the action was performed
 
 `default.set_inventory_action_loggers(def, name)`
 
