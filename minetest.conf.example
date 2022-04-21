@@ -77,4 +77,4 @@ default:torch 99,default:cobble 99
 #enable_weather = true
 
 # If enabled, non-player actions are logged
-#enable_non_player_action_log = false
+#log_non_player_actions = false

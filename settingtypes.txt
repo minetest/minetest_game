@@ -77,4 +77,4 @@ river_source_sounds (River source node sounds) bool false
 enable_weather (Enable weather) bool true
 
 #    If enabled, non-player actions are logged
-enable_non_player_action_log (Log non-player action) bool false
+log_non_player_actions (Log non-player action) bool false
