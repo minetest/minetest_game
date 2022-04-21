@@ -1127,6 +1127,9 @@ setting `log_non_player_actions` is enabled.
 A player is considered non-player if `player:is_player()` returns
 `false` or `player.is_fake_player` is truthy. The use of
 `is_fake_player` is an unofficial standard between mods.
+These non-players are marked by the content of `is_fake_player`
+(if it is a string) or a "*" in brackets after the player name in
+the log.
 
 `default.log_player_action(player, pos, message)`
 
