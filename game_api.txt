@@ -1132,7 +1132,7 @@ A player is considered non-player if `player:is_player()` returns
 
  * `player`  The player who performed the action
  * `pos`     Position of the node at which the action was performed
- * `message` A message describing the action
+ * `message` A message describing the action in 3rd person singular present tense.
 
 `default.set_inventory_action_loggers(def, name)`
 
