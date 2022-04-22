@@ -721,16 +721,27 @@ end
 
 local log_non_player_actions = minetest.settings:get_bool("log_non_player_actions", false)
 
-function default.log_player_action(player, message, pos)
-	local who = player:get_player_name()
+-- `vector.check` is available since minetest >= 5.5.0
+local is_vector = vector.check or function(v)
+	return v and type(v) == "table" and
+		v.x or type(v.x) == "number" and
+		v.y or type(v.y) == "number" and
+		v.z or type(v.z) == "number"
+end
+
+function default.log_player_action(player, ...)
+	local msg = player:get_player_name()
 	if player.is_fake_player or not player:is_player() then
 		if not log_non_player_actions then
 			return
 		end
-		who = who .. "(" .. (type(player.is_fake_player) == "string"
+		msg = msg .. "(" .. (type(player.is_fake_player) == "string"
 			and player.is_fake_player or "*").. ")"
 	end
-	minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
+	for _, v in ipairs({...}) do
+		msg = msg .. " " .. (is_vector(v) and ("at " .. minetest.pos_to_string(v)) or v)
+	end
+	minetest.log("action",  msg)
 end
 
 function default.set_inventory_action_loggers(def, name)
