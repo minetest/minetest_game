@@ -723,15 +723,14 @@ local log_non_player_actions = minetest.settings:get_bool("log_non_player_action
 
 function default.log_player_action(player, message, pos)
 	local who = player:get_player_name()
-	if not player.is_fake_player and player:is_player() then
-		-- log action of real player
-		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
-	elseif log_non_player_actions then
-		-- log action of non real player
+	if player.is_fake_player or not player:is_player() then
+		if not log_non_player_actions then
+			return
+		end
 		who = who .. "(" .. (type(player.is_fake_player) == "string"
 			and player.is_fake_player or "*").. ")"
-		minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
 	end
+	minetest.log("action",  who .. " " .. message .. " at " .. minetest.pos_to_string(pos))
 end
 
 function default.set_inventory_action_loggers(def, name)
