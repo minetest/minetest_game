@@ -719,7 +719,7 @@ end
 -- Log API / helpers
 --
 
-local log_non_player_actions = minetest.settings:get_bool("log_non_player_actions") ~= false
+local log_non_player_actions = minetest.settings:get_bool("log_non_player_actions") or false
 
 function default.log_player_action(player, message, pos)
 	local who = player:get_player_name()
