@@ -723,10 +723,8 @@ local log_non_player_actions = minetest.settings:get_bool("log_non_player_action
 
 -- `vector.check` is available since minetest >= 5.5.0
 local is_vector = vector.check or function(v)
-	return v and type(v) == "table" and
-		v.x and type(v.x) == "number" and
-		v.y and type(v.y) == "number" and
-		v.z and type(v.z) == "number"
+	return type(v) == "table" and
+		type(v.x) == "number" and type(v.y) == "number" and type(v.z) == "number"
 end
 
 function default.log_player_action(player, ...)
