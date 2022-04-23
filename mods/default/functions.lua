@@ -745,13 +745,13 @@ end
 function default.set_inventory_action_loggers(def, name)
 	def.on_metadata_inventory_move = function(pos, from_list, from_index,
 			to_list, to_index, count, player)
-		default.log_player_action(player, "moves stuff in " .. name, pos)
+		default.log_player_action(player, "moves stuff in", name, pos)
 	end
 	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_player_action(player, "moves " .. stack:get_name() .. " to " .. name, pos)
+		default.log_player_action(player, "moves", stack:get_name(), "to", name, pos)
 	end
 	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_player_action(player, "takes " .. stack:get_name() .. " from " .. name, pos)
+		default.log_player_action(player, "takes", stack:get_name(), "from", name, pos)
 	end
 end
 

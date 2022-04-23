@@ -2058,9 +2058,8 @@ local function coral_on_place(itemstack, placer, pointed_thing)
 	if minetest.is_protected(pos_under, player_name) or
 			minetest.is_protected(pos_above, player_name) then
 		default.log_player_action(placer,
-			"tried to place " .. itemstack:get_name()
-			.. " at protected position "
-			, pos_under)
+			"tried to place", itemstack:get_name(),
+			"at protected position", pos_under)
 		minetest.record_protection_violation(pos_under, player_name)
 		return itemstack
 	end

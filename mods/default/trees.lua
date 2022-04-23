@@ -572,7 +572,7 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 		return itemstack
 	end
 
-	default.log_player_action(placer, "places node " .. sapling_name, pos)
+	default.log_player_action(placer, "places node", sapling_name, pos)
 
 	local take_item = not minetest.is_creative_enabled(player_name)
 	local newnode = {name = sapling_name}
