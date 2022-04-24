@@ -2476,9 +2476,6 @@ end
 -- Detect mapgen to select functions
 --
 
-minetest.clear_registered_biomes()
-minetest.clear_registered_ores()
-minetest.clear_registered_decorations()
 
 local mg_name = minetest.get_mapgen_setting("mg_name")
 
