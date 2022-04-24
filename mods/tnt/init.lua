@@ -243,9 +243,9 @@ local function add_effects(pos, radius, drops)
 			local def = minetest.registered_nodes[name]
 			if def then
 				node = { name = name }
-			end
-			if def and def.tiles and def.tiles[1] then
-				texture = def.tiles[1]
+				if def.tiles and type(def.tiles[1]) == "string" then
+					texture = def.tiles[1]
+				end
 			end
 		end
 	end
