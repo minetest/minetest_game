@@ -734,7 +734,7 @@ function default.log_player_action(player, ...)
 			return
 		end
 		msg = msg .. "(" .. (type(player.is_fake_player) == "string"
-			and player.is_fake_player or "*").. ")"
+			and player.is_fake_player or "*") .. ")"
 	end
 	for _, v in ipairs({...}) do
 		-- translate vectors
