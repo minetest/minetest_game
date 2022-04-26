@@ -737,7 +737,10 @@ function default.log_player_action(player, ...)
 			and player.is_fake_player or "*").. ")"
 	end
 	for _, v in ipairs({...}) do
-		msg = msg .. " " .. (is_vector(v) and minetest.pos_to_string(v) or v)
+		-- translate vectors
+		local part = is_vector(v) and minetest.pos_to_string(v) or v
+		-- no leading spaces before punctuation marks
+		msg = msg .. (string.match(part, "^[;,.]") and "" or " ") .. part
 	end
 	minetest.log("action",  msg)
 end
