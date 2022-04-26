@@ -1136,7 +1136,7 @@ the log.
  * `player`        The player who performed the action
  * `message_parts` Any mumber of message parts describing the action
                    in 3rd person singular present tense. It can also
-		   contain a `vector` which is logged as " at (X,Y,Z)"
+		   contain a `vector` which is logged as "(X,Y,Z)"
 
 `default.set_inventory_action_loggers(def, name)`
 

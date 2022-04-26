@@ -2602,7 +2602,7 @@ local function register_sign(material, desc, def)
 				return
 			end
 			default.log_player_action(sender, "wrote \"" .. text ..
-				"\" to the sign", pos)
+				"\" to the sign at", pos)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("text", text)
 

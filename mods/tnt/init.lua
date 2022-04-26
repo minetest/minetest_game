@@ -465,7 +465,7 @@ minetest.register_node("tnt:gunpowder", {
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
-			default.log_player_action(puncher, "ignites tnt:gunpowder", pos)
+			default.log_player_action(puncher, "ignites tnt:gunpowder at", pos)
 		end
 	end,
 	on_blast = function(pos, intensity)
@@ -633,7 +633,7 @@ function tnt.register_tnt(def)
 				if puncher:get_wielded_item():get_name() == "default:torch" then
 					minetest.swap_node(pos, {name = name .. "_burning"})
 					minetest.registered_nodes[name .. "_burning"].on_construct(pos)
-					default.log_player_action(puncher, "ignites", node.name, pos)
+					default.log_player_action(puncher, "ignites", node.name, "at", pos)
 				end
 			end,
 			on_blast = function(pos, intensity)
