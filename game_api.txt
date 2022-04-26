@@ -1142,6 +1142,6 @@ the log.
 
  * sets the callbacks `on_metadata_inventory_move`,
    `on_metadata_inventory_put` and `on_metadata_inventory_take`
-   log corresponding actions
+   that log corresponding actions
  * `def`     See [Node definition]
  * `name`    Description of the node in the log message
