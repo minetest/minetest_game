@@ -721,6 +721,11 @@ end
 
 local log_non_player_actions = minetest.settings:get_bool("log_non_player_actions", false)
 
+local is_pos = function(v)
+	return type(v) == "table" and
+		type(v.x) == "number" and type(v.y) == "number" and type(v.z) == "number"
+end
+
 function default.log_player_action(player, ...)
 	local msg = player:get_player_name()
 	if player.is_fake_player or not player:is_player() then
@@ -732,7 +737,7 @@ function default.log_player_action(player, ...)
 	end
 	for _, v in ipairs({...}) do
 		-- translate pos
-		local part = vector.check(v) and minetest.pos_to_string(v) or v
+		local part = is_pos(v) and minetest.pos_to_string(v) or v
 		-- no leading spaces before punctuation marks
 		msg = msg .. (string.match(part, "^[;,.]") and "" or " ") .. part
 	end
