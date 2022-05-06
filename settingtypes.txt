@@ -75,3 +75,6 @@ river_source_sounds (River source node sounds) bool false
 #    Enable cloud and shadow intensity variation by the 'weather' mod.
 #    Non-functional in V6 or Singlenode mapgens.
 enable_weather (Enable weather) bool true
+
+#    If enabled, non-player actions are logged
+log_non_player_actions (Log non-player action) bool false

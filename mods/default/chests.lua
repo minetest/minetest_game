@@ -222,21 +222,7 @@ function default.chest.register_chest(prefixed_name, d)
 		end
 	end
 
-	def.on_metadata_inventory_move = function(pos, from_list, from_index,
-			to_list, to_index, count, player)
-		minetest.log("action", player:get_player_name() ..
-			" moves stuff in chest at " .. minetest.pos_to_string(pos))
-	end
-	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name() ..
-			" moves " .. stack:get_name() ..
-			" to chest at " .. minetest.pos_to_string(pos))
-	end
-	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name() ..
-			" takes " .. stack:get_name() ..
-			" from chest at " .. minetest.pos_to_string(pos))
-	end
+	default.set_inventory_action_loggers(def, "chest")
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)

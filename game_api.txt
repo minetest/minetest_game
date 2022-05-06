@@ -1115,3 +1115,33 @@ This function registers a shapeless recipe that takes `ingredient`
 and `result` as input and outputs `result`.
 
 The metadata of the input `result` is copied to the output `result`.
+
+
+Log API
+-------
+
+Logs action of the player with a node at a certain position.
+By default only actions of real players are logged.
+Actions of non-players (usually machines) are logged only when
+setting `log_non_player_actions` is enabled.
+A player is considered non-player if `player:is_player()` returns
+`false` or `player.is_fake_player` is truthy. The use of
+`is_fake_player` is an unofficial standard between mods.
+These non-players are marked by the content of `is_fake_player`
+(if it is a string) or a "*" in brackets after the player name in
+the log.
+
+`default.log_player_action(player, ...)`
+
+ * `player`        The player who performed the action
+ * `message_parts` Any mumber of message parts describing the action
+                   in 3rd person singular present tense. It can also
+                   contain a `pos` which is logged as "(X,Y,Z)"
+
+`default.set_inventory_action_loggers(def, name)`
+
+ * sets the callbacks `on_metadata_inventory_move`,
+   `on_metadata_inventory_put` and `on_metadata_inventory_take`
+   that log corresponding actions
+ * `def`     See [Node definition]
+ * `name`    Description of the node in the log message
