@@ -47,18 +47,12 @@ function cart_entity:on_activate(staticdata, dtime_s)
 	end
 	self.railtype = data.railtype
 	self.old_dir = data.old_dir or self.old_dir
-	self.old_pos = data.old_pos or self.old_pos
-	-- Correct the position when the cart drives further after the last 'step()'
-	if self.old_pos and carts:is_rail(self.old_pos, self.railtype) then
-		self.object:set_pos(self.old_pos)
-	end
 end
 
 function cart_entity:get_staticdata()
 	return minetest.serialize({
 		railtype = self.railtype,
-		old_dir = self.old_dir,
-		old_pos = self.old_pos
+		old_dir = self.old_dir
 	})
 end
 
