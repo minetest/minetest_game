@@ -46,9 +46,7 @@ function cart_entity:on_activate(staticdata, dtime_s)
 		return
 	end
 	self.railtype = data.railtype
-	if data.old_dir then
-		self.old_dir = data.old_dir
-	end
+	self.old_dir = data.old_dir or self.old_dir
 end
 
 function cart_entity:get_staticdata()
@@ -192,11 +190,11 @@ local function rail_on_step(self, dtime)
 	end
 
 	local pos = self.object:get_pos()
-	local cart_dir = carts:velocity_to_dir(vel)
-	local same_dir = vector.equals(cart_dir, self.old_dir)
+	local dir = carts:velocity_to_dir(vel)
+	local dir_changed = not vector.equals(dir, self.old_dir)
 	local update = {}
 
-	if self.old_pos and not self.punched and same_dir then
+	if self.old_pos and not self.punched and not dir_changed then
 		local flo_pos = vector.round(pos)
 		local flo_old = vector.round(self.old_pos)
 		if vector.equals(flo_pos, flo_old) then
@@ -216,7 +214,7 @@ local function rail_on_step(self, dtime)
 	end
 
 	local stop_wiggle = false
-	if self.old_pos and same_dir then
+	if self.old_pos and not dir_changed then
 		-- Detection for "skipping" nodes (perhaps use average dtime?)
 		-- It's sophisticated enough to take the acceleration in account
 		local acc = self.object:get_acceleration()
@@ -231,7 +229,7 @@ local function rail_on_step(self, dtime)
 			-- No rail found: set to the expected position
 			pos = new_pos
 			update.pos = true
-			cart_dir = new_dir
+			dir = new_dir
 		end
 	elseif self.old_pos and self.old_dir.y ~= 1 and not self.punched then
 		-- Stop wiggle
@@ -241,21 +239,27 @@ local function rail_on_step(self, dtime)
 	local railparams
 
 	-- dir:         New moving direction of the cart
-	-- switch_keys: Currently pressed L/R key, used to ignore the key on the next rail node
-	local dir, switch_keys = carts:get_rail_direction(
-		pos, cart_dir, ctrl, self.old_switch, self.railtype
+	-- switch_keys: Currently pressed L(1) or R(2) key,
+	--              used to ignore the key on the next rail node
+	local switch_keys
+	dir, switch_keys = carts:get_rail_direction(
+		pos, dir, ctrl, self.old_switch, self.railtype
 	)
-	local dir_changed = not vector.equals(dir, self.old_dir)
+	dir_changed = not vector.equals(dir, self.old_dir)
 
-	local new_acc = {x=0, y=0, z=0}
+	local acc = 0
 	if stop_wiggle or vector.equals(dir, {x=0, y=0, z=0}) then
+		dir = vector.new(self.old_dir)
 		vel = {x = 0, y = 0, z = 0}
 		local pos_r = vector.round(pos)
 		if not carts:is_rail(pos_r, self.railtype)
 				and self.old_pos then
 			pos = self.old_pos
 		elseif not stop_wiggle then
+			-- End of rail: Smooth out.
 			pos = pos_r
+			dir_changed = false
+			dir.y = 0
 		else
 			pos.y = math.floor(pos.y + 0.5)
 		end
@@ -282,7 +286,7 @@ local function rail_on_step(self, dtime)
 		end
 
 		-- Slow down or speed up..
-		local acc = dir.y * -4.0
+		acc = dir.y * -4.0
 
 		-- Get rail for corrected position
 		railparams = get_railparams(pos)
@@ -300,25 +304,22 @@ local function rail_on_step(self, dtime)
 				acc = acc - 0.4
 			end
 		end
-
-		new_acc = vector.multiply(dir, acc)
 	end
 
-	-- Limits
-	local max_vel = carts.speed_max
-	for _, v in pairs({"x","y","z"}) do
-		if math.abs(vel[v]) > max_vel then
-			vel[v] = carts:get_sign(vel[v]) * max_vel
-			new_acc[v] = 0
-			update.vel = true
-		end
+	-- Limit cart speed
+	local vel_len = vector.length(vel)
+	if vel_len > carts.speed_max then
+		vel = vector.multiply(vel, carts.speed_max / vel_len)
+		update.vel = true
+	end
+	if vel_len >= carts.speed_max and acc > 0 then
+		acc = 0
 	end
 
-	self.object:set_acceleration(new_acc)
+	self.object:set_acceleration(vector.multiply(dir, acc))
+
 	self.old_pos = vector.round(pos)
-	if not vector.equals(dir, {x=0, y=0, z=0}) and not stop_wiggle then
-		self.old_dir = vector.new(dir)
-	end
+	self.old_dir = vector.new(dir)
 	self.old_switch = switch_keys
 
 	if self.punched then
@@ -344,11 +345,11 @@ local function rail_on_step(self, dtime)
 	end
 
 	local yaw = 0
-	if self.old_dir.x < 0 then
+	if dir.x < 0 then
 		yaw = 0.5
-	elseif self.old_dir.x > 0 then
+	elseif dir.x > 0 then
 		yaw = 1.5
-	elseif self.old_dir.z < 0 then
+	elseif dir.z < 0 then
 		yaw = 1
 	end
 	self.object:set_yaw(yaw * math.pi)
