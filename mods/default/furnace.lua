@@ -98,8 +98,8 @@ local function stop_furnace_sound(pos, fadeout_step)
 	local hash = minetest.hash_node_position(pos)
 	local sound_ids = furnace_fire_sounds[hash]
 	if sound_ids then
-		for s=1, #sound_ids do
-			minetest.sound_fade(sound_ids[s], -1, 0)
+		for _, sound_id in ipairs(sound_ids) do
+			minetest.sound_fade(sound_ids, -1, 0)
 		end
 		furnace_fire_sounds[hash] = nil
 	end
@@ -270,14 +270,11 @@ local function furnace_node_timer(pos, elapsed)
 			local sound_id = minetest.sound_play("default_furnace_active",
 				{pos = pos, max_hear_distance = 16, gain = 0.25})
 			local hash = minetest.hash_node_position(pos)
-			if not furnace_fire_sounds[hash] then
-				furnace_fire_sounds[hash] = { sound_id }
-			else
-				table.insert(furnace_fire_sounds[hash], sound_id)
-				-- Only remember the 3 last sound handles
-				if #furnace_fire_sounds[hash] > 3 then
-					table.remove(furnace_fire_sounds[hash], 1)
-				end
+			furnace_fire_sounds[hash] = furnace_fire_sounds[hash] or {}
+			table.insert(furnace_fire_sounds[hash], sound_id)
+			-- Only remember the 3 last sound handles
+			if #furnace_fire_sounds[hash] > 3 then
+				table.remove(furnace_fire_sounds[hash], 1)
 			end
 		end
 	else
