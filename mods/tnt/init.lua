@@ -297,7 +297,8 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	local c_tnt
 	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
 	local c_tnt_boom = minetest.get_content_id("tnt:boom")
-	local c_air = minetest.get_content_id("air")
+	local c_air = minetest.CONTENT_AIR
+	local c_ignore = minetest.CONTENT_IGNORE
 	if enable_tnt then
 		c_tnt = minetest.get_content_id("tnt:tnt")
 	else
@@ -351,7 +352,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		if (radius * radius) / (r * r) >= (pr:next(80, 125) / 100) then
 			local cid = data[vi]
 			local p = {x = pos.x + x, y = pos.y + y, z = pos.z + z}
-			if cid ~= c_air then
+			if cid ~= c_air and cid ~= c_ignore then
 				data[vi] = destroy(drops, p, cid, c_air, c_fire,
 					on_blast_queue, on_construct_queue,
 					ignore_protection, ignore_on_blast, owner)
