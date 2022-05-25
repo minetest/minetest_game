@@ -99,7 +99,7 @@ local function stop_furnace_sound(pos, fadeout_step)
 	local sound_ids = furnace_fire_sounds[hash]
 	if sound_ids then
 		for _, sound_id in ipairs(sound_ids) do
-			minetest.sound_fade(sound_ids, -1, 0)
+			minetest.sound_fade(sound_id, -1, 0)
 		end
 		furnace_fire_sounds[hash] = nil
 	end
@@ -276,6 +276,21 @@ local function furnace_node_timer(pos, elapsed)
 			if #furnace_fire_sounds[hash] > 3 then
 				table.remove(furnace_fire_sounds[hash], 1)
 			end
+			-- Remove the sound ID automatically from table after 11 seconds
+			minetest.after(11, function(t)
+				if not furnace_fire_sounds[t.hash] then
+					return
+				end
+				for f=#furnace_fire_sounds[t.hash], 1, -1 do
+					if furnace_fire_sounds[t.hash][f] == t.sound_id then
+						minetest.log("error", "remove_after:"..t.sound_id)
+						table.remove(furnace_fire_sounds[t.hash], f)
+					end
+				end
+				if #furnace_fire_sounds[t.hash] == 0 then
+					furnace_fire_sounds[t.hash] = nil
+				end
+			end, {sound_id=sound_id, hash=hash})
 		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
