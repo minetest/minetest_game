@@ -161,6 +161,7 @@ Empty Bookshelf=
 Bookshelf (@1 written, @2 empty books)=
 Bookshelf=
 Text too long=
+The book you were writing to mysteriously disappeared.=
 "@1"=
 Wooden Sign=
 Steel Sign=
