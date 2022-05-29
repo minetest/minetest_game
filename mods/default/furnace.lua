@@ -277,20 +277,19 @@ local function furnace_node_timer(pos, elapsed)
 				table.remove(furnace_fire_sounds[hash], 1)
 			end
 			-- Remove the sound ID automatically from table after 11 seconds
-			minetest.after(11, function(t)
-				if not furnace_fire_sounds[t.hash] then
+			minetest.after(11, function()
+				if not furnace_fire_sounds[hash] then
 					return
 				end
-				for f=#furnace_fire_sounds[t.hash], 1, -1 do
-					if furnace_fire_sounds[t.hash][f] == t.sound_id then
-						minetest.log("error", "remove_after:"..t.sound_id)
-						table.remove(furnace_fire_sounds[t.hash], f)
+				for f=#furnace_fire_sounds[hash], 1, -1 do
+					if furnace_fire_sounds[hash][f] == sound_id then
+						table.remove(furnace_fire_sounds[hash], f)
 					end
 				end
-				if #furnace_fire_sounds[t.hash] == 0 then
-					furnace_fire_sounds[t.hash] = nil
+				if #furnace_fire_sounds[hash] == 0 then
+					furnace_fire_sounds[hash] = nil
 				end
-			end, {sound_id=sound_id, hash=hash})
+			end)
 		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
