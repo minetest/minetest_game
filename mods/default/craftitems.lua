@@ -105,17 +105,21 @@ local max_text_size = 10000
 local max_title_size = 80
 local short_title_size = 35
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "default:book" then return end
+	if formname ~= "default:book" then
+		return
+	end
 	local player_name = player:get_player_name()
 	local inv = player:get_inventory()
-	if not book_writers[player_name] then return end
+	if not book_writers[player_name] then
+		return
+	end
 	local wield_index = book_writers[player_name].wield_index
 	local wield_list = player:get_wield_list()
 	local stack = inv:get_stack(wield_list, wield_index)
 	local written = stack:get_name() == "default:book_written"
 	if stack:get_name() ~= "default:book" and not written then
 		-- No book in the wield slot, abort & inform the player
-		minetest.chat_send_player(player_name, S"The book you were writing to mysteriously disappeared.")
+		minetest.chat_send_player(player_name, S("The book you were writing to mysteriously disappeared."))
 		return
 	end
 	local data = stack:get_meta():to_table().fields
