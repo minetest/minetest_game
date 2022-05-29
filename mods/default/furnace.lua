@@ -3,6 +3,9 @@
 -- support for MT game translation.
 local S = default.get_translator
 
+-- List of sound handles for active furnace
+local furnace_fire_sounds = {}
+
 --
 -- Formspecs
 --
@@ -89,6 +92,17 @@ local function allow_metadata_inventory_take(pos, listname, index, stack, player
 		return 0
 	end
 	return stack:get_count()
+end
+
+local function stop_furnace_sound(pos, fadeout_step)
+	local hash = minetest.hash_node_position(pos)
+	local sound_ids = furnace_fire_sounds[hash]
+	if sound_ids then
+		for _, sound_id in ipairs(sound_ids) do
+			minetest.sound_fade(sound_id, -1, 0)
+		end
+		furnace_fire_sounds[hash] = nil
+	end
 end
 
 local function swap_node(pos, name)
@@ -253,8 +267,29 @@ local function furnace_node_timer(pos, elapsed)
 
 		-- Play sound every 5 seconds while the furnace is active
 		if timer_elapsed == 0 or (timer_elapsed + 1) % 5 == 0 then
-			minetest.sound_play("default_furnace_active",
-				{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
+			local sound_id = minetest.sound_play("default_furnace_active",
+				{pos = pos, max_hear_distance = 16, gain = 0.25})
+			local hash = minetest.hash_node_position(pos)
+			furnace_fire_sounds[hash] = furnace_fire_sounds[hash] or {}
+			table.insert(furnace_fire_sounds[hash], sound_id)
+			-- Only remember the 3 last sound handles
+			if #furnace_fire_sounds[hash] > 3 then
+				table.remove(furnace_fire_sounds[hash], 1)
+			end
+			-- Remove the sound ID automatically from table after 11 seconds
+			minetest.after(11, function()
+				if not furnace_fire_sounds[hash] then
+					return
+				end
+				for f=#furnace_fire_sounds[hash], 1, -1 do
+					if furnace_fire_sounds[hash][f] == sound_id then
+						table.remove(furnace_fire_sounds[hash], f)
+					end
+				end
+				if #furnace_fire_sounds[hash] == 0 then
+					furnace_fire_sounds[hash] = nil
+				end
+			end)
 		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
@@ -265,6 +300,8 @@ local function furnace_node_timer(pos, elapsed)
 		-- stop timer on the inactive furnace
 		minetest.get_node_timer(pos):stop()
 		meta:set_int("timer_elapsed", 0)
+
+		stop_furnace_sound(pos)
 	end
 
 
@@ -369,6 +406,9 @@ minetest.register_node("default:furnace_active", {
 	is_ground_content = false,
 	sounds = default.node_sound_stone_defaults(),
 	on_timer = furnace_node_timer,
+	on_destruct = function(pos)
+		stop_furnace_sound(pos)
+	end,
 
 	can_dig = can_dig,
 
