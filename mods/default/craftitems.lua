@@ -42,6 +42,12 @@ local function formspec_string(lpp, page, lines, string)
 	return string
 end
 
+local book_writers = {}
+
+minetest.register_on_leaveplayer(function(player)
+	book_writers[player:get_player_name()] = nil
+end)
+
 local tab_number
 local lpp = 14 -- Lines per book's page
 local function book_on_use(itemstack, user)
@@ -90,6 +96,8 @@ local function book_on_use(itemstack, user)
 	end
 
 	minetest.show_formspec(player_name, "default:book", formspec_size .. formspec)
+	-- Store the wield index in case the user accidentally switches before the formspec is shown
+	book_writers[player_name] = {wield_index = user:get_wield_index()}
 	return itemstack
 end
 
@@ -97,10 +105,23 @@ local max_text_size = 10000
 local max_title_size = 80
 local short_title_size = 35
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "default:book" then return end
+	if formname ~= "default:book" then
+		return
+	end
 	local player_name = player:get_player_name()
 	local inv = player:get_inventory()
-	local stack = player:get_wielded_item()
+	if not book_writers[player_name] then
+		return
+	end
+	local wield_index = book_writers[player_name].wield_index
+	local wield_list = player:get_wield_list()
+	local stack = inv:get_stack(wield_list, wield_index)
+	local written = stack:get_name() == "default:book_written"
+	if stack:get_name() ~= "default:book" and not written then
+		-- No book in the wield slot, abort & inform the player
+		minetest.chat_send_player(player_name, S("The book you were writing to mysteriously disappeared."))
+		return
+	end
 	local data = stack:get_meta():to_table().fields
 
 	local title = data.title or ""
@@ -127,9 +148,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 
+	if fields.close then
+		book_writers[player_name] = nil
+	end
+
 	if fields.save and fields.title and fields.text then
 		local new_stack
-		if stack:get_name() ~= "default:book_written" then
+		if not written then
 			local count = stack:get_count()
 			if count == 1 then
 				stack:set_name("default:book_written")
@@ -193,7 +218,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	-- Update stack
-	player:set_wielded_item(stack)
+	inv:set_stack(wield_list, wield_index, stack)
 end)
 
 
