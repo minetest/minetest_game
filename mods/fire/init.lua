@@ -114,7 +114,7 @@ minetest.register_tool("fire:flint_and_steel", {
 		if not minetest.is_creative_enabled(player_name) then
 			-- Wear tool
 			local wdef = itemstack:get_definition()
-			itemstack:add_wear(1000)
+			itemstack:add_wear_by_uses(66)
 
 			-- Tool break sound
 			if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then
