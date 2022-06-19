@@ -2796,7 +2796,7 @@ minetest.register_node("default:glass", {
 	tiles = {"default_glass.png", "default_glass_detail.png"},
 	use_texture_alpha = "clip", -- only needed for stairs API
 	paramtype = "light",
-	paramtype2 = "glasslikeliquidlevel",
+	paramtype2 = "none",
 	sunlight_propagates = true,
 	is_ground_content = false,
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
@@ -2809,7 +2809,7 @@ minetest.register_node("default:obsidian_glass", {
 	tiles = {"default_obsidian_glass.png", "default_obsidian_glass_detail.png"},
 	use_texture_alpha = "clip", -- only needed for stairs API
 	paramtype = "light",
-	paramtype2 = "glasslikeliquidlevel",
+	paramtype2 = "none",
 	is_ground_content = false,
 	sunlight_propagates = true,
 	sounds = default.node_sound_glass_defaults(),
