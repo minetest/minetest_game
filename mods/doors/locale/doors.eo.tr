@@ -1,13 +1,13 @@
 # textdomain: doors
 Hidden Door Segment=Kaŝita Porda Segmento
-Owned by @1=Estas de @1
-You do not own this locked door.=Vi ne posedas ĉi tiu ŝlosita pordo.
+Owned by @1=Posedita de @1
+You do not own this locked door.=Vi ne posedas ĉi tiun ŝlositan pordon.
 a locked door=ŝlosita pordo
 Wooden Door=Ligna Pordo
 Steel Door=Ŝtala Pordo
 Glass Door=Vitra Pordo
 Obsidian Glass Door=Obsidiana Vitra Pordo
-You do not own this trapdoor.=Vi ne posedas ĉi tiu plankpordo.
+You do not own this trapdoor.=Vi ne posedas ĉi tiun plankpordon.
 a locked trapdoor=ŝlosita plankpordo
 Wooden Trapdoor=Ligna Plankpordo
 Steel Trapdoor=Ŝtala Plankpordo
