@@ -178,7 +178,7 @@ Gambit (CC BY-SA 3.0):
   default_iron_lump.png
   default_gold_lump.png
   default_clay_lump.png
-  default_coal.png
+  default_coal_lump.png
   default_grass_*.png
   default_paper.png
   default_diamond_block.png
@@ -188,8 +188,6 @@ Gambit (CC BY-SA 3.0):
   default_snow.png
   default_snow_side.png
   default_snowball.png
-  default_key.png
-  default_key_skeleton.png
   default_book.png
 
 asl97 (CC BY-SA 3.0):
@@ -299,7 +297,6 @@ https://www.freesound.org/people/AGFX/packs/1253/
   default_water_footstep.1.ogg
   default_water_footstep.2.ogg
   default_water_footstep.3.ogg
-(default_water_footstep.4.ogg is silent)
 
 blukotek (CC0 1.0):
 https://www.freesound.org/people/blukotek/sounds/251660/

@@ -19,6 +19,7 @@ local item = {
 		self.object:remove()
 		minetest.sound_play("default_item_smoke", {
 			pos = p,
+			gain = 1.0,
 			max_hear_distance = 8,
 		}, true)
 		minetest.add_particlespawner({

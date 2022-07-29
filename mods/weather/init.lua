@@ -1,11 +1,18 @@
 -- Disable by mapgen or setting
 
 local mg_name = minetest.get_mapgen_setting("mg_name")
-if mg_name == "v6" or mg_name == "singlenode" or
-		minetest.settings:get_bool("enable_weather") == false then
+if minetest.settings:get_bool("enable_weather") == false then
 	return
 end
 
+if mg_name == "v6" or mg_name == "singlenode" then
+	-- set a default shadow intensity for mgv6 and singlenode
+	minetest.register_on_joinplayer(function(player)
+		player:set_lighting({ shadows = { intensity = 0.33 } })
+	end)
+
+	return
+end
 
 -- Parameters
 
@@ -96,15 +103,18 @@ local function update_clouds()
 		-- density_max = 0.8 at humid = 50.
 		-- density_max = 1.35 at humid = 100.
 		local density_max = 0.8 + ((humid - 50) / 50) * 0.55
+		local density = rangelim(density_max, 0.2, 1.0) * n_density
 		player:set_clouds({
 			-- Range limit density_max to always have occasional
 			-- small scattered clouds at extreme low humidity.
-			density = rangelim(density_max, 0.2, 1.0) * n_density,
+			density = density,
 			thickness = math.max(math.floor(
 				rangelim(32 * humid / 100, 8, 32) * n_thickness
 				), 2),
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		})
+		-- now adjust the shadow intensity
+		player:set_lighting({ shadows = { intensity = 0.7 * (1 - density) } })
 	end
 end
 

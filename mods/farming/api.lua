@@ -60,13 +60,13 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
 	minetest.sound_play("default_dig_crumbly", {
 		pos = pt.under,
-		gain = 0.5,
+		gain = 0.3,
 	}, true)
 
 	if not minetest.is_creative_enabled(player_name) then
 		-- wear tool
 		local wdef = itemstack:get_definition()
-		itemstack:add_wear(65535/(uses-1))
+		itemstack:add_wear_by_uses(uses)
 		-- tool break sound
 		if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then
 			minetest.sound_play(wdef.sound.breaks, {pos = pt.above,
@@ -178,8 +178,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- add the node and remove 1 item from the itemstack
-	minetest.log("action", player_name .. " places node " .. plantname .. " at " ..
-		minetest.pos_to_string(pt.above))
+	default.log_player_action(placer, "places node", plantname, "at", pt.above)
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
 	if not minetest.is_creative_enabled(player_name) then
