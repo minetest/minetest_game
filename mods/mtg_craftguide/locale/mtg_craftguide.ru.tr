@@ -30,7 +30,7 @@ Any magenta dye=Любая пурпурная краска
 Any dark grey dye=Любая тёмно-серая краска
 Any dark green dye=Любая тёмно-зелёная краска
 # Label for group ingredients
-G=
+G=Г
 Any item belonging to the group(s): @1=Любой предмет принадлежащий группам: @1
 Unknown Item=Неизвестный предмет
 Fuel=Топливо
