@@ -6,13 +6,13 @@ local S = default.get_translator
 function default.chest.get_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec =
-		"size[8,9]" ..
-		"list[nodemeta:" .. spos .. ";main;0,0.3;8,4;]" ..
-		"list[current_player;main;0,4.85;8,1;]" ..
-		"list[current_player;main;0,6.08;8,3;8]" ..
+		"size[16,11]" ..
+		"list[nodemeta:" .. spos .. ";main;0,0.0;16,8;]" ..
+		"list[current_player;main;0,9.0;16,0;]" ..
+		"list[current_player;main;0,9.0;16,2;]" ..
 		"listring[nodemeta:" .. spos .. ";main]" ..
 		"listring[current_player;main]" ..
-		default.get_hotbar_bg(0,4.85)
+		default.get_hotbar_bg(0,9.0)
 	return formspec
 end
 
@@ -92,7 +92,7 @@ function default.chest.register_chest(prefixed_name, d)
 			meta:set_string("infotext", S("Locked Chest"))
 			meta:set_string("owner", "")
 			local inv = meta:get_inventory()
-			inv:set_size("main", 8*4)
+			inv:set_size("main", 16*11)
 		end
 		def.after_place_node = function(pos, placer)
 			local meta = minetest.get_meta(pos)
@@ -192,7 +192,7 @@ function default.chest.register_chest(prefixed_name, d)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("infotext", S("Chest"))
 			local inv = meta:get_inventory()
-			inv:set_size("main", 8*4)
+			inv:set_size("main", 16*11)
 		end
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
@@ -267,7 +267,7 @@ function default.chest.register_chest(prefixed_name, d)
 				local inv = meta:get_inventory()
 				local list = inv:get_list("default:chest")
 				if list then
-					inv:set_size("main", 8*4)
+					inv:set_size("main", 16*11)
 					inv:set_list("main", list)
 					inv:set_list("default:chest", nil)
 				end
