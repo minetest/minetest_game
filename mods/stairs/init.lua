@@ -32,7 +32,15 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	if placer then
 		local placer_pos = placer:get_pos()
 		if placer_pos then
-			param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
+			local vec = vector.subtract(p1, placer_pos)
+			param2 = minetest.dir_to_facedir(vec)
+			if math.abs(vec.z) <= 0.5 and  math.abs(vec.x) <= 0.5 and vec.y < 0 and p0.y == p1.y then
+				if param2 == 0 then param2 = 2
+				elseif param2 == 2 then param2 = 0
+				elseif param2 == 1 then param2 = 3
+				elseif param2 == 3 then param2 = 1
+				end
+			end
 		end
 
 		local finepos = minetest.pointed_thing_to_face_pos(placer, pointed_thing)
