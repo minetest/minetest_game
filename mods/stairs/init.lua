@@ -25,16 +25,18 @@ minetest.register_alias("stairs:slab_pinewood", "stairs:slab_pine_wood")
 local replace = minetest.settings:get_bool("enable_stairs_replace_abm")
 
 local function rotate_and_place(itemstack, placer, pointed_thing)
-	local p0 = pointed_thing.under
-	local p1 = pointed_thing.above
+	local pUnder = pointed_thing.under
+	local pAbove = pointed_thing.above
 	local param2 = 0
 
 	if placer then
 		local placer_pos = placer:get_pos()
 		if placer_pos then
-			local vec = vector.subtract(p1, placer_pos)
-			param2 = minetest.dir_to_facedir(vec)
-			if math.abs(vec.z) <= 0.5 and  math.abs(vec.x) <= 0.5 and vec.y < 0 and p0.y == p1.y then
+			local vecdiff = vector.subtract(pAbove, placer_pos)
+			param2 = minetest.dir_to_facedir(vecdiff)
+			-- The player places a node on the side face of the node he is standing on
+			if math.abs(vecdiff.z) <= 0.5 and math.abs(vecdiff.x) <= 0.5 and vecdiff.y < 0 and pUnder.y == pAbove.y then
+				-- reverse node direction
 				param2 = (param2 + 2) % 4
 			end
 		end
@@ -42,7 +44,7 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 		local finepos = minetest.pointed_thing_to_face_pos(placer, pointed_thing)
 		local fpos = finepos.y % 1
 
-		if p0.y - 1 == p1.y or (fpos > 0 and fpos < 0.5)
+		if pUnder.y - 1 == pAbove.y or (fpos > 0 and fpos < 0.5)
 				or (fpos < -0.5 and fpos > -0.999999999) then
 			param2 = param2 + 20
 			if param2 == 21 then
