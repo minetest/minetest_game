@@ -35,11 +35,7 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 			local vec = vector.subtract(p1, placer_pos)
 			param2 = minetest.dir_to_facedir(vec)
 			if math.abs(vec.z) <= 0.5 and  math.abs(vec.x) <= 0.5 and vec.y < 0 and p0.y == p1.y then
-				if param2 == 0 then param2 = 2
-				elseif param2 == 2 then param2 = 0
-				elseif param2 == 1 then param2 = 3
-				elseif param2 == 3 then param2 = 1
-				end
+				param2 = (param2 + 2) % 4
 			end
 		end
 
