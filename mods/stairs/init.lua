@@ -32,7 +32,13 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	if placer then
 		local placer_pos = placer:get_pos()
 		if placer_pos then
-			param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
+			local diff = vector.subtract(p1, placer_pos)
+			param2 = minetest.dir_to_facedir(diff)
+			-- The player places a node on the side face of the node he is standing on
+			if p0.y == p1.y and math.abs(diff.x) <= 0.5 and math.abs(diff.z) <= 0.5 and diff.y < 0 then
+				-- reverse node direction
+				param2 = (param2 + 2) % 4
+			end
 		end
 
 		local finepos = minetest.pointed_thing_to_face_pos(placer, pointed_thing)
