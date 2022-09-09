@@ -46,34 +46,36 @@ end
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
 
 if minetest.is_creative_enabled("") then
-	-- Dig time is modified according to difference (leveldiff) between tool
-	-- 'maxlevel' and node 'level'. Digtime is divided by the larger of
-	-- leveldiff and 1.
-	-- To speed up digging in creative, hand 'maxlevel' and 'digtime' have been
-	-- increased such that nodes of differing levels have an insignificant
-	-- effect on digtime.
-	local digtime = 42
-	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
+	minetest.register_on_mods_loaded(function()
+		-- Dig time is modified according to difference (leveldiff) between tool
+		-- 'maxlevel' and node 'level'. Digtime is divided by the larger of
+		-- leveldiff and 1.
+		-- To speed up digging in creative, hand 'maxlevel' and 'digtime' have been
+		-- increased such that nodes of differing levels have an insignificant
+		-- effect on digtime.
+		local digtime = 42
+		local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
 
-	-- Override the hand tool
-	minetest.override_item("", {
-		range = 10,
-		tool_capabilities = {
-			full_punch_interval = 0.5,
-			max_drop_level = 3,
-			groupcaps = {
-				crumbly = caps,
-				cracky  = caps,
-				snappy  = caps,
-				choppy  = caps,
-				oddly_breakable_by_hand = caps,
-				-- dig_immediate group doesn't use value 1. Value 3 is instant dig
-				dig_immediate =
-					{times = {[2] = digtime, [3] = 0}, uses = 0, maxlevel = 256},
-			},
-			damage_groups = {fleshy = 10},
-		}
-	})
+		-- Override the hand tool
+		minetest.override_item("", {
+			range = 10,
+			tool_capabilities = {
+				full_punch_interval = 0.5,
+				max_drop_level = 3,
+				groupcaps = {
+					crumbly = caps,
+					cracky  = caps,
+					snappy  = caps,
+					choppy  = caps,
+					oddly_breakable_by_hand = caps,
+					-- dig_immediate group doesn't use value 1. Value 3 is instant dig
+					dig_immediate =
+						{times = {[2] = digtime, [3] = 0}, uses = 0, maxlevel = 256},
+				},
+				damage_groups = {fleshy = 10},
+			}
+		})
+	end)
 end
 
 -- Unlimited node placement
