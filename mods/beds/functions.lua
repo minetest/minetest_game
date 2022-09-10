@@ -5,6 +5,8 @@ if enable_respawn == nil then
 	enable_respawn = true
 end
 
+local enable_bed_in_the_daytime = minetest.settings:get_bool("enable_bed_in_the_daytime")
+
 -- support for MT game translation.
 local S = beds.get_translator
 
@@ -32,6 +34,11 @@ local function is_night_skip_enabled()
 		enable_night_skip = true
 	end
 	return enable_night_skip
+end
+
+local function is_night()
+	local tod = minetest.get_timeofday()
+	return not (tod > 0.2 and tod < 0.805)
 end
 
 local function check_in_beds(players)
@@ -144,33 +151,82 @@ local function get_player_in_bed_count()
 	return c
 end
 
-local function update_formspecs(finished)
+local function is_above_percent(player_in_bed)
+	-- default: 50, range: 0..99
+	local above_percent = math.min(tonumber(minetest.settings:get("bed_night_skip_above_percent")) or 50, 99);
+
+	return (#minetest.get_connected_players() * above_percent / 100) < player_in_bed
+end
+
+local update_formspecs_loops = 0
+
+local function update_formspecs(force_morning)
 	local ges = #minetest.get_connected_players()
 	local player_in_bed = get_player_in_bed_count()
-	local is_majority = (ges / 2) < player_in_bed
+	local tod = minetest.get_timeofday()
 
-	local form_n
+	local form_n = beds.formspec
 	local esc = minetest.formspec_escape
-	if finished then
-		form_n = beds.formspec .. "label[2.7,9;" .. esc(S("Good morning.")) .. "]"
-	else
-		form_n = beds.formspec .. "label[2.2,9;" ..
+	if force_morning or (tod >= 0.23 and tod <= 0.375) then -- <= ~9:00
+		form_n = form_n .. "label[2.7,9;" .. esc(S("Good morning.")) .. "]"
+	elseif not is_night() then
+		if (tod < 0.749) then -- < ~18:00
+			form_n = form_n .. "label[2.7,9;" .. esc(S("Wake up!")) .. "]"
+		end
+	elseif not is_sp then
+		form_n = form_n .. "label[2.2,9;" ..
 			esc(S("@1 of @2 players are in bed", player_in_bed, ges)) .. "]"
-		if is_majority and is_night_skip_enabled() then
+
+		if is_above_percent(player_in_bed) and is_night_skip_enabled() then
 			form_n = form_n .. "button_exit[2,6;4,0.75;force;" ..
 				esc(S("Force night skip")) .. "]"
 		end
 	end
+
+	-- debug code disabled
+	--form_n = form_n .. " " .. "label[2.2,8;" .. esc(tod*24) ..
+	--	" loop:" .. update_formspecs_loops ..
+	--	"]";
 
 	for name,_ in pairs(beds.player) do
 		minetest.show_formspec(name, "beds_form", form_n)
 	end
 end
 
+local function check_night_skip()
+	if is_night() and check_in_beds() then
+		minetest.after(2, function()
+			if not is_sp or enable_bed_in_the_daytime then
+				update_formspecs(is_night_skip_enabled())
+			end
+			if is_night_skip_enabled() then
+				beds.skip_night()
+				beds.kick_players()
+			end
+		end)
+		return true
+	end
+	return false
+end
+
+local function update_formspecs_loop()
+	if not check_night_skip() then
+		update_formspecs(false)
+	end
+	if get_player_in_bed_count() > 0 then
+		update_formspecs_loops = update_formspecs_loops + 1
+		minetest.after(2, update_formspecs_loop)
+	else
+		update_formspecs_loops = 0
+	end
+end
 
 -- Public functions
 
 function beds.kick_players()
+	if enable_bed_in_the_daytime then
+		return
+	end
 	for name, _ in pairs(beds.player) do
 		local player = minetest.get_player_by_name(name)
 		lay_down(player, nil, nil, false)
@@ -184,9 +240,8 @@ end
 function beds.on_rightclick(pos, player)
 	local name = player:get_player_name()
 	local ppos = player:get_pos()
-	local tod = minetest.get_timeofday()
 
-	if tod > 0.2 and tod < 0.805 then
+	if not is_night() and not enable_bed_in_the_daytime then
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
 		end
@@ -207,17 +262,14 @@ function beds.on_rightclick(pos, player)
 	end
 
 	-- skip the night and let all players stand up
-	if check_in_beds() then
-		minetest.after(2, function()
-			if not is_sp then
-				update_formspecs(is_night_skip_enabled())
-			end
-			if is_night_skip_enabled() then
-				beds.skip_night()
-				beds.kick_players()
-			end
-		end)
+	check_night_skip()
+
+	if enable_bed_in_the_daytime and update_formspecs_loops == 0 then
+		update_formspecs_loops = 1
+		-- update formspecs for day sleepers
+		minetest.after(2, update_formspecs_loop)
 	end
+
 end
 
 function beds.can_dig(bed_pos)
@@ -248,15 +300,7 @@ minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	lay_down(player, nil, nil, false, true)
 	beds.player[name] = nil
-	if check_in_beds() then
-		minetest.after(2, function()
-			update_formspecs(is_night_skip_enabled())
-			if is_night_skip_enabled() then
-				beds.skip_night()
-				beds.kick_players()
-			end
-		end)
-	end
+	check_night_skip()
 end)
 
 minetest.register_on_dieplayer(function(player)
@@ -288,8 +332,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	if fields.force then
-		local is_majority = (#minetest.get_connected_players() / 2) < last_player_in_bed
-		if is_majority and is_night_skip_enabled() then
+		if is_above_percent(last_player_in_bed) and is_night_skip_enabled() then
 			update_formspecs(true)
 			beds.skip_night()
 			beds.kick_players()
