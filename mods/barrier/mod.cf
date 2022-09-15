@@ -1,0 +1,3 @@
+name = barrier
+description = Minetest Game mod: barrier
+depends = default
