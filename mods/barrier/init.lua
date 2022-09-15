@@ -5,7 +5,7 @@ local S = minetest.get_translator("barrier")
 
 --the barrier
 
-minetest.register_node(":barrier", {
+minetest.register_node("stvk:barrier", {
 	description = S("Barrier"),
 	inventory_image = "ignore.png^air.png",
 	wield_image = "ignore.png^air.png",
