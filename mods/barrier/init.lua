@@ -18,5 +18,6 @@ minetest.register_node("barrier:barrier", {
 	buildable_to = true,
 	floodable: false,
 	drop = "",
+	sounds = default.node_sound_defaults(),
 	groups = {not_in_creative_inventory = 1},
 })
