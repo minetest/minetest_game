@@ -49,6 +49,8 @@ Beds API
  * `beds.read_spawns() `   Returns a table containing players respawn positions
  * `beds.kick_players()`  Forces all players to leave bed
  * `beds.skip_night()`   Sets world time to morning and saves respawn position of all players currently sleeping
+ * `beds.day_interval`   Is a table with keys "start" and "finish". Allows you
+   to set the period of the day (timeofday format). Default: `{ start = 0.2, finish = 0.805 }`.
 
 ### Bed definition
 
