@@ -186,7 +186,7 @@ function beds.on_rightclick(pos, player)
 	local ppos = player:get_pos()
 	local tod = minetest.get_timeofday()
 
-	if tod > 0.2 and tod < 0.805 then
+	if tod > beds.day_interval.start and tod < beds.day_interval.finish then
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
 		end

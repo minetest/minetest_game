@@ -16,6 +16,11 @@ beds.formspec = "size[8,11;true]" ..
 	"bgcolor[#080808BB;true]" ..
 	"button_exit[2,10;4,0.75;leave;" .. esc(S("Leave Bed")) .. "]"
 
+beds.day_interval = {
+	start = 0.2,
+	finish = 0.805,
+}
+
 local modpath = minetest.get_modpath("beds")
 
 -- Load files
