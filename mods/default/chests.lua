@@ -53,10 +53,6 @@ end
 default.chest.open_chests = {}
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if not player then
-		return
-	end
-
 	local pn = player:get_player_name()
 
 	if formname ~= "default:chest" then
