@@ -60,6 +60,19 @@ end
 
 screwdriver.rotate.colorfacedir = screwdriver.rotate.facedir
 
+screwdriver.rotate["4dir"] = function(pos, node, mode)
+	if mode ~= screwdriver.ROTATE_FACE then
+		-- Can only rotate 4dir nodes in face mode
+		return nil
+	end
+	local rotation = node.param2 % 4 -- get first 2 bits
+	local other = node.param2 - rotation
+	rotation = (rotation + 1) % 4
+	return rotation + other
+end
+
+screwdriver.rotate["color4dir"] = screwdriver.rotate["4dir"]
+
 local wallmounted_tbl = {
 	[screwdriver.ROTATE_FACE] = {[2] = 5, [3] = 4, [4] = 2, [5] = 3, [1] = 0, [0] = 1},
 	[screwdriver.ROTATE_AXIS] = {[2] = 5, [3] = 4, [4] = 2, [5] = 1, [1] = 0, [0] = 3}
@@ -113,6 +126,10 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 	local new_param2
 	if fn then
 		new_param2 = fn(pos, node, mode)
+		if not new_param2 then
+			-- rotation refused
+			return itemstack
+		end
 	else
 		new_param2 = node.param2
 	end
