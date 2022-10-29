@@ -296,7 +296,8 @@ function default.chest.register_chest(prefixed_name, d)
 		nodenames = {prefixed_name .. "_open"},
 		run_at_every_load = true,
 		action = function(pos, node)
-			minetest.swap_node(pos, {name = prefixed_name, param2 = node.param2})
+			node.name = prefixed_name
+			minetest.swap_node(pos, node)
 		end
 	})
 end
