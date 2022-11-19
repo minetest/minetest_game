@@ -91,7 +91,7 @@ minetest.register_chatcommand("home", {
 	func = function(name)
 		local player = minetest.get_player_by_name(name)
 		if not player then
-			return false, "This command can be executed in-game only"
+			return false, S("This command can be executed in-game only!")
 		end
 		if sethome.go(name) then
 			return true, S("Teleported to home!")
