@@ -52,6 +52,9 @@ end
 
 sethome.get = function(name)
 	local player = minetest.get_player_by_name(name)
+	if not player then
+		return nil
+	end
 	local player_meta = player:get_meta()
 	local pos = minetest.string_to_pos(player_meta:get_string("sethome:home"))
 	if pos then
