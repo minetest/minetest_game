@@ -45,6 +45,12 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 	})
 
 	-- crafting recipe
+	-- HACK:
+	--   Walls have no crafts, when register new wall via API from another mod, but in the same namespace (`walls`).
+	--   So we should remove `":"` at the beginning of the name.
+	if wall_name:sub(1, 1) == ":" then
+		wall_name = wall_name:sub(2)
+	end
 	minetest.register_craft({
 		output = wall_name .. " 6",
 		recipe = {
