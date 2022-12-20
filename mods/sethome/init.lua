@@ -52,6 +52,9 @@ end
 
 sethome.get = function(name)
 	local player = minetest.get_player_by_name(name)
+	if not player then
+		return false, S("This command can only be executed in-game!")
+	end
 	local player_meta = player:get_meta()
 	local pos = minetest.string_to_pos(player_meta:get_string("sethome:home"))
 	if pos then
@@ -86,6 +89,10 @@ minetest.register_chatcommand("home", {
 	description = S("Teleport you to your home point"),
 	privs = {home = true},
 	func = function(name)
+		local player = minetest.get_player_by_name(name)
+		if not player then
+			return false, S("This command can only be executed in-game!")
+		end
 		if sethome.go(name) then
 			return true, S("Teleported to home!")
 		end
