@@ -1,6 +1,6 @@
 # textdomain: farming
-Hoe=
-Seed=
+Hoe=鋤頭
+Seed=種子
 Wooden Hoe=木鋤頭
 Stone Hoe=石鋤頭
 Steel Hoe=鐵鋤頭
@@ -16,8 +16,8 @@ Cotton=棉
 String=線
 Soil=土
 Wet Soil=溼土
-Savanna Soil=
-Wet Savanna Soil=
+Savanna Soil=草原土
+Wet Savanna Soil=溼草原土
 Desert Sand Soil=沙漠沙土
 Wet Desert Sand Soil=溼沙漠沙土
 Straw=稻草
@@ -25,7 +25,7 @@ Straw Stair=稻草臺階
 Inner Straw Stair=稻草內樓梯
 Outer Straw Stair=稻草外樓梯
 Straw Slab=稻草板
-Wild Cotton=
+Wild Cotton=野生棉花
 
 
 ##### not used anymore #####
