@@ -6,3 +6,4 @@ Set a home using /sethome=
 Set your home point=
 Home set!=
 Player not found!=
+This command can only be executed in-game!=
