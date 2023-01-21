@@ -1,7 +1,7 @@
 # textdomain: farming
 Hoe=クワ
 Seed=種
-Wooden Hoe=木のクワ
+Wooden Hoe=木製のクワ
 Stone Hoe=石のクワ
 Steel Hoe=鉄のクワ
 Bronze Hoe=青銅のクワ
@@ -22,7 +22,7 @@ Desert Sand Soil=砂漠の砂の土壌
 Wet Desert Sand Soil=湿った砂漠の砂の土壌
 Straw=ワラ
 Straw Stair=ワラの階段
-Inner Straw Stair=へっこんだワラの階段
-Outer Straw Stair=でっぱったワラの階段
-Straw Slab=ワラのハーフブロック
+Inner Straw Stair=ワラの凹階段
+Outer Straw Stair=ワラの凸階段
+Straw Slab=ワラの厚板
 Wild Cotton=天然綿
