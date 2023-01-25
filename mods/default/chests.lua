@@ -53,19 +53,22 @@ end
 default.chest.open_chests = {}
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "default:chest" then
-		return
-	end
-	if not player or not fields.quit then
-		return
-	end
 	local pn = player:get_player_name()
 
-	if not default.chest.open_chests[pn] then
+	if formname ~= "default:chest" then
+		if default.chest.open_chests[pn] then
+			default.chest.chest_lid_close(pn)
+		end
+
+		return
+	end
+
+	if not (fields.quit and default.chest.open_chests[pn]) then
 		return
 	end
 
 	default.chest.chest_lid_close(pn)
+
 	return true
 end)
 
@@ -129,6 +132,12 @@ function default.chest.register_chest(prefixed_name, d)
 				return itemstack
 			end
 
+			local cn = clicker:get_player_name()
+
+			if default.chest.open_chests[cn] then
+				default.chest.chest_lid_close(cn)
+			end
+
 			minetest.sound_play(def.sound_open, {gain = 0.3,
 					pos = pos, max_hear_distance = 10}, true)
 			if not default.chest.chest_lid_obstructed(pos) then
@@ -136,10 +145,9 @@ function default.chest.register_chest(prefixed_name, d)
 						{ name = name .. "_open",
 						param2 = node.param2 })
 			end
-			minetest.after(0.2, minetest.show_formspec,
-					clicker:get_player_name(),
+			minetest.after(0.2, minetest.show_formspec, cn,
 					"default:chest", default.chest.get_chest_formspec(pos))
-			default.chest.open_chests[clicker:get_player_name()] = { pos = pos,
+			default.chest.open_chests[cn] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
 		def.on_blast = function() end
@@ -200,6 +208,12 @@ function default.chest.register_chest(prefixed_name, d)
 			return inv:is_empty("main")
 		end
 		def.on_rightclick = function(pos, node, clicker)
+			local cn = clicker:get_player_name()
+
+			if default.chest.open_chests[cn] then
+				default.chest.chest_lid_close(cn)
+			end
+
 			minetest.sound_play(def.sound_open, {gain = 0.3, pos = pos,
 					max_hear_distance = 10}, true)
 			if not default.chest.chest_lid_obstructed(pos) then
@@ -208,9 +222,9 @@ function default.chest.register_chest(prefixed_name, d)
 						param2 = node.param2 })
 			end
 			minetest.after(0.2, minetest.show_formspec,
-					clicker:get_player_name(),
+					cn,
 					"default:chest", default.chest.get_chest_formspec(pos))
-			default.chest.open_chests[clicker:get_player_name()] = { pos = pos,
+			default.chest.open_chests[cn] = { pos = pos,
 					sound = def.sound_close, swap = name }
 		end
 		def.on_blast = function(pos)
@@ -274,6 +288,18 @@ function default.chest.register_chest(prefixed_name, d)
 			end
 		})
 	end
+
+	-- close opened chests on load
+	minetest.register_lbm({
+		label = "close opened chests on load",
+		name = "default:close_" .. prefixed_name:gsub(":", "_") .. "_open",
+		nodenames = {prefixed_name .. "_open"},
+		run_at_every_load = true,
+		action = function(pos, node)
+			node.name = prefixed_name
+			minetest.swap_node(pos, node)
+		end
+	})
 end
 
 default.chest.register_chest("default:chest", {
