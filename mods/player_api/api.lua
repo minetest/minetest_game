@@ -71,6 +71,10 @@ function player_api.set_model(player, model_name)
 
 	local model = models[model_name]
 	if model then
+		if (model.animations) then
+			player_data.animation = nil
+			player_data.animation_speed = nil
+		}
 		player:set_properties({
 			mesh = model_name,
 			textures = player_data.textures or model.textures,
