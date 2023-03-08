@@ -162,6 +162,7 @@ Empty Bookshelf=Malplena Librobreto
 Bookshelf (@1 written, @2 empty books)=Librobreto (@1 skriba(j), @2 malplena(j) libro(j))
 Bookshelf=Librobreto
 Text too long=Tro longa teksto
+"@1"=
 Wooden Sign=Ligna Signo
 Steel Sign=Ŝtala Signo
 Wooden Ladder=Ligna Ŝtupetaro
@@ -217,4 +218,3 @@ Torch=Torĉo
 ##### not used anymore #####
 
 Mese Post Light=Mesea Fosta Lampo
-
