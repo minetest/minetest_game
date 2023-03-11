@@ -1167,9 +1167,9 @@ and also to modify weather effects before they are applied to the player.
 * Setting this to `false` is only advised if you want to disable the weather effects __permanently__ and for every player.
   Re-enabling effects later on will work but might conflict with other mods doing the same.
   Override `weather.on_update` if you want to disable temporarily or need a higher level of control.
-* If the `enable_weather` setting is set to `false` in minetest.conf then this function will __not__ do nothing.
+* If the `enable_weather` setting is set to `false` in minetest.conf then this function will not do anything.
 
-`weather.on_update(player, overrides)`
+`weather.on_update = function(player, overrides)`
 
 * Override this function to manipulate weather effects before they are applied to the player.
 * Calling this function on its own will do nothing. You have to override it in order to modify its behavior.
