@@ -137,7 +137,7 @@ end
 
 -- Update clouds periodically for all players
 
-local timer = nil
+local timer
 local function cyclic_update()
 	local players = minetest.get_connected_players()
 	update_weather(players)
