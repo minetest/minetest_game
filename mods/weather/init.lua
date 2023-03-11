@@ -4,7 +4,7 @@ local mod_enabled = minetest.settings:get_bool("enable_weather", true)
 local randomize_clouds = mod_enabled and mg_name ~= "v6" and mg_name ~= "singlenode"
 
 weather = {}
-local playerlist = {}
+local playerset = {}
 
 -- Parameters
 local TSCALE = 600 -- Time scale of noise variation in seconds
@@ -68,7 +68,22 @@ end
 local os_time_0 = os.time()
 local t_offset = math.random(0, 300000)
 
-local function update_clouds(players)
+-- set a default shadow intensity for mgv6 and singlenode
+local function set_default_lighting(playerset)
+	for playername, _ in pairs(playerset) do
+		local player = minetest.get_player_by_name(playername)
+		player:set_lighting({
+			shadows = { intensity = 0.33 }
+		})
+	end
+end
+
+local function update_weather(playerset)
+	-- skip cloud randomization if worldgen not supported
+	if not randomize_clouds then
+		set_default_lighting(playerset)
+		return
+	end
 	-- Time in seconds.
 	-- Add random time offset to avoid identical behaviour each server session.
 	local time = os.difftime(os.time(), os_time_0) - t_offset
@@ -83,7 +98,8 @@ local function update_clouds(players)
 	local n_speedx = nobj_speedx:get_2d({x = time, y = 0}) -- -1 to 1
 	local n_speedz = nobj_speedz:get_2d({x = time, y = 0}) -- -1 to 1
 
-	for _, player in ipairs(players) do
+	for playername, _ in pairs(playerset) do
+		local player = minetest.get_player_by_name(playername)
 		-- Fallback to mid-value 50 for very old worlds
 		local humid = minetest.get_humidity(player:get_pos()) or 50
 		-- Default and classic density value is 0.4, make this happen
@@ -110,7 +126,7 @@ local function update_clouds(players)
 end
 
 local function purge_effects(player)
-	-- reset potentially touched values to their defaults
+	-- only reset potentially touched table values
 	if randomize_clouds then
 		player:set_clouds({
 			density = 0.4,
@@ -131,19 +147,23 @@ weather.enable_on_join = true
 -- returns bool for whether weather is active
 -- returns nil if player is offline or weather is disabled
 weather.get_enabled = function(player)
-	return playerlist[player]
+	if not mod_enabled or not player then
+		return
+	end
+	local playername = player:get_player_name()
+	return playerset[playername] or false
 end
 
 -- override weather generation for individual player
 weather.set_enabled = function(player, enable)
-	if enable == playerlist[player] then
+	local playername = player:get_player_name()
+	enable = enable or nil
+	if not mod_enabled or enable == playerset[playername] then
 		return
 	end
-	playerlist[player] = enable
+	playerset[playername] = enable
 	if enable then
-		if randomize_clouds then
-			update_clouds({player})
-		end
+		update_weather({ [playername] = true })
 	else
 		purge_effects(player)
 	end
@@ -156,15 +176,9 @@ if not mod_enabled then
 	return
 end
 
-if update_clouds then
+if randomize_clouds then
 	local function cyclic_update()
-		local players = {}
-		for player, state in pairs(playerlist) do
-			if state then
-				table.insert(players, player)
-			end
-		end
-		update_clouds(players)
+		update_weather(playerset)
 		minetest.after(CYCLE, cyclic_update)
 	end
 	minetest.after(0, cyclic_update)
@@ -174,22 +188,13 @@ end
 
 minetest.register_on_joinplayer(function(player)
 	if weather.enable_on_join then
-		playerlist[player] = true
-		if randomize_clouds then
-			update_clouds({player})
-		else
-			-- set a default shadow intensity for mgv6 and singlenode
-			player:set_lighting({
-				shadows = {
-					intensity = 0.33
-				}
-			})
-		end
-	else
-		playerlist[player] = false
+		local playername = player:get_player_name()
+		playerset[playername] = true
+		update_weather({ [playername] = true })
 	end
 end)
 
 minetest.register_on_leaveplayer(function(player)
-	playerlist[player] = nil
+	local playername = player:get_player_name()
+	playerset[playername] = nil
 end)
