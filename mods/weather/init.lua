@@ -69,8 +69,8 @@ local os_time_0 = os.time()
 local t_offset = math.random(0, 300000)
 
 -- set a default shadow intensity for mgv6 and singlenode
-local function set_default_lighting(playerset)
-	for playername, _ in pairs(playerset) do
+local function set_default_lighting(players)
+	for playername, _ in pairs(players) do
 		local player = minetest.get_player_by_name(playername)
 		player:set_lighting({
 			shadows = { intensity = 0.33 }
@@ -78,10 +78,10 @@ local function set_default_lighting(playerset)
 	end
 end
 
-local function update_weather(playerset)
+local function update_weather(players)
 	-- skip cloud randomization if worldgen not supported
 	if not randomize_clouds then
-		set_default_lighting(playerset)
+		set_default_lighting(players)
 		return
 	end
 	-- Time in seconds.
@@ -98,7 +98,7 @@ local function update_weather(playerset)
 	local n_speedx = nobj_speedx:get_2d({x = time, y = 0}) -- -1 to 1
 	local n_speedz = nobj_speedz:get_2d({x = time, y = 0}) -- -1 to 1
 
-	for playername, _ in pairs(playerset) do
+	for playername, _ in pairs(players) do
 		local player = minetest.get_player_by_name(playername)
 		-- Fallback to mid-value 50 for very old worlds
 		local humid = minetest.get_humidity(player:get_pos()) or 50
