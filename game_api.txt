@@ -1147,3 +1147,36 @@ the log.
    that log corresponding actions
  * `def`     See [Node definition]
  * `name`    Description of the node in the log message
+
+
+Weather API
+-------
+
+The weather API allows you to enable / disable weather effects programmatically
+and also to modify weather effects before they are applied to the player.
+
+`weather.is_enabled()`
+
+* Returns true if weather mod is enabled or false if disabled
+* Will return false regardless of whether the mod has been disabled via the settings or via `set_enabled`.
+* Will return true even if selected worldgen doesn't support cloud updates. This is the case for v6 and singlenode types.
+
+`weather.set_enabled(enable)`
+
+* `enable` Boolean. Set to `true` to enable weather globally or `false` to disable it.
+* Setting this to `false` is only advised if you want to disable the weather effects __permanently__ and for every player.
+  Re-enabling effects later on will work but might conflict with other mods doing the same.
+  Override `weather.on_update` if you want to disable temporarily or need a higher level of control.
+* If the `enable_weather` setting is set to `false` in minetest.conf then this function will __not__ do nothing.
+
+`weather.on_update(player, overrides)`
+
+* Override this function to manipulate weather effects before they are applied to the player.
+* Calling this function on its own will do nothing. You have to override it in order to modify its behavior.
+* `player` The player entity that is about to be updated
+* `overrides` Defines which changes are about to be made. It is a table consisting of the following values:
+  * `overrides.clouds` A table (or `nil`) with cloud data following the same format as used for `player:set_clouds()`.
+  * `overrides.lighting` A table (or `nil`) with lighting data following the same format as used for `player:set_lighting()`.
+* This function is expected to return a table in the same format as `overrides`.
+  When overriding this function, the return value will be applied to the player instead of the original values.
+  Setting `clouds` or `lighting` to `nil` will __prevent__ that table from getting updated.
