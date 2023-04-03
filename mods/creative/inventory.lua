@@ -150,9 +150,10 @@ function creative.register_tab(name, title, items)
 			creative.update_creative_inventory(player_name, items)
 			local inv = player_inventory[player_name]
 			local pagenum = math.floor(inv.start_i / (4*8) + 1)
-			local pagemax = math.ceil(inv.size / (4*8))
+			local pagemax = math.max(math.ceil(inv.size / (4*8)), 1)
 			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
+				(inv.size == 0 and ("label[3,2;"..esc(S("No items to show.")).."]") or "") ..
 				"label[5.8,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
 				[[
 					image[4.08,4.2;0.8,0.8;creative_trash_icon.png]
