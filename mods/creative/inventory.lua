@@ -150,9 +150,10 @@ function creative.register_tab(name, title, items)
 			creative.update_creative_inventory(player_name, items)
 			local inv = player_inventory[player_name]
 			local pagenum = math.floor(inv.start_i / (4*8) + 1)
-			local pagemax = math.ceil(inv.size / (4*8))
+			local pagemax = math.max(math.ceil(inv.size / (4*8)), 1)
 			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
+				(inv.size == 0 and ("label[3,2;"..esc(S("No items to show.")).."]") or "") ..
 				"label[5.8,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
 				[[
 					image[4.08,4.2;0.8,0.8;creative_trash_icon.png]
@@ -160,7 +161,7 @@ function creative.register_tab(name, title, items)
 					list[detached:trash;main;4.02,4.1;1,1;]
 					listring[]
 					image_button[5,4.05;0.8,0.8;creative_prev_icon.png;creative_prev;]
-					image_button[7.2,4.05;0.8,0.8;creative_next_icon.png;creative_next;]
+					image_button[7.25,4.05;0.8,0.8;creative_next_icon.png;creative_next;]
 					image_button[2.63,4.05;0.8,0.8;creative_search_icon.png;creative_search;]
 					image_button[3.25,4.05;0.8,0.8;creative_clear_icon.png;creative_clear;]
 				]] ..
