@@ -345,8 +345,11 @@ local function on_receive_fields(player, fields)
 		data.items = init_items
 		return true
 
-	elseif fields.key_enter_field == "filter" or fields.search then
-		local new = fields.filter:lower()
+	elseif (fields.key_enter_field == "filter" or fields.search)
+			and fields.filter then
+		local new = fields.filter:sub(1, 128) -- truncate to a sane length
+				:gsub("[%z\1-\8\11-\31\127]", "") -- strip naughty control characters (keeps \t and \n)
+				:lower() -- search is case insensitive
 		if data.filter == new then
 			return
 		end
