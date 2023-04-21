@@ -153,17 +153,17 @@ local function purge_effects()
 		timer = nil
 	end
 	-- reset changed player tables to default values
-    for _, player in ipairs(minetest.get_connected_players()) do
-        if randomize_clouds then
-            player:set_clouds({})
-        end
-        -- NOTE: set_lighting doesn't allow empty table to reset
-        player:set_lighting({
-            shadows = {
-                intensity = 0
-            }
-        })
-    end
+	for _, player in ipairs(minetest.get_connected_players()) do
+		if randomize_clouds then
+		player:set_clouds({})
+	end
+	-- NOTE: set_lighting doesn't allow empty table to reset
+	player:set_lighting({
+		shadows = {
+			intensity = 0
+		}
+	})
+	end
 end
 
 
@@ -179,22 +179,22 @@ end)
 
 local is_enabled = true
 weather.is_enabled = function()
-    return settings_enabled and is_enabled
+	return settings_enabled and is_enabled
 end
 
 weather.set_enabled = function(enable)
-    if enable and not is_enabled then
+	if enable and not is_enabled then
 		-- restart stopped update cycle
-        cyclic_update()
+	cyclic_update()
 	elseif not enable and is_enabled then
 		-- stop update cycle and remove effects
 		purge_effects()
 	end
-    is_enabled = enable
+	is_enabled = enable
 end
 
 weather.on_update = function(player, overrides)
-    return overrides
+	return overrides
 end
 
 -- End API definition
