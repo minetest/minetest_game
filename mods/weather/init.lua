@@ -74,7 +74,7 @@ local function set_default_lighting(players)
 		local lighting = {
 			shadows = { intensity = 0.33 }
 		}
-		local overrides = weather.on_update(player, { lighting })
+		local overrides = weather.on_update(player, { lighting = lighting })
 		if overrides.lighting ~= nil then
 			player:set_lighting(overrides.lighting)
 		end
