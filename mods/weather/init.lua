@@ -116,7 +116,7 @@ local function update_weather(players)
 			-- small scattered clouds at extreme low humidity.
 			density = density,
 			thickness = math.max(math.floor(
-				rangelim(32 * humid / 100, 8, 32) * n_thickness
+					rangelim(32 * humid / 100, 8, 32) * n_thickness
 				), 2),
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		}
@@ -155,14 +155,12 @@ local function purge_effects()
 	-- reset changed player tables to default values
 	for _, player in ipairs(minetest.get_connected_players()) do
 		if randomize_clouds then
-		player:set_clouds({})
-	end
-	-- NOTE: set_lighting doesn't allow empty table to reset
-	player:set_lighting({
-		shadows = {
-			intensity = 0
-		}
-	})
+			player:set_clouds({})
+		end
+		-- NOTE: set_lighting doesn't allow empty table to reset
+		player:set_lighting({
+			shadows = { intensity = 0 }
+		})
 	end
 end
 
@@ -185,7 +183,7 @@ end
 weather.set_enabled = function(enable)
 	if enable and not is_enabled then
 		-- restart stopped update cycle
-	cyclic_update()
+		cyclic_update()
 	elseif not enable and is_enabled then
 		-- stop update cycle and remove effects
 		purge_effects()
