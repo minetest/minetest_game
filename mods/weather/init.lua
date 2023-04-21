@@ -125,7 +125,7 @@ local function update_weather(players)
 			shadows = { intensity = 0.7 * (1 - density) }
 		}
 		-- check for API overrides and then apply
-		local overrides = weather.on_update(player, { clouds, lighting })
+		local overrides = weather.on_update(player, { clouds = clouds, lighting = lighting })
 		if overrides ~= nil and overrides.clouds ~= nil then
 			player:set_clouds(overrides.clouds)
 		end
