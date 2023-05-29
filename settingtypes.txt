@@ -78,3 +78,6 @@ enable_weather (Enable weather) bool true
 
 #    If enabled, non-player actions are logged
 log_non_player_actions (Log non-player action) bool false
+
+#    If true, the dialog when starting Minetest Game without mods won't be shown
+minetest_game.mod_me_dismissed (Minetest Game mod me dialog dismissed) bool false
