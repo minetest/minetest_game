@@ -744,16 +744,23 @@ function default.log_player_action(player, ...)
 	minetest.log("action",  msg)
 end
 
+local nop = function() end
 function default.set_inventory_action_loggers(def, name)
+	local on_move = def.on_metadata_inventory_move or nop
 	def.on_metadata_inventory_move = function(pos, from_list, from_index,
 			to_list, to_index, count, player)
 		default.log_player_action(player, "moves stuff in", name, "at", pos)
+		return on_move(pos, from_list, from_index, to_list, to_index, count, player)
 	end
+	local on_put = def.on_metadata_inventory_put or nop
 	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		default.log_player_action(player, "moves", stack:get_name(), "to", name, "at", pos)
+		return on_put(pos, listname, index, stack, player)
 	end
+	local on_take = def.on_metadata_inventory_take or nop
 	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		default.log_player_action(player, "takes", stack:get_name(), "from", name, "at", pos)
+		return on_take(pos, listname, index, stack, player)
 	end
 end
 

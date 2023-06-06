@@ -1142,8 +1142,9 @@ the log.
 
 `default.set_inventory_action_loggers(def, name)`
 
- * sets the callbacks `on_metadata_inventory_move`,
+ * hooks the callbacks `on_metadata_inventory_move`,
    `on_metadata_inventory_put` and `on_metadata_inventory_take`
    that log corresponding actions
+ * after logging the action, the original callback (if any) is called
  * `def`     See [Node definition]
  * `name`    Description of the node in the log message
