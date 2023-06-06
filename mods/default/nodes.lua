@@ -2549,6 +2549,12 @@ local default_bookshelf_def = {
 		end
 		return 0
 	end,
+	on_metadata_inventory_put = function(pos)
+		update_bookshelf(pos)
+	end,
+	on_metadata_inventory_take = function(pos)
+		update_bookshelf(pos)
+	end,
 	on_blast = function(pos)
 		local drops = {}
 		default.get_inventory_drops(pos, "books", drops)
