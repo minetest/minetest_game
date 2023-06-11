@@ -744,6 +744,17 @@ function default.log_player_action(player, ...)
 	minetest.log("action",  msg)
 end
 
+local function name_and_amount(stk)
+	local c=stk:get_count()
+	if c == 0 then
+		return "empty"
+	elseif c == 1 then
+		return stk:get_name()
+	else
+		return stk:get_name().." "..c
+	end
+end
+
 local nop = function() end
 function default.set_inventory_action_loggers(def, name)
 	local on_move = def.on_metadata_inventory_move or nop
@@ -754,12 +765,12 @@ function default.set_inventory_action_loggers(def, name)
 	end
 	local on_put = def.on_metadata_inventory_put or nop
 	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_player_action(player, "moves", stack:to_string(), "to", name, "at", pos)
+		default.log_player_action(player, "moves", name_and_amount(stack), "to", name, "at", pos)
 		return on_put(pos, listname, index, stack, player)
 	end
 	local on_take = def.on_metadata_inventory_take or nop
 	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_player_action(player, "takes", stack:to_string(), "from", name, "at", pos)
+		default.log_player_action(player, "takes", name_and_amount(stack), "from", name, "at", pos)
 		return on_take(pos, listname, index, stack, player)
 	end
 end
