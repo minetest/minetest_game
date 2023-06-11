@@ -28,7 +28,7 @@ local bones_formspec =
 local share_bones_time = tonumber(minetest.settings:get("share_bones_time")) or 1200
 local share_bones_time_early = tonumber(minetest.settings:get("share_bones_time_early")) or share_bones_time / 4
 
-minetest.register_node("bones:bones", {
+local bones_def = {
 	description = S("Bones"),
 	tiles = {
 		"bones_top.png^[transform2",
@@ -130,7 +130,11 @@ minetest.register_node("bones:bones", {
 	end,
 	on_blast = function(pos)
 	end,
-})
+}
+
+default.set_inventory_action_loggers(bones_def, "bones")
+
+minetest.register_node("bones:bones", bones_def)
 
 local function may_replace(pos, player)
 	local node_name = minetest.get_node(pos).name
