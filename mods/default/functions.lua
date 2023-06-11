@@ -754,12 +754,12 @@ function default.set_inventory_action_loggers(def, name)
 	end
 	local on_put = def.on_metadata_inventory_put or nop
 	def.on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		default.log_player_action(player, "moves", stack:get_name(), "to", name, "at", pos)
+		default.log_player_action(player, "moves", stack:to_string(), "to", name, "at", pos)
 		return on_put(pos, listname, index, stack, player)
 	end
 	local on_take = def.on_metadata_inventory_take or nop
 	def.on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		default.log_player_action(player, "takes", stack:get_name(), "from", name, "at", pos)
+		default.log_player_action(player, "takes", stack:to_string(), "from", name, "at", pos)
 		return on_take(pos, listname, index, stack, player)
 	end
 end
