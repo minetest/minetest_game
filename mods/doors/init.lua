@@ -392,10 +392,11 @@ function doors.register(name, def)
 		end
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
-		if is_doors_upper_node(pos) then
-			minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+		local above = pos:offset(0, 1, 0)
+		if is_doors_upper_node(above) then
+			minetest.remove_node(above)
 		end
-		minetest.check_for_falling({x = pos.x, y = pos.y + 1, z = pos.z})
+		minetest.check_for_falling(above)
 	end
 	def.on_rotate = function(pos, node, user, mode, new_param2)
 		return false
@@ -432,20 +433,20 @@ function doors.register(name, def)
 		def.node_dig_prediction = ""
 	else
 		def.on_blast = function(pos, intensity)
-			if is_doors_upper_node(pos) then
-				minetest.remove_node(pos)
-			end
+			minetest.remove_node(pos)
+			local above = pos:offset(0, 1, 0)
 			-- hidden node doesn't get blasted away.
-			if is_doors_upper_node(pos) then
-				minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+			if is_doors_upper_node(above) then
+				minetest.remove_node(above)
 			end
 			return {name}
 		end
 	end
 
 	def.on_destruct = function(pos)
-		if is_doors_upper_node(pos) then
-			minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+		local above = pos:offset(0, 1, 0)
+		if is_doors_upper_node(above) then
+			minetest.remove_node(above)
 		end
 	end
 
@@ -654,9 +655,7 @@ function doors.register_trapdoor(name, def)
 		def.node_dig_prediction = ""
 	else
 		def.on_blast = function(pos, intensity)
-			if is_doors_upper_node(pos) then
-				minetest.remove_node(pos)
-			end
+			minetest.remove_node(pos)
 			return {name}
 		end
 	end
