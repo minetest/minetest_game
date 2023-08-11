@@ -19,6 +19,10 @@ local function replace_old_owner_information(pos)
 	end
 end
 
+local function is_doors_upper_node(pos)
+	return minetest.get_node(pos).name == "doors:hidden"
+end
+
 -- returns an object to a door object or nil
 function doors.get(pos)
 	local node_name = minetest.get_node(pos).name
@@ -388,8 +392,11 @@ function doors.register(name, def)
 		end
 	end
 	def.after_dig_node = function(pos, node, meta, digger)
-		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
-		minetest.check_for_falling({x = pos.x, y = pos.y + 1, z = pos.z})
+		local above = pos:offset(0, 1, 0)
+		if is_doors_upper_node(above) then
+			minetest.remove_node(above)
+		end
+		minetest.check_for_falling(above)
 	end
 	def.on_rotate = function(pos, node, user, mode, new_param2)
 		return false
@@ -427,14 +434,20 @@ function doors.register(name, def)
 	else
 		def.on_blast = function(pos, intensity)
 			minetest.remove_node(pos)
+			local above = pos:offset(0, 1, 0)
 			-- hidden node doesn't get blasted away.
-			minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+			if is_doors_upper_node(above) then
+				minetest.remove_node(above)
+			end
 			return {name}
 		end
 	end
 
 	def.on_destruct = function(pos)
-		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+		local above = pos:offset(0, 1, 0)
+		if is_doors_upper_node(above) then
+			minetest.remove_node(above)
+		end
 	end
 
 	def.drawtype = "mesh"
