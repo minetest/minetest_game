@@ -51,7 +51,7 @@ function default.chest.chest_lid_close(pn)
 			-- the chest has already been replaced, don't try to replace what's there.
 			return
 		end
-		minetest.swap_node( pos, { name = swap, param2 = node.param2 })
+		minetest.swap_node(pos, {name = swap, param2 = node.param2})
 		minetest.sound_play(sound, {gain = 0.3, pos = pos,
 			max_hear_distance = 10}, true)
 	end)
