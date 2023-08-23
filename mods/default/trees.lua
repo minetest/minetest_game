@@ -539,7 +539,6 @@ function default.register_sapling_growth(name, def)
 end
 
 function default.grow_sapling(pos)
-	local mg_name = minetest.get_mapgen_setting("mg_name")
 	local node = minetest.get_node(pos)
 	local sapling_def = default.sapling_growth_defs[node.name]
 
@@ -553,8 +552,7 @@ function default.grow_sapling(pos)
 		return
 	end
 
-	minetest.log("action", "Growing sapling " .. 
-		node.name .. " at " .. minetest.pos_to_string(pos))
+	minetest.log("action", "Growing sapling " .. node.name .. " at " .. minetest.pos_to_string(pos))
 	local grow_callback = sapling_def.grow_callback
 	if not grow_callback then
 		minetest.log("warning", "Unknown grow callback for sapling " .. node.name)
