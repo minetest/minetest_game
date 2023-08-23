@@ -26,6 +26,10 @@ function default.can_grow(pos)
 	return true
 end
 
+function default.on_grow_failed(pos)
+	minetest.get_node_timer(pos):start(300)
+end
+
 
 -- 'is snow nearby' function
 
@@ -36,24 +40,32 @@ end
 
 -- Grow sapling
 
+default.sapling_defs = {}
+
+function default.register_sapling(name, def)
+	default.sapling_defs[name] = def
+end
+
 function default.grow_sapling(pos)
-	if not default.can_grow(pos) then
-		-- try again 5 min later
-		minetest.get_node_timer(pos):start(300)
+	local mg_name = minetest.get_mapgen_setting("mg_name")
+	local node = minetest.get_node(pos)
+	local sapling_def = default.sapling_defs[node.name]
+
+	if not sapling_def then
+		minetest.log("warning", "default.grow_sapling called on undefined sapling .. " .. node.name)
 		return
 	end
 
-	local mg_name = minetest.get_mapgen_setting("mg_name")
-	local node = minetest.get_node(pos)
-	if node.name == "default:sapling" then
-		minetest.log("action", "A sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		if mg_name == "v6" then
-			default.grow_tree(pos, random(1, 4) == 1)
-		else
-			default.grow_new_apple_tree(pos)
-		end
-	elseif node.name == "default:junglesapling" then
+	if not sapling_def.can_grow(pos) then
+		sapling_def.on_grow_failed(pos)
+		return
+	end
+
+	minetest.log("action", "Calling grow callback for " .. 
+		node.name .. " at " .. minetest.pos_to_string(pos))
+	sapling_def.grow_callback(pos)
+
+	if node.name == "default:junglesapling" then
 		minetest.log("action", "A jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		if mg_name == "v6" then
@@ -101,6 +113,25 @@ function default.grow_sapling(pos)
 			minetest.pos_to_string(pos))
 		default.grow_new_emergent_jungle_tree(pos)
 	end
+end
+
+if minetest.get_mapgen_setting("mg_name") == "v6" then
+	-- Tree sapling
+	default.register_sapling("default:sapling", {
+		can_grow = default.can_grow,
+		on_grow_failed = default.on_grow_failed,
+		grow_callback = function(pos)
+			default.grow_tree(pos, random(1, 4) == 1)
+		end
+	})
+else
+	default.register_sapling("default:sapling", {
+		can_grow = default.can_grow,
+		on_grow_failed = default.on_grow_failed,
+		grow_callback = function(pos)
+			default.grow_new_apple_tree(pos)
+		end
+	})
 end
 
 minetest.register_lbm({
