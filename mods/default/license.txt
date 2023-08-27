@@ -19,7 +19,7 @@ Licenses of media (textures, models and sounds)
 -----------------------------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-Copyright (C) 2010-2018:
+Copyright (C) 2010-2023:
 
   celeron55, Perttu Ahola <celeron55@gmail.com>
   Cisoun
@@ -52,6 +52,7 @@ Copyright (C) 2010-2018:
   random-geek
   Extex101
   An0n3m0us
+  Lopano
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.
