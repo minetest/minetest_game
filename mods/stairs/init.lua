@@ -63,7 +63,7 @@ local function warn_if_exists(nodename)
 	end
 end
 
--- get node settings to use for stairs
+-- Get node settings to use for stairs
 local function get_node_vars(nodename)
 
 	local def = minetest.registered_nodes[nodename]
@@ -75,21 +75,12 @@ local function get_node_vars(nodename)
 	return nil, nil, nil
 end
 
--- Register stair
--- Node will be called stairs:stair_<subname>
-
-function stairs.register_stair(subname, recipeitem, groups, images, description,
-		sounds, worldaligntex)
-	local light_source, texture_alpha, sunlight = get_node_vars(recipeitem)
-
-	-- Set backface culling and world-aligned textures
+-- Set backface culling and world-aligned textures
+local function set_textures(images, worldaligntex)
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
-			stair_images[i] = {
-				name = image,
-				backface_culling = true,
-			}
+			stair_images[i] = {name = image, backface_culling = true}
 			if worldaligntex then
 				stair_images[i].align_style = "world"
 			end
@@ -103,6 +94,16 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			end
 		end
 	end
+	return stair_images
+end
+
+-- Register stair
+-- Node will be called stairs:stair_<subname>
+
+function stairs.register_stair(subname, recipeitem, groups, images, description,
+		sounds, worldaligntex)
+	local light_source, texture_alpha, sunlight = get_node_vars(recipeitem)
+	local stair_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
 	warn_if_exists("stairs:stair_" .. subname)
@@ -185,24 +186,7 @@ end
 function stairs.register_slab(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
 	local light_source, texture_alpha, sunlight = get_node_vars(recipeitem)
-
-	-- Set world-aligned textures
-	local slab_images = {}
-	for i, image in ipairs(images) do
-		if type(image) == "string" then
-			slab_images[i] = {
-				name = image,
-			}
-			if worldaligntex then
-				slab_images[i].align_style = "world"
-			end
-		else
-			slab_images[i] = table.copy(image)
-			if worldaligntex and image.align_style == nil then
-				slab_images[i].align_style = "world"
-			end
-		end
-	end
+	local slab_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.slab = 1
 	warn_if_exists("stairs:slab_" .. subname)
@@ -325,28 +309,7 @@ end
 function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
 	local light_source, texture_alpha, sunlight = get_node_vars(recipeitem)
-
-	-- Set backface culling and world-aligned textures
-	local stair_images = {}
-	for i, image in ipairs(images) do
-		if type(image) == "string" then
-			stair_images[i] = {
-				name = image,
-				backface_culling = true,
-			}
-			if worldaligntex then
-				stair_images[i].align_style = "world"
-			end
-		else
-			stair_images[i] = table.copy(image)
-			if stair_images[i].backface_culling == nil then
-				stair_images[i].backface_culling = true
-			end
-			if worldaligntex and stair_images[i].align_style == nil then
-				stair_images[i].align_style = "world"
-			end
-		end
-	end
+	local stair_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
 	if full_description then
@@ -417,28 +380,7 @@ end
 function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
 	local light_source, texture_alpha, sunlight = get_node_vars(recipeitem)
-
-	-- Set backface culling and world-aligned textures
-	local stair_images = {}
-	for i, image in ipairs(images) do
-		if type(image) == "string" then
-			stair_images[i] = {
-				name = image,
-				backface_culling = true,
-			}
-			if worldaligntex then
-				stair_images[i].align_style = "world"
-			end
-		else
-			stair_images[i] = table.copy(image)
-			if stair_images[i].backface_culling == nil then
-				stair_images[i].backface_culling = true
-			end
-			if worldaligntex and stair_images[i].align_style == nil then
-				stair_images[i].align_style = "world"
-			end
-		end
-	end
+	local stair_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
 	if full_description then
