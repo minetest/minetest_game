@@ -79,19 +79,12 @@ end
 local function set_textures(images, worldaligntex)
 	local stair_images = {}
 	for i, image in ipairs(images) do
-		if type(image) == "string" then
-			stair_images[i] = {name = image, backface_culling = true}
-			if worldaligntex then
-				stair_images[i].align_style = "world"
-			end
-		else
-			stair_images[i] = table.copy(image)
-			if stair_images[i].backface_culling == nil then
-				stair_images[i].backface_culling = true
-			end
-			if worldaligntex and stair_images[i].align_style == nil then
-				stair_images[i].align_style = "world"
-			end
+		stair_images[i] = type(image) == "string" and {name = image} or table.copy(image)
+		if stair_images[i].backface_culling == nil then
+			stair_images[i].backface_culling = true
+		end
+		if worldaligntex and stair_images[i].align_style == nil then
+			stair_images[i].align_style = "world"
 		end
 	end
 	return stair_images
