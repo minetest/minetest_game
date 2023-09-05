@@ -63,18 +63,6 @@ local function warn_if_exists(nodename)
 	end
 end
 
--- Get node settings to use for stairs
-local function get_node_vars(nodename)
-
-	local def = minetest.registered_nodes[nodename]
-
-	if def then
-		return def.light_source, def.use_texture_alpha, def.sunlight_propagates, def.sounds
-	end
-
-	return nil, nil, nil, nil
-end
-
 -- Set backface culling and world-aligned textures
 local function set_textures(images, worldaligntex)
 	local stair_images = {}
@@ -95,7 +83,7 @@ end
 
 function stairs.register_stair(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
-	local light, alpha, sunlight, node_sounds = get_node_vars(recipeitem)
+	local def = minetest.registered_nodes[recipeitem] or {}
 	local stair_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
@@ -104,14 +92,14 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		use_texture_alpha = alpha,
-		sunlight_propagates = sunlight,
-		light_source = light,
+		use_texture_alpha = def.use_texture_alpha,
+		sunlight_propagates = def.sunlight_propagates,
+		light_source = def.light_source,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = new_groups,
-		sounds = sounds or node_sounds,
+		sounds = sounds or def.sounds,
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -178,7 +166,7 @@ end
 
 function stairs.register_slab(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
-	local light, alpha, sunlight, node_sounds = get_node_vars(recipeitem)
+	local def = minetest.registered_nodes[recipeitem] or {}
 	local slab_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.slab = 1
@@ -187,14 +175,14 @@ function stairs.register_slab(subname, recipeitem, groups, images, description,
 		description = description,
 		drawtype = "nodebox",
 		tiles = slab_images,
-		use_texture_alpha = alpha,
-		sunlight_propagates = sunlight,
-		light_source = light,
+		use_texture_alpha = def.use_texture_alpha,
+		sunlight_propagates = def.sunlight_propagates,
+		light_source = def.light_source,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = new_groups,
-		sounds = sounds or node_sounds,
+		sounds = sounds or def.sounds,
 		node_box = {
 			type = "fixed",
 			fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
@@ -301,7 +289,7 @@ end
 
 function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
-	local light, alpha, sunlight, node_sounds = get_node_vars(recipeitem)
+	local def = minetest.registered_nodes[recipeitem] or {}
 	local stair_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
@@ -315,14 +303,14 @@ function stairs.register_stair_inner(subname, recipeitem, groups, images,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		use_texture_alpha = alpha,
-		sunlight_propagates = sunlight,
-		light_source = light,
+		use_texture_alpha = def.use_texture_alpha,
+		sunlight_propagates = def.sunlight_propagates,
+		light_source = def.light_source,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = new_groups,
-		sounds = sounds or node_sounds,
+		sounds = sounds or def.sounds,
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -372,7 +360,7 @@ end
 
 function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description, sounds, worldaligntex, full_description)
-	local light, alpha, sunlight, node_sounds = get_node_vars(recipeitem)
+	local def = minetest.registered_nodes[recipeitem] or {}
 	local stair_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.stair = 1
@@ -386,14 +374,14 @@ function stairs.register_stair_outer(subname, recipeitem, groups, images,
 		description = description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		use_texture_alpha = alpha,
-		sunlight_propagates = sunlight,
-		light_source = light,
+		use_texture_alpha = def.use_texture_alpha,
+		sunlight_propagates = def.sunlight_propagates,
+		light_source = def.light_source,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = new_groups,
-		sounds = sounds or node_sounds,
+		sounds = sounds or def.sounds,
 		node_box = {
 			type = "fixed",
 			fixed = {
