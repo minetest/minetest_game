@@ -178,7 +178,7 @@ end
 
 function stairs.register_slab(subname, recipeitem, groups, images, description,
 		sounds, worldaligntex)
-	local light, alpha, sunlight, mode_sounds = get_node_vars(recipeitem)
+	local light, alpha, sunlight, node_sounds = get_node_vars(recipeitem)
 	local slab_images = set_textures(images, worldaligntex)
 	local new_groups = table.copy(groups)
 	new_groups.slab = 1
