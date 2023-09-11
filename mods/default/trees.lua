@@ -535,7 +535,11 @@ end
 default.sapling_growth_defs = {}
 
 function default.register_sapling_growth(name, def)
-	default.sapling_growth_defs[name] = def
+	default.sapling_growth_defs[name] = {
+		can_grow = def.can_grow or default.can_grow,
+		on_grow_failed = def.on_grow_failed or default.on_grow_failed,
+		grow = assert(def.grow)
+	}
 end
 
 function default.grow_sapling(pos)
@@ -553,115 +557,44 @@ function default.grow_sapling(pos)
 	end
 
 	minetest.log("action", "Growing sapling " .. node.name .. " at " .. minetest.pos_to_string(pos))
-	local grow_callback = sapling_def.grow_callback
-	if not grow_callback then
-		minetest.log("warning", "Unknown grow callback for sapling " .. node.name)
-		return
-	end
+	sapling_def.grow(pos)
+end
 
-	sapling_def.grow_callback(pos)
+local function register_sapling_growth(nodename, grow)
+	default.register_sapling_growth("default:" .. nodename, {grow = grow})
 end
 
 if minetest.get_mapgen_setting("mg_name") == "v6" then
-	-- Tree sapling
-	default.register_sapling_growth("default:sapling", {
-		can_grow = default.can_grow,
-		on_grow_failed = default.on_grow_failed,
-		grow_callback = function(pos)
-			default.grow_tree(pos, random(1, 4) == 1)
-		end
-	})
-
-	-- Jungle tree sapling
-	default.register_sapling_growth("default:junglesapling", {
-		can_grow = default.can_grow,
-		on_grow_failed = default.on_grow_failed,
-		grow_callback = default.grow_jungle_tree
-	})
-
-	-- Pine sapling
-	default.register_sapling_growth("default:pine_sapling", {
-		can_grow = default.can_grow,
-		on_grow_failed = default.on_grow_failed,
-		grow_callback = function(pos)
-			local snow = is_snow_nearby(pos)
-			default.grow_pine_tree(pos, snow)
-		end
-	})
+	register_sapling_growth("sapling", function(pos)
+		default.grow_tree(pos, random(1, 4) == 1)
+	end)
+	register_sapling_growth("junglesapling", default.grow_jungle_tree)
+	register_sapling_growth("pine_sapling", function(pos)
+		local snow = is_snow_nearby(pos)
+		default.grow_pine_tree(pos, snow)
+	end)
 else
-	-- Tree sapling
-	default.register_sapling_growth("default:sapling", {
-		can_grow = default.can_grow,
-		on_grow_failed = default.on_grow_failed,
-		grow_callback = function(pos)
-			default.grow_new_apple_tree(pos)
+	register_sapling_growth("sapling", default.grow_new_apple_tree)
+	register_sapling_growth("junglesapling", default.grow_new_jungle_tree)
+	register_sapling_growth("pine_sapling", function(pos)
+		local snow = is_snow_nearby(pos)
+		if snow then
+			default.grow_new_snowy_pine_tree(pos)
+		else
+			default.grow_new_pine_tree(pos)
 		end
-	})
-
-	-- Jungle tree sapling
-	default.register_sapling_growth("default:junglesapling", {
-		can_grow = default.can_grow,
-		on_grow_failed = default.on_grow_failed,
-		grow_callback = default.grow_new_jungle_tree
-	})
-
-	-- Pine sapling
-	default.register_sapling_growth("default:pine_sapling", {
-		can_grow = default.can_grow,
-		on_grow_failed = default.on_grow_failed,
-		grow_callback = function(pos)
-			local snow = is_snow_nearby(pos)
-			if snow then
-				default.grow_new_snowy_pine_tree(pos)
-			else
-				default.grow_new_pine_tree(pos)
-			end
-		end
-	})
+	end)
 end
 
-default.register_sapling_growth("default:acacia_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_new_acacia_tree
-})
+register_sapling_growth("acacia_sapling", default.grow_new_acacia_tree)
+register_sapling_growth("aspen_sapling", default.grow_new_aspen_tree)
+register_sapling_growth("bush_sapling", default.grow_bush)
+register_sapling_growth("blueberry_bush_sapling", default.grow_blueberry_bush)
+register_sapling_growth("acacia_bush_sapling", default.grow_acacia_bush)
+register_sapling_growth("pine_bush_sapling", default.grow_pine_bush)
+register_sapling_growth("emergent_jungle_sapling", default.grow_new_emergent_jungle_tree)
 
-default.register_sapling_growth("default:aspen_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_new_aspen_tree
-})
-
-default.register_sapling_growth("default:bush_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_bush
-})
-
-default.register_sapling_growth("default:blueberry_bush_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_blueberry_bush
-})
-
-default.register_sapling_growth("default:acacia_bush_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_acacia_bush
-})
-
-default.register_sapling_growth("default:pine_bush_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_pine_bush
-})
-
-default.register_sapling_growth("default:emergent_jungle_sapling", {
-	can_grow = default.can_grow,
-	on_grow_failed = default.on_grow_failed,
-	grow_callback = default.grow_new_emergent_jungle_tree
-})
-
+-- TODO: Is it correct for this to omit some saplings?
 minetest.register_lbm({
 	name = "default:convert_saplings_to_node_timer",
 	nodenames = {"default:sapling", "default:junglesapling",

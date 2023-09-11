@@ -1041,9 +1041,7 @@ Trees
 		{
 			can_grow = default.can_grow, -- Function called to determine whether the sapling can grow, should return a boolean 
 			on_grow_failed = default.on_grow_failed, -- Function called when the growth fails
-			grow_callback = function(pos) -- Function called when the growth has success. Conventionally, this should replace the sapling with a tree
-				default.grow_tree(pos, random(1, 4) == 1)
-			end
+			grow = function(pos) -- Function called when the growth has success. This should replace the sapling with a tree.
 		}
 	)
  * default.grow_sapling(pos)
