@@ -547,7 +547,7 @@ function default.grow_sapling(pos)
 	local sapling_def = default.sapling_growth_defs[node.name]
 
 	if not sapling_def then
-		minetest.log("warning", "default.grow_sapling called on undefined sapling .. " .. node.name)
+		minetest.log("warning", "default.grow_sapling called on undefined sapling " .. node.name)
 		return
 	end
 
