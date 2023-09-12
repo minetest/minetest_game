@@ -1028,6 +1028,27 @@ Trees
  * `default.grow_blueberry_bush(pos)`
   * Grows a blueberry bush at pos
 
+ * `default.on_grow_failed(pos)`
+  * Reset the node timer to 300 seconds, used as default callback when the growth of a sapling fails
+
+ * `default.sapling_growth_defs`
+  * Table that contains all the definitions for the growable saplings, see `default.register_sapling_growth`
+
+ * `default.register_sapling_growth(name, def)`
+  * Register a new sapling growth configuration. Useful to add custom sapling and trees to the game in a compact way.
+	default.register_sapling_growth(
+		"default:sapling", -- Name of the sapling
+		{
+			can_grow = default.can_grow, -- Function called to determine whether the sapling can grow, should return a boolean 
+			on_grow_failed = default.on_grow_failed, -- Function called when the growth fails
+			grow = function(pos) -- Function called when the growth has success. This should replace the sapling with a tree.
+		}
+	)
+
+ * `default.grow_sapling(pos)`
+  * Attempt to grow a sapling at the given position. Useful as on_timer callback.
+
+
 
 Carts
 -----

@@ -26,6 +26,10 @@ function default.can_grow(pos)
 	return true
 end
 
+function default.on_grow_failed(pos)
+	minetest.get_node_timer(pos):start(300)
+end
+
 
 -- 'is snow nearby' function
 
@@ -34,84 +38,6 @@ local function is_snow_nearby(pos)
 end
 
 
--- Grow sapling
-
-function default.grow_sapling(pos)
-	if not default.can_grow(pos) then
-		-- try again 5 min later
-		minetest.get_node_timer(pos):start(300)
-		return
-	end
-
-	local mg_name = minetest.get_mapgen_setting("mg_name")
-	local node = minetest.get_node(pos)
-	if node.name == "default:sapling" then
-		minetest.log("action", "A sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		if mg_name == "v6" then
-			default.grow_tree(pos, random(1, 4) == 1)
-		else
-			default.grow_new_apple_tree(pos)
-		end
-	elseif node.name == "default:junglesapling" then
-		minetest.log("action", "A jungle sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		if mg_name == "v6" then
-			default.grow_jungle_tree(pos)
-		else
-			default.grow_new_jungle_tree(pos)
-		end
-	elseif node.name == "default:pine_sapling" then
-		minetest.log("action", "A pine sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		local snow = is_snow_nearby(pos)
-		if mg_name == "v6" then
-			default.grow_pine_tree(pos, snow)
-		elseif snow then
-			default.grow_new_snowy_pine_tree(pos)
-		else
-			default.grow_new_pine_tree(pos)
-		end
-	elseif node.name == "default:acacia_sapling" then
-		minetest.log("action", "An acacia sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		default.grow_new_acacia_tree(pos)
-	elseif node.name == "default:aspen_sapling" then
-		minetest.log("action", "An aspen sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		default.grow_new_aspen_tree(pos)
-	elseif node.name == "default:bush_sapling" then
-		minetest.log("action", "A bush sapling grows into a bush at "..
-			minetest.pos_to_string(pos))
-		default.grow_bush(pos)
-	elseif node.name == "default:blueberry_bush_sapling" then
-		minetest.log("action", "A blueberry bush sapling grows into a bush at "..
-			minetest.pos_to_string(pos))
-		default.grow_blueberry_bush(pos)
-	elseif node.name == "default:acacia_bush_sapling" then
-		minetest.log("action", "An acacia bush sapling grows into a bush at "..
-			minetest.pos_to_string(pos))
-		default.grow_acacia_bush(pos)
-	elseif node.name == "default:pine_bush_sapling" then
-		minetest.log("action", "A pine bush sapling grows into a bush at "..
-			minetest.pos_to_string(pos))
-		default.grow_pine_bush(pos)
-	elseif node.name == "default:emergent_jungle_sapling" then
-		minetest.log("action", "An emergent jungle sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
-		default.grow_new_emergent_jungle_tree(pos)
-	end
-end
-
-minetest.register_lbm({
-	name = "default:convert_saplings_to_node_timer",
-	nodenames = {"default:sapling", "default:junglesapling",
-			"default:pine_sapling", "default:acacia_sapling",
-			"default:aspen_sapling"},
-	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(300, 1500))
-	end
-})
 
 --
 -- Tree generation
@@ -208,7 +134,6 @@ function default.grow_tree(pos, is_apple_tree, bad)
 	vm:write_to_map()
 	vm:update_map()
 end
-
 
 -- Jungle tree
 
@@ -604,3 +529,78 @@ function default.sapling_on_place(itemstack, placer, pointed_thing,
 
 	return itemstack
 end
+
+-- Grow sapling
+
+default.sapling_growth_defs = {}
+
+function default.register_sapling_growth(name, def)
+	default.sapling_growth_defs[name] = {
+		can_grow = def.can_grow or default.can_grow,
+		on_grow_failed = def.on_grow_failed or default.on_grow_failed,
+		grow = assert(def.grow)
+	}
+end
+
+function default.grow_sapling(pos)
+	local node = minetest.get_node(pos)
+	local sapling_def = default.sapling_growth_defs[node.name]
+
+	if not sapling_def then
+		minetest.log("warning", "default.grow_sapling called on undefined sapling " .. node.name)
+		return
+	end
+
+	if not sapling_def.can_grow(pos) then
+		sapling_def.on_grow_failed(pos)
+		return
+	end
+
+	minetest.log("action", "Growing sapling " .. node.name .. " at " .. minetest.pos_to_string(pos))
+	sapling_def.grow(pos)
+end
+
+local function register_sapling_growth(nodename, grow)
+	default.register_sapling_growth("default:" .. nodename, {grow = grow})
+end
+
+if minetest.get_mapgen_setting("mg_name") == "v6" then
+	register_sapling_growth("sapling", function(pos)
+		default.grow_tree(pos, random(1, 4) == 1)
+	end)
+	register_sapling_growth("junglesapling", default.grow_jungle_tree)
+	register_sapling_growth("pine_sapling", function(pos)
+		local snow = is_snow_nearby(pos)
+		default.grow_pine_tree(pos, snow)
+	end)
+else
+	register_sapling_growth("sapling", default.grow_new_apple_tree)
+	register_sapling_growth("junglesapling", default.grow_new_jungle_tree)
+	register_sapling_growth("pine_sapling", function(pos)
+		local snow = is_snow_nearby(pos)
+		if snow then
+			default.grow_new_snowy_pine_tree(pos)
+		else
+			default.grow_new_pine_tree(pos)
+		end
+	end)
+end
+
+register_sapling_growth("acacia_sapling", default.grow_new_acacia_tree)
+register_sapling_growth("aspen_sapling", default.grow_new_aspen_tree)
+register_sapling_growth("bush_sapling", default.grow_bush)
+register_sapling_growth("blueberry_bush_sapling", default.grow_blueberry_bush)
+register_sapling_growth("acacia_bush_sapling", default.grow_acacia_bush)
+register_sapling_growth("pine_bush_sapling", default.grow_pine_bush)
+register_sapling_growth("emergent_jungle_sapling", default.grow_new_emergent_jungle_tree)
+
+-- Backwards compatibility for saplings that used to use ABMs; does not need to include newer saplings.
+minetest.register_lbm({
+	name = "default:convert_saplings_to_node_timer",
+	nodenames = {"default:sapling", "default:junglesapling",
+			"default:pine_sapling", "default:acacia_sapling",
+			"default:aspen_sapling"},
+	action = function(pos)
+		minetest.get_node_timer(pos):start(math.random(300, 1500))
+	end
+})
