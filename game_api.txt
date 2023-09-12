@@ -1044,7 +1044,8 @@ Trees
 			grow = function(pos) -- Function called when the growth has success. This should replace the sapling with a tree.
 		}
 	)
- * default.grow_sapling(pos)
+
+ * `default.grow_sapling(pos)`
   * Attempt to grow a sapling at the given position. Useful as on_timer callback.
 
 
