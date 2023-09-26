@@ -181,6 +181,26 @@ function beds.skip_night()
 	minetest.set_timeofday(0.23)
 end
 
+local update_scheduled = false
+local function schedule_update()
+	if update_scheduled then
+		-- there already is an update scheduled; don't schedule more to prevent races
+		return
+	end
+	update_scheduled = true
+	minetest.after(2, function()
+		update_scheduled = false
+		if not is_sp then
+			update_formspecs(is_night_skip_enabled())
+		end
+		if is_night_skip_enabled() then
+			-- skip the night and let all players stand up
+			beds.skip_night()
+			beds.kick_players()
+		end
+	end)
+end
+
 function beds.on_rightclick(pos, player)
 	local name = player:get_player_name()
 	local ppos = player:get_pos()
@@ -206,17 +226,8 @@ function beds.on_rightclick(pos, player)
 		update_formspecs(false)
 	end
 
-	-- skip the night and let all players stand up
 	if check_in_beds() then
-		minetest.after(2, function()
-			if not is_sp then
-				update_formspecs(is_night_skip_enabled())
-			end
-			if is_night_skip_enabled() then
-				beds.skip_night()
-				beds.kick_players()
-			end
-		end)
+		schedule_update()
 	end
 end
 
@@ -249,13 +260,7 @@ minetest.register_on_leaveplayer(function(player)
 	lay_down(player, nil, nil, false, true)
 	beds.player[name] = nil
 	if check_in_beds() then
-		minetest.after(2, function()
-			update_formspecs(is_night_skip_enabled())
-			if is_night_skip_enabled() then
-				beds.skip_night()
-				beds.kick_players()
-			end
-		end)
+		schedule_update()
 	end
 end)
 
