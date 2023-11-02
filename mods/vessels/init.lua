@@ -87,6 +87,9 @@ local vessels_shelf_def = {
 	on_metadata_inventory_take = function(pos)
 		update_vessels_shelf(pos)
 	end,
+	on_metadata_inventory_move = function(pos)
+		update_vessels_shelf(pos)
+	end,
 }
 default.set_inventory_action_loggers(vessels_shelf_def, "vessels shelf")
 minetest.register_node("vessels:shelf", vessels_shelf_def)
