@@ -157,10 +157,6 @@ screwdriver.handler = function(itemstack, user, pointed_thing, mode, uses)
 		minetest.check_for_falling(pos)
 	end
 
-	if not minetest.is_creative_enabled(player_name) then
-		itemstack:add_wear_by_uses(uses or 200)
-	end
-
 	return itemstack
 end
 
