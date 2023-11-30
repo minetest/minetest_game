@@ -1,6 +1,6 @@
 # textdomain: farming
-Hoe=
-Seed=
+Hoe=Cangkul
+Seed=Benih
 Wooden Hoe=Cangkul Kayu
 Stone Hoe=Cangkul Batu
 Steel Hoe=Cangkul Keluli
@@ -16,8 +16,8 @@ Cotton=Kapas
 String=Benang
 Soil=Tanih
 Wet Soil=Tanih Lembap
-Savanna Soil=
-Wet Savanna Soil=
+Savanna Soil=Tanih Savana
+Wet Savanna Soil=Tanih Savana Lembap
 Desert Sand Soil=Tanih Pasir Gurun
 Wet Desert Sand Soil=Tanih Pasir Gurun Lembap
 Straw=Jerami
@@ -25,7 +25,7 @@ Straw Stair=Tangga Jerami
 Inner Straw Stair=Tangga Jerami Dalaman
 Outer Straw Stair=Tangga Jerami Luaran
 Straw Slab=Papak Jerami
-Wild Cotton=
+Wild Cotton=Kapuk
 
 
 ##### not used anymore #####
