@@ -58,7 +58,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 		minetest.register_craftitem(itemname, {
 			description = name,
 			inventory_image = inventory_image,
-			stack_max = 1,
+			stack_max = 99,
 			liquids_pointable = true,
 			groups = groups,
 
