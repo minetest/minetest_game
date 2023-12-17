@@ -1,12 +1,26 @@
 # Minetest Game
 
-The default game bundled in the Minetest engine.
+[![ContentDB](https://content.minetest.net/packages/Minetest/minetest_game/shields/title/)](https://content.minetest.net/packages/Minetest/minetest_game/)
 
-For further information, check [this forum topic](https://forum.minetest.net/viewtopic.php?f=15&t=9724).
+Minetest Game (abbreviated MTG) is a simple and peaceful sandbox game, with no
+real goals or built-in enemy mobs.
 
-Also see the [Minetest Wiki](https://wiki.minetest.net/Subgames/Minetest_Game) for more information.
+While it provides a basic gameplay experience out of the box, it is best played
+with mods.
+
+Minetest Game is currently in maintenance-only mode, meaning it will not see new
+gameplay features or anything else that breaks compatibility (See
+[#2710](https://github.com/minetest/minetest_game/issues/2710)).
 
 ## Installation
+
+### ContentDB
+
+* Content > Browse Online Content
+* Search for Minetest Game
+* Click Install
+
+### Manually
 
 - Unzip the archive, rename the folder to `minetest_game` and
 place it in .. `minetest/games/`
@@ -25,7 +39,7 @@ The Minetest Game GitHub `master` `HEAD` is generally compatible with the GitHub
 Additionally, when the Minetest engine is tagged to be a certain version (e.g.
 `0.4.10`), Minetest Game is tagged with the version, too.
 
-When stable releases are made, Minetest Game and the Minetest engine is packaged 
+When stable releases are made, Minetest Game and the Minetest engine is packaged
 and made available at [www.minetest.net](https://www.minetest.net/downloads/).
 
 ## Licensing
