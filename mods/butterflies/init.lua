@@ -75,22 +75,22 @@ for i in ipairs (butter_list) do
 		on_place = function(itemstack, placer, pointed_thing)
 			local player_name = placer:get_player_name()
 			local pos = pointed_thing.above
-			local node = minetest.get_node(pointed_thing.under)
+			local node_under = minetest.get_node(pointed_thing.under)
+			local node_defs = minetest.registered_nodes[node_under.name]
 
 			if not minetest.is_protected(pos, player_name) and
-			not minetest.is_protected(pointed_thing.under, player_name) and
-			minetest.get_node(pos).name == "air" then
-				if minetest.registered_nodes[node.name] and minetest.registered_nodes[node.name].on_rightclick then
-					if placer and placer:get_player_control().sneak then
+			not minetest.is_protected(pointed_thing.under, player_name) then
+				if node_defs and node_defs.on_rightclick then
+					if placer and placer:get_player_control().sneak and minetest.get_node(pos).name == "air" then
 						minetest.set_node(pos, {name = "butterflies:hidden_butterfly_"..name})
 						minetest.get_node_timer(pos):start(1)
 						itemstack:take_item()
 					else
-						return minetest.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack)
+						return node_defs.on_rightclick(pointed_thing, node, placer, itemstack)
 					end
 				end
-				return itemstack
 			end
+			return itemstack	
 		end,
 		on_timer = function(pos, elapsed)
 			if minetest.get_node_light(pos) >= 11 then
