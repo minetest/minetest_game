@@ -89,7 +89,8 @@ for i in ipairs (butter_list) do
 						return minetest.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack)
 					end
 				end
-			return itemstack
+				return itemstack
+			end
 		end,
 		on_timer = function(pos, elapsed)
 			if minetest.get_node_light(pos) >= 11 then
