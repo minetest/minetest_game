@@ -178,7 +178,9 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- add the node and remove 1 item from the itemstack
-	default.log_player_action(placer, "places node", plantname, "at", pt.above)
+	if placer then
+		default.log_player_action(placer, "places node", plantname, "at", pt.above)
+	end
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
 	if not minetest.is_creative_enabled(player_name) then
