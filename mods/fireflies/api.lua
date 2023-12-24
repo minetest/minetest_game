@@ -4,7 +4,7 @@ fireflies = {}
 -- If necessary, add other functions related to fireflies here
 
 --------------------------------------------------------------
--- Global function to record the decoration of fireflies. 
+-- Global function to record the decoration of fireflies.
 -- Perhaps other parameters can be added to improve decoration registration control.
 function fireflies.register_decoration(biomes, place_on)
   local mg_name = minetest.get_mapgen_setting("mg_name")
@@ -47,7 +47,7 @@ function fireflies.register_decoration(biomes, place_on)
 			y_min = -1,
 			decoration = "fireflies:hidden_firefly",
 		})
-    
+
 		minetest.register_decoration({
 			name = "fireflies:firefly_high",
 			deco_type = "simple",
