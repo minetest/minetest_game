@@ -3,6 +3,8 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("fireflies")
 
+local modpath = minetest.get_modpath("fireflies")
+dofile(modpath .. "/api.lua")
 
 minetest.register_node("fireflies:firefly", {
 	description = S("Firefly"),
@@ -184,83 +186,23 @@ minetest.register_craft( {
 
 
 -- register fireflies as decorations
+local place_on = {
+	"default:dirt_with_grass",
+	"default:dirt_with_coniferous_litter",
+	"default:dirt_with_rainforest_litter",
+	"default:dirt"
+}
+local biomes = {
+	"deciduous_forest",
+	"coniferous_forest",
+	"rainforest",
+	"rainforest_swamp"
+}
 
-if minetest.get_mapgen_setting("mg_name") == "v6" then
+local place_on_mgv6 = "default:dirt_with_grass"
 
-	minetest.register_decoration({
-		name = "fireflies:firefly_low",
-		deco_type = "simple",
-		place_on = "default:dirt_with_grass",
-		place_offset_y = 2,
-		sidelen = 80,
-		fill_ratio = 0.0002,
-		y_max = 31000,
-		y_min = 1,
-		decoration = "fireflies:hidden_firefly",
-	})
-
-	minetest.register_decoration({
-		name = "fireflies:firefly_high",
-		deco_type = "simple",
-		place_on = "default:dirt_with_grass",
-		place_offset_y = 3,
-		sidelen = 80,
-		fill_ratio = 0.0002,
-		y_max = 31000,
-		y_min = 1,
-		decoration = "fireflies:hidden_firefly",
-	})
-
-else
-
-	minetest.register_decoration({
-		name = "fireflies:firefly_low",
-		deco_type = "simple",
-		place_on = {
-			"default:dirt_with_grass",
-			"default:dirt_with_coniferous_litter",
-			"default:dirt_with_rainforest_litter",
-			"default:dirt"
-		},
-		place_offset_y = 2,
-		sidelen = 80,
-		fill_ratio = 0.0005,
-		biomes = {
-			"deciduous_forest",
-			"coniferous_forest",
-			"rainforest",
-			"rainforest_swamp"
-		},
-		y_max = 31000,
-		y_min = -1,
-		decoration = "fireflies:hidden_firefly",
-	})
-
-	minetest.register_decoration({
-		name = "fireflies:firefly_high",
-		deco_type = "simple",
-		place_on = {
-			"default:dirt_with_grass",
-			"default:dirt_with_coniferous_litter",
-			"default:dirt_with_rainforest_litter",
-			"default:dirt"
-		},
-		place_offset_y = 3,
-		sidelen = 80,
-		fill_ratio = 0.0005,
-		biomes = {
-			"deciduous_forest",
-			"coniferous_forest",
-			"rainforest",
-			"rainforest_swamp"
-		},
-		y_max = 31000,
-		y_min = -1,
-		decoration = "fireflies:hidden_firefly",
-	})
-
-end
-
+fireflies.register_decoration(biomes, place_on)
+fireflies.register_decoration(nil, place_on_mgv6)
 
 -- get decoration IDs
 local firefly_low = minetest.get_decoration_id("fireflies:firefly_low")
