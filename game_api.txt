@@ -232,7 +232,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing), 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing),
 	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
 	use_texture_alpha = "clip",
 
@@ -543,7 +543,8 @@ TNT API
 ^ Create an explosion.
 
 * `position` The center of explosion.
-* `definition` The TNT definion as passed to `tnt.register`.
+* `definition` The TNT definion as passed to `tnt.register` with the following addition:
+ * `explode_center` false by default which removes TNT node on blast, when true will explode center node.
 
 `tnt.burn(position, [nodename])`
 

@@ -279,7 +279,7 @@ function tnt.burn(pos, nodename)
 	end
 end
 
-local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owner)
+local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owner, explode_center)
 	pos = vector.round(pos)
 	-- scan for adjacent TNT nodes first, and enlarge the explosion
 	local vm1 = VoxelManip()
@@ -288,7 +288,6 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	local minp, maxp = vm1:read_from_map(p1, p2)
 	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
 	local data = vm1:get_data()
-	local count = 1
 	local c_tnt
 	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
 	local c_tnt_boom = minetest.get_content_id("tnt:boom")
@@ -300,11 +299,11 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		c_tnt = c_tnt_burning -- tnt is not registered if disabled
 	end
 
-	-- don't double-count tnt @ the center
-	local vc = a:index(pos.x, pos.y, pos.z)
-	local ccid = data[vc]
-	if (ccid == c_tnt or ccid == c_tnt_boom or ccid == c_tnt_burning) then
-		data[vc] = c_air
+	local count
+	if explode_center then
+		count = 1
+	else
+		count = 0
 	end
 
 	for z = pos.z - 2, pos.z + 2 do
@@ -320,6 +319,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		end
 	end
 	end
+	count = math.max(1, count)
 
 	vm1:set_data(data)
 	vm1:write_to_map()
@@ -353,7 +353,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 			if cid ~= c_air and cid ~= c_ignore and (ignore_protection or not minetest.is_protected(p, owner)) then
 				data[vi] = destroy(drops, p, cid, c_air, c_fire,
 					on_blast_queue, on_construct_queue,
-					ignore_protection, ignore_on_blast, owner)
+					ignore_on_blast)
 			end
 		end
 		vi = vi + 1
@@ -362,7 +362,8 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	end
 
 	-- make the center of the explosion flash, if it's safe
-	ccid = data[vc]
+	local vc = a:index(pos.x, pos.y, pos.z)
+	local ccid = data[vc]
 	if ccid == c_air then
 		data[vc] = c_tnt_boom
 	end
@@ -423,7 +424,7 @@ function tnt.boom(pos, def)
 	minetest.sound_play(sound, {pos = pos, gain = 2.5,
 			max_hear_distance = math.min(def.radius * 20, 128)}, true)
 	local drops, radius = tnt_explode(pos, def.radius, def.ignore_protection,
-			def.ignore_on_blast, owner)
+			def.ignore_on_blast, owner, def.explode_center)
 	-- append entity drops
 	local damage_radius = (radius / math.max(1, def.radius)) * def.damage_radius
 	entity_physics(pos, damage_radius, drops)
