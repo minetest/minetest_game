@@ -1,5 +1,6 @@
 name: luacheck
 on: [push, pull_request]
+
 jobs:
   luacheck:
     runs-on: ubuntu-latest
