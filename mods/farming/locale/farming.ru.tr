@@ -1,34 +1,28 @@
 # textdomain: farming
 Hoe=Мотыга
-Seed=Семя
-Wooden Hoe=Деревянная Мотыга
-Stone Hoe=Каменная Мотыга
-Steel Hoe=Стальная Мотыга
-Bronze Hoe=Бронзовая Мотыга
-Mese Hoe=Месе Мотыга
-Diamond Hoe=Алмазная Мотыга
-Wheat Seed=Семена Пшеницы
+Seed=Семена
+Wooden Hoe=Деревянная мотыга
+Stone Hoe=Каменная мотыга
+Steel Hoe=Стальная мотыга
+Bronze Hoe=Бронзовая мотыга
+Mese Hoe=Мезовая мотыга
+Diamond Hoe=Алмазная мотыга
+Wheat Seed=Семена пшеницы
 Wheat=Пшеница
 Flour=Мука
 Bread=Хлеб
-Cotton Seed=Семена Хлопчатника
+Cotton Seed=Семена хлопчатника
 Cotton=Хлопок
 String=Нить
 Soil=Почва
-Wet Soil=Влажная Почва
-Savanna Soil=Саванная Почва
-Wet Savanna Soil=Влажная Саванная Почва
-Desert Sand Soil=Пустынная Песчаная Почва
-Wet Desert Sand Soil=Влажная Пустынная Песчаная Почва
+Wet Soil=Влажная почва
+Savanna Soil=Саванная почва
+Wet Savanna Soil=Влажная саванная почва
+Desert Sand Soil=Пустынная песчаная почва
+Wet Desert Sand Soil=Влажная пустынная песчаная почва
 Straw=Солома
-Straw Stair=Соломенная Ступень
-Inner Straw Stair=Угловая Соломенная Ступень (Внутренний Угол)
-Outer Straw Stair=Угловая Соломенная Ступень (Внешний Угол)
-Straw Slab=Соломенная Плита
-Wild Cotton=Неокультуренный Хлопчатник
-
-
-##### not used anymore #####
-
-Dry Soil=Сухая Почва
-Wet Dry Soil=Влажная Сухая Почва
+Straw Stair=Соломенные ступени
+Inner Straw Stair=Внутренние соломенные ступени
+Outer Straw Stair=Внешние соломенные ступени
+Straw Slab=Соломенная плита
+Wild Cotton=Дикий хлопчатник
