@@ -156,3 +156,10 @@ minetest.register_on_respawnplayer(function(player)
 
 	return on_spawn(player)
 end)
+
+minetest.register_chatcommand("spawn", {
+	description = "Teleport you to spawn point.",
+	func = function(name)
+		on_spawn(minetest.get_player_by_name(name))
+	end
+})
