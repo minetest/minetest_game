@@ -413,7 +413,8 @@ minetest.register_craftitem("carts:cart", {
 		minetest.sound_play({name = "default_place_node_metal", gain = 0.5},
 			{pos = pointed_thing.above}, true)
 
-		if not minetest.is_creative_enabled(placer:get_player_name()) then
+		local player_name = placer and placer:get_player_name() or ""
+		if not minetest.is_creative_enabled(player_name) then
 			itemstack:take_item()
 		end
 		return itemstack
