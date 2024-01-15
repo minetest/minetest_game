@@ -116,7 +116,7 @@ function player_api.set_texture(player, index, texture)
 	player_api.set_textures(player, textures)
 end
 
-function player_api.set_animation(player, anim_name, speed)
+function player_api.set_animation(player, anim_name, speed, loop)
 	local player_data = get_player_data(player)
 	local model = models[player_data.model]
 	if not (model and model.animations[anim_name]) then
@@ -125,6 +125,9 @@ function player_api.set_animation(player, anim_name, speed)
 	speed = speed or model.animation_speed
 	if player_data.animation == anim_name and player_data.animation_speed == speed then
 		return
+	end
+	if loop == nil then
+		loop = true
 	end
 	local previous_anim = model.animations[player_data.animation] or {}
 	local anim = model.animations[anim_name]
@@ -146,7 +149,7 @@ function player_api.set_animation(player, anim_name, speed)
 		end
 	end
 	-- Set the animation seen by everyone else
-	player:set_animation(anim, speed, animation_blend)
+	player:set_animation(anim, speed, animation_blend, loop)
 	-- Update related properties if they changed
 	if anim._equals ~= previous_anim._equals then
 		player:set_properties({
