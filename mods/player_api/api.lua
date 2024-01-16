@@ -71,7 +71,7 @@ function player_api.set_model(player, model_name)
 	player_data.model = model_name
 	-- Clear animation data as the model has changed
 	-- (required for setting the `stand` animation not to be a no-op)
-	player_data.animation, player_data.animation_speed = nil, nil
+	player_data.animation, player_data.animation_speed, player_data.animation_loop = nil, nil, nil
 
 	local model = models[model_name]
 	if model then
@@ -123,16 +123,20 @@ function player_api.set_animation(player, anim_name, speed, loop)
 		return
 	end
 	speed = speed or model.animation_speed
-	if player_data.animation == anim_name and player_data.animation_speed == speed then
-		return
-	end
 	if loop == nil then
 		loop = true
+	end
+	if player_data.animation == anim_name
+		and player_data.animation_speed == speed
+		and player_data.animation_loop == loop
+	then
+		return
 	end
 	local previous_anim = model.animations[player_data.animation] or {}
 	local anim = model.animations[anim_name]
 	player_data.animation = anim_name
 	player_data.animation_speed = speed
+	player_data.animation_loop = loop
 	-- If necessary change the local animation (only seen by the client of *that* player)
 	-- `override_local` <=> suspend local animations while this one is active
 	-- (this is basically a hack, proper engine feature needed...)
