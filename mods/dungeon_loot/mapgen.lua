@@ -14,7 +14,7 @@ local function random_sample(rand, list, count)
 	return ret
 end
 
-local function find_walls(cpos)
+local function find_walls(cpos, is_temple)
 	local is_wall = function(node)
 		return node.name ~= "air" and node.name ~= "ignore"
 	end
@@ -55,7 +55,7 @@ local function find_walls(cpos)
 	local biome = minetest.get_biome_data(cpos)
 	biome = biome and minetest.get_biome_name(biome.biome) or ""
 	local type = "normal"
-	if biome:find("desert") == 1 then
+	if is_temple or biome:find("desert") == 1 then
 		type = "desert"
 	elseif biome:find("sandstone_desert") == 1 then
 		type = "sandstone"
@@ -125,6 +125,8 @@ end
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local gennotify = minetest.get_mapgen_object("gennotify")
 	local poslist = gennotify["dungeon"] or {}
+	local n_dungeons = #poslist
+	-- Add MGv6 desert temples to the list too
 	for _, entry in ipairs(gennotify["temple"] or {}) do
 		table.insert(poslist, entry)
 	end
@@ -137,7 +139,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	-- process at most 8 rooms to keep runtime of this predictable
 	local num_process = math.min(#poslist, 8)
 	for i = 1, num_process do
-		local room = find_walls(poslist[i])
+		local room = find_walls(poslist[i], i > n_dungeons)
 		-- skip small rooms and everything that doesn't at least have 3 walls
 		if math.min(room.size.x, room.size.z) >= 4 and #room.walls >= 3 then
 			table.insert(candidates, room)
