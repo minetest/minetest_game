@@ -33,6 +33,7 @@ for i in ipairs (butter_list) do
 		sunlight_propagates = true,
 		buildable_to = true,
 		walkable = false,
+		pointable = false,
 		groups = {catchable = 1},
 		selection_box = {
 			type = "fixed",
