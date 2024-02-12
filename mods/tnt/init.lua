@@ -5,7 +5,6 @@ tnt = {}
 -- Load support for MT game translation.
 local S = minetest.get_translator("tnt")
 
-
 -- Default to enabled when in singleplayer
 local enable_tnt = minetest.settings:get_bool("enable_tnt")
 if enable_tnt == nil then
@@ -19,6 +18,7 @@ loss_prob["default:cobble"] = 3
 loss_prob["default:dirt"] = 4
 
 local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
+local tnt_height = tonumber(minetest.settings:get("tnt_work_below_height") or 31000)
 
 -- Fill a list with data for content IDs, after all nodes are registered
 local cid_data = {}
@@ -278,6 +278,7 @@ function tnt.burn(pos, nodename)
 	elseif def.on_ignite then
 		def.on_ignite(pos)
 	elseif minetest.get_item_group(name, "tnt") > 0 then
+		if(pos.y > tnt_height) then return end
 		minetest.swap_node(pos, {name = name .. "_burning"})
 		minetest.sound_play("tnt_ignite", {pos = pos, gain = 1.0}, true)
 		minetest.get_node_timer(pos):start(1)
@@ -464,18 +465,22 @@ minetest.register_node("tnt:gunpowder", {
 	sounds = default.node_sound_leaves_defaults(),
 
 	on_punch = function(pos, node, puncher)
+		if(pos.y > tnt_height) then return end
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 			default.log_player_action(puncher, "ignites tnt:gunpowder at", pos)
 		end
 	end,
 	on_blast = function(pos, intensity)
+		if(pos.y > tnt_height) then return end
 		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 	end,
 	on_burn = function(pos)
+		if(pos.y > tnt_height) then return end
 		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 	end,
 	on_ignite = function(pos, igniter)
+		if(pos.y > tnt_height) then return end
 		minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 	end,
 })
@@ -632,12 +637,14 @@ function tnt.register_tnt(def)
 			end,
 			on_punch = function(pos, node, puncher)
 				if puncher:get_wielded_item():get_name() == "default:torch" then
+					if(pos.y > tnt_height) then return end
 					minetest.swap_node(pos, {name = name .. "_burning"})
 					minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 					default.log_player_action(puncher, "ignites", node.name, "at", pos)
 				end
 			end,
 			on_blast = function(pos, intensity)
+				if(pos.y > tnt_height) then return end
 				minetest.after(0.1, function()
 					tnt.boom(pos, def)
 				end)
@@ -645,15 +652,18 @@ function tnt.register_tnt(def)
 			mesecons = {effector =
 				{action_on =
 					function(pos)
+						if(pos.y > tnt_height) then return end
 						tnt.boom(pos, def)
 					end
 				}
 			},
 			on_burn = function(pos)
+				if(pos.y > tnt_height) then return end
 				minetest.swap_node(pos, {name = name .. "_burning"})
 				minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 			end,
 			on_ignite = function(pos, igniter)
+				if(pos.y > tnt_height) then return end
 				minetest.swap_node(pos, {name = name .. "_burning"})
 				minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 			end,
@@ -683,6 +693,7 @@ function tnt.register_tnt(def)
 		-- unaffected by explosions
 		on_blast = function() end,
 		on_construct = function(pos)
+			if(pos.y > tnt_height) then return end
 			minetest.sound_play("tnt_ignite", {pos = pos}, true)
 			minetest.get_node_timer(pos):start(4)
 			minetest.check_for_falling(pos)

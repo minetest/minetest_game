@@ -42,6 +42,9 @@ enable_tnt (TNT) bool true
 #    The radius in which nodes will be destroyed by a TNT explosion.
 tnt_radius (TNT radius) int 3 0
 
+#    The height below tnt can explode.
+tnt_work_below_height (Under tnt explodes) int 31000
+
 #    Sets the behaviour of the inventory items when a player dies.
 #    bones: Store items in a bone node but drop items if inside protected area.
 #    drop: Drop items on the ground.
