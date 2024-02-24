@@ -282,6 +282,7 @@ local function get_formspec(player)
 		"tooltip[clear;"..esc(S("Reset")).."]"..
 		"tooltip[prev;"..esc(S("Previous page")).."]"..
 		"tooltip[next;"..esc(S("Next page")).."]"..
+		"field_enter_after_edit[filter;true]"..
 		"field_close_on_enter[filter;false]")
 
 	if #data.items == 0 then
