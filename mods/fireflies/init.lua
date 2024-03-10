@@ -3,6 +3,8 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("fireflies")
 
+-- Legacy compatibility, when pointabilities don't exist, pointable is set to true.
+local pointable_compat = not minetest.features.item_specific_pointabilities
 
 minetest.register_node("fireflies:firefly", {
 	description = S("Firefly"),
@@ -23,6 +25,7 @@ minetest.register_node("fireflies:firefly", {
 	sunlight_propagates = true,
 	buildable_to = true,
 	walkable = false,
+	pointable = pointable_compat,
 	groups = {catchable = 1},
 	selection_box = {
 		type = "fixed",
@@ -91,6 +94,7 @@ minetest.register_node("fireflies:hidden_firefly", {
 minetest.register_tool("fireflies:bug_net", {
 	description = S("Bug Net"),
 	inventory_image = "fireflies_bugnet.png",
+	pointabilities = {nodes = {["group:catchable"] = true}},
 	on_use = function(itemstack, player, pointed_thing)
 		local player_name = player and player:get_player_name() or ""
 		if not pointed_thing or pointed_thing.type ~= "node" or

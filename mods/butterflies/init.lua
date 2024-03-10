@@ -3,6 +3,9 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("butterflies")
 
+-- Legacy compatibility, when pointabilities don't exist, pointable is set to true.
+local pointable_compat = not minetest.features.item_specific_pointabilities
+
 -- register butterflies
 local butter_list = {
 	{"white",  S("White Butterfly")},
@@ -33,6 +36,7 @@ for i in ipairs (butter_list) do
 		sunlight_propagates = true,
 		buildable_to = true,
 		walkable = false,
+		pointable = pointable_compat,
 		groups = {catchable = 1},
 		selection_box = {
 			type = "fixed",
