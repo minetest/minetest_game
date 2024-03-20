@@ -167,11 +167,11 @@ Doors API
 
 The doors mod allows modders to register custom doors and trapdoors.
 
-`doors.registered_doors[name] = Door definition` 
- * Table of registered doors, indexed by door name 
+`doors.registered_doors[name] = Door definition`
+ * Table of registered doors, indexed by door name
 
-`doors.registered_trapdoors[name] = Trapdoor definition` 
- * Table of registered trap doors, indexed by trap door name 
+`doors.registered_trapdoors[name] = Trapdoor definition`
+ * Table of registered trap doors, indexed by trap door name
 
 `doors.register_door(name, def)`
 
@@ -214,7 +214,7 @@ The doors mod allows modders to register custom doors and trapdoors.
  * `pos` Position of the door
  * `node` Node definition
  * `clicker` Player definition for the player that clicked on the door
- 
+
 ### Door definition
 
 	description = "Door description",
@@ -232,7 +232,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing), 
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing),
 	-- optional function containing the on_rightclick callback, defaults to a doors.door_toggle-wrapper
 	use_texture_alpha = "clip",
 
@@ -257,7 +257,7 @@ The doors mod allows modders to register custom doors and trapdoors.
 	gain_open = 0.3, -- optional, defaults to 0.3
 	gain_close = 0.3, -- optional, defaults to 0.3
 	protected = false, -- If true, only placer can open the door (locked for others)
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing) ,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing),
 	-- function containing the on_rightclick callback
 	use_texture_alpha = "clip",
 
