@@ -66,7 +66,7 @@ beds.register_bed("beds:bed", {
 			"beds_bed_under.png",
 			"beds_bed_side_bottom_r.png",
 			"beds_bed_side_bottom_r.png^[transformFX",
-			"beds_transparent.png",
+			"blank.png",
 			"beds_bed_side_bottom.png"
 		},
 		top = {
@@ -75,7 +75,7 @@ beds.register_bed("beds:bed", {
 			"beds_bed_side_top_r.png",
 			"beds_bed_side_top_r.png^[transformFX",
 			"beds_bed_side_top.png",
-			"beds_transparent.png",
+			"blank.png",
 		}
 	},
 	nodebox = {
