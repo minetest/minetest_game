@@ -76,13 +76,21 @@ local function rangelim(value, lower, upper)
 	return math.min(math.max(value, lower), upper)
 end
 
-local os_time_0 = os.time()
-local t_offset = math.random(0, 300000)
+local t_offset
+do
+	local meta = minetest.get_mod_storage()
+	if meta:contains("time_offset") then
+		t_offset = meta:get_int("time_offset")
+	else
+		-- Use random offset so not each new world behaves the same.
+		t_offset = math.random(0, 300000)
+		meta:set_int("time_offset", t_offset)
+	end
+end
 
 local function update_clouds()
-	-- Time in seconds.
-	-- Add random time offset to avoid identical behaviour each server session.
-	local time = os.difftime(os.time(), os_time_0) - t_offset
+	-- Adjusted time in seconds
+	local time = math.floor(minetest.get_gametime() - t_offset)
 
 	nobj_density = nobj_density or minetest.get_perlin(np_density)
 	nobj_thickness = nobj_thickness or minetest.get_perlin(np_thickness)
@@ -103,10 +111,10 @@ local function update_clouds()
 		-- density_max = 0.8 at humid = 50.
 		-- density_max = 1.35 at humid = 100.
 		local density_max = 0.8 + ((humid - 50) / 50) * 0.55
+		-- Range limit density_max to always have occasional
+		-- small scattered clouds at extreme low humidity.
 		local density = rangelim(density_max, 0.2, 1.0) * n_density
 		player:set_clouds({
-			-- Range limit density_max to always have occasional
-			-- small scattered clouds at extreme low humidity.
 			density = density,
 			thickness = math.max(math.floor(
 				rangelim(32 * humid / 100, 8, 32) * n_thickness

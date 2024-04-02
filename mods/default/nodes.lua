@@ -1985,8 +1985,8 @@ minetest.register_node("default:sand_with_kelp", {
 
 	on_place = function(itemstack, placer, pointed_thing)
 		-- Call on_rightclick if the pointed node defines it
-		if pointed_thing.type == "node" and placer and
-				not placer:get_player_control().sneak then
+		if pointed_thing.type == "node" and not (placer and placer:is_player()
+				and placer:get_player_control().sneak) then
 			local node_ptu = minetest.get_node(pointed_thing.under)
 			local def_ptu = minetest.registered_nodes[node_ptu.name]
 			if def_ptu and def_ptu.on_rightclick then
@@ -2035,19 +2035,20 @@ minetest.register_node("default:sand_with_kelp", {
 --
 
 local function coral_on_place(itemstack, placer, pointed_thing)
-	if pointed_thing.type ~= "node" or not placer then
+	if pointed_thing.type ~= "node" then
 		return itemstack
 	end
 
-	local player_name = placer:get_player_name()
+	local player_name = placer and placer:get_player_name()
 	local pos_under = pointed_thing.under
 	local pos_above = pointed_thing.above
 	local node_under = minetest.get_node(pos_under)
 	local def_under = minetest.registered_nodes[node_under.name]
 
-	if def_under and def_under.on_rightclick and not placer:get_player_control().sneak then
+	if def_under and def_under.on_rightclick and not (
+		placer and placer:is_player() and placer:get_player_control().sneak) then
 		return def_under.on_rightclick(pos_under, node_under,
-				placer, itemstack, pointed_thing) or itemstack
+				placer, itemstack, pointed_thing)
 	end
 
 	if node_under.name ~= "default:coral_skeleton" or
@@ -2057,9 +2058,6 @@ local function coral_on_place(itemstack, placer, pointed_thing)
 
 	if minetest.is_protected(pos_under, player_name) or
 			minetest.is_protected(pos_above, player_name) then
-		default.log_player_action(placer,
-			"tried to place", itemstack:get_name(),
-			"at protected position", pos_under)
 		minetest.record_protection_violation(pos_under, player_name)
 		return itemstack
 	end

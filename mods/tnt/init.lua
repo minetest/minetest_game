@@ -625,7 +625,7 @@ function tnt.register_tnt(def)
 			groups = {dig_immediate = 2, mesecon = 2, tnt = 1, flammable = 5},
 			sounds = default.node_sound_wood_defaults(),
 			after_place_node = function(pos, placer)
-				if placer:is_player() then
+				if placer and placer:is_player() then
 					local meta = minetest.get_meta(pos)
 					meta:set_string("owner", placer:get_player_name())
 				end
