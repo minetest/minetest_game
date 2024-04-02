@@ -157,9 +157,9 @@ minetest.register_craftitem("bucket:bucket_empty", {
 				if inv:room_for_item("main", {name=liquiddef.itemname}) then
 					inv:add_item("main", liquiddef.itemname)
 				else
-					local pos = user:get_pos()
-					pos.y = math.floor(pos.y + 0.5)
-					minetest.add_item(pos, liquiddef.itemname)
+					local upos = user:get_pos()
+					upos.y = math.floor(upos.y + 0.5)
+					minetest.add_item(upos, liquiddef.itemname)
 				end
 
 				-- set to return empty buckets minus 1
