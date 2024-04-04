@@ -33,9 +33,9 @@ local function check_protection(pos, name, text)
 	return false
 end
 
-local function log_action(pos, name, text)
+local function log_action(pos, name, action)
 	minetest.log("action", (name ~= "" and name or "A mod")
-		.. " " .. text .. " at " .. minetest.pos_to_string(pos) .. " with a bucket")
+		.. " " .. action .. " at " .. minetest.pos_to_string(pos) .. " with a bucket")
 end
 
 -- Register a new liquid
