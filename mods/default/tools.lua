@@ -32,10 +32,10 @@ local function register_pick(tool_def)
 		description = tool_def.desc,
 		inventory_image = "default_tool_"..tool_def.name.."pick.png",
 		tool_capabilities = {
-			full_punch_interval = tool_def.punch_interval,
+			full_punch_interval = tool_def.full_punch_interval,
 			max_drop_level = tool_def.max_drop_level,
-			groupcaps = {cracky = tool_def.caps},
-			damage_groups = {fleshy = tool_def.damage},
+			groupcaps = {cracky = tool_def.groupcap},
+			damage_groups = {fleshy = tool_def.damage_fleshy},
 		},
 		sound = {breaks = "default_tool_breaks"},
 		groups = tool_def.groups,
@@ -53,10 +53,10 @@ end
 register_pick({
 	name = "wood",
 	desc = S("Wooden Pickaxe"),
-	punch_interval = 1.2,
+	full_punch_interval = 1.2,
 	max_drop_level = 0,
-	caps = {times = {[3]=1.60}, uses=10, maxlevel=1},
-	damage = 2,
+	groupcap = {times = {[3]=1.60}, uses=10, maxlevel=1},
+	damage_fleshy = 2,
 	groups = {flammable = 2},
 	material = "group:wood"
 })
@@ -64,50 +64,50 @@ register_pick({
 register_pick({
 	name = "stone",
 	desc = S("Stone Pickaxe"),
-	punch_interval = 1.3,
+	full_punch_interval = 1.3,
 	max_drop_level = 0,
-	caps = {times = {[2]=2.0, [3]=1.00}, uses=20, maxlevel = 1},
-	damage = 3,
+	groupcap = {times = {[2]=2.0, [3]=1.00}, uses=20, maxlevel = 1},
+	damage_fleshy = 3,
 	material = "group:stone"
 })
 
 register_pick({
 	name = "bronze",
 	desc = S("Bronze Pickaxe"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 1,
-	caps = {times = {[1]=4.50, [2]=1.80, [3]=0.90}, uses=20, maxlevel = 2},
-	damage = 4,
+	groupcap = {times = {[1]=4.50, [2]=1.80, [3]=0.90}, uses=20, maxlevel = 2},
+	damage_fleshy = 4,
 	material = "default:bronze_ingot"
 })
 
 register_pick({
 	name = "steel",
 	desc = S("Steel Pickaxe"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 1,
-	caps = {times = {[1]=4.00, [2]=1.60, [3]=0.80}, uses=20, maxlevel = 2},
-	damage = 4,
+	groupcap = {times = {[1]=4.00, [2]=1.60, [3]=0.80}, uses=20, maxlevel = 2},
+	damage_fleshy = 4,
 	material = "default:steel_ingot"
 })
 
 register_pick({
 	name = "mese",
 	desc = S("Mese Pickaxe"),
-	punch_interval = 0.9,
+	full_punch_interval = 0.9,
 	max_drop_level = 3,
-	caps = {times = {[1]=2.4, [2]=1.2, [3]=0.60}, uses=20, maxlevel = 3},
-	damage = 5,
+	groupcap = {times = {[1]=2.4, [2]=1.2, [3]=0.60}, uses=20, maxlevel = 3},
+	damage_fleshy = 5,
 	material = "default:mese_crystal"
 })
 
 register_pick({
 	name = "diamond",
 	desc = S("Diamond Pickaxe"),
-	punch_interval = 0.9,
+	full_punch_interval = 0.9,
 	max_drop_level = 3,
-	caps = {times = {[1]=2.0, [2]=1.0, [3]=0.50}, uses=30, maxlevel = 3},
-	damage = 5,
+	groupcap = {times = {[1]=2.0, [2]=1.0, [3]=0.50}, uses=30, maxlevel = 3},
+	damage_fleshy = 5,
 	material = "default:diamond"
 })
 
@@ -125,10 +125,10 @@ local function register_shovel(tool_def)
 		inventory_image = "default_tool_"..tool_def.name.."shovel.png",
 		wield_image = "default_tool_"..tool_def.name.."shovel.png^[transformR90",
 		tool_capabilities = {
-			full_punch_interval = tool_def.punch_interval,
+			full_punch_interval = tool_def.full_punch_interval,
 			max_drop_level = tool_def.max_drop_level,
-			groupcaps = {crumbly = tool_def.caps},
-			damage_groups = {fleshy = tool_def.damage},
+			groupcaps = {crumbly = tool_def.groupcap},
+			damage_groups = {fleshy = tool_def.damage_fleshy},
 		},
 		sound = {breaks = "default_tool_breaks"},
 		groups = tool_def.groups
@@ -146,10 +146,10 @@ end
 register_shovel({
 	name = "wood",
 	desc = S("Wooden Shovel"),
-	punch_interval = 1.2,
+	full_punch_interval = 1.2,
 	max_drop_level = 0,
-	caps = {times = {[1]=3.00, [2]=1.60, [3]=0.60}, uses=10, maxlevel=1},
-	damage = 2,
+	groupcap = {times = {[1]=3.00, [2]=1.60, [3]=0.60}, uses=10, maxlevel=1},
+	damage_fleshy = 2,
 	groups = {flammable = 2},
 	material = "group:wood"
 })
@@ -157,50 +157,50 @@ register_shovel({
 register_shovel({
 	name = "stone",
 	desc = S("Stone Shovel"),
-	punch_interval = 1.4,
+	full_punch_interval = 1.4,
 	max_drop_level = 0,
-	caps = {times = {[1]=1.80, [2]=1.20, [3]=0.50}, uses=20, maxlevel=1},
-	damage = 2,
+	groupcap = {times = {[1]=1.80, [2]=1.20, [3]=0.50}, uses=20, maxlevel=1},
+	damage_fleshy = 2,
 	material = "group:stone"
 })
 
 register_shovel({
 	name = "bronze",
 	desc = S("Bronze Shovel"),
-	punch_interval = 1.1,
+	full_punch_interval = 1.1,
 	max_drop_level = 1,
-	caps = {times = {[1]=1.65, [2]=1.05, [3]=0.45}, uses=25, maxlevel=2},
-	damage = 3,
+	groupcap = {times = {[1]=1.65, [2]=1.05, [3]=0.45}, uses=25, maxlevel=2},
+	damage_fleshy = 3,
 	material = "default:bronze_ingot"
 })
 
 register_shovel({
 	name = "steel",
 	desc = S("Steel Shovel"),
-	punch_interval = 1.1,
+	full_punch_interval = 1.1,
 	max_drop_level = 1,
-	caps = {times = {[1]=1.50, [2]=0.90, [3]=0.40}, uses=30, maxlevel=2},
-	damage = 3,
+	groupcap = {times = {[1]=1.50, [2]=0.90, [3]=0.40}, uses=30, maxlevel=2},
+	damage_fleshy = 3,
 	material = "default:steel_ingot"
 })
 
 register_shovel({
 	name = "mese",
 	desc = S("Mese Shovel"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 3,
-	caps = {times = {[1]=1.20, [2]=0.60, [3]=0.30}, uses=20, maxlevel=3},
-	damage = 4,
+	groupcap = {times = {[1]=1.20, [2]=0.60, [3]=0.30}, uses=20, maxlevel=3},
+	damage_fleshy = 4,
 	material = "default:mese_crystal"
 })
 
 register_shovel({
 	name = "diamond",
 	desc = S("Diamond Shovel"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 1,
-	caps = {times = {[1]=1.10, [2]=0.50, [3]=0.30}, uses=30, maxlevel=3},
-	damage = 4,
+	groupcap = {times = {[1]=1.10, [2]=0.50, [3]=0.30}, uses=30, maxlevel=3},
+	damage_fleshy = 4,
 	material = "default:diamond"
 })
 
@@ -217,10 +217,10 @@ local function register_axe(tool_def)
 		description = tool_def.desc,
 		inventory_image = "default_tool_"..tool_def.name.."axe.png",
 		tool_capabilities = {
-			full_punch_interval = tool_def.punch_interval,
+			full_punch_interval = tool_def.full_punch_interval,
 			max_drop_level = tool_def.max_drop_level,
-			groupcaps = {choppy = tool_def.caps},
-			damage_groups = {fleshy = tool_def.damage},
+			groupcaps = {choppy = tool_def.groupcap},
+			damage_groups = {fleshy = tool_def.damage_fleshy},
 		},
 		sound = {breaks = "default_tool_breaks"},
 		groups = tool_def.groups
@@ -238,10 +238,10 @@ end
 register_axe({
 	name = "wood",
 	desc = S("Wooden Axe"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 0,
-	caps = {times = {[2]=3.00, [3]=1.60}, uses=10, maxlevel=1},
-	damage = 2,
+	groupcap = {times = {[2]=3.00, [3]=1.60}, uses=10, maxlevel=1},
+	damage_fleshy = 2,
 	groups = {flammable = 2},
 	material = "group:wood"
 })
@@ -249,50 +249,50 @@ register_axe({
 register_axe({
 	name = "stone",
 	desc = S("Stone Axe"),
-	punch_interval = 1.2,
+	full_punch_interval = 1.2,
 	max_drop_level = 0,
-	caps = {times = {[1]=3.00, [2]=2.00, [3]=1.30}, uses=20, maxlevel=1},
-	damage = 3,
+	groupcap = {times = {[1]=3.00, [2]=2.00, [3]=1.30}, uses=20, maxlevel=1},
+	damage_fleshy = 3,
 	material = "group:stone"
 })
 
 register_axe({
 	name = "bronze",
 	desc = S("Bronze Axe"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.75, [2]=1.70, [3]=1.15}, uses=20, maxlevel=2},
-	damage = 4,
+	groupcap = {times = {[1]=2.75, [2]=1.70, [3]=1.15}, uses=20, maxlevel=2},
+	damage_fleshy = 4,
 	material = "default:bronze_ingot"
 })
 
 register_axe({
 	name = "steel",
 	desc = S("Steel Axe"),
-	punch_interval = 1.0,
+	full_punch_interval = 1.0,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.50, [2]=1.40, [3]=1.00}, uses=20, maxlevel=2},
-	damage = 4,
+	groupcap = {times = {[1]=2.50, [2]=1.40, [3]=1.00}, uses=20, maxlevel=2},
+	damage_fleshy = 4,
 	material = "default:steel_ingot"
 })
 
 register_axe({
 	name = "mese",
 	desc = S("Mese Axe"),
-	punch_interval = 0.9,
+	full_punch_interval = 0.9,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.20, [2]=1.00, [3]=0.60}, uses=20, maxlevel=3},
-	damage = 6,
+	groupcap = {times = {[1]=2.20, [2]=1.00, [3]=0.60}, uses=20, maxlevel=3},
+	damage_fleshy = 6,
 	material = "default:mese_crystal"
 })
 
 register_axe({
 	name = "diamond",
 	desc = S("Diamond Axe"),
-	punch_interval = 0.9,
+	full_punch_interval = 0.9,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=3},
-	damage = 7,
+	groupcap = {times = {[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=3},
+	damage_fleshy = 7,
 	material = "default:diamond"
 })
 
@@ -309,10 +309,10 @@ local function register_sword(tool_def)
 		description = tool_def.desc,
 		inventory_image = "default_tool_"..tool_def.name.."sword.png",
 		tool_capabilities = {
-			full_punch_interval = tool_def.punch_interval,
+			full_punch_interval = tool_def.full_punch_interval,
 			max_drop_level = tool_def.max_drop_level,
-			groupcaps = {snappy = tool_def.caps},
-			damage_groups = {fleshy = tool_def.damage},
+			groupcaps = {snappy = tool_def.groupcap},
+			damage_groups = {fleshy = tool_def.damage_fleshy},
 		},
 		sound = {breaks = "default_tool_breaks"},
 		groups = tool_def.groups
@@ -330,10 +330,10 @@ end
 register_sword({
 	name = "wood",
 	desc = S("Wooden Sword"),
-	punch_interval = 1,
+	full_punch_interval = 1,
 	max_drop_level = 0,
-	caps = {times = {[2]=1.6, [3]=0.40}, uses=10, maxlevel=1},
-	damage = 2,
+	groupcap = {times = {[2]=1.6, [3]=0.40}, uses=10, maxlevel=1},
+	damage_fleshy = 2,
 	groups = {flammable = 2},
 	material = "group:wood"
 })
@@ -341,50 +341,50 @@ register_sword({
 register_sword({
 	name = "stone",
 	desc = S("Stone Sword"),
-	punch_interval = 1.2,
+	full_punch_interval = 1.2,
 	max_drop_level = 0,
-	caps = {times = {[2]=1.4, [3]=0.40}, uses=20, maxlevel=1},
-	damage = 4,
+	groupcap = {times = {[2]=1.4, [3]=0.40}, uses=20, maxlevel=1},
+	damage_fleshy = 4,
 	material = "group:stone"
 })
 
 register_sword({
 	name = "bronze",
 	desc = S("Bronze Sword"),
-	punch_interval = 0.8,
+	full_punch_interval = 0.8,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.75, [2]=1.30, [3]=0.375}, uses=25, maxlevel=2},
-	damage = 6,
+	groupcap = {times = {[1]=2.75, [2]=1.30, [3]=0.375}, uses=25, maxlevel=2},
+	damage_fleshy = 6,
 	material = "default:bronze_ingot"
 })
 
 register_sword({
 	name = "steel",
 	desc = S("Steel Sword"),
-	punch_interval = 0.8,
+	full_punch_interval = 0.8,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.5, [2]=1.20, [3]=0.35}, uses=30, maxlevel=2},
-	damage = 6,
+	groupcap = {times = {[1]=2.5, [2]=1.20, [3]=0.35}, uses=30, maxlevel=2},
+	damage_fleshy = 6,
 	material = "default:steel_ingot"
 })
 
 register_sword({
 	name = "mese",
 	desc = S("Mese Sword"),
-	punch_interval = 0.7,
+	full_punch_interval = 0.7,
 	max_drop_level = 1,
-	caps = {times = {[1]=2.0, [2]=1.00, [3]=0.35}, uses=30, maxlevel=3},
-	damage = 7,
+	groupcap = {times = {[1]=2.0, [2]=1.00, [3]=0.35}, uses=30, maxlevel=3},
+	damage_fleshy = 7,
 	material = "default:mese_crystal"
 })
 
 register_sword({
 	name = "diamond",
 	desc = S("Diamond Sword"),
-	punch_interval = 0.7,
+	full_punch_interval = 0.7,
 	max_drop_level = 1,
-	caps = {times = {[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
-	damage = 8,
+	groupcap = {times = {[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
+	damage_fleshy = 8,
 	material = "default:diamond"
 })
 
