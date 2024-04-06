@@ -297,9 +297,10 @@ function default.chest.register_chest(prefixed_name, d)
 	end
 
 	-- close opened chests on load
+	local modname, chestname = prefixed_name:match("^(:?.-):(.*)$")
 	minetest.register_lbm({
 		label = "close opened chests on load",
-		name = "default:close_" .. prefixed_name:gsub(":", "_") .. "_open",
+		name = modname .. ":close_" .. chestname .. "_open",
 		nodenames = {prefixed_name .. "_open"},
 		run_at_every_load = true,
 		action = function(pos, node)
