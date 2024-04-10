@@ -244,10 +244,9 @@ end
 -- Callbacks
 -- Only register respawn callback if respawn enabled
 if enable_respawn then
-	-- respawn player at bed if enabled and valid position is found
-	minetest.register_on_respawnplayer(function(player)
-		local name = player:get_player_name()
-		local pos = beds.spawn[name]
+	-- Respawn player at bed if valid position is found
+	spawn.register_on_spawn(function(player, is_new)
+		local pos = beds.spawn[player:get_player_name()]
 		if pos then
 			player:set_pos(pos)
 			return true
