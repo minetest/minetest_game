@@ -1,12 +1,12 @@
--- spawn/init.lua
+-- Always load the API
+----------------------
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/api.lua")
 
--- Disable by mapgen, setting or if 'static_spawnpoint' is set
---------------------------------------------------------------
+-- Disable biome-search implementation on unsuitable mapgens
+------------------------------------------------------------
 
 local mg_name = minetest.get_mapgen_setting("mg_name")
-if mg_name == "v6" or mg_name == "singlenode" or
-		minetest.settings:get("static_spawnpoint") or
-		minetest.settings:get_bool("engine_spawn") then
+if mg_name == "v6" or mg_name == "singlenode" then
 	return
 end
 
@@ -23,27 +23,32 @@ local checks = 128 * 128
 local pos = {x = 0, y = 8, z = 0}
 
 
--- Table of suitable biomes
+-- Table of suitable biomes and matching API function
 
-local biome_ids = {
-	minetest.get_biome_id("taiga"),
-	minetest.get_biome_id("coniferous_forest"),
-	minetest.get_biome_id("deciduous_forest"),
-	minetest.get_biome_id("grassland"),
-	minetest.get_biome_id("savanna"),
-}
+local biome_ids = {}
+
+function spawn.add_suitable_biome(biome)
+	local id = minetest.get_biome_id(biome)
+	assert(id ~= nil)
+	biome_ids[id] = true
+end
+
+for _, name in ipairs({
+	"taiga", "coniferous_forest", "deciduous_forest", "grassland", "savanna"
+}) do
+	spawn.add_suitable_biome(name)
+end
 
 -- End of parameters
 --------------------
 
-
 -- Direction table
 
 local dirs = {
-	{x = 0, y = 0, z = 1},
-	{x = -1, y = 0, z = 0},
-	{x = 0, y = 0, z = -1},
-	{x = 1, y = 0, z = 0},
+	vector.new(0, 0, 1),
+	vector.new(-1, 0, 0),
+	vector.new(0, 0, -1),
+	vector.new(1, 0, 0),
 }
 
 
@@ -67,8 +72,8 @@ local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
 local spawn_limit = math.max(mapgen_limit - (chunksize + 1) * 16, 0)
 
 
---Functions
------------
+-- Functions
+------------
 
 -- Get next position on square search spiral
 
@@ -98,15 +103,11 @@ local function search()
 	for iter = 1, checks do
 		local biome_data = minetest.get_biome_data(pos)
 		-- Sometimes biome_data is nil
-		local biome = biome_data and biome_data.biome
-		for id_ind = 1, #biome_ids do
-			local biome_id = biome_ids[id_ind]
-			if biome == biome_id then
-				local spawn_y = minetest.get_spawn_level(pos.x, pos.z)
-				if spawn_y then
-					spawn_pos = {x = pos.x, y = spawn_y, z = pos.z}
-					return true
-				end
+		if biome_data and biome_ids[biome_data.biome] then
+			local spawn_y = minetest.get_spawn_level(pos.x, pos.z)
+			if spawn_y then
+				spawn_pos = vector.new(pos.x, spawn_y, pos.z)
+				return true
 			end
 		end
 
@@ -121,38 +122,11 @@ local function search()
 end
 
 
--- On new player spawn and player respawn
-
--- Search for spawn position once per server session. If successful, store
--- position and reposition players, otherwise leave them at engine spawn
--- position.
-
-local function on_spawn(player)
+function spawn.get_default_pos()
+	-- Search for spawn position once per server session
 	if not searched then
 		success = search()
 		searched = true
 	end
-	if success then
-		player:set_pos(spawn_pos)
-	end
-	return success
+	return success and spawn_pos
 end
-
-minetest.register_on_newplayer(function(player)
-	on_spawn(player)
-end)
-
-local enable_bed_respawn = minetest.settings:get_bool("enable_bed_respawn")
-if enable_bed_respawn == nil then
-	enable_bed_respawn = true
-end
-
-minetest.register_on_respawnplayer(function(player)
-	-- Avoid respawn conflict with beds mod
-	if beds and enable_bed_respawn and
-			beds.spawn[player:get_player_name()] then
-		return
-	end
-
-	return on_spawn(player)
-end)

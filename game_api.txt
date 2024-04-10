@@ -632,6 +632,34 @@ set a players home position and teleport a player to home position.
  * `name` Player you wish to teleport to their home position
  * return value: false if player cannot be sent home, otherwise true
 
+Spawn API
+---------
+
+The spawn mod takes care of deciding the position of new and respawning players
+in the world and has an API to modify its behavior.
+
+`spawn.get_default_pos()`
+* Gets the default spawn position as decided by a biome-dependent algorithm.
+* This is not influenced by settings like "static_spawnpoint" or "engine_spawn".
+* return value: a vector or `nil` on failure
+
+`spawn.add_suitable_biome(biome)`:
+* Adds a biome to the list of allowed biomes for the above algorithm.
+* `biome`: Name of a registered biome
+
+`spawn.register_on_spawn(func)`:
+* Registers a callback to be called when a player (re-)spawns. This can be used
+  to intercept the normal logic to e.g. respawn a player at his bed.
+* `func`: `function(player, is_new)` with arguments
+  - `player`: ObjectRef
+  - `is_new`: true if the player is joining the server for the first time
+  - return value: true to skip all other spawn logic, false or nil otherwise
+
+When a player (re-)spawns the following order is executed:
+1. All spawn callbacks in order of registration.
+2. If no result, teleport player to `spawn.get_default_pos()`.
+3. If that fails, spawning is left up to engine.
+
 
 Sfinv API
 ---------
