@@ -1169,3 +1169,21 @@ the log.
  * after logging the action, the original callback (if any) is called
  * `def`     See [Node definition]
  * `name`    Description of the node in the log message
+
+
+Weather API
+-----------
+
+The weather mod will constantly adjust weather effects seen by the player
+(that is: cloud parameters and shadow intensity).
+These can be influenced using this API.
+
+#### `weather.get = function(player)`
+
+* Returns the current weather effects seen by the player.
+  It returns a table with two keys:
+  * `clouds`:   A table (or `nil`) with cloud data following the same format as used for `player:set_clouds()`.
+  * `lighting`: A table (or `nil`) with lighting data following the same format as used for `player:set_lighting()`.
+* `player`: ObjectRef of the relevant player
+* You can override this function to change the weather effects by simply returning different values.
+  Setting `clouds` or `lighting` in the result table to `nil` will *prevent* those from changing.
