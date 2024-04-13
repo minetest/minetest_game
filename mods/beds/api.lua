@@ -1,3 +1,10 @@
+-- Removes a node without calling on on_destruct()
+-- We use this to mess with bed nodes without causing unwanted recursion.
+local function remove_no_destruct(pos)
+	minetest.swap_node(pos, {name = "air"})
+	minetest.remove_node(pos) -- Now clear the meta
+	minetest.check_for_falling(pos)
+end
 
 local function destruct_bed(pos, n)
 	local node = minetest.get_node(pos)
@@ -12,10 +19,7 @@ local function destruct_bed(pos, n)
 	end
 	local oname = minetest.get_node(other).name
 	if minetest.get_item_group(oname, "bed") ~= 0 then
-	   -- Swap node leaves meta, but doesn't call destruct_bed again
-	   minetest.swap_node(other, {name = "air"})
-	   minetest.remove_node(other) -- Now clear the meta
-	   minetest.check_for_falling(other)
+	   remove_no_destruct(other)
 	   beds.remove_spawns_at(pos)
 	   beds.remove_spawns_at(other)
 	end
@@ -110,6 +114,7 @@ function beds.register_bed(name, def)
 
 		on_rotate = function(pos, node, user, _, new_param2)
 			local dir = minetest.facedir_to_dir(node.param2)
+			-- old position of the top node
 			local p = vector.add(pos, dir)
 			local node2 = minetest.get_node_or_nil(p)
 			if not node2 or minetest.get_item_group(node2.name, "bed") ~= 2 or
@@ -123,6 +128,7 @@ function beds.register_bed(name, def)
 			if new_param2 % 32 > 3 then
 				return false
 			end
+			-- new position of the top node
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
 			local node3 = minetest.get_node_or_nil(newp)
 			local node_def = node3 and minetest.registered_nodes[node3.name]
@@ -134,8 +140,7 @@ function beds.register_bed(name, def)
 				return false
 			end
 			node.param2 = new_param2
-			-- do not remove_node here - it will trigger destroy_bed()
-			minetest.set_node(p, {name = "air"})
+			remove_no_destruct(p)
 			minetest.set_node(pos, node)
 			minetest.set_node(newp, {name = name .. "_top", param2 = new_param2})
 			return true
