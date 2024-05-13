@@ -45,7 +45,7 @@ for i in ipairs (butter_list) do
 		floodable = true,
 		on_place = function(itemstack, placer, pointed_thing)
 			local player_name = placer and placer:get_player_name() or ""
-			local apos = pointed_thing.above
+			local pos = pointed_thing.above
 
 			if minetest.is_protected(pos, player_name) or minetest.is_protected(pointed_thing.under, player_name) then
 				return
@@ -81,7 +81,7 @@ for i in ipairs (butter_list) do
 		floodable = true,
 		on_place = function(itemstack, placer, pointed_thing)
 			local player_name = placer and placer:get_player_name() or ""
-			local apos = pointed_thing.above
+			local pos = pointed_thing.above
 
 			if minetest.is_protected(pos, player_name) or minetest.is_protected(pointed_thing.under, player_name) then
 				return
