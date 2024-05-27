@@ -47,13 +47,9 @@ for i in ipairs (butter_list) do
 			local player_name = placer and placer:get_player_name() or ""
 			local pos = pointed_thing.above
 
-			if minetest.is_protected(pos, player_name) or minetest.is_protected(pointed_thing.under, player_name) then
-				return
-			end
+			local _, success = minetest.item_place(itemstack, placer, pointed_thing)
 
-			local _, sucess = minetest.item_place(itemstack, placer, pointed_thing)
-
-			if sucess then
+			if success then
 				minetest.get_node_timer(pos):start(1)
 			end
 
@@ -83,13 +79,9 @@ for i in ipairs (butter_list) do
 			local player_name = placer and placer:get_player_name() or ""
 			local pos = pointed_thing.above
 
-			if minetest.is_protected(pos, player_name) or minetest.is_protected(pointed_thing.under, player_name) then
-				return
-			end
+			local _, success = minetest.item_place(itemstack, placer, pointed_thing)
 
-			local _, sucess = minetest.item_place(itemstack, placer, pointed_thing)
-
-			if sucess then
+			if success then
 				minetest.get_node_timer(pos):start(1)
 			end
 
