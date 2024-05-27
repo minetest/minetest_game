@@ -44,7 +44,6 @@ for i in ipairs (butter_list) do
 		},
 		floodable = true,
 		on_place = function(itemstack, placer, pointed_thing)
-			local player_name = placer and placer:get_player_name() or ""
 			local pos = pointed_thing.above
 
 			local _, success = minetest.item_place(itemstack, placer, pointed_thing)
@@ -76,7 +75,6 @@ for i in ipairs (butter_list) do
 		groups = {not_in_creative_inventory = 1},
 		floodable = true,
 		on_place = function(itemstack, placer, pointed_thing)
-			local player_name = placer and placer:get_player_name() or ""
 			local pos = pointed_thing.above
 
 			local _, success = minetest.item_place(itemstack, placer, pointed_thing)
