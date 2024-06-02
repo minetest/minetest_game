@@ -2045,9 +2045,9 @@ mts_save("aspen_log", {
 
 -- Large cactus
 
-local C = {name = "default:cactus", prob = 255, param2 = 20}
-local R = {name = "default:cactus", prob = 255, param2 = 20, force_place = true}
-local E = {name = "default:cactus", prob = 127, param2 = 20}
+local C = {name = "default:cactus", prob = 255}
+local R = {name = "default:cactus", prob = 255, force_place = true}
+local E = {name = "default:cactus", prob = 127}
 
 mts_save("large_cactus", {
 	size = {x = 5, y = 7, z = 5},
