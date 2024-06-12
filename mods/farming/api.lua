@@ -173,7 +173,8 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- check if pointing at soil
-	if minetest.get_item_group(under.name, "soil") < 2 then
+	local soil_group = farming.registered_plants[plantname].soil_group
+	if minetest.get_item_group(under.name, soil_group) < 2 then
 		return itemstack
 	end
 
@@ -279,6 +280,7 @@ farming.register_plant = function(name, def)
 	if not def.fertility then
 		def.fertility = {}
 	end
+	def.soil_group = def.soil_group or "soil"
 
 	farming.registered_plants[pname] = def
 
@@ -322,7 +324,7 @@ farming.register_plant = function(name, def)
 					pointed_thing) or itemstack
 			end
 
-			return farming.place_seed(itemstack, placer, pointed_thing, mname .. ":seed_" .. pname)
+			return farming.place_seed(itemstack, placer, pointed_thing, mname .. ":seed_" .. pname, def.soil_group)
 		end,
 		next_plant = mname .. ":" .. pname .. "_1",
 		on_timer = farming.grow_plant,
