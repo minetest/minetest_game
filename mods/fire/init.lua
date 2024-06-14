@@ -100,7 +100,8 @@ minetest.register_tool("fire:flint_and_steel", {
 			if not nodedef then
 				return
 			end
-			if minetest.is_protected(pointed_thing.under, player_name) then
+			if minetest.is_protected(pointed_thing.under, player_name)
+					or minetest.is_protected(pointed_thing.above, player_name) then
 				minetest.chat_send_player(player_name, "This area is protected")
 				return
 			end
