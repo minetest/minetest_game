@@ -224,11 +224,15 @@ farming.grow_plant = function(pos, elapsed)
 		return
 	end
 
-	-- check if on wet soil
-	local below = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
-	if minetest.get_item_group(below.name, "soil") < 3 then
-		tick_again(pos)
+	if def.can_grow and not def.can_grow(pos) then
 		return
+	else
+		-- check if on wet soil
+		local below = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
+		if minetest.get_item_group(below.name, "soil") < 3 then
+			tick_again(pos)
+			return
+		end
 	end
 
 	-- check light
