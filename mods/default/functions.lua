@@ -364,9 +364,7 @@ function default.register_fence(name, def)
 
 	-- Register crafting recipe, trim away starting colon if any
 	if not material then return end
-	if string.sub(name, 1,1) == ":" then
-		name = string.sub(name, 2)
-	end
+	name = string.gsub(name, "^:", "")
 	minetest.register_craft({
 		output = name .. " 4",
 		recipe = {
@@ -438,9 +436,7 @@ function default.register_fence_rail(name, def)
 
 	-- Register crafting recipe, trim away starting colon if any
 	if not material then return end
-	if string.sub(name, 1,1) == ":" then
-		name = string.sub(name, 2)
-	end
+	name = string.gsub(name, "^:", "")
 	minetest.register_craft({
 		output = name .. " 16",
 		recipe = {
@@ -491,9 +487,7 @@ function default.register_mesepost(name, def)
 
 	-- Register crafting recipe, trim away starting colon if any
 	if not material then return end
-	if string.sub(name, 1,1) == ":" then
-		name = string.sub(name, 2)
-	end
+	name = string.gsub(name, "^:", "")
 	minetest.register_craft({
 		output = name .. " 4",
 		recipe = {
