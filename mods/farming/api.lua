@@ -191,11 +191,8 @@ end
 
 -- check if on wet soil
 farming.can_grow = function(pos)
-	local below = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
-	if minetest.get_item_group(below.name, "soil") < 3 then
-		return false
-	end
-	return true
+	local below = minetest.get_node(pos:offset(0, -1, 0))
+	return minetest.get_item_group(below.name, "soil") >= 3
 end
 
 farming.grow_plant = function(pos, elapsed)
@@ -233,7 +230,7 @@ farming.grow_plant = function(pos, elapsed)
 		return
 	end
 
-	if (def.can_grow and def.can_grow(pos)) or (not def.can_grow and not farming.can_grow(pos)) then
+	if not (def.can_grow or farming.can_grow)(pos) then
 		tick_again(pos)
 		return
 	end
