@@ -294,13 +294,12 @@ minetest.register_abm({
 --
 
 local in_dig_up = false
-local mapgen_limit = tonumber(minetest.settings:get("mapgen_limit")) or 31007
 function default.dig_up(pos, node, digger, max_height)
 	if in_dig_up then return end -- Do not recurse
 	if digger == nil then return end
-	max_height = max_height or mapgen_limit
+	max_height = max_height or 100
 
-	for y = pos.y + 1, math.min(pos.y + max_height, mapgen_limit) do
+	for y = pos.y + 1, pos.y + max_height do
 		local up_pos  = { x = pos.x, y = y, z = pos.z}
 		local up_node = minetest.get_node(up_pos)
 		if up_node.name == node.name then
