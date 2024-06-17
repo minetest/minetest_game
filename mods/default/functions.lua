@@ -499,7 +499,7 @@ function default.register_mesepost(name, def)
 		recipe = {
 			{'', 'default:glass', ''},
 			{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-			{'', def.material, ''},
+			{'', material, ''},
 		}
 	})
 end
