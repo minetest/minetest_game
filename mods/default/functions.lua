@@ -294,6 +294,12 @@ minetest.register_abm({
 --
 
 local in_dig_up = false
+
+---Find all nodes above this one that is the same, then dig them all
+---@param pos vector The position of the base node
+---@param node { name: string, param1: integer, param2: integer } Node table of the base node
+---@param digger ObjectRef The object (e.g. player) digging the node
+---@param max_height The maximum height to search for, excluding the base node
 function default.dig_up(pos, node, digger, max_height)
 	if in_dig_up then return end -- Do not recurse
 	if digger == nil then return end
