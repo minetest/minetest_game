@@ -101,13 +101,18 @@ minetest.register_tool("fire:flint_and_steel", {
 				return
 			end
 			if minetest.is_protected(pointed_thing.under, player_name) then
-				minetest.chat_send_player(player_name, "This area is protected")
+				minetest.record_protection_violation(pointed_thing.under, player_name)
 				return
 			end
 			if nodedef.on_ignite then
 				nodedef.on_ignite(pointed_thing.under, user)
 			elseif minetest.get_item_group(node_under, "flammable") >= 1
 					and minetest.get_node(pointed_thing.above).name == "air" then
+				if minetest.is_protected(pointed_thing.above, player_name) then
+					minetest.record_protection_violation(pointed_thing.above, player_name)
+					return
+				end
+
 				minetest.set_node(pointed_thing.above, {name = "fire:basic_flame"})
 			end
 		end
