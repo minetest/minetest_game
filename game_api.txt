@@ -324,7 +324,7 @@ Allows creation of new fences with "fencelike" drawtype.
 	name = "default:fence_wood",
 	description = "Wooden Fence",
 	texture = "default_wood.png",
-	material = "default:wood",
+	material = "default:wood", -- `nil` if you don't want the recipe
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	sounds = default.node_sound_wood_defaults(),
 

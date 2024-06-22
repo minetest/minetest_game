@@ -309,14 +309,6 @@ end
 local fence_collision_extra = minetest.settings:get_bool("enable_fence_tall") and 3/8 or 0
 
 function default.register_fence(name, def)
-	minetest.register_craft({
-		output = name .. " 4",
-		recipe = {
-			{ def.material, 'group:stick', def.material },
-			{ def.material, 'group:stick', def.material },
-		}
-	})
-
 	local fence_texture = "default_fence_overlay.png^" .. def.texture ..
 			"^default_fence_overlay.png^[makealpha:255,126,126"
 	-- Allow almost everything to be overridden
@@ -364,10 +356,22 @@ function default.register_fence(name, def)
 	-- Always add to the fence group, even if no group provided
 	def.groups.fence = 1
 
+	local material = def.material
 	def.texture = nil
 	def.material = nil
 
 	minetest.register_node(name, def)
+
+	-- Register crafting recipe, trim away starting colon if any
+	if not material then return end
+	name = string.gsub(name, "^:", "")
+	minetest.register_craft({
+		output = name .. " 4",
+		recipe = {
+			{ material, 'group:stick', material },
+			{ material, 'group:stick', material },
+		}
+	})
 end
 
 
@@ -376,15 +380,6 @@ end
 --
 
 function default.register_fence_rail(name, def)
-	minetest.register_craft({
-		output = name .. " 16",
-		recipe = {
-			{ def.material, def.material },
-			{ "", ""},
-			{ def.material, def.material },
-		}
-	})
-
 	local fence_rail_texture = "default_fence_rail_overlay.png^" .. def.texture ..
 			"^default_fence_rail_overlay.png^[makealpha:255,126,126"
 	-- Allow almost everything to be overridden
@@ -433,10 +428,23 @@ function default.register_fence_rail(name, def)
 	-- Always add to the fence group, even if no group provided
 	def.groups.fence = 1
 
+	local material = def.material
 	def.texture = nil
 	def.material = nil
 
 	minetest.register_node(name, def)
+
+	-- Register crafting recipe, trim away starting colon if any
+	if not material then return end
+	name = string.gsub(name, "^:", "")
+	minetest.register_craft({
+		output = name .. " 16",
+		recipe = {
+			{ material, material },
+			{ "", ""},
+			{ material, material },
+		}
+	})
 end
 
 --
@@ -444,15 +452,6 @@ end
 --
 
 function default.register_mesepost(name, def)
-	minetest.register_craft({
-		output = name .. " 4",
-		recipe = {
-			{'', 'default:glass', ''},
-			{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-			{'', def.material, ''},
-		}
-	})
-
 	local post_texture = def.texture .. "^default_mese_post_light_side.png^[makealpha:0,0,0"
 	local post_texture_dark = def.texture .. "^default_mese_post_light_side_dark.png^[makealpha:0,0,0"
 	-- Allow almost everything to be overridden
@@ -480,10 +479,23 @@ function default.register_mesepost(name, def)
 		end
 	end
 
+	local material = def.material
 	def.texture = nil
 	def.material = nil
 
 	minetest.register_node(name, def)
+
+	-- Register crafting recipe, trim away starting colon if any
+	if not material then return end
+	name = string.gsub(name, "^:", "")
+	minetest.register_craft({
+		output = name .. " 4",
+		recipe = {
+			{'', 'default:glass', ''},
+			{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
+			{'', material, ''},
+		}
+	})
 end
 
 --
