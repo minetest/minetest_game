@@ -23,14 +23,14 @@ for i = 1, #dyes do
 		type = "shapeless",
 		output = "wool:" .. name,
 		recipe = {"group:dye," .. color_group, "group:wool"},
-	
-	minetest.register_craft{
-		type = "shapeless",
-		output = "farming:string 4",
-		recipe = {"group:wool"}
-		}
 	}
 end
+
+-- Alternative recipe for strings.
+minetest.register_craft({
+		output="farming:string 4",
+		recipe={{"group:wool"}}
+})
 
 -- Legacy
 -- Backwards compatibility with jordach's 16-color wool mod
