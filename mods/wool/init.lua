@@ -23,6 +23,12 @@ for i = 1, #dyes do
 		type = "shapeless",
 		output = "wool:" .. name,
 		recipe = {"group:dye," .. color_group, "group:wool"},
+	
+	minetest.register_craft{
+		type = "shapeless",
+		output = "farming:string 4",
+		recipe = {"group:wool"}
+		}
 	}
 end
 
