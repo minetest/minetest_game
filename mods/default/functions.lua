@@ -312,7 +312,18 @@ function default.dig_up(pos, node, digger, max_height)
 		if up_node.name ~= node.name then
 			break
 		end
-		if not minetest.dig_node(up_pos, digger) then
+		local noerr, success = xpcall(function()
+			minetest.dig_node(up_pos, digger)
+		end, function(...)
+			in_dig_up = false
+			minetest.log("error", "Error raised during `default.dig_up` call:")
+			for line in debug.traceback(...):gmatch("([^\n]*)\n?") do
+				minetest.log("error", line)
+			end
+		end)
+		if not noerr then
+			error("Error raised during `default.dig_up` call")
+		elseif not success then
 			break
 		end
 	end
