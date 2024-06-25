@@ -28,8 +28,8 @@ end
 
 -- Alternative recipe for strings.
 minetest.register_craft({
-		output="farming:string 4",
-		recipe={{"group:wool"}}
+	output = "farming:string 4",
+	recipe = {{"group:wool"}},
 })
 		
 -- Legacy
