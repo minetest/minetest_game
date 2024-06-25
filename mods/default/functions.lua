@@ -305,20 +305,18 @@ function default.dig_up(pos, node, digger, max_height)
 	if digger == nil then return end
 	max_height = max_height or 100
 
+	in_dig_up = true
 	for y = pos.y + 1, pos.y + max_height do
 		local up_pos  = vector.new(pos.x, y, pos.z)
 		local up_node = minetest.get_node(up_pos)
-		if up_node.name == node.name then
-			in_dig_up = true
-			if not minetest.dig_node(up_pos, digger) then
-				in_dig_up = false
-				break
-			end
-			in_dig_up = false
-		else
+		if up_node.name ~= node.name then
+			break
+		end
+		if not minetest.dig_node(up_pos, digger) then
 			break
 		end
 	end
+	in_dig_up = false
 end
 
 
