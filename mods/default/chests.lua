@@ -284,7 +284,7 @@ function default.chest.register_chest(prefixed_name, d)
 			nodenames = {name},
 			action = function(pos, node)
 				local meta = minetest.get_meta(pos)
-				meta:set_string("formspec", nil)
+				meta:set_string("formspec", "")
 				local inv = meta:get_inventory()
 				local list = inv:get_list("default:chest")
 				if list then
