@@ -91,12 +91,7 @@ end
 
 local basic_flame_on_construct -- cached value
 local function destroy(drops, npos, cid, c_air, c_fire,
-		on_blast_queue, on_construct_queue,
-		ignore_protection, ignore_on_blast, owner)
-	if not ignore_protection and minetest.is_protected(npos, owner) then
-		return cid
-	end
-
+		on_blast_queue, on_construct_queue, ignore_on_blast)
 	local def = cid_data[cid]
 
 	if not def then
@@ -295,7 +290,6 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	local minp, maxp = vm1:read_from_map(p1, p2)
 	local a = VoxelArea:new({MinEdge = minp, MaxEdge = maxp})
 	local data = vm1:get_data()
-	local count = 0
 	local c_tnt
 	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
 	local c_tnt_boom = minetest.get_content_id("tnt:boom")
@@ -306,9 +300,12 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	else
 		c_tnt = c_tnt_burning -- tnt is not registered if disabled
 	end
-	-- make sure we still have explosion even when centre node isnt tnt related
+
+	local count
 	if explode_center then
 		count = 1
+	else
+		count = 0
 	end
 
 	for z = pos.z - 2, pos.z + 2 do
@@ -324,6 +321,7 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		end
 	end
 	end
+	count = math.max(1, count)
 
 	vm1:set_data(data)
 	vm1:write_to_map()
@@ -354,10 +352,10 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 		if (radius * radius) / (r * r) >= (pr:next(80, 125) / 100) then
 			local cid = data[vi]
 			local p = {x = pos.x + x, y = pos.y + y, z = pos.z + z}
-			if cid ~= c_air and cid ~= c_ignore then
+			if cid ~= c_air and cid ~= c_ignore and (ignore_protection or not minetest.is_protected(p, owner)) then
 				data[vi] = destroy(drops, p, cid, c_air, c_fire,
 					on_blast_queue, on_construct_queue,
-					ignore_protection, ignore_on_blast, owner)
+					ignore_on_blast)
 			end
 		end
 		vi = vi + 1
@@ -365,10 +363,23 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	end
 	end
 
+	-- make the center of the explosion flash, if it's safe
+	local vc = a:index(pos.x, pos.y, pos.z)
+	local ccid = data[vc]
+	if ccid == c_air then
+		data[vc] = c_tnt_boom
+	end
+
 	vm:set_data(data)
 	vm:write_to_map()
 	vm:update_map()
 	vm:update_liquids()
+
+	-- make the center of the explosion flash, if it's safe
+	-- have to set the timer *after* data is written to the map
+	if ccid == c_air then
+		minetest.get_node_timer(pos):start(0)
+	end
 
 	-- call check_single_for_falling for everything within 1.5x blast radius
 	for y = -radius * 1.5, radius * 1.5 do
@@ -411,9 +422,6 @@ function tnt.boom(pos, def)
 	def.damage_radius = def.damage_radius or def.radius * 2
 	local meta = minetest.get_meta(pos)
 	local owner = meta:get_string("owner")
-	if not def.explode_center and def.ignore_protection ~= true then
-		minetest.set_node(pos, {name = "tnt:boom"})
-	end
 	local sound = def.sound or "tnt_explode"
 	minetest.sound_play(sound, {pos = pos, gain = 2.5,
 			max_hear_distance = math.min(def.radius * 20, 128)}, true)
@@ -440,6 +448,13 @@ minetest.register_node("tnt:boom", {
 	groups = {dig_immediate = 3, not_in_creative_inventory = 1},
 	-- unaffected by explosions
 	on_blast = function() end,
+	on_timer = function(pos, elapsed)
+		if elapsed > 0 then
+			minetest.remove_node(pos)
+		else
+			return true
+		end
+	end,
 })
 
 minetest.register_node("tnt:gunpowder", {
