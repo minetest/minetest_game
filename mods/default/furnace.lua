@@ -223,7 +223,7 @@ local function furnace_node_timer(pos, elapsed)
 		elapsed = elapsed - el
 	end
 
-	if items_smelt ~= 0 then
+	if items_smelt > 0 then
 		-- Play cooling sound
 		minetest.sound_play("default_cool_lava",
 			{ pos = pos, max_hear_distance = 16, gain = 0.07 * math.min(items_smelt, 7) }, true)
