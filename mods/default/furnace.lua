@@ -333,7 +333,12 @@ end
 -- Node definitions
 --
 
-minetest.register_node("default:furnace", {
+local function apply_logger(def)
+	default.set_inventory_action_loggers(def, "furnace")
+	return def
+end
+
+minetest.register_node("default:furnace", apply_logger({
 	description = S("Furnace"),
 	tiles = {
 		"default_furnace_top.png", "default_furnace_bottom.png",
@@ -383,9 +388,9 @@ minetest.register_node("default:furnace", {
 	allow_metadata_inventory_put = allow_metadata_inventory_put,
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
-})
+}))
 
-minetest.register_node("default:furnace_active", {
+minetest.register_node("default:furnace_active", apply_logger({
 	description = S("Furnace"),
 	tiles = {
 		"default_furnace_top.png", "default_furnace_bottom.png",
@@ -419,7 +424,7 @@ minetest.register_node("default:furnace_active", {
 	allow_metadata_inventory_put = allow_metadata_inventory_put,
 	allow_metadata_inventory_move = allow_metadata_inventory_move,
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
-})
+}))
 
 minetest.register_craft({
 	output = "default:furnace",
