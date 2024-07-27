@@ -163,12 +163,12 @@ function default.chest.register_chest(prefixed_name, d)
 			local itemstack = player:get_wielded_item()
 			local key_meta = itemstack:get_meta()
 
-			if itemstack:get_metadata() == "" then
+			if itemstack:get_meta():get_string("") == "" then
 				return
 			end
 
 			if key_meta:get_string("secret") == "" then
-				key_meta:set_string("secret", minetest.parse_json(itemstack:get_metadata()).secret)
+				key_meta:set_string("secret", minetest.parse_json(itemstack:get_meta():get_string("")).secret)
 				itemstack:set_metadata("")
 			end
 

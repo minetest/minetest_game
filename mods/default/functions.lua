@@ -803,7 +803,7 @@ function default.can_interact_with_node(player, pos)
 		local key_meta = item:get_meta()
 
 		if key_meta:get_string("secret") == "" then
-			local key_oldmeta = item:get_metadata()
+			local key_oldmeta = item:get_meta():get_string("")
 			if key_oldmeta == "" or not minetest.parse_json(key_oldmeta) then
 				return false
 			end

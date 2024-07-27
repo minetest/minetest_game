@@ -57,7 +57,7 @@ local function book_on_use(itemstack, user)
 	local page, page_max, lines, string = 1, 1, {}, ""
 
 	-- Backwards compatibility
-	local old_data = minetest.deserialize(itemstack:get_metadata())
+	local old_data = minetest.deserialize(itemstack:get_meta():get_string(""))
 	if old_data then
 		meta:from_table({ fields = old_data })
 	end
