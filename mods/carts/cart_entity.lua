@@ -6,10 +6,9 @@ local S = carts.get_translator
 local cart_entity = {
 	initial_properties = {
 		physical = false, -- otherwise going uphill breaks
-		collisionbox = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
 		visual = "mesh",
-		mesh = "carts_cart.b3d",
-		visual_size = {x=1, y=1},
+		mesh = "carts_cart.obj",
 		textures = {"carts_cart.png"},
 	},
 
@@ -352,15 +351,7 @@ local function rail_on_step(self, dtime)
 	elseif dir.z < 0 then
 		yaw = 1
 	end
-	self.object:set_yaw(yaw * math.pi)
-
-	local anim = {x=0, y=0}
-	if dir.y == -1 then
-		anim = {x=1, y=1}
-	elseif dir.y == 1 then
-		anim = {x=2, y=2}
-	end
-	self.object:set_animation(anim, 1, 0)
+	self.object:set_rotation(vector.new(math.sign(dir.y) * 0.25 * math.pi, yaw * math.pi, 0))
 
 	if update.vel then
 		self.object:set_velocity(vel)
