@@ -27,7 +27,7 @@ local drop = function(pos, itemstack)
 	end
 end
 
-local dropContents = function(pos)
+local drop_contents = function(pos)
 	local inv = minetest.get_meta(pos):get_inventory()
 
 	for i = 1, inv:get_size("main") do
@@ -109,7 +109,8 @@ local bones_def = {
 		end
 
 		if not player:is_player() then
-			dropContents(pos)
+			drop_contents(pos)
+			return
 		end
 
 		if minetest.get_meta(pos):get_string("infotext") == "" then
