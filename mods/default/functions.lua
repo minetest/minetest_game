@@ -293,15 +293,46 @@ minetest.register_abm({
 -- Dig upwards
 --
 
-function default.dig_up(pos, node, digger)
+local in_dig_up = false
+
+---Find all nodes above this one that is the same, then dig them all
+---@param pos vector The position of the base node
+---@param node { name: string, param1: integer, param2: integer } Node table of the base node
+---@param digger ObjectRef The object (e.g. player) digging the node
+---@param max_height The maximum height to search for, excluding the base node
+function default.dig_up(pos, node, digger, max_height)
+	if in_dig_up then return end -- Do not recurse
 	if digger == nil then return end
-	local np = {x = pos.x, y = pos.y + 1, z = pos.z}
-	local nn = minetest.get_node(np)
-	if nn.name == node.name then
-		minetest.node_dig(np, nn, digger)
+	max_height = max_height or 100
+
+	in_dig_up = true
+	for y = pos.y + 1, pos.y + max_height do
+		local up_pos  = vector.new(pos.x, y, pos.z)
+		local up_node = minetest.get_node(up_pos)
+		if up_node.name ~= node.name then
+			break
+		end
+		local noerr, success = xpcall(function()
+			return minetest.dig_node(up_pos, digger)
+		end, function(...)
+			in_dig_up = false
+			local errmsg = "Error raised during `default.dig_up` call: " .. minetest.error_handler(...)
+			for line in errmsg:gmatch("([^\n]*)\n?") do
+				minetest.log("error", line)
+			end
+		end)
+		if not noerr then
+			error("Error raised during `default.dig_up` call")
+		elseif not success then
+			break
+		end
 	end
+	in_dig_up = false
 end
 
+minetest.register_globalstep(function()
+	in_dig_up = false
+end)
 
 --
 -- Fence registration helper
