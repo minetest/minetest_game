@@ -313,11 +313,11 @@ function default.dig_up(pos, node, digger, max_height)
 			break
 		end
 		local noerr, success = xpcall(function()
-			minetest.dig_node(up_pos, digger)
+			return minetest.dig_node(up_pos, digger)
 		end, function(...)
 			in_dig_up = false
-			minetest.log("error", "Error raised during `default.dig_up` call:")
-			for line in debug.traceback(...):gmatch("([^\n]*)\n?") do
+			local errmsg = "Error raised during `default.dig_up` call: " .. minetest.error_handler(...)
+			for line in errmsg:gmatch("([^\n]*)\n?") do
 				minetest.log("error", line)
 			end
 		end)
@@ -330,6 +330,9 @@ function default.dig_up(pos, node, digger, max_height)
 	in_dig_up = false
 end
 
+minetest.register_globalstep(function()
+	in_dig_up = false
+end)
 
 --
 -- Fence registration helper
