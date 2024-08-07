@@ -254,12 +254,18 @@ if enable_respawn then
 	end)
 end
 
+minetest.register_on_joinplayer(function(player)
+	update_formspecs(false)
+end)
+
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	lay_down(player, nil, nil, false, true)
 	beds.player[name] = nil
 	if check_in_beds() then
 		schedule_update()
+	else
+		update_formspecs(false)
 	end
 end)
 
