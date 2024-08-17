@@ -8,8 +8,8 @@ real goals or built-in enemy mobs.
 While it provides a basic gameplay experience out of the box, it is best played
 with mods.
 
-Minetest Game is currently in maintenance-only mode, meaning it will not see new
-gameplay features or anything else that breaks compatibility (See
+Minetest Game is in perpetual maintenance-only mode, meaning it will not see new
+gameplay features or anything else that breaks compatibility (see
 [#2710](https://github.com/minetest/minetest_game/issues/2710)).
 
 ## Installation
@@ -17,13 +17,13 @@ gameplay features or anything else that breaks compatibility (See
 ### ContentDB
 
 * Content > Browse Online Content
-* Search for Minetest Game
+* Search for "[Minetest Game](https://content.minetest.net/packages/Minetest/minetest_game/)"
 * Click Install
 
 ### Manually
 
 - Unzip the archive, rename the folder to `minetest_game` and
-place it in .. `minetest/games/`
+place it in `.../minetest/games/`
 
 - GNU/Linux: If you use a system-wide installation place it in `~/.minetest/games/`.
 
@@ -33,14 +33,13 @@ For further information or help, see: [Installing Mods](https://wiki.minetest.ne
 
 ## Compatibility
 
-The Minetest Game GitHub `master` `HEAD` is generally compatible with the GitHub
-`master` `HEAD` of the Minetest engine.
+As of January 2024 Minetest Game follows a **rolling release** model with new changes being automatically
+published on ContentDB every day.
 
-Additionally, when the Minetest engine is tagged to be a certain version (e.g.
-`0.4.10`), Minetest Game is tagged with the version, too.
+There are no stable releases or tags, all existing ones are considered legacy.
 
-When stable releases are made, Minetest Game and the Minetest engine is packaged
-and made available at [www.minetest.net](https://www.minetest.net/downloads/).
+Minetest Game is always compatible to the latest stable release of the engine.
+Older releases may be supported too depending on circumstances.
 
 ## Licensing
 
