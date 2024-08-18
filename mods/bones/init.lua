@@ -16,7 +16,7 @@ local function is_owner(pos, name)
 	return false
 end
 
-local drop = function(pos, itemstack)
+local function drop(pos, itemstack)
 	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
 	if obj then
 		obj:set_velocity({
