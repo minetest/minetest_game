@@ -27,7 +27,7 @@ local function drop(pos, itemstack)
 	end
 end
 
-local drop_contents = function(pos)
+local function drop_contents(pos)
 	local inv = minetest.get_meta(pos):get_inventory()
 
 	for i = 1, inv:get_size("main") do
