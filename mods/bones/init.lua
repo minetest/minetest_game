@@ -16,6 +16,27 @@ local function is_owner(pos, name)
 	return false
 end
 
+local function drop(pos, itemstack)
+	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
+	if obj then
+		obj:set_velocity({
+			x = math.random(-10, 10) / 9,
+			y = 5,
+			z = math.random(-10, 10) / 9,
+		})
+	end
+end
+
+local function drop_contents(pos)
+	local inv = minetest.get_meta(pos):get_inventory()
+
+	for i = 1, inv:get_size("main") do
+		local stk = inv:get_stack("main", i)
+		drop(pos, stk)
+	end
+	minetest.remove_node(pos)
+end
+
 local bones_formspec =
 	"size[8,9]" ..
 	"list[current_name;main;0,0.3;8,4;]" ..
@@ -84,6 +105,11 @@ local bones_def = {
 
 	on_punch = function(pos, node, player)
 		if not is_owner(pos, player:get_player_name()) then
+			return
+		end
+
+		if not player:is_player() then
+			drop_contents(pos)
 			return
 		end
 
@@ -169,17 +195,6 @@ local function may_replace(pos, player)
 	-- default to each nodes buildable_to; if a placed block would replace it, why shouldn't bones?
 	-- flowers being squished by bones are more realistical than a squished stone, too
 	return node_definition.buildable_to
-end
-
-local drop = function(pos, itemstack)
-	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
-	if obj then
-		obj:set_velocity({
-			x = math.random(-10, 10) / 9,
-			y = 5,
-			z = math.random(-10, 10) / 9,
-		})
-	end
 end
 
 local player_inventory_lists = { "main", "craft" }
