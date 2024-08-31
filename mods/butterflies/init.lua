@@ -43,18 +43,8 @@ for i in ipairs (butter_list) do
 			fixed = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
 		},
 		floodable = true,
-		on_place = function(itemstack, placer, pointed_thing)
-			local player_name = placer and placer:get_player_name() or ""
-			local pos = pointed_thing.above
-
-			if not minetest.is_protected(pos, player_name) and
-					not minetest.is_protected(pointed_thing.under, player_name) and
-					minetest.get_node(pos).name == "air" then
-				minetest.set_node(pos, {name = "butterflies:butterfly_"..name})
-				minetest.get_node_timer(pos):start(1)
-				itemstack:take_item()
-			end
-			return itemstack
+		on_construct = function(pos)
+			minetest.get_node_timer(pos):start(1)
 		end,
 		on_timer = function(pos, elapsed)
 			if minetest.get_node_light(pos) < 11 then
@@ -76,18 +66,8 @@ for i in ipairs (butter_list) do
 		drop = "",
 		groups = {not_in_creative_inventory = 1},
 		floodable = true,
-		on_place = function(itemstack, placer, pointed_thing)
-			local player_name = placer and placer:get_player_name() or ""
-			local pos = pointed_thing.above
-
-			if not minetest.is_protected(pos, player_name) and
-					not minetest.is_protected(pointed_thing.under, player_name) and
-					minetest.get_node(pos).name == "air" then
-				minetest.set_node(pos, {name = "butterflies:hidden_butterfly_"..name})
-				minetest.get_node_timer(pos):start(1)
-				itemstack:take_item()
-			end
-			return itemstack
+		on_construct = function(pos)
+			minetest.get_node_timer(pos):start(1)
 		end,
 		on_timer = function(pos, elapsed)
 			if minetest.get_node_light(pos) >= 11 then
