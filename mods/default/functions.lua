@@ -306,8 +306,8 @@ function default.dig_up(pos, node, digger, max_height)
 	max_height = max_height or 100
 
 	in_dig_up = true
-	for y = pos.y + 1, pos.y + max_height do
-		local up_pos  = vector.new(pos.x, y, pos.z)
+	for y = 1, max_height do
+		local up_pos  = vector.offset(pos, 0, y, 0)
 		local up_node = minetest.get_node(up_pos)
 		if up_node.name ~= node.name then
 			break
