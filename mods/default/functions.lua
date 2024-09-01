@@ -314,6 +314,7 @@ function default.dig_up(pos, node, digger, max_height)
 	in_dig_up = false
 end
 
+-- errors are hard to handle, instead we rely on resetting this value the next step
 minetest.register_globalstep(function()
 	in_dig_up = false
 end)
