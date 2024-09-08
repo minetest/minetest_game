@@ -293,14 +293,31 @@ minetest.register_abm({
 -- Dig upwards
 --
 
-function default.dig_up(pos, node, digger)
+local in_dig_up = false
+
+function default.dig_up(pos, node, digger, max_height)
+	if in_dig_up then return end -- Do not recurse
 	if digger == nil then return end
-	local np = {x = pos.x, y = pos.y + 1, z = pos.z}
-	local nn = minetest.get_node(np)
-	if nn.name == node.name then
-		minetest.node_dig(np, nn, digger)
+	max_height = max_height or 100
+
+	in_dig_up = true
+	for y = 1, max_height do
+		local up_pos  = vector.offset(pos, 0, y, 0)
+		local up_node = minetest.get_node(up_pos)
+		if up_node.name ~= node.name then
+			break
+		end
+		if not minetest.node_dig(up_pos, up_node, digger) then
+			break
+		end
 	end
+	in_dig_up = false
 end
+
+-- errors are hard to handle, instead we rely on resetting this value the next step
+minetest.register_globalstep(function()
+	in_dig_up = false
+end)
 
 
 --
