@@ -36,7 +36,10 @@ end
 for _, name in ipairs({
 	"taiga", "coniferous_forest", "deciduous_forest", "grassland", "savanna"
 }) do
-	spawn.add_suitable_biome(name)
+	local id = minetest.get_biome_id(name)
+	if id then
+		biome_ids[id] = true
+	end
 end
 
 -- End of parameters
