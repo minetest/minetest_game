@@ -71,7 +71,6 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		end
 		player:set_pos(beds.pos[name])
 
-		-- physics, eye_offset, etc
 		local physics_override = beds.player[name].physics_override
 		beds.player[name] = nil
 		player:set_physics_override({
@@ -79,7 +78,6 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			jump = physics_override.jump,
 			gravity = physics_override.gravity
 		})
-		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
 		player:set_look_horizontal(math.random(1, 180) / 100)
 		player_api.player_attached[name] = false
 		hud_flags.wielditem = true
