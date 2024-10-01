@@ -11,7 +11,10 @@ local mg_name = minetest.get_mapgen_setting("mg_name")
 if mg_name == "v6" or mg_name == "singlenode" then
 	-- set a default shadow intensity for mgv6 and singlenode
 	minetest.register_on_joinplayer(function(player)
-		player:set_lighting({ shadows = { intensity = 0.33 } })
+		player:set_lighting({
+			shadows = { intensity = 0.33 },
+			volumetric_light = { strength = 0.2 },
+		})
 	end)
 
 	return
@@ -117,7 +120,8 @@ function weather.get(player)
 			speed = {x = n_speedx * 4, z = n_speedz * 4},
 		},
 		lighting = {
-			shadows = { intensity = 0.7 * (1 - density) }
+			shadows = { intensity = 0.7 * (1 - density) },
+			volumetric_light = { strength = 0.2 },
 		}
 	}
 end

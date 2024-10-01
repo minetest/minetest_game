@@ -72,7 +72,8 @@ default:torch 99,default:cobble 99
 # Helps rivers create more sound, especially on level sections.
 #river_source_sounds = false
 
-# Enable cloud and shadow intensity variation by the 'weather' mod.
+# If enabled, the 'weather' mod will control cloud parameters, shadow intensity
+# and volumetric lighting.
 # Non-functional in V6 or Singlenode mapgens.
 #enable_weather = true
 
