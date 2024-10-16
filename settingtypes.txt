@@ -72,8 +72,8 @@ engine_spawn (Use engine spawn search) bool false
 #    Helps rivers create more sound, especially on level sections.
 river_source_sounds (River source node sounds) bool false
 
-#    If enabled, the 'weather' mod will control cloud parameters, shadow intensity
-#    and volumetric lighting.
+#    If enabled, the 'weather' mod will control cloud parameters, shadow intensity,
+#    bloom and volumetric lighting.
 #    Non-functional in V6 or Singlenode mapgens.
 enable_weather (Enable weather) bool true
 
