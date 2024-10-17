@@ -35,7 +35,7 @@ walls.register = function(wall_name, wall_desc, wall_texture_table, wall_mat, wa
 			connect_back = {-1/4,-1/2,1/4,1/4,1/2 + fence_collision_extra,1/2},
 			connect_right = {1/4,-1/2,-1/4,1/2,1/2 + fence_collision_extra,1/4},
 		},
-		connects_to = { "group:wall", "group:stone", "group:fence" },
+		connects_to = { "group:wall", "group:stone", "group:fence", "group:wall_connected" },
 		paramtype = "light",
 		is_ground_content = false,
 		tiles = wall_texture_table,
