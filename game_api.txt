@@ -1205,7 +1205,7 @@ Weather API
 -----------
 
 The weather mod will constantly adjust weather effects seen by the player
-(that is: cloud parameters, shadow intensity and volumetric lighting).
+(that is: cloud parameters, shadow intensity, bloom and volumetric lighting).
 These can be influenced using this API.
 
 #### `weather.get = function(player)`

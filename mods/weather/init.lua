@@ -13,6 +13,7 @@ if mg_name == "v6" or mg_name == "singlenode" then
 	minetest.register_on_joinplayer(function(player)
 		player:set_lighting({
 			shadows = { intensity = 0.33 },
+			bloom = { intensity = 0.05 },
 			volumetric_light = { strength = 0.2 },
 		})
 	end)
@@ -121,6 +122,7 @@ function weather.get(player)
 		},
 		lighting = {
 			shadows = { intensity = 0.7 * (1 - density) },
+			bloom = { intensity = 0.05 },
 			volumetric_light = { strength = 0.2 },
 		}
 	}
