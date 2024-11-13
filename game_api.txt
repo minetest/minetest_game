@@ -341,6 +341,12 @@ walls.register(name, desc, texture, mat, sounds)
 ^ mat = "default:stone". Used to auto-generate crafting recipe.
 ^ sounds = sounds: see [#Default sounds]
 
+All walls will be connected to any nodes with one of the following groups:
+ * `wall`
+ * `stone`
+ * `fence`
+ * `wall_connected`
+
 
 Farming API
 -----------
