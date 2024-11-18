@@ -170,20 +170,20 @@ end
 
 -- Public functions
 
-function beds.kick_player(player)
+function beds.kick(player)
 	lay_down(player, nil, nil, false)
 end
 
 function beds.kick_players()
 	for name in pairs(beds.player) do
-		beds.kick_players(core.get_player_by_name(name))
+		beds.kick(core.get_player_by_name(name))
 	end
 end
 
 core.register_globalstep(function()
 	for name, bed_pos in pairs(beds.bed_position) do
 		if not beds.is_bed_node[core.get_node(bed_pos).name] then
-			beds.kick_player(core.get_player_by_name(name))
+			beds.kick(core.get_player_by_name(name))
 		end
 	end
 end)
