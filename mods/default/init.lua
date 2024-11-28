@@ -1,4 +1,4 @@
--- Minetest 0.4 mod: default
+-- Minetest Game mod: default
 -- See README.txt for licensing and other information.
 
 -- The API documentation in here was moved into game_api.txt

@@ -1,6 +1,6 @@
 -- bones/init.lua
 
--- Minetest 0.4 mod: bones
+-- Minetest Game mod: bones
 -- See README.txt for licensing and other information.
 
 -- Load support for MT game translation.
