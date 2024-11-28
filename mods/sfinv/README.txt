@@ -6,7 +6,7 @@ Simple Fast Inventory.
 A cleaner, simpler, solution to having an advanced inventory in Luanti.
 See game_api.txt for this mod's API.
 Available for use outside of MTG here:
-https://forum.minetest.net/viewtopic.php?t=19765
+https://forum.luanti.org/viewtopic.php?t=19765
 
 Authors of source code
 ----------------------

@@ -1,6 +1,6 @@
 # Minetest Game
 
-[![ContentDB](https://content.minetest.net/packages/Minetest/minetest_game/shields/title/)](https://content.minetest.net/packages/Minetest/minetest_game/)
+[![ContentDB](https://content.luanti.org/packages/Minetest/minetest_game/shields/title/)](https://content.luanti.org/packages/Minetest/minetest_game/)
 
 Minetest Game (abbreviated MTG) is a simple and peaceful sandbox game, with no
 real goals or built-in enemy mobs.
@@ -17,7 +17,7 @@ gameplay features or anything else that breaks compatibility (see
 ### ContentDB
 
 * Content > Browse Online Content
-* Search for "[Minetest Game](https://content.minetest.net/packages/Minetest/minetest_game/)"
+* Search for "[Minetest Game](https://content.luanti.org/packages/Minetest/minetest_game/)"
 * Click Install
 
 ### Manually
@@ -29,7 +29,7 @@ place it in `.../minetest/games/`
 
 The Luanti engine can be found at [GitHub](https://github.com/minetest/minetest).
 
-For further information or help, see: [Installing Mods](https://wiki.minetest.net/Installing_Mods).
+For further information or help, see: [Installing Mods](https://wiki.luanti.org/Installing_Mods).
 
 ## Compatibility
 
