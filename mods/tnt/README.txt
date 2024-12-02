@@ -7,7 +7,7 @@ Authors of source code
 PilzAdam (MIT)
 ShadowNinja (MIT)
 sofar (sofar@foo-projects.org) (MIT)
-Various Luanti developers and contributors (MIT)
+Various Minetest Game developers and contributors (MIT)
 
 Authors of media
 ----------------
