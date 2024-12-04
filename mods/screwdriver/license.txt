@@ -3,7 +3,7 @@ License of source code
 
 GNU Lesser General Public License, version 2.1
 Copyright (C) 2013-2016 RealBadAngel, Maciej Kasatkin
-Copyright (C) 2013-2016 Various Minetest developers and contributors
+Copyright (C) 2013-2016 Various Minetest Game developers and contributors
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU Lesser General Public License as published by the Free Software Foundation;

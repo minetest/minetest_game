@@ -7,7 +7,7 @@ Authors of source code
 PilzAdam (MIT)
 ShadowNinja (MIT)
 sofar (sofar@foo-projects.org) (MIT)
-Various Minetest developers and contributors (MIT)
+Various Minetest Game developers and contributors (MIT)
 
 Authors of media
 ----------------
@@ -45,8 +45,7 @@ by frankelmedico (CC0 1.0)
 
 Introduction
 ------------
-This mod adds TNT to Minetest. TNT is a tool to help the player
-in mining.
+This mod adds TNT. TNT is a tool to help the player in mining.
 
 How to use the mod:
 

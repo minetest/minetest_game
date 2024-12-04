@@ -1,6 +1,6 @@
 -- stairs/init.lua
 
--- Minetest 0.4 mod: stairs
+-- Minetest Game mod: stairs
 -- See README.txt for licensing and other information.
 
 

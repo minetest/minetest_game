@@ -7,7 +7,7 @@ Authors of source code
 Originally by xyz (MIT)
 BlockMen (MIT)
 sofar (MIT)
-Various Minetest developers and contributors (MIT)
+Various Minetest Game developers and contributors (MIT)
 
 Authors of media (textures)
 ---------------------------

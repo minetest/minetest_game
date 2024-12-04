@@ -1,6 +1,6 @@
 -- flowers/init.lua
 
--- Minetest 0.4 mod: default
+-- Minetest Game mod: flowers
 -- See README.txt for licensing and other information.
 
 

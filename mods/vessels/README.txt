@@ -6,7 +6,7 @@ Authors of source code
 ----------------------
 Originally by Vanessa Ezekowitz (LGPLv2.1+)
 Modified by Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
-Various Minetest developers and contributors (LGPLv2.1+)
+Various Minetest Game developers and contributors (LGPLv2.1+)
 
 Authors of media (textures)
 ---------------------------

@@ -1,4 +1,4 @@
--- Minetest mod: keys
+-- Minetest Game mod: keys
 local keys_path = minetest.get_modpath("keys")
 
 dofile(keys_path.."/craftitems.lua")

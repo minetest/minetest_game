@@ -1,4 +1,4 @@
--- Minetest 0.4 mod: bucket
+-- Minetest Game mod: bucket
 -- See README.txt for licensing and other information.
 
 -- Load support for MT game translation.
