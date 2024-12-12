@@ -97,7 +97,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		end
 
 		-- Check if player is moving
-		if vector.length(player:get_velocity()) > 0.001 then
+		if vector.length(player:get_velocity()) > 0.05 then
 			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
 			return false
 		end
