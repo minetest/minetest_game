@@ -141,6 +141,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			string = formspec_string(lpp, data.page, lines, string)
 			contents = formspec_read(player_name, title, string,
 				text, data.page, data.page_max)
+		else
+			return -- malicious data
 		end
 		tab_number = tab
 		local formspec = formspec_size .. formspec_core(tab) .. contents
