@@ -10,6 +10,9 @@ end
 local function get_other_bed_pos(pos, n)
 	local node = core.get_node(pos)
 	local dir = core.facedir_to_dir(node.param2)
+	if not dir then
+		return -- There are 255 possible param2 values. Ignore bad ones.
+	end
 	local other
 	if n == 2 then
 		other = vector.subtract(pos, dir)
@@ -124,6 +127,9 @@ function beds.register_bed(name, def)
 
 		on_rotate = function(pos, node, user, _, new_param2)
 			local dir = minetest.facedir_to_dir(node.param2)
+			if not dir then
+				return false
+			end
 			-- old position of the top node
 			local p = vector.add(pos, dir)
 			local node2 = minetest.get_node_or_nil(p)
