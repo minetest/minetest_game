@@ -2,9 +2,16 @@
 
 local builtin_item = minetest.registered_entities["__builtin:item"]
 
+-- strictly speaking none of this is part of the API, so do some checks
+-- and if it looks wrong skip the modifications
+if not builtin_item or type(builtin_item.set_item) ~= "function" or type(builtin_item.on_step) ~= "function" then
+	minetest.log("warning", "Builtin item entity does not look as expected, skipping overrides.")
+	return
+end
+
 local item = {
-	set_item = function(self, itemstring)
-		builtin_item.set_item(self, itemstring)
+	set_item = function(self, itemstring, ...)
+		builtin_item.set_item(self, itemstring, ...)
 
 		local stack = ItemStack(itemstring)
 		local itemdef = minetest.registered_items[stack:get_name()]
