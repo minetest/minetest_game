@@ -6,23 +6,36 @@ local function remove_no_destruct(pos)
 	minetest.check_for_falling(pos)
 end
 
-local function destruct_bed(pos, n)
-	local node = minetest.get_node(pos)
+--- returns the position of the other bed half (or nil on failure)
+local function get_other_bed_pos(pos, n)
+	local node = core.get_node(pos)
+	local dir = core.facedir_to_dir(node.param2)
+	if not dir then
+		return -- There are 255 possible param2 values. Ignore bad ones.
+	end
 	local other
-
 	if n == 2 then
-		local dir = minetest.facedir_to_dir(node.param2)
 		other = vector.subtract(pos, dir)
 	elseif n == 1 then
-		local dir = minetest.facedir_to_dir(node.param2)
 		other = vector.add(pos, dir)
+	else
+		return nil
 	end
-	local oname = minetest.get_node(other).name
-	if minetest.get_item_group(oname, "bed") ~= 0 then
-	   remove_no_destruct(other)
-	   beds.remove_spawns_at(pos)
-	   beds.remove_spawns_at(other)
+
+	local onode = core.get_node(other)
+	if onode.param2 == node.param2 and core.get_item_group(onode.name, "bed") ~= 0 then
+		return other
 	end
+	return nil
+end
+
+local function destruct_bed(pos, n)
+	local other = get_other_bed_pos(pos, n)
+	if other then
+		remove_no_destruct(other)
+		beds.remove_spawns_at(other)
+	end
+	beds.remove_spawns_at(pos)
 end
 
 function beds.register_bed(name, def)
@@ -114,6 +127,9 @@ function beds.register_bed(name, def)
 
 		on_rotate = function(pos, node, user, _, new_param2)
 			local dir = minetest.facedir_to_dir(node.param2)
+			if not dir then
+				return false
+			end
 			-- old position of the top node
 			local p = vector.add(pos, dir)
 			local node2 = minetest.get_node_or_nil(p)
@@ -157,23 +173,25 @@ function beds.register_bed(name, def)
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		pointable = false,
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2,
 				not_in_creative_inventory = 1},
 		sounds = def.sounds or default.node_sound_wood_defaults(),
-		drop = name .. "_bottom",
+		drop = "",
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.top,
+		},
+		selection_box = {
+			type = "fixed",
+			-- Small selection box to allow digging stray top nodes
+			fixed = {-0.3, -0.3, -0.3, 0.3, -0.1, 0.3},
 		},
 		on_destruct = function(pos)
 			destruct_bed(pos, 2)
 		end,
 		can_dig = function(pos, player)
-			local node = minetest.get_node(pos)
-			local dir = minetest.facedir_to_dir(node.param2)
-			local p = vector.add(pos, dir)
-			return beds.can_dig(p)
+			local other = get_other_bed_pos(pos, 2)
+			return (not other) or beds.can_dig(other)
 		end,
 	})
 
