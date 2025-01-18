@@ -347,9 +347,8 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 
 	-- Used to efficiently remove metadata of nodes that were destroyed.
 	-- Metadata is probably sparse, so this may save us some work.
-	local poses_with_meta = minetest.find_nodes_with_meta(p1, p2)
 	local has_meta = {}
-	for _, p in ipairs(poses_with_meta) do
+	for _, p in ipairs(minetest.find_nodes_with_meta(p1, p2)) do
 		has_meta[a:indexp(p)] = true
 	end
 
