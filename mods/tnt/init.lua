@@ -345,6 +345,13 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 	local on_construct_queue = {}
 	basic_flame_on_construct = minetest.registered_nodes["fire:basic_flame"].on_construct
 
+	-- Used to efficiently remove metadata of nodes that were destroyed.
+	-- Metadata is probably sparse, so this may save us some work.
+	local has_meta = {}
+	for _, p in ipairs(minetest.find_nodes_with_meta(p1, p2)) do
+		has_meta[a:indexp(p)] = true
+	end
+
 	local c_fire = minetest.get_content_id("fire:basic_flame")
 	for z = -radius, radius do
 	for y = -radius, radius do
@@ -355,9 +362,16 @@ local function tnt_explode(pos, radius, ignore_protection, ignore_on_blast, owne
 			local cid = data[vi]
 			local p = {x = pos.x + x, y = pos.y + y, z = pos.z + z}
 			if cid ~= c_air and cid ~= c_ignore then
-				data[vi] = destroy(drops, p, cid, c_air, c_fire,
+				local new_cid = destroy(drops, p, cid, c_air, c_fire,
 					on_blast_queue, on_construct_queue,
 					ignore_protection, ignore_on_blast, owner)
+
+				if new_cid ~= data[vi] then
+					data[vi] = new_cid
+					if has_meta[vi] then
+						minetest.get_meta(p):from_table(nil)
+					end
+				end
 			end
 		end
 		vi = vi + 1
