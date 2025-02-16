@@ -27,6 +27,14 @@ minetest.register_on_mods_loaded(function()
 	end
 end)
 
+local function particle_texture(name)
+	local ret = {name = name}
+	if minetest.features.particle_blend_clip then
+		ret.blend = "clip"
+	end
+	return ret
+end
+
 local function rand_pos(center, pos, radius)
 	local def
 	local reg_nodes = minetest.registered_nodes
@@ -211,7 +219,7 @@ local function add_effects(pos, radius, drops)
 		size = radius * 10,
 		collisiondetection = false,
 		vertical = false,
-		texture = "tnt_boom.png",
+		texture = particle_texture("tnt_boom.png"),
 		glow = 15,
 	})
 	minetest.add_particlespawner({
@@ -227,12 +235,12 @@ local function add_effects(pos, radius, drops)
 		maxexptime = 2.5,
 		minsize = radius * 3,
 		maxsize = radius * 5,
-		texture = "tnt_smoke.png",
+		texture = particle_texture("tnt_smoke.png"),
 	})
 
-	-- we just dropped some items. Look at the items entities and pick
-	-- one of them to use as texture
-	local texture = "tnt_blast.png" --fallback texture
+	-- we just dropped some items. Look at the items and pick
+	-- one of them to use as texture.
+	local texture = "tnt_blast.png" -- fallback
 	local node
 	local most = 0
 	for name, stack in pairs(drops) do

@@ -9,6 +9,28 @@ if not builtin_item or type(builtin_item.set_item) ~= "function" or type(builtin
 	return
 end
 
+local smoke_particles = {
+	amount = 3,
+	time = 0.1,
+	minpos = vector.new(-0.1, -0.1, -0.1),
+	maxpos = vector.new(0.1, 0.1, 0.1),
+	minvel = vector.new(0, 2.5, 0),
+	maxvel = vector.new(0, 2.5, 0),
+	minacc = vector.new(-0.15, -0.02, -0.15),
+	maxacc = vector.new(0.15, -0.01, 0.15),
+	minexptime = 4,
+	maxexptime = 6,
+	minsize = 5,
+	maxsize = 5,
+	collisiondetection = true,
+	texture = {
+		name = "default_item_smoke.png"
+	}
+}
+if minetest.features.particle_blend_clip then
+	smoke_particles.texture.blend = "clip"
+end
+
 local item = {
 	set_item = function(self, itemstring, ...)
 		builtin_item.set_item(self, itemstring, ...)
@@ -29,22 +51,10 @@ local item = {
 			gain = 1.0,
 			max_hear_distance = 8,
 		}, true)
-		minetest.add_particlespawner({
-			amount = 3,
-			time = 0.1,
-			minpos = {x = p.x - 0.1, y = p.y + 0.1, z = p.z - 0.1 },
-			maxpos = {x = p.x + 0.1, y = p.y + 0.2, z = p.z + 0.1 },
-			minvel = {x = 0, y = 2.5, z = 0},
-			maxvel = {x = 0, y = 2.5, z = 0},
-			minacc = {x = -0.15, y = -0.02, z = -0.15},
-			maxacc = {x = 0.15, y = -0.01, z = 0.15},
-			minexptime = 4,
-			maxexptime = 6,
-			minsize = 5,
-			maxsize = 5,
-			collisiondetection = true,
-			texture = "default_item_smoke.png"
-		})
+		local ps = table.copy(smoke_particles)
+		ps.minpos = vector.add(ps.minpos, p)
+		ps.maxpos = vector.add(ps.maxpos, p)
+		minetest.add_particlespawner(ps)
 	end,
 
 	on_step = function(self, dtime, ...)
