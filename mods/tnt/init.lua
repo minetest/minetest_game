@@ -12,12 +12,6 @@ if enable_tnt == nil then
 	enable_tnt = minetest.is_singleplayer()
 end
 
--- loss probabilities array (one in X will be lost)
-local loss_prob = {}
-
-loss_prob["default:cobble"] = 3
-loss_prob["default:dirt"] = 4
-
 local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
 
 -- Fill a list with data for content IDs, after all nodes are registered
@@ -27,11 +21,19 @@ minetest.register_on_mods_loaded(function()
 		cid_data[minetest.get_content_id(name)] = {
 			name = name,
 			drops = def.drops,
-			flammable = def.groups.flammable,
+			flammable = def.groups and (def.groups.flammable or 0) ~= 0,
 			on_blast = def.on_blast,
 		}
 	end
 end)
+
+local function particle_texture(name)
+	local ret = {name = name}
+	if minetest.features.particle_blend_clip then
+		ret.blend = "clip"
+	end
+	return ret
+end
 
 local function rand_pos(center, pos, radius)
 	local def
@@ -76,11 +78,14 @@ end
 
 local function add_drop(drops, item)
 	item = ItemStack(item)
-	local name = item:get_name()
-	if loss_prob[name] ~= nil and math.random(1, loss_prob[name]) == 1 then
+	-- Note that this needs to be set on the dropped item, not the node.
+	-- Value represents "one in X will be lost"
+	local lost = item:get_definition()._tnt_loss or 0
+	if lost > 0 and (lost == 1 or math.random(1, lost) == 1) then
 		return
 	end
 
+	local name = item:get_name()
 	local drop = drops[name]
 	if drop == nil then
 		drops[name] = item
@@ -214,7 +219,7 @@ local function add_effects(pos, radius, drops)
 		size = radius * 10,
 		collisiondetection = false,
 		vertical = false,
-		texture = "tnt_boom.png",
+		texture = particle_texture("tnt_boom.png"),
 		glow = 15,
 	})
 	minetest.add_particlespawner({
@@ -230,12 +235,12 @@ local function add_effects(pos, radius, drops)
 		maxexptime = 2.5,
 		minsize = radius * 3,
 		maxsize = radius * 5,
-		texture = "tnt_smoke.png",
+		texture = particle_texture("tnt_smoke.png"),
 	})
 
-	-- we just dropped some items. Look at the items entities and pick
-	-- one of them to use as texture
-	local texture = "tnt_blast.png" --fallback texture
+	-- we just dropped some items. Look at the items and pick
+	-- one of them to use as texture.
+	local texture = "tnt_blast.png" -- fallback
 	local node
 	local most = 0
 	for name, stack in pairs(drops) do

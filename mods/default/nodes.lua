@@ -271,6 +271,7 @@ minetest.register_node("default:cobble", {
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 2},
 	sounds = default.node_sound_stone_defaults(),
+	_tnt_loss = 4,
 })
 
 minetest.register_node("default:stonebrick", {
@@ -297,8 +298,8 @@ minetest.register_node("default:mossycobble", {
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 1},
 	sounds = default.node_sound_stone_defaults(),
+	_tnt_loss = 4,
 })
-
 
 minetest.register_node("default:desert_stone", {
 	description = S("Desert Stone"),
@@ -315,6 +316,7 @@ minetest.register_node("default:desert_cobble", {
 	is_ground_content = false,
 	groups = {cracky = 3, stone = 2},
 	sounds = default.node_sound_stone_defaults(),
+	_tnt_loss = 4,
 })
 
 minetest.register_node("default:desert_stonebrick", {
@@ -444,6 +446,7 @@ minetest.register_node("default:dirt", {
 	tiles = {"default_dirt.png"},
 	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults(),
+	_tnt_loss = 3,
 })
 
 minetest.register_node("default:dirt_with_grass", {
@@ -530,6 +533,7 @@ minetest.register_node("default:dry_dirt", {
 	tiles = {"default_dry_dirt.png"},
 	groups = {crumbly = 3, soil = 1},
 	sounds = default.node_sound_dirt_defaults(),
+	_tnt_loss = 3,
 })
 
 minetest.register_node("default:dry_dirt_with_dry_grass", {
@@ -576,6 +580,7 @@ minetest.register_node("default:sand", {
 	tiles = {"default_sand.png"},
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
+	_tnt_loss = 2,
 })
 
 minetest.register_node("default:desert_sand", {
@@ -583,6 +588,7 @@ minetest.register_node("default:desert_sand", {
 	tiles = {"default_desert_sand.png"},
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
+	_tnt_loss = 2,
 })
 
 minetest.register_node("default:silver_sand", {
@@ -590,6 +596,7 @@ minetest.register_node("default:silver_sand", {
 	tiles = {"default_silver_sand.png"},
 	groups = {crumbly = 3, falling_node = 1, sand = 1},
 	sounds = default.node_sound_sand_defaults(),
+	_tnt_loss = 2,
 })
 
 
@@ -604,7 +611,8 @@ minetest.register_node("default:gravel", {
 			{items = {"default:flint"}, rarity = 16},
 			{items = {"default:gravel"}}
 		}
-	}
+	},
+	_tnt_loss = 3,
 })
 
 minetest.register_node("default:clay", {
@@ -639,6 +647,7 @@ minetest.register_node("default:snow", {
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
 	sounds = default.node_sound_snow_defaults(),
+	_tnt_loss = 1, -- means it will disappear entirely
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -2807,6 +2816,7 @@ minetest.register_node("default:glass", {
 	is_ground_content = false,
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
 	sounds = default.node_sound_glass_defaults(),
+	_tnt_loss = 2,
 })
 
 minetest.register_node("default:obsidian_glass", {
