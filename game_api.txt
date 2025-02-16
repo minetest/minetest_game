@@ -599,6 +599,18 @@ Both nodedefs and entitydefs can provide an `on_blast()` callback
 * `drops` - a list of drops, e.g. {"wool:red"}
 
 
+Node drops:
+
+When a node is detonated it is removed according to the following rules.
+1. If `on_blast` is defined, that is called.
+2. Else if the node has group `flammable` it is replaced with a fire node.
+3. Else the dropped items are retrieved and it is replaced with air.
+
+The parameter `_tnt_loss` in any item definition can be set to a number to
+effect that "one in X" of these drops will be lost during an explosion.
+For example `_tnt_loss = 2` would cause 50% of items to disappear.
+The default is to not lose any items, which is equivalent to `_tnt_loss = 0`.
+
 Screwdriver API
 ---------------
 
